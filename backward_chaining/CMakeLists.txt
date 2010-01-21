@@ -7,7 +7,11 @@ set(EXECUTABLE_OUTPUT_PATH bin/${CMAKE_BUILD_TYPE})
 set(CXXFLAGS -03)
 
 #Inclusion de Boost
-include_directories(/usr/local/boost headers)
+include_directories(
+    /usr/local/boost
+    headers
+)
+
 link_directories(/usr/local/boost/libs)
 
 #Configuration de l'exécutable
