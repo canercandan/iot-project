@@ -1,0 +1,4 @@
+R : A & B = C
+
+F : A = true
+F : B = false
