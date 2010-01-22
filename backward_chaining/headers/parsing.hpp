@@ -1,5 +1,5 @@
-#define __PARSING_HPP__
 #ifndef __PARSING_HPP__
+#define __PARSING_HPP__
 
 #include <boost/config/warning_disable.hpp>
 #include <boost/spirit/include/qi.hpp>
@@ -7,7 +7,6 @@
 #include <boost/spirit/include/phoenix_operator.hpp>
 #include <boost/spirit/include/phoenix_stl.hpp>
 
-#include <iostream>
 #include <string>
 #include <vector>
 
@@ -18,11 +17,12 @@ namespace client
     namespace phoenix = boost::phoenix;
 
     template <typename Iterator>
-        bool parse_numbers(Iterator first, Iterator last, std::vector<double>& v)
+        bool parse_numbers(Iterator first, Iterator last, std::vector<std::string>& rules)
         {
-            using qi::double_;
+            using qi::print;
             using qi::phrase_parse;
             using qi::_1;
+            using qi::lit;
             using ascii::space;
             using phoenix::push_back;
             using phoenix::ref;
@@ -30,8 +30,10 @@ namespace client
             bool r = phrase_parse(first, last,
 
                     (
-                     double_[push_back(ref(v), _1)] % ','
-                    )
+                     lit('R') >> lit(':') >> 
+                     (+(print))[push_back(ref(rules), _1)]
+                     //+(print)
+                     )
                     ,
                     space);
 
