@@ -54,6 +54,7 @@ void    parse_file(char const * file_name)
 
         Rule	rule1(std::string("Z"), std::string("A & B"));
         Fact	fact1(std::string("A"), TRUE);
-        std::cout<< "ca rullezzz"<< std::endl;
+	
+	std::cout<< "ca rullezzz"<< std::endl;
         return 0;
     }
