@@ -5,16 +5,17 @@
 class Rule
 {
 public:
-  Rule(const std::string  name, std::string expr);
+  Rule(const std::string  name, const std::string condition, const std::string implication);
   ~Rule();
-  
-  const std::string _name; /*provisoirement public... ou pas :)*/
-  std::string _expr;/* // */
-  
-private:
-  ;
-;
+  bool isBurned() const;
+  std::string const & getImplication() const;
+  void	burn();
 
+ private:
+  const std::string _name;
+  const std::string _condition;
+  const std::string _implication;
+  bool	_burned;
 };
 
 #endif

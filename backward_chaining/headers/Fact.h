@@ -6,17 +6,15 @@
 # define UNDEF 2
 
 # include <string>
+# include "IOper.h"
 
-class	Fact
+class	Fact : public IOper
 {
  public:
   Fact(const std::string name, char value);
   ~Fact();
   const std::string _name;
   char _value;
-  ;
- private: 
-   ;
 };
 
 #endif // !! FACT_H

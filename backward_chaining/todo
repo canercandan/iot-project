@@ -12,7 +12,7 @@ A & B or C & D or G -> F (a mix of ‘and’ and ‘or’ in the condition part 
 Bonus
 	A -> X or Y
 	A xor b -> X xor Y
-        interactive chaining- > osef ???;
+        interactive chaining- >
 
 
 Rule ()
@@ -24,8 +24,7 @@ Rule ()
 Expr
 {
  string expr;
- vector< *unit>
+ vector< *unit fact & operande>
  valeur;(true/false/unknown)
-
  resolve(expr);
 };
