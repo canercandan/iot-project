@@ -10,11 +10,14 @@
 
 class	Fact : public IOper
 {
- public:
-  Fact(const std::string name, char value);
+public:
+  Fact(const char name, char value, bool isConst);
   ~Fact();
-  const std::string _name;
-  char _value;
+
+  const char	_name;
+  char		_value;
+private:
+  bool		_isConst;
 };
 
-#endif // !! FACT_H
+#endif /* !! FACT_H */

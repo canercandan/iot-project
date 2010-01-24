@@ -7,71 +7,13 @@
 #include "Rule.h"
 #include "Fact.h"
 #include "RuleSet.h"
+#include "FactSet.h"
+
 
 std::vector<Rule *> construct_rules();
 std::vector<Fact *> construct_facts();
+bool truth_value(Fact* fact, RuleSet & ruleset, FactSet& knownfacts);
 
-
-std::vector<Fact *>& condition(Rule& rule)
-{
-}
-
-
-int	getPosition(Fact fact , std::vector<Fact *>& facts)
-{
-  int	i, max;
-  max  = facts.size();
-  for (i = 0; i < max; ++i)
-    {
-      if (fact._name == facts[i]._name)
-	return (i);
-    }
-    return (-1);
-}
-
-Fact select_fact(std::vector<Fact *>& facts)
-{
-}
-
-bool fire_ability(Rule rule, RuleSet & ruleset, std::vector<Fact *>& facts)
-{
-  int	i;
-//   facts_set facts_to_check  condition(R)
-//     WHILE facts_to_check ≠ ∅ DO
-//     fact F  select_fact(facts_to_check)
-//     IF truth_value(F,rules,facts) = false
-//           THEN RETURN false
-//   facts_to_check  facts_to_check - F
-// ENDWHILE
-  std::vector<Fact *>& facts_to_check = rule.getCondition();
-  Fact fact = select_fact(facts_to_check);
-  while (facts_to_check.size())
-    {
-      if (!truth_value(fact, rules, facts))
-        return false;
-      i = getPosition(fact, facts_to_check);
-      facts_to_check.erase(indice);
-    }
-  return (true);
-}
-
-bool truth_value(Fact fact, RuleSet & ruleset, std::vector<Fact *>& facts)
-{
-  std::cout<< "Truth value: " << fact._name <<std::endl;
-  int	indice = ruleset.concludingRule(fact);
-  while (indice != -1)
-    {
-      Rule* cur = ruleset._ruleset[indice];
-      cur->burn();
-      if (fire_ability(*cur, ruleset, facts))
-	{
-	  std::cout<< "truth Value: " << fact._name << "true" << std::endl;
-	  return true;
-	}
-    }
-  std::cout<< "truth Value: " << fact._name << "false" << std::endl;
-  return false;
-}
 
 
 void    parse_file(char const * file_name)
@@ -107,76 +49,109 @@ void    parse_file(char const * file_name)
 //     }
 
 //     fb.close();
+}
 
+/*Retourne vrai si la regle est brulable*/
+bool	fire_ability(Rule rule, RuleSet & ruleset, FactSet& facts)
+{
+  std::cout<< "Fire Ability Rule :"<< rule.getName() << std::endl;
+  int	i;
+   /* retourne ts les facts dans la proposition*/
+  FactSet facts_to_check = rule.getFactFromProposition();
+  /*
+    getFirst ou va taper dans la table de tous les facts
+   et ne prend que les facts unkown
+   */
+  Fact* fact = facts_to_check.selectFact();
+  while (fact != NULL)
+    {
+      if (!truth_value(fact, ruleset, facts))
+        {
+	  std::cout<< "Fire ability " << rule.getName() << " False" << std::endl;
+	  return false;
+	}
+      facts_to_check.remove(fact);
+      fact = facts_to_check.selectFact();
+    }
+  std::cout<< "Fire ability " << rule.getName() << " True" << std::endl;
+  return (true);
+}
+
+/*retourne vrai si on peut evaluer le fact,
+??et/ ou si le fact correspond exactement mais dans ce cas remplir les facts donnes*/
+bool truth_value(Fact *fact, RuleSet & ruleset, FactSet& knownfacts)
+{
+  std::cout<< "Truth value: " << fact->_name << std::endl;
+  /*
+    si Fact existe dans les knowns facts 
+    //pas sur& que sa valeur correspond exactement => return true
+  */
+  if (knownfacts.exist(fact))
+    {
+      std::cout<< "Le fact" << fact->_name <<  " existe dans la base" << std::endl;
+      std::cout<< "Truth value "<< fact->_name<< " true " << std::endl;
+      return true;
+    }
+  int	indice = ruleset.concludingRule(*fact);
+  while (indice != -1)
+    {
+      Rule* cur = ruleset._ruleset[indice];
+      cur->burn();
+      if (fire_ability(*cur, ruleset, knownfacts))
+	{
+	  //Pbm -> Si la conclusion est impossible ne pas ajouter le fact et ne pas retourner true
+	  //Setter le fact selon la conclusion
+	  std::cout<< "truth Value: " << fact->_name << "true" << std::endl;
+	  knownfacts.add(fact);
+	  return true;
+	}
+    }
+  std::cout<< "truth Value: " << fact->_name << "false" << std::endl;
+  return false;
 }
 
 int	main(int ac, char **av)
 {
   if (av[1] == NULL || ac != 2)
     {
-      std::cerr << "usage: ./BackwardChaining RulesFile.txt"<< std::endl;
+      std::cerr << "usage: ./BackwardChaining File.txt"<< std::endl;
       return (1);
     }
-
   parse_file(av[1]);
 
   std::vector<Fact *> facts;
   std::vector<Rule *> rules;
   facts = construct_facts();
   rules = construct_rules();
-  RuleSet ruleset(rules);
-  Fact searchFact("C", UNDEF);
-  truth_value(searchFact, ruleset, facts);
+  RuleSet	ruleset(rules);
+  FactSet	factset(facts);
+  Fact* searchFact = new Fact('C', UNDEF, 0);
+  truth_value(searchFact, ruleset, factset);
   return 0;
 }
-
 
 std::vector<Rule *> construct_rules()
 {
   std::vector<Rule *> rules;
-
-
   Rule* r1;
-  Rule* r2;
-  Rule* r3;
 
-  r1 = new Rule("R1", "A & B", "C");
-  r2 = new Rule("R2", "B & C", "D");
-  r3 = new Rule("R3", "C & D", "E");
-
+  r1 = new Rule("R1", "A", "C");
   rules.push_back(r1);
-  rules.push_back(r2);
-  rules.push_back(r3);
   return rules;
 };
-
-
 
 std::vector<Fact *> construct_facts()
 {
   std::vector<Fact *> facts;
 
-
   Fact* a;
   Fact* b;
-  Fact* c;
-  Fact* d;
-  Fact* e;
-  Fact* f;
 
-  a = new Fact("A", TRUE);
-  b = new Fact("B", TRUE);
-  c = new Fact("C", TRUE);
-  d = new Fact("D", TRUE);
-  e = new Fact("E", TRUE);
-  f = new Fact("F", TRUE);
+  a = new Fact('A', TRUE, 1);
+  //b = new Fact('B', TRUE, 1);
 
   facts.push_back(a);
   facts.push_back(b);
-  facts.push_back(c);
-  facts.push_back(d);
-  facts.push_back(e);
-  facts.push_back(f);
   return facts;
 };
 

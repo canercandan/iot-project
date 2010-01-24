@@ -10,6 +10,7 @@ RuleSet::~RuleSet()
 {
 }
 
+//retourne la meilleure regle a analyser ou -1
 int	RuleSet::concludingRule(Fact const &fact) const
 {
   Rule* cur;
@@ -22,7 +23,8 @@ int	RuleSet::concludingRule(Fact const &fact) const
 	  {
 	    // chercher si dans l'implication le fact est compris
 	    // dans un permier temps de maniere simple chercher juste la lettre
-	    if (cur->getImplication() == fact._name)
+	    std::string conclusion = cur->getConclusion();
+	    if (conclusion[0] == fact._name)
 	      return (i);
 	  }
     }
