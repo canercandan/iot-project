@@ -13,7 +13,11 @@ class	FactSet
   void	remove(Fact* fact);
   bool	exist(Fact *fact);
   Fact*	selectFact();
+  /*retourne le fact au name correspondant*/
+  Fact*	getFactByName(Fact * fact);
 
+  void	display();
+  Fact*	operator[](int	i);
 private:
   std::vector<Fact *> _facts;
 };

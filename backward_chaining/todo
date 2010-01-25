@@ -16,3 +16,8 @@ Bonus
         interactive chaining- >
 
 Gerer Plusieurs unkown, et ses eventuelles boucle infinies
+
+
+
+
+A & B or C =  A & (B or C) ou (A & B) or C

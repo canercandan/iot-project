@@ -14,8 +14,12 @@ public:
   Fact(const char name, char value, bool isConst);
   ~Fact();
 
+  void		display();
+
   const char	_name;
   char		_value;
+
+
 private:
   bool		_isConst;
 };
