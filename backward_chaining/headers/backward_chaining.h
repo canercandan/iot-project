@@ -5,6 +5,6 @@
 # include "FactSet.h"
 
 int	resolve_fact(Fact* fact, RuleSet & ruleset, FactSet& knownfacts);
-bool	fire_ability(Rule rule, RuleSet & ruleset, FactSet& facts);
-
+bool	resolve_rule(Rule rule, RuleSet & ruleset, FactSet& facts);
+int	eval_expr(FactSet & facts);
 #endif

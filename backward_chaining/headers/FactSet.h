@@ -18,6 +18,7 @@ class	FactSet
 
   void	display();
   Fact*	operator[](int	i);
+  int	size();
 private:
   std::vector<Fact *> _facts;
 };

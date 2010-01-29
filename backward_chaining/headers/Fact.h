@@ -11,16 +11,13 @@
 class	Fact : public IOper
 {
 public:
-  Fact(const char name, char value, bool isConst);
+  Fact(const char name, int value, bool isConst);
   ~Fact();
 
   void		display();
 
   const char	_name;
-  char		_value;
-
-
-private:
+  int		_value;
   bool		_isConst;
 };
 

@@ -66,7 +66,8 @@ int	main(int ac, char **av)
   RuleSet	ruleset(rules);
   FactSet	factset(facts);
   Fact* searchFact = new Fact('C', UNDEF, 0);
-  resolve_fact(searchFact, ruleset, factset);
+  int result = resolve_fact(searchFact, ruleset, factset);
+  std::cout<< "Result :" << result << std::endl;
   return 0;
 }
 
@@ -85,13 +86,13 @@ std::vector<Fact *> construct_facts()
   std::vector<Fact *> facts;
 
   Fact* a;
-  Fact* b;
+  //Fact* b;
 
   a = new Fact('A', TRUE, 1);
   //b = new Fact('B', TRUE, 1);
 
   facts.push_back(a);
-  facts.push_back(b);
+  //facts.push_back(b);
   return facts;
 };
 

@@ -12,7 +12,7 @@ FactSet::~FactSet()
 
 Fact*	FactSet::operator[](int	i)
 {
-  if (i > 0 && i < this->_facts.size())
+  if (i >= 0 && i < this->_facts.size())
     {
       return (this->_facts[i]);
     }
@@ -79,4 +79,10 @@ void	FactSet::display()
     {
       this->_facts[i]->display();
     }
+}
+
+
+int	FactSet::size()
+{
+  return (this->_facts.size());
 }
