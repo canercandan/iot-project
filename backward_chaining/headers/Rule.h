@@ -10,6 +10,7 @@ public:
   ~Rule();
   bool isBurned() const;
   std::string const & getConclusion() const;
+  std::string const & getProposition() const;
   void		burn();
   FactSet	getFactFromProposition();
   std::string const & getName() const;

@@ -3,7 +3,7 @@ A & B -> X
 A or B -> X
 A -> X
 B -> X
-A -> X & Y
+A -> X & Y !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! a faire important
 !A -> B
 A -> !B
 A & B or C & D or G -> F (a mix of ‘and’ and ‘or’ in the condition part of rules)
@@ -21,3 +21,9 @@ Gerer Plusieurs unkown, et ses eventuelles boucle infinies
 
 
 A & B or C =  A & (B or C) ou (A & B) or C
+
+
+
+
+
+-penser a ne pas resetter une rule si isConst

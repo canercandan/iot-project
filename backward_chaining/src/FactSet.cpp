@@ -8,8 +8,6 @@ FactSet::~FactSet()
 {
 }
 
-
-
 Fact*	FactSet::operator[](int	i)
 {
   if (i >= 0 && i < this->_facts.size())
@@ -57,7 +55,6 @@ Fact*	FactSet::selectFact()
   return NULL;
 }
 
-
 Fact*	FactSet::getFactByName(Fact* fact)
 {
   int	i, max;
@@ -65,6 +62,20 @@ Fact*	FactSet::getFactByName(Fact* fact)
     {
 
       if (this->_facts[i]->_name == fact->_name)
+	{
+	  return this->_facts[i];
+	}
+    }
+  return NULL;
+}
+
+Fact*	FactSet::getFactByName(char factName)
+{
+  int	i, max;
+  for (i = 0, max = this->_facts.size(); i < max; ++i)
+    {
+
+      if (this->_facts[i]->_name == factName)
 	{
 	  return this->_facts[i];
 	}

@@ -15,7 +15,7 @@ class	FactSet
   Fact*	selectFact();
   /*retourne le fact au name correspondant*/
   Fact*	getFactByName(Fact * fact);
-
+  Fact*	getFactByName(char factName);
   void	display();
   Fact*	operator[](int	i);
   int	size();

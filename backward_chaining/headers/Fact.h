@@ -1,23 +1,22 @@
 #ifndef FACT_H
 # define FACT_H
 
-# define TRUE 1
-# define FALSE 0
-# define UNDEF 2
-
 # include <string>
 # include "IOper.h"
+# include "Tribool.h"
 
 class	Fact : public IOper
 {
 public:
-  Fact(const char name, int value, bool isConst);
+  Fact(const char name, Tribool value, bool isConst);
   ~Fact();
 
   void		display();
 
+  void		setValFromConclusion(std::string const & conclusion);
+
   const char	_name;
-  int		_value;
+  Tribool	_value;
   bool		_isConst;
 };
 

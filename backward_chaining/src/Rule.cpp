@@ -7,7 +7,6 @@ Rule::Rule(const std::string name, const std::string proposition, const std::str
 
 }
 
-
 Rule::~Rule()
 {
   std::cout<< "~Rule( " << this->_name << " )"<<std::endl;
@@ -21,6 +20,11 @@ bool Rule::isBurned() const
 std::string const & Rule::getConclusion() const
 {
   return (this->_conclusion);
+}
+
+std::string const & Rule::getProposition() const
+{
+  return (this->_proposition);
 }
 
 void	Rule::burn()
@@ -41,7 +45,7 @@ FactSet Rule::getFactFromProposition()
       if (c >= 'A' &&  c <= 'Z')
 	{
 	  /*on connait rien sur ce Fact encore, sauf son nom*/
-	  Fact* fact = new Fact(c, UNDEF, 0);
+	  Fact* fact = new Fact(c, 2, 0);
 	  facts.add(fact);
 	}
     }

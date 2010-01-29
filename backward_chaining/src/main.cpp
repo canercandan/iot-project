@@ -6,6 +6,7 @@
 #include "parsing.hpp"
 #include "RuleSet.h"
 #include "FactSet.h"
+#include "Tribool.h"
 #include "backward_chaining.h"
 
 std::vector<Rule *> construct_rules();
@@ -65,8 +66,8 @@ int	main(int ac, char **av)
   rules = construct_rules();
   RuleSet	ruleset(rules);
   FactSet	factset(facts);
-  Fact* searchFact = new Fact('C', UNDEF, 0);
-  int result = resolve_fact(searchFact, ruleset, factset);
+  Fact* searchFact = new Fact('C', Tribool(2), 0);
+  Tribool result = resolve_fact(searchFact, ruleset, factset);
   std::cout<< "Result :" << result << std::endl;
   return 0;
 }
@@ -76,7 +77,7 @@ std::vector<Rule *> construct_rules()
   std::vector<Rule *> rules;
   Rule* r1;
 
-  r1 = new Rule("R1", "A", "C");
+  r1 = new Rule("R1", "B", "C");
   rules.push_back(r1);
   return rules;
 };
@@ -86,13 +87,13 @@ std::vector<Fact *> construct_facts()
   std::vector<Fact *> facts;
 
   Fact* a;
-  //Fact* b;
+  Fact* b;
 
-  a = new Fact('A', TRUE, 1);
-  //b = new Fact('B', TRUE, 1);
+  a = new Fact('A', Tribool(0), 1);
+  b = new Fact('B', Tribool(2), 1);
 
   facts.push_back(a);
-  //facts.push_back(b);
+  facts.push_back(b);
   return facts;
 };
 
