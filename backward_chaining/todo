@@ -27,3 +27,4 @@ A & B or C =  A & (B or C) ou (A & B) or C
 
 
 -penser a ne pas resetter une rule si isConst
+penserA !C

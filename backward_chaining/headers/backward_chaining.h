@@ -5,10 +5,7 @@
 # include "FactSet.h"
 
 Tribool	resolve_fact(Fact* fact, RuleSet & ruleset, FactSet& knownfacts);
-Tribool	resolve_rule(Rule& rule, RuleSet & ruleset, FactSet& facts);
-Tribool	eval_expr(FactSet & facts, Rule & rule);
-Tribool eval_all(int *i, std::string proposition, FactSet& facts);
-Tribool eval_unit(int *i, std::string& proposition,   FactSet & facts);
-bool isCaps(char c);
+Tribool	resolve_rule(Rule& rule, RuleSet & ruleset, FactSet& facts, char searchFactName);
+bool	isCaps(char c);
 
 #endif

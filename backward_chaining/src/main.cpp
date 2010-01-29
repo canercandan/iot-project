@@ -3,7 +3,7 @@
 #include <iostream>
 #include <vector>
 
-#include "parsing.hpp"
+//#include "parsing.hpp"
 #include "RuleSet.h"
 #include "FactSet.h"
 #include "Tribool.h"
@@ -77,7 +77,7 @@ std::vector<Rule *> construct_rules()
   std::vector<Rule *> rules;
   Rule* r1;
 
-  r1 = new Rule("R1", "B", "C");
+  r1 = new Rule("R1", "B | A | D | E", "!C");
   rules.push_back(r1);
   return rules;
 };
@@ -88,12 +88,18 @@ std::vector<Fact *> construct_facts()
 
   Fact* a;
   Fact* b;
+  Fact*	d;
+  Fact*	e;
 
   a = new Fact('A', Tribool(0), 1);
-  b = new Fact('B', Tribool(2), 1);
+  b = new Fact('B', Tribool(0), 1);
+  d = new Fact('D', Tribool(0), 1);
+  e = new Fact('E', Tribool(1), 1);
 
   facts.push_back(a);
   facts.push_back(b);
+  facts.push_back(d);
+  facts.push_back(e);
   return facts;
 };
 
