@@ -1,6 +1,4 @@
-R : A & B or E = C
-
-F : A = true
-F : B = false
-
-Resolve : C
+R1 : A & B = E
+F : AB = true
+F : C = false
+S : EA
