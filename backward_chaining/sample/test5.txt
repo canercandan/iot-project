@@ -1,0 +1,8 @@
+R1 : B & E = A
+R2 : C & D = B & F
+R3 : F = E
+R4 : G = ! F
+
+F : CG = true
+
+S : A
