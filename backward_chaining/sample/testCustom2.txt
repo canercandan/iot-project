@@ -1,0 +1,4 @@
+R1 : A ^ B = C
+F : A = false
+F : B = false
+S: C

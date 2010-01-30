@@ -15,6 +15,7 @@ class	Tribool
   Tribool operator == (Tribool  tribool);
   Tribool operator & (Tribool  tribool);
   Tribool operator | (Tribool  tribool);
+  Tribool operator ^ (Tribool  tribool);
 }
 ;
 

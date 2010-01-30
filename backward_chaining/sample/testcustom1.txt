@@ -1,0 +1,7 @@
+R1 : A & B | C & E & F | G = !E & !F
+
+F : A = true
+F : B = true
+F : C = false
+F : D = false
+S : EF

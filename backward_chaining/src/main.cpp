@@ -23,7 +23,7 @@ void    parse_file(char const * file_name, std::vector<Rule *>& v, std::vector<F
     while (getline(is, str))
     {
         client::parse_numbers(str.begin(), str.end(), v, f, s);
-        std::cout << "-------------------------\n";
+        //std::cout << "-------------------------\n";
     }
 
     fb.close();
@@ -48,8 +48,20 @@ int main(int ac, char **av)
     int i, max;
     for (i = 0, max = searchfacts.size(); i < max; ++i)
     {
-        Tribool result = resolve_fact(searchfacts[i], ruleset, factset);
-        std::cout<< "Final Result :" << result << std::endl;
+      std::cout<< "\033[1;36m" << std::endl;
+      std::cout<< "---------------------------------------" << std::endl;
+      std::cout<< "\033[1;37m" << std::endl;
+      Tribool result = resolve_fact(searchfacts[i], ruleset, factset);
+      std::cout<< "\033[1;33m" << std::endl;
+      std::cout<< "Final Result  "<< searchfacts[i]->_name << " : " << result << std::endl;
+      std::cout<< "\033[1;37m" << std::endl;
+      std::cout<< "Listing all truth non initial fact"<< std::endl;
+      int j;
+      for (j = 0; j < factset.size(); ++j)
+	{
+	  if ((factset[j]->_isConst == 0) && (factset[j]->_value._value == 1))
+	    std::cout<< "Fact " << factset[j]->_name  << std::endl;
+	}
     }
     return 0;
 }

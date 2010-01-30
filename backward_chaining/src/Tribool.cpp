@@ -23,7 +23,7 @@ std::ostream& operator<<(std::ostream& os, Tribool& tribool)
     display = "FALSE";
   if (tribool._value == 2)
     display = "UNKNOWN";
-  std::cout<< display;
+  std::cout<< "\033[1;31m" << display << "\033[1;37m";
   return (os);
 }
 
@@ -51,5 +51,13 @@ Tribool Tribool::operator |(Tribool  tribool)
  if (this->_value == 2 || tribool._value == 2)
    return (Tribool(2));
  return (Tribool(0));
+}
+
+
+Tribool Tribool::operator ^(Tribool  tribool)
+{
+  if (this->_value == 2 || tribool._value == 2)
+    return (Tribool(2));
+  return (!(this->_value == tribool._value));
 }
 

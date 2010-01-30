@@ -27,6 +27,13 @@ Tribool eval_all(int *i, std::string proposition, FactSet& facts)
 	  (*i)++;
 	  ret = ret | eval_all(i, proposition, facts);
 	}
+      //test
+      if (proposition[*i] == '^')
+	{
+	  (*i)++;
+	  ret = ret ^ eval_all(i, proposition, facts);
+	}
+      //test
       if (proposition[*i] != '\0')
 	(*i)++;
     }
@@ -51,18 +58,11 @@ Tribool eval_unit(int *i, std::string& proposition,  FactSet & facts)
   if (isCaps(proposition[*i]))
     {
       Tribool factval = facts.getFactByName(proposition[*i])->_value;
-      //   std::cout << "the fact "<< proposition[*i] <<std::endl;
-      //       std::cout<< "||||||||||-Factval-|||||||||||" << std::endl;
-      //       std::cout << factval<< std::endl;
-      //       std::cout<< "||||||||||||||||||||||||||||"<< std::endl;
       op = (op == factval);
       (*i)++;
     }
   while (proposition[*i] == ' ')
     (*i)++;
-  // std::cout<< "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<" <<std::endl;
-  //    std::cout<< op <<std::endl;
-  //    std::cout<< "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<" <<std::endl;
   return op;
 }
 

@@ -3,7 +3,7 @@ A & B -> X
 A or B -> X
 A -> X
 B -> X
-A -> X & Y !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! a faire important
+A -> X & Y
 !A -> B
 A -> !B
 A & B or C & D or G -> F (a mix of ‘and’ and ‘or’ in the condition part of rules)
@@ -17,7 +17,6 @@ Bonus
 A & B or C =  A & (B or C) ou (A & B) or C
 
 
--permettre plusieur searchFact
 -xor dans la proposition
 -faire pdf// doc ecrite
-- faire fichier de test d'expr booleenne complexe+ xor hehe + !a & b dans la conclusion
+- faire fichier de test d'expr booleenne complexe + xor hehe + !a & b dans la conclusion

@@ -42,7 +42,7 @@ namespace client
             qi::rule<Iterator, std::string(), ascii::space_type> value;
 
             qi::rule<Iterator, std::string(), ascii::space_type> pars_search;
-            
+
             std::string str_name_rule = "";
             std::string str_condition = "";
             std::string str_result = "";
@@ -51,7 +51,7 @@ namespace client
             std::string str_value = "";
 
             std::vector<char> tab_search;
-            
+
             // Pars Rule
             name_rule %= char_('R') >> +(char_ - ':');
             result %= +(char_);
@@ -103,8 +103,8 @@ namespace client
                 std::vector<char>::iterator it;
                 for ( it = tab_variable.begin() ; it < tab_variable.end(); ++it )
                 {
-                    std::cout << "variable : " << *it << " = " << bool_value << std::endl;
-                    factes.push_back(new Fact(*it, Tribool(bool_value), 1));
+		  //std::cout << "variable : " << *it << " = " << bool_value << std::endl;
+		  factes.push_back(new Fact(*it, Tribool(bool_value), 1));
                 }
             }
             if (tab_search.size() > 0)
@@ -112,7 +112,7 @@ namespace client
                 std::vector<char>::iterator it;
                 for ( it = tab_search.begin() ; it < tab_search.end(); ++it )
                 {
-                    std::cout << "search : " << *it << std::endl;
+		  //std::cout << "search : " << *it << std::endl;
                     sefactes.push_back(new Fact(*it, Tribool(2), 0));
                 }
             }
