@@ -20,6 +20,5 @@ A & B or C =  A & (B or C) ou (A & B) or C
 -permettre plusieur searchFact
 -xor dans la proposition
 -faire pdf// doc ecrite
-- Faire une jolie sortie en couleur
 - faire fichier de test d'expr booleenne complexe+ xor hehe + !a & b dans la conclusion
 - remove IOOPER.H

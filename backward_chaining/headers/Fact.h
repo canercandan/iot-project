@@ -2,10 +2,9 @@
 # define FACT_H
 
 # include <string>
-# include "IOper.h"
 # include "Tribool.h"
 
-class	Fact : public IOper
+class	Fact
 {
 public:
   Fact(const char name, Tribool value, bool isConst);
