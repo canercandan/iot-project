@@ -52,8 +52,17 @@ int main(int ac, char **av)
     RuleSet   ruleset(rules);
     FactSet   factset(facts);
 
-    Fact* searchFact = new Fact('E', Tribool(2), 0);
-    Tribool result = resolve_fact(searchFact, ruleset, factset);
-    std::cout<< "Result :" << result << std::endl;
+    Fact* searchfact1 = new Fact('E', Tribool(2), 0);
+    Fact* searchfact2 = new Fact('F', Tribool(2), 0);
+    std::vector<Fact *> searchfacts;
+    searchfacts.push_back(searchfact1);
+    searchfacts.push_back(searchfact2);
+
+    int i, max;
+    for (i = 0, max = searchfacts.size(); i < max; ++i)
+      {
+	Tribool result = resolve_fact(searchfacts[i], ruleset, factset);
+	std::cout<< "Final Result :" << result << std::endl;
+      }
     return 0;
 }
