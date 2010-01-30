@@ -12,6 +12,7 @@ class	FactSet
   void	add(Fact *fact);
   void	remove(Fact* fact);
   bool	exist(Fact *fact);
+  bool	exist(char name);
   Fact*	selectFact();
   /*retourne le fact au name correspondant*/
   Fact*	getFactByName(Fact * fact);
@@ -19,6 +20,7 @@ class	FactSet
   void	display();
   Fact*	operator[](int	i);
   int	size();
+  void	setValFromConclusion(std::string const & conclusion);
 private:
   std::vector<Fact *> _facts;
 };

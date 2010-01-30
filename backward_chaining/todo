@@ -15,16 +15,12 @@ Bonus
 	A xor b -> X xor Y
         interactive chaining- >
 
-Gerer Plusieurs unkown, et ses eventuelles boucle infinies
-
-
-
 
 A & B or C =  A & (B or C) ou (A & B) or C
 
 
-
-
-
--penser a ne pas resetter une rule si isConst
-penserA !C
+-allouer plusieur searchFact
+-xor dans la proposition
+-faire pdf// doc ecrite
+- Faire une jolie sortie en couleur
+- faire fichier de test d'expr booleenne complexe+ xor hehe + !a & b dans la conclusion

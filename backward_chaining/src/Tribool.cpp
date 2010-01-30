@@ -23,7 +23,7 @@ std::ostream& operator<<(std::ostream& os, Tribool& tribool)
     display = "FALSE";
   if (tribool._value == 2)
     display = "UNKNOWN";
-  std::cout<< display << std::endl;
+  std::cout<< display;
   return (os);
 }
 

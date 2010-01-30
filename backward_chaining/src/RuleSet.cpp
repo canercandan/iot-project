@@ -24,24 +24,12 @@ int	RuleSet::concludingRule(Fact const &fact) const
 	    // chercher si dans l'implication le fact est compris
 	    // dans un permier temps de maniere simple chercher juste la lettre
 	    std::string conclusion = cur->getConclusion();
-	    if (conclusion[0] == fact._name)
-	      return (i);
+	    for (int j = 0; j < conclusion.size(); ++j)
+	      {
+		if (conclusion[j] == fact._name)
+		  return (i);
+	      }
 	  }
     }
   return -1;
 }
-
-// Rule RuleSet::getConcludingRule(Fact const & fact) const
-// {
-//  int max = this->_ruleset.size();
-//   for (int i = 0; i < max; ++i)
-//     {
-//       //si regle pas brulee
-//       if (this->_ruleset[i]->isBurned() == false)
-// 	{
-// 	  // chercher si dans l'implication le fact est compris
-// 	  // dans un permier temps de maniere simple chercher juste la lettre
-// 	  return *(this->_ruleset[i]);
-// 	}
-//     }
-// }

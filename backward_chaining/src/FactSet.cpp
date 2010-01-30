@@ -1,4 +1,5 @@
 #include "FactSet.h"
+#include "eval.h"
 
 FactSet::FactSet(std::vector<Fact *> facts) : _facts(facts)
 {
@@ -47,6 +48,19 @@ bool	FactSet::exist(Fact* fact)
     }
   return false;
 }
+
+bool	FactSet::exist(char name)
+{
+  int	i, max;
+  max = this->_facts.size();
+  for (i = 0 ; i < max; ++i)
+    {
+      if (this->_facts[i]->_name == name)
+	return true;
+    }
+  return false;
+}
+
 //get first fact
 Fact*	FactSet::selectFact()
 {
@@ -96,4 +110,28 @@ void	FactSet::display()
 int	FactSet::size()
 {
   return (this->_facts.size());
+}
+
+//ne set pas Si existe dans la base et IsConst, sinon set
+void	FactSet::setValFromConclusion(std::string const & conclusion)
+{
+  int	i, max;
+  for (i = 0, max = conclusion.size(); i < max; ++i)
+    {
+      if (isCaps(conclusion[i]))
+	{
+	  Tribool smartval = smartvalue(i, conclusion);
+	  if (this->exist(conclusion[i]))
+	    {
+	      Fact* fact = this->getFactByName(conclusion[i]);
+	      if (fact != NULL && !fact->_isConst)
+		fact->_value = smartval;
+	    }
+	  else
+	    {
+	      Fact* fact = new Fact(conclusion[i], smartval, 0);
+	      this->add(fact);
+	    }
+	}
+    }
 }
