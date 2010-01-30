@@ -1,0 +1,10 @@
+R1 : B & C = A
+R2 : D | E = B
+R3 : B = C
+
+F : D = false
+F : E = true
+S : A
+
+
+dfdf

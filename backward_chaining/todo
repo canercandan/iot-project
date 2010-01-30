@@ -8,8 +8,6 @@ A -> X & Y !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! a faire important
 A -> !B
 A & B or C & D or G -> F (a mix of ‘and’ and ‘or’ in the condition part of rules)
 
-
-
 Bonus
 	A -> X or Y
 	A xor b -> X xor Y
@@ -19,8 +17,9 @@ Bonus
 A & B or C =  A & (B or C) ou (A & B) or C
 
 
--allouer plusieur searchFact
+-permettre plusieur searchFact
 -xor dans la proposition
 -faire pdf// doc ecrite
 - Faire une jolie sortie en couleur
 - faire fichier de test d'expr booleenne complexe+ xor hehe + !a & b dans la conclusion
+- remove IOOPER.H
