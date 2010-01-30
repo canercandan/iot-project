@@ -3,5 +3,5 @@ R2 : D & !E = B
 R3 : B = C
 
 F : D = true
-F : E = false
+F : E = true
 S : A

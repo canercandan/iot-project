@@ -9,3 +9,4 @@ R8 : O & P = L & N
 R9 : N = M
 
 F :DEIJOP = true
+S : AFKP

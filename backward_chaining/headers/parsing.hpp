@@ -20,7 +20,7 @@ namespace client
     namespace phoenix = boost::phoenix;
 
     template <typename Iterator>
-        bool parse_numbers(Iterator first, Iterator last, std::vector<Rule *>& rules, std::vector<Fact *>& factes)
+        bool parse_numbers(Iterator first, Iterator last, std::vector<Rule *>& rules, std::vector<Fact *>& factes, std::vector<Fact *>& sefactes)
         {
             using qi::print;
             using qi::lexeme;
@@ -88,12 +88,9 @@ namespace client
                 size_t size_name_rule = str_name_rule.size();
                 str_condition.erase(0, str_name_rule.size());
                 str_result.erase(0, str_name_rule.size() + str_condition.size());
-                std::cout << "name : " << str_name_rule << std::endl;
-                std::cout << "condition : " << str_condition << std::endl;
-                std::cout << "result : " << str_result << std::endl;
+                std::cout << "rule : " << str_name_rule << " : " << str_condition << " = " << str_result << std::endl;
                 rules.push_back(new Rule(str_name_rule, str_condition, str_result));
             }
-            std::cout << "size : " << tab_variable.size() << " value : " << str_value << std::endl;
             if (tab_variable.size() > 0 && str_value != "")
             {
                 str_value.erase(0, tab_variable.size());
@@ -106,8 +103,7 @@ namespace client
                 std::vector<char>::iterator it;
                 for ( it = tab_variable.begin() ; it < tab_variable.end(); ++it )
                 {
-                    std::cout << "variable : " << *it << std::endl;
-                    std::cout << "value : " << bool_value << std::endl;
+                    std::cout << "variable : " << *it << " = " << bool_value << std::endl;
                     factes.push_back(new Fact(*it, Tribool(bool_value), 1));
                 }
             }
@@ -117,7 +113,7 @@ namespace client
                 for ( it = tab_search.begin() ; it < tab_search.end(); ++it )
                 {
                     std::cout << "search : " << *it << std::endl;
-                    factes.push_back(new Fact(*it, Tribool(2), 0));
+                    sefactes.push_back(new Fact(*it, Tribool(2), 0));
                 }
             }
 

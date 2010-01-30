@@ -3,8 +3,5 @@ R2 : D | E = B
 R3 : B = C
 
 F : D = false
-F : E = true
+F : E = false
 S : A
-
-
-dfdf
