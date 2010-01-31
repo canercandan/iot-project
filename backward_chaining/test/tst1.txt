@@ -1,4 +1,0 @@
-R1 : A & B = E
-F : AB = true
-F : C = false
-S : EA

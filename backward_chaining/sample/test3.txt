@@ -1,7 +1,0 @@
-R1 : B & C = A
-R2 : D & !E = B
-R3 : B = C
-
-F : D = true
-F : E = true
-S : A

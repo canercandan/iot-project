@@ -1,7 +1,0 @@
-R1 : A = A
-R2 : B = C
-R3 : C = not B
-R4 : D = E
-R5 : E = D
-
-S : AE
