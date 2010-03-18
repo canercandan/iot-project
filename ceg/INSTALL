@@ -1,0 +1,26 @@
+How to Install:
+
+###########
+# on UNIX #
+###########
+
+1) Be sure you have installed the last version of CMAKE (2.6) and the library GtkMM
+2) Create a directory called "build" into .
+3) Go to the new "build" directory
+4) Type the following command: cmake ..
+5) Use the Makefile to generate binary with the command: make
+6) A binary has been normally generated into "build" called "ceg"
+
+####################
+# on Windows/MinGW #
+####################
+
+1) Install CMake for Windows: http://cmake.org/cmake/resources/software.html and add the CMake path in the PATH environment variable,
+2) Install MinGW (GCC) Compiler Suite, look at the following address http://www.mingw.org/wiki/HOWTO_Install_the_MinGW_GCC_Compiler_Suite
+3) Install GtkMM, http://live.gnome.org/gtkmm/MSWindows
+(4)) For commiters, install SVN from http://subversion.tigris.org/servlets/ProjectDocumentList?folderID=8100
+5) Create a directory called "build" into .
+6) Go to the new "build" directory
+7) Type the following command: cmake -G "MinGW Makefiles" ..
+8) Use the Makefile to generate binary with the command: mingw32-make
+9) A binary has been normally generated into "build" called "ceg"

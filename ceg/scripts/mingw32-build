@@ -1,0 +1,13 @@
+#!/usr/bin/env sh
+
+MKDIR="mkdir -p"
+BUILD="build"
+CMAKE="cmake"
+MAKE="mingw32-make"
+CD="cd"
+
+${MKDIR} ${BUILD}
+${CD} ${BUILD}
+${CMAKE} -G "MinGW Makefiles" ..
+${MAKE}
+${CD} -

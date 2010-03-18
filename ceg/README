@@ -1,0 +1,11 @@
+~~~ IOT ~~~
+CEG
+Graphical Environment Control
+Controle d'Environnement Graphique
+
+CEG has been developped as part of IOT project and allows to users to control machine by thinking.
+
+Several features are provided to fit at all points the user.
+
+For commiters and contributors:
+/!\ Don't add "build" directory into SVN
