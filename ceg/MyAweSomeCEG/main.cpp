@@ -8,6 +8,16 @@
 #include "MyAweSomeBox.h"
 
 
+bool drawParent(int posX, int posY, int width)
+{
+  int level = QApplication::desktop()->width() / width;
+  if (!level)
+    {
+      return (false);
+    }
+  return (true);
+}
+
 void    drawGrid(QGraphicsScene & scene, int width, int height)
 {
     int posX = 0;
@@ -22,10 +32,10 @@ void    drawGrid(QGraphicsScene & scene, int width, int height)
         while (cols++ < nbGrid)
         {
             scene.addItem(new MyAweSomeBox(posX, posY, tmpWidth, tmpHeight));
-            posX += tmpWidth;
+            posY += tmpWidth;
         }
-        posX = 0;
-        posY += tmpHeight;
+        posY = 0;
+        posX += tmpHeight;
     }
 }
 
