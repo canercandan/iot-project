@@ -15,7 +15,6 @@ int main(int argc, char *argv[])
 
     QDesktopWidget *desktop = QApplication::desktop();
     Layout scene(0, 0, desktop->width(), desktop->height() - 100);
-    sc
 
     QGraphicsView view(&scene);
     view.setWindowOpacity(0.5);
