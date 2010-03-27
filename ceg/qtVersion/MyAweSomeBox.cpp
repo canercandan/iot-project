@@ -13,14 +13,12 @@ MyAweSomeBox::MyAweSomeBox( qreal x, qreal y, qreal width, qreal height, QGraphi
 
 void MyAweSomeBox::focusInEvent( QFocusEvent *)
 {
-    std::cout << "Je gagne le focus" << std::endl;
     this->_color = Qt::yellow;
     this->update();
 }
 
 void MyAweSomeBox::focusOutEvent( QFocusEvent *)
 {
-    std::cout << "Je pers le focus" << std::endl;
     this->_color = Qt::darkBlue;
     this->update();
 }
