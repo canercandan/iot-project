@@ -7,21 +7,8 @@
 
 #include "MyAweSomeBox.h"
 
-
-bool drawParent(int posX, int posY, int width)
+void    drawGrid(QGraphicsScene & scene, int width, int height, int posX = 0, int posY = 0)
 {
-  int level = QApplication::desktop()->width() / width;
-  if (!level)
-    {
-      return (false);
-    }
-  return (true);
-}
-
-void    drawGrid(QGraphicsScene & scene, int width, int height)
-{
-    int posX = 0;
-    int posY = 0;
     int nbGrid = 3;
     int tmpWidth = width / nbGrid;
     int tmpHeight = height / nbGrid;
@@ -32,11 +19,40 @@ void    drawGrid(QGraphicsScene & scene, int width, int height)
         while (cols++ < nbGrid)
         {
             scene.addItem(new MyAweSomeBox(posX, posY, tmpWidth, tmpHeight));
-            posY += tmpWidth;
+            posX += tmpWidth;
         }
-        posY = 0;
-        posX += tmpHeight;
+        posX = 0;
+        posY += tmpHeight;
     }
+}
+
+void    drawChild(QGraphicsScene & scene, QGraphicsRectItem & item)
+{
+    drawGrid(scene, item.rect().width(), item.rect().height(), item.rect().x(), item.rect().y());
+}
+
+bool    drawParent(QGraphicsScene & scene, int posX, int posY, int width)
+{
+    int level = (QApplication::desktop()->width() / width) - 1;
+    if (!level)
+    {
+      return (false);
+    }
+    QDesktopWidget *desktop = QApplication::desktop();
+    int Width = desktop->width() / level;
+    int Height = desktop->height() / level;
+    int posXtop = 0;
+    int posYtop = 0;
+    while (posYtop > posY)
+    {
+        posYtop += Width;
+    }
+    while (posXtop > posX)
+    {
+        posXtop += Height;
+    }
+    drawGrid(scene, Width, Height, posXtop, posYtop);
+    return (true);
 }
 
 int main(int argc, char *argv[])
