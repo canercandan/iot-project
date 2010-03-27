@@ -1,5 +1,7 @@
 #include <iostream>
+
 #include <QMessageBox>
+
 #include "MyAweSomeBox.h"
 
 MyAweSomeBox::MyAweSomeBox( qreal x, qreal y, qreal width, qreal height, QGraphicsItem * parent) :
@@ -26,18 +28,14 @@ void MyAweSomeBox::focusOutEvent( QFocusEvent *)
 void MyAweSomeBox::mousePressEvent(QGraphicsSceneMouseEvent *)
 {
     this->_color = Qt::yellow;
-    std::cout << this->hasFocus() << std::endl;
     this->setFocus();
     this->update();
-    std::cout << this->hasFocus() << std::endl;
-
 }
 
-void MyAweSomeBox::paint ( QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget *widget)
+void MyAweSomeBox::paint ( QPainter * painter, const QStyleOptionGraphicsItem *, QWidget *)
 {
     painter->setBrush(this->_color);
     painter->drawRect(rect());
-    //QGraphicsRectItem::paint(painter, option, widget);
 }
 
 bool MyAweSomeBox::sceneEvent ( QEvent * event )
