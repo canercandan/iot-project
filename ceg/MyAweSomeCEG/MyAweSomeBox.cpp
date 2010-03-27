@@ -35,11 +35,11 @@ void MyAweSomeBox::mousePressEvent(QGraphicsSceneMouseEvent *)
 void MyAweSomeBox::paint ( QPainter * painter, const QStyleOptionGraphicsItem *, QWidget *)
 {
     painter->setBrush(this->_color);
-    painter->drawRect(rect());
+    painter->drawRect(this->rect());
 }
 
 bool MyAweSomeBox::sceneEvent ( QEvent * event )
 {
-    std::cout << "MyAweSomeBox::sceneEvent == " << event->type() << std::endl;
+    //std::cout << "MyAweSomeBox::sceneEvent == " << event->type() << std::endl;
     return (QGraphicsItem::sceneEvent (event ));
 }
