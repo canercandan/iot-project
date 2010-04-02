@@ -18,7 +18,7 @@ void AbstractItem::focusOutEvent(QFocusEvent *)
     this->update();
 }
 
-void AbstractItem::paint ( QPainter * painter, const QStyleOptionGraphicsItem *, QWidget *)
+void AbstractItem::paint(QPainter * painter, const QStyleOptionGraphicsItem *, QWidget *)
 {
     painter->setBrush(this->_color);
     painter->drawRect(this->rect());
