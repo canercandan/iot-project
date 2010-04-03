@@ -42,8 +42,8 @@ void BoxManager::getDefaultPattern(std::list<QGraphicsRectItem *> * list, const 
         qreal x = geo._x;
         while (cols++ < nbGrid)
         {
-            list->push_back(GraphicItemFactory::create(new AbstractBox(WindowGeometry(x, y, tmpWidth, tmpHeight), DEFAULT)));
-            x += tmpWidth;
+	  list->push_back(GraphicItemFactory::create(new AbstractBox(DEFAULT, 0, std::list<AbstractBox*>(0), WindowGeometry(x, y, tmpWidth, tmpHeight))));
+           x += tmpWidth;
         }
         y += tmpHeight;
     }
@@ -51,9 +51,9 @@ void BoxManager::getDefaultPattern(std::list<QGraphicsRectItem *> * list, const 
 
 void    BoxManager::loadConf()
 {
-    std::list<AbstractBox*> list1;
-    std::cout<< sizeof(list1) << std::endl;
-    //  list1.push_back(new AbstractBox(DEFAULT, 0, 0, WindowGeometry()));
-    this->_patterns.insert(std::pair<std::string, std::list<AbstractBox*> >("OneConf", list1));
+  std::list<AbstractBox*> list1;
+  std::cout<< sizeof(list1) << std::endl;
+  list1.push_back(new AbstractBox(DEFAULT, 0, std::list<AbstractBox*>(0), WindowGeometry(10, 10, 10, 10)));
+  list1.push_back(new AbstractBox(DEFAULT, 0, std::list<AbstractBox*>(0), WindowGeometry(50, 50, 50, 50)));
 }
 

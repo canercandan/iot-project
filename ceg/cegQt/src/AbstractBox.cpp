@@ -2,11 +2,6 @@
 
 #include "includes/AbstractBox.h"
 
-AbstractBox::AbstractBox(WindowGeometry geometry, BoxType boxtype) :
-        _type(boxtype), _parent(0), _children(), _geometry(geometry)
-{
-}
-
 AbstractBox::AbstractBox(BoxType boxtype, AbstractBox* parent,
 			 std::list<AbstractBox*> children, WindowGeometry geometry):
 _type(boxtype), _parent(parent), _children(children), _geometry(geometry)
