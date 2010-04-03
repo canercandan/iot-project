@@ -18,7 +18,9 @@ void LayerManager::init()
 
 
     Layer * oneLayer = new Layer(aWindow);
-    oneLayer->initScene(this->_boxManager->getPattern("Desktop", aWindow));
+    std::list<QGraphicsRectItem *> & list = this->_boxManager->getPattern("Desktop", aWindow);
+    oneLayer->initScene(list);
+    //delete list;
     this->_layers.push_front(oneLayer);
     this->_currentLayer = this->_layers.begin();
 }

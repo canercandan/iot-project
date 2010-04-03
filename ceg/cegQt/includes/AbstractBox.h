@@ -10,10 +10,11 @@ enum BoxType {DEFAULT, CUSTOM, MENU};
 class AbstractBox
 {
 public:
-  AbstractBox(BoxType boxtype, AbstractBox* _parent,
-	      std::list<AbstractBox*> children, WindowGeometry geometry);
+    AbstractBox(WindowGeometry geometry, BoxType boxtype);
+    AbstractBox(BoxType boxtype, AbstractBox* _parent,
+                std::list<AbstractBox*> children, WindowGeometry geometry);
 
-  ~AbstractBox();
+    ~AbstractBox();
     WindowGeometry const & getGeometry() const;
 
 private:

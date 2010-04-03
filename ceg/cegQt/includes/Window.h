@@ -4,7 +4,7 @@
 #ifdef _WIN32
 #include <windows.h>
 #include <psapi.h>		// NT only!
-#pragma comment(lib, "psapi")	// NT only!
+//#pragma comment(lib, "psapi")	// NT only!
 #else
 #include <X11/Xlib.h>
 #endif

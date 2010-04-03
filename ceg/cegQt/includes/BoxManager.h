@@ -22,6 +22,9 @@ public:
     void	loadConf();
 
 private:
+    void    getDefaultPattern(std::list<QGraphicsRectItem *> *, const Ceg::Window &);
+
+private:
     std::map<std::string, std::list<AbstractBox *> > _patterns;
 };
 
