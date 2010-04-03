@@ -17,7 +17,7 @@ AbstractBox::~AbstractBox()
   for(it = this->_children.begin(), ite = this->_children.end(); it != ite; )
     {
       save = it;
-      it = it++;
+      ++it
       this->_children.erase(save);
     }
 }
