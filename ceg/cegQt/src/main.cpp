@@ -1,23 +1,13 @@
-#include <iostream>
-
 #include <QtGui/QApplication>
-#include <QtGui/QDesktopWidget>
-#include <QGraphicsScene>
-#include <QGraphicsView>
 
-#include "MyAweSomeBox.h"
-#include "Layout.h"
+#include "LayerManager.h"
 
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
-    QDesktopWidget *desktop = QApplication::desktop();
-    Layout scene(0, 0, desktop->width(), desktop->height() - 100);
-
-    QGraphicsView view(&scene);
-    view.setWindowOpacity(0.5);
-    view.show();
+    LayerManager    layerManager;
+    layerManager.start();
     return (a.exec());
 }
