@@ -1,18 +1,12 @@
 TEMPLATE = app
-
 QT += network
-
 LANGUAGE = C++
-
 TARGET = 
-
 DEPENDPATH += . \
     includes \
     src
 INCLUDEPATH += . \
     includes
-
-
 HEADERS += includes/AbstractItem.h \
     includes/AbstractScene.h \
     includes/BoxManager.h \
@@ -22,7 +16,9 @@ HEADERS += includes/AbstractItem.h \
     includes/MyAweSomeBox.h \
     includes/Window.h \
     includes/WindowGeometry.h \
-    includes/AbstractBox.h
+    includes/AbstractBox.h \
+    includes/GraphicItemFactory.h \
+    includes/LayerManager.h
 SOURCES += src/AbstractItem.cpp \
     src/AbstractScene.cpp \
     src/BoxManager.cpp \
@@ -33,16 +29,12 @@ SOURCES += src/AbstractItem.cpp \
     src/MyAweSomeBox.cpp \
     src/Window.cpp \
     src/WindowGeometry.cpp \
-    src/AbstractBox.cpp
-
+    src/AbstractBox.cpp \
+    src/GraphicItemFactory.cpp \
+    src/LayerManager.cpp
 CONFIG += warn_on
-
 DESTDIR = build
-
 OBJECTS_DIR = build
-
 MOC_DIR = moc
-
 UI_SOURCES_DIR = ui_src
-
 UI_HEADERS_DIR = ui_includes
