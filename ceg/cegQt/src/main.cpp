@@ -9,5 +9,6 @@ int main(int argc, char *argv[])
 
     LayerManager    layerManager;
     layerManager.start();
+    BoxManager bm;
     return (a.exec());
 }

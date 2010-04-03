@@ -14,6 +14,11 @@ public:
 
 private:
     std::map<std::string, std::list<AbstractBox *>> _patterns;
+
+    /*
+    ** load les configurations xml dans _patterns
+    */
+    void	loadConf();
 };
 
 #endif // BOXMANAGER_H
