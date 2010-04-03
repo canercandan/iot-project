@@ -11,13 +11,13 @@
 
 int main(int argc, char *argv[])
 {
-    QApplication a(argc, argv);
+  QApplication a(argc, argv);
 
-    QDesktopWidget *desktop = QApplication::desktop();
-    Layout scene(0, 0, desktop->width(), desktop->height() - 100);
+  QDesktopWidget *desktop = QApplication::desktop();
+  Layout scene(0, 0, desktop->width(), desktop->height() - 100);
 
-    QGraphicsView view(&scene);
-    view.setWindowOpacity(0.5);
-    view.show();
-    return (a.exec());
+  QGraphicsView view(&scene);
+  view.setWindowOpacity(0.5);
+  view.show();
+  return (a.exec());
 }
