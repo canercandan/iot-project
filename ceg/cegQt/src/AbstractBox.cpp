@@ -16,7 +16,7 @@ AbstractBox::~AbstractBox()
   std::list<AbstractBox*>::iterator it, ite, save;
   for(it = this->_children.begin(), ite = this->_children.end(); it != ite; )
     {
-      it = save;
+      save = it;
       it = it++;
       this->_children.erase(save);
     }
