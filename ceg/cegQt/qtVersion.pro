@@ -12,7 +12,6 @@ HEADERS += includes/AbstractItem.h \
     includes/BoxManager.h \
     includes/DefaultItem.h \
     includes/Layer.h \
-    includes/Layout.h \
     includes/Window.h \
     includes/WindowGeometry.h \
     includes/AbstractBox.h \
@@ -23,7 +22,6 @@ SOURCES += src/AbstractItem.cpp \
     src/BoxManager.cpp \
     src/DefaultItem.cpp \
     src/Layer.cpp \
-    src/Layout.cpp \
     src/main.cpp \
     src/Window.cpp \
     src/WindowGeometry.cpp \

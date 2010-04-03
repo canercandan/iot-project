@@ -12,7 +12,7 @@ public:
     void    drawChild(QGraphicsScene & scene, QGraphicsRectItem & item);
     bool    drawParent(QGraphicsScene & scene, int posX, int posY, int width);
 
-    void keyPressEvent ( QKeyEvent * keyEvent );
+    void keyPressEvent (QKeyEvent * keyEvent);
 };
 
 #endif // LAYOUT_H

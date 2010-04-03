@@ -1,10 +1,11 @@
 #include "AbstractScene.h"
 
-AbstractScene::AbstractScene() : QGraphicsScene()
+AbstractScene::AbstractScene(qreal x, qreal y, qreal width, qreal height, QObject * parent) :
+        QGraphicsScene(x, y, width, height, parent)
 {
 }
 
-void AbstractScene::drawScene(std::list<QGraphicsRectItem *> &newScene)
+void AbstractScene::initScene(std::list<QGraphicsRectItem *> &newScene)
 {
     this->clearScene();
     std::list<QGraphicsRectItem *>::const_iterator  it = newScene.begin();

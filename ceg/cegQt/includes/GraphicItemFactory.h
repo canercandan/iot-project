@@ -8,7 +8,7 @@
 class GraphicItemFactory
 {
 public:
-    static QGraphicsRectItem * create(AbstractBox const *) const;
+    static QGraphicsRectItem * create(AbstractBox *);
 };
 
 #endif // GRAPHICITEMFACTORY_H

@@ -12,6 +12,8 @@ class AbstractBox
 public:
     AbstractBox();
 
+    WindowGeometry const & getGeometry() const;
+
 private:
     BoxType _type;
     AbstractBox * _parent;

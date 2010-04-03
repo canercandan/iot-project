@@ -1,7 +1,10 @@
+#include <QPainter>
+
 #include "AbstractItem.h"
 
-AbstractItem::AbstractItem(qreal x, qreal y, qreal width, qreal height, QGraphicsItem * parent = 0) :
-        QGraphicsRectItem(x, y, width, height, parent), _color(Qt::darkBlue)
+AbstractItem::AbstractItem(AbstractBox * box, QGraphicsItem * parent) :
+        QGraphicsRectItem(box->getGeometry()._x, box->getGeometry()._y, box->getGeometry()._width, box->getGeometry()._height, parent),
+        _color(Qt::darkBlue), _box(box)
 {
     this->setFlag(QGraphicsItem::ItemIsFocusable);
 }

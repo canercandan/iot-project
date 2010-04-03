@@ -3,3 +3,8 @@
 AbstractBox::AbstractBox()
 {
 }
+
+WindowGeometry const & AbstractBox::getGeometry() const
+{
+    return (this->_geometry);
+}

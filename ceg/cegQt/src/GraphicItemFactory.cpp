@@ -1,7 +1,8 @@
 #include "GraphicItemFactory.h"
+#include "DefaultItem.h"
 
 
-QGraphicsRectItem * GraphicItemFactory::create(AbstractBox const *) const
+QGraphicsRectItem * GraphicItemFactory::create(AbstractBox * box)
 {
-    return (new QGraphicsRectItem);
+    return (new DefaultItem(box, 0));
 }

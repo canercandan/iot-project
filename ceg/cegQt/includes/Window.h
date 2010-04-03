@@ -25,12 +25,14 @@ namespace Ceg
         Window(WindowId, WindowGeometry const &, bool = false);
 
         WindowId getId() const;
+        WindowGeometry const & getGeometry() const;
+
         void setId(WindowId);
         void setCharacteristic(WindowGeometry const &);
 
     private:
         WindowId _id;
-        WindowGeometry _characteristic;
+        WindowGeometry _geometry;
         bool _isVisible;
     };
 }

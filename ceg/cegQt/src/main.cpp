@@ -8,7 +8,7 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
 
     LayerManager    layerManager;
+    layerManager.init();
     layerManager.start();
-    BoxManager bm;
     return (a.exec());
 }

@@ -6,7 +6,7 @@
 class DefaultItem : public AbstractItem
 {
 public:
-    DefaultItem(qreal x, qreal y, qreal width, qreal height, QGraphicsItem * parent = 0);
+    DefaultItem(AbstractBox * box, QGraphicsItem * parent = 0);
 
 protected:
     void keyPressEvent(QKeyEvent * event);

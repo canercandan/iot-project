@@ -9,9 +9,9 @@
 class AbstractScene : public QGraphicsScene
 {
 public:
-    AbstractScene();
+    AbstractScene(qreal x, qreal y, qreal width, qreal height, QObject * parent = 0);
 
-    void drawScene(std::list<QGraphicsRectItem *> & newScene);
+    virtual void initScene(std::list<QGraphicsRectItem *> & newScene);
 
 private:
     void clearScene();

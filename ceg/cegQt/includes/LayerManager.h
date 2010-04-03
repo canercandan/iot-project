@@ -13,6 +13,7 @@ class LayerManager
 public:
     LayerManager();
 
+    void    init();
     void    start();
 
 private:
