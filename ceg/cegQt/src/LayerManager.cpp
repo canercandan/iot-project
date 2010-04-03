@@ -1,3 +1,5 @@
+#include <algorithm>
+
 #include <QtGui/QApplication> // debug
 #include <QDesktopWidget> // debug
 
@@ -9,6 +11,12 @@ LayerManager::LayerManager() :
         _boxManager(new BoxManager)
 {
     this->_view.setWindowOpacity(0.5);
+}
+
+LayerManager::~LayerManager()
+{
+    //std::for_each(this->_layers.begin(), this->_layers.end(), delete);
+    delete this->_boxManager;
 }
 
 void LayerManager::init()

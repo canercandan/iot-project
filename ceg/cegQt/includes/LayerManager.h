@@ -12,6 +12,7 @@ class LayerManager
 {
 public:
     LayerManager();
+    ~LayerManager();
 
     void    init();
     void    start();
