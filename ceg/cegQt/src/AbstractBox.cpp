@@ -1,16 +1,16 @@
-#include <stdio>
+#include <iostream>
 
 #include "includes/AbstractBox.h"
 
 AbstractBox::AbstractBox(BoxType boxtype, AbstractBox* parent,
 			 std::list<AbstractBox*> children, WindowGeometry geometry):
-  _type(boxtype), _parent(parent), children(_children), _geometry(geometry)
+  _type(boxtype), _parent(parent), _children(children), _geometry(geometry)
 
 {
 
 }
 
-~AbstractBox::AbstractBox()
+AbstractBox::~AbstractBox()
 {
   std::cout<< "~AbstractBox" <<std::endl;
   std::list<AbstractBox*>::iterator it, ite, save;
@@ -20,7 +20,6 @@ AbstractBox::AbstractBox(BoxType boxtype, AbstractBox* parent,
       it = it++;
       this->_children.erase(save);
     }
-
 }
 
 WindowGeometry const & AbstractBox::getGeometry() const
