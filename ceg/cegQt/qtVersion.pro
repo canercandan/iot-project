@@ -13,7 +13,6 @@ HEADERS += includes/AbstractItem.h \
     includes/DefaultItem.h \
     includes/Layer.h \
     includes/Layout.h \
-    includes/MyAweSomeBox.h \
     includes/Window.h \
     includes/WindowGeometry.h \
     includes/AbstractBox.h \
@@ -26,7 +25,6 @@ SOURCES += src/AbstractItem.cpp \
     src/Layer.cpp \
     src/Layout.cpp \
     src/main.cpp \
-    src/MyAweSomeBox.cpp \
     src/Window.cpp \
     src/WindowGeometry.cpp \
     src/AbstractBox.cpp \

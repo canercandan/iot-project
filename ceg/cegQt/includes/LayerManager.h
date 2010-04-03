@@ -17,8 +17,8 @@ public:
 
 private:
     QGraphicsView   _view;
-    std::list<AbstractScene>    _layers;
-    std::list<AbstractScene>::iterator    _currentLayer;
+    std::list<AbstractScene *>    _layers;
+    std::list<AbstractScene *>::iterator    _currentLayer;
     BoxManager* _boxManager;
 };
 

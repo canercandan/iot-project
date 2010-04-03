@@ -7,7 +7,7 @@
 class Layer : public AbstractScene
 {
 public:
-    Layer();
+    Layer(Ceg::Window const &);
 
 private:
     Ceg::Window _host;

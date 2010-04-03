@@ -1,16 +1,23 @@
-#include "includes\LayerManager.h"
+#include <QDesktopWidget> // debug
 
-LayerManager::LayerManager()
+#include "LayerManager.h"
+#include "Layer.h" // debug
+#include "Window.h" // debug
+
+LayerManager::LayerManager() :
+        _boxManager(new BoxManager)
 {
-    /*    QDesktopWidget *desktop = QApplication::desktop();
-        Layout scene(0, 0, desktop->width(), desktop->height() - 100);
+    QDesktopWidget *desktop = QApplication::desktop();
+    Ceg::Window aWindow(0, WindowGeometry(0 , 0, desktop->width(), desktop->height() - 100));
+    Layer * oneLayer = new Layer(aWindow);
 
-        QGraphicsView view(&scene);
-        view.setWindowOpacity(0.5);
-        view.show();*/
+//    Layout scene(0, 0, desktop->width(), desktop->height() - 100);
+
+    this->_view.setWindowOpacity(0.5);
 }
 
 void LayerManager::start()
 {
+    this->_view.setScene(oneLayer);
     this->_view.show();
 }
