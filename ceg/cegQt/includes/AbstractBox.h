@@ -10,7 +10,7 @@ enum BoxType {DEFAULT, CUSTOM, MENU};
 class AbstractBox
 {
 public:
-    AbstractBox();
+  AbstractBox(WindowGeometry geometry, BoxType boxtype);
 
     WindowGeometry const & getGeometry() const;
 
