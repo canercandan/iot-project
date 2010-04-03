@@ -22,6 +22,9 @@ void    BoxManager::loadConf()
 {
   std::list<AbstractBox*> list1;
   std::cout<< sizeof(list1) << std::endl;
+  //  list1.push_back(new AbstractBox(DEFAULT, 0, 0, WindowGeometry()));
   this->_patterns.insert(std::pair<std::string, std::list<AbstractBox*> >("OneConf", list1));
+
+  
 }
 
