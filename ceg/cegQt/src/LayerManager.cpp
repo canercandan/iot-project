@@ -33,12 +33,11 @@ LayerManager::~LayerManager()
 
 void LayerManager::init()
 {
-    std::list<Ceg::Window>  windows;
+    /*std::list<Ceg::Window>  windows;
     this->_comGs->getWindows(windows);
 
     QDesktopWidget *desktop = QApplication::desktop();
-    Ceg::Window aWindow(0, WindowGeometry(0 , 0, desktop->width(), desktop->height()));
-    windows.push_back(aWindow);
+    windows.push_back(Ceg::Window(0, WindowGeometry(0 , 0, desktop->width(), desktop->height())));
 
 
     Layer * oneLayer = new Layer(aWindow);
@@ -46,7 +45,7 @@ void LayerManager::init()
     this->_boxManager->getPattern("Desktop", aWindow, list);
     oneLayer->initScene(list);
     this->_layers.push_front(oneLayer);
-    this->_currentLayer = this->_layers.begin();
+    this->_currentLayer = this->_layers.begin();*/
 }
 
 void LayerManager::start()

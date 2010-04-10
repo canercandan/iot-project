@@ -46,6 +46,8 @@ win32 {
                 src/Win32Explorer.cpp
 }
 
+win32:LIBS += "C:\Program Files\Microsoft SDKs\Windows\v7.0A\Lib\Psapi.Lib"
+
 CONFIG += warn_on
 
 DESTDIR = build
