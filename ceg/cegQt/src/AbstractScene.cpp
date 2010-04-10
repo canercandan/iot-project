@@ -62,7 +62,7 @@ void AbstractScene::keyPressEvent(QKeyEvent * keyEvent)
             (*it)->setFocus();
         }
         break;
-    /*case Qt::Key_Return :
+        /*case Qt::Key_Return :
         this->drawChild(this->focusItem());
         break;
     case Qt::Key_Backspace :

@@ -6,11 +6,11 @@
 
 class Win32Adaptor
 {
-	public:
-		static BOOL CALLBACK giveWindowList(HWND hWnd, LPARAM lParam);
-		static void	setWin32Explorer(Win32Explorer * instance);
-	private:
-		static Win32Explorer * _instance;
+public:
+    static BOOL CALLBACK giveWindowList(HWND hWnd, LPARAM lParam);
+    static void	setWin32Explorer(Win32Explorer * instance);
+private:
+    static Win32Explorer * _instance;
 };
 
 #endif //! WIN32ADAPTOR_H_
