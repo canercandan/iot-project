@@ -15,14 +15,14 @@ class BoxManager
 public:
     BoxManager();
 
-    std::list<QGraphicsRectItem *> & getPattern(std::string const &, Ceg::Window const &);
+    void getPattern(std::string const &, Ceg::Window const &, std::list<QGraphicsRectItem *> & list);
     /*
     ** load les configurations xml dans _patterns
     */
     void	loadConf();
 
 private:
-    void    getDefaultPattern(std::list<QGraphicsRectItem *> *, const Ceg::Window &);
+    void    getDefaultPattern(std::list<QGraphicsRectItem *> &, const Ceg::Window &);
 
 private:
     std::map<std::string, std::list<AbstractBox *> > _patterns;

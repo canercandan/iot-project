@@ -22,13 +22,13 @@ LayerManager::~LayerManager()
 void LayerManager::init()
 {
     QDesktopWidget *desktop = QApplication::desktop();
-    Ceg::Window aWindow(0, WindowGeometry(0 , 0, desktop->width(), desktop->height() - 100));
+    Ceg::Window aWindow(0, WindowGeometry(0 , 0, desktop->width(), desktop->height()));
 
 
     Layer * oneLayer = new Layer(aWindow);
-    std::list<QGraphicsRectItem *> & list = this->_boxManager->getPattern("Desktop", aWindow);
+    std::list<QGraphicsRectItem *> list;
+    this->_boxManager->getPattern("Desktop", aWindow, list);
     oneLayer->initScene(list);
-    //delete list;
     this->_layers.push_front(oneLayer);
     this->_currentLayer = this->_layers.begin();
 }
@@ -36,5 +36,6 @@ void LayerManager::init()
 void LayerManager::start()
 {
     this->_view.setScene(*(this->_currentLayer));
+    this->_view.setSceneRect((*(this->_currentLayer))->sceneRect());
     this->_view.show();
 }

@@ -8,9 +8,8 @@ BoxManager::BoxManager()
     this->loadConf();
 }
 
-std::list<QGraphicsRectItem *> &    BoxManager::getPattern(std::string const & programName, const Ceg::Window & aWindow)
+void    BoxManager::getPattern(std::string const & programName, const Ceg::Window & aWindow, std::list<QGraphicsRectItem *> & list)
 {
-    std::list<QGraphicsRectItem *> * list = new std::list<QGraphicsRectItem *>;
     std::map<std::string, std::list<AbstractBox *> >::iterator  itFind = this->_patterns.find(programName);
     if (itFind != this->_patterns.end())
     {
@@ -18,17 +17,16 @@ std::list<QGraphicsRectItem *> &    BoxManager::getPattern(std::string const & p
         std::list<AbstractBox *>::iterator  itEnd = itFind->second.end();
         for (; it != itEnd; ++it)
         {
-            list->push_back(GraphicItemFactory::create(*it));
+            list.push_back(GraphicItemFactory::create(*it));
         }
     }
     else
     {
         this->getDefaultPattern(list, aWindow);
     }
-    return (*list);
 }
 
-void BoxManager::getDefaultPattern(std::list<QGraphicsRectItem *> * list, const Ceg::Window & aWindow)
+void BoxManager::getDefaultPattern(std::list<QGraphicsRectItem *> & list, const Ceg::Window & aWindow)
 {
     WindowGeometry const & geo = aWindow.getGeometry();
     int nbGrid = 3;
@@ -42,7 +40,7 @@ void BoxManager::getDefaultPattern(std::list<QGraphicsRectItem *> * list, const 
         qreal x = geo._x;
         while (cols++ < nbGrid)
         {
-	  list->push_back(GraphicItemFactory::create(new AbstractBox(DEFAULT, 0, std::list<AbstractBox*>(0), WindowGeometry(x, y, tmpWidth, tmpHeight))));
+          list.push_back(GraphicItemFactory::create(new AbstractBox(DEFAULT, 0, std::list<AbstractBox*>(0), WindowGeometry(x, y, tmpWidth, tmpHeight))));
            x += tmpWidth;
         }
         y += tmpHeight;
