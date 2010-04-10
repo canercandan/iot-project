@@ -39,13 +39,12 @@ SOURCES += src/AbstractItem.cpp \
     src/LayerManager.cpp
 
 
-#win32
-#{
-#    HEADERS += includes/Win32Adaptor.h \
-#                includes/Win32Explorer.h
-#    SOURCES +=  src/Win32Adaptor.h \
-#                src/Win32Explorer.h
-#}
+win32 {
+    HEADERS += includes/Win32Adaptor.h \
+                includes/Win32Explorer.h
+    SOURCES +=  src/Win32Adaptor.cpp \
+                src/Win32Explorer.cpp
+}
 
 CONFIG += warn_on
 

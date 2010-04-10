@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "includes/AbstractBox.h"
+#include "AbstractBox.h"
 
 AbstractBox::AbstractBox(BoxType boxtype, AbstractBox* parent,
 			 std::list<AbstractBox*> children, WindowGeometry geometry):

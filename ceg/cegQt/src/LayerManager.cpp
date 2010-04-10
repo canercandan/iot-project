@@ -7,8 +7,19 @@
 #include "Layer.h" // debug
 #include "Window.h" // debug
 
+#ifdef _WIN32
+#include "Win32Explorer.h"
+#else
+#include "XWindowSystem.h"
+#endif
+
 LayerManager::LayerManager() :
-        _boxManager(new BoxManager)
+        _boxManager(new BoxManager),
+#ifdef _WIN32
+        _comGs(new Win32Explorer)
+#else
+        _comGs(new XWindowSystem)
+#endif
 {
     this->_view.setWindowOpacity(0.5);
 }
@@ -17,12 +28,17 @@ LayerManager::~LayerManager()
 {
     //std::for_each(this->_layers.begin(), this->_layers.end(), delete);
     delete this->_boxManager;
+    delete this->_comGs;
 }
 
 void LayerManager::init()
 {
+    std::list<Ceg::Window>  windows;
+    this->_comGs->getWindows(windows);
+
     QDesktopWidget *desktop = QApplication::desktop();
     Ceg::Window aWindow(0, WindowGeometry(0 , 0, desktop->width(), desktop->height()));
+    windows.push_back(aWindow);
 
 
     Layer * oneLayer = new Layer(aWindow);
@@ -36,6 +52,8 @@ void LayerManager::init()
 void LayerManager::start()
 {
     this->_view.setScene(*(this->_currentLayer));
-    this->_view.setSceneRect((*(this->_currentLayer))->sceneRect());
+    //this->_view.setGeometry((*(this->_currentLayer))->sceneRect());
+    QDesktopWidget *desktop = QApplication::desktop();
+    this->_view.setGeometry(0 , 0, desktop->width(), desktop->height());
     this->_view.show();
 }

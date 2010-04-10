@@ -7,6 +7,7 @@
 
 #include "AbstractScene.h"
 #include "BoxManager.h"
+#include "ICommunicationGraphicalServer.h"
 
 class LayerManager
 {
@@ -22,6 +23,7 @@ private:
     std::list<AbstractScene *>    _layers;
     std::list<AbstractScene *>::iterator    _currentLayer;
     BoxManager* _boxManager;
+    ICommunicationGraphicalServer * _comGs;
 };
 
 #endif // LAYERMANAGER_H
