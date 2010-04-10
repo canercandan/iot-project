@@ -3,6 +3,7 @@
 #include <QtGui/QApplication> // debug
 #include <QDesktopWidget> // debug
 
+
 #include "LayerManager.h"
 #include "Layer.h" // debug
 #include "Window.h" // debug
@@ -39,12 +40,7 @@ void LayerManager::init()
     QDesktopWidget *desktop = QApplication::desktop();
     windows.push_back(Ceg::Window(0, WindowGeometry(0 , 0, desktop->width(), desktop->height())));
 
-
-    Layer * oneLayer = new Layer(aWindow);
-    std::list<QGraphicsRectItem *> list;
-    this->_boxManager->getPattern("Desktop", aWindow, list);
-    oneLayer->initScene(list);
-    this->_layers.push_front(oneLayer);
+    this->createLayers(windows);
     this->_currentLayer = this->_layers.begin();
 }
 
@@ -52,7 +48,20 @@ void LayerManager::start()
 {
     this->_view.setScene(*(this->_currentLayer));
     //this->_view.setGeometry((*(this->_currentLayer))->sceneRect());
-    QDesktopWidget *desktop = QApplication::desktop();
-    this->_view.setGeometry(0 , 0, desktop->width(), desktop->height());
     this->_view.show();
+}
+
+void LayerManager::createLayers(std::list<Ceg::Window> & windows)
+{
+    std::list<Ceg::Window>::iterator it = windows.begin();
+    std::list<Ceg::Window>::iterator itEnd = windows.end();
+
+    for (; it != itEnd; ++it)
+    {
+        Layer * oneLayer = new Layer(*it);
+        std::list<QGraphicsRectItem *> graphicItems;
+        this->_boxManager->getPattern("Desktop", *it, graphicItems);
+        oneLayer->initScene(graphicItems);
+        this->_layers.push_front(oneLayer);
+    }
 }

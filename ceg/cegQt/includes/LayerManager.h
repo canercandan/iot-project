@@ -19,6 +19,9 @@ public:
     void    start();
 
 private:
+    void createLayers(std::list<Ceg::Window> & windows);
+
+private:
     QGraphicsView   _view;
     std::list<AbstractScene *>    _layers;
     std::list<AbstractScene *>::iterator    _currentLayer;
