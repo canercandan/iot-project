@@ -1,7 +1,3 @@
-IF(UNIX)
-  INCLUDE(FindX11)
-ENDIF()
-
 SET(QT_USE_QTNETWORK TRUE)
 
 # see http://cmake.org/cmake/help/cmake2.6docs.html#module:FindQt4 for a complete list
@@ -9,39 +5,33 @@ SET(QT_USE_QTNETWORK TRUE)
 INCLUDE(${QT_USE_FILE})
 
 INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/includes)
-INCLUDE_DIRECTORIES(${X11_INCLUDE_DIR})
-
-LINK_DIRECTORIES(${X11_LIBRARY_DIRS})
-
-FILE(
-  GLOB_RECURSE
-  SOURCES
-  *.cpp
-  )
 
 IF(UNIX)
-  LIST (REMOVE_ITEM SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/Win32Explorer.cpp")
-  LIST (REMOVE_ITEM SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/Win32Adaptor.cpp")
-ELSE (WIN32)
-  LIST (REMOVE_ITEM SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/XWindowSystem.cpp")
+  INCLUDE(FindX11)
+  INCLUDE_DIRECTORIES(${X11_INCLUDE_DIR})
+  LINK_DIRECTORIES(${X11_LIBRARY_DIRS})
 ENDIF()
 
-# SET(MOC_SOURCES
-#   includes/AbstractItem.h
-#   includes/AbstractScene.h
-#   includes/BoxManager.h
-#   includes/DefaultItem.h
-#   includes/Layer.h
-#   includes/Window.h
-#   includes/WindowGeometry.h
-#   includes/AbstractBox.h
-#   includes/GraphicItemFactory.h
-#   includes/LayerManager.h
-#   includes/TypeToString.hpp
-#   includes/ICommunicationGraphicalServer.h
-#   )
+SET(SOURCES
+  AbstractItem.cpp
+  AbstractScene.cpp
+  BoxManager.cpp
+  DefaultItem.cpp
+  Layer.cpp
+  main.cpp
+  Window.cpp
+  WindowGeometry.cpp
+  AbstractBox.cpp
+  GraphicItemFactory.cpp
+  LayerManager.cpp
+)
 
-#QT4_WRAP_CPP(SOURCES ${MOC_SOURCES})
+IF(UNIX)
+  SET(SOURCES ${SOURCES} XWindowSystem.cpp)
+ELSE (WIN32)
+  SET(SOURCES ${SOURCES} Win32Explorer.cpp)
+  SET(SOURCES ${SOURCES} Win32Adaptor.cpp)
+ENDIF()
 
 QT4_AUTOMOC(${SOURCES})
 

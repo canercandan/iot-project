@@ -49,6 +49,8 @@ void LayerManager::start()
     this->_view.setScene(*(this->_currentLayer));
     //this->_view.setGeometry((*(this->_currentLayer))->sceneRect());
     this->_view.show();
+    sleep(1);
+    QCursor::setPos(100,100);
 }
 
 void LayerManager::createLayers(std::list<Ceg::Window> & windows)
