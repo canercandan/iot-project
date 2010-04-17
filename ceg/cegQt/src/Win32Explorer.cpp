@@ -47,7 +47,7 @@ bool	Win32Explorer::getFocusedWindow(Ceg::Window & oneWindow)
         return (false);		// Not a window
     if (!::IsWindowVisible(hWnd))
         return (false);		// Not visible
-    if (!GetWindowText(hWnd, (WCHAR*)windowTitle, sizeof(windowTitle)))
+    if (!GetWindowText(hWnd, windowTitle, sizeof(windowTitle)))
         return (false);		// No window title
     oneWindow.setId(hWnd);
     if (GetWindowInfo(hWnd, &winInfo))
@@ -63,7 +63,7 @@ bool	Win32Explorer::getFocusedWindow(Ceg::Window & oneWindow)
     hProcess = OpenProcess(PROCESS_QUERY_INFORMATION|PROCESS_VM_READ, FALSE, dwProcessId);
     //if (!hProcess)
     //	std::cout << "ERROR WITH OPENPROCESS" <<std::endl;
-    if (::GetModuleFileNameEx(hProcess, NULL, (WCHAR*)filenameBuffer, sizeof(filenameBuffer)) > 0)
+    if (::GetModuleFileNameEx(hProcess, NULL, filenameBuffer, sizeof(filenameBuffer)) > 0)
     {
         std::cout << "filenameBuffer: " << filenameBuffer << std::endl;
     }
@@ -116,7 +116,7 @@ BOOL	Win32Explorer::fillWindowList(HWND hWnd)
         return TRUE;		// Not a window
     if (!::IsWindowVisible(hWnd))
         return TRUE;		// Not visible
-    if (!GetWindowText(hWnd, (WCHAR*)windowTitle, sizeof(windowTitle)))
+    if (!GetWindowText(hWnd, windowTitle, sizeof(windowTitle)))
         return TRUE;		// No window title
     WINDOWINFO  winInfo;
     std::cout << "Valuer hWind1: " << hWnd << std::endl;
@@ -138,7 +138,7 @@ BOOL	Win32Explorer::fillWindowList(HWND hWnd)
     //if (!hProcess)
     //	std::cout << "ERROR WITH OPENPROCESS" <<std::endl;
     char filenameBuffer[4000];
-    if (::GetModuleFileNameEx(hProcess, NULL, (WCHAR*)filenameBuffer, 4000) > 0)
+    if (::GetModuleFileNameEx(hProcess, NULL, filenameBuffer, 4000) > 0)
     {
         std::cout << "filenameBuffer: " << filenameBuffer << std::endl;
     }
