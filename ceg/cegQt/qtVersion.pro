@@ -36,8 +36,8 @@ SOURCES += src/AbstractItem.cpp \
     src/WindowGeometry.cpp \
     src/AbstractBox.cpp \
     src/GraphicItemFactory.cpp \
-    src/LayerManager.cpp
-
+    src/LayerManager.cpp \
+    src/XWindowSystem.cpp
 
 win32 {
     HEADERS += includes/Win32Adaptor.h \
