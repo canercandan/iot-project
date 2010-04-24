@@ -121,7 +121,7 @@ bool    Layout::drawParent(QGraphicsItem * item)
 			Height = Height / 3;
 		}
 
-		text.setNum(Width);
+		/*text.setNum(Width);
 		text += " = WidthFF += ";
 		test.setText(text);
 		test.exec();
@@ -129,7 +129,7 @@ bool    Layout::drawParent(QGraphicsItem * item)
 		text += " = HeightFF += ";
 		test.setText(text);
 		test.exec();
-
+*/
 
 		int posXtop = 0;
 		int posYtop = 0;
@@ -138,8 +138,7 @@ bool    Layout::drawParent(QGraphicsItem * item)
 		text += " = posY 1";
 		test.setText(text);
 		test.exec();
-		*/
-		/*text.setNum(temp->rect().y() + temp->rect().height());
+		text.setNum(temp->rect().y() + temp->rect().height());
 		text += " = temp->rect().y() + temp->rect().height()";
 		test.setText(text);
 		test.exec();
@@ -210,7 +209,8 @@ bool    Layout::drawParent(QGraphicsItem * item)
 			}
 			dynamicWidth = dynamicWidth / 3;
 		}
-		text.setNum(temp->rect().x());
+
+		/*text.setNum(temp->rect().x());
 		text += " = temp->rect().x()";
 		test.setText(text);
 		test.exec();
@@ -218,7 +218,6 @@ bool    Layout::drawParent(QGraphicsItem * item)
 		text += " = (posXtop)";
 		test.setText(text);
 		test.exec();
-		/*
 		text.setNum(posXtop);
 		text += " = posXtop";
 		test.setText(text);
