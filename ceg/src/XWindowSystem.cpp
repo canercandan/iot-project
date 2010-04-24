@@ -1,14 +1,10 @@
 #include <iostream>
 #include <climits>
 
-#include <X11/Xutil.h>
-#include <X11/Xatom.h>
-#include <X11/Xmu/WinUtil.h>
-
 #include "XWindowSystem.h"
 
 #include <cstdio> /* pour le debug seulement */
-#include <cstring> /* utiliser pour generateClickEvent sur Linux */
+#include <cstring> /* used for memset in generateEventClick */
 #include "TypeToString.hpp"
 /* http://tronche.com/gui/x/xlib/ICC/client-to-window-manager/XGetTransientForHint.html
  * // confirm window is a client window
@@ -111,20 +107,65 @@ bool XWindowSystem::refreshWindowInfo(Ceg::Window & targetWindow)
     return (statusOp);
 }
 
+void XWindowSystem::queryPointer(XEvent& event, Window& window, Window& subwindow)
+{
+  ::XQueryPointer(this->_connection, window,
+		  &event.xbutton.root,
+		  &subwindow,
+		  &event.xbutton.x_root,
+		  &event.xbutton.y_root,
+		  &event.xbutton.x,
+		  &event.xbutton.y,
+		  &event.xbutton.state);
+}
+
 bool XWindowSystem::generateClickEvent(short int buttonID)
 {
   /* juste pour info il existe l'outil xdotool qui permet entre autre de generer des touches claviers et deplacer la souris tres facilement voir http://www.semicomplete.com/projects/xdotool/ */
 
   /* set position avec QT */
 
-  XEvent event;
-  if (this->_connection == NULL)
+  Display* display = this->_connection;
+
+  if (display == NULL)
     return (false);
+
+  XEvent event;
 
   ::memset(&event, 0x0, sizeof(event));
 
   event.type = ButtonPress;
   event.xbutton.button = buttonID;
+  event.xbutton.same_screen = True;
+
+  this->queryPointer(event,
+		     RootWindow(display, DefaultScreen(display)),
+		     event.xbutton.window);
+
+  event.xbutton.subwindow = event.xbutton.window;
+
+  while (event.xbutton.subwindow)
+    {
+      event.xbutton.window = event.xbutton.subwindow;
+      this->queryPointer(event,
+			 event.xbutton.window,
+			 event.xbutton.subwindow);
+    }
+
+  if (::XSendEvent(display, PointerWindow, True, 0xfff, &event) == 0)
+    return (false);
+
+  ::XFlush(display);
+
+  ::usleep(100000);
+
+  event.type = ButtonRelease;
+  event.xbutton.state = 0x100;
+
+  if (::XSendEvent(display, PointerWindow, True, 0xfff, &event) == 0)
+    return (false);
+
+  ::XFlush(display);
 
   return (true);
 }

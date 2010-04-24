@@ -3,6 +3,10 @@
 
 #include "ICommunicationGraphicalServer.h"
 
+#include <X11/Xutil.h>
+#include <X11/Xatom.h>
+#include <X11/Xmu/WinUtil.h>
+
 /* doc pour l'API http://tronche.com/gui/x/xlib/
  * ressource tres utile http://standards.freedesktop.org/wm-spec/1.3/ar01s05.html
  * pour recupere le PID du programme http://lists.samba.org/archive/linux/2008-July/020298.html  _NET_WM_PID
@@ -29,6 +33,7 @@ private:
     void printRecurse(::Window, unsigned int level) const;
     pid_t getPid(::Window) const;
     std::string getPathOfBinary(std::string const & pidStr) const;
+    void queryPointer(XEvent&, Window& window, Window& subwindow);
 
 private:
     ::Display* _connection;
