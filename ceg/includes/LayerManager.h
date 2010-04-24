@@ -8,7 +8,8 @@
 #include "AbstractScene.h"
 #include "BoxManager.h"
 #include "ICommunicationGraphicalServer.h"
-#include "IAction.h"
+
+class IAction;
 
 class LayerManager
 {
