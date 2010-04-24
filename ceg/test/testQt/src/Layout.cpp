@@ -21,7 +21,6 @@ void    Layout::drawGrid(qreal width, qreal height, qreal posX, qreal posY)
 	int nbGrid = 3;
 	int tmpWidth = width / nbGrid;
 	int tmpHeight = height / nbGrid;
-	QMessageBox::information(0, "", "test");
 	int rows = 0;
 	while (rows++ < nbGrid)
 	{
@@ -51,42 +50,116 @@ void    Layout::drawChild(QGraphicsItem * item)
 bool    Layout::drawParent(QGraphicsItem * item)
 {
 	MyAweSomeBox * temp = dynamic_cast<MyAweSomeBox *>(item);
+	QString text;
+	QMessageBox test;
 	if (temp)
 	{
-		qreal posX = temp->rect().x() *  3, posY = temp->rect().y() * 3, width = temp->rect().width() * 3;
+		qreal width = temp->rect().width() * 3;
 		int bigsize = (QApplication::desktop()->width() / (width));
 		int level = 0;
-		QString text;
-		QMessageBox test;
 		test.setText(text.setNum(temp->rect().width()));
-		test.exec();
+		/*test.exec();*/
 		while (bigsize >= 3)
 		{
 			text.setNum(bigsize);
-			QMessageBox msg;
-			msg.setText(text);
-			msg.exec();
 			bigsize = (floor(bigsize) / 3);
 			level++;
-		}
+				}
 		if (!level)
 		{
 			return (false);
 		}
+				level--;
 		this->clearLayout();
 		QDesktopWidget *desktop = QApplication::desktop();
-		int Width = desktop->width() / level;
-		int Height = desktop->height() / level;
+		int Width = desktop->width();
+		for (int i = 0; i < level; i++)
+		{
+			Width = Width / 3;
+		}
+		int Height = desktop->height();
+		for (int i = 0; i < level; i++)
+		{
+			Height = Height / 3;
+		}
+/*
+		text.setNum(Width);
+		text += " = WidthFF += ";
+		test.setText(text);
+		test.exec();
+		text.setNum(Height);
+		text += " = HeightFF += ";
+		test.setText(text);
+		test.exec();
+*/
+
 		int posXtop = 0;
 		int posYtop = 0;
-		while (posYtop > posY || (posYtop + Width) < posY)
+/*
+		text.setNum(temp->rect().y());
+		text += " = posY 1";
+		test.setText(text);
+		test.exec();
+		text.setNum(temp->rect().y() + temp->rect().height());
+		text += " = posY 2";
+		test.setText(text);
+		test.exec();
+		text.setNum(temp->rect().x());
+		text += " = posX 1";
+		test.setText(text);
+		test.exec();
+		text.setNum(temp->rect().x() + temp->rect().width());
+		text += " = posX 2";
+		test.setText(text);
+		test.exec();
+		*/
+/*
+				text.setNum(temp->rect().width());
+				text += " = tmpWidth";
+				test.setText(text);
+				test.exec();
+
+				text.setNum(Width);
+				text += " = Width";
+				test.setText(text);
+				test.exec();
+
+				text.setNum(temp->rect().height());
+				text += " = tmpHeight";
+				test.setText(text);
+				test.exec();
+
+				text.setNum(Height);
+				text += " = Height";
+				test.setText(text);
+				test.exec();*/
+
+				int i= 1;
+				while (/*posYtop - 5 < temp->rect().y() && */((posYtop + Height) < temp->rect().y() + temp->rect().height()/* + 3 || (posYtop + Height) < temp->rect().y() - 3*/)/* + temp->rect().height()*/)
 		{
-			posYtop += Width;
+						posYtop += Height;
+						i++;
 		}
-		while (posXtop > posX || (posXtop + Width) < posX)
+				text.setNum(i);
+				text += " = i";
+				test.setText(text);
+				test.exec();
+				/*
+		text.setNum(posYtop);
+		text += " = posYtop";
+		test.setText(text);
+		test.exec();
+		*/
+				while (/*posXtop - 5 < temp->rect().x() && */((posXtop + Width) < temp->rect().x() + temp->rect().width()/* + 3 || (posXtop + Width) < temp->rect().x() - 3*/)/* + */)
 		{
-			posXtop += Height;
+			posXtop += Width;
 		}
+		/*
+		text.setNum(posXtop);
+		text += " = posXtop";
+		test.setText(text);
+		test.exec();
+		*/
 		drawGrid(Width, Height, posXtop, posYtop);
 	}
 	return (true);
