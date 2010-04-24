@@ -42,33 +42,33 @@ bool	Win32Explorer::getFocusedWindow(Ceg::Window & oneWindow)
     WINDOWINFO  winInfo;
 
     if (!GetForegroundWindow())
-        return (false);
+	return (false);
     if (!hWnd)
-        return (false);		// Not a window
+	return (false);		// Not a window
     if (!::IsWindowVisible(hWnd))
-        return (false);		// Not visible
-    if (!GetWindowText(hWnd, windowTitle, sizeof(windowTitle)))
-        return (false);		// No window title
+	return (false);		// Not visible
+    if (!GetWindowText(hWnd, (WCHAR *)windowTitle, sizeof(windowTitle)))
+	return (false);		// No window title
     oneWindow.setId(hWnd);
     if (GetWindowInfo(hWnd, &winInfo))
     {
-        WindowGeometry loadInfo(winInfo.rcClient.left, winInfo.rcClient.top, winInfo.rcClient.right, winInfo.rcClient.bottom);
-        oneWindow.setCharacteristic(loadInfo);
-        std::cout << "Pos left: " << winInfo.rcClient.left << std::endl;
-        std::cout << "Pos TOP : " << winInfo.rcClient.top << std::endl;
-        std::cout << "Pos Bottom : " << winInfo.rcClient.bottom << std::endl;
-        std::cout << "Pos right : " << winInfo.rcClient.right << std::endl;
+	WindowGeometry loadInfo(winInfo.rcClient.left, winInfo.rcClient.top, winInfo.rcClient.right, winInfo.rcClient.bottom);
+	oneWindow.setCharacteristic(loadInfo);
+	std::cout << "Pos left: " << winInfo.rcClient.left << std::endl;
+	std::cout << "Pos TOP : " << winInfo.rcClient.top << std::endl;
+	std::cout << "Pos Bottom : " << winInfo.rcClient.bottom << std::endl;
+	std::cout << "Pos right : " << winInfo.rcClient.right << std::endl;
     }
     dwThreadId = GetWindowThreadProcessId(hWnd, &dwProcessId);
     hProcess = OpenProcess(PROCESS_QUERY_INFORMATION|PROCESS_VM_READ, FALSE, dwProcessId);
     //if (!hProcess)
     //	std::cout << "ERROR WITH OPENPROCESS" <<std::endl;
-    if (::GetModuleFileNameEx(hProcess, NULL, filenameBuffer, sizeof(filenameBuffer)) > 0)
+    if (::GetModuleFileNameEx(hProcess, NULL, (WCHAR *)filenameBuffer, sizeof(filenameBuffer)) > 0)
     {
-        std::cout << "filenameBuffer: " << filenameBuffer << std::endl;
+	std::cout << "filenameBuffer: " << filenameBuffer << std::endl;
     }
     else
-        std::cout << "MODULEFILENAME FAIL" << std::endl;
+	std::cout << "MODULEFILENAME FAIL" << std::endl;
     std::cout << hWnd << ' ' << dwProcessId << '\t' << windowTitle << "\t\n\n\n" << std::endl;
     CloseHandle(hProcess);
     return (true);
@@ -78,7 +78,7 @@ bool	Win32Explorer::setFocusToWindow(Ceg::Window & oldFocusedWindow, Ceg::Window
 {
     /*
 	* SwitchToThisWindow
-	* The SwitchToThisWindow function is called to switch focus to a specified window and bring it to the foreground. 
+	* The SwitchToThisWindow function is called to switch focus to a specified window and bring it to the foreground.
 	*/
     return (true);
 }
@@ -89,13 +89,13 @@ bool	Win32Explorer::refreshWindowInfo(Ceg::Window & window)
     WINDOWINFO  winInfo;
     if (GetWindowInfo(window.getId(), &winInfo))
     {
-        WindowGeometry refreshInfo(winInfo.rcClient.left, winInfo.rcClient.top, winInfo.rcClient.right, winInfo.rcClient.bottom);
-        window.setCharacteristic(refreshInfo);
-        std::cout << "Pos left: " << winInfo.rcClient.left << std::endl;
-        std::cout << "Pos TOP : " << winInfo.rcClient.top << std::endl;
-        std::cout << "Pos Bottom : " << winInfo.rcClient.bottom << std::endl;
-        std::cout << "Pos right : " << winInfo.rcClient.right << std::endl;
-        return (true);
+	WindowGeometry refreshInfo(winInfo.rcClient.left, winInfo.rcClient.top, winInfo.rcClient.right, winInfo.rcClient.bottom);
+	window.setCharacteristic(refreshInfo);
+	std::cout << "Pos left: " << winInfo.rcClient.left << std::endl;
+	std::cout << "Pos TOP : " << winInfo.rcClient.top << std::endl;
+	std::cout << "Pos Bottom : " << winInfo.rcClient.bottom << std::endl;
+	std::cout << "Pos right : " << winInfo.rcClient.right << std::endl;
+	return (true);
     }
     return (false);
 }
@@ -113,22 +113,22 @@ BOOL	Win32Explorer::fillWindowList(HWND hWnd)
     char windowTitle[255];
     HANDLE hProcess;
     if (!hWnd)
-        return TRUE;		// Not a window
+	return TRUE;		// Not a window
     if (!::IsWindowVisible(hWnd))
-        return TRUE;		// Not visible
-    if (!GetWindowText(hWnd, windowTitle, sizeof(windowTitle)))
-        return TRUE;		// No window title
+	return TRUE;		// Not visible
+    if (!GetWindowText(hWnd, (WCHAR *)windowTitle, sizeof(windowTitle)))
+	return TRUE;		// No window title
     WINDOWINFO  winInfo;
     std::cout << "Valuer hWind1: " << hWnd << std::endl;
     if (GetWindowInfo(hWnd, &winInfo))
     {
-        WindowGeometry loadInfo(winInfo.rcClient.left, winInfo.rcClient.top, winInfo.rcClient.right, winInfo.rcClient.bottom);
-        Ceg::Window newWindow(hWnd, loadInfo, true);
-        std::cout << "Pos left: " << winInfo.rcClient.left << std::endl;
-        std::cout << "Pos TOP : " << winInfo.rcClient.top << std::endl;
-        std::cout << "Pos Bottom : " << winInfo.rcClient.bottom << std::endl;
-        std::cout << "Pos right : " << winInfo.rcClient.right << std::endl;
-        this->_windowList->push_back(newWindow);
+	WindowGeometry loadInfo(winInfo.rcClient.left, winInfo.rcClient.top, winInfo.rcClient.right, winInfo.rcClient.bottom);
+	Ceg::Window newWindow(hWnd, loadInfo, true);
+	std::cout << "Pos left: " << winInfo.rcClient.left << std::endl;
+	std::cout << "Pos TOP : " << winInfo.rcClient.top << std::endl;
+	std::cout << "Pos Bottom : " << winInfo.rcClient.bottom << std::endl;
+	std::cout << "Pos right : " << winInfo.rcClient.right << std::endl;
+	this->_windowList->push_back(newWindow);
     }
 
     std::cout << "Valuer hWind2: " << hWnd << std::endl;
@@ -138,12 +138,12 @@ BOOL	Win32Explorer::fillWindowList(HWND hWnd)
     //if (!hProcess)
     //	std::cout << "ERROR WITH OPENPROCESS" <<std::endl;
     char filenameBuffer[4000];
-    if (::GetModuleFileNameEx(hProcess, NULL, filenameBuffer, 4000) > 0)
+    if (::GetModuleFileNameEx(hProcess, NULL, (WCHAR *)filenameBuffer, 4000) > 0)
     {
-        std::cout << "filenameBuffer: " << filenameBuffer << std::endl;
+	std::cout << "filenameBuffer: " << filenameBuffer << std::endl;
     }
     else
-        std::cout << "MODULEFILENAME FAIL" << std::endl;
+	std::cout << "MODULEFILENAME FAIL" << std::endl;
     std::cout << hWnd << " ProcessId: " << dwProcessId << "\tWinTitle: " << windowTitle << "\t\n\n\n" << std::endl;
     CloseHandle(hProcess);
     return TRUE;

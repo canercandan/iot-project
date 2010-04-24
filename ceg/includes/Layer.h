@@ -9,6 +9,8 @@ class Layer : public AbstractScene
 public:
     Layer(Ceg::Window const &);
 
+    virtual WindowGeometry  getGeometry() const;
+
 private:
     Ceg::Window _host;
 };

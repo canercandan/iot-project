@@ -4,7 +4,7 @@ QT += network
 
 LANGUAGE = C++
 
-TARGET = 
+TARGET =
 
 DEPENDPATH += . \
     includes \
@@ -36,14 +36,19 @@ SOURCES += src/AbstractItem.cpp \
     src/WindowGeometry.cpp \
     src/AbstractBox.cpp \
     src/GraphicItemFactory.cpp \
-    src/LayerManager.cpp \
-    src/XWindowSystem.cpp
+    src/LayerManager.cpp
+
+
+unix  {
+    HEADERS +=	includes/XWindowSystem.h
+    SOURCES +=  src/XWindowSystem.cpp
+}
 
 win32 {
     HEADERS += includes/Win32Adaptor.h \
-                includes/Win32Explorer.h
+		includes/Win32Explorer.h
     SOURCES +=  src/Win32Adaptor.cpp \
-                src/Win32Explorer.cpp
+		src/Win32Explorer.cpp
 }
 
 win32:LIBS += "C:\Program Files\Microsoft SDKs\Windows\v7.0A\Lib\Psapi.Lib"

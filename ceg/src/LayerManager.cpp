@@ -15,11 +15,11 @@
 #endif
 
 LayerManager::LayerManager() :
-        _boxManager(new BoxManager),
+	_boxManager(new BoxManager),
 #ifdef _WIN32
-        _comGs(new Win32Explorer)
+	_comGs(new Win32Explorer)
 #else
-        _comGs(new XWindowSystem)
+	_comGs(new XWindowSystem)
 #endif
 {
     this->_view.setWindowOpacity(0.5);
@@ -35,7 +35,7 @@ LayerManager::~LayerManager()
 void LayerManager::init()
 {
     std::list<Ceg::Window>  windows;
-    this->_comGs->getWindows(windows);
+    //this->_comGs->getWindows(windows);
 
     QDesktopWidget *desktop = QApplication::desktop();
     windows.push_back(Ceg::Window(0, WindowGeometry(0 , 0, desktop->width(), desktop->height())));
@@ -47,10 +47,9 @@ void LayerManager::init()
 void LayerManager::start()
 {
     this->_view.setScene(*(this->_currentLayer));
-    //this->_view.setGeometry((*(this->_currentLayer))->sceneRect());
+    WindowGeometry  geo = (*(this->_currentLayer))->getGeometry();
+    this->_view.setGeometry(geo._x, geo._y, geo._width,geo._height);
     this->_view.show();
-    sleep(1);
-    QCursor::setPos(100,100);
 }
 
 void LayerManager::createLayers(std::list<Ceg::Window> & windows)
@@ -60,10 +59,10 @@ void LayerManager::createLayers(std::list<Ceg::Window> & windows)
 
     for (; it != itEnd; ++it)
     {
-        Layer * oneLayer = new Layer(*it);
-        std::list<QGraphicsRectItem *> graphicItems;
-        this->_boxManager->getPattern("Desktop", *it, graphicItems);
-        oneLayer->initScene(graphicItems);
-        this->_layers.push_front(oneLayer);
+	Layer * oneLayer = new Layer(*it);
+	std::list<QGraphicsRectItem *> graphicItems;
+	this->_boxManager->getPattern("Desktop", *it, graphicItems);
+	oneLayer->initScene(graphicItems);
+	this->_layers.push_front(oneLayer);
     }
 }

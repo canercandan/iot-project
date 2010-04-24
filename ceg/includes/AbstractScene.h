@@ -6,6 +6,8 @@
 #include <QGraphicsScene>
 #include <QGraphicsRectItem>
 
+#include "WindowGeometry.h"
+
 class AbstractScene : public QGraphicsScene
 {
 public:
@@ -13,6 +15,7 @@ public:
 
     virtual void initScene(std::list<QGraphicsRectItem *> & newScene);
     void    keyPressEvent(QKeyEvent * keyEvent);
+    virtual WindowGeometry  getGeometry() const = 0;
 
 private:
     void clearScene();
