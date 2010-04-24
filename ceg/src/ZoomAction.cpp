@@ -41,7 +41,7 @@ bool	ZoomAction::exec(LayerManager & lm)
 void ZoomAction::zoom(LayerManager & lm)
 {
     AbstractScene * scene = lm.getCurrentLayer();
-    b = scene.getBox();
+    //b = scene.getBox();
 
 }
 

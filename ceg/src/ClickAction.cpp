@@ -19,14 +19,32 @@
  */
 
 #include "ClickAction.h"
+#include "LayerManager.h"
 
-ClickAction::ClickAction(int nbClick)
-  : _nbClick()
+ClickAction::ClickAction(ClickType type /*= LeftClick*/)
+  : _type(type)
 {}
 
 bool	ClickAction::exec(LayerManager& lm)
 {
-  // lm.
+  // lm.getComGs()
+  WindowGeometry geo = lm.getCurrentLayer()->getCurrentItem()->getBox()->getGeometry();
+  QCursor::setPos(geo._x + (geo._width / 2), geo._y + (geo._height / 2));
+
+  switch (this->_type)
+    {
+    case LeftClick:
+    case MiddleClick:
+    case RightClick:
+      lm.getComGs()->generateClickEvent(this->_type);
+      break;
+    case LeftDbClick:
+      for (int i = 0; i < 2; ++i)
+	lm.getComGs()->generateClickEvent(LeftClick);
+      break;
+    default:
+      break;
+    }
 
   return true;
 }

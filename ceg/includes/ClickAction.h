@@ -26,11 +26,15 @@
 class ClickAction : public IAction
 {
 public:
-  ClickAction(int nbClick);
+  enum ClickType{LeftClick = 1, MiddleClick, RightClick, LeftDbClick};
+
+public:
+  ClickAction(ClickType type = LeftClick);
 
   virtual bool	exec(LayerManager&);
+
 private:
-  int	_nbClick;
+  ClickType	_type;
 };
 
 #endif // !CLICKACTION_H
