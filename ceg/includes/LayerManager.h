@@ -44,6 +44,7 @@ public:
 
     AbstractScene*			getCurrentLayer();
     ICommunicationGraphicalServer*	getComGs();
+    QGraphicsView*			getView();
 
 private:
     void createLayers(std::list<Ceg::Window> & windows);

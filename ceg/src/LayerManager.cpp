@@ -18,7 +18,7 @@
  * Authors: CEG <ceg@ionlythink.com>, http://www.ionlythink.com
  */
 
-#include <algorithm>
+//#include <algorithm> // why we are using that ?!?
 
 #include <QtGui/QApplication> // debug
 #include <QDesktopWidget>
@@ -110,4 +110,9 @@ AbstractScene*	LayerManager::getCurrentLayer()
 ICommunicationGraphicalServer*	LayerManager::getComGs()
 {
     return (this->_comGs);
+}
+
+QGraphicsView*	LayerManager::getView()
+{
+  return (&this->_view);
 }

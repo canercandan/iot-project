@@ -23,11 +23,21 @@
 
 #include "IAction.h"
 
+/**
+ * ReadAction
+ * inherits of IAction
+ * This action allows ceg interface hidding during 5 seconds and shows it again.
+ * Feature to forecast: Disable hidding with a signal
+ */
 class ReadAction : public IAction
 {
 public:
   ReadAction();
 
+  /**
+   * exec
+   * here is the method hidding/showing ceg interface.
+   */
   virtual bool	exec(LayerManager&);
 };
 

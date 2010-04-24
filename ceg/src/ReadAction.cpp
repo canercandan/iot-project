@@ -18,12 +18,21 @@
  * Authors: CEG <ceg@ionlythink.com>, http://www.ionlythink.com
  */
 
+#include <unistd.h>
+
 #include "ReadAction.h"
+#include "LayerManager.h"
 
 ReadAction::ReadAction()
 {}
 
-bool	ReadAction::exec(LayerManager&)
+bool	ReadAction::exec(LayerManager& lm)
 {
+  lm.getView()->hide();
+
+  ::sleep(5);
+
+  lm.getView()->show();
+
   return true;
 }
