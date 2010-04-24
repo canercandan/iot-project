@@ -21,11 +21,14 @@
 #ifndef XWINDOWSYSTEM_H_
 #define XWINDOWSYSTEM_H_
 
-class ICommunicationGraphicalServer;
+#include <list>
 
 #include <X11/Xutil.h>
 #include <X11/Xatom.h>
 #include <X11/Xmu/WinUtil.h>
+
+#include "ICommunicationGraphicalServer.h"
+#include "Window.h"
 
 /* doc pour l'API http://tronche.com/gui/x/xlib/
  * ressource tres utile http://standards.freedesktop.org/wm-spec/1.3/ar01s05.html

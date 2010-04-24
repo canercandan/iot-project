@@ -21,8 +21,15 @@
 #ifndef ZOOMACTION_H
 #define ZOOMACTION_H
 
-class IAction;
+#include <list>
+
+#include "IAction.h"
+
+class QGraphicsRectItem;
+
 class BoxManager;
+class LayerManager;
+class AbstractBox;
 
 class ZoomAction : public IAction
 {

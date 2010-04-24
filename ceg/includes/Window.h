@@ -29,7 +29,7 @@
 #include <X11/Xlib.h>
 #endif
 
-class WindowGeometry;
+#include "WindowGeometry.h"
 
 namespace Ceg
 {

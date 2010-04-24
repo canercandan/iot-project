@@ -22,7 +22,9 @@
 
 # define WIN32EXPLORER_H_
 
-class ICommunicationGraphicalServer;
+#include <list>
+
+#include "ICommunicationGraphicalServer.h"
 
 
 class Win32Explorer : public ICommunicationGraphicalServer
