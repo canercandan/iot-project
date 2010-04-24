@@ -29,6 +29,11 @@ AbstractItem::AbstractItem(AbstractBox * box, QGraphicsItem * parent) :
     this->setFlag(QGraphicsItem::ItemIsFocusable);
 }
 
+AbstractBox * AbstractItem::getBox() const
+{
+    return (this->_box);
+}
+
 IAction * AbstractItem::onEvent()
 {
     return (0);

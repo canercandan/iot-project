@@ -54,3 +54,8 @@ void AbstractScene::clearScene()
 	it = itTemp;
     }
 }
+
+AbstractItem *	AbstractScene::getCurrentItem() const
+{
+    return (static_cast<AbstractItem *>(this->focusItem()));
+}

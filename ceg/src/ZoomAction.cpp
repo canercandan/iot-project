@@ -19,13 +19,33 @@
  */
 
 #include "ZoomAction.h"
+#include "LayerManager.h"
 
 ZoomAction::ZoomAction(bool zoom) : _zoom(zoom)
 {
+}
+
+bool	ZoomAction::exec(LayerManager & lm)
+{
+    if (this->_zoom)
+    {
+	this->zoom(lm);
+    }
+    else
+    {
+	this->unZoom(lm);
+    }
+    return (true);
+}
+
+void ZoomAction::zoom(LayerManager & lm)
+{
+    AbstractScene * scene = lm.getCurrentLayer();
+    b = scene.getBox();
 
 }
 
-bool	ZoomAction::exec(LayerManager&)
+void ZoomAction::unZoom(LayerManager & lm)
 {
-    return (true);
+
 }

@@ -26,12 +26,16 @@
 class ZoomAction : public IAction
 {
 public:
-	ZoomAction(bool zoom);
+    ZoomAction(bool zoom);
 
-	virtual bool	exec(LayerManager&);
+    virtual bool	exec(LayerManager&);
 
 private:
-	bool	_zoom;
+    void zoom(LayerManager&);
+    void unZoom(LayerManager&);
+
+private:
+    bool	_zoom;
 };
 
 #endif // !ZOOMACTION_H

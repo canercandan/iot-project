@@ -31,6 +31,8 @@ class AbstractItem : public QGraphicsRectItem
 public:
     AbstractItem(AbstractBox * box, QGraphicsItem * parent = 0);
 
+    AbstractBox *   getBox() const;
+
     IAction * onEvent();
 
 protected:
