@@ -5,6 +5,11 @@ DefaultItem::DefaultItem(AbstractBox * box, QGraphicsItem * parent) :
 {
 }
 
+DefaultItem::~DefaultItem()
+{
+  delete _box;
+}
+
 void DefaultItem::keyPressEvent(QKeyEvent *) // a implementer
 {
 }

@@ -40,7 +40,7 @@ public:
 
     virtual bool refreshWindowInfo(Ceg::Window &) = 0;
 
-    virtual bool generateClickEvent(short int x, short int y) = 0;
+    virtual bool generateClickEvent(short int buttonID) = 0;
 };
 
 #endif // ICOMMUNICATIONGRAPHICALSERVER_H_

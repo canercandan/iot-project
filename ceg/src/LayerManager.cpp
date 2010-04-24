@@ -28,6 +28,14 @@ LayerManager::LayerManager() :
 LayerManager::~LayerManager()
 {
     //std::for_each(this->_layers.begin(), this->_layers.end(), delete);
+  for (std::list<AbstractScene*>::iterator
+	 it = this->_layers.begin(),
+	 end = this->_layers.end();
+       it != end; ++it)
+    {
+      delete *it;
+    }
+
     delete this->_boxManager;
     delete this->_comGs;
 }
@@ -50,6 +58,8 @@ void LayerManager::start()
     WindowGeometry  geo = (*(this->_currentLayer))->getGeometry();
     this->_view.setGeometry(geo._x, geo._y, geo._width,geo._height);
     this->_view.show();
+    //sleep(1);
+    QCursor::setPos(100,100);
 }
 
 void LayerManager::createLayers(std::list<Ceg::Window> & windows)

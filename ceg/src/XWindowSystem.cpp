@@ -8,6 +8,7 @@
 #include "XWindowSystem.h"
 
 #include <cstdio> /* pour le debug seulement */
+#include <cstring> /* utiliser pour generateClickEvent sur Linux */
 #include "TypeToString.hpp"
 /* http://tronche.com/gui/x/xlib/ICC/client-to-window-manager/XGetTransientForHint.html
  * // confirm window is a client window
@@ -110,11 +111,22 @@ bool XWindowSystem::refreshWindowInfo(Ceg::Window & targetWindow)
     return (statusOp);
 }
 
-bool XWindowSystem::generateClickEvent(short int, short int)
+bool XWindowSystem::generateClickEvent(short int buttonID)
 {
-    // click event xlib sur google
-    //http://www.linuxquestions.org/questions/programming-9/simulating-a-mouse-click-594576/
-    return (true);
+  /* juste pour info il existe l'outil xdotool qui permet entre autre de generer des touches claviers et deplacer la souris tres facilement voir http://www.semicomplete.com/projects/xdotool/ */
+
+  /* set position avec QT */
+
+  XEvent event;
+  if (this->_connection == NULL)
+    return (false);
+
+  ::memset(&event, 0x0, sizeof(event));
+
+  event.type = ButtonPress;
+  event.xbutton.button = buttonID;
+
+  return (true);
 }
 
 void XWindowSystem::printRecurse(::Window currentWindow, unsigned int level) const

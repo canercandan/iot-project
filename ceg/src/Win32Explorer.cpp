@@ -100,9 +100,11 @@ bool	Win32Explorer::refreshWindowInfo(Ceg::Window & window)
     return (false);
 }
 
-bool	Win32Explorer::generateClickEvent(short int x, short int y)
+bool	Win32Explorer::generateClickEvent(short int buttonID)
 {
-    mouse_event(MOUSEEVENTF_ABSOLUTE|MOUSEEVENTF_MOVE|MOUSEEVENTF_LEFTDOWN,x,y,0,0);
+    (void)buttonID;
+//     mouse_event(MOUSEEVENTF_ABSOLUTE|MOUSEEVENTF_MOVE|MOUSEEVENTF_LEFTDOWN,x,y,0,0);
+    mouse_event(MOUSEEVENTF_LEFTDOWN,x,y,0,0);
     mouse_event(MOUSEEVENTF_LEFTUP,x,y,0,0);
     return (true);
 }

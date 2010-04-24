@@ -14,7 +14,7 @@ public:
     virtual bool	getFocusedWindow(Ceg::Window &);
     virtual bool	setFocusToWindow(Ceg::Window & oldFocusedWindow, Ceg::Window & newFocusedWindow);
     virtual bool	refreshWindowInfo(Ceg::Window &);
-    virtual bool	generateClickEvent(short int x, short int y);
+    virtual bool	generateClickEvent(short int buttonID);
     BOOL			fillWindowList(HWND hWnd);
 
 private:

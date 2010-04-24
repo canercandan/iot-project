@@ -5,7 +5,7 @@
 
 BoxManager::BoxManager()
 {
-    this->loadConf();
+  //this->loadConf();
 }
 
 void    BoxManager::getPattern(std::string const & programName, const Ceg::Window & aWindow, std::list<QGraphicsRectItem *> & list)
