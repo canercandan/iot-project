@@ -20,6 +20,7 @@
 
 #include "AbstractItem.h"
 #include "Layer.h"
+#include "ZoomAction.h" // debug
 
 
 Layer::Layer(Ceg::Window const & hostWindow) :
@@ -63,11 +64,11 @@ IAction * Layer::keyPressEvent(int key)
     case Qt::Key_Return :
 	{
 	    AbstractItem * focusItem = static_cast<AbstractItem *>(this->focusItem());
-	    return (focusItem->onEvent());
+            return (focusItem->onEvent());
 	}
 	break;
     case Qt::Key_Backspace :
-	//	this->drawParent(this->focusItem());
+        return (new ZoomAction(false));
 	break;
     }
     return (0);

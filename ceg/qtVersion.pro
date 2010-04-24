@@ -52,6 +52,9 @@ win32 {
         src/Win32Explorer.cpp
 }
 win32:LIBS += "C:\Program Files\Microsoft SDKs\Windows\v7.0A\Lib\Psapi.Lib"
+
+unix:LIBS += "/usr/lib/libXmu.so"
+
 CONFIG += warn_on
 DESTDIR = build
 OBJECTS_DIR = build

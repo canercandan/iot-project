@@ -21,6 +21,8 @@
 #include <QGraphicsRectItem>
 #include <QPainter>
 
+#include "ZoomAction.h"
+
 #include "AbstractItem.h"
 #include "AbstractBox.h"
 #include "IAction.h"
@@ -39,7 +41,7 @@ AbstractBox * AbstractItem::getBox() const
 
 IAction * AbstractItem::onEvent()
 {
-    return (0);
+    return (new ZoomAction(true));
 }
 
 void AbstractItem::focusInEvent(QFocusEvent *)
