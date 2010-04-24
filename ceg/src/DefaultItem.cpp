@@ -1,7 +1,7 @@
 #include "DefaultItem.h"
 
 DefaultItem::DefaultItem(AbstractBox * box, QGraphicsItem * parent) :
-        AbstractItem(box, parent)
+		AbstractItem(box, parent)
 {
 }
 
