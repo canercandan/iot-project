@@ -18,12 +18,12 @@
  * Authors: CEG <ceg@ionlythink.com>, http://www.ionlythink.com
  */
 
+#include "AbstractItem.h"
+#include "AbstractScene.h"
 #include "ZoomAction.h"
 #include "LayerManager.h"
 #include "IAction.h"
 #include "BoxManager.h"
-#include "AbstractItem.h"
-#include "AbstractScene.h"
 
 ZoomAction::ZoomAction(bool zoom) : _zoom(zoom)
 {

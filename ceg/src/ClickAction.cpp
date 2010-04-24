@@ -18,12 +18,12 @@
  * Authors: CEG <ceg@ionlythink.com>, http://www.ionlythink.com
  */
 
+#include "AbstractItem.h"
+#include "AbstractBox.h"
 #include "IAction.h"
 #include "ClickAction.h"
 #include "LayerManager.h"
 #include "AbstractScene.h"
-#include "AbstractItem.h"
-#include "AbstractBox.h"
 #include "ICommunicationGraphicalServer.h"
 
 ClickAction::ClickAction(ClickType type /*= LeftClick*/)
