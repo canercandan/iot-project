@@ -23,7 +23,8 @@
 
 #include <list>
 
-class QGraphicsScene;
+#include <QGraphicsScene>
+
 class QGraphicsRectItem;
 
 class WindowGeometry;

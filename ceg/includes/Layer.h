@@ -21,9 +21,10 @@
 #ifndef LAYER_H
 #define LAYER_H
 
-class AbstractScene;
-class IAction;
 #include "Window.h"
+#include "AbstractScene.h"
+
+class IAction;
 
 class Layer : public AbstractScene
 {
