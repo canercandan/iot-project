@@ -20,6 +20,7 @@
 
 #include <iostream>
 
+#include "WindowGeometry.h"
 #include "AbstractBox.h"
 
 AbstractBox::AbstractBox(BoxType boxtype, AbstractBox* parent,

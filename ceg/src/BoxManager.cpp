@@ -22,7 +22,10 @@
 
 #include <QDesktopWidget>
 #include <QApplication>
+#include <QGraphicsRectItem>
 
+#include "AbstractBox.h"
+#include "Window.h"
 #include "GraphicItemFactory.h"
 #include "BoxManager.h"
 

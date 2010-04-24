@@ -18,9 +18,12 @@
  * Authors: CEG <ceg@ionlythink.com>, http://www.ionlythink.com
  */
 
+#include <QGraphicsRectItem>
 #include <QPainter>
 
 #include "AbstractItem.h"
+#include "AbstractBox.h"
+#include "IAction.h"
 
 AbstractItem::AbstractItem(AbstractBox * box, QGraphicsItem * parent) :
 	QGraphicsRectItem(box->getGeometry()._x, box->getGeometry()._y, box->getGeometry()._width, box->getGeometry()._height, parent),

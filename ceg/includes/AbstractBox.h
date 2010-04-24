@@ -23,7 +23,7 @@
 
 #include <list>
 
-#include "WindowGeometry.h"
+class WindowGeometry;
 
 enum BoxType {DEFAULT, CUSTOM, MENU};
 

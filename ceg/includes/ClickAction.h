@@ -21,7 +21,7 @@
 #ifndef CLICKACTION_H
 #define CLICKACTION_H
 
-#include "IAction.h"
+class IAction;
 
 class ClickAction : public IAction
 {

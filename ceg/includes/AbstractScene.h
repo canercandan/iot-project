@@ -23,12 +23,12 @@
 
 #include <list>
 
-#include <QGraphicsScene>
-#include <QGraphicsRectItem>
+class QGraphicsScene;
+class QGraphicsRectItem;
 
-#include "WindowGeometry.h"
-#include "IAction.h"
-#include "AbstractItem.h"
+class WindowGeometry;
+class IAction;
+class AbstractItem;
 
 class AbstractScene : public QGraphicsScene
 {

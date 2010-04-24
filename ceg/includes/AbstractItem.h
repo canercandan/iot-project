@@ -21,10 +21,10 @@
 #ifndef ABSTRACTITEM_H
 #define ABSTRACTITEM_H
 
-#include <QGraphicsRectItem>
+class QGraphicsRectItem;
 
-#include "AbstractBox.h"
-#include "IAction.h"
+class AbstractBox;
+class IAction;
 
 class AbstractItem : public QGraphicsRectItem
 {
