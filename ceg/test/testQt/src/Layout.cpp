@@ -42,6 +42,24 @@ void    Layout::drawGrid(qreal width, qreal height, qreal posX, qreal posY)
 	int tmpWidth = width / nbGrid;
 	int tmpHeight = height / nbGrid;
 	int rows = 0;
+	/*QString text;
+	QMessageBox test;
+	text.setNum(posX);
+	text += " = posX += ";
+	test.setText(text);
+	test.exec();
+	text.setNum(posY);
+	text += " = posY += ";
+	test.setText(text);
+	test.exec();
+	text.setNum(width);
+	text += " = width += ";
+	test.setText(text);
+	test.exec();
+	text.setNum(height);
+	text += " = height += ";
+	test.setText(text);
+	test.exec();*/
 	while (rows++ < nbGrid)
 	{
 		int cols = 0;
@@ -84,12 +102,12 @@ bool    Layout::drawParent(QGraphicsItem * item)
 			text.setNum(bigsize);
 			bigsize = (floor(bigsize) / 3);
 			level++;
-				}
+		}
 		if (!level)
 		{
 			return (false);
 		}
-				level--;
+		level--;
 		this->clearLayout();
 		QDesktopWidget *desktop = QApplication::desktop();
 		int Width = desktop->width();
@@ -102,7 +120,7 @@ bool    Layout::drawParent(QGraphicsItem * item)
 		{
 			Height = Height / 3;
 		}
-/*
+
 		text.setNum(Width);
 		text += " = WidthFF += ";
 		test.setText(text);
@@ -111,17 +129,22 @@ bool    Layout::drawParent(QGraphicsItem * item)
 		text += " = HeightFF += ";
 		test.setText(text);
 		test.exec();
-*/
+
 
 		int posXtop = 0;
 		int posYtop = 0;
-/*
+		/*
 		text.setNum(temp->rect().y());
 		text += " = posY 1";
 		test.setText(text);
 		test.exec();
-		text.setNum(temp->rect().y() + temp->rect().height());
-		text += " = posY 2";
+		*/
+		/*text.setNum(temp->rect().y() + temp->rect().height());
+		text += " = temp->rect().y() + temp->rect().height()";
+		test.setText(text);
+		test.exec();
+		text.setNum(posYtop + Height);
+		text += " = (posYtop + Height)";
 		test.setText(text);
 		test.exec();
 		text.setNum(temp->rect().x());
@@ -133,7 +156,7 @@ bool    Layout::drawParent(QGraphicsItem * item)
 		test.setText(text);
 		test.exec();
 		*/
-/*
+		/*
 				text.setNum(temp->rect().width());
 				text += " = tmpWidth";
 				test.setText(text);
@@ -154,26 +177,47 @@ bool    Layout::drawParent(QGraphicsItem * item)
 				test.setText(text);
 				test.exec();*/
 
-				int i= 1;
-				while (/*posYtop - 5 < temp->rect().y() && */((posYtop + Height) < temp->rect().y() + temp->rect().height()/* + 3 || (posYtop + Height) < temp->rect().y() - 3*/)/* + temp->rect().height()*/)
+		int dynamicHeight = desktop->height() / 3;
+		for (int i = 0; i < level; i++)
 		{
-						posYtop += Height;
-						i++;
+			while ((posYtop + dynamicHeight) < temp->rect().y() + temp->rect().height())
+			{
+				posYtop += dynamicHeight;
+			}
+			dynamicHeight = dynamicHeight / 3;
 		}
-				text.setNum(i);
-				text += " = i";
-				test.setText(text);
-				test.exec();
-				/*
+
+		/*	text.setNum(temp->rect().y() + temp->rect().height());
+					text += " = posY 2";
+					test.setText(text);
+					test.exec();
+					text.setNum(posYtop + Height);
+					text += " = (posYtop + Height)";
+					test.setText(text);
+					test.exec();*/
+		/*
 		text.setNum(posYtop);
 		text += " = posYtop";
 		test.setText(text);
 		test.exec();
 		*/
-				while (/*posXtop - 5 < temp->rect().x() && */((posXtop + Width) < temp->rect().x() + temp->rect().width()/* + 3 || (posXtop + Width) < temp->rect().x() - 3*/)/* + */)
+		int dynamicWidth = desktop->width() / 3;
+		for (int i = 0; i < level; i++)
 		{
-			posXtop += Width;
+			while ((posXtop + dynamicWidth) < temp->rect().x() + temp->rect().width())
+			{
+				posXtop += dynamicWidth;
+			}
+			dynamicWidth = dynamicWidth / 3;
 		}
+		text.setNum(temp->rect().x());
+		text += " = temp->rect().x()";
+		test.setText(text);
+		test.exec();
+		text.setNum((posXtop));
+		text += " = (posXtop)";
+		test.setText(text);
+		test.exec();
 		/*
 		text.setNum(posXtop);
 		text += " = posXtop";
