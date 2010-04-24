@@ -6,7 +6,8 @@ class LayerManager;
 class IAction
 {
 public:
-  virtual bool	exec(LayerManager&) = 0;
+    ~IAction(){}
+    virtual bool	exec(LayerManager&) = 0;
 };
 
-#endf // IACTION_H
+#endif // IACTION_H

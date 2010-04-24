@@ -1,8 +1,7 @@
 #include <algorithm>
 
 #include <QtGui/QApplication> // debug
-#include <QDesktopWidget> // debug
-
+#include <QDesktopWidget>
 
 #include "LayerManager.h"
 #include "Layer.h" // debug
@@ -25,17 +24,14 @@ LayerManager::LayerManager() :
     this->_view.setWindowOpacity(0.5);
 }
 
-#include <qmessagebox.h>
-
 LayerManager::~LayerManager()
 {
-    //std::for_each(this->_layers.begin(), this->_layers.end(), delete);
-  for (std::list<AbstractScene*>::iterator
+    for (std::list<AbstractScene*>::iterator
 	 it = this->_layers.begin(),
 	 end = this->_layers.end();
-       it != end; ++it)
+    it != end; ++it)
     {
-      delete *it;
+	delete *it;
     }
 
     delete this->_boxManager;
@@ -79,4 +75,9 @@ void LayerManager::createLayers(std::list<Ceg::Window> & windows)
 	oneLayer->initScene(graphicItems);
 	this->_layers.push_front(oneLayer);
     }
+}
+
+bool    LayerManager::actionHandler(IAction & anAction)
+{
+    return (anAction.exec(*this));
 }

@@ -7,6 +7,7 @@
 #include <QGraphicsRectItem>
 
 #include "WindowGeometry.h"
+#include "IAction.h"
 
 class AbstractScene : public QGraphicsScene
 {
@@ -14,7 +15,7 @@ public:
     AbstractScene(qreal x, qreal y, qreal width, qreal height, QObject * parent = 0);
 
     virtual void initScene(std::list<QGraphicsRectItem *> & newScene);
-    void    keyPressEvent(QKeyEvent * keyEvent);
+    virtual IAction * keyPressEvent(int key) = 0;
     virtual WindowGeometry  getGeometry() const = 0;
 
 private:

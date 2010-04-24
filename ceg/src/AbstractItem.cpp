@@ -3,10 +3,15 @@
 #include "AbstractItem.h"
 
 AbstractItem::AbstractItem(AbstractBox * box, QGraphicsItem * parent) :
-        QGraphicsRectItem(box->getGeometry()._x, box->getGeometry()._y, box->getGeometry()._width, box->getGeometry()._height, parent),
-        _color(Qt::darkBlue), _box(box)
+	QGraphicsRectItem(box->getGeometry()._x, box->getGeometry()._y, box->getGeometry()._width, box->getGeometry()._height, parent),
+	_color(Qt::darkBlue), _box(box)
 {
     this->setFlag(QGraphicsItem::ItemIsFocusable);
+}
+
+IAction * AbstractItem::onEvent()
+{
+    return (0);
 }
 
 void AbstractItem::focusInEvent(QFocusEvent *)

@@ -10,6 +10,7 @@ public:
     Layer(Ceg::Window const &);
 
     virtual WindowGeometry  getGeometry() const;
+    virtual IAction * keyPressEvent(int key);
 
 private:
     Ceg::Window _host;
