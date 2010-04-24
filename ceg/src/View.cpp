@@ -27,11 +27,11 @@
 #include "MoveAction.h"
 
 View::View(LayerManager* lm)
-  : _lm(lm)
+    : _lm(lm)
 {}
 
 void	View::keyPressEvent(QKeyEvent* keyEvent)
 {
-  MoveAction ma(keyEvent->key());
-  this->_lm->actionHandler(ma);
+    MoveAction a(keyEvent->key());
+    this->_lm->actionHandler(a);
 }

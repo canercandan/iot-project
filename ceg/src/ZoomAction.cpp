@@ -22,6 +22,8 @@
 #include "LayerManager.h"
 #include "IAction.h"
 #include "BoxManager.h"
+#include "AbstractItem.h"
+#include "AbstractScene.h"
 
 ZoomAction::ZoomAction(bool zoom) : _zoom(zoom)
 {

@@ -18,9 +18,11 @@
  * Authors: CEG <ceg@ionlythink.com>, http://www.ionlythink.com
  */
 
-#include "Win32Adaptor.h"
-
 #include <iostream>
+#include <windows.h>
+
+#include "Win32Adaptor.h"
+#include "Win32Explorer.h"
 
 Win32Explorer * Win32Adaptor::_instance = 0;
 

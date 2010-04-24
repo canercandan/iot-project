@@ -19,8 +19,9 @@
  */
 
 #ifndef WIN32ADAPTOR_H_
-
 # define WIN32ADAPTOR_H_
+
+#include <windows.h>
 
 class Win32Explorer;
 

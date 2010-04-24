@@ -34,6 +34,7 @@
 #endif
 
 #include "MoveAction.h"
+#include "BoxManager.h"
 
 LayerManager::LayerManager() :
     _view(this), _boxManager(new BoxManager),

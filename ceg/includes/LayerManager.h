@@ -23,15 +23,15 @@
 
 #include <list>
 
-class QGraphicsView;
+#include <QGraphicsView>
+
+#include "View.h"
+#include "Window.h"
 
 class AbstractScene;
 class BoxManager;
 class ICommunicationGraphicalServer;
-class View;
 class IAction;
-
-#include "Window.h"
 
 class LayerManager
 {

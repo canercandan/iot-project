@@ -21,6 +21,10 @@
 #include "IAction.h"
 #include "ClickAction.h"
 #include "LayerManager.h"
+#include "AbstractScene.h"
+#include "AbstractItem.h"
+#include "AbstractBox.h"
+#include "ICommunicationGraphicalServer.h"
 
 ClickAction::ClickAction(ClickType type /*= LeftClick*/)
   : _type(type)

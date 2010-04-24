@@ -18,10 +18,20 @@
  * Authors: CEG <ceg@ionlythink.com>, http://www.ionlythink.com
  */
 
-#include <unistd.h>
+#include <QWaitCondition>
 
 #include "ReadAction.h"
 #include "LayerManager.h"
+
+#include <QThread>
+class SleeperThread : public QThread
+{
+    public:
+    static void msleep(unsigned long msecs)
+    {
+	QThread::msleep(msecs);
+    }
+};
 
 ReadAction::ReadAction()
 {}
@@ -30,7 +40,8 @@ bool	ReadAction::exec(LayerManager& lm)
 {
   lm.getView()->hide();
 
-  ::sleep(5);
+  QWaitCondition sleep;
+  SleeperThread::msleep(1000);
 
   lm.getView()->show();
 

@@ -19,6 +19,7 @@
  */
 
 #include "DefaultItem.h"
+#include "AbstractBox.h"
 
 DefaultItem::DefaultItem(AbstractBox * box, QGraphicsItem * parent) :
 		AbstractItem(box, parent)
@@ -27,7 +28,7 @@ DefaultItem::DefaultItem(AbstractBox * box, QGraphicsItem * parent) :
 
 DefaultItem::~DefaultItem()
 {
-  delete _box;
+  delete this->_box;
 }
 
 void DefaultItem::keyPressEvent(QKeyEvent *) // a implementer

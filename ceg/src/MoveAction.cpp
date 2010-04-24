@@ -20,6 +20,7 @@
 
 #include "MoveAction.h"
 #include "LayerManager.h"
+#include "AbstractScene.h"
 
 MoveAction::MoveAction(int key)
   : _key(key)
