@@ -31,9 +31,5 @@ int main(int argc, char *argv[])
     layerManager.init();
     layerManager.start();
 
-    MoveAction mv(Qt::Key_Up);
-
-    layerManager.actionHandler(mv);
-
     return (a.exec());
 }

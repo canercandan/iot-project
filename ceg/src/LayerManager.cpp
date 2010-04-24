@@ -18,8 +18,6 @@
  * Authors: CEG <ceg@ionlythink.com>, http://www.ionlythink.com
  */
 
-//#include <algorithm> // why we are using that ?!?
-
 #include <QtGui/QApplication> // debug
 #include <QDesktopWidget>
 
@@ -102,17 +100,25 @@ bool    LayerManager::actionHandler(IAction & anAction)
     return (anAction.exec(*this));
 }
 
-AbstractScene*	LayerManager::getCurrentLayer()
+AbstractScene*	LayerManager::getCurrentLayer() const
 {
     return (*this->_currentLayer);
 }
 
-ICommunicationGraphicalServer*	LayerManager::getComGs()
+ICommunicationGraphicalServer*	LayerManager::getComGs() const
 {
     return (this->_comGs);
 }
+
+
+BoxManager *	LayerManager::getBoxManager() const
+{
+    return (this->_boxManager);
+}
+
 
 QGraphicsView*	LayerManager::getView()
 {
   return (&this->_view);
 }
+

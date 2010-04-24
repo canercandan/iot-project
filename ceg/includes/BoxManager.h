@@ -33,23 +33,22 @@
 class BoxManager
 {
 public:
-	BoxManager();
+    BoxManager();
 
-	void getPattern(std::string const &, Ceg::Window const &, std::list<QGraphicsRectItem *> & list);
-	/*
-	** load les configurations xml dans _patterns
-	*/
-	void	loadConf();
+    void	loadConf();
 
-private:
-	void    getDefaultPattern(std::list<QGraphicsRectItem *> &, const Ceg::Window &);
-	void	getDefaultChildren(std::list<QGraphicsRectItem *> &, AbstractBox *);
-	void	drawDefaultChildren(std::list<QGraphicsRectItem *> &, WindowGeometry const &, unsigned short);
-	void	getDefaultParent();
-	void	getDefaultParent(std::list<QGraphicsRectItem *> &, AbstractBox *);
+    // recupere les fenetres pour une nouvelle fenetre
+    void getPattern(std::string const &, Ceg::Window const &, std::list<QGraphicsRectItem *> & list);
+    void getChildren(std::list<QGraphicsRectItem *> &, AbstractBox *);
+    void getParent(std::list<QGraphicsRectItem *> &, AbstractBox *);
 
 private:
-	std::map<std::string, std::list<AbstractBox *> > _patterns;
+    void    createGraphicItems(std::list<QGraphicsRectItem *> &, std::list<AbstractBox *> & boxs);
+    void    calcChildren(std::list<AbstractBox *> &, WindowGeometry const &, unsigned short);
+    void    calcParent(std::list<AbstractBox *> &, AbstractBox *);
+
+private:
+    std::map<std::string, std::list<AbstractBox *> > _patterns;
 };
 
 #endif // BOXMANAGER_H

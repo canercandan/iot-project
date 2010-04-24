@@ -22,6 +22,7 @@
 #define ZOOMACTION_H
 
 #include "IAction.h"
+#include "BoxManager.h"
 
 class ZoomAction : public IAction
 {
@@ -31,8 +32,8 @@ public:
     virtual bool	exec(LayerManager&);
 
 private:
-    void zoom(LayerManager&);
-    void unZoom(LayerManager&);
+    void zoom(BoxManager * boxManager, AbstractBox * box, std::list<QGraphicsRectItem *> & graphicItems);
+    void unZoom(BoxManager * boxManager, AbstractBox * box, std::list<QGraphicsRectItem *> & graphicItems);
 
 private:
     bool	_zoom;

@@ -42,8 +42,9 @@ public:
 
     bool    actionHandler(IAction &);
 
-    AbstractScene*			getCurrentLayer();
-    ICommunicationGraphicalServer*	getComGs();
+    AbstractScene*			getCurrentLayer() const;
+    ICommunicationGraphicalServer*	getComGs() const;
+    BoxManager *			getBoxManager() const;
     QGraphicsView*			getView();
 
 private:

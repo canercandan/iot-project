@@ -30,25 +30,28 @@ enum BoxType {DEFAULT, CUSTOM, MENU};
 class AbstractBox
 {
 public:
-	AbstractBox(WindowGeometry geometry, BoxType boxtype);
-	AbstractBox(BoxType boxtype, AbstractBox* _parent,
-				std::list<AbstractBox*> children, WindowGeometry geometry);
-	AbstractBox(BoxType boxtype, int level,
-				std::list<AbstractBox*> children, WindowGeometry geometry);
+    AbstractBox(WindowGeometry geometry, BoxType boxtype);
+    AbstractBox(BoxType boxtype, AbstractBox* _parent,
+		std::list<AbstractBox*> children, WindowGeometry geometry);
+    AbstractBox(BoxType boxtype, int level,
+		std::list<AbstractBox*> children, WindowGeometry geometry);
 
-	~AbstractBox();
-	WindowGeometry const &	getGeometry() const;
-	unsigned short			getLevel() const;
+    ~AbstractBox();
+    WindowGeometry const &	getGeometry() const;
+    unsigned short		getLevel() const;
+    std::list<AbstractBox *> const &	getChilden() const;
+    AbstractBox *		getParent() const;
+    BoxType			getBoxType() const;
 
 private:
-	BoxType						_type;
-	union uniontype
-	{
-		AbstractBox*			_parent;
-		int						_level;
-	}							_topUnion;
-	std::list<AbstractBox *>    _children;
-	WindowGeometry				_geometry;
+    BoxType						_type;
+    union uniontype
+    {
+	AbstractBox*			_parent;
+	int						_level;
+    }							_topUnion;
+    std::list<AbstractBox *>    _children;
+    WindowGeometry				_geometry;
 };
 
 #endif // ABSTRACTBOX_H
