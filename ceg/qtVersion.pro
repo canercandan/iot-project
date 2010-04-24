@@ -21,7 +21,8 @@ HEADERS += includes/AbstractItem.h \
 	includes/ICommunicationGraphicalServer.h \
 	includes/IAction.h \
 	includes/ZoomAction.h \
-	includes/ClickAction.h
+	includes/ClickAction.h \
+        includes/View.h
 SOURCES += src/AbstractItem.cpp \
 	src/AbstractScene.cpp \
 	src/BoxManager.cpp \
@@ -34,7 +35,8 @@ SOURCES += src/AbstractItem.cpp \
 	src/GraphicItemFactory.cpp \
 	src/LayerManager.cpp \
 	src/ZoomAction.cpp \
-	src/ClickAction.cpp
+	src/ClickAction.cpp \
+        src/View.cpp
 unix {
 	HEADERS += includes/XWindowSystem.h
 	SOURCES += src/XWindowSystem.cpp

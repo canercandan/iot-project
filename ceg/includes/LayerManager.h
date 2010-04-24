@@ -29,7 +29,10 @@
 #include "BoxManager.h"
 #include "ICommunicationGraphicalServer.h"
 
+#include "View.h"
+
 class IAction;
+//class View;
 
 class LayerManager
 {
@@ -45,13 +48,13 @@ public:
     AbstractScene*			getCurrentLayer() const;
     ICommunicationGraphicalServer*	getComGs() const;
     BoxManager *			getBoxManager() const;
-    QGraphicsView*			getView();
+    View*				getView();
 
 private:
     void createLayers(std::list<Ceg::Window> & windows);
 
 private:
-    QGraphicsView   _view;
+    View   _view;
     std::list<AbstractScene *> _layers;
     std::list<AbstractScene *>::iterator _currentLayer;
     BoxManager * _boxManager;

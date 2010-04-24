@@ -18,6 +18,8 @@
  * Authors: CEG <ceg@ionlythink.com>, http://www.ionlythink.com
  */
 
+#include <unistd.h> // for sleep, it is gonna be replaced by Qt sleep
+
 #include <QtGui/QApplication> // debug
 #include <QDesktopWidget>
 
@@ -31,8 +33,10 @@
 #include "XWindowSystem.h"
 #endif
 
+#include "MoveAction.h"
+
 LayerManager::LayerManager() :
-	_boxManager(new BoxManager),
+    _view(this), _boxManager(new BoxManager),
 #ifdef _WIN32
 	_comGs(new Win32Explorer)
 #else
@@ -78,6 +82,23 @@ void LayerManager::start()
     this->_view.setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     this->_view.setWindowState(Qt::WindowActive | Qt::WindowFullScreen);
     this->_view.show();
+
+//     std::list<IAction*>	actList;
+
+//     actList.push_back(new MoveAction(Qt::Key_Up));
+//     actList.push_back(new MoveAction(Qt::Key_Left));
+//     actList.push_back(new MoveAction(Qt::Key_Up));
+//     actList.push_back(new MoveAction(Qt::Key_Left));
+
+//     for (std::list<IAction*>::iterator
+// 	   it = actList.begin(),
+// 	   end = actList.end();
+// 	 it != end; ++it)
+//       {
+// 	this->actionHandler(**it);
+// 	//::sleep(2);
+// 	delete *it;
+//       }
 }
 
 void LayerManager::createLayers(std::list<Ceg::Window> & windows)
@@ -110,15 +131,13 @@ ICommunicationGraphicalServer*	LayerManager::getComGs() const
     return (this->_comGs);
 }
 
-
 BoxManager *	LayerManager::getBoxManager() const
 {
     return (this->_boxManager);
 }
 
 
-QGraphicsView*	LayerManager::getView()
+View*	LayerManager::getView()
 {
   return (&this->_view);
 }
-

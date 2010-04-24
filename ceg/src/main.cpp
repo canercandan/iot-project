@@ -21,13 +21,13 @@
 #include <QtGui/QApplication>
 
 #include "LayerManager.h"
-#include "MoveAction.h"
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
     LayerManager    layerManager;
+
     layerManager.init();
     layerManager.start();
 

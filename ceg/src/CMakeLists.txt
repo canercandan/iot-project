@@ -34,6 +34,7 @@ SET(SOURCES
   ReadAction.cpp
   MoveAction.cpp
   WriteAction.cpp
+  View.cpp
 )
 
 IF(UNIX)

@@ -18,19 +18,24 @@
  * Authors: CEG <ceg@ionlythink.com>, http://www.ionlythink.com
  */
 
-#include "MoveAction.h"
-#include "LayerManager.h"
+#ifndef VIEW_H
+#define VIEW_H
 
-MoveAction::MoveAction(int key)
-  : _key(key)
-{}
+#include <QGraphicsView>
+//#include <QKeyEvent>
 
-bool	MoveAction::exec(LayerManager& lm)
+class QKeyEvent;
+class LayerManager;
+
+class View : public QGraphicsView
 {
-  IAction* action = lm.getCurrentLayer()->keyPressEvent(this->_key);
+public:
+  View(LayerManager*);
 
-  if (action != NULL)
-    return (action->exec(lm));
+  void	keyPressEvent(QKeyEvent* keyEvent);
 
-  return (true);
-}
+private:
+  LayerManager*	_lm;
+};
+
+#endif // !VIEW_H

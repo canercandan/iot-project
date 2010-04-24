@@ -18,19 +18,20 @@
  * Authors: CEG <ceg@ionlythink.com>, http://www.ionlythink.com
  */
 
-#include "MoveAction.h"
-#include "LayerManager.h"
+#include <iostream>
 
-MoveAction::MoveAction(int key)
-  : _key(key)
+#include <QKeyEvent>
+
+#include "View.h"
+#include "LayerManager.h"
+#include "MoveAction.h"
+
+View::View(LayerManager* lm)
+  : _lm(lm)
 {}
 
-bool	MoveAction::exec(LayerManager& lm)
+void	View::keyPressEvent(QKeyEvent* keyEvent)
 {
-  IAction* action = lm.getCurrentLayer()->keyPressEvent(this->_key);
-
-  if (action != NULL)
-    return (action->exec(lm));
-
-  return (true);
+  MoveAction ma(keyEvent->key());
+  this->_lm->actionHandler(ma);
 }
