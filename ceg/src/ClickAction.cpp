@@ -1,7 +1,8 @@
 #include "ClickAction.h"
 
-ClickAction::ClickAction()
-{}
+ClickAction::ClickAction(int nbClick): _nbClick()
+{
+}
 
 bool	ClickAction::exec(LayerManager&)
 {

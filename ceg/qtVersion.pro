@@ -1,47 +1,49 @@
 TEMPLATE = app
 QT += network
 LANGUAGE = C++
-TARGET = 
+TARGET =
 DEPENDPATH += . \
-    includes \
-    src
+	includes \
+	src
 INCLUDEPATH += . \
-    includes
+	includes
 HEADERS += includes/AbstractItem.h \
-    includes/AbstractScene.h \
-    includes/BoxManager.h \
-    includes/DefaultItem.h \
-    includes/Layer.h \
-    includes/Window.h \
-    includes/WindowGeometry.h \
-    includes/AbstractBox.h \
-    includes/GraphicItemFactory.h \
-    includes/LayerManager.h \
-    includes/TypeToString.hpp \
-    includes/ICommunicationGraphicalServer.h \
-    includes/IAction.h \
-    includes/ZoomAction.h
+	includes/AbstractScene.h \
+	includes/BoxManager.h \
+	includes/DefaultItem.h \
+	includes/Layer.h \
+	includes/Window.h \
+	includes/WindowGeometry.h \
+	includes/AbstractBox.h \
+	includes/GraphicItemFactory.h \
+	includes/LayerManager.h \
+	includes/TypeToString.hpp \
+	includes/ICommunicationGraphicalServer.h \
+	includes/IAction.h \
+	includes/ZoomAction.h \
+	includes/ClickAction.h
 SOURCES += src/AbstractItem.cpp \
-    src/AbstractScene.cpp \
-    src/BoxManager.cpp \
-    src/DefaultItem.cpp \
-    src/Layer.cpp \
-    src/main.cpp \
-    src/Window.cpp \
-    src/WindowGeometry.cpp \
-    src/AbstractBox.cpp \
-    src/GraphicItemFactory.cpp \
-    src/LayerManager.cpp \
-    src/ZoomAction.cpp
-unix { 
-    HEADERS += includes/XWindowSystem.h
-    SOURCES += src/XWindowSystem.cpp
+	src/AbstractScene.cpp \
+	src/BoxManager.cpp \
+	src/DefaultItem.cpp \
+	src/Layer.cpp \
+	src/main.cpp \
+	src/Window.cpp \
+	src/WindowGeometry.cpp \
+	src/AbstractBox.cpp \
+	src/GraphicItemFactory.cpp \
+	src/LayerManager.cpp \
+	src/ZoomAction.cpp \
+	src/ClickAction.cpp
+unix {
+	HEADERS += includes/XWindowSystem.h
+	SOURCES += src/XWindowSystem.cpp
 }
-win32 { 
-    HEADERS += includes/Win32Adaptor.h \
-        includes/Win32Explorer.h
-    SOURCES += src/Win32Adaptor.cpp \
-        src/Win32Explorer.cpp
+win32 {
+	HEADERS += includes/Win32Adaptor.h \
+		includes/Win32Explorer.h
+	SOURCES += src/Win32Adaptor.cpp \
+		src/Win32Explorer.cpp
 }
 win32:LIBS += "C:\Program Files\Microsoft SDKs\Windows\v7.0A\Lib\Psapi.Lib"
 CONFIG += warn_on

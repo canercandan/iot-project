@@ -6,9 +6,11 @@
 class ClickAction : public IAction
 {
 public:
-  ClickAction();
+  ClickAction(int nbClick);
 
   virtual bool	exec(LayerManager&);
+private:
+  int	_nbClick;
 };
 
 #endif // !CLICKACTION_H
