@@ -25,6 +25,8 @@ LayerManager::LayerManager() :
     this->_view.setWindowOpacity(0.5);
 }
 
+#include <qmessagebox.h>
+
 LayerManager::~LayerManager()
 {
     //std::for_each(this->_layers.begin(), this->_layers.end(), delete);
@@ -57,9 +59,10 @@ void LayerManager::start()
     this->_view.setScene(*(this->_currentLayer));
     WindowGeometry  geo = (*(this->_currentLayer))->getGeometry();
     this->_view.setGeometry(geo._x, geo._y, geo._width,geo._height);
+    this->_view.setWindowFlags(Qt::CustomizeWindowHint | Qt::FramelessWindowHint);
+    this->_view.setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    this->_view.setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     this->_view.show();
-    //sleep(1);
-    QCursor::setPos(100,100);
 }
 
 void LayerManager::createLayers(std::list<Ceg::Window> & windows)
