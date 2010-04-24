@@ -30,11 +30,22 @@ ClickAction::ClickAction(ClickType type /*= LeftClick*/)
   : _type(type)
 {}
 
+#include <iostream>
+
 bool	ClickAction::exec(LayerManager& lm)
 {
-  // lm.getComGs()
-  WindowGeometry geo = lm.getCurrentLayer()->getCurrentItem()->getBox()->getGeometry();
+  AbstractItem* ai = lm.getCurrentLayer()->getCurrentItem();
+  AbstractBox*	ab = ai->getBox();
+
+  if (ab == NULL)
+    return false;
+
+  WindowGeometry geo = ab->getGeometry();
   QCursor::setPos(geo._x + (geo._width / 2), geo._y + (geo._height / 2));
+
+  std::cout << "click" << std::endl;
+
+  lm.getView()->hide();
 
   switch (this->_type)
 	{
@@ -50,6 +61,8 @@ bool	ClickAction::exec(LayerManager& lm)
 	default:
 	  break;
 	}
+
+  lm.getView()->show();
 
   return true;
 }

@@ -25,6 +25,7 @@
 #include "View.h"
 #include "LayerManager.h"
 #include "MoveAction.h"
+#include "ClickAction.h"
 
 View::View(LayerManager* lm)
     : _lm(lm)
@@ -32,6 +33,34 @@ View::View(LayerManager* lm)
 
 void	View::keyPressEvent(QKeyEvent* keyEvent)
 {
-    MoveAction a(keyEvent->key());
-    this->_lm->actionHandler(a);
+  int	key = keyEvent->key();
+
+  switch (key)
+    {
+    case Qt::Key_Left:
+    case Qt::Key_Right:
+    case Qt::Key_Up:
+    case Qt::Key_Down:
+    case Qt::Key_Return:
+    case Qt::Key_Backspace:
+      {
+	MoveAction a(key);
+	this->_lm->actionHandler(a);
+      }
+      break;
+    case Qt::Key_0:
+      {
+	ClickAction a;
+	this->_lm->actionHandler(a);
+      }
+      break;
+    case Qt::Key_1:
+      {
+	ClickAction a(ClickAction::LeftDbClick);
+	this->_lm->actionHandler(a);
+      }
+      break;
+    default:
+      break;
+    }
 }
