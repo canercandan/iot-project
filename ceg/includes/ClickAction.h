@@ -1,11 +1,14 @@
-#ifdef CLICKACTION_H
+#ifndef CLICKACTION_H
 #define CLICKACTION_H
 
-class ClickAction
+#include "IAction.h"
+
+class ClickAction : public IAction
 {
 public:
   ClickAction();
-  ~ClickAction();
+
+  virtual bool	exec(LayerManager&);
 };
 
 #endif // !CLICKACTION_H

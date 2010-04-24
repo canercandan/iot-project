@@ -1,11 +1,14 @@
-#ifdef MOVEACTION_H
+#ifndef MOVEACTION_H
 #define MOVEACTION_H
 
-class MoveAction
+#include "IAction.h"
+
+class MoveAction : public IAction
 {
 public:
   MoveAction();
-  ~MoveAction();
+
+  virtual bool	exec(LayerManager&);
 };
 
 #endif // !MOVEACTION_H

@@ -29,6 +29,11 @@ SET(SOURCES
   AbstractBox.cpp
   GraphicItemFactory.cpp
   LayerManager.cpp
+  ZoomAction.cpp
+  ClickAction.cpp
+  ReadAction.cpp
+  MoveAction.cpp
+  WriteAction.cpp
 )
 
 IF(UNIX)

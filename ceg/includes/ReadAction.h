@@ -1,11 +1,14 @@
-#ifdef READACTION_H
+#ifndef READACTION_H
 #define READACTION_H
 
-class ReadAction
+#include "IAction.h"
+
+class ReadAction : public IAction
 {
 public:
   ReadAction();
-  ~ReadAction();
+
+  virtual bool	exec(LayerManager&);
 };
 
 #endif // !READACTION_H

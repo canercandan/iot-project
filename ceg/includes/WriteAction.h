@@ -1,11 +1,14 @@
-#ifdef WRITEACTION_H
+#ifndef WRITEACTION_H
 #define WRITEACTION_H
 
-class WriteAction
+#include "IAction.h"
+
+class WriteAction : public IAction
 {
 public:
   WriteAction();
-  ~WriteAction();
+
+  virtual bool	exec(LayerManager&);
 };
 
 #endif // !WRITEACTION_H
