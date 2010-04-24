@@ -1,18 +1,12 @@
 TEMPLATE = app
-
 QT += network
-
 LANGUAGE = C++
-
-TARGET =
-
+TARGET = 
 DEPENDPATH += . \
     includes \
     src
-
 INCLUDEPATH += . \
     includes
-
 HEADERS += includes/AbstractItem.h \
     includes/AbstractScene.h \
     includes/BoxManager.h \
@@ -25,8 +19,8 @@ HEADERS += includes/AbstractItem.h \
     includes/LayerManager.h \
     includes/TypeToString.hpp \
     includes/ICommunicationGraphicalServer.h \
-    includes/IAction.h
-
+    includes/IAction.h \
+    includes/ZoomAction.h
 SOURCES += src/AbstractItem.cpp \
     src/AbstractScene.cpp \
     src/BoxManager.cpp \
@@ -37,30 +31,22 @@ SOURCES += src/AbstractItem.cpp \
     src/WindowGeometry.cpp \
     src/AbstractBox.cpp \
     src/GraphicItemFactory.cpp \
-    src/LayerManager.cpp
-
-unix  {
-    HEADERS +=	includes/XWindowSystem.h
-    SOURCES +=  src/XWindowSystem.cpp
+    src/LayerManager.cpp \
+    src/ZoomAction.cpp
+unix { 
+    HEADERS += includes/XWindowSystem.h
+    SOURCES += src/XWindowSystem.cpp
 }
-
-win32 {
+win32 { 
     HEADERS += includes/Win32Adaptor.h \
-		includes/Win32Explorer.h
-    SOURCES +=  src/Win32Adaptor.cpp \
-		src/Win32Explorer.cpp
+        includes/Win32Explorer.h
+    SOURCES += src/Win32Adaptor.cpp \
+        src/Win32Explorer.cpp
 }
-
 win32:LIBS += "C:\Program Files\Microsoft SDKs\Windows\v7.0A\Lib\Psapi.Lib"
-
 CONFIG += warn_on
-
 DESTDIR = build
-
 OBJECTS_DIR = build
-
 MOC_DIR = moc
-
 UI_SOURCES_DIR = ui_src
-
 UI_HEADERS_DIR = ui_includes
