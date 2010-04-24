@@ -21,10 +21,11 @@
 #ifndef DEFAULTITEM_H
 #define DEFAULTITEM_H
 
+#include "AbstractItem.h"
+
 class QGraphicsItem;
 class QKeyEvent;
 
-class AbstractItem;
 class AbstractBox;
 
 class DefaultItem : public AbstractItem

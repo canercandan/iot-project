@@ -21,7 +21,7 @@
 #ifndef ABSTRACTITEM_H
 #define ABSTRACTITEM_H
 
-class QGraphicsRectItem;
+#include <QGraphicsRectItem>
 
 class AbstractBox;
 class IAction;
