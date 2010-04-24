@@ -24,7 +24,8 @@ HEADERS += includes/AbstractItem.h \
     includes/GraphicItemFactory.h \
     includes/LayerManager.h \
     includes/TypeToString.hpp \
-    includes/ICommunicationGraphicalServer.h
+    includes/ICommunicationGraphicalServer.h \
+    includes/IAction.h
 
 SOURCES += src/AbstractItem.cpp \
     src/AbstractScene.cpp \
@@ -37,7 +38,6 @@ SOURCES += src/AbstractItem.cpp \
     src/AbstractBox.cpp \
     src/GraphicItemFactory.cpp \
     src/LayerManager.cpp
-
 
 unix  {
     HEADERS +=	includes/XWindowSystem.h
