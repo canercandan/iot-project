@@ -22,6 +22,7 @@ int main(int argc, char *argv[])
 	view.setWindowFlags(Qt::CustomizeWindowHint | Qt::FramelessWindowHint);
 	view.setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 	view.setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+	view.setWindowState(Qt::WindowActive | Qt::WindowFullScreen);
 	view.show();
 
 	return (a.exec());
