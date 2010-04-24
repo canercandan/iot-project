@@ -62,6 +62,7 @@ void LayerManager::start()
     this->_view.setWindowFlags(Qt::CustomizeWindowHint | Qt::FramelessWindowHint);
     this->_view.setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     this->_view.setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    this->_view.setWindowState(Qt::WindowActive | Qt::WindowFullScreen);
     this->_view.show();
 }
 
