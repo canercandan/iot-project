@@ -21,8 +21,8 @@
 #ifndef ZOOMACTION_H
 #define ZOOMACTION_H
 
-#include "IAction.h"
-#include "BoxManager.h"
+class IAction;
+class BoxManager;
 
 class ZoomAction : public IAction
 {

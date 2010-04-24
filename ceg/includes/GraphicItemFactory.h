@@ -21,9 +21,9 @@
 #ifndef GRAPHICITEMFACTORY_H
 #define GRAPHICITEMFACTORY_H
 
-#include <QGraphicsRectItem>
+class QGraphicsRectItem;
 
-#include "AbstractBox.h"
+class AbstractBox;
 
 class GraphicItemFactory
 {

@@ -21,16 +21,20 @@
 #ifndef DEFAULTITEM_H
 #define DEFAULTITEM_H
 
-#include "AbstractItem.h"
+class QGraphicsItem;
+class QKeyEvent;
+
+class AbstractItem;
+class AbstractBox;
 
 class DefaultItem : public AbstractItem
 {
 public:
-	DefaultItem(AbstractBox * box, QGraphicsItem * parent = 0);
-   ~DefaultItem();
+    DefaultItem(AbstractBox * box, QGraphicsItem * parent = 0);
+    ~DefaultItem();
 
 protected:
-	void keyPressEvent(QKeyEvent * event);
+    void keyPressEvent(QKeyEvent * event);
 };
 
 #endif // DEFAULTITEM_H

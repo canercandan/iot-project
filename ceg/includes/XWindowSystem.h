@@ -21,7 +21,7 @@
 #ifndef XWINDOWSYSTEM_H_
 #define XWINDOWSYSTEM_H_
 
-#include "ICommunicationGraphicalServer.h"
+class ICommunicationGraphicalServer;
 
 #include <X11/Xutil.h>
 #include <X11/Xatom.h>

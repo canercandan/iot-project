@@ -20,6 +20,8 @@
 
 #include "ZoomAction.h"
 #include "LayerManager.h"
+#include "IAction.h"
+#include "BoxManager.h"
 
 ZoomAction::ZoomAction(bool zoom) : _zoom(zoom)
 {

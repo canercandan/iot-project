@@ -22,7 +22,7 @@
 
 # define WIN32ADAPTOR_H_
 
-#include "Win32Explorer.h"
+class Win32Explorer;
 
 class Win32Adaptor
 {

@@ -28,7 +28,8 @@
 #else
 #include <X11/Xlib.h>
 #endif
-#include "WindowGeometry.h"
+
+class WindowGeometry;
 
 namespace Ceg
 {
@@ -41,19 +42,19 @@ namespace Ceg
     class Window
     {
     public:
-        Window();
-        Window(WindowId, WindowGeometry const &, bool = false);
+	Window();
+	Window(WindowId, WindowGeometry const &, bool = false);
 
-        WindowId getId() const;
-        WindowGeometry const & getGeometry() const;
+	WindowId getId() const;
+	WindowGeometry const & getGeometry() const;
 
-        void setId(WindowId);
-        void setCharacteristic(WindowGeometry const &);
+	void setId(WindowId);
+	void setCharacteristic(WindowGeometry const &);
 
     private:
-        WindowId _id;
-        WindowGeometry _geometry;
-        bool _isVisible;
+	WindowId _id;
+	WindowGeometry _geometry;
+	bool _isVisible;
     };
 }
 
