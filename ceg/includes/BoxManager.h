@@ -25,10 +25,11 @@
 #include <list>
 #include <string>
 
+#include "Window.h"
+
 class QGraphicsRectItem;
 
 class AbstractBox;
-class Window;
 
 class BoxManager
 {

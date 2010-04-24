@@ -23,7 +23,7 @@
 
 #include <list>
 
-class WindowGeometry;
+#include "WindowGeometry.h"
 
 enum BoxType {DEFAULT, CUSTOM, MENU};
 
@@ -44,14 +44,14 @@ public:
     BoxType			getBoxType() const;
 
 private:
-    BoxType						_type;
+    BoxType			_type;
     union uniontype
     {
-	AbstractBox*			_parent;
-	int						_level;
-    }							_topUnion;
+	AbstractBox*		_parent;
+	int			_level;
+    }				_topUnion;
     std::list<AbstractBox *>    _children;
-    WindowGeometry				_geometry;
+    WindowGeometry		_geometry;
 };
 
 #endif // ABSTRACTBOX_H
