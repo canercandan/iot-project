@@ -104,8 +104,8 @@ bool	Win32Explorer::generateClickEvent(short int buttonID)
 {
     (void)buttonID;
 //     mouse_event(MOUSEEVENTF_ABSOLUTE|MOUSEEVENTF_MOVE|MOUSEEVENTF_LEFTDOWN,x,y,0,0);
-    mouse_event(MOUSEEVENTF_LEFTDOWN,x,y,0,0);
-    mouse_event(MOUSEEVENTF_LEFTUP,x,y,0,0);
+    mouse_event(MOUSEEVENTF_LEFTDOWN,0,0,0,0);
+    mouse_event(MOUSEEVENTF_LEFTUP,0,0,0,0);
     return (true);
 }
 
