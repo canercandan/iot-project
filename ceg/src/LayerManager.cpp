@@ -138,7 +138,7 @@ BoxManager *	LayerManager::getBoxManager() const
 }
 
 
-View*	LayerManager::getView()
+View *	LayerManager::getView()
 {
   return (&this->_view);
 }

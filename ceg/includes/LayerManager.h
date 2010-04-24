@@ -47,7 +47,7 @@ public:
     AbstractScene*			getCurrentLayer() const;
     ICommunicationGraphicalServer*	getComGs() const;
     BoxManager *			getBoxManager() const;
-    View*				getView();
+    View *				getView();
 
 private:
     void createLayers(std::list<Ceg::Window> & windows);

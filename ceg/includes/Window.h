@@ -21,6 +21,8 @@
 #ifndef WINDOW_H_
 #define WINDOW_H_
 
+#include <string>
+
 #ifdef _WIN32
 #include <windows.h>
 #include <psapi.h>		// NT only!
@@ -43,7 +45,7 @@ namespace Ceg
     {
     public:
 	Window();
-	Window(WindowId, WindowGeometry const &, bool = false);
+	Window(WindowId, WindowGeometry const &, bool = false, std::string const & = "");
 
 	WindowId getId() const;
 	WindowGeometry const & getGeometry() const;
@@ -52,6 +54,7 @@ namespace Ceg
 	void setCharacteristic(WindowGeometry const &);
 
     private:
+	std::string _programName;
 	WindowId _id;
 	WindowGeometry _geometry;
 	bool _isVisible;
