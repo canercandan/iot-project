@@ -29,29 +29,29 @@ ZoomAction::ZoomAction(bool zoom) : _zoom(zoom)
 
 bool	ZoomAction::exec(LayerManager & lm)
 {
-    AbstractScene * scene = lm.getCurrentLayer();
-    AbstractItem * currentItem = scene->getCurrentItem();
-    AbstractBox * box = currentItem->getBox();
-    std::list<QGraphicsRectItem *> graphicItems;
-    BoxManager * boxManager = lm.getBoxManager();
-    if (this->_zoom)
-    {
-	this->zoom(boxManager, box, graphicItems);
-    }
-    else
-    {
-	this->unZoom(boxManager, box, graphicItems);
-    }
-    scene->initScene(graphicItems);
-    return (true);
+	AbstractScene * scene = lm.getCurrentLayer();
+	AbstractItem * currentItem = scene->getCurrentItem();
+	AbstractBox * box = currentItem->getBox();
+	std::list<QGraphicsRectItem *> graphicItems;
+	BoxManager * boxManager = lm.getBoxManager();
+	if (this->_zoom)
+	{
+		this->zoom(boxManager, box, graphicItems);
+	}
+	else
+	{
+		this->unZoom(boxManager, box, graphicItems);
+	}
+	scene->initScene(graphicItems);
+	return (true);
 }
 
 void ZoomAction::zoom(BoxManager * boxManager, AbstractBox * box, std::list<QGraphicsRectItem *> & graphicItems)
 {
-    boxManager->getChildren(graphicItems, box);
+	boxManager->getChildren(graphicItems, box);
 }
 
 void ZoomAction::unZoom(BoxManager * boxManager, AbstractBox * box, std::list<QGraphicsRectItem *> & graphicItems)
 {
-    boxManager->getParent(graphicItems, box);
+	boxManager->getParent(graphicItems, box);
 }
