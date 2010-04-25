@@ -25,6 +25,8 @@
 
 #include "WindowGeometry.h"
 
+class IAction;
+
 enum BoxType {DEFAULT, CUSTOM, MENU};
 
 class AbstractBox
@@ -35,13 +37,15 @@ public:
 		std::list<AbstractBox*> children, WindowGeometry geometry);
     AbstractBox(BoxType boxtype, int level,
 		std::list<AbstractBox*> children, WindowGeometry geometry);
-
     ~AbstractBox();
+
+    IAction *			getAction();
+    BoxType			getBoxType() const;
+    std::list<AbstractBox *> const &	getChilden() const;
     WindowGeometry const &	getGeometry() const;
     unsigned short		getLevel() const;
-    std::list<AbstractBox *> const &	getChilden() const;
     AbstractBox *		getParent() const;
-    BoxType			getBoxType() const;
+
 
 private:
     BoxType			_type;
@@ -52,6 +56,7 @@ private:
     }				_topUnion;
     std::list<AbstractBox *>    _children;
     WindowGeometry		_geometry;
+    IAction *			_action;
 };
 
 #endif // ABSTRACTBOX_H

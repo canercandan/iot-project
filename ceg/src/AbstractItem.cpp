@@ -41,6 +41,7 @@ AbstractBox * AbstractItem::getBox() const
 
 IAction * AbstractItem::onEvent()
 {
+    //return (this->_box->getAction());
     return (new ZoomAction(true));
 }
 
