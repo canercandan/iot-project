@@ -31,7 +31,7 @@ class Layer : public AbstractScene
 public:
     Layer(Ceg::Window const &);
 
-    virtual WindowGeometry  getGeometry() const;
+    virtual QRect  getGeometry() const;
     virtual IAction * keyPressEvent(int key);
 
 private:

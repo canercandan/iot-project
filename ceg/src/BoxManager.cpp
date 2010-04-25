@@ -36,8 +36,8 @@ BoxManager::BoxManager()
 void    BoxManager::loadConf()
 {
     std::list<AbstractBox*> list1;
-    list1.push_back(new AbstractBox(DEFAULT, 0, std::list<AbstractBox*>(0), WindowGeometry(10, 10, 10, 10)));
-    list1.push_back(new AbstractBox(DEFAULT, 0, std::list<AbstractBox*>(0), WindowGeometry(50, 50, 50, 50)));
+    list1.push_back(new AbstractBox(DEFAULT, 0, std::list<AbstractBox*>(0), QRect(10, 10, 10, 10)));
+    list1.push_back(new AbstractBox(DEFAULT, 0, std::list<AbstractBox*>(0), QRect(50, 50, 50, 50)));
 }
 
 
@@ -94,20 +94,20 @@ void BoxManager::createGraphicItems(std::list<QGraphicsRectItem *> & graphicItem
     }
 }
 
-void BoxManager::calcChildren(std::list<AbstractBox *> & boxs, WindowGeometry const & geometry, unsigned short level)
+void BoxManager::calcChildren(std::list<AbstractBox *> & boxs, QRect const & geometry, unsigned short level)
 {
     int nbGrid = 3;
-    int tmpWidth = geometry._width / nbGrid;
-    int tmpHeight = geometry._height / nbGrid;
+    int tmpWidth = geometry.width() / nbGrid;
+    int tmpHeight = geometry.height() / nbGrid;
     int rows = 0;
-    int y = geometry._y;
+    int y = geometry.y();
     while (rows++ < nbGrid)
     {
 	int cols = 0;
-	qreal x = geometry._x;
+	qreal x = geometry.x();
 	while (cols++ < nbGrid)
 	{
-	    boxs.push_back(new AbstractBox(DEFAULT, level, std::list<AbstractBox*>(0), WindowGeometry(x, y, tmpWidth, tmpHeight)));
+	    boxs.push_back(new AbstractBox(DEFAULT, level, std::list<AbstractBox*>(0), QRect(x, y, tmpWidth, tmpHeight)));
 	    x += tmpWidth;
 	}
 	y += tmpHeight;
@@ -140,7 +140,7 @@ void BoxManager::calcParent(std::list<AbstractBox *> & boxs, AbstractBox * item)
     int dynamicHeight = desktop->height() / 3;
     for (int i = 0; i < level; i++)
     {
-	while ((posYtop + dynamicHeight) < item->getGeometry()._y + item->getGeometry()._height)
+	while ((posYtop + dynamicHeight) < item->getGeometry().y() + item->getGeometry().height())
 	{
 	    posYtop += dynamicHeight;
 	}
@@ -150,12 +150,12 @@ void BoxManager::calcParent(std::list<AbstractBox *> & boxs, AbstractBox * item)
     int dynamicWidth = desktop->width() / 3;
     for (int i = 0; i < level; i++)
     {
-	while ((posXtop + dynamicWidth) < item->getGeometry()._x + item->getGeometry()._width)
+	while ((posXtop + dynamicWidth) < item->getGeometry().x() + item->getGeometry().width())
 	{
 	    posXtop += dynamicWidth;
 	}
 	dynamicWidth = dynamicWidth / 3;
     }
-    this->calcChildren(boxs, WindowGeometry(posXtop, posYtop, Width, Height), item->getLevel() - 1);
+    this->calcChildren(boxs, QRect(posXtop, posYtop, Width, Height), item->getLevel() - 1);
 }
 

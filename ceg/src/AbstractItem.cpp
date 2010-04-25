@@ -28,7 +28,7 @@
 #include "IAction.h"
 
 AbstractItem::AbstractItem(AbstractBox * box, QGraphicsItem * parent) :
-	QGraphicsRectItem(box->getGeometry()._x, box->getGeometry()._y, box->getGeometry()._width, box->getGeometry()._height, parent),
+	QGraphicsRectItem(box->getGeometry().x(), box->getGeometry().y(), box->getGeometry().width(), box->getGeometry().height(), parent),
 	_color(Qt::darkBlue), _box(box)
 {
     this->setFlag(QGraphicsItem::ItemIsFocusable);

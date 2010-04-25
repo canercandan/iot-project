@@ -27,7 +27,7 @@
 
 class QGraphicsRectItem;
 
-class WindowGeometry;
+class QRect;
 class IAction;
 class AbstractItem;
 
@@ -38,7 +38,7 @@ public:
 
     virtual void initScene(std::list<QGraphicsRectItem *> & newScene);
 
-    virtual WindowGeometry  getGeometry() const = 0;
+    virtual QRect  getGeometry() const = 0;
     AbstractItem * getCurrentItem() const;
 
     virtual IAction * keyPressEvent(int key) = 0;

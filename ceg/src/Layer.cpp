@@ -23,12 +23,12 @@
 #include "ZoomAction.h" // debug
 
 Layer::Layer(Ceg::Window const & hostWindow) :
-	AbstractScene(hostWindow.getGeometry()._x, hostWindow.getGeometry()._y, hostWindow.getGeometry()._width, hostWindow.getGeometry()._height),
+	AbstractScene(hostWindow.getGeometry().x(), hostWindow.getGeometry().y(), hostWindow.getGeometry().width(), hostWindow.getGeometry().height()),
 	_host(hostWindow)
 {
 }
 
-WindowGeometry  Layer::getGeometry() const
+QRect  Layer::getGeometry() const
 {
     return (this->_host.getGeometry());
 }

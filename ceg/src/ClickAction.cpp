@@ -33,7 +33,7 @@
 
 class SleeperThread : public QThread
 {
-    public:
+public:
     static void msleep(unsigned long msecs)
     {
 	QThread::msleep(msecs);
@@ -41,44 +41,41 @@ class SleeperThread : public QThread
 };
 
 ClickAction::ClickAction(ClickType type /*= LeftClick*/)
-  : _type(type)
+    : _type(type)
 {}
 
 bool	ClickAction::exec(LayerManager& lm)
 {
-  AbstractItem* ai = lm.getCurrentLayer()->getCurrentItem();
-  AbstractBox*	ab = ai->getBox();
+    AbstractItem* ai = lm.getCurrentLayer()->getCurrentItem();
+    AbstractBox*	ab = ai->getBox();
 
-  if (ab == NULL)
-    return false;
+    if (ab == NULL)
+	return false;
 
-  WindowGeometry geo = ab->getGeometry();
-  QCursor::setPos(geo._x + (geo._width / 2), geo._y + (geo._height / 2));
+    QCursor::setPos(ab->getGeometry().center());
 
-  std::cout << "click" << std::endl;
+    lm.getView()->hide();
 
-  lm.getView()->hide();
+    //SleeperThread::msleep(1000);
 
-  //SleeperThread::msleep(1000);
-
-  switch (this->_type)
+    switch (this->_type)
     {
     case LeftClick:
     case MiddleClick:
     case RightClick:
-      lm.getComGs()->generateClickEvent(this->_type);
-      break;
+	lm.getComGs()->generateClickEvent(this->_type);
+	break;
     case LeftDbClick:
-      lm.getComGs()->generateClickEvent(LeftClick);
-      lm.getComGs()->generateClickEvent(LeftClick);
-      break;
+	lm.getComGs()->generateClickEvent(LeftClick);
+	lm.getComGs()->generateClickEvent(LeftClick);
+	break;
     default:
-      break;
+	break;
     }
 
-  SleeperThread::msleep(1000);
+    SleeperThread::msleep(1000);
 
-  lm.getView()->show();
+    lm.getView()->show();
 
-  return true;
+    return true;
 }

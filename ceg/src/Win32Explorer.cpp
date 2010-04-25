@@ -70,7 +70,7 @@ bool	Win32Explorer::getFocusedWindow(Ceg::Window & oneWindow)
     oneWindow.setId(hWnd);
     if (GetWindowInfo(hWnd, &winInfo))
     {
-	WindowGeometry loadInfo(winInfo.rcClient.left, winInfo.rcClient.top, winInfo.rcClient.right, winInfo.rcClient.bottom);
+	QRect loadInfo(winInfo.rcClient.left, winInfo.rcClient.top, winInfo.rcClient.right, winInfo.rcClient.bottom);
 	oneWindow.setCharacteristic(loadInfo);
 	std::cout << "Pos left: " << winInfo.rcClient.left << std::endl;
 	std::cout << "Pos TOP : " << winInfo.rcClient.top << std::endl;
@@ -107,7 +107,7 @@ bool	Win32Explorer::refreshWindowInfo(Ceg::Window & window)
     WINDOWINFO  winInfo;
     if (GetWindowInfo(window.getId(), &winInfo))
     {
-	WindowGeometry refreshInfo(winInfo.rcClient.left, winInfo.rcClient.top, winInfo.rcClient.right, winInfo.rcClient.bottom);
+	QRect refreshInfo(winInfo.rcClient.left, winInfo.rcClient.top, winInfo.rcClient.right, winInfo.rcClient.bottom);
 	window.setCharacteristic(refreshInfo);
 	std::cout << "Pos left: " << winInfo.rcClient.left << std::endl;
 	std::cout << "Pos TOP : " << winInfo.rcClient.top << std::endl;
@@ -142,7 +142,7 @@ BOOL	Win32Explorer::fillWindowList(HWND hWnd)
     std::cout << "Valuer hWind1: " << hWnd << std::endl;
     if (GetWindowInfo(hWnd, &winInfo))
     {
-	WindowGeometry loadInfo(winInfo.rcClient.left, winInfo.rcClient.top, winInfo.rcClient.right, winInfo.rcClient.bottom);
+	QRect loadInfo(winInfo.rcClient.left, winInfo.rcClient.top, winInfo.rcClient.right, winInfo.rcClient.bottom);
 	Ceg::Window newWindow(hWnd, loadInfo, true);
 	std::cout << "Pos left: " << winInfo.rcClient.left << std::endl;
 	std::cout << "Pos TOP : " << winInfo.rcClient.top << std::endl;

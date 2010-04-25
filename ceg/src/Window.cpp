@@ -28,7 +28,7 @@ namespace Ceg
 
     }
 
-    Window::Window(WindowId windowId, WindowGeometry const & windoInfo, bool visibility, std::string const & programName) :
+    Window::Window(WindowId windowId, QRect const & windoInfo, bool visibility, std::string const & programName) :
 	    _programName(programName), _id(windowId), _geometry(windoInfo), _isVisible(visibility)
     {
     }
@@ -38,7 +38,7 @@ namespace Ceg
 	return (this->_id);
     }
 
-    WindowGeometry const & Window::getGeometry() const
+    QRect const & Window::getGeometry() const
     {
 	return (this->_geometry);
     }
@@ -53,7 +53,7 @@ namespace Ceg
 	this->_id = id;
     }
 
-    void Window::setCharacteristic(WindowGeometry const & rhs)
+    void Window::setCharacteristic(QRect const & rhs)
     {
 	this->_geometry = rhs;
     }

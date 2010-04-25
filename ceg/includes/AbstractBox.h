@@ -23,7 +23,7 @@
 
 #include <list>
 
-#include "WindowGeometry.h"
+#include <QRect>
 
 class IAction;
 
@@ -32,17 +32,17 @@ enum BoxType {DEFAULT, CUSTOM, MENU};
 class AbstractBox
 {
 public:
-    AbstractBox(WindowGeometry geometry, BoxType boxtype);
+    AbstractBox(QRect geometry, BoxType boxtype);
     AbstractBox(BoxType boxtype, AbstractBox* _parent,
-		std::list<AbstractBox*> children, WindowGeometry geometry);
+		std::list<AbstractBox*> children, QRect geometry);
     AbstractBox(BoxType boxtype, int level,
-		std::list<AbstractBox*> children, WindowGeometry geometry);
+		std::list<AbstractBox*> children, QRect geometry);
     ~AbstractBox();
 
     IAction *			getAction();
     BoxType			getBoxType() const;
     std::list<AbstractBox *> const &	getChilden() const;
-    WindowGeometry const &	getGeometry() const;
+    QRect const &	getGeometry() const;
     unsigned short		getLevel() const;
     AbstractBox *		getParent() const;
 
@@ -55,7 +55,7 @@ private:
 	int			_level;
     }				_topUnion;
     std::list<AbstractBox *>    _children;
-    WindowGeometry		_geometry;
+    QRect		_geometry;
     IAction *			_action;
 };
 

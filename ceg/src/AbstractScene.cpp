@@ -24,7 +24,6 @@
 
 #include "AbstractScene.h"
 
-#include "WindowGeometry.h"
 #include "IAction.h"
 #include "AbstractItem.h"
 

@@ -45,7 +45,7 @@ public:
 
 private:
     void    createGraphicItems(std::list<QGraphicsRectItem *> &, std::list<AbstractBox *> & boxs);
-    void    calcChildren(std::list<AbstractBox *> &, WindowGeometry const &, unsigned short);
+    void    calcChildren(std::list<AbstractBox *> &, QRect const &, unsigned short);
     void    calcParent(std::list<AbstractBox *> &, AbstractBox *);
 
 private:

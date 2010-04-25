@@ -31,7 +31,7 @@
 #include <X11/Xlib.h>
 #endif
 
-#include "WindowGeometry.h"
+#include "QRect.h"
 
 namespace Ceg
 {
@@ -45,19 +45,19 @@ namespace Ceg
     {
     public:
 	Window();
-	Window(WindowId, WindowGeometry const &, bool = false, std::string const & = "");
+	Window(WindowId, QRect const &, bool = false, std::string const & = "");
 
 	WindowId getId() const;
-	WindowGeometry const & getGeometry() const;
+	QRect const & getGeometry() const;
 	std::string const & getProgramName() const;
 
 	void setId(WindowId);
-	void setCharacteristic(WindowGeometry const &);
+	void setCharacteristic(QRect const &);
 
     private:
 	std::string _programName;
 	WindowId _id;
-	WindowGeometry _geometry;
+	QRect _geometry;
 	bool _isVisible;
     };
 }

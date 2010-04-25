@@ -22,17 +22,17 @@
 
 #include "AbstractBox.h"
 
-#include "WindowGeometry.h"
+#include <QRect>
 
 AbstractBox::AbstractBox(BoxType boxtype, AbstractBox* parent,
-			 std::list<AbstractBox*> children, WindowGeometry geometry):
+			 std::list<AbstractBox*> children, QRect geometry):
 _type(boxtype), _children(children), _geometry(geometry), _action(0)
 {
     this->_topUnion._parent = parent;
 }
 
 AbstractBox::AbstractBox(BoxType boxtype, int level,
-			 std::list<AbstractBox*> children, WindowGeometry geometry):
+			 std::list<AbstractBox*> children, QRect geometry):
 _type(boxtype), _children(children), _geometry(geometry), _action(0)
 {
     this->_topUnion._level = level;
@@ -49,7 +49,7 @@ AbstractBox::~AbstractBox()
     }
 }
 
-WindowGeometry const & AbstractBox::getGeometry() const
+QRect const & AbstractBox::getGeometry() const
 {
     return (this->_geometry);
 }
