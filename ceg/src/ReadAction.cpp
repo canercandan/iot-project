@@ -19,11 +19,11 @@
  */
 
 #include <QWaitCondition>
+#include <QThread>
 
 #include "ReadAction.h"
 #include "LayerManager.h"
 
-#include <QThread>
 class SleeperThread : public QThread
 {
     public:

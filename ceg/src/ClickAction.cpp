@@ -18,6 +18,8 @@
  * Authors: CEG <ceg@ionlythink.com>, http://www.ionlythink.com
  */
 
+#include <iostream>
+
 #include "AbstractItem.h"
 #include "AbstractBox.h"
 #include "IAction.h"
@@ -26,11 +28,18 @@
 #include "AbstractScene.h"
 #include "ICommunicationGraphicalServer.h"
 
+class SleeperThread : public QThread
+{
+    public:
+    static void msleep(unsigned long msecs)
+    {
+	QThread::msleep(msecs);
+    }
+};
+
 ClickAction::ClickAction(ClickType type /*= LeftClick*/)
   : _type(type)
 {}
-
-#include <iostream>
 
 bool	ClickAction::exec(LayerManager& lm)
 {
