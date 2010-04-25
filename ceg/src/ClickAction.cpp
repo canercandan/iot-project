@@ -74,7 +74,7 @@ bool	ClickAction::exec(LayerManager& lm)
       break;
     }
 
-  SleeperThread::msleep(1000);
+  SleeperThread::msleep(4000);
 
   lm.getView()->show();
 

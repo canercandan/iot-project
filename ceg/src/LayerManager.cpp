@@ -75,14 +75,17 @@ void LayerManager::init()
 
 void LayerManager::start()
 {
-    this->_view.setScene(*(this->_currentLayer));
-    WindowGeometry  geo = (*(this->_currentLayer))->getGeometry();
-    this->_view.setGeometry(geo._x, geo._y, geo._width,geo._height);
-    this->_view.setWindowFlags(Qt::CustomizeWindowHint | Qt::FramelessWindowHint);
-    this->_view.setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    this->_view.setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    this->_view.setWindowState(Qt::WindowActive | Qt::WindowFullScreen);
-    this->_view.show();
+//     this->_view.setScene(*(this->_currentLayer));
+//     WindowGeometry  geo = (*(this->_currentLayer))->getGeometry();
+//     this->_view.setGeometry(geo._x, geo._y, geo._width,geo._height);
+//     this->_view.setWindowFlags(Qt::CustomizeWindowHint | Qt::FramelessWindowHint);
+//     //this->_view.setFocusPolicy(Qt::WheelFocus);
+//     this->_view.setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+//     this->_view.setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+//     this->_view.setWindowState(Qt::WindowActive | Qt::WindowFullScreen);
+
+  this->_view.init();
+  this->_view.show();
 
 //     std::list<IAction*>	actList;
 

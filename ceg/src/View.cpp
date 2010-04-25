@@ -26,10 +26,24 @@
 #include "LayerManager.h"
 #include "MoveAction.h"
 #include "ClickAction.h"
+#include "AbstractScene.h"
 
 View::View(LayerManager* lm)
     : _lm(lm)
 {}
+
+void	View::init()
+{
+  AbstractScene* as = _lm->getCurrentLayer();
+  this->setScene(as);
+  WindowGeometry geo = as->getGeometry();
+  this->setGeometry(geo._x, geo._y, geo._width, geo._height);
+  this->setWindowFlags(Qt::CustomizeWindowHint | Qt::FramelessWindowHint);
+  //this->setFocusPolicy(Qt::WheelFocus);
+  this->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+  this->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+  this->setWindowState(Qt::WindowActive | Qt::WindowFullScreen);
+}
 
 void	View::keyPressEvent(QKeyEvent* keyEvent)
 {
