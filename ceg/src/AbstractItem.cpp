@@ -57,8 +57,18 @@ void AbstractItem::focusOutEvent(QFocusEvent *)
     this->update();
 }
 
+#include <QPainter>
+#include <iostream>
 void AbstractItem::paint(QPainter * painter, const QStyleOptionGraphicsItem *, QWidget *)
 {
     painter->setBrush(this->_color);
     painter->drawRect(this->rect());
+
+//     painter->drawText(this->rect(), "MAMAN!!!");
+
+//     QPixmap pixmap("drawing.png");
+//     QRectF dest(this->rect().x(), this->rect().y(), pixmap.rect().width(), pixmap.rect().height());
+//     dest.moveCenter(this->rect().center());
+
+//     painter->drawPixmap(dest, pixmap, pixmap.rect());
 }
