@@ -49,6 +49,7 @@ namespace Ceg
 
 	WindowId getId() const;
 	WindowGeometry const & getGeometry() const;
+	std::string const & getProgramName() const;
 
 	void setId(WindowId);
 	void setCharacteristic(WindowGeometry const &);

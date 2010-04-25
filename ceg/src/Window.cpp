@@ -43,6 +43,11 @@ namespace Ceg
 	return (this->_geometry);
     }
 
+    std::string const & Window::getProgramName() const
+    {
+	return (this->_programName);
+    }
+
     void Window::setId(WindowId id)
     {
 	this->_id = id;

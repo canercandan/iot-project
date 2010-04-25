@@ -72,14 +72,6 @@ void LayerManager::init()
 
 void LayerManager::start()
 {
-    /*this->_view.setScene(*(this->_currentLayer));
-    WindowGeometry  geo = (*(this->_currentLayer))->getGeometry();
-    this->_view.setGeometry(geo._x, geo._y, geo._width,geo._height);
-    this->_view.setWindowFlags(Qt::CustomizeWindowHint | Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint);
-    this->_view.setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    this->_view.setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    this->_view.setWindowState(Qt::WindowActive | Qt::WindowFullScreen);
-    this->_view.show();*/
     this->_view.init();
     this->_view.show();
 }
@@ -93,7 +85,7 @@ void LayerManager::createLayers(std::list<Ceg::Window> & windows)
     {
 	Layer * oneLayer = new Layer(*it);
 	std::list<QGraphicsRectItem *> graphicItems;
-	this->_boxManager->getPattern("Desktop", *it, graphicItems);
+	this->_boxManager->getPattern(*it, graphicItems);
 	oneLayer->initScene(graphicItems);
 	this->_layers.push_front(oneLayer);
     }

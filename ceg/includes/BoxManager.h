@@ -39,7 +39,7 @@ public:
     void	loadConf();
 
     // recupere les fenetres pour une nouvelle fenetre
-    void getPattern(std::string const &, Ceg::Window const &, std::list<QGraphicsRectItem *> & list);
+    void getPattern(Ceg::Window const &, std::list<QGraphicsRectItem *> & list);
     void getChildren(std::list<QGraphicsRectItem *> &, AbstractBox *);
     void getParent(std::list<QGraphicsRectItem *> &, AbstractBox *);
 

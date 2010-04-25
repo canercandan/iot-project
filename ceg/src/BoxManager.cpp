@@ -41,9 +41,9 @@ void    BoxManager::loadConf()
 }
 
 
-void    BoxManager::getPattern(std::string const & programName, const Ceg::Window & aWindow, std::list<QGraphicsRectItem *> & graphicItems)
+void    BoxManager::getPattern(const Ceg::Window & aWindow, std::list<QGraphicsRectItem *> & graphicItems)
 {
-    std::map<std::string, std::list<AbstractBox *> >::iterator  itFind = this->_patterns.find(programName);
+    std::map<std::string, std::list<AbstractBox *> >::iterator  itFind = this->_patterns.find(aWindow.getProgramName());
     std::list<AbstractBox *> childrenBox;
     if (itFind != this->_patterns.end())
     {
