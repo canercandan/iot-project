@@ -31,7 +31,7 @@
 #include <X11/Xlib.h>
 #endif
 
-#include "QRect.h"
+#include <QRect>
 
 namespace Ceg
 {
