@@ -22,6 +22,7 @@
 #define WINDOW_H_
 
 #include <string>
+#include <QRect>
 
 #ifdef _WIN32
 #include <windows.h>
@@ -31,7 +32,6 @@
 #include <X11/Xlib.h>
 #endif
 
-#include <QRect>
 
 namespace Ceg
 {

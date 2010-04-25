@@ -22,7 +22,7 @@
 #include <climits>
 #include <cstdio> /* pour le debug seulement */
 #include <cstring> /* used for memset in generateEventClick */
-
+#include <QRect>
 #include "XWindowSystem.h"
 
 #include "TypeToString.hpp"
