@@ -25,7 +25,6 @@ SET(SOURCES
   Layer.cpp
   main.cpp
   Window.cpp
-  WindowGeometry.cpp
   AbstractBox.cpp
   GraphicItemFactory.cpp
   LayerManager.cpp
