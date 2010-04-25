@@ -59,6 +59,8 @@ bool	ClickAction::exec(LayerManager& lm)
 
   lm.getView()->hide();
 
+  //SleeperThread::msleep(1000);
+
   switch (this->_type)
     {
     case LeftClick:
@@ -74,7 +76,7 @@ bool	ClickAction::exec(LayerManager& lm)
       break;
     }
 
-  SleeperThread::msleep(4000);
+  SleeperThread::msleep(1000);
 
   lm.getView()->show();
 

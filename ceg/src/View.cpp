@@ -42,7 +42,7 @@ void	View::init()
   //this->setFocusPolicy(Qt::WheelFocus);
   this->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
   this->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-  this->setWindowState(Qt::WindowActive | Qt::WindowFullScreen);
+  this->setWindowState(Qt::WindowFullScreen);
 }
 
 void	View::keyPressEvent(QKeyEvent* keyEvent)
