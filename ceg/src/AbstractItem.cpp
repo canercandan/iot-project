@@ -63,12 +63,12 @@ void AbstractItem::paint(QPainter * painter, const QStyleOptionGraphicsItem *, Q
 {
     painter->setBrush(this->_color);
     painter->drawRect(this->rect());
+    //     painter->drawText(this->rect(), "MAMAN!!!");
 
-//     painter->drawText(this->rect(), "MAMAN!!!");
+    //     QPixmap pixmap("drawing.png");
+    //     QRectF dest(this->rect().x(), this->rect().y(), pixmap.rect().width(), pixmap.rect().height());
+    //     dest.moveCenter(this->rect().center());
 
-//     QPixmap pixmap("drawing.png");
-//     QRectF dest(this->rect().x(), this->rect().y(), pixmap.rect().width(), pixmap.rect().height());
-//     dest.moveCenter(this->rect().center());
+    //     painter->drawPixmap(dest, pixmap, pixmap.rect());
 
-//     painter->drawPixmap(dest, pixmap, pixmap.rect());
 }
