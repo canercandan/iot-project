@@ -18,11 +18,9 @@
  * Authors: CEG <ceg@ionlythink.com>, http://www.ionlythink.com
  */
 
-#include "Layer.h"
-
 #include "AbstractItem.h"
+#include "Layer.h"
 #include "ZoomAction.h" // debug
-
 
 Layer::Layer(Ceg::Window const & hostWindow) :
 	AbstractScene(hostWindow.getGeometry()._x, hostWindow.getGeometry()._y, hostWindow.getGeometry()._width, hostWindow.getGeometry()._height),
