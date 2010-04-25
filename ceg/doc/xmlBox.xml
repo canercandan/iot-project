@@ -1,0 +1,17 @@
+<plan>
+	<programName>Possibilite de mettre une regex, ca pourrait etre bien</programName>
+	<boxs>
+		<box>
+			<geometry>
+				<x>0</x>
+				<y>0</y>
+				<width>150</width>
+				<height>150</height>
+			</geometry>
+			<action>L'action a effectue sous forme d'Id</action>
+			<type>CUSTOM | MENUITEM | DEFAULT</type>
+			<children>des <box> dedans</children>
+			<visible>true|false</visible>
+		</box>
+	</boxs>
+</plan>

@@ -1,0 +1,15 @@
+<menu>
+	<id>Event</id>
+	<column>1</column>
+	<row>5</row>
+	<item>
+		<position>
+			<column>0</column>
+			<row>0</row>
+		</position>
+		<text>Le texte affiche, a voir comment gerer des traductions</text>
+		<font>http://doc.qt.nokia.com/4.6/qfont.html</font>
+		<image>path jusqu a l image</image>
+		<action>L'action a effectue sous forme d'Id</action>
+	</item>
+</menu>
