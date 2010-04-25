@@ -24,7 +24,8 @@ HEADERS += includes/AbstractItem.h \
     includes/ClickAction.h \
     includes/View.h \
     includes/MoveAction.h \
-    includes/ReadAction.h
+    includes/ReadAction.h \
+    includes/ActionFactory.h
 SOURCES += src/AbstractItem.cpp \
     src/AbstractScene.cpp \
     src/BoxManager.cpp \
@@ -40,7 +41,8 @@ SOURCES += src/AbstractItem.cpp \
     src/ClickAction.cpp \
     src/View.cpp \
     src/MoveAction.cpp \
-    src/ReadAction.cpp
+    src/ReadAction.cpp \
+    src/ActionFactory.cpp
 unix { 
     HEADERS += includes/XWindowSystem.h
     SOURCES += src/XWindowSystem.cpp
@@ -52,9 +54,7 @@ win32 {
         src/Win32Explorer.cpp
 }
 win32:LIBS += "C:\Program Files\Microsoft SDKs\Windows\v7.0A\Lib\Psapi.Lib"
-
 unix:LIBS += "/usr/lib/libXmu.so"
-
 CONFIG += warn_on
 DESTDIR = build
 OBJECTS_DIR = build

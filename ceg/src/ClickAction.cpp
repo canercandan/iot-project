@@ -23,10 +23,10 @@
 #include <QWaitCondition>
 #include <QThread>
 
+#include "ClickAction.h"
+
 #include "AbstractItem.h"
 #include "AbstractBox.h"
-#include "IAction.h"
-#include "ClickAction.h"
 #include "LayerManager.h"
 #include "AbstractScene.h"
 #include "ICommunicationGraphicalServer.h"

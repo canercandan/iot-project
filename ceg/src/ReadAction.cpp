@@ -22,6 +22,7 @@
 #include <QThread>
 
 #include "ReadAction.h"
+
 #include "LayerManager.h"
 
 class SleeperThread : public QThread
@@ -32,9 +33,6 @@ class SleeperThread : public QThread
 	QThread::msleep(msecs);
     }
 };
-
-ReadAction::ReadAction()
-{}
 
 bool	ReadAction::exec(LayerManager& lm)
 {

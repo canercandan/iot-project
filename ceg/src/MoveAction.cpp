@@ -19,6 +19,7 @@
  */
 
 #include "MoveAction.h"
+
 #include "LayerManager.h"
 #include "AbstractScene.h"
 

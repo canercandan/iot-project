@@ -18,11 +18,11 @@
  * Authors: CEG <ceg@ionlythink.com>, http://www.ionlythink.com
  */
 
+#include "ZoomAction.h"
+
 #include "AbstractItem.h"
 #include "AbstractScene.h"
-#include "ZoomAction.h"
 #include "LayerManager.h"
-#include "IAction.h"
 #include "BoxManager.h"
 
 ZoomAction::ZoomAction(bool zoom) : _zoom(zoom)
@@ -38,15 +38,15 @@ bool	ZoomAction::exec(LayerManager & lm)
     BoxManager * boxManager = lm.getBoxManager();
     if (this->_zoom)
     {
-        this->zoom(boxManager, box, graphicItems);
+	this->zoom(boxManager, box, graphicItems);
     }
     else
     {
-        this->unZoom(boxManager, box, graphicItems);
+	this->unZoom(boxManager, box, graphicItems);
     }
     if (!graphicItems.empty())
     {
-        scene->initScene(graphicItems);
+	scene->initScene(graphicItems);
     }
     return (true);
 }

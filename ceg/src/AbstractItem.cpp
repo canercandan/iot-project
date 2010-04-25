@@ -21,9 +21,9 @@
 #include <QGraphicsRectItem>
 #include <QPainter>
 
-#include "ZoomAction.h"
-
 #include "AbstractItem.h"
+
+#include "ZoomAction.h"
 #include "AbstractBox.h"
 #include "IAction.h"
 

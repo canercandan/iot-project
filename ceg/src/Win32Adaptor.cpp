@@ -22,6 +22,7 @@
 #include <windows.h>
 
 #include "Win32Adaptor.h"
+
 #include "Win32Explorer.h"
 
 Win32Explorer * Win32Adaptor::_instance = 0;

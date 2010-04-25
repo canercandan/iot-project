@@ -18,14 +18,12 @@
  * Authors: CEG <ceg@ionlythink.com>, http://www.ionlythink.com
  */
 
+#include <windows.h>
+#include <iostream>
+
 #include "Win32Explorer.h"
 
 #include "Win32Adaptor.h"
-
-#include <windows.h>
-
-#include <iostream>
-#include <functional>
 
 Win32Explorer::Win32Explorer()
 {

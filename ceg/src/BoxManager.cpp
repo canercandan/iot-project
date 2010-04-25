@@ -22,10 +22,11 @@
 #include <QApplication>
 #include <QGraphicsRectItem>
 
+#include "BoxManager.h"
+
 #include "AbstractBox.h"
 #include "Window.h"
 #include "GraphicItemFactory.h"
-#include "BoxManager.h"
 
 BoxManager::BoxManager()
 {
@@ -46,11 +47,11 @@ void    BoxManager::getPattern(std::string const & programName, const Ceg::Windo
     std::list<AbstractBox *> childrenBox;
     if (itFind != this->_patterns.end())
     {
-        childrenBox = itFind->second;
+	childrenBox = itFind->second;
     }
     else
     {
-        this->calcChildren(childrenBox, aWindow.getGeometry(), 0);
+	this->calcChildren(childrenBox, aWindow.getGeometry(), 0);
     }
     this->createGraphicItems(graphicItems, childrenBox);
 }
@@ -60,11 +61,11 @@ void BoxManager::getChildren(std::list<QGraphicsRectItem *> & graphicItems, Abst
     std::list<AbstractBox *> childrenBox;
     if (box->getBoxType() == DEFAULT) // mode par default
     {
-        this->calcChildren(childrenBox, box->getGeometry(), box->getLevel() + 1);
+	this->calcChildren(childrenBox, box->getGeometry(), box->getLevel() + 1);
     }
     else // mode custom
     {
-        childrenBox = box->getChilden();
+	childrenBox = box->getChilden();
     }
     this->createGraphicItems(graphicItems, childrenBox);
 }
@@ -74,11 +75,11 @@ void BoxManager::getParent(std::list<QGraphicsRectItem *> & graphicItems, Abstra
     std::list<AbstractBox *> childrenBox;
     if (box->getBoxType() == DEFAULT) // mode par default
     {
-        this->calcParent(childrenBox, box);
+	this->calcParent(childrenBox, box);
     }
     else // mode custom
     {
-        childrenBox = box->getParent()->getChilden();
+	childrenBox = box->getParent()->getChilden();
     }
     this->createGraphicItems(graphicItems, childrenBox);
 }
@@ -86,10 +87,10 @@ void BoxManager::getParent(std::list<QGraphicsRectItem *> & graphicItems, Abstra
 void BoxManager::createGraphicItems(std::list<QGraphicsRectItem *> & graphicItems, std::list<AbstractBox *> & boxs)
 {
     for (std::list<AbstractBox *>::iterator it = boxs.begin(),
-         itEnd = boxs.end();
+	 itEnd = boxs.end();
     it != itEnd; ++it)
     {
-        graphicItems.push_back(GraphicItemFactory::create(*it));
+	graphicItems.push_back(GraphicItemFactory::create(*it));
     }
 }
 
@@ -102,14 +103,14 @@ void BoxManager::calcChildren(std::list<AbstractBox *> & boxs, WindowGeometry co
     int y = geometry._y;
     while (rows++ < nbGrid)
     {
-        int cols = 0;
-        qreal x = geometry._x;
-        while (cols++ < nbGrid)
-        {
-            boxs.push_back(new AbstractBox(DEFAULT, level, std::list<AbstractBox*>(0), WindowGeometry(x, y, tmpWidth, tmpHeight)));
-            x += tmpWidth;
-        }
-        y += tmpHeight;
+	int cols = 0;
+	qreal x = geometry._x;
+	while (cols++ < nbGrid)
+	{
+	    boxs.push_back(new AbstractBox(DEFAULT, level, std::list<AbstractBox*>(0), WindowGeometry(x, y, tmpWidth, tmpHeight)));
+	    x += tmpWidth;
+	}
+	y += tmpHeight;
     }
 }
 
@@ -120,18 +121,18 @@ void BoxManager::calcParent(std::list<AbstractBox *> & boxs, AbstractBox * item)
     int level = item->getLevel();
     if (!level)
     {
-        return ;
+	return ;
     }
     level--;
     int Width = desktop->width();
     for (int i = 0; i < level; i++)
     {
-        Width = Width / 3;
+	Width = Width / 3;
     }
     int Height = desktop->height();
     for (int i = 0; i < level; i++)
     {
-        Height = Height / 3;
+	Height = Height / 3;
     }
 
     int posXtop = 0;
@@ -139,21 +140,21 @@ void BoxManager::calcParent(std::list<AbstractBox *> & boxs, AbstractBox * item)
     int dynamicHeight = desktop->height() / 3;
     for (int i = 0; i < level; i++)
     {
-        while ((posYtop + dynamicHeight) < item->getGeometry()._y + item->getGeometry()._height)
-        {
-            posYtop += dynamicHeight;
-        }
-        dynamicHeight = dynamicHeight / 3;
+	while ((posYtop + dynamicHeight) < item->getGeometry()._y + item->getGeometry()._height)
+	{
+	    posYtop += dynamicHeight;
+	}
+	dynamicHeight = dynamicHeight / 3;
     }
 
     int dynamicWidth = desktop->width() / 3;
     for (int i = 0; i < level; i++)
     {
-        while ((posXtop + dynamicWidth) < item->getGeometry()._x + item->getGeometry()._width)
-        {
-            posXtop += dynamicWidth;
-        }
-        dynamicWidth = dynamicWidth / 3;
+	while ((posXtop + dynamicWidth) < item->getGeometry()._x + item->getGeometry()._width)
+	{
+	    posXtop += dynamicWidth;
+	}
+	dynamicWidth = dynamicWidth / 3;
     }
     this->calcChildren(boxs, WindowGeometry(posXtop, posYtop, Width, Height), item->getLevel() - 1);
 }

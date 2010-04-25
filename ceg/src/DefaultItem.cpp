@@ -19,6 +19,7 @@
  */
 
 #include "DefaultItem.h"
+
 #include "AbstractBox.h"
 
 DefaultItem::DefaultItem(AbstractBox * box, QGraphicsItem * parent) :

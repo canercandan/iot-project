@@ -23,6 +23,7 @@
 #include <QKeyEvent>
 
 #include "View.h"
+
 #include "LayerManager.h"
 #include "MoveAction.h"
 #include "ClickAction.h"

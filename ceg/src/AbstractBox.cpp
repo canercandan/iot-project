@@ -20,8 +20,9 @@
 
 #include <iostream>
 
-#include "WindowGeometry.h"
 #include "AbstractBox.h"
+
+#include "WindowGeometry.h"
 
 AbstractBox::AbstractBox(BoxType boxtype, AbstractBox* parent,
 			 std::list<AbstractBox*> children, WindowGeometry geometry):

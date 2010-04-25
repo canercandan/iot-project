@@ -19,6 +19,7 @@
  */
 
 #include "GraphicItemFactory.h"
+
 #include "DefaultItem.h"
 
 

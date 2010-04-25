@@ -18,26 +18,23 @@
  * Authors: CEG <ceg@ionlythink.com>, http://www.ionlythink.com
  */
 
-#include <unistd.h> // for sleep, it is gonna be replaced by Qt sleep
-
 #include <QtGui/QApplication> // debug
 #include <QDesktopWidget>
 
 #include "LayerManager.h"
+
 #include "Layer.h" // debug
 #include "Window.h" // debug
-
+#include "BoxManager.h"
+#include "IAction.h"
 #ifdef _WIN32
 #include "Win32Explorer.h"
 #else
 #include "XWindowSystem.h"
 #endif
 
-#include "MoveAction.h"
-#include "BoxManager.h"
-
 LayerManager::LayerManager() :
-    _view(this), _boxManager(new BoxManager),
+	_view(this), _boxManager(new BoxManager),
 #ifdef _WIN32
 	_comGs(new Win32Explorer)
 #else
@@ -75,34 +72,16 @@ void LayerManager::init()
 
 void LayerManager::start()
 {
-//     this->_view.setScene(*(this->_currentLayer));
-//     WindowGeometry  geo = (*(this->_currentLayer))->getGeometry();
-//     this->_view.setGeometry(geo._x, geo._y, geo._width,geo._height);
-//     this->_view.setWindowFlags(Qt::CustomizeWindowHint | Qt::FramelessWindowHint);
-//     //this->_view.setFocusPolicy(Qt::WheelFocus);
-//     this->_view.setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-//     this->_view.setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-//     this->_view.setWindowState(Qt::WindowActive | Qt::WindowFullScreen);
-
-  this->_view.init();
-  this->_view.show();
-
-//     std::list<IAction*>	actList;
-
-//     actList.push_back(new MoveAction(Qt::Key_Up));
-//     actList.push_back(new MoveAction(Qt::Key_Left));
-//     actList.push_back(new MoveAction(Qt::Key_Up));
-//     actList.push_back(new MoveAction(Qt::Key_Left));
-
-//     for (std::list<IAction*>::iterator
-// 	   it = actList.begin(),
-// 	   end = actList.end();
-// 	 it != end; ++it)
-//       {
-// 	this->actionHandler(**it);
-// 	//::sleep(2);
-// 	delete *it;
-//       }
+    /*this->_view.setScene(*(this->_currentLayer));
+    WindowGeometry  geo = (*(this->_currentLayer))->getGeometry();
+    this->_view.setGeometry(geo._x, geo._y, geo._width,geo._height);
+    this->_view.setWindowFlags(Qt::CustomizeWindowHint | Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint);
+    this->_view.setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    this->_view.setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    this->_view.setWindowState(Qt::WindowActive | Qt::WindowFullScreen);
+    this->_view.show();*/
+    this->_view.init();
+    this->_view.show();
 }
 
 void LayerManager::createLayers(std::list<Ceg::Window> & windows)
@@ -143,5 +122,5 @@ BoxManager *	LayerManager::getBoxManager() const
 
 View *	LayerManager::getView()
 {
-  return (&this->_view);
+    return (&this->_view);
 }

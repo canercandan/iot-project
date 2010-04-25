@@ -32,13 +32,11 @@
 class ReadAction : public IAction
 {
 public:
-  ReadAction();
-
-  /**
+    /**
    * exec
    * here is the method hidding/showing ceg interface.
    */
-  virtual bool	exec(LayerManager&);
+    virtual bool	exec(LayerManager&);
 };
 
 #endif // !READACTION_H

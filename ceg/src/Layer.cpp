@@ -18,8 +18,9 @@
  * Authors: CEG <ceg@ionlythink.com>, http://www.ionlythink.com
  */
 
-#include "AbstractItem.h"
 #include "Layer.h"
+
+#include "AbstractItem.h"
 #include "ZoomAction.h" // debug
 
 
@@ -40,7 +41,7 @@ IAction * Layer::keyPressEvent(int key)
     int sizeList = items.size();
     switch (key)
     {
-    case Qt::Key_Left:
+    case Qt::Key_Left :
     case Qt::Key_Right :
 	{
 	    QGraphicsItem * focusItem = this->focusItem();
@@ -64,11 +65,11 @@ IAction * Layer::keyPressEvent(int key)
     case Qt::Key_Return :
 	{
 	    AbstractItem * focusItem = static_cast<AbstractItem *>(this->focusItem());
-            return (focusItem->onEvent());
+	    return (focusItem->onEvent());
 	}
 	break;
     case Qt::Key_Backspace :
-        return (new ZoomAction(false));
+	return (new ZoomAction(false));
 	break;
     }
     return (0);
