@@ -20,6 +20,9 @@
 
 #include <iostream>
 
+#include <QWaitCondition>
+#include <QThread>
+
 #include "AbstractItem.h"
 #include "AbstractBox.h"
 #include "IAction.h"
@@ -57,19 +60,21 @@ bool	ClickAction::exec(LayerManager& lm)
   lm.getView()->hide();
 
   switch (this->_type)
-	{
-	case LeftClick:
-	case MiddleClick:
-	case RightClick:
-	  lm.getComGs()->generateClickEvent(this->_type);
-	  break;
-	case LeftDbClick:
-	  lm.getComGs()->generateClickEvent(LeftClick);
-	  lm.getComGs()->generateClickEvent(LeftClick);
-	  break;
-	default:
-	  break;
-	}
+    {
+    case LeftClick:
+    case MiddleClick:
+    case RightClick:
+      lm.getComGs()->generateClickEvent(this->_type);
+      break;
+    case LeftDbClick:
+      lm.getComGs()->generateClickEvent(LeftClick);
+      lm.getComGs()->generateClickEvent(LeftClick);
+      break;
+    default:
+      break;
+    }
+
+  SleeperThread::msleep(1000);
 
   lm.getView()->show();
 
