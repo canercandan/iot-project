@@ -55,7 +55,7 @@ void	View::keyPressEvent(QKeyEvent* keyEvent)
     case Qt::Key_Right:
     case Qt::Key_Up:
     case Qt::Key_Down:
-    case Qt::Key_Return:
+      //case Qt::Key_Return:
     case Qt::Key_Backspace:
       {
 	MoveAction a(key);

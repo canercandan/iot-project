@@ -39,10 +39,13 @@ AbstractBox * AbstractItem::getBox() const
     return (this->_box);
 }
 
+#include "ClickAction.h"
+
 IAction * AbstractItem::onEvent()
 {
-    //return (this->_box->getAction());
-    return (new ZoomAction(true));
+  //return (this->_box->getAction());
+  return (new ZoomAction(true));
+  //return (new ClickAction(ClickAction::LeftClick));
 }
 
 void AbstractItem::focusInEvent(QFocusEvent *)
