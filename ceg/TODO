@@ -1,0 +1,4 @@
+Probleme avec les menus:
+ * sur Linux: menu apparait au dessus du ceg et lorsque l'on met le focus sur la fenetre du ceg le menu disparait.
+ * sur Windows: le menu apparait mais disparait lorsque la fenetre ceg retrouve le focus.
+
