@@ -31,7 +31,3 @@ DefaultItem::~DefaultItem()
 {
   delete this->_box;
 }
-
-void DefaultItem::keyPressEvent(QKeyEvent *) // a implementer
-{
-}
