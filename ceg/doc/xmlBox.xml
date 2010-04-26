@@ -1,5 +1,5 @@
 <plan>
-	<programName>Possibilite de mettre une regex, ca pourrait etre bien</programName>
+	<programName>Possibilite de mettre une regex</programName>
 	<boxs>
 		<box>
 			<geometry>
@@ -8,10 +8,13 @@
 				<width>150</width>
 				<height>150</height>
 			</geometry>
+			<visible>true|false</visible>
+			<opacity>les valeurs vont de 0 a 1 (en qt qreal)</opacity>
+			<colorOnFocus>une couleur a definir en hexa, string</colorOnFocus>
+			<colorOnBlur>une couleur a definir en hexa, string</colorOnBlur>
 			<action>L'action a effectue sous forme d'Id</action>
 			<type>CUSTOM | MENUITEM | DEFAULT</type>
-			<children>des <box> dedans</children>
-			<visible>true|false</visible>
+			<children ou boxs>des <box> dedans</children>
 		</box>
 	</boxs>
 </plan>
