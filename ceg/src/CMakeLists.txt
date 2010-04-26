@@ -34,6 +34,10 @@ SET(SOURCES
   MoveAction.cpp
   WriteAction.cpp
   View.cpp
+  ActionFactory.cpp
+  Menu.cpp
+  MenuItem.cpp
+  EventMenuAction.cpp
 )
 
 IF(UNIX)

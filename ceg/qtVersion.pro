@@ -1,7 +1,7 @@
 TEMPLATE = app
 QT += network
 LANGUAGE = C++
-TARGET = 
+TARGET =
 DEPENDPATH += . \
     includes \
     src
@@ -24,7 +24,10 @@ HEADERS += includes/AbstractItem.h \
     includes/View.h \
     includes/MoveAction.h \
     includes/ReadAction.h \
-    includes/ActionFactory.h
+    includes/ActionFactory.h \
+    includes/Menu.h \
+    includes/MenuItem.h \
+    includes/EventMenuAction.cpp \
 SOURCES += src/AbstractItem.cpp \
     src/AbstractScene.cpp \
     src/BoxManager.cpp \
@@ -41,11 +44,14 @@ SOURCES += src/AbstractItem.cpp \
     src/MoveAction.cpp \
     src/ReadAction.cpp \
     src/ActionFactory.cpp
-unix { 
+    src/Menu.cpp \
+    src/MenuItem.cpp \
+    src/EventMenuAction.cpp
+unix {
     HEADERS += includes/XWindowSystem.h
     SOURCES += src/XWindowSystem.cpp
 }
-win32 { 
+win32 {
     HEADERS += includes/Win32Adaptor.h \
         includes/Win32Explorer.h
     SOURCES += src/Win32Adaptor.cpp \
