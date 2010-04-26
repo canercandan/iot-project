@@ -27,7 +27,8 @@ HEADERS += includes/AbstractItem.h \
     includes/ActionFactory.h \
     includes/Menu.h \
     includes/MenuItem.h \
-    includes/EventMenuAction.cpp \
+    includes/EventMenuAction.h
+
 SOURCES += src/AbstractItem.cpp \
     src/AbstractScene.cpp \
     src/BoxManager.cpp \
@@ -43,19 +44,20 @@ SOURCES += src/AbstractItem.cpp \
     src/View.cpp \
     src/MoveAction.cpp \
     src/ReadAction.cpp \
-    src/ActionFactory.cpp
+    src/ActionFactory.cpp \
     src/Menu.cpp \
     src/MenuItem.cpp \
     src/EventMenuAction.cpp
+
 unix {
     HEADERS += includes/XWindowSystem.h
     SOURCES += src/XWindowSystem.cpp
 }
 win32 {
     HEADERS += includes/Win32Adaptor.h \
-        includes/Win32Explorer.h
+	includes/Win32Explorer.h
     SOURCES += src/Win32Adaptor.cpp \
-        src/Win32Explorer.cpp
+	src/Win32Explorer.cpp
 }
 win32:LIBS += "C:\Program Files\Microsoft SDKs\Windows\v7.0A\Lib\Psapi.Lib"
 unix:LIBS += "/usr/lib/libXmu.so"
