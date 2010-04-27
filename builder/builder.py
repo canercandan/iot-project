@@ -5,7 +5,6 @@ from PyQt4.QtCore import *
 class Box(QRect):
     def __init__(self, t_left=QPoint(), b_right=QPoint()):
         QRect.__init__(self, t_left, b_right)
-
         self.focus = 0
 
 class BuilderWidget(QtGui.QWidget):
@@ -58,6 +57,9 @@ class BuilderWidget(QtGui.QWidget):
 
     def mouseMoveEvent(self, mouseEvent):
         if self.leftButtonPressed:
+            if self.focused != 0 and self.shiftPressed == 0 and self.leftButtonPressed == 1:   # deplacer la box
+                self.focused.translate(mouseEvent.pos().x() - self.beginPos.x(), mouseEvent.pos().y() - self.beginPos.y())
+                self.beginPos = QPoint(mouseEvent.pos())
             # if self.focused:
             #     self.focused.
             self.endPos = QPoint(mouseEvent.pos())
@@ -103,7 +105,7 @@ class BuilderWidget(QtGui.QWidget):
         if self.list:
             for x in self.list:
                 if x.focus == 1:
-                    print "focus == 1"
+#                    print "focus == 1"
                     paint.setBrush(QtGui.QColor(0, 255, 0, 80))              # RVB, opacity
                     paint.drawRect(x)
                     paint.setBrush(QtGui.QColor(0, 0, 255, 80))              # RVB, opacity
