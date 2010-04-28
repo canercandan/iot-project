@@ -19,6 +19,7 @@ class BuilderWidget(QtGui.QWidget):
         self.list = []
         self.setGeometry(300, 300, 600, 600)
         self.setWindowTitle('IOT Builder')
+        self.setMouseTracking(1)
 
     def selectBox(self, pos):
         topBox = 0
@@ -40,6 +41,9 @@ class BuilderWidget(QtGui.QWidget):
                 self.focused.translate(0, -1)
             elif keyEvent.key() == QtCore.Qt.Key_Down:
                 self.focused.translate(0, 1)
+            elif keyEvent.key() == QtCore.Qt.Key_Delete and self.focused != 0:
+                self.list.remove(self.focused)
+                self.focused = 0
             self.repaint()
         if keyEvent.key() == QtCore.Qt.Key_Shift:
             self.shiftPressed = 1
@@ -55,6 +59,42 @@ class BuilderWidget(QtGui.QWidget):
         else:
             QtGui.QWidget.keyReleaseEvent(self, keyEvent)
 
+    def onEdge(self, point, Box):
+        if point.x() == Box.left():
+            if point.y() >= Box.top() and point.y() <= Box.top() + 15:
+                QtGui.QWidget.setCursor(self, Qt.SizeFDiagCursor)
+            elif point.y() <= Box.bottom() and point.y() >= Box.bottom() - 15:
+                QtGui.QWidget.setCursor(self, Qt.SizeBDiagCursor)
+            else:
+                QtGui.QWidget.setCursor(self, Qt.SizeHorCursor)
+            return 1
+        if point.x() == Box.right():
+            if point.y() >= Box.top() and point.y() <= Box.top() + 15:
+                QtGui.QWidget.setCursor(self, Qt.SizeBDiagCursor)
+            elif point.y() <= Box.bottom() and point.y() >= Box.bottom() - 15:
+                QtGui.QWidget.setCursor(self, Qt.SizeFDiagCursor)
+            else:
+                QtGui.QWidget.setCursor(self, Qt.SizeHorCursor)
+            return 1
+
+        if point.y() == Box.top():
+            if point.x() >= Box.left() and point.x() <= Box.left() + 15:
+                QtGui.QWidget.setCursor(self, Qt.SizeFDiagCursor)
+            elif point.x() <= Box.right() and point.x() >= Box.right() - 15:
+                QtGui.QWidget.setCursor(self, Qt.SizeBDiagCursor)
+            else:
+                QtGui.QWidget.setCursor(self, Qt.SizeHorCursor)
+            return 1
+        if point.y() == Box.bottom():
+            if point.x() >= Box.left() and point.x() <= Box.left() + 15:
+                QtGui.QWidget.setCursor(self, Qt.SizeBDiagCursor)
+            elif point.x() <= Box.right() and point.x() >= Box.right() - 15:
+                QtGui.QWidget.setCursor(self, Qt.SizeFDiagCursor)
+            else:
+                QtGui.QWidget.setCursor(self, Qt.SizeHorCursor)
+            return 1
+        return 0
+
     def mouseMoveEvent(self, mouseEvent):
         if self.leftButtonPressed:
             if self.focused != 0 and self.shiftPressed == 0 and self.leftButtonPressed == 1:   # deplacer la box
@@ -65,7 +105,10 @@ class BuilderWidget(QtGui.QWidget):
             self.endPos = QPoint(mouseEvent.pos())
             self.repaint()
         else:
-            QtGui.QWidget.mouseMoveEvent(self, mouseEvent)
+            for box in self.list:
+                if self.onEdge(mouseEvent.pos(), box) == 1:
+                    return
+            QtGui.QWidget.setCursor(self, Qt.ArrowCursor)
 
     def mousePressEvent(self, mouseEvent):
         if mouseEvent.button() == QtCore.Qt.LeftButton:
@@ -105,7 +148,6 @@ class BuilderWidget(QtGui.QWidget):
         if self.list:
             for x in self.list:
                 if x.focus == 1:
-#                    print "focus == 1"
                     paint.setBrush(QtGui.QColor(0, 255, 0, 80))              # RVB, opacity
                     paint.drawRect(x)
                     paint.setBrush(QtGui.QColor(0, 0, 255, 80))              # RVB, opacity
