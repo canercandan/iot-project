@@ -98,6 +98,11 @@ class BuilderWidget(QtGui.QWidget):
     def mouseMoveEvent(self, mouseEvent):
         if self.leftButtonPressed:
             if self.focused != 0 and self.shiftPressed == 0 and self.leftButtonPressed == 1:   # deplacer la box
+                #if self.cursor().shape() != Qt.ArrowCursor:
+                    #if mouseEvent.pos.x() < QRect.x(self.focused):
+                    #self.focused.setX(mouseEvent.pos.x())
+                    #self.beginPos = QPoint(mouseEvent.pos())
+                #else:
                 self.focused.translate(mouseEvent.pos().x() - self.beginPos.x(), mouseEvent.pos().y() - self.beginPos.y())
                 self.beginPos = QPoint(mouseEvent.pos())
             # if self.focused:
