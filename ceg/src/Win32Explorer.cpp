@@ -81,11 +81,11 @@ bool	Win32Explorer::getFocusedWindow(Ceg::Window & oneWindow)
     hProcess = OpenProcess(PROCESS_QUERY_INFORMATION|PROCESS_VM_READ, FALSE, dwProcessId);
     //if (!hProcess)
     //	std::cout << "ERROR WITH OPENPROCESS" <<std::endl;
-    if (::GetModuleFileNameEx(hProcess, NULL, (WCHAR *)filenameBuffer, sizeof(filenameBuffer)) > 0)
+    /*if (::GetModuleFileNameEx(hProcess, NULL, (WCHAR *)filenameBuffer, sizeof(filenameBuffer)) > 0)
     {
 	std::cout << "filenameBuffer: " << filenameBuffer << std::endl;
     }
-    else
+    else*/
 	std::cout << "MODULEFILENAME FAIL" << std::endl;
     std::cout << hWnd << ' ' << dwProcessId << '\t' << windowTitle << "\t\n\n\n" << std::endl;
     CloseHandle(hProcess);
@@ -158,11 +158,11 @@ BOOL	Win32Explorer::fillWindowList(HWND hWnd)
     //if (!hProcess)
     //	std::cout << "ERROR WITH OPENPROCESS" <<std::endl;
     char filenameBuffer[4000];
-    if (::GetModuleFileNameEx(hProcess, NULL, (WCHAR *)filenameBuffer, 4000) > 0)
+    /*if (::GetModuleFileNameEx(hProcess, NULL, (WCHAR *)filenameBuffer, 4000) > 0)
     {
 	std::cout << "filenameBuffer: " << filenameBuffer << std::endl;
     }
-    else
+    else*/
 	std::cout << "MODULEFILENAME FAIL" << std::endl;
     std::cout << hWnd << " ProcessId: " << dwProcessId << "\tWinTitle: " << windowTitle << "\t\n\n\n" << std::endl;
     CloseHandle(hProcess);

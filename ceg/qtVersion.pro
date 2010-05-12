@@ -59,7 +59,7 @@ win32 {
     SOURCES += src/Win32Adaptor.cpp \
 	src/Win32Explorer.cpp
 }
-win32:LIBS += "C:\Program Files\Microsoft SDKs\Windows\v7.0A\Lib\Psapi.Lib"
+//win32:LIBS += "C:\Program Files\Microsoft SDKs\Windows\v7.0A\Lib\Psapi.Lib"
 unix:LIBS += "/usr/lib/libXmu.so"
 CONFIG += warn_on
 DESTDIR = build

@@ -19,13 +19,14 @@
  */
 
 #include <QtGui/QApplication>
+#include <QMessageBox>
 
 #include "LayerManager.h"
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-
+    QMessageBox::information(0, "Commandes", "Left | Right arrow = Horizontal Move\nUp | Down Arrow = Vertical move\nEnter = Zoom\nBackspace = unzoom\n1 = Simple Click\nAlt + F4 = Quit");
     LayerManager    layerManager;
     layerManager.init();
     layerManager.start();
