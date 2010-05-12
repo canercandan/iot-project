@@ -1,6 +1,6 @@
 // -*- mode: c++; c-indent-level: 4; c++-member-init-indent: 8; comment-column: 35; -*-
 
-/* IOT Copyright (C) 2010 CEG development team
+/* IOT Copyleft (C) 2010 CEG development team
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2
@@ -21,7 +21,6 @@
 #include "AbstractItem.h"
 #include "Layer.h"
 #include "ZoomAction.h" // debug
-
 Layer::Layer(Ceg::Window const & hostWindow) :
 	AbstractScene(hostWindow.getGeometry().x(), hostWindow.getGeometry().y(), hostWindow.getGeometry().width(), hostWindow.getGeometry().height()),
 	_host(hostWindow)
@@ -35,40 +34,77 @@ QRect  Layer::getGeometry() const
 
 IAction * Layer::keyPressEvent(int key)
 {
-    QList<QGraphicsItem *> items =  this->items();
-    int sizeList = items.size();
-    switch (key)
+  switch (key)
     {
     case Qt::Key_Left :
+      {
+	this->_moveHorizontally();
+	break;
+      }
     case Qt::Key_Right :
-	{
-	    QGraphicsItem * focusItem = this->focusItem();
-	    int index = items.indexOf(focusItem) + 1;
-	    QList<QGraphicsItem *>::iterator it = items.begin();
-	    if (index < sizeList)
-		it += index;
-	    (*it)->setFocus();
-	}
+      {
+	this->_moveHorizontally();
 	break;
+      }
     case Qt::Key_Up :
-    case Qt::Key_Down:
-	{
-	    QGraphicsItem * focusItem = this->focusItem();
-	    int index = items.indexOf(focusItem) + 3;
-	    QList<QGraphicsItem *>::iterator it = items.begin();
-	    it += ((index < sizeList) ? index : (index - sizeList));
-	    (*it)->setFocus();
-	}
+      {
+	this->_moveVertically();
 	break;
+      }
+    case Qt::Key_Down :
+      {
+	this->_moveVertically();
+ 	break;
+      }
     case Qt::Key_Return :
-	{
-	    AbstractItem * focusItem = static_cast<AbstractItem *>(this->focusItem());
-	    return (focusItem->onEvent());
-	}
-	break;
+      {
+	AbstractItem * focusItem = static_cast<AbstractItem *>(this->focusItem());
+	return (focusItem->onEvent());
+      }
+      break;
     case Qt::Key_Backspace :
 	return (new ZoomAction(false));
 	break;
     }
     return (0);
+}
+
+//chris, yann => Methodes Temporaire, se servir des IActions par la suite
+void	Layer::_moveVertically() const
+{
+  QList<QGraphicsItem *> items =  this->items();
+  int sizeList = items.size();
+  QGraphicsItem * focusItem = this->focusItem();
+  int index = items.indexOf(focusItem) + 3;
+  QList<QGraphicsItem *>::iterator it = items.begin();
+  it += ((index < sizeList) ? index : (index - sizeList));
+  (*it)->setFocus();
+}
+
+
+void	Layer::_moveHorizontally() const
+{
+#if defined(Q_WS_WIN)
+  QList<QGraphicsItem *> items =  this->items();
+  QList<QGraphicsItem *>::iterator it = items.begin();
+  QGraphicsItem * focusItem = this->focusItem();
+  int sizeList = items.size();
+  int index = items.indexOf(focusItem);
+  ++index;
+  if (index < sizeList)
+    it += index;
+  (*it)->setFocus();
+#elif defined(Q_WS_X11)
+   QList<QGraphicsItem *> items =  this->items();
+   QList<QGraphicsItem *>::iterator it = items.begin();
+   QList<QGraphicsItem *>::iterator itend = items.end();
+   QGraphicsItem * focusItem = this->focusItem();
+   int sizeList = items.size();
+   int index = items.indexOf(focusItem);
+   --index;
+  if (index < 0)
+      index += sizeList;
+  it += index;
+  (*it)->setFocus();
+#endif
 }

@@ -35,6 +35,10 @@ public:
     virtual IAction * keyPressEvent(int key);
 
 private:
+  void	_moveVertically() const;
+  void	_moveHorizontally() const;
+
+private:
     Ceg::Window _host;
 };
 
