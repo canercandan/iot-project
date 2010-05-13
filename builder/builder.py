@@ -11,6 +11,8 @@ class BuilderWidget(QtGui.QWidget):
     def __init__(self, parent=None):
         QtGui.QWidget.__init__(self, parent)
 
+        self.tolerence = 0
+        self.curs = 0
         self.focused = 0
         self.shiftPressed = 0
         self.leftButtonPressed = 0
@@ -61,52 +63,92 @@ class BuilderWidget(QtGui.QWidget):
 
     def onEdge(self, point, Box):
         if point.x() == Box.left():
-            if point.y() >= Box.top() and point.y() <= Box.top() + 15:
+            if point.y() >= Box.top() and point.y() <= Box.top() + self.tolerence:
                 QtGui.QWidget.setCursor(self, Qt.SizeFDiagCursor)
-            elif point.y() <= Box.bottom() and point.y() >= Box.bottom() - 15:
+                self.curs = 1
+            elif point.y() <= Box.bottom() and point.y() >= Box.bottom() - self.tolerence:
                 QtGui.QWidget.setCursor(self, Qt.SizeBDiagCursor)
+                self.curs = 7
             else:
                 QtGui.QWidget.setCursor(self, Qt.SizeHorCursor)
+                self.curs = 8
             return 1
         if point.x() == Box.right():
-            if point.y() >= Box.top() and point.y() <= Box.top() + 15:
+            if point.y() >= Box.top() and point.y() <= Box.top() + self.tolerence:
                 QtGui.QWidget.setCursor(self, Qt.SizeBDiagCursor)
-            elif point.y() <= Box.bottom() and point.y() >= Box.bottom() - 15:
+                self.curs = 3
+            elif point.y() <= Box.bottom() and point.y() >= Box.bottom() - self.tolerence:
                 QtGui.QWidget.setCursor(self, Qt.SizeFDiagCursor)
+                self.curs = 5
             else:
                 QtGui.QWidget.setCursor(self, Qt.SizeHorCursor)
+                self.curs = 4
             return 1
 
         if point.y() == Box.top():
-            if point.x() >= Box.left() and point.x() <= Box.left() + 15:
+            if point.x() >= Box.left() and point.x() <= Box.left() + self.tolerence:
                 QtGui.QWidget.setCursor(self, Qt.SizeFDiagCursor)
-            elif point.x() <= Box.right() and point.x() >= Box.right() - 15:
+                self.curs = 1
+            elif point.x() <= Box.right() and point.x() >= Box.right() - self.tolerence:
                 QtGui.QWidget.setCursor(self, Qt.SizeBDiagCursor)
+                self.curs = 3
             else:
-                QtGui.QWidget.setCursor(self, Qt.SizeHorCursor)
+                QtGui.QWidget.setCursor(self, Qt.SizeVerCursor)
+                self.curs = 2
             return 1
         if point.y() == Box.bottom():
-            if point.x() >= Box.left() and point.x() <= Box.left() + 15:
+            if point.x() >= Box.left() and point.x() <= Box.left() + self.tolerence:
                 QtGui.QWidget.setCursor(self, Qt.SizeBDiagCursor)
-            elif point.x() <= Box.right() and point.x() >= Box.right() - 15:
+                self.curs = 7
+            elif point.x() <= Box.right() and point.x() >= Box.right() - self.tolerence:
                 QtGui.QWidget.setCursor(self, Qt.SizeFDiagCursor)
+                self.curs = 5
             else:
-                QtGui.QWidget.setCursor(self, Qt.SizeHorCursor)
+                QtGui.QWidget.setCursor(self, Qt.SizeVerCursor)
+                self.curs = 6
             return 1
+        self.curs = 0
         return 0
+
+## 1     2     3
+##
+## 8 self.curs 4
+##
+## 7     6     5
 
     def mouseMoveEvent(self, mouseEvent):
         if self.leftButtonPressed:
-            if self.focused != 0 and self.shiftPressed == 0 and self.leftButtonPressed == 1:   # deplacer la box
-                #if self.cursor().shape() != Qt.ArrowCursor:
-                    #if mouseEvent.pos.x() < QRect.x(self.focused):
-                    #self.focused.setX(mouseEvent.pos.x())
-                    #self.beginPos = QPoint(mouseEvent.pos())
-                #else:
-                self.focused.translate(mouseEvent.pos().x() - self.beginPos.x(), mouseEvent.pos().y() - self.beginPos.y())
+            if self.focused != 0 and self.shiftPressed == 0 and self.leftButtonPressed == 1:
+                offset_x = mouseEvent.pos().x() - self.beginPos.x()
+                offset_y = mouseEvent.pos().y() - self.beginPos.y()
+                if self.curs ==  0:                    # deplacer la box
+                    self.focused.translate(offset_x, offset_y)
+                else:
+                    topl = self.focused.topLeft()
+                    botr = self.focused.bottomRight()
+                    ind = self.list.index(self.focused)
+                    if self.curs == 2 or self.curs == 1 or self.curs == 3: #resize higher border
+                        topl.setY(mouseEvent.pos().y())
+                    if self.curs == 6 or self.curs == 7 or self.curs == 5: #resize bottom border
+                        botr.setY(mouseEvent.pos().y())
+                    if self.curs == 8 or self.curs == 1 or self.curs == 7: #resize left border
+                        topl.setX(mouseEvent.pos().x())
+                    if self.curs == 4 or self.curs == 3 or self.curs == 5: #resize right border
+                        botr.setX(mouseEvent.pos().x())
+                    if topl.x() >= botr.x():
+                        tmp = topl.x()
+                        topl.setX(botr.x())
+                        botr.setX(tmp)
+                    if topl.y() >= botr.y():
+                        tmp = topl.y()
+                        topl.setY(botr.y())
+                        botr.setY(tmp)
+                    self.list[ind].setTopLeft(topl)
+                    self.list[ind].setBottomRight(botr)
+                    self.onEdge(mouseEvent.pos(), self.list[ind])
+                    
                 self.beginPos = QPoint(mouseEvent.pos())
-            # if self.focused:
-            #     self.focused.
+
             self.endPos = QPoint(mouseEvent.pos())
             self.repaint()
         else:
