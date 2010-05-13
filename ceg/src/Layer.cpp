@@ -69,7 +69,7 @@ IAction * Layer::keyPressEvent(int key)
     return (0);
 }
 
-//chris, yann => Methodes Temporaire, se servir des IActions par la suite
+//chris, yann => Methodes temporaires, se servir des IActions par la suite
 void	Layer::_moveVertically() const
 {
   QList<QGraphicsItem *> items =  this->items();
@@ -81,20 +81,20 @@ void	Layer::_moveVertically() const
   (*it)->setFocus();
 }
 
-
+//chris, yann => Methodes temporaires, se servir des IActions par la suite
 void	Layer::_moveHorizontally() const
 {
-#if defined(Q_WS_WIN)
-  QList<QGraphicsItem *> items =  this->items();
-  QList<QGraphicsItem *>::iterator it = items.begin();
-  QGraphicsItem * focusItem = this->focusItem();
-  int sizeList = items.size();
-  int index = items.indexOf(focusItem);
-  ++index;
-  if (index < sizeList)
-    it += index;
-  (*it)->setFocus();
-#elif defined(Q_WS_X11)
+// #if defined(Q_WS_WIN)
+//   QList<QGraphicsItem *> items =  this->items();
+//   QList<QGraphicsItem *>::iterator it = items.begin();
+//   QGraphicsItem * focusItem = this->focusItem();
+//   int sizeList = items.size();
+//   int index = items.indexOf(focusItem);
+//   ++index;
+//   if (index < sizeList)
+//     it += index;
+//   (*it)->setFocus();
+// #elif defined(Q_WS_X11)
    QList<QGraphicsItem *> items =  this->items();
    QList<QGraphicsItem *>::iterator it = items.begin();
    QList<QGraphicsItem *>::iterator itend = items.end();
@@ -106,5 +106,5 @@ void	Layer::_moveHorizontally() const
       index += sizeList;
   it += index;
   (*it)->setFocus();
-#endif
+  //#endif
 }
