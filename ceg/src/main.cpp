@@ -1,6 +1,6 @@
 // -*- mode: c++; c-indent-level: 4; c++-member-init-indent: 8; comment-column: 35; -*-
 
-/* IOT Copyright (C) 2010 CEG development team
+/* IOT Copyleft (C) 2010 CEG development team
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2
