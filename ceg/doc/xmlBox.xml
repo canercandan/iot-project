@@ -12,7 +12,13 @@
 			<opacity>les valeurs vont de 0 a 1 (en qt qreal)</opacity>
 			<colorOnFocus>une couleur a definir en hexa, string</colorOnFocus>
 			<colorOnBlur>une couleur a definir en hexa, string</colorOnBlur>
-			<action>L'action a effectue sous forme d'Id</action>
+			<action>L'action a effectue sous forme d'Id
+				<id>Click<id>
+				<param>
+					<name>Nom du parametre</name>
+					<value>value</value>
+				</param>
+			</action>
 			<type>CUSTOM | MENUITEM | DEFAULT</type>
 			<children ou boxs>des <box> dedans</children>
 		</box>
