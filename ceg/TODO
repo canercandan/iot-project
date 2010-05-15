@@ -2,3 +2,8 @@ Probleme avec les menus:
  * sur Linux: menu apparait au dessus du ceg et lorsque l'on met le focus sur la fenetre du ceg le menu disparait.
  * sur Windows: le menu apparait mais disparait lorsque la fenetre ceg retrouve le focus.
 
+Il faudrait utiliser le track de l eip s'il en existe un pour reporter les bugs
+pour window on peut difficilement y faire quelquechose les menus sont un probleme.
+
+from regis : si tu appuyes enormement sur entre ca crash au bout d un moment
+
