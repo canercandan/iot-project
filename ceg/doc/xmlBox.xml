@@ -1,5 +1,5 @@
 <plan>
-	<programName>Possibilite de mettre une regex</programName>
+	<programName | ID>Possibilite de mettre une regex</programName>
 	<boxs>
 		<box>
 			<geometry>
@@ -19,6 +19,10 @@
 					<value>value</value>
 				</param>
 			</action>
+			<content>
+				<image>path to l image</image>
+				<text>le texte ...</text>
+			</content>
 			<type>CUSTOM | MENUITEM | DEFAULT</type>
 			<children ou boxs>des <box> dedans</children>
 		</box>

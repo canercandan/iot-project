@@ -17,7 +17,3 @@ player :
 builder:
 -fournir version standalone du binaire
 -ajouter la doc du builder a la doc utilisateur et technique
-
-ceg:
-.couche réseau
-
