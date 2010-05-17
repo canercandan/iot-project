@@ -1,24 +1,49 @@
--------------------------------------------------- CEG --------------------------------------------------------------------------
-- Multi-langue (ALL to discuss)
+-------------------------------------------------- ALL --------------------------------------------------------------------------
+- Doxygen (ALL)
+- Multi-langue des applis(ALL to discuss)
 - Utilite des differents types d'item ? (ALL to discuss) : suffisament generique etudier la necessite de les garders
+- Utiliser le track pour les bugs
+
+-------------------------------------------------- WEB --------------------------------------------------------------------------
+- Add link vers sources (ANTOINE)
+
+-------------------------------------------------- DOC --------------------------------------------------------------------------
+- Mettre a jour la doc (LAMINE + OTHERS)
+- Ajouter la doc du builder a la doc utilisateur et technique (RICHARD)
+- Binding svn yann.renard (??)
+
+-------------------------------------------------- Packaging --------------------------------------------------------------------
+- Faire un installeur  windows (ceg + player + builder)(KARIM || CHRIS)
+- Fournir metapackage + sources debian packaging yann.renard(TUG)
+- Faire packaging debian (ceg + player + builder)(TUG?)
+
+-------------------------------------------------- BUILDER ----------------------------------------------------------------------
+- Fournir version standalone du binaire.
+
+-------------------------------------------------- Player -----------------------------------------------------------------------
+- Retirer dependance ogre.
+- Interface de chargement scénarios.
+
+-------------------------------------------------- OpenEEG -----------------------------------------------------------------------
+- ...
+
+-------------------------------------------------- CEG --------------------------------------------------------------------------
+
 - Definir l opacite sur les items (YANN) plutot que sur la View
 - Rajout le code neccessaire pour gerer toutes les possibilite sur les box (CANER + YANN) : du genre une image, les couleurs, du texte
 - Parsing XML + faire la DTD qui va bien (CHRIS) : D'abord le xml des box, on verra par la suite pour sauvegarder les configurations du CEG (reseau, couleurs ...) .
 - Solution pour la creation des Iactions provenant du xml (CHRIS + YANN) : reflechir sur comment faire et peut etre integrer les iactions dans les dll loader au demarrage...
 - Finaliser le Cmake (CANER)
-- Régler le problème du segfault avec mingw sur windows. (ALL) Erreur système, la solution de rechange est de compiler QT à la main.
 - Reseau (CANER) : reception de packet + parsing RFB et creation des Iaction correspondantes .
 - Gestion correcte des mouvements (YAVUZ) : gerer correctement le deplacement entre les box pour les menus, box default et custom.
 - Menu (YAVUZ + YANN) : pas sur qu il y ait grand chose selon la solution choisie.
 - Systray (LAMINE).
 - Menus de preferences (LAMINE + TUG) : Réglage de Préférence réseau (proxy), Configuration du CEG (reglage de l'Opacite, de la couleur des boxs lors du focus et de la perte de focus.
 - Terminer le communication avec le serveur Graphique (YAVUZ + YANN) : facile a terminer sur windows (faire du code propre neamoins!) + plus relou sur Linux
-- Creation de l'installeur (KARIM + CHRIS) : demander des infos sur ce qu'il faut utiliser a CHRIS.
 - Trouver comment récupérer les infos utiles (navigateur par défaut, client mail...) (LAMINE).
 - Creation du clavier virtuel faire des test de simulation de touches. (?)
 - Faire des test de compatibilite sur des archis exotiques (que personne utilise) : freebsd, mac os , sunOS et bien d'autre
-- Doxygen (ALL)
-- Mettre a jour la doc (LAMINE + OTHERS)
+- Régler le problème du segfault avec mingw sur windows. (ALL) Erreur système, la solution de rechange est de compiler QT à la main.
 
 -------------------------------------------------- PLUGIN VNC --------------------------------------------------------------------------
 
@@ -34,8 +59,6 @@
 Probleme avec les menus:
  * sur Linux: menu apparait au dessus du ceg et lorsque l'on met le focus sur la fenetre du ceg le menu disparait.
  * sur Windows: le menu apparait mais disparait lorsque la fenetre ceg retrouve le focus.
-
-Il faudrait utiliser le track de l eip s'il en existe un pour reporter les bugs
 pour window on peut difficilement y faire quelquechose les menus sont un probleme.
 
 from regis : si tu appuyes enormement sur entre ca crash au bout d un moment
@@ -45,6 +68,6 @@ from regis : si tu appuyes enormement sur entre ca crash au bout d un moment
 - Cmake
 - Microsoft SDK (pour le psapi.lib a voir)
 
-
-PS : Pour voir si vous lisez jusqu au bout, ca sera la recompense :
+----------------------------------------------------LINKS-------------------------------------------------------------------
 http://www.supertangas.com/
+http://www.howtoNinja.com/karim.html

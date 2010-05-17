@@ -58,6 +58,10 @@ LayerManager::~LayerManager()
     delete this->_comGs;
 }
 
+/*
+**
+**
+*/
 void LayerManager::init()
 {
     std::list<Ceg::Window>  windows;
