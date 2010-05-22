@@ -18,8 +18,6 @@
  * Authors: CEG <ceg@ionlythink.com>, http://www.ionlythink.com
  */
 
-#include <iostream>
-
 #include <QKeyEvent>
 
 #include "View.h"

@@ -1,7 +1,7 @@
 TEMPLATE = app
 QT += network
 LANGUAGE = C++
-TARGET = 
+TARGET =
 DEPENDPATH += . \
     includes \
     src
@@ -27,7 +27,9 @@ HEADERS += includes/AbstractItem.h \
     includes/ActionFactory.h \
     includes/Menu.h \
     includes/MenuItem.h \
-    includes/EventMenuAction.h
+    includes/EventMenuAction.h \
+    includes/Systray.h
+
 SOURCES += src/AbstractItem.cpp \
     src/AbstractScene.cpp \
     src/BoxManager.cpp \
@@ -46,19 +48,23 @@ SOURCES += src/AbstractItem.cpp \
     src/ActionFactory.cpp \
     src/Menu.cpp \
     src/MenuItem.cpp \
-    src/EventMenuAction.cpp
-unix { 
+    src/EventMenuAction.cpp \
+    src/Systray.cpp
+
+unix {
     HEADERS += includes/XWindowSystem.h
     SOURCES += src/XWindowSystem.cpp
-}
-win32 { 
-    HEADERS += includes/Win32Adaptor.h \
-        includes/Win32Explorer.h
-    SOURCES += src/Win32Adaptor.cpp \
-        src/Win32Explorer.cpp
-}
 //win32:LIBS += "C:\Program Files\Microsoft SDKs\Windows\v7.0A\Lib\Psapi.Lib"
+}
+win32 {
+    HEADERS += includes/Win32Adaptor.h \
+	includes/Win32Explorer.h
+    SOURCES += src/Win32Adaptor.cpp \
+	src/Win32Explorer.cpp
 unix:LIBS += "/usr/lib/libXmu.so"
+}
+
+
 CONFIG += warn_on
 DESTDIR = build
 OBJECTS_DIR = build

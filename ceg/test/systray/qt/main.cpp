@@ -12,6 +12,5 @@ int	main(int argc, char *argv[])
     }
 
   Systray window;
-  window.show();
   return app.exec();
 }
