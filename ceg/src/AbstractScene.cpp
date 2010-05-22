@@ -32,11 +32,12 @@ AbstractScene::AbstractScene(qreal x, qreal y, qreal width, qreal height, QObjec
 {
 }
 
+#include <QDebug>
 void AbstractScene::initScene(std::list<QGraphicsRectItem *> &newScene)
 {
     this->clearScene();
-    std::list<QGraphicsRectItem *>::const_iterator  it = newScene.begin();
-    std::list<QGraphicsRectItem *>::const_iterator  itEnd = newScene.end();
+    std::list<QGraphicsRectItem *>::const_reverse_iterator  it = newScene.rbegin();
+    std::list<QGraphicsRectItem *>::const_reverse_iterator  itEnd = newScene.rend();
 
     for (; it != itEnd; ++it)
     {

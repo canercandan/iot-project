@@ -73,13 +73,45 @@ IAction * Layer::keyPressEvent(int key)
 void	Layer::_moveVertically() const
 {
   QList<QGraphicsItem *> items =  this->items();
-  int sizeList = items.size();
   QGraphicsItem * focusItem = this->focusItem();
-  int index = items.indexOf(focusItem) + 3;
   QList<QGraphicsItem *>::iterator it = items.begin();
-  it += ((index < sizeList) ? index : (index - sizeList));
-  (*it)->setFocus();
+  QList<QGraphicsItem *>::iterator tmpIt = it;
+  QRectF currentRectF = focusItem->boundingRect();
+  QRectF tmpRectF;
+  int sizeList = items.size();
+  int index = items.indexOf(focusItem);
+  int i = 0;
+  bool haveRect = false;
+
+  index++;
+  currentRectF.setHeight(this->getGeometry().height());
+  currentRectF.setWidth(currentRectF.width());
+  currentRectF.setX(currentRectF.x());
+  currentRectF.setY(0);
+  while (i < sizeList && !haveRect)
+  {
+      index = ((index < sizeList) ? index : (index - sizeList));
+      tmpIt = it;
+      tmpIt += index;
+      tmpRectF = (*tmpIt)->boundingRect();
+      if (currentRectF.intersects(tmpRectF))
+          haveRect = true;
+      index++;
+      i++;
+  }
+  if (haveRect)
+      (*tmpIt)->setFocus();
+  else
+  {
+      index = items.indexOf(focusItem) + 1;
+      index = ((index < sizeList) ? index : (index - sizeList));
+      it += index;
+      (*it)->setFocus();
+  }
+
 }
+
+#include <QDebug>
 
 //chris, yann => Methodes temporaires, se servir des IActions par la suite
 void	Layer::_moveHorizontally() const
@@ -97,14 +129,21 @@ void	Layer::_moveHorizontally() const
 // #elif defined(Q_WS_X11)
    QList<QGraphicsItem *> items =  this->items();
    QList<QGraphicsItem *>::iterator it = items.begin();
-   QList<QGraphicsItem *>::iterator itend = items.end();
    QGraphicsItem * focusItem = this->focusItem();
    int sizeList = items.size();
    int index = items.indexOf(focusItem);
-   --index;
-  if (index < 0)
-      index += sizeList;
-  it += index;
-  (*it)->setFocus();
+   index++;
+   if (index >= sizeList)
+       index = 0;
+   it += index;
+   (*it)->setFocus();
+   if (focusItem->x() > (*it)->x())
+   {
+     this->_printMenuEvent();
+   }
   //#endif
 }
+
+// Methode qui va faire appel a l'affichage du menu !
+void    Layer::_printMenuEvent() const
+{}

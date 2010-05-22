@@ -37,6 +37,7 @@ public:
 private:
   void	_moveVertically() const;
   void	_moveHorizontally() const;
+  void  _printMenuEvent() const;
 
 private:
     Ceg::Window _host;
