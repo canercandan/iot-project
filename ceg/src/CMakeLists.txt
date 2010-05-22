@@ -1,21 +1,4 @@
-SET(QT_USE_QTNETWORK TRUE)
-
-# see http://cmake.org/cmake/help/cmake2.6docs.html#module:FindQt4 for a complete list
-
-INCLUDE(${QT_USE_FILE})
-
-INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/includes)
-
-IF(UNIX)
-  INCLUDE(FindX11)
-  INCLUDE_DIRECTORIES(${X11_INCLUDE_DIR})
-  LINK_DIRECTORIES(${X11_LIBRARY_DIRS})
-
-  IF (CMAKE_COMPILER_IS_GNUCXX)
-    SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -W -Wall -Wextra")# -Weffc++")
-    SET(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -g3")
-  ENDIF()
-ENDIF()
+# this file create binary of CEG in including all sources files
 
 SET(SOURCES
   AbstractItem.cpp

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xmlbox programeName="test">
+  <boxes>
+    <!-- colorOnFocus: une couleur a definir en hexa, string -->
+    <!-- colorOnBlur: une couleur a definir en hexa, string -->
+    <!-- type: CUSTOM | MENUITEM | DEFAULT -->
+    <box visible="true" opacity="1"
+	 colorOnFocus="" colorOnBlur=""
+	 type="CUSTOM" children="NULL"
+	 x="0" y="0"
+	 width="150" height="150" height="344">
+      <action id="Click">
+	<param name="param1">value</param>
+	<param name="param2">value</param>
+	<param name="param3">value</param>
+      </action>
+      <content image="...">le texte ...</content>
+    </box>
+
+    <box visible="true" opacity="1"
+	 colorOnFocus="" colorOnBlur=""
+	 type="CUSTOM" children="NULL"
+	 x="0" y="0"
+	 width="150" height="150">
+      <action id="Click">
+	<param name="param1">value</param>
+	<param name="param2">value</param>
+	<param name="param3">value</param>
+      </action>
+      <content image="...">le texte ...</content>
+    </box>
+
+  </boxes>
+</xmlbox>
