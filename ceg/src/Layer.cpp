@@ -77,7 +77,6 @@ void	Layer::_moveVertically() const
   QList<QGraphicsItem *>::iterator it = items.begin();
   QList<QGraphicsItem *>::iterator tmpIt = it;
   QRectF currentRectF = focusItem->boundingRect();
-  QRectF tmpRectF;
   int sizeList = items.size();
   int index = items.indexOf(focusItem);
   int i = 0;
@@ -90,6 +89,7 @@ void	Layer::_moveVertically() const
   currentRectF.setY(0);
   while (i < sizeList && !haveRect)
   {
+      QRectF tmpRectF;
       index = ((index < sizeList) ? index : (index - sizeList));
       tmpIt = it;
       tmpIt += index;
