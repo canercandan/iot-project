@@ -37,7 +37,7 @@
 - Menu (YAVUZ + YANN) : pas sur qu il y ait grand chose selon la solution choisie.
 - Systray (LAMINE).
 - Menus de preferences (LAMINE + TUG) : Réglage de Préférence réseau (proxy), Configuration du CEG (reglage de l'Opacite, de la couleur des boxs lors du focus et de la perte de focus.
-- Terminer le communication avec le serveur Graphique (YAVUZ + YANN) : facile a terminer sur windows (faire du code propre neamoins!) + plus relou sur Linux
+- Terminer le communication avec le serveur Graphique (YAVUZ + YANN) : facile a terminer sur windows + plus relou sur Linux
 - Trouver comment récupérer les infos utiles (navigateur par défaut, client mail...) (LAMINE).
 - Creation du clavier virtuel faire des test de simulation de touches. (?)
 - Faire des test de compatibilite sur des archis exotiques (que personne utilise) : freebsd, mac os , sunOS et bien d'autre
