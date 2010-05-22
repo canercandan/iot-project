@@ -22,77 +22,136 @@
 
 // we are reading the file in using SAX
 
+#include <iostream>
+
+#include <QFile>
+#include <QList>
 #include <QtGui>
 #include <QtXml>
 
-class XmlBoxParser : public QXmlDefaultHandler
+class XmlBox
 {
 public:
-  bool startDocument()
+  XmlBox(QString visible = "", QString opacity = "",
+	 QString type = "", QString x = "", QString y = "",
+	 QString width = "", QString height = "")
+    : _visible(visible), _opacity(opacity), _type(type),
+      _x(x), _y(y), _width(width), _height(height)
+  {}
+
+  XmlBox(const QDomElement& e)
   {
-    _inXmlBox = false;
-    return true;
+    _visible = e.attribute("visible", "");
+    _opacity = e.attribute("opacity", "");
+    _type = e.attribute("type", "");
+    _x = e.attribute("x", "");
+    _y = e.attribute("y", "");
+    _width = e.attribute("width", "");
+    _height = e.attribute("height", "");
   }
 
-  bool endDocument(const QString&, const QString&, const QString& name)
+  QDomElement createXMLNode(QDomDocument& d)
   {
-    if (name == "xmlbox") {_inXmlBox = false;}
-    return true;
-  }
+    QDomElement cn = d.createElement("box");
 
-  bool startElement(const QString&, const QString&, const QString& name, const QXmlAttributes& attrs)
-  {
-    if (_inXmlBox && name == "box")
-      {
-	QString visible, opacity, type, x, y, width, height;
+    cn.setAttribute("visible", _visible);
+    cn.setAttribute("opacity", _opacity);
+    cn.setAttribute("type", _type);
+    cn.setAttribute("x", _x);
+    cn.setAttribute("y", _y);
+    cn.setAttribute("width", _width);
+    cn.setAttribute("height", _height);
 
-	for (int i = 0; i < attrs.count(); ++i)
-	  {
-	    QString localName = attrs.localName(i);
-	    QString value = attrs.value(i);
-
-	    if (localName == "visible"){visible = value;}
-	    else if (localName == "opacity"){opacity = value;}
-	    else if (localName == "type"){type = value;}
-	    else if (localName == "x"){x = value;}
-	    else if (localName == "y"){y = value;}
-	    else if (localName == "width"){width = value;}
-	    else if (localName == "height"){height = value;}
-	  }
-
-	QMessageBox::information(0, "Box",
-				 "visible = " + visible + "\n" +
-				 "opacity = " + opacity + "\n" +
-				 "type = " + type + "\n" +
-				 "x = " + x + "\n" +
-				 "y = " + y + "\n" +
-				 "width = " + width + "\n" +
-				 "height = " + height + "\n");
-      }
-    else if (name == "xmlbox")
-      {
-	_inXmlBox = true;
-      }
-    return true;
+    return cn;
   }
 
 private:
-  bool _inXmlBox;
+  QString _visible, _opacity, _type, _x, _y, _width, _height;
+};
+
+class MainFrame : public QFrame
+{
+public:
+  void load(const QString& filename)
+  {
+    QFile file(filename);
+    QDomDocument doc("XmlBox");
+
+    if (!file.open(QIODevice::ReadOnly) || !doc.setContent( &file ))
+      {
+	QMessageBox::warning(this, "Loading", "Failed to load file.");
+	return;
+      }
+
+    file.close();
+
+    QDomElement root = doc.documentElement();
+    if (root.tagName() != "boxes")
+      {
+	QMessageBox::warning(this, "Loading", "Invalid file.");
+	return;
+      }
+
+    _boxes.clear();
+    //lvBoxes->clear();
+
+    QDomNode n = root.firstChild();
+    while (!n.isNull())
+      {
+	QDomElement e = n.toElement();
+	if (!e.isNull())
+	  {
+	    if (e.tagName() == "box")
+	      {
+		XmlBox b(e);
+		_boxes.append(b);
+		//lvBoxes->insertItem( new QListViewItem( lvBox, ... ) );
+		std::cout << "appended" << std::endl;
+	      }
+	  }
+
+	n = n.nextSibling();
+      }
+  }
+
+  void	save(const QString& filename)
+  {
+    QDomDocument doc("XmlBox");
+    QDomElement root = doc.createElement("boxes");
+    doc.appendChild(root);
+
+    for (QList<XmlBox>::iterator
+	   it = _boxes.begin(),
+	   end = _boxes.end();
+	 it != end; ++it)
+      {
+	root.appendChild( it->createXMLNode(doc) );
+      }
+
+    QFile file(filename);
+    if (!file.open(QIODevice::WriteOnly))
+      {
+	QMessageBox::warning(this, "Saving", "Failed to save file.");
+	return;
+      }
+
+    QTextStream ts(&file);
+    ts << doc.toString();
+
+    file.close();
+  }
+
+private:
+  QList<XmlBox> _boxes;
 };
 
 int	main(int ac, char** av)
 {
   QApplication a(ac, av);
 
-  XmlBoxParser handler;
-
-  QFile file("./test/xmlBox.xml");
-  QXmlInputSource source( &file );
-
-  QXmlSimpleReader reader;
-  reader.setContentHandler( &handler );
-
-  reader.parse(source);
+  MainFrame m;
+  m.load("./test/xmlBox.xml");
+  m.save("./test/xmlBox2.xml");
 
   return a.exec();
 }

@@ -2,6 +2,7 @@
 
 SET(TEST_LIST
   qtxml
+  sax
 )
 
 SET(RESOURCE_LIST
