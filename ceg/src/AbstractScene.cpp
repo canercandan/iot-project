@@ -32,7 +32,6 @@ AbstractScene::AbstractScene(qreal x, qreal y, qreal width, qreal height, QObjec
 {
 }
 
-#include <QDebug>
 void AbstractScene::initScene(std::list<QGraphicsRectItem *> &newScene)
 {
     this->clearScene();

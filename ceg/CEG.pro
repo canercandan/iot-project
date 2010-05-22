@@ -27,8 +27,7 @@ HEADERS += includes/AbstractItem.h \
     includes/ActionFactory.h \
     includes/Menu.h \
     includes/MenuItem.h \
-    includes/EventMenuAction.h \
-    includes/QRectFUtils.h
+    includes/EventMenuAction.h
 SOURCES += src/AbstractItem.cpp \
     src/AbstractScene.cpp \
     src/BoxManager.cpp \
@@ -47,8 +46,7 @@ SOURCES += src/AbstractItem.cpp \
     src/ActionFactory.cpp \
     src/Menu.cpp \
     src/MenuItem.cpp \
-    src/EventMenuAction.cpp \
-    src/QRectFUtils.cpp
+    src/EventMenuAction.cpp
 unix { 
     HEADERS += includes/XWindowSystem.h
     SOURCES += src/XWindowSystem.cpp
