@@ -41,7 +41,6 @@ LayerManager::LayerManager() :
 	_comGs(new XWindowSystem)
 #endif
 {
-    this->_view.setWindowOpacity(0.5);
 }
 
 LayerManager::~LayerManager()

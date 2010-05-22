@@ -28,7 +28,6 @@
 
 -------------------------------------------------- CEG --------------------------------------------------------------------------
 - Utilite des differents types d'item ? (ALL to discuss) : suffisament generique etudier la necessite de les garders
-- Definir l opacite sur les items (YANN) plutot que sur la View
 - Rajout le code neccessaire pour gerer toutes les possibilite sur les box (CANER + YANN) : du genre une image, les couleurs, du texte
 - Parsing XML + faire la DTD qui va bien (CHRIS) : D'abord le xml des box, on verra par la suite pour sauvegarder les configurations du CEG (reseau, couleurs ...) .
 - Solution pour la creation des Iactions provenant du xml (CHRIS + YANN) : reflechir sur comment faire et peut etre integrer les iactions dans les dll loader au demarrage...

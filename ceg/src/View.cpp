@@ -31,62 +31,63 @@
 
 View::View(LayerManager* lm)
     : _lm(lm)
-{}
+{
+    this->setWindowOpacity(0.5);
+}
 
 void	View::init()
 {
-  AbstractScene* as = _lm->getCurrentLayer();
-  this->setScene(as);
-  QRect geo = as->getGeometry();
-  this->setGeometry(geo.x(), geo.y(), geo.width(), geo.height());
-  this->setWindowFlags(Qt::CustomizeWindowHint | Qt::FramelessWindowHint);
-  this->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-  this->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-  this->setWindowState(Qt::WindowFullScreen);
+    AbstractScene* as = _lm->getCurrentLayer();
+    this->setScene(as);
+    this->setGeometry(as->getGeometry());
+    this->setWindowFlags(Qt::CustomizeWindowHint | Qt::FramelessWindowHint);
+    this->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    this->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    this->setWindowState(Qt::WindowFullScreen);
 }
 
 void	View::keyPressEvent(QKeyEvent* keyEvent)
 {
-  int	key = keyEvent->key();
+    int	key = keyEvent->key();
 
-  switch (key)
+    switch (key)
     {
     case Qt::Key_Left:
     case Qt::Key_Right:
     case Qt::Key_Up:
     case Qt::Key_Down:
-      case Qt::Key_Return:
+    case Qt::Key_Return:
     case Qt::Key_Backspace:
-      {
-	MoveAction a(key);
-	this->_lm->actionHandler(a);
-      }
-      break;
+	{
+	    MoveAction a(key);
+	    this->_lm->actionHandler(a);
+	}
+	break;
     case Qt::Key_1:
-      {
-	ClickAction a(ClickAction::LeftClick);
-	this->_lm->actionHandler(a);
-      }
-      break;
+	{
+	    ClickAction a(ClickAction::LeftClick);
+	    this->_lm->actionHandler(a);
+	}
+	break;
     case Qt::Key_2:
-      {
-	ClickAction a(ClickAction::MiddleClick);
-	this->_lm->actionHandler(a);
-      }
-      break;
+	{
+	    ClickAction a(ClickAction::MiddleClick);
+	    this->_lm->actionHandler(a);
+	}
+	break;
     case Qt::Key_3:
-      {
-	ClickAction a(ClickAction::RightClick);
-	this->_lm->actionHandler(a);
-      }
-      break;
+	{
+	    ClickAction a(ClickAction::RightClick);
+	    this->_lm->actionHandler(a);
+	}
+	break;
     case Qt::Key_4:
-      {
-	ClickAction a(ClickAction::LeftDbClick);
-	this->_lm->actionHandler(a);
-      }
-      break;
+	{
+	    ClickAction a(ClickAction::LeftDbClick);
+	    this->_lm->actionHandler(a);
+	}
+	break;
     default:
-      break;
+	break;
     }
 }
