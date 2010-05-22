@@ -1,7 +1,6 @@
 -------------------------------------------------- ALL --------------------------------------------------------------------------
 - Doxygen (ALL)
 - Multi-langue des applis(ALL to discuss)
-- Utilite des differents types d'item ? (ALL to discuss) : suffisament generique etudier la necessite de les garders
 - Utiliser le track pour les bugs
 
 -------------------------------------------------- WEB --------------------------------------------------------------------------
@@ -28,7 +27,7 @@
 - ...
 
 -------------------------------------------------- CEG --------------------------------------------------------------------------
-
+- Utilite des differents types d'item ? (ALL to discuss) : suffisament generique etudier la necessite de les garders
 - Definir l opacite sur les items (YANN) plutot que sur la View
 - Rajout le code neccessaire pour gerer toutes les possibilite sur les box (CANER + YANN) : du genre une image, les couleurs, du texte
 - Parsing XML + faire la DTD qui va bien (CHRIS) : D'abord le xml des box, on verra par la suite pour sauvegarder les configurations du CEG (reseau, couleurs ...) .
