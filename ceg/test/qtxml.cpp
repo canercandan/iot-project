@@ -20,34 +20,105 @@
 
 // here's a tutorial available: http://www.digitalfanatics.org/projects/qt_tutorial/chapter09.html
 
-// we are reading the file in using SAX
-
 #include <iostream>
 
 #include <QFile>
 #include <QList>
-#include <QtGui>
+#include <QMessageBox>
+#include <QString>
 #include <QtXml>
 
-class XmlBox
+#include <QtGui> // FIXME: trouver le moyen de le virer
+
+class INode
 {
 public:
-  XmlBox(QString visible = "", QString opacity = "",
-	 QString type = "", QString x = "", QString y = "",
-	 QString width = "", QString height = "")
+  ~INode(){}
+
+  virtual QDomElement createXMLNode(QDomDocument&) = 0;
+};
+
+class Param : public INode
+{
+public:
+  Param(QString name = "", QString value = "")
+    : _name(name), _value(value)
+  {}
+
+  Param(const QDomElement& e)
+  {
+    _name = e.attribute("name");
+    _value = e.attribute("value");
+  }
+
+  QDomElement createXMLNode(QDomDocument& d)
+  {
+    QDomElement cn = d.createElement("param");
+
+    cn.setAttribute("name", _name);
+    cn.setAttribute("value", _value);
+
+    return cn;
+  }
+
+private:
+  QString _name;
+  QString _value;
+};
+
+class XmlBox : public INode
+{
+public:
+  XmlBox(bool visible = "", unsigned int opacity = 0,
+	 QString type = "", unsigned int x = 0, unsigned int y = 0,
+	 unsigned int width = 0, unsigned int height = 0,
+	 QString image = "", QString text = "", QString action = "")
     : _visible(visible), _opacity(opacity), _type(type),
-      _x(x), _y(y), _width(width), _height(height)
+      _x(x), _y(y), _width(width), _height(height),
+      _image(image), _text(text), _action(action)
   {}
 
   XmlBox(const QDomElement& e)
   {
-    _visible = e.attribute("visible", "");
-    _opacity = e.attribute("opacity", "");
-    _type = e.attribute("type", "");
-    _x = e.attribute("x", "");
-    _y = e.attribute("y", "");
-    _width = e.attribute("width", "");
-    _height = e.attribute("height", "");
+    if (e.hasAttribute("visible"))
+      _visible = e.attribute("visible").toUInt();
+
+    if (e.hasAttribute("opacity"))
+      _opacity = e.attribute("opacity").toUInt();
+
+    if (e.hasAttribute("type"))
+      _type = e.attribute("type");
+
+    if (e.hasAttribute("x"))
+      _x = e.attribute("x").toUInt();
+    if (e.hasAttribute("y"))
+      _y = e.attribute("y").toUInt();
+
+    if (e.hasAttribute("width"))
+      _width = e.attribute("width").toUInt();
+    if (e.hasAttribute("height"))
+      _height = e.attribute("height").toUInt();
+
+    if (e.hasAttribute("image"))
+      _image = e.attribute("image");
+    if (e.hasAttribute("text"))
+      _text = e.attribute("text");
+
+    if (e.hasAttribute("action"))
+      _action = e.attribute("action");
+
+    for (QDomNode n = e.firstChild(); !n.isNull(); n = n.nextSibling())
+      {
+	QDomElement e2 = n.toElement();
+	if (e2.isNull())
+	  continue;
+	if (e2.tagName() != "param")
+	  continue;
+
+	Param p(e2);
+	_params.append(p);
+	std::cout << "param appended" << std::endl;
+      }
   }
 
   QDomElement createXMLNode(QDomDocument& d)
@@ -61,12 +132,39 @@ public:
     cn.setAttribute("y", _y);
     cn.setAttribute("width", _width);
     cn.setAttribute("height", _height);
+    cn.setAttribute("image", _image);
+    cn.setAttribute("text", _text);
+    cn.setAttribute("action", _action);
+
+    for (QList<Param>::iterator
+	   it = _params.begin(),
+	   end = _params.end();
+	 it != end; ++it)
+      {
+	cn.appendChild( it->createXMLNode(d) );
+      }
 
     return cn;
   }
 
 private:
-  QString _visible, _opacity, _type, _x, _y, _width, _height;
+  bool _visible;
+
+  unsigned int _opacity;
+
+  QString _type;
+
+  unsigned int _x;
+  unsigned int _y;
+  unsigned int _width;
+  unsigned int _height;
+
+  QString _image;
+  QString _text;
+
+  QString _action;
+
+  QList<Param> _params;
 };
 
 class MainFrame : public QFrame
@@ -95,22 +193,18 @@ public:
     _boxes.clear();
     //lvBoxes->clear();
 
-    QDomNode n = root.firstChild();
-    while (!n.isNull())
+    for (QDomNode n = root.firstChild(); !n.isNull(); n = n.nextSibling())
       {
 	QDomElement e = n.toElement();
-	if (!e.isNull())
-	  {
-	    if (e.tagName() == "box")
-	      {
-		XmlBox b(e);
-		_boxes.append(b);
-		//lvBoxes->insertItem( new QListViewItem( lvBox, ... ) );
-		std::cout << "appended" << std::endl;
-	      }
-	  }
+	if (e.isNull())
+	  continue;
+	if (e.tagName() != "box")
+	  continue;
 
-	n = n.nextSibling();
+	XmlBox b(e);
+	_boxes.append(b);
+	//lvBoxes->insertItem( new QListViewItem( lvBox, ... ) );
+	std::cout << "box appended" << std::endl;
       }
   }
 
