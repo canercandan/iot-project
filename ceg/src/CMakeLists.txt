@@ -1,26 +1,28 @@
 # this file create binary of CEG in including all sources files
 
 SET(SOURCES
+  AbstractBox.cpp
   AbstractItem.cpp
   AbstractScene.cpp
-  BoxManager.cpp
-  DefaultItem.cpp
-  Layer.cpp
-  main.cpp
-  Window.cpp
-  AbstractBox.cpp
-  GraphicItemFactory.cpp
-  LayerManager.cpp
-  ZoomAction.cpp
-  ClickAction.cpp
-  ReadAction.cpp
-  MoveAction.cpp
-  WriteAction.cpp
-  View.cpp
   ActionFactory.cpp
+  BoxManager.cpp
+  BoxParameter.cpp
+  ClickAction.cpp
+  DefaultItem.cpp
+  EventMenuAction.cpp
+  GraphicItemFactory.cpp
+  Layer.cpp
+  LayerManager.cpp
+  main.cpp
   Menu.cpp
   MenuItem.cpp
-  EventMenuAction.cpp
+  MoveAction.cpp
+  ReadAction.cpp
+  Utils.cpp
+  View.cpp
+  Window.cpp
+  WriteAction.cpp
+  ZoomAction.cpp
 )
 
 IF(UNIX)

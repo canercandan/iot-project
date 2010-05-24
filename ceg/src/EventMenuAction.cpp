@@ -24,11 +24,11 @@
 
 /************************************************* [ CTOR/DTOR ] *************************************************/
 
-EventMenuAction::EventMenuAction(int key)
+EventMenuAction::EventMenuAction(int)
 {}
 
 /************************************************* [ OTHERS ] *************************************************/
-bool	EventMenuAction::exec(LayerManager& lm)
+bool	EventMenuAction::exec(LayerManager&)
 {
     return (true);
 }
