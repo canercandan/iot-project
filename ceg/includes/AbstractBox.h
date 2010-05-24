@@ -32,19 +32,17 @@ enum BoxType {DEFAULT, CUSTOM, MENU};
 class AbstractBox
 {
 public:
-    AbstractBox(QRect geometry, BoxType boxtype);
-    AbstractBox(BoxType boxtype, AbstractBox* _parent,
-		std::list<AbstractBox*> children, QRect geometry);
-    AbstractBox(BoxType boxtype, int level,
-		std::list<AbstractBox*> children, QRect geometry);
+    AbstractBox(QRect const & geometry, BoxType boxtype);
+    AbstractBox(BoxType boxtype, AbstractBox * parent, std::list<AbstractBox*> const & children, QRect const & geometry);
+    AbstractBox(BoxType boxtype, int level, std::list<AbstractBox*> const & children, QRect const & geometry);
     ~AbstractBox();
 
-    IAction *			getAction();
-    BoxType			getBoxType() const;
+    IAction *				getAction() const;
+    BoxType				getBoxType() const;
     std::list<AbstractBox *> const &	getChilden() const;
-    QRect const &	getGeometry() const;
-    unsigned short		getLevel() const;
-    AbstractBox *		getParent() const;
+    QRect const &			getGeometry() const;
+    unsigned short			getLevel() const;
+    AbstractBox *			getParent() const;
 
 
 private:
@@ -55,7 +53,7 @@ private:
 	int			_level;
     }				_topUnion;
     std::list<AbstractBox *>    _children;
-    QRect		_geometry;
+    QRect			_geometry;
     IAction *			_action;
 };
 

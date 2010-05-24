@@ -18,7 +18,7 @@
  * Authors: CEG <ceg@ionlythink.com>, http://www.ionlythink.com
  */
 
-#include <QtGui/QApplication> // debug
+#include <QApplication>
 #include <QDesktopWidget>
 
 #include "LayerManager.h"
@@ -79,10 +79,10 @@ void LayerManager::start()
     this->_view.show();
 }
 
-void LayerManager::createLayers(std::list<Ceg::Window> & windows)
+void LayerManager::createLayers(std::list<Ceg::Window> const & windows)
 {
-    std::list<Ceg::Window>::iterator it = windows.begin();
-    std::list<Ceg::Window>::iterator itEnd = windows.end();
+    std::list<Ceg::Window>::const_iterator it = windows.begin();
+    std::list<Ceg::Window>::const_iterator itEnd = windows.end();
 
     for (; it != itEnd; ++it)
     {

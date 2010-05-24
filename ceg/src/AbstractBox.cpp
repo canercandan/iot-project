@@ -18,21 +18,17 @@
  * Authors: CEG <ceg@ionlythink.com>, http://www.ionlythink.com
  */
 
-#include <iostream>
-
 #include "AbstractBox.h"
 
-#include <QRect>
+/************************************************* [ CTOR/DTOR ] *************************************************/
 
-AbstractBox::AbstractBox(BoxType boxtype, AbstractBox* parent,
-			 std::list<AbstractBox*> children, QRect geometry):
+AbstractBox::AbstractBox(BoxType boxtype, AbstractBox * parent, std::list<AbstractBox*> const & children, QRect const & geometry):
 _type(boxtype), _children(children), _geometry(geometry), _action(0)
 {
     this->_topUnion._parent = parent;
 }
 
-AbstractBox::AbstractBox(BoxType boxtype, int level,
-			 std::list<AbstractBox*> children, QRect geometry):
+AbstractBox::AbstractBox(BoxType boxtype, int level, std::list<AbstractBox*> const & children, QRect const & geometry):
 _type(boxtype), _children(children), _geometry(geometry), _action(0)
 {
     this->_topUnion._level = level;
@@ -40,42 +36,44 @@ _type(boxtype), _children(children), _geometry(geometry), _action(0)
 
 AbstractBox::~AbstractBox()
 {
-    std::list<AbstractBox*>::iterator it, ite, save;
-    for(it = this->_children.begin(), ite = this->_children.end(); it != ite; )
+    for(std::list<AbstractBox*>::iterator it = this->_children.begin(), ite = this->_children.end(); it != ite;)
     {
-	save = it;
-	++it;
-	this->_children.erase(save);
+	AbstractBox const * const tempBox = *it;
+	it = this->_children.erase(it);
+	delete (tempBox);
     }
 }
 
-QRect const & AbstractBox::getGeometry() const
+
+/************************************************* [ GETTERS ] *************************************************/
+
+IAction *   AbstractBox::getAction() const
+{
+    return (this->_action);
+}
+
+BoxType	AbstractBox::getBoxType() const
+{
+    return (this->_type);
+}
+
+std::list<AbstractBox *> const &    AbstractBox::getChilden() const
+{
+    return (this->_children);
+}
+
+QRect const &	AbstractBox::getGeometry() const
 {
     return (this->_geometry);
 }
-
 
 unsigned short	AbstractBox::getLevel() const
 {
     return (this->_topUnion._level);
 }
 
-std::list<AbstractBox *> const &	AbstractBox::getChilden() const
-{
-    return (this->_children);
-}
-
-AbstractBox * AbstractBox::getParent() const
+AbstractBox *	AbstractBox::getParent() const
 {
     return (this->_topUnion._parent);
 }
 
-BoxType			AbstractBox::getBoxType() const
-{
-    return (this->_type);
-}
-
-IAction *   AbstractBox::getAction()
-{
-    return (this->_action);
-}

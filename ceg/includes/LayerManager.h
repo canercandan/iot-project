@@ -39,9 +39,7 @@ public:
     LayerManager();
     ~LayerManager();
 
-    void    init();
     void    start();
-
     bool    actionHandler(IAction &);
 
     AbstractScene*			getCurrentLayer() const;
@@ -50,7 +48,8 @@ public:
     View *				getView();
 
 private:
-    void createLayers(std::list<Ceg::Window> & windows);
+    void init();
+    void createLayers(std::list<Ceg::Window> const & windows);
 
 private:
     View   _view;
