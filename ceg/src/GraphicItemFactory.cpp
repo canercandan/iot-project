@@ -23,7 +23,7 @@
 #include "DefaultItem.h"
 
 
-QGraphicsRectItem * GraphicItemFactory::create(AbstractBox * box)
+QGraphicsRectItem * GraphicItemFactory::create(AbstractBox const * box)
 {
     return (new DefaultItem(box, 0));
 }

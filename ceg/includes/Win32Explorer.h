@@ -37,7 +37,7 @@ public:
     virtual bool	setFocusToWindow(Ceg::Window & oldFocusedWindow, Ceg::Window & newFocusedWindow);
     virtual bool	refreshWindowInfo(Ceg::Window &);
     virtual bool	generateClickEvent(short int buttonID);
-    BOOL			fillWindowList(HWND hWnd);
+    BOOL		fillWindowList(HWND hWnd);
 
 private:
     std::list<Ceg::Window>*	_windowList;

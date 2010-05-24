@@ -77,3 +77,7 @@ AbstractBox *	AbstractBox::getParent() const
     return (this->_topUnion._parent);
 }
 
+QDomElement AbstractBox::createXMLNode(QDomDocument&)
+{
+    return (QDomElement());
+}

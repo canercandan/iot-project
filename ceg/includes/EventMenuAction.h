@@ -28,7 +28,7 @@ class EventMenuAction : public IAction
 public:
   EventMenuAction(int);
 
-  virtual bool	exec(LayerManager&);
+  virtual bool	exec(LayerManager &);
 };
 
 #endif // !EVENTMENUACTION_H

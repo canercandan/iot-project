@@ -22,6 +22,8 @@
 
 namespace Ceg
 {
+    /************************************************* [ CTOR/DTOR ] *************************************************/
+
     Window::Window() :
 	    _programName(), _id(0), _geometry(), _isVisible(false)
     {
@@ -32,6 +34,8 @@ namespace Ceg
 	    _programName(programName), _id(windowId), _geometry(windoInfo), _isVisible(visibility)
     {
     }
+
+    /************************************************* [ GETTERS ] *************************************************/
 
     WindowId Window::getId() const
     {
@@ -48,13 +52,15 @@ namespace Ceg
 	return (this->_programName);
     }
 
+    /************************************************* [ SETTERS ] *************************************************/
+
+    void Window::setGeometry(QRect const & rhs)
+    {
+	this->_geometry = rhs;
+    }
+
     void Window::setId(WindowId id)
     {
 	this->_id = id;
-    }
-
-    void Window::setCharacteristic(QRect const & rhs)
-    {
-	this->_geometry = rhs;
     }
 }

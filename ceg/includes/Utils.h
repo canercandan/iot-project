@@ -18,20 +18,15 @@
  * Authors: CEG <ceg@ionlythink.com>, http://www.ionlythink.com
  */
 
-#ifndef WIN32ADAPTOR_H_
-# define WIN32ADAPTOR_H_
+#ifndef UTILS_H
+#define UTILS_H
 
-#include <windows.h>
+#include <QThread>
 
-class Win32Explorer;
-
-class Win32Adaptor
+class SleeperThread : public QThread
 {
 public:
-    static BOOL CALLBACK    giveWindowList(HWND hWnd, LPARAM lParam);
-    static void		    setWin32Explorer(Win32Explorer * instance);
-private:
-    static Win32Explorer * _instance;
+    static void msleep(unsigned long msecs);
 };
 
-#endif //! WIN32ADAPTOR_H_
+#endif // UTILS_H

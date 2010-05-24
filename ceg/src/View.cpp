@@ -27,15 +27,19 @@
 #include "ClickAction.h"
 #include "AbstractScene.h"
 
-View::View(LayerManager* lm)
+/************************************************* [ CTOR/DTOR ] *************************************************/
+
+View::View(LayerManager & lm)
     : _lm(lm)
 {
     this->setWindowOpacity(0.5);
 }
 
+/************************************************* [ OTHERS ] *************************************************/
+
 void	View::init()
 {
-    AbstractScene* as = _lm->getCurrentLayer();
+    AbstractScene* as = this->_lm.getCurrentLayer();
     this->setScene(as);
     this->setGeometry(as->getGeometry());
     this->setWindowFlags(Qt::CustomizeWindowHint | Qt::FramelessWindowHint);
@@ -58,31 +62,31 @@ void	View::keyPressEvent(QKeyEvent* keyEvent)
     case Qt::Key_Backspace:
 	{
 	    MoveAction a(key);
-	    this->_lm->actionHandler(a);
+	    this->_lm.actionHandler(a);
 	}
 	break;
     case Qt::Key_1:
 	{
 	    ClickAction a(ClickAction::LeftClick);
-	    this->_lm->actionHandler(a);
+	    this->_lm.actionHandler(a);
 	}
 	break;
     case Qt::Key_2:
 	{
 	    ClickAction a(ClickAction::MiddleClick);
-	    this->_lm->actionHandler(a);
+	    this->_lm.actionHandler(a);
 	}
 	break;
     case Qt::Key_3:
 	{
 	    ClickAction a(ClickAction::RightClick);
-	    this->_lm->actionHandler(a);
+	    this->_lm.actionHandler(a);
 	}
 	break;
     case Qt::Key_4:
 	{
 	    ClickAction a(ClickAction::LeftDbClick);
-	    this->_lm->actionHandler(a);
+	    this->_lm.actionHandler(a);
 	}
 	break;
     default:

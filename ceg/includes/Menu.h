@@ -30,8 +30,9 @@ class Menu : public AbstractScene
 public:
     Menu();
 
-    virtual QRect  getGeometry() const;
-    virtual IAction * keyPressEvent(int key);
+    virtual QRect	getGeometry() const;
+
+    virtual IAction *	keyPressEvent(int key);
 };
 
 #endif // MENU_H

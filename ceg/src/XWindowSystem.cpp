@@ -120,7 +120,7 @@ bool XWindowSystem::refreshWindowInfo(Ceg::Window & targetWindow)
 	Status status = ::XGetWindowAttributes(this->_connection, targetWindow.getId(), &windowInfos);
 	if (status != BadDrawable && status != BadWindow)
 	{
-	    targetWindow.setCharacteristic(QRect(windowInfos.x, windowInfos.y, windowInfos.width, windowInfos.height));
+	    targetWindow.setGeometry(QRect(windowInfos.x, windowInfos.y, windowInfos.width, windowInfos.height));
 	    statusOp = true;
 	}
     }

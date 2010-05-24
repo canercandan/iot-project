@@ -24,37 +24,42 @@
 #include <list>
 
 #include <QRect>
+#include <QtXml>
+
+#include "IXmlNode.h"
 
 class IAction;
 
 enum BoxType {DEFAULT, CUSTOM, MENU};
 
-class AbstractBox
+class AbstractBox : public IXmlNode
 {
 public:
-    AbstractBox(QRect const & geometry, BoxType boxtype);
-    AbstractBox(BoxType boxtype, AbstractBox * parent, std::list<AbstractBox*> const & children, QRect const & geometry);
-    AbstractBox(BoxType boxtype, int level, std::list<AbstractBox*> const & children, QRect const & geometry);
-    ~AbstractBox();
+  AbstractBox(QRect geometry, BoxType boxtype);
+  AbstractBox(BoxType boxtype, AbstractBox * parent, std::list<AbstractBox*> const & children, QRect const & geometry);
+  AbstractBox(BoxType boxtype, int level, std::list<AbstractBox*> const & children, QRect const & geometry);
+  //AbstractBox(const QDomElement& e);
+  ~AbstractBox();
 
-    IAction *				getAction() const;
-    BoxType				getBoxType() const;
-    std::list<AbstractBox *> const &	getChilden() const;
-    QRect const &			getGeometry() const;
-    unsigned short			getLevel() const;
-    AbstractBox *			getParent() const;
+  virtual QDomElement createXMLNode(QDomDocument& d);
 
+  IAction*			    getAction() const;
+  BoxType			    getBoxType() const;
+  std::list<AbstractBox *> const &  getChilden() const;
+  QRect const &			    getGeometry() const;
+  unsigned short		    getLevel() const;
+  AbstractBox*			    getParent() const;
 
 private:
-    BoxType			_type;
-    union uniontype
-    {
-	AbstractBox*		_parent;
-	int			_level;
-    }				_topUnion;
-    std::list<AbstractBox *>    _children;
-    QRect			_geometry;
-    IAction *			_action;
+  BoxType		    _type;
+  union
+  {
+    AbstractBox*	    _parent;
+    int			    _level;
+  }			    _topUnion;
+  std::list<AbstractBox *>  _children;
+  QRect			    _geometry;
+  IAction*		    _action;
 };
 
 #endif // ABSTRACTBOX_H

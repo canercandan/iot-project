@@ -18,20 +18,29 @@
  * Authors: CEG <ceg@ionlythink.com>, http://www.ionlythink.com
  */
 
-#ifndef DEFAULTITEM_H
-#define DEFAULTITEM_H
+#ifndef BOXPARAMETER_H
+#define BOXPARAMETER_H
 
-class QGraphicsItem;
+#include <QString>
 
-#include "AbstractItem.h"
+#include "IXmlNode.h"
 
-class AbstractBox;
+// #include <QtXml>
 
-class DefaultItem : public AbstractItem
+// class QDomDocument;
+// class QDomElement;
+
+class BoxParameter : public IXmlNode
 {
 public:
-    DefaultItem(AbstractBox const * box, QGraphicsItem * parent = 0);
-    ~DefaultItem();
+  BoxParameter(QString name = "", QString value = "");
+  BoxParameter(const QDomElement& e);
+
+  QDomElement createXMLNode(QDomDocument& d);
+
+private:
+  QString _name;
+  QString _value;
 };
 
-#endif // DEFAULTITEM_H
+#endif // !BOXPARAMETER_H

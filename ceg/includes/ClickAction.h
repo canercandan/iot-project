@@ -31,7 +31,7 @@ public:
 public:
   ClickAction(ClickType type = LeftClick);
 
-  virtual bool	exec(LayerManager&);
+  virtual bool	exec(LayerManager &);
 
 private:
   ClickType	_type;

@@ -21,8 +21,8 @@
 #ifndef LAYER_H
 #define LAYER_H
 
-#include "Window.h"
 #include "AbstractScene.h"
+#include "Window.h"
 
 class IAction;
 
@@ -31,13 +31,14 @@ class Layer : public AbstractScene
 public:
     Layer(Ceg::Window const &);
 
-    virtual QRect  getGeometry() const;
-    virtual IAction * keyPressEvent(int key);
+    virtual QRect	getGeometry() const;
+
+    virtual IAction *	keyPressEvent(int key) const;
 
 private:
-  void	_moveVertically() const;
-  void	_moveHorizontally() const;
-  void  _printMenuEvent() const;
+    void		moveVertically() const;
+    void		moveHorizontally() const;
+    void		printMenuEvent() const;
 
 private:
     Ceg::Window _host;

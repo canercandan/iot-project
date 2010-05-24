@@ -18,49 +18,44 @@
  * Authors: CEG <ceg@ionlythink.com>, http://www.ionlythink.com
  */
 
-#include <QKeyEvent>
-#include <QGraphicsScene>
-#include <QGraphicsRectItem>
-
 #include "AbstractScene.h"
 
-#include "IAction.h"
 #include "AbstractItem.h"
+
+/************************************************* [ CTOR/DTOR ] *************************************************/
 
 AbstractScene::AbstractScene(qreal x, qreal y, qreal width, qreal height, QObject * parent) :
 	QGraphicsScene(x, y, width, height, parent)
 {
 }
 
-void AbstractScene::initScene(std::list<QGraphicsRectItem *> &newScene)
-{
-    this->clearScene();
-    std::list<QGraphicsRectItem *>::const_reverse_iterator  it = newScene.rbegin();
-    std::list<QGraphicsRectItem *>::const_reverse_iterator  itEnd = newScene.rend();
+/************************************************* [ GETTERS ] *************************************************/
 
-    for (; it != itEnd; ++it)
-    {
-	this->addItem(*it);
-    }
-    newScene.front()->setFocus();
+AbstractItem const *	AbstractScene::getCurrentItem() const
+{
+    return (static_cast<AbstractItem *>(this->focusItem()));
 }
+
+/************************************************* [ OTHERS ] *************************************************/
 
 void AbstractScene::clearScene()
 {
     QList<QGraphicsItem *> items = this->items();
-    QList<QGraphicsItem *>::iterator it = items.begin();
-    for (; it != items.end();)
+    for (QList<QGraphicsItem *>::iterator it = items.begin(); it != items.end();)
     {
-	QList<QGraphicsItem *>::iterator itTemp = it;
-	++itTemp;
 	QGraphicsItem * tmpItem = *it;
+	++it;
 	this->removeItem(tmpItem);
-	delete tmpItem;
-	it = itTemp;
     }
 }
 
-AbstractItem *	AbstractScene::getCurrentItem() const
+void AbstractScene::initScene(std::list<QGraphicsRectItem *> const & newScene)
 {
-    return (static_cast<AbstractItem *>(this->focusItem()));
+    this->clearScene();
+
+    for (std::list<QGraphicsRectItem *>::const_reverse_iterator  it = newScene.rbegin(), itEnd = newScene.rend(); it != itEnd; ++it)
+    {
+	this->addItem(*it);
+    }
+    newScene.front()->setFocus();
 }

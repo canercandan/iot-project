@@ -18,35 +18,38 @@
  * Authors: CEG <ceg@ionlythink.com>, http://www.ionlythink.com
  */
 
-#include <QGraphicsRectItem>
 #include <QPainter>
 
 #include "AbstractItem.h"
 
-#include "ZoomAction.h"
 #include "AbstractBox.h"
-#include "IAction.h"
+#include "ZoomAction.h"
+#include "ClickAction.h"
 
-AbstractItem::AbstractItem(AbstractBox * box, QGraphicsItem * parent) :
+/************************************************* [ CTOR/DTOR ] *************************************************/
+
+AbstractItem::AbstractItem(AbstractBox const * box, QGraphicsItem * parent) :
 	QGraphicsRectItem(box->getGeometry().x(), box->getGeometry().y(), box->getGeometry().width(), box->getGeometry().height(), parent),
 	_color(Qt::darkBlue), _box(box)
 {
     this->setFlag(QGraphicsItem::ItemIsFocusable);
 }
 
-AbstractBox * AbstractItem::getBox() const
+/************************************************* [ GETTERS ] *************************************************/
+
+AbstractBox const * AbstractItem::getBox() const
 {
     return (this->_box);
 }
 
-#include "ClickAction.h"
-
-IAction * AbstractItem::onEvent()
+IAction * AbstractItem::getEvent() const
 {
-  //return (this->_box->getAction());
-  return (new ZoomAction(true));
-  //return (new ClickAction(ClickAction::LeftClick));
+    //return (this->_box->getAction());
+    return (new ZoomAction(true));
+    //return (new ClickAction(ClickAction::LeftClick));
 }
+
+/************************************************* [ OTHERS ] *************************************************/
 
 void AbstractItem::focusInEvent(QFocusEvent *)
 {
@@ -60,8 +63,6 @@ void AbstractItem::focusOutEvent(QFocusEvent *)
     this->update();
 }
 
-#include <QPainter>
-#include <iostream>
 void AbstractItem::paint(QPainter * painter, const QStyleOptionGraphicsItem *, QWidget *)
 {
     painter->setBrush(this->_color);
@@ -73,5 +74,4 @@ void AbstractItem::paint(QPainter * painter, const QStyleOptionGraphicsItem *, Q
     //     dest.moveCenter(this->rect().center());
 
     //     painter->drawPixmap(dest, pixmap, pixmap.rect());
-
 }

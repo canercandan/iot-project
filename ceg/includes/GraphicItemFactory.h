@@ -28,7 +28,7 @@ class AbstractBox;
 class GraphicItemFactory
 {
 public:
-    static QGraphicsRectItem * create(AbstractBox *);
+    static QGraphicsRectItem * create(AbstractBox const *);
 };
 
 #endif // GRAPHICITEMFACTORY_H

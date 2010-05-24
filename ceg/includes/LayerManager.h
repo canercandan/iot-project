@@ -27,9 +27,9 @@
 
 #include "View.h"
 #include "Window.h"
+#include "BoxManager.h"
 
 class AbstractScene;
-class BoxManager;
 class ICommunicationGraphicalServer;
 class IAction;
 
@@ -39,24 +39,24 @@ public:
     LayerManager();
     ~LayerManager();
 
-    void    start();
-    bool    actionHandler(IAction &);
-
-    AbstractScene*			getCurrentLayer() const;
+    BoxManager const &			getBoxManager() const;
     ICommunicationGraphicalServer*	getComGs() const;
-    BoxManager *			getBoxManager() const;
-    View *				getView();
+    AbstractScene*			getCurrentLayer() const;
+    View &				getView();
+
+    bool				actionHandler(IAction &);
+    void				start();
 
 private:
-    void init();
-    void createLayers(std::list<Ceg::Window> const & windows);
+    void				createLayers(std::list<Ceg::Window> const & windows);
+    void				init();
 
 private:
-    View   _view;
-    std::list<AbstractScene *> _layers;
-    std::list<AbstractScene *>::iterator _currentLayer;
-    BoxManager * _boxManager;
-    ICommunicationGraphicalServer * _comGs;
+    View				    _view;
+    std::list<AbstractScene *>		    _layers;
+    std::list<AbstractScene *>::iterator    _currentLayer;
+    BoxManager				    _boxManager;
+    ICommunicationGraphicalServer *	    _comGs;
 };
 
 #endif // LAYERMANAGER_H

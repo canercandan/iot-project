@@ -22,7 +22,9 @@
 
 #include "AbstractBox.h"
 
-DefaultItem::DefaultItem(AbstractBox * box, QGraphicsItem * parent) :
+/************************************************* [ CTOR/DTOR ] *************************************************/
+
+DefaultItem::DefaultItem(AbstractBox const * box, QGraphicsItem * parent) :
 		AbstractItem(box, parent)
 {
 }

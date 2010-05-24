@@ -25,7 +25,7 @@
 #include <sstream>
 
 template<typename T>
-std::string typeToString(T input)
+std::string typeToString(T const & input)
 {
     std::ostringstream oss;
 

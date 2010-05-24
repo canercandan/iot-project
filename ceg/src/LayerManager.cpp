@@ -33,8 +33,10 @@
 #include "XWindowSystem.h"
 #endif
 
+/************************************************* [ CTOR/DTOR ] *************************************************/
+
 LayerManager::LayerManager() :
-	_view(this), _boxManager(new BoxManager),
+	_view(*this), _boxManager(),
 #ifdef _WIN32
 	_comGs(new Win32Explorer)
 #else
@@ -45,22 +47,55 @@ LayerManager::LayerManager() :
 
 LayerManager::~LayerManager()
 {
-    for (std::list<AbstractScene*>::iterator
-	 it = this->_layers.begin(),
-	 end = this->_layers.end();
-    it != end; ++it)
+    for (std::list<AbstractScene*>::const_iterator it = this->_layers.begin(), end = this->_layers.end(); it != end; ++it)
     {
 	delete *it;
     }
 
-    delete this->_boxManager;
     delete this->_comGs;
 }
 
-/*
-**
-**
-*/
+/************************************************* [ GETTERS ] *************************************************/
+
+BoxManager const &	LayerManager::getBoxManager() const
+{
+    return (this->_boxManager);
+}
+
+ICommunicationGraphicalServer *	LayerManager::getComGs() const
+{
+    return (this->_comGs);
+}
+
+AbstractScene*	LayerManager::getCurrentLayer() const
+{
+    return (*this->_currentLayer);
+}
+
+View &	LayerManager::getView()
+{
+    return (this->_view);
+}
+
+/************************************************* [ OTHERS ] *************************************************/
+
+bool    LayerManager::actionHandler(IAction & anAction)
+{
+    return (anAction.exec(*this));
+}
+
+void LayerManager::createLayers(std::list<Ceg::Window> const & windows)
+{
+    for (std::list<Ceg::Window>::const_iterator it = windows.begin(), itEnd = windows.end(); it != itEnd; ++it)
+    {
+	Layer * oneLayer = new Layer(*it);
+	std::list<QGraphicsRectItem *> graphicItems;
+	this->_boxManager.getPattern(*it, graphicItems);
+	oneLayer->initScene(graphicItems);
+	this->_layers.push_front(oneLayer);
+    }
+}
+
 void LayerManager::init()
 {
     std::list<Ceg::Window>  windows;
@@ -75,47 +110,7 @@ void LayerManager::init()
 
 void LayerManager::start()
 {
+    this->init();
     this->_view.init();
     this->_view.show();
-}
-
-void LayerManager::createLayers(std::list<Ceg::Window> const & windows)
-{
-    std::list<Ceg::Window>::const_iterator it = windows.begin();
-    std::list<Ceg::Window>::const_iterator itEnd = windows.end();
-
-    for (; it != itEnd; ++it)
-    {
-	Layer * oneLayer = new Layer(*it);
-	std::list<QGraphicsRectItem *> graphicItems;
-	this->_boxManager->getPattern(*it, graphicItems);
-	oneLayer->initScene(graphicItems);
-	this->_layers.push_front(oneLayer);
-    }
-}
-
-bool    LayerManager::actionHandler(IAction & anAction)
-{
-    return (anAction.exec(*this));
-}
-
-AbstractScene*	LayerManager::getCurrentLayer() const
-{
-    return (*this->_currentLayer);
-}
-
-ICommunicationGraphicalServer*	LayerManager::getComGs() const
-{
-    return (this->_comGs);
-}
-
-BoxManager *	LayerManager::getBoxManager() const
-{
-    return (this->_boxManager);
-}
-
-
-View *	LayerManager::getView()
-{
-    return (&this->_view);
 }

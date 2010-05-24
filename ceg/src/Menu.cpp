@@ -21,14 +21,20 @@
 #include "AbstractItem.h"
 #include "Menu.h"
 
+/************************************************* [ CTOR/DTOR ] *************************************************/
+
 Menu::Menu()
     : AbstractScene(100, 100, 100, 100)
 {}
+
+/************************************************* [ GETTERS ] *************************************************/
 
 QRect  Menu::getGeometry() const
 {
     return (QRect(100, 100, 100, 100));
 }
+
+/************************************************* [ OTHERS ] *************************************************/
 
 IAction * Menu::keyPressEvent(int key)
 {
@@ -60,7 +66,7 @@ IAction * Menu::keyPressEvent(int key)
     case Qt::Key_Return :
 	{
 	    AbstractItem * focusItem = static_cast<AbstractItem *>(this->focusItem());
-	    return (focusItem->onEvent());
+	    return (focusItem->getEvent());
 	}
 	break;
     }

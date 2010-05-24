@@ -27,7 +27,7 @@ class IAction
 {
 public:
     virtual ~IAction(){}
-    virtual bool	exec(LayerManager&) = 0;
+    virtual bool	exec(LayerManager &) = 0;
 };
 
 #endif // IACTION_H

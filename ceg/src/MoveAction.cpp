@@ -23,11 +23,15 @@
 #include "LayerManager.h"
 #include "AbstractScene.h"
 
+/************************************************* [ CTOR/DTOR ] *************************************************/
+
 MoveAction::MoveAction(int key)
   : _key(key)
 {}
 
-bool	MoveAction::exec(LayerManager& lm)
+/************************************************* [ OTHERS ] *************************************************/
+
+bool	MoveAction::exec(LayerManager & lm)
 {
   IAction* action = lm.getCurrentLayer()->keyPressEvent(this->_key);
 

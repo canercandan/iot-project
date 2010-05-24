@@ -22,7 +22,6 @@
 #define VIEW_H
 
 #include <QGraphicsView>
-//#include <QKeyEvent>
 
 class QKeyEvent;
 class LayerManager;
@@ -30,13 +29,13 @@ class LayerManager;
 class View : public QGraphicsView
 {
 public:
-  View(LayerManager*);
+  View(LayerManager &);
 
   void	init();
   void	keyPressEvent(QKeyEvent* keyEvent);
 
 private:
-  LayerManager*	_lm;
+  LayerManager & _lm;
 };
 
 #endif // !VIEW_H

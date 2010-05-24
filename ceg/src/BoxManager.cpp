@@ -28,35 +28,16 @@
 #include "Window.h"
 #include "GraphicItemFactory.h"
 
+/************************************************* [ CTOR/DTOR ] *************************************************/
+
 BoxManager::BoxManager()
 {
     //this->loadConf();
 }
 
-void    BoxManager::loadConf()
-{
-    std::list<AbstractBox*> list1;
-    list1.push_back(new AbstractBox(DEFAULT, 0, std::list<AbstractBox*>(0), QRect(10, 10, 10, 10)));
-    list1.push_back(new AbstractBox(DEFAULT, 0, std::list<AbstractBox*>(0), QRect(50, 50, 50, 50)));
-}
+/************************************************* [ GETTERS ] *************************************************/
 
-
-void    BoxManager::getPattern(const Ceg::Window & aWindow, std::list<QGraphicsRectItem *> & graphicItems)
-{
-    std::map<std::string, std::list<AbstractBox *> >::iterator  itFind = this->_patterns.find(aWindow.getProgramName());
-    std::list<AbstractBox *> childrenBox;
-    if (itFind != this->_patterns.end())
-    {
-	childrenBox = itFind->second;
-    }
-    else
-    {
-	this->calcChildren(childrenBox, aWindow.getGeometry(), 0);
-    }
-    this->createGraphicItems(graphicItems, childrenBox);
-}
-
-void BoxManager::getChildren(std::list<QGraphicsRectItem *> & graphicItems, AbstractBox * box)
+void BoxManager::getChildren(std::list<QGraphicsRectItem *> & graphicItems, AbstractBox const * box) const
 {
     std::list<AbstractBox *> childrenBox;
     if (box->getBoxType() == DEFAULT) // mode par default
@@ -70,7 +51,7 @@ void BoxManager::getChildren(std::list<QGraphicsRectItem *> & graphicItems, Abst
     this->createGraphicItems(graphicItems, childrenBox);
 }
 
-void BoxManager::getParent(std::list<QGraphicsRectItem *> & graphicItems, AbstractBox * box)
+void BoxManager::getParent(std::list<QGraphicsRectItem *> & graphicItems, AbstractBox const * box) const
 {
     std::list<AbstractBox *> childrenBox;
     if (box->getBoxType() == DEFAULT) // mode par default
@@ -84,17 +65,24 @@ void BoxManager::getParent(std::list<QGraphicsRectItem *> & graphicItems, Abstra
     this->createGraphicItems(graphicItems, childrenBox);
 }
 
-void BoxManager::createGraphicItems(std::list<QGraphicsRectItem *> & graphicItems, std::list<AbstractBox *> & boxs)
+void    BoxManager::getPattern(Ceg::Window const & aWindow, std::list<QGraphicsRectItem *> & graphicItems) const
 {
-    for (std::list<AbstractBox *>::iterator it = boxs.begin(),
-	 itEnd = boxs.end();
-    it != itEnd; ++it)
+    std::map<std::string, std::list<AbstractBox *> >::const_iterator  itFind = this->_patterns.find(aWindow.getProgramName());
+    std::list<AbstractBox *> childrenBox;
+    if (itFind != this->_patterns.end())
     {
-	graphicItems.push_back(GraphicItemFactory::create(*it));
+	childrenBox = itFind->second;
     }
+    else
+    {
+	this->calcChildren(childrenBox, aWindow.getGeometry(), 0);
+    }
+    this->createGraphicItems(graphicItems, childrenBox);
 }
 
-void BoxManager::calcChildren(std::list<AbstractBox *> & boxs, QRect const & geometry, unsigned short level)
+/************************************************* [ OTHERS ] *************************************************/
+
+void BoxManager::calcChildren(std::list<AbstractBox *> & boxs, QRect const & geometry, unsigned short level) const
 {
     int nbGrid = 3;
     int tmpWidth = geometry.width() / nbGrid;
@@ -114,8 +102,7 @@ void BoxManager::calcChildren(std::list<AbstractBox *> & boxs, QRect const & geo
     }
 }
 
-
-void BoxManager::calcParent(std::list<AbstractBox *> & boxs, AbstractBox * item)
+void BoxManager::calcParent(std::list<AbstractBox *> & boxs, AbstractBox const * item) const
 {
     QDesktopWidget *desktop = QApplication::desktop();
     int level = item->getLevel();
@@ -158,4 +145,20 @@ void BoxManager::calcParent(std::list<AbstractBox *> & boxs, AbstractBox * item)
     }
     this->calcChildren(boxs, QRect(posXtop, posYtop, Width, Height), item->getLevel() - 1);
 }
+
+void BoxManager::createGraphicItems(std::list<QGraphicsRectItem *> & graphicItems, std::list<AbstractBox *> const & boxs) const
+{
+    for (std::list<AbstractBox *>::const_iterator it = boxs.begin(), itEnd = boxs.end(); it != itEnd; ++it)
+    {
+	graphicItems.push_back(GraphicItemFactory::create(*it));
+    }
+}
+
+void    BoxManager::loadConf() const
+{
+    std::list<AbstractBox*> list1;
+    list1.push_back(new AbstractBox(DEFAULT, 0, std::list<AbstractBox*>(0), QRect(10, 10, 10, 10)));
+    list1.push_back(new AbstractBox(DEFAULT, 0, std::list<AbstractBox*>(0), QRect(50, 50, 50, 50)));
+}
+
 

@@ -21,47 +21,54 @@
 #include "AbstractItem.h"
 #include "Layer.h"
 #include "ZoomAction.h" // debug
+
+/************************************************* [ CTOR/DTOR ] *************************************************/
+
 Layer::Layer(Ceg::Window const & hostWindow) :
 	AbstractScene(hostWindow.getGeometry().x(), hostWindow.getGeometry().y(), hostWindow.getGeometry().width(), hostWindow.getGeometry().height()),
 	_host(hostWindow)
 {
 }
 
+/************************************************* [ GETTERS ] *************************************************/
+
 QRect  Layer::getGeometry() const
 {
     return (this->_host.getGeometry());
 }
 
-IAction * Layer::keyPressEvent(int key)
+/************************************************* [ OTHERS ] *************************************************/
+
+IAction * Layer::keyPressEvent(int key) const
 {
-  switch (key)
+    switch (key)
     {
     case Qt::Key_Left :
-      {
-	this->_moveHorizontally();
-	break;
-      }
+	{
+	    this->moveHorizontally();
+	    break;
+	}
     case Qt::Key_Right :
-      {
-	this->_moveHorizontally();
-	break;
-      }
+	{
+	    this->moveHorizontally();
+	    break;
+	}
     case Qt::Key_Up :
-      {
-	this->_moveVertically();
-	break;
-      }
+	{
+	    this->moveVertically();
+	    break;
+	}
     case Qt::Key_Down :
-      {
-	this->_moveVertically();
- 	break;
-      }
+	{
+	    this->moveVertically();
+	    break;
+	}
     case Qt::Key_Return :
-      {
-	AbstractItem * focusItem = static_cast<AbstractItem *>(this->focusItem());
-	return (focusItem->onEvent());
-      }
-      break;
+	{
+	    AbstractItem * focusItem = static_cast<AbstractItem *>(this->focusItem());
+	    return (focusItem->getEvent());
+	}
+	break;
     case Qt::Key_Backspace :
 	return (new ZoomAction(false));
 	break;
@@ -69,66 +76,65 @@ IAction * Layer::keyPressEvent(int key)
     return (0);
 }
 
-void	Layer::_moveVertically() const
+void	Layer::moveVertically() const
 {
-  QList<QGraphicsItem *> items =  this->items();
-  QGraphicsItem * focusItem = this->focusItem();
-  QList<QGraphicsItem *>::iterator it = items.begin();
-  QList<QGraphicsItem *>::iterator tmpIt = it;
-  QRectF currentRectF = focusItem->boundingRect();
-  int sizeList = items.size();
-  int index = items.indexOf(focusItem);
-  int i = 0;
-  bool haveRect = false;
+    QList<QGraphicsItem *> items =  this->items();
+    int sizeList = items.size();
+    QGraphicsItem * focusItem = this->focusItem();
+    QList<QGraphicsItem *>::const_iterator it = items.begin();
+    QList<QGraphicsItem *>::const_iterator tmpIt = it;
 
-  index++;
-  currentRectF.setHeight(this->getGeometry().height());
-  currentRectF.setWidth(currentRectF.width());
-  currentRectF.setX(currentRectF.x());
-  currentRectF.setY(0);
-  while (i < sizeList && !haveRect)
-  {
-      QRectF tmpRectF;
-      index = ((index < sizeList) ? index : (index - sizeList));
-      tmpIt = it;
-      tmpIt += index;
-      tmpRectF = (*tmpIt)->boundingRect();
-      if (currentRectF.intersects(tmpRectF))
-          haveRect = true;
-      index++;
-      i++;
-  }
-  if (haveRect)
-      (*tmpIt)->setFocus();
-  else
-  {
-      index = items.indexOf(focusItem) + 1;
-      index = ((index < sizeList) ? index : (index - sizeList));
-      it += index;
-      (*it)->setFocus();
-  }
+    int index = items.indexOf(focusItem);
+    ++index;
+    QRectF currentRectF = focusItem->boundingRect();
+    currentRectF.setHeight(this->getGeometry().height());
+    currentRectF.setWidth(currentRectF.width());
+    currentRectF.setX(currentRectF.x());
+    currentRectF.setY(0);
 
+    int i = 0;
+    bool haveRect = false;
+    while (i < sizeList && !haveRect)
+    {
+	index = ((index < sizeList) ? index : (index - sizeList));
+	tmpIt = it;
+	tmpIt += index;
+	haveRect = currentRectF.intersects((*tmpIt)->boundingRect());
+	++index;
+	++i;
+    }
+    if (haveRect)
+    {
+	(*tmpIt)->setFocus();
+    }
+    else
+    {
+	index = items.indexOf(focusItem) + 1;
+	index = ((index < sizeList) ? index : (index - sizeList));
+	it += index;
+	(*it)->setFocus();
+    }
 }
 
-void	Layer::_moveHorizontally() const
+void	Layer::moveHorizontally() const
 {
-   QList<QGraphicsItem *> items =  this->items();
-   QList<QGraphicsItem *>::iterator it = items.begin();
-   QGraphicsItem * focusItem = this->focusItem();
-   int sizeList = items.size();
-   int index = items.indexOf(focusItem);
-   index++;
-   if (index >= sizeList)
-       index = 0;
-   it += index;
-   (*it)->setFocus();
-   if (focusItem->x() > (*it)->x())
-   {
-     this->_printMenuEvent();
-   }
-  //#endif
+    QList<QGraphicsItem *> items =  this->items();
+    QList<QGraphicsItem *>::const_iterator it = items.begin();
+    QGraphicsItem * focusItem = this->focusItem();
+    int index = items.indexOf(focusItem);
+    index++;
+    if (index >= items.size())
+    {
+	index = 0;
+    }
+    it += index;
+    (*it)->setFocus();
+    if (focusItem->x() > (*it)->x())
+    {
+	this->printMenuEvent();
+    }
 }
 
 // Methode qui va faire appel a l'affichage du menu !
-void    Layer::_printMenuEvent() const
+void    Layer::printMenuEvent() const
 {}

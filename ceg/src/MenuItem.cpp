@@ -19,9 +19,11 @@
  */
 
 #include "MenuItem.h"
+
 #include "AbstractBox.h"
 
-MenuItem::MenuItem(AbstractBox * box, QGraphicsItem * parent)
+/************************************************* [ CTOR/DTOR ] *************************************************/
+MenuItem::MenuItem(AbstractBox const * box, QGraphicsItem * parent)
   : AbstractItem(box, parent)
 {}
 
@@ -29,6 +31,8 @@ MenuItem::~MenuItem()
 {
   delete this->_box;
 }
+
+/************************************************* [ OTHERS ] *************************************************/
 
 void MenuItem::keyPressEvent(QKeyEvent *) // a implementer
 {}

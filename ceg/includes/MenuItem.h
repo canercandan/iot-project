@@ -31,7 +31,7 @@ class AbstractBox;
 class MenuItem : public AbstractItem
 {
 public:
-    MenuItem(AbstractBox * box, QGraphicsItem * parent = 0);
+    MenuItem(AbstractBox const * box, QGraphicsItem * parent = 0);
     ~MenuItem();
 
 protected:

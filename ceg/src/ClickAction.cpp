@@ -18,10 +18,7 @@
  * Authors: CEG <ceg@ionlythink.com>, http://www.ionlythink.com
  */
 
-#include <iostream>
-
-#include <QWaitCondition>
-#include <QThread>
+//#include <iostream>
 
 #include "ClickAction.h"
 
@@ -30,33 +27,27 @@
 #include "LayerManager.h"
 #include "AbstractScene.h"
 #include "ICommunicationGraphicalServer.h"
+#include "Utils.h"
 
-class SleeperThread : public QThread
-{
-public:
-    static void msleep(unsigned long msecs)
-    {
-	QThread::msleep(msecs);
-    }
-};
+/************************************************* [ CTOR/DTOR ] *************************************************/
 
 ClickAction::ClickAction(ClickType type /*= LeftClick*/)
     : _type(type)
 {}
 
-bool	ClickAction::exec(LayerManager& lm)
-{
-    AbstractItem* ai = lm.getCurrentLayer()->getCurrentItem();
-    AbstractBox*	ab = ai->getBox();
+/************************************************* [ OTHERS ] *************************************************/
 
-    if (ab == NULL)
-	return false;
+bool	ClickAction::exec(LayerManager & lm)
+{
+    AbstractItem const * ai = lm.getCurrentLayer()->getCurrentItem();
+    AbstractBox const *	ab = ai->getBox();
+
+    if (ab == 0)
+	return (false);
 
     QCursor::setPos(ab->getGeometry().center());
 
-    lm.getView()->hide();
-
-    //SleeperThread::msleep(1000);
+    lm.getView().hide();
 
     switch (this->_type)
     {
@@ -75,7 +66,7 @@ bool	ClickAction::exec(LayerManager& lm)
 
     SleeperThread::msleep(1000);
 
-    lm.getView()->show();
+    lm.getView().show();
 
-    return true;
+    return (true);
 }

@@ -54,7 +54,7 @@ bool	Win32Explorer::getFocusedWindow(Ceg::Window & oneWindow)
 {
     DWORD dwThreadId, dwProcessId;
     char windowTitle[255];
-    char filenameBuffer[4000];
+    //char filenameBuffer[4000];
     HANDLE hProcess;
     HWND hWnd = GetForegroundWindow();
     WINDOWINFO  winInfo;
@@ -71,7 +71,7 @@ bool	Win32Explorer::getFocusedWindow(Ceg::Window & oneWindow)
     if (GetWindowInfo(hWnd, &winInfo))
     {
 	QRect loadInfo(winInfo.rcClient.left, winInfo.rcClient.top, winInfo.rcClient.right, winInfo.rcClient.bottom);
-	oneWindow.setCharacteristic(loadInfo);
+	oneWindow.setGeometry(loadInfo);
 	std::cout << "Pos left: " << winInfo.rcClient.left << std::endl;
 	std::cout << "Pos TOP : " << winInfo.rcClient.top << std::endl;
 	std::cout << "Pos Bottom : " << winInfo.rcClient.bottom << std::endl;
@@ -108,7 +108,7 @@ bool	Win32Explorer::refreshWindowInfo(Ceg::Window & window)
     if (GetWindowInfo(window.getId(), &winInfo))
     {
 	QRect refreshInfo(winInfo.rcClient.left, winInfo.rcClient.top, winInfo.rcClient.right, winInfo.rcClient.bottom);
-	window.setCharacteristic(refreshInfo);
+	window.setGeometry(refreshInfo);
 	std::cout << "Pos left: " << winInfo.rcClient.left << std::endl;
 	std::cout << "Pos TOP : " << winInfo.rcClient.top << std::endl;
 	std::cout << "Pos Bottom : " << winInfo.rcClient.bottom << std::endl;
@@ -157,7 +157,7 @@ BOOL	Win32Explorer::fillWindowList(HWND hWnd)
     hProcess = OpenProcess(PROCESS_QUERY_INFORMATION|PROCESS_VM_READ, FALSE, dwProcessId);
     //if (!hProcess)
     //	std::cout << "ERROR WITH OPENPROCESS" <<std::endl;
-    char filenameBuffer[4000];
+    //char filenameBuffer[4000];
     /*if (::GetModuleFileNameEx(hProcess, NULL, (WCHAR *)filenameBuffer, 4000) > 0)
     {
 	std::cout << "filenameBuffer: " << filenameBuffer << std::endl;

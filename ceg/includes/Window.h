@@ -47,18 +47,18 @@ namespace Ceg
 	Window();
 	Window(WindowId, QRect const &, bool = false, std::string const & = "");
 
-	WindowId getId() const;
-	QRect const & getGeometry() const;
+	QRect const &	    getGeometry() const;
+	WindowId	    getId() const;
 	std::string const & getProgramName() const;
 
-	void setId(WindowId);
-	void setCharacteristic(QRect const &);
+	void		    setGeometry(QRect const &);
+	void		    setId(WindowId);
 
     private:
 	std::string _programName;
-	WindowId _id;
-	QRect _geometry;
-	bool _isVisible;
+	WindowId    _id;
+	QRect	    _geometry;
+	bool	    _isVisible;
     };
 }
 

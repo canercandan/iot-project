@@ -29,20 +29,19 @@ class IAction;
 class AbstractItem : public QGraphicsRectItem
 {
 public:
-    AbstractItem(AbstractBox * box, QGraphicsItem * parent = 0);
+    AbstractItem(AbstractBox const * box, QGraphicsItem * parent = 0);
 
-    AbstractBox *   getBox() const;
-
-    IAction * onEvent();
-
-protected:
-    virtual void focusInEvent(QFocusEvent * event);
-    virtual void focusOutEvent(QFocusEvent * event);
-    virtual void paint(QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget = 0);
+    AbstractBox const *	getBox() const;
+    IAction *		getEvent() const;
 
 protected:
-    Qt::GlobalColor _color;
-    AbstractBox *   _box;
+    virtual void	focusInEvent(QFocusEvent * event);
+    virtual void	focusOutEvent(QFocusEvent * event);
+    virtual void	paint(QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget = 0);
+
+protected:
+    Qt::GlobalColor	_color;
+    AbstractBox const *	_box;
 };
 
 #endif // ABSTRACTITEM_H

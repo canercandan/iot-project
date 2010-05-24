@@ -21,11 +21,13 @@
 #include "EventMenuAction.h"
 
 #include "LayerManager.h"
-#include "AbstractScene.h"
+
+/************************************************* [ CTOR/DTOR ] *************************************************/
 
 EventMenuAction::EventMenuAction(int key)
 {}
 
+/************************************************* [ OTHERS ] *************************************************/
 bool	EventMenuAction::exec(LayerManager& lm)
 {
     return (true);

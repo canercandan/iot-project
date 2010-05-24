@@ -26,8 +26,8 @@
 #include <QGraphicsScene>
 
 class QGraphicsRectItem;
-
 class QRect;
+
 class IAction;
 class AbstractItem;
 
@@ -36,15 +36,15 @@ class AbstractScene : public QGraphicsScene
 public:
     AbstractScene(qreal x, qreal y, qreal width, qreal height, QObject * parent = 0);
 
-    virtual void initScene(std::list<QGraphicsRectItem *> & newScene);
+    virtual void	    initScene(std::list<QGraphicsRectItem *> const & newScene);
 
-    virtual QRect  getGeometry() const = 0;
-    AbstractItem * getCurrentItem() const;
+    AbstractItem const *    getCurrentItem() const;
+    virtual QRect	    getGeometry() const = 0;
 
-    virtual IAction * keyPressEvent(int key) = 0;
+    virtual IAction *	    keyPressEvent(int key) const = 0;
 
 private:
-    void clearScene();
+    void		    clearScene();
 };
 
 #endif // ABSTRACTSCENE_H
