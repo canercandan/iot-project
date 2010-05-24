@@ -36,7 +36,7 @@
 /************************************************* [ CTOR/DTOR ] *************************************************/
 
 LayerManager::LayerManager() :
-	_view(*this), _boxManager(),
+  _view(*this), _layers(),_currentLayer(), _boxManager(),
 #ifdef _WIN32
 	_comGs(new Win32Explorer)
 #else

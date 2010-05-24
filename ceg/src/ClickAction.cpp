@@ -18,8 +18,6 @@
  * Authors: CEG <ceg@ionlythink.com>, http://www.ionlythink.com
  */
 
-//#include <iostream>
-
 #include "ClickAction.h"
 
 #include "AbstractItem.h"

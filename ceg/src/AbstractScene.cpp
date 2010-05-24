@@ -46,6 +46,7 @@ void AbstractScene::clearScene()
 	QGraphicsItem * tmpItem = *it;
 	++it;
 	this->removeItem(tmpItem);
+	delete tmpItem;
     }
 }
 

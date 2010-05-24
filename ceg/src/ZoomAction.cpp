@@ -58,7 +58,7 @@ bool	ZoomAction::exec(LayerManager & lm)
 
 void ZoomAction::zoom(BoxManager const & boxManager, AbstractBox const * box, std::list<QGraphicsRectItem *> & graphicItems)
 {
-    boxManager.getChildren(graphicItems, box);
+  boxManager.getChildren(graphicItems, box);
 }
 
 void ZoomAction::unZoom(BoxManager const & boxManager, AbstractBox const * box, std::list<QGraphicsRectItem *> & graphicItems)

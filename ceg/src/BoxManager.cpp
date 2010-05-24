@@ -112,36 +112,33 @@ void BoxManager::calcParent(std::list<AbstractBox *> & boxs, AbstractBox const *
     }
     level--;
     int Width = desktop->width();
-    for (int i = 0; i < level; i++)
+    for (int i = 0; i < level; ++i)
     {
-	Width = Width / 3;
+	Width /= 3;
     }
     int Height = desktop->height();
-    for (int i = 0; i < level; i++)
+    for (int i = 0; i < level; ++i)
     {
-	Height = Height / 3;
+	Height /= 3;
     }
 
-    int posXtop = 0;
-    int posYtop = 0;
-    int dynamicHeight = desktop->height() / 3;
-    for (int i = 0; i < level; i++)
+    int posXtop = 0, posYtop = 0, dynamicHeight = desktop->height() / 3, maxHeight = item->getGeometry().y() + item->getGeometry().height();
+    for (int i = 0; i < level; ++i)
     {
-	while ((posYtop + dynamicHeight) < item->getGeometry().y() + item->getGeometry().height())
+	while ((posYtop + dynamicHeight) < maxHeight)
 	{
 	    posYtop += dynamicHeight;
 	}
-	dynamicHeight = dynamicHeight / 3;
+	dynamicHeight /= 3;
     }
-
-    int dynamicWidth = desktop->width() / 3;
-    for (int i = 0; i < level; i++)
+    int dynamicWidth = desktop->width() / 3, maxWidth = item->getGeometry().x() + item->getGeometry().width();
+    for (int i = 0; i < level; ++i)
     {
-	while ((posXtop + dynamicWidth) < item->getGeometry().x() + item->getGeometry().width())
+	while ((posXtop + dynamicWidth) < maxWidth)
 	{
 	    posXtop += dynamicWidth;
 	}
-	dynamicWidth = dynamicWidth / 3;
+	dynamicWidth /= 3;
     }
     this->calcChildren(boxs, QRect(posXtop, posYtop, Width, Height), item->getLevel() - 1);
 }
@@ -160,5 +157,3 @@ void    BoxManager::loadConf() const
     list1.push_back(new AbstractBox(DEFAULT, 0, std::list<AbstractBox*>(0), QRect(10, 10, 10, 10)));
     list1.push_back(new AbstractBox(DEFAULT, 0, std::list<AbstractBox*>(0), QRect(50, 50, 50, 50)));
 }
-
-

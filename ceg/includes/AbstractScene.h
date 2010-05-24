@@ -35,7 +35,6 @@ class AbstractScene : public QGraphicsScene
 {
 public:
     AbstractScene(qreal x, qreal y, qreal width, qreal height, QObject * parent = 0);
-
     virtual void	    initScene(std::list<QGraphicsRectItem *> const & newScene);
 
     AbstractItem const *    getCurrentItem() const;

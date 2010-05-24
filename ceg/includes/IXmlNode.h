@@ -8,7 +8,7 @@
 class IXmlNode
 {
 public:
-  ~IXmlNode(){}
+  virtual ~IXmlNode(){}
 
   virtual QDomElement createXMLNode(QDomDocument&) = 0;
 };
