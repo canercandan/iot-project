@@ -1,0 +1,10 @@
+<!DOCTYPE XmlBox>
+<boxes>
+  <box width="150" opacity="1" x="0" y="0" image="" height="344" actionid="Click" visible="0" type="0" text="" >
+    <param value="#FFFFFF" name="bgcolor" />
+    <param value="#000000" name="fgcolor" />
+  </box>
+  <box width="250" opacity="5" x="0" y="0" image="" height="300" actionid="DbClick" visible="1" type="0" text="" >
+    <param value="500" name="speed" />
+  </box>
+</boxes>
