@@ -50,13 +50,14 @@ void AbstractScene::clearScene()
     }
 }
 
+//! takes a scene (a list of Item) to draw graphical areas on the view
 void AbstractScene::initScene(std::list<QGraphicsRectItem *> const & newScene)
 {
     this->clearScene();
 
     for (std::list<QGraphicsRectItem *>::const_reverse_iterator  it = newScene.rbegin(), itEnd = newScene.rend(); it != itEnd; ++it)
     {
-	this->addItem(*it);
+      this->addItem(*it);
     }
     newScene.front()->setFocus();
 }

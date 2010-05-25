@@ -29,6 +29,10 @@
 #include "Window.h"
 #include "GraphicItemFactory.h"
 
+/************************************************* [ VARIABLES ] *************************************************/
+
+const int	BoxManager::_nbGrid = 1000;
+
 /************************************************* [ CTOR/DTOR ] *************************************************/
 
 BoxManager::BoxManager()
@@ -85,6 +89,8 @@ void BoxManager::getParent(std::list<QGraphicsRectItem *> & graphicItems, Abstra
   this->createGraphicItems(graphicItems, childrenBox);
 }
 
+//! This method uses window name to get all AbstractBox[es] (got initially from XML).
+//! The list of AbstractBox is used to generate Item objects which is an area of the view.
 void    BoxManager::getPattern(Ceg::Window const & aWindow, std::list<QGraphicsRectItem *> & graphicItems) const
 {
   std::map<std::string, std::list<AbstractBox *> >::const_iterator  itFind = this->_patterns.find(aWindow.getProgramName());
@@ -102,18 +108,20 @@ void    BoxManager::getPattern(Ceg::Window const & aWindow, std::list<QGraphicsR
 
 /************************************************* [ OTHERS ] *************************************************/
 
+//! This method is used in the case we are using a grid view,
+//! indeed it is going to calculate position and size of each
+//! grid areas in function of _nbGrid static value.
 void BoxManager::calcChildren(std::list<AbstractBox *> & boxs, QRect const & geometry, unsigned short level) const
 {
-    int nbGrid = 3;
-    int tmpWidth = geometry.width() / nbGrid;
-    int tmpHeight = geometry.height() / nbGrid;
+    int tmpWidth = geometry.width() / _nbGrid;
+    int tmpHeight = geometry.height() / _nbGrid;
     int rows = 0;
     int y = geometry.y();
-    while (rows++ < nbGrid)
+    while (rows++ < _nbGrid)
     {
 	int cols = 0;
 	qreal x = geometry.x();
-	while (cols++ < nbGrid)
+	while (cols++ < _nbGrid)
 	{
 	    boxs.push_back(new AbstractBox(DEFAULT, level, std::list<AbstractBox*>(0), QRect(x, y, tmpWidth, tmpHeight)));
 	    x += tmpWidth;
@@ -134,31 +142,31 @@ void BoxManager::calcParent(std::list<AbstractBox *> & boxs, AbstractBox const *
   int Width = desktop->width();
   for (int i = 0; i < level; ++i)
     {
-      Width /= 3;
+      Width /= _nbGrid;
     }
   int Height = desktop->height();
   for (int i = 0; i < level; ++i)
     {
-      Height /= 3;
+      Height /= _nbGrid;
     }
 
-  int posXtop = 0, posYtop = 0, dynamicHeight = desktop->height() / 3, maxHeight = item->getGeometry().y() + item->getGeometry().height();
+  int posXtop = 0, posYtop = 0, dynamicHeight = desktop->height() / _nbGrid, maxHeight = item->getGeometry().y() + item->getGeometry().height();
   for (int i = 0; i < level; ++i)
     {
       while ((posYtop + dynamicHeight) < maxHeight)
 	{
 	  posYtop += dynamicHeight;
 	}
-      dynamicHeight /= 3;
+      dynamicHeight /= _nbGrid;
     }
-  int dynamicWidth = desktop->width() / 3, maxWidth = item->getGeometry().x() + item->getGeometry().width();
+  int dynamicWidth = desktop->width() / _nbGrid, maxWidth = item->getGeometry().x() + item->getGeometry().width();
   for (int i = 0; i < level; ++i)
     {
       while ((posXtop + dynamicWidth) < maxWidth)
 	{
 	  posXtop += dynamicWidth;
 	}
-      dynamicWidth /= 3;
+      dynamicWidth /= _nbGrid;
     }
   this->calcChildren(boxs, QRect(posXtop, posYtop, Width, Height), item->getLevel() - 1);
 }

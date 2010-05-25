@@ -22,6 +22,7 @@
 #define ABSTRACTBOX_H
 
 #include <list>
+#include <map>
 
 #include <QRect>
 
@@ -64,7 +65,7 @@ private:
   QRect			    _geometry;
   QString		    _actionid;
   IAction*		    _action;
-  std::list<IXmlNode*>	    _params;
+  std::map< QString, IXmlNode* >    _params;
   std::list<AbstractBox*>   _children;
 };
 

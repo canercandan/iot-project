@@ -66,8 +66,9 @@ AbstractBox::AbstractBox(const QDomElement& e)
       if (e2.tagName() != "param")
 	continue;
 
+      QString key = e2.attribute("name");
       IXmlNode* p = new BoxParameter(e2);
-      this->_params.push_back(p);
+      this->_params[key] = p;
     }
 }
 
@@ -80,12 +81,12 @@ AbstractBox::~AbstractBox()
       delete (tempBox);
     }
 
-  for (std::list<IXmlNode*>::iterator
+  for (std::map< QString, IXmlNode* >::iterator
 	 it = this->_params.begin(),
 	 end = this->_params.end();
        it != end; ++it)
     {
-      delete *it;
+      delete it->second;
     }
 }
 
@@ -107,12 +108,12 @@ QDomElement AbstractBox::createXMLNode(QDomDocument& d)
   //   cn.setAttribute("image", _image);
   //   cn.setAttribute("text", _text);
 
-  for (std::list<IXmlNode*>::iterator
+  for (std::map< QString, IXmlNode* >::iterator
 	 it = this->_params.begin(),
 	 end = this->_params.end();
        it != end; ++it)
     {
-      cn.appendChild( (*it)->createXMLNode(d) );
+      cn.appendChild( it->second->createXMLNode(d) );
     }
 
   return cn;

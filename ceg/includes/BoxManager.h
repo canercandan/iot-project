@@ -58,6 +58,8 @@ private:
   //! this map associates a list of boxes with a context name,
   //! it is initialy filled out by loadConf method
   std::map<std::string, std::list<AbstractBox *> > _patterns;
+
+  static const int _nbGrid;
 };
 
 #endif // BOXMANAGER_H
