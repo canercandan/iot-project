@@ -18,12 +18,15 @@ SET(SOURCES
   MenuItem.cpp
   MoveAction.cpp
   ReadAction.cpp
+  Systray.cpp
   Utils.cpp
   View.cpp
   Window.cpp
   WriteAction.cpp
   ZoomAction.cpp
 )
+
+qt4_automoc(${SOURCES})
 
 IF(UNIX)
   SET(SOURCES ${SOURCES} XWindowSystem.cpp)
