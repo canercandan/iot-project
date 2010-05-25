@@ -27,6 +27,7 @@
 - ...
 
 -------------------------------------------------- CEG --------------------------------------------------------------------------
+mettre a jour l UML et dire a lamine de le remplacer dans les docs
 - utile de mettre AbstractScene::keyPressEvent en virtual pure? (YANN)
 TO YAVUZ : bug !!! zoom pas de probleme mais unzoom probleme au bout de 8 zoom dans le case numero 9, boucle infini dans BoxManager::calcParent au niveau du troisieme for, au bout d un moment le while tourne sans changer de valeurs! NE PAS mettre des noms de variables commencant par une Maj !
 - Implementer la methode void    Layer::printMenuEvent() const (YAVUZ)// Methode qui va faire appel a l'affichage du menu ! retourne une action qui connait le menu
@@ -68,4 +69,4 @@ from regis : si tu appuyes enormement sur entre ca crash au bout d un moment
 
 ----------------------------------------------------LINKS-------------------------------------------------------------------
 http://www.supertangas.com/
-http://www.howtoNinja.com/karim.html
+http://www.howtoNinja.com/karim-tug-builder-chris.html
