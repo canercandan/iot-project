@@ -69,7 +69,7 @@ private:
 class XmlBox : public INode
 {
 public:
-  XmlBox(bool visible = "", unsigned int opacity = 0,
+  XmlBox(bool visible = false, unsigned int opacity = 0,
 	 QString type = "", unsigned int x = 0, unsigned int y = 0,
 	 unsigned int width = 0, unsigned int height = 0,
 	 QString image = "", QString text = "", QString action = "")
@@ -244,7 +244,7 @@ int	main(int ac, char** av)
   QApplication a(ac, av);
 
   MainFrame m;
-  m.load("./test/xmlBox.xml");
+  m.load("./test/xmlBox2.xml");
   m.save("./test/xmlBox2.xml");
 
   return a.exec();

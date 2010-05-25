@@ -25,11 +25,6 @@
 
 #include "IXmlNode.h"
 
-// #include <QtXml>
-
-// class QDomDocument;
-// class QDomElement;
-
 class BoxParameter : public IXmlNode
 {
 public:

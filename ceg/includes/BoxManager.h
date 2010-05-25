@@ -31,26 +31,33 @@ namespace Ceg
 {
     class Window;
 }
+
 class AbstractBox;
 
 class BoxManager
 {
 public:
-    BoxManager();
+  BoxManager();
+  ~BoxManager();
 
-    void    getChildren(std::list<QGraphicsRectItem *> &, AbstractBox const *) const;
-    void    getParent(std::list<QGraphicsRectItem *> &, AbstractBox const *) const;
-    void    getPattern(Ceg::Window const &, std::list<QGraphicsRectItem *> & list) const;
+  void    getChildren(std::list<QGraphicsRectItem *> &, AbstractBox const *) const;
+  void    getParent(std::list<QGraphicsRectItem *> &, AbstractBox const *) const;
+  void    getPattern(Ceg::Window const &, std::list<QGraphicsRectItem *> & list) const;
 
-    void    loadConf() const;
+  //! method to import configuration from a XML file to _patterns[name] list
+  void    loadConf(const QString& name);
+  //! method to save configuration from _patterns[name] list to a XML file (not planned to be used yet!)
+  void	  saveConf(const QString& name);
 
 private:
-    void    calcChildren(std::list<AbstractBox *> &, QRect const &, unsigned short) const;
-    void    calcParent(std::list<AbstractBox *> &, AbstractBox const *) const;
-    void    createGraphicItems(std::list<QGraphicsRectItem *> &, std::list<AbstractBox *> const & boxs) const;
+  void    calcChildren(std::list<AbstractBox *> &, QRect const &, unsigned short) const;
+  void    calcParent(std::list<AbstractBox *> &, AbstractBox const *) const;
+  void    createGraphicItems(std::list<QGraphicsRectItem *> &, std::list<AbstractBox *> const & boxs) const;
 
 private:
-    std::map<std::string, std::list<AbstractBox *> > _patterns;
+  //! this map associates a list of boxes with a context name,
+  //! it is initialy filled out by loadConf method
+  std::map<std::string, std::list<AbstractBox *> > _patterns;
 };
 
 #endif // BOXMANAGER_H

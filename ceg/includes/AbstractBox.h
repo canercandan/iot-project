@@ -24,21 +24,23 @@
 #include <list>
 
 #include <QRect>
-#include <QtXml>
 
 #include "IXmlNode.h"
 
 class IAction;
+class BoxParameter;
 
-enum BoxType {DEFAULT, CUSTOM, MENU};
+enum BoxType {DEFAULT = 0, CUSTOM, MENU};
 
 class AbstractBox : public IXmlNode
 {
 public:
   AbstractBox(QRect geometry, BoxType boxtype);
-  AbstractBox(BoxType boxtype, AbstractBox * parent, std::list<AbstractBox*> const & children, QRect const & geometry);
-  AbstractBox(BoxType boxtype, int level, std::list<AbstractBox*> const & children, QRect const & geometry);
-  //AbstractBox(const QDomElement& e);
+  AbstractBox(BoxType boxtype, AbstractBox* _parent,
+	      std::list<AbstractBox*> const & children, QRect const & geometry);
+  AbstractBox(BoxType boxtype, int level,
+	      std::list<AbstractBox*> const & children, QRect const & geometry);
+  AbstractBox(const QDomElement& e);
   ~AbstractBox();
 
   virtual QDomElement createXMLNode(QDomDocument& d);
@@ -51,15 +53,19 @@ public:
   AbstractBox*			    getParent() const;
 
 private:
+  bool			    _visible;
+  unsigned int		    _opacity;
   BoxType		    _type;
   union
   {
     AbstractBox*	    _parent;
     int			    _level;
   }			    _topUnion;
-  std::list<AbstractBox *>  _children;
   QRect			    _geometry;
+  QString		    _actionid;
   IAction*		    _action;
+  std::list<IXmlNode*>	    _params;
+  std::list<AbstractBox*>   _children;
 };
 
 #endif // ABSTRACTBOX_H
