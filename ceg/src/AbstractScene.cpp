@@ -50,8 +50,8 @@ void AbstractScene::clearScene()
     }
 }
 
-//! takes a scene (a list of Item) to draw graphical areas on the view
-void AbstractScene::initScene(std::list<QGraphicsRectItem *> const & newScene)
+//! takes a scene (a list of Items) to draw graphical areas on the view
+void AbstractScene::initialize(std::list<QGraphicsRectItem *> const & newScene)
 {
     this->clearScene();
 

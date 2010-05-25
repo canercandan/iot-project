@@ -24,99 +24,91 @@
 /************************************************* [ CTOR/DTOR ] *************************************************/
 
 AbstractBox::AbstractBox(BoxType boxtype, AbstractBox * parent, std::list<AbstractBox*> const & children, QRect const & geometry):
-  _visible(false), _opacity(0), _type(boxtype), _geometry(geometry),
-  _action(0), _children(children)
+	_visible(false), _opacity(0), _type(boxtype), _geometry(geometry),
+	_action(0), _children(children)
 {
     this->_topUnion._parent = parent;
 }
 
 AbstractBox::AbstractBox(BoxType boxtype, int level, std::list<AbstractBox*> const & children, QRect const & geometry):
-  _visible(false), _opacity(0), _type(boxtype), _geometry(geometry),
-  _actionid(""), _action(0), _children(children)
+	_visible(false), _opacity(0), _type(boxtype), _geometry(geometry),
+	_actionid(""), _action(0), _children(children)
 {
     this->_topUnion._level = level;
 }
 
-AbstractBox::AbstractBox(const QDomElement& e)
+AbstractBox::AbstractBox(const QDomElement& domElement)
 {
-  if (e.hasAttribute("visible"))
-    this->_visible = e.attribute("visible").toUInt();
-  if (e.hasAttribute("opacity"))
-    this->_opacity = e.attribute("opacity").toUInt();
-  if (e.hasAttribute("type"))
-    this->_type = static_cast<BoxType>(e.attribute("type").toUInt());
+    if (domElement.hasAttribute("visible"))
+	this->_visible = domElement.attribute("visible").toUInt();
+    if (domElement.hasAttribute("opacity"))
+	this->_opacity = domElement.attribute("opacity").toUInt();
+    if (domElement.hasAttribute("type"))
+	this->_type = static_cast<BoxType>(domElement.attribute("type").toUInt());
 
-  if (e.hasAttribute("x"))
-    this->_geometry.setX(e.attribute("x").toUInt());
-  if (e.hasAttribute("y"))
-    this->_geometry.setY(e.attribute("y").toUInt());
-  if (e.hasAttribute("width"))
-    this->_geometry.setWidth(e.attribute("width").toUInt());
-  if (e.hasAttribute("height"))
-    this->_geometry.setHeight(e.attribute("height").toUInt());
+    if (domElement.hasAttribute("x"))
+	this->_geometry.setX(domElement.attribute("x").toUInt());
+    if (domElement.hasAttribute("y"))
+	this->_geometry.setY(domElement.attribute("y").toUInt());
+    if (domElement.hasAttribute("width"))
+	this->_geometry.setWidth(domElement.attribute("width").toUInt());
+    if (domElement.hasAttribute("height"))
+	this->_geometry.setHeight(domElement.attribute("height").toUInt());
 
-  if (e.hasAttribute("actionid"))
-    this->_actionid = e.attribute("actionid");
+    if (domElement.hasAttribute("actionid"))
+	this->_actionid = domElement.attribute("actionid");
 
-  for (QDomNode n = e.firstChild(); !n.isNull(); n = n.nextSibling())
+    for (QDomNode n = domElement.firstChild(); !n.isNull(); n = n.nextSibling())
     {
-      QDomElement e2 = n.toElement();
-      if (e2.isNull())
-	continue;
-      if (e2.tagName() != "param")
-	continue;
+	QDomElement e2 = n.toElement();
+	if (e2.isNull())
+	    continue;
+	if (e2.tagName() != "param")
+	    continue;
 
-      QString key = e2.attribute("name");
-      IXmlNode* p = new BoxParameter(e2);
-      this->_params[key] = p;
+	QString key = e2.attribute("name");
+	IXmlNode* p = new BoxParameter(e2);
+	this->_params[key] = p;
     }
 }
 
 AbstractBox::~AbstractBox()
 {
-  for (std::list<AbstractBox*>::iterator it = this->_children.begin(), ite = this->_children.end(); it != ite;)
+    for (std::list<AbstractBox*>::const_iterator it = this->_children.begin(), itEnd = this->_children.end(); it != itEnd; ++it)
     {
-      AbstractBox const * const tempBox = *it;
-      it = this->_children.erase(it); // ??? quel interet de erase un element d'une liste situé dans la stack ??? La liste va de toute façon etre viré à la destruction de la classe
-      delete (tempBox);
+	delete (*it);
     }
 
-  for (std::map< QString, IXmlNode* >::iterator
-	 it = this->_params.begin(),
-	 end = this->_params.end();
-       it != end; ++it)
+    for (std::map< QString, IXmlNode* >::const_iterator it = this->_params.begin(), itEnd = this->_params.end(); it != itEnd; ++it)
     {
-      delete it->second;
+	delete it->second;
     }
 }
 
 QDomElement AbstractBox::createXMLNode(QDomDocument& d)
 {
-  QDomElement cn = d.createElement("box");
+    QDomElement cn = d.createElement("box");
 
-  cn.setAttribute("visible", this->_visible);
-  cn.setAttribute("opacity", this->_opacity);
-  cn.setAttribute("type", this->_type);
+    cn.setAttribute("visible", this->_visible);
+    cn.setAttribute("opacity", this->_opacity);
+    cn.setAttribute("type", this->_type);
 
-  cn.setAttribute("x", this->_geometry.x());
-  cn.setAttribute("y", this->_geometry.y());
-  cn.setAttribute("width", this->_geometry.width());
-  cn.setAttribute("height", this->_geometry.height());
+    cn.setAttribute("x", this->_geometry.x());
+    cn.setAttribute("y", this->_geometry.y());
+    cn.setAttribute("width", this->_geometry.width());
+    cn.setAttribute("height", this->_geometry.height());
 
-  cn.setAttribute("actionid", this->_actionid);
+    cn.setAttribute("actionid", this->_actionid);
 
-  //   cn.setAttribute("image", _image);
-  //   cn.setAttribute("text", _text);
+    //   cn.setAttribute("image", _image);
+    //   cn.setAttribute("text", _text);
 
-  for (std::map< QString, IXmlNode* >::iterator
-	 it = this->_params.begin(),
-	 end = this->_params.end();
-       it != end; ++it)
+    for (std::map< QString, IXmlNode* >::iterator it = this->_params.begin(), end = this->_params.end();
+    it != end; ++it)
     {
-      cn.appendChild( it->second->createXMLNode(d) );
+	cn.appendChild(it->second->createXMLNode(d));
     }
-
-  return cn;
+    return cn;
 }
 
 /************************************************* [ GETTERS ] *************************************************/

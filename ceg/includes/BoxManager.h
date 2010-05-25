@@ -59,7 +59,7 @@ private:
   //! it is initialy filled out by loadConf method
   std::map<std::string, std::list<AbstractBox *> > _patterns;
 
-  static const int _nbGrid;
+  static const int NBGRID = 3; // va sauter sera configurable dans l interface.
 };
 
 #endif // BOXMANAGER_H

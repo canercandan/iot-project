@@ -37,7 +37,7 @@ View::View(LayerManager & lm)
 
 /************************************************* [ OTHERS ] *************************************************/
 
-void	View::init()
+void	View::initialize()
 {
     AbstractScene* as = this->_lm.getCurrentLayer();
     this->setScene(as);

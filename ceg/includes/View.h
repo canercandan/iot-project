@@ -31,7 +31,7 @@ class View : public QGraphicsView
 public:
   View(LayerManager &);
 
-  void	init();
+  void	initialize();
   void	keyPressEvent(QKeyEvent* keyEvent);
 
 private:

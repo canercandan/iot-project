@@ -51,7 +51,7 @@ bool	ZoomAction::exec(LayerManager & lm)
     }
     if (!graphicItems.empty())
     {
-	scene->initScene(graphicItems);
+	scene->initialize(graphicItems);
     }
     return (true);
 }

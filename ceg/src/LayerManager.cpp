@@ -91,12 +91,12 @@ void LayerManager::createLayers(std::list<Ceg::Window> const & windows)
 	Layer * oneLayer = new Layer(*it);
 	std::list<QGraphicsRectItem *> graphicItems;
 	this->_boxManager.getPattern(*it, graphicItems);
-	oneLayer->initScene(graphicItems);
+	oneLayer->initialize(graphicItems);
 	this->_layers.push_front(oneLayer);
     }
 }
 
-void LayerManager::init()
+void LayerManager::initialize()
 {
     std::list<Ceg::Window>  windows;
     //this->_comGs->getWindows(windows);
@@ -110,7 +110,12 @@ void LayerManager::init()
 
 void LayerManager::start()
 {
-    this->init();
-    this->_view.init();
+    this->initialize();
+    this->_view.initialize();
     this->_view.show();
+}
+
+void LayerManager::stop()
+{
+    this->_view.hide();
 }

@@ -18,46 +18,39 @@
  * Authors: CEG <ceg@ionlythink.com>, http://www.ionlythink.com
  */
 
-#ifndef LAYERMANAGER_H
-#define LAYERMANAGER_H
 
-#include <list>
+#ifndef SYSTRAY_H
+#define SYSTRAY_H
 
-#include <QGraphicsView>
+#include <QWidget>
 
-#include "View.h"
-#include "Window.h"
-#include "BoxManager.h"
+class QSystemTrayIcon;
+class QMenu;
 
-class AbstractScene;
-class ICommunicationGraphicalServer;
-class IAction;
+class LayerManager;
 
-class LayerManager
+class Systray : public QWidget
 {
+    Q_OBJECT
 public:
-    LayerManager();
-    ~LayerManager();
+    explicit Systray(QWidget *parent = 0);
+    ~Systray();
 
-    BoxManager const &			getBoxManager() const;
-    ICommunicationGraphicalServer*	getComGs() const;
-    AbstractScene*			getCurrentLayer() const;
-    View &				getView();
-
-    bool				actionHandler(IAction &);
-    void				start();
-    void				stop();
+private slots:
+    void on__startAction_triggered();
+    void on__aboutQtAction_triggered();
+    void on__settingAction_triggered();
+    void on__aboutCegAction_triggered();
 
 private:
-    void				createLayers(std::list<Ceg::Window> const & windows);
-    void				initialize();
-
-private:
-    View				    _view;
-    std::list<AbstractScene *>		    _layers;
-    std::list<AbstractScene *>::iterator    _currentLayer;
-    BoxManager				    _boxManager;
-    ICommunicationGraphicalServer *	    _comGs;
+    QSystemTrayIcon *	_trayIcon;
+    QMenu *		_trayIconMenu;
+    QAction *		_startAction;
+    QAction *		_settingAction;
+    QAction *		_aboutQtAction;
+    QAction *		_aboutCegAction;
+    QAction *		_quitAction;
+    LayerManager *	_lm;
 };
 
-#endif // LAYERMANAGER_H
+#endif // SYSTRAY_H

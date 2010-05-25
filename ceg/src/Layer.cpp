@@ -44,25 +44,17 @@ IAction * Layer::keyPressEvent(int key) const
     switch (key)
     {
     case Qt::Key_Left :
-	{
-	    this->moveHorizontally();
-	    break;
-	}
+	this->moveHorizontally();
+	break;
     case Qt::Key_Right :
-	{
-	    this->moveHorizontally();
-	    break;
-	}
+	this->moveHorizontally();
+	break;
     case Qt::Key_Up :
-	{
-	    this->moveVertically();
-	    break;
-	}
+	this->moveVertically();
+	break;
     case Qt::Key_Down :
-	{
-	    this->moveVertically();
-	    break;
-	}
+	this->moveVertically();
+	break;
     case Qt::Key_Return :
 	{
 	    AbstractItem * focusItem = static_cast<AbstractItem *>(this->focusItem());

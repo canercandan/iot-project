@@ -26,16 +26,16 @@ BoxParameter::BoxParameter(QString name /*= ""*/, QString value /*= ""*/)
 
 BoxParameter::BoxParameter(const QDomElement& e)
 {
-  _name = e.attribute("name");
-  _value = e.attribute("value");
+  this->_name = e.attribute("name");
+  this->_value = e.attribute("value");
 }
 
 QDomElement BoxParameter::createXMLNode(QDomDocument& d)
 {
   QDomElement cn = d.createElement("param");
 
-  cn.setAttribute("name", _name);
-  cn.setAttribute("value", _value);
+  cn.setAttribute("name", this->_name);
+  cn.setAttribute("value", this->_value);
 
   return cn;
 }

@@ -30,7 +30,7 @@ void Systray::closeEvent(QCloseEvent *event)
 void Systray::createActions() // Right click on the systray
 {
     restoreAction = new QAction(tr("&Restore"), this);
-    connect(restoreAction, SIGNAL(triggered()), this, SLOT(showNormal()));
+    connect(restoreAction, SIGNAL(triggered()), this, SLOT(myTest()));
 
     networkAction = new QAction(tr("&Network"), this);
     connect(networkAction, SIGNAL(triggered()), qApp, SLOT(quit()));
@@ -43,4 +43,9 @@ void Systray::createActions() // Right click on the systray
 
     quitAction = new QAction(tr("&Quit"), this);
     connect(quitAction, SIGNAL(triggered()), qApp, SLOT(quit()));
+}
+#include <QMessageBox>
+void Systray::myTest()
+{
+    QMessageBox::aboutQt(0, "");
 }

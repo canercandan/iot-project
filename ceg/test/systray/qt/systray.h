@@ -19,6 +19,9 @@ public:
 protected:
     void closeEvent(QCloseEvent *event);
 
+public slots:
+    void myTest();
+
 private:
     void createActions();
     void createTrayIcon();

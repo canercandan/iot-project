@@ -31,7 +31,8 @@ HEADERS += includes/AbstractItem.h \
     includes/EventMenuAction.h \
     includes/Utils.h \
     includes/BoxParameter.h \
-    includes/IXmlNode.h
+    includes/IXmlNode.h \
+    includes/Systray.h
 SOURCES += src/AbstractItem.cpp \
     src/AbstractScene.cpp \
     src/BoxManager.cpp \
@@ -52,7 +53,8 @@ SOURCES += src/AbstractItem.cpp \
     src/MenuItem.cpp \
     src/EventMenuAction.cpp \
     src/Utils.cpp \
-    src/BoxParameter.cpp
+    src/BoxParameter.cpp \
+    src/Systray.cpp
 unix { 
     HEADERS += includes/XWindowSystem.h
     SOURCES += src/XWindowSystem.cpp
@@ -71,3 +73,4 @@ OBJECTS_DIR = build
 MOC_DIR = moc
 UI_SOURCES_DIR = ui_src
 UI_HEADERS_DIR = ui_includes
+RESOURCES += ressources/images.qrc

@@ -29,32 +29,24 @@
 #include "Window.h"
 #include "GraphicItemFactory.h"
 
-/************************************************* [ VARIABLES ] *************************************************/
-
-const int	BoxManager::_nbGrid = 1000;
-
 /************************************************* [ CTOR/DTOR ] *************************************************/
 
 BoxManager::BoxManager()
 {
-  //this->loadConf();
+    //this->loadConf();
 }
 
 BoxManager::~BoxManager()
 {
-  for (std::map< std::string, std::list< AbstractBox * > >::iterator
-	 it = this->_patterns.begin(),
-	 end = this->_patterns.end();
-       it != end; ++it)
+    for (std::map< std::string, std::list< AbstractBox * > >::const_iterator it = this->_patterns.begin(), end = this->_patterns.end();
+    it != end; ++it)
     {
-      std::list< AbstractBox* > & ablist = it->second;
+	std::list< AbstractBox* > const & ablist = it->second;
 
-      for (std::list<AbstractBox*>::iterator
-	     it = ablist.begin(),
-	     end = ablist.end();
-	   it != end; ++it)
+	for (std::list<AbstractBox*>::const_iterator it = ablist.begin(), end = ablist.end();
+	it != end; ++it)
 	{
-	  delete *it;
+	    delete *it;
 	}
     }
 }
@@ -77,33 +69,33 @@ void BoxManager::getChildren(std::list<QGraphicsRectItem *> & graphicItems, Abst
 
 void BoxManager::getParent(std::list<QGraphicsRectItem *> & graphicItems, AbstractBox const * box) const
 {
-  std::list<AbstractBox *> childrenBox;
-  if (box->getBoxType() == DEFAULT) // mode par default
+    std::list<AbstractBox *> childrenBox;
+    if (box->getBoxType() == DEFAULT) // mode par default
     {
-      this->calcParent(childrenBox, box);
+	this->calcParent(childrenBox, box);
     }
-  else // mode custom
+    else // mode custom
     {
-      childrenBox = box->getParent()->getChilden();
+	childrenBox = box->getParent()->getChilden();
     }
-  this->createGraphicItems(graphicItems, childrenBox);
+    this->createGraphicItems(graphicItems, childrenBox);
 }
 
 //! This method uses window name to get all AbstractBox[es] (got initially from XML).
 //! The list of AbstractBox is used to generate Item objects which is an area of the view.
 void    BoxManager::getPattern(Ceg::Window const & aWindow, std::list<QGraphicsRectItem *> & graphicItems) const
 {
-  std::map<std::string, std::list<AbstractBox *> >::const_iterator  itFind = this->_patterns.find(aWindow.getProgramName());
-  std::list<AbstractBox *> childrenBox;
-  if (itFind != this->_patterns.end())
+    std::map<std::string, std::list<AbstractBox *> >::const_iterator  itFind = this->_patterns.find(aWindow.getProgramName());
+    std::list<AbstractBox *> childrenBox;
+    if (itFind != this->_patterns.end())
     {
-      childrenBox = itFind->second;
+	childrenBox = itFind->second;
     }
-  else
+    else
     {
-      this->calcChildren(childrenBox, aWindow.getGeometry(), 0);
+	this->calcChildren(childrenBox, aWindow.getGeometry(), 0);
     }
-  this->createGraphicItems(graphicItems, childrenBox);
+    this->createGraphicItems(graphicItems, childrenBox);
 }
 
 /************************************************* [ OTHERS ] *************************************************/
@@ -113,15 +105,15 @@ void    BoxManager::getPattern(Ceg::Window const & aWindow, std::list<QGraphicsR
 //! grid areas in function of _nbGrid static value.
 void BoxManager::calcChildren(std::list<AbstractBox *> & boxs, QRect const & geometry, unsigned short level) const
 {
-    int tmpWidth = geometry.width() / _nbGrid;
-    int tmpHeight = geometry.height() / _nbGrid;
+    int tmpWidth = geometry.width() / NBGRID;
+    int tmpHeight = geometry.height() / NBGRID;
     int rows = 0;
     int y = geometry.y();
-    while (rows++ < _nbGrid)
+    while (rows++ < NBGRID)
     {
 	int cols = 0;
 	qreal x = geometry.x();
-	while (cols++ < _nbGrid)
+	while (cols++ < NBGRID)
 	{
 	    boxs.push_back(new AbstractBox(DEFAULT, level, std::list<AbstractBox*>(0), QRect(x, y, tmpWidth, tmpHeight)));
 	    x += tmpWidth;
@@ -132,43 +124,48 @@ void BoxManager::calcChildren(std::list<AbstractBox *> & boxs, QRect const & geo
 
 void BoxManager::calcParent(std::list<AbstractBox *> & boxs, AbstractBox const * item) const
 {
-  QDesktopWidget *desktop = QApplication::desktop();
-  int level = item->getLevel();
-  if (!level)
+    QDesktopWidget *desktop = QApplication::desktop();
+    int level = item->getLevel();
+    if (!level)
     {
-      return ;
+	return ;
     }
-  level--;
-  int Width = desktop->width();
-  for (int i = 0; i < level; ++i)
+    level--;
+    int width = desktop->width();
+    for (int i = 0; i < level; ++i)
     {
-      Width /= _nbGrid;
+	width /= NBGRID;
     }
-  int Height = desktop->height();
-  for (int i = 0; i < level; ++i)
+    int height = desktop->height();
+    for (int i = 0; i < level; ++i)
     {
-      Height /= _nbGrid;
+	height /= NBGRID;
     }
 
-  int posXtop = 0, posYtop = 0, dynamicHeight = desktop->height() / _nbGrid, maxHeight = item->getGeometry().y() + item->getGeometry().height();
-  for (int i = 0; i < level; ++i)
+    int posXtop = 0;
+    int posYtop = 0;
+    int dynamicHeight = desktop->height() / NBGRID;
+    int maxHeight = item->getGeometry().y() + item->getGeometry().height();
+    for (int i = 0; i < level; ++i)
     {
-      while ((posYtop + dynamicHeight) < maxHeight)
+	while ((posYtop + dynamicHeight) < maxHeight)
 	{
-	  posYtop += dynamicHeight;
+	    posYtop += dynamicHeight;
 	}
-      dynamicHeight /= _nbGrid;
+	dynamicHeight /= NBGRID;
     }
-  int dynamicWidth = desktop->width() / _nbGrid, maxWidth = item->getGeometry().x() + item->getGeometry().width();
-  for (int i = 0; i < level; ++i)
+
+    int dynamicWidth = desktop->width() / NBGRID;
+    int maxWidth = item->getGeometry().x() + item->getGeometry().width();
+    for (int i = 0; i < level; ++i)
     {
-      while ((posXtop + dynamicWidth) < maxWidth)
+	while ((posXtop + dynamicWidth) < maxWidth)
 	{
-	  posXtop += dynamicWidth;
+	    posXtop += dynamicWidth;
 	}
-      dynamicWidth /= _nbGrid;
+	dynamicWidth /= NBGRID;
     }
-  this->calcChildren(boxs, QRect(posXtop, posYtop, Width, Height), item->getLevel() - 1);
+    this->calcChildren(boxs, QRect(posXtop, posYtop, width, height), item->getLevel() - 1);
 }
 
 void BoxManager::createGraphicItems(std::list<QGraphicsRectItem *> & graphicItems, std::list<AbstractBox *> const & boxs) const
@@ -181,70 +178,66 @@ void BoxManager::createGraphicItems(std::list<QGraphicsRectItem *> & graphicItem
 
 void    BoxManager::loadConf(const QString& name)
 {
-  //     std::list<AbstractBox*> list1;
-  //     list1.push_back(new AbstractBox(DEFAULT, 0, std::list<AbstractBox*>(0), QRect(10, 10, 10, 10)));
-  //     list1.push_back(new AbstractBox(DEFAULT, 0, std::list<AbstractBox*>(0), QRect(50, 50, 50, 50)));
+    QFile	file(QString("config/" + name + ".xml"));
+    QDomDocument doc(name);
 
-  QFile	file(QString("config/" + name + ".xml"));
-  QDomDocument doc(name);
-
-  if (!file.open(QIODevice::ReadOnly) || !doc.setContent( &file ))
+    if (!file.open(QIODevice::ReadOnly) || !doc.setContent( &file ))
     {
-      QMessageBox::warning(0, "Loading", "Failed to load file.");
-      return;
+	QMessageBox::warning(0, "Loading", "Failed to load file.");
+	return;
     }
 
-  file.close();
+    file.close();
 
-  QDomElement root = doc.documentElement();
-  if (root.tagName() != "boxes")
+    QDomElement root = doc.documentElement();
+    if (root.tagName() != "boxes")
     {
-      QMessageBox::warning(0, "Loading", "Invalid file.");
-      return;
+	QMessageBox::warning(0, "Loading", "Invalid file.");
+	return;
     }
 
-  std::list<AbstractBox*> & ablist = this->_patterns[name.toStdString()];
+    std::list<AbstractBox*> & ablist = this->_patterns[name.toStdString()];
 
-  ablist.clear();
+    ablist.clear();
 
-  for (QDomNode n = root.firstChild(); !n.isNull(); n = n.nextSibling())
+    for (QDomNode n = root.firstChild(); !n.isNull(); n = n.nextSibling())
     {
-      QDomElement e = n.toElement();
-      if (e.isNull())
-	continue;
-      if (e.tagName() != "box")
-	continue;
+	QDomElement e = n.toElement();
+	if (e.isNull())
+	    continue;
+	if (e.tagName() != "box")
+	    continue;
 
-      AbstractBox* b = new AbstractBox(e);
-      ablist.push_back(b);
+	AbstractBox* b = new AbstractBox(e);
+	ablist.push_back(b);
     }
 }
 
 void    BoxManager::saveConf(const QString& name)
 {
-  QDomDocument doc(name);
-  QDomElement root = doc.createElement("boxes");
-  doc.appendChild(root);
+    QDomDocument doc(name);
+    QDomElement root = doc.createElement("boxes");
+    doc.appendChild(root);
 
-  std::list<AbstractBox*> & ablist = this->_patterns[name.toStdString()];
+    std::list<AbstractBox*> & ablist = this->_patterns[name.toStdString()];
 
-  for (std::list<AbstractBox*>::iterator
+    for (std::list<AbstractBox*>::iterator
 	 it = ablist.begin(),
 	 end = ablist.end();
-       it != end; ++it)
+    it != end; ++it)
     {
-      root.appendChild( (*it)->createXMLNode(doc) );
+	root.appendChild( (*it)->createXMLNode(doc) );
     }
 
-  QFile file(QString("config/" + name + ".xml"));
-  if (!file.open(QIODevice::WriteOnly))
+    QFile file(QString("config/" + name + ".xml"));
+    if (!file.open(QIODevice::WriteOnly))
     {
-      QMessageBox::warning(0, "Saving", "Failed to save file.");
-      return;
+	QMessageBox::warning(0, "Saving", "Failed to save file.");
+	return;
     }
 
-  QTextStream ts(&file);
-  ts << doc.toString();
+    QTextStream ts(&file);
+    ts << doc.toString();
 
-  file.close();
+    file.close();
 }

@@ -20,15 +20,20 @@
 
 #include <QApplication>
 #include <QMessageBox>
+#include <QSystemTrayIcon>
 
-#include "LayerManager.h"
+#include "Systray.h"
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
+    if (!QSystemTrayIcon::isSystemTrayAvailable())
+    {
+	QMessageBox::critical(0, QObject::tr("Systray"), QObject::tr("Couldn't detect any system tray on this system."));
+	return (EXIT_FAILURE);
+    }
+    QApplication::setQuitOnLastWindowClosed(false);
     QMessageBox::information(0, "Commandes", "Left | Right arrow = Horizontal Move\nUp | Down Arrow = Vertical move\nEnter = Zoom\nBackspace = unzoom\n1 = Simple Click\nAlt + F4 = Quit");
-    LayerManager layerManager;
-    layerManager.start();
-
+    Systray systray;
     return (a.exec());
 }
