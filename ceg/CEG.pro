@@ -55,21 +55,20 @@ SOURCES += src/AbstractItem.cpp \
     src/Utils.cpp \
     src/BoxParameter.cpp \
     src/Systray.cpp
+	
 unix { 
     HEADERS += includes/XWindowSystem.h
     SOURCES += src/XWindowSystem.cpp
-
-    // ??? la ligne suivante ne devrait-il pas etre dans le block-conditionnel win32 ???
-    //win32:LIBS += "C:\Program Files\Microsoft SDKs\Windows\v7.0A\Lib\Psapi.Lib"
+	CONFIG += link_pkgconfig
+	PKGCONFIG += Xmu xmlib
+    //LIBS += "/usr/lib/libXmu.so"
 }
 win32 { 
     HEADERS += includes/Win32Adaptor.h \
         includes/Win32Explorer.h
     SOURCES += src/Win32Adaptor.cpp \
         src/Win32Explorer.cpp
-
-    // ??? la ligne suivante ne devrait-il pas etre dans le block-conditionnel unix ???
-    unix:LIBS += "/usr/lib/libXmu.so"
+    //LIBS += "C:\Program Files\Microsoft SDKs\Windows\v7.0A\Lib\Psapi.Lib"
 }
 CONFIG += warn_on
 DESTDIR = build
