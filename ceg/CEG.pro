@@ -58,6 +58,8 @@ SOURCES += src/AbstractItem.cpp \
 unix { 
     HEADERS += includes/XWindowSystem.h
     SOURCES += src/XWindowSystem.cpp
+
+    // ??? la ligne suivante ne devrait-il pas etre dans le block-conditionnel win32 ???
     //win32:LIBS += "C:\Program Files\Microsoft SDKs\Windows\v7.0A\Lib\Psapi.Lib"
 }
 win32 { 
@@ -65,6 +67,8 @@ win32 {
         includes/Win32Explorer.h
     SOURCES += src/Win32Adaptor.cpp \
         src/Win32Explorer.cpp
+
+    // ??? la ligne suivante ne devrait-il pas etre dans le block-conditionnel unix ???
     unix:LIBS += "/usr/lib/libXmu.so"
 }
 CONFIG += warn_on
@@ -73,4 +77,4 @@ OBJECTS_DIR = build
 MOC_DIR = moc
 UI_SOURCES_DIR = ui_src
 UI_HEADERS_DIR = ui_includes
-RESOURCES += ressources/images.qrc
+RESOURCES += resources/images.qrc
