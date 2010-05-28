@@ -32,7 +32,7 @@
 - utile de mettre AbstractScene::keyPressEvent en virtual pure? (YANN)
 - Implementer la methode void    Layer::printMenuEvent() const (YAVUZ)// Methode qui va faire appel a l'affichage du menu ! retourne une action qui connait le menu
 - Utilite des differents types d'item ? (ALL to discuss) : suffisament generique etudier la necessite de les garders
-- Rajout le code neccessaire pour gerer toutes les possibilite sur les box (YANN) : du genre une image, les couleurs, du texte
+- Rajout le code neccessaire pour gerer toutes les possibilite sur les box (YANN) : du genre une image, les couleurs, du texte + regarder l opacity (surement mettre les parents a 0)
 - Parsing XML + faire la DTD qui va bien (CANER) : D'abord le xml des box, on verra par la suite pour sauvegarder les configurations du CEG (reseau, couleurs ...) .
 - Solution pour la creation des Iactions provenant du xml (CANER + YANN) : reflechir sur comment faire et peut etre integrer les iactions dans les dll loader au demarrage...
 - Reseau (CHRIS) : reception de packet + parsing RFB et creation des Iaction correspondantes .
