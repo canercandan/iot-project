@@ -1,3 +1,13 @@
+/*
+Info
+http://doc.qt.nokia.com/4.6/qxmlschema.html qxmlschema represente le xsd en memoire
+
+QXmlSchemaValidator se construit avec un qxmlschema, et valide un xml
+
+mot clef : xml, tag, xsd, dtd
+*/
+
+
 // -*- mode: c++; c-indent-level: 4; c++-member-init-indent: 8; comment-column: 35; -*-
 
 /* IOT Copyright (C) 2010 CEG development team
