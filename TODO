@@ -17,11 +17,22 @@
 - Faire packaging debian (ceg + player + builder)(TUG?)
 
 -------------------------------------------------- BUILDER ----------------------------------------------------------------------
-- Fournir version standalone du binaire.
+- Fournir version standalone du binaire. (trouver une solution pour les UNIXoides)
+- Produire le xml commun.
+- Box incluses dans d'autres Box.
+- Fixer les differents soucis d'affichage.
+- Barre d'icones flottante retractable.
 
 -------------------------------------------------- Player -----------------------------------------------------------------------
 - Retirer dependance ogre.
 - Interface de chargement scénarios.
+- Faire des tests.
+
+-------------------------------------------------- Wizard ------------------------------------------------------------------------
+- Completer le wizard (CEG + BUILDER)
+- Decider de la licence utilisee pour chaque produit.
+- Charte graphique des wizards a discuter.
+- Les wizards sous Linux/BSD devront fournir des binaires statiques des produits.
 
 -------------------------------------------------- OpenEEG -----------------------------------------------------------------------
 - ...
@@ -50,24 +61,24 @@ lorsque l'on met une grille par defaut de 100*100 ou moins la vue n est pas full
 
 -------------------------------------------------- PLUGIN VNC --------------------------------------------------------------------------
 
-- etudier le protocole RFB : si CANER  a fait le parser il pourra facilement contribuer sur cette partie
+- Etudier le protocole RFB : si CANER  a fait le parser il pourra facilement contribuer sur cette partie
 - Communication Reseau
 - Creation des requetes RFB
 - Creation de l'UML et proposition a yann renard (YAVUZ + YANN)
 - Implementation de l'UML.
 
 
------------------------------------------------------- BUG ----------------------------------------------------------------------
+------------------------------------------------------ BUGS ----------------------------------------------------------------------
 
 Probleme avec les menus:
  * sur Linux: menu apparait au dessus du ceg et lorsque l'on met le focus sur la fenetre du ceg le menu disparait.
  * sur Windows: le menu apparait mais disparait lorsque la fenetre ceg retrouve le focus.
 pour window on peut difficilement y faire quelquechose les menus sont un probleme.
 
-from regis : si tu appuyes enormement sur entre ca crash au bout d un moment
+from regis : si tu appuyes enormement sur entree ca crash au bout d'un moment
 
-----------------------------------------------------DEPENDANCE-------------------------------------------------------------------
-- QT
+---------------------------------------------------- DEPENDANCES-------------------------------------------------------------------
+- Qt
 - Cmake
 - Microsoft SDK (pour le psapi.lib a voir)
 
