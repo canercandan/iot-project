@@ -17,7 +17,7 @@
 - Faire packaging debian (ceg + player + builder)(TUG?)
 
 -------------------------------------------------- BUILDER ----------------------------------------------------------------------
-- Fournir version standalone du binaire. (trouver une solution pour les UNIXoides)
+- Fournir version standalone du binaire. (pyInstaller sera utilise, des scripts sont prets dans la partie builder)
 - Produire le xml commun.
 - Box incluses dans d'autres Box.
 - Fixer les differents soucis d'affichage.
