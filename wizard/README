@@ -1,0 +1,9 @@
+#############
+Wizard README
+#############
+
+usage example:
+	qmake builderwizard.pro
+	make
+	./BuilderWizard
+
