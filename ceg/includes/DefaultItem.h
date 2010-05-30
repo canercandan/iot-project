@@ -25,12 +25,12 @@ class QGraphicsItem;
 
 #include "AbstractItem.h"
 
-class AbstractBox;
+class Box;
 
 class DefaultItem : public AbstractItem
 {
 public:
-    DefaultItem(AbstractBox const * box, QGraphicsItem * parent = 0);
+    DefaultItem(Box const * box, QGraphicsItem * parent = 0);
     ~DefaultItem();
 };
 

@@ -29,7 +29,7 @@ class QGraphicsRectItem;
 
 class BoxManager;
 class LayerManager;
-class AbstractBox;
+class Box;
 
 class ZoomAction : public IAction
 {
@@ -39,8 +39,8 @@ public:
     virtual bool	exec(LayerManager&);
 
 private:
-    void zoom(BoxManager const & boxManager, AbstractBox const * box, std::list<QGraphicsRectItem *> & graphicItems);
-    void unZoom(BoxManager const & boxManager, AbstractBox const * box, std::list<QGraphicsRectItem *> & graphicItems);
+    void zoom(BoxManager const & boxManager, Box const * box, std::list<QGraphicsRectItem *> & graphicItems);
+    void unZoom(BoxManager const & boxManager, Box const * box, std::list<QGraphicsRectItem *> & graphicItems);
 
 private:
     bool	_zoom;

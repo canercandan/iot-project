@@ -2,7 +2,7 @@ TEMPLATE = app
 QT += network \
     xml
 LANGUAGE = C++
-TARGET =
+TARGET = 
 DEPENDPATH += . \
     includes \
     src
@@ -14,7 +14,6 @@ HEADERS += includes/AbstractItem.h \
     includes/DefaultItem.h \
     includes/Layer.h \
     includes/Window.h \
-    includes/AbstractBox.h \
     includes/GraphicItemFactory.h \
     includes/LayerManager.h \
     includes/TypeToString.hpp \
@@ -30,9 +29,9 @@ HEADERS += includes/AbstractItem.h \
     includes/MenuItem.h \
     includes/EventMenuAction.h \
     includes/Utils.h \
-    includes/BoxParameter.h \
-    includes/IXmlNode.h \
-    includes/Systray.h
+    includes/Systray.h \
+    includes/Box.h \
+    includes/IDomFactory.h
 SOURCES += src/AbstractItem.cpp \
     src/AbstractScene.cpp \
     src/BoxManager.cpp \
@@ -40,7 +39,6 @@ SOURCES += src/AbstractItem.cpp \
     src/Layer.cpp \
     src/main.cpp \
     src/Window.cpp \
-    src/AbstractBox.cpp \
     src/GraphicItemFactory.cpp \
     src/LayerManager.cpp \
     src/ZoomAction.cpp \
@@ -53,20 +51,19 @@ SOURCES += src/AbstractItem.cpp \
     src/MenuItem.cpp \
     src/EventMenuAction.cpp \
     src/Utils.cpp \
-    src/BoxParameter.cpp \
-    src/Systray.cpp
-
-unix {
+    src/Systray.cpp \
+    src/Box.cpp
+unix { 
     HEADERS += includes/XWindowSystem.h
     SOURCES += src/XWindowSystem.cpp
     CONFIG += link_pkgconfig
     PKGCONFIG += xmu
 }
-win32 {
+win32 { 
     HEADERS += includes/Win32Adaptor.h \
-	includes/Win32Explorer.h
+        includes/Win32Explorer.h
     SOURCES += src/Win32Adaptor.cpp \
-	src/Win32Explorer.cpp
+        src/Win32Explorer.cpp
     //LIBS += "C:\Program Files\Microsoft SDKs\Windows\v7.0A\Lib\Psapi.Lib"
 }
 CONFIG += warn_on

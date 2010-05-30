@@ -22,13 +22,13 @@
 
 #include "AbstractItem.h"
 
-#include "AbstractBox.h"
+#include "Box.h"
 #include "ZoomAction.h"
 #include "ClickAction.h"
 
 /************************************************* [ CTOR/DTOR ] *************************************************/
 
-AbstractItem::AbstractItem(AbstractBox const * box, QGraphicsItem * parent) :
+AbstractItem::AbstractItem(Box const * box, QGraphicsItem * parent) :
 	QGraphicsRectItem(box->getGeometry().x(), box->getGeometry().y(), box->getGeometry().width(), box->getGeometry().height(), parent),
 	_color(Qt::darkBlue), _box(box)
 {
@@ -37,15 +37,15 @@ AbstractItem::AbstractItem(AbstractBox const * box, QGraphicsItem * parent) :
 
 /************************************************* [ GETTERS ] *************************************************/
 
-AbstractBox const * AbstractItem::getBox() const
+Box const * AbstractItem::getBox() const
 {
     return (this->_box);
 }
 
 IAction * AbstractItem::getEvent() const
 {
-    //return (this->_box->getAction());
-    return (new ZoomAction(true));
+    return (this->_box->getAction());
+    //return (new ZoomAction(true));
     //return (new ClickAction(ClickAction::LeftClick));
 }
 

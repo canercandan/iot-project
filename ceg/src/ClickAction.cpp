@@ -21,7 +21,7 @@
 #include "ClickAction.h"
 
 #include "AbstractItem.h"
-#include "AbstractBox.h"
+#include "Box.h"
 #include "LayerManager.h"
 #include "AbstractScene.h"
 #include "ICommunicationGraphicalServer.h"
@@ -38,7 +38,7 @@ ClickAction::ClickAction(ClickType type /*= LeftClick*/)
 bool	ClickAction::exec(LayerManager & lm)
 {
     AbstractItem const * ai = lm.getCurrentLayer()->getCurrentItem();
-    AbstractBox const *	ab = ai->getBox();
+    Box const *	ab = ai->getBox();
 
     if (ab == 0)
 	return (false);

@@ -23,12 +23,12 @@
 
 class QGraphicsRectItem;
 
-class AbstractBox;
+class Box;
 
 class GraphicItemFactory
 {
 public:
-    static QGraphicsRectItem * create(AbstractBox const *);
+    static QGraphicsRectItem * create(Box const *);
 };
 
 #endif // GRAPHICITEMFACTORY_H

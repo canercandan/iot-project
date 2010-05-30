@@ -38,7 +38,7 @@ bool	ZoomAction::exec(LayerManager & lm)
 {
     AbstractScene * scene = lm.getCurrentLayer();
     AbstractItem const * currentItem = scene->getCurrentItem();
-    AbstractBox const * box = currentItem->getBox();
+    Box const * box = currentItem->getBox();
     std::list<QGraphicsRectItem *> graphicItems;
     BoxManager const & boxManager = lm.getBoxManager();
     if (this->_zoom)
@@ -56,12 +56,12 @@ bool	ZoomAction::exec(LayerManager & lm)
     return (true);
 }
 
-void ZoomAction::zoom(BoxManager const & boxManager, AbstractBox const * box, std::list<QGraphicsRectItem *> & graphicItems)
+void ZoomAction::zoom(BoxManager const & boxManager, Box const * box, std::list<QGraphicsRectItem *> & graphicItems)
 {
   boxManager.getChildren(graphicItems, box);
 }
 
-void ZoomAction::unZoom(BoxManager const & boxManager, AbstractBox const * box, std::list<QGraphicsRectItem *> & graphicItems)
+void ZoomAction::unZoom(BoxManager const & boxManager, Box const * box, std::list<QGraphicsRectItem *> & graphicItems)
 {
     boxManager.getParent(graphicItems, box);
 }

@@ -20,11 +20,11 @@
 
 #include "DefaultItem.h"
 
-#include "AbstractBox.h"
+#include "Box.h"
 
 /************************************************* [ CTOR/DTOR ] *************************************************/
 
-DefaultItem::DefaultItem(AbstractBox const * box, QGraphicsItem * parent) :
+DefaultItem::DefaultItem(Box const * box, QGraphicsItem * parent) :
 		AbstractItem(box, parent)
 {
 }

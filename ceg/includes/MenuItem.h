@@ -26,12 +26,12 @@
 class QGraphicsItem;
 class QKeyEvent;
 
-class AbstractBox;
+class Box;
 
 class MenuItem : public AbstractItem
 {
 public:
-    MenuItem(AbstractBox const * box, QGraphicsItem * parent = 0);
+    MenuItem(Box const * box, QGraphicsItem * parent = 0);
     ~MenuItem();
 
 protected:

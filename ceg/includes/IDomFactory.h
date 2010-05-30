@@ -18,17 +18,18 @@
  * Authors: CEG <ceg@ionlythink.com>, http://www.ionlythink.com
  */
 
-#ifndef IXMLNODE_H
-#define IXMLNODE_H
+#ifndef IDOMFACTORY_H
+#define IDOMFACTORY_H
 
-#include <QtXml>
+class QDomElement;
 
-class IXmlNode
+class IDomFactory
 {
 public:
-  virtual ~IXmlNode(){}
+  virtual ~IDomFactory(){}
 
-  virtual QDomElement createXMLNode(QDomDocument&) = 0;
+private:
+  virtual void	initializeFromXml(QDomElement const &) = 0;
 };
 
-#endif // !IXMLNODE_H
+#endif // !IDOMFACTORY_H

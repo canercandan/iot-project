@@ -20,10 +20,10 @@
 
 #include "MenuItem.h"
 
-#include "AbstractBox.h"
+#include "Box.h"
 
 /************************************************* [ CTOR/DTOR ] *************************************************/
-MenuItem::MenuItem(AbstractBox const * box, QGraphicsItem * parent)
+MenuItem::MenuItem(Box const * box, QGraphicsItem * parent)
   : AbstractItem(box, parent)
 {}
 

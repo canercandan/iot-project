@@ -23,15 +23,15 @@
 
 #include <QGraphicsRectItem>
 
-class AbstractBox;
+class Box;
 class IAction;
 
 class AbstractItem : public QGraphicsRectItem
 {
 public:
-    AbstractItem(AbstractBox const * box, QGraphicsItem * parent = 0);
+    AbstractItem(Box const * box, QGraphicsItem * parent = 0);
 
-    AbstractBox const *	getBox() const;
+    Box const *	getBox() const;
     IAction *		getEvent() const;
 
 protected:
@@ -41,7 +41,7 @@ protected:
 
 protected:
     Qt::GlobalColor	_color;
-    AbstractBox const *	_box;
+    Box const *	_box;
 };
 
 #endif // ABSTRACTITEM_H
