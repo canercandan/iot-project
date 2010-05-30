@@ -33,7 +33,6 @@ int main(int argc, char *argv[])
 	return (EXIT_FAILURE);
     }
     QApplication::setQuitOnLastWindowClosed(false);
-    QMessageBox::information(0, "Commandes", "Left | Right arrow = Horizontal Move\nUp | Down Arrow = Vertical move\nEnter = Zoom\nBackspace = unzoom\n1 = Simple Click\nAlt + F4 = Quit");
     Systray systray;
     return (a.exec());
 }

@@ -66,6 +66,7 @@ void Systray::on__startAction_triggered()
     QString content;
     if (this->_startAction->text() == "Start")
     {
+	QMessageBox::information(0, "Commandes", "Left | Right arrow = Horizontal Move\nUp | Down Arrow = Vertical move\nEnter = Zoom\nBackspace = unzoom\n1 = Simple Click\nAlt + F4 = Quit");
 	this->_lm->start();
 	content = "Stop";
     }
