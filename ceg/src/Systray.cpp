@@ -31,7 +31,7 @@
 Systray::Systray(QWidget *parent) :
 	QWidget(parent), _lm(new LayerManager)
 {
-    this->_trayIcon = new QSystemTrayIcon(QIcon(":/images/TempSystrayIcon.png"), this);
+    this->_trayIcon = new QSystemTrayIcon(QIcon(":/images/systray-transparent-32x32.png"), this);
     this->_trayIconMenu = new QMenu(this);
     this->_startAction = new QAction("Start", this);
     this->_settingAction = new QAction("Setting", this);

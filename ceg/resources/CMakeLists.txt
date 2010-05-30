@@ -1,5 +1,0 @@
-SET(SOURCES
-  images.qrc
-  )
-
-QT4_ADD_RESOURCES(${SOURCES})

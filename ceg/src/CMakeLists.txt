@@ -7,7 +7,7 @@ IF(UNIX)
   LINK_DIRECTORIES(${XMU_LIBRARY_DIRS})
 ENDIF()
 
-SET(SOURCES
+SET(SAMPLE_SRCS
   AbstractBox.cpp
   AbstractItem.cpp
   AbstractScene.cpp
@@ -34,10 +34,10 @@ SET(SOURCES
 )
 
 IF(UNIX)
-  SET(SOURCES ${SOURCES} XWindowSystem.cpp)
-ELSE (WIN32)
-  SET(SOURCES ${SOURCES} Win32Explorer.cpp)
-  SET(SOURCES ${SOURCES} Win32Adaptor.cpp)
+  SET(SAMPLE_SRCS ${SAMPLE_SRCS} XWindowSystem.cpp)
+ELSEIF(WIN32)
+  SET(SAMPLE_SRCS ${SAMPLE_SRCS} Win32Explorer.cpp)
+  SET(SAMPLE_SRCS ${SAMPLE_SRCS} Win32Adaptor.cpp)
 ENDIF()
 
 #QT4_AUTOMOC(${SOURCES})
@@ -48,18 +48,24 @@ ENDIF()
 # Here is an explaination to how to use qt4_wrap_cpp:
 # http://www.mail-archive.com/cmake@cmake.org/msg18900.html
 
-SET(MOC_HEADERS
-  Systray.h
+SET(SAMPLE_MOC_HDRS
+  ${CMAKE_SOURCE_DIR}/includes/Systray.h
   )
 
-QT4_WRAP_CPP(MOC_SOURCES ${MOC_HEADERS})
+SET(SAMPLE_RCS
+  ${CMAKE_SOURCE_DIR}/resources/images.qrc
+  )
 
 SET(EXECUTABLE_OUTPUT_PATH ${CMAKE_BINARY_DIR})
 
-ADD_EXECUTABLE(ceg ${SOURCES} ${MOC_SOURCES})
+QT4_WRAP_CPP(SAMPLE_MOC_SRCS ${SAMPLE_MOC_HDRS})
+QT4_ADD_RESOURCES(SAMPLE_RC_SRCS ${SAMPLE_RCS})
+
+ADD_EXECUTABLE(ceg ${SAMPLE_SRCS} ${SAMPLE_MOC_SRCS} ${SAMPLE_RC_SRCS})
 
 IF(UNIX)
   TARGET_LINK_LIBRARIES(ceg ${QT_LIBRARIES} ${XMU_LIBRARIES} ${X11_LIBRARIES})
-ELSE()
-  TARGET_LINK_LIBRARIES(ceg ${QT_LIBRARIES} "C:\Program Files\Microsoft SDKs\Windows\v7.0A\Lib\Psapi.Lib")
+ELSEIF(WIN32)
+  SET(PSAPI "C:\Program Files\Microsoft SDKs\Windows\v7.0A\Lib\Psapi.Lib")
+  TARGET_LINK_LIBRARIES(ceg ${QT_LIBRARIES} ${PSAPI})
 ENDIF()
