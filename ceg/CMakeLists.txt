@@ -7,10 +7,8 @@ SET(PACKAGE_VERSION "1.0" CACHE STRING "Package version" FORCE)
 
 INCLUDE(FindDoxygen)
 
-FIND_PACKAGE(Qt4 COMPONENTS QtCore QtGui QtNetwork QtXml REQUIRED)
-
 # see http://cmake.org/cmake/help/cmake2.6docs.html#module:FindQt4 for a complete list
-
+FIND_PACKAGE(Qt4 COMPONENTS QtCore QtGui QtNetwork QtXml REQUIRED)
 INCLUDE(${QT_USE_FILE})
 
 INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/includes)
