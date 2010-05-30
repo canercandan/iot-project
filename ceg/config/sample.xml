@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<boxes>
+<boxes >
   <box width="150" opacity="1" x="0" y="0" image="" height="344" visible="0" type="CUSTOM|MENUITEM|DEFAULT" text="" colorOnFocus="" colorOnBlur="" textFont=""> <!-- parsing in Box -->
     <action id="Click"> <!-- parsing in ClickAction -->
       <param value="#FFFFFF" name="bgcolor" />
