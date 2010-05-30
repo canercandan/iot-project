@@ -25,7 +25,7 @@ private slots:
  private:
     QTcpServer *_tcpServer;
     QTcpSocket	*_client;
-    quint16	_msgLen;
+    quint16	_bufLen;
 };
 
 #endif // CEGSERVER_HPP
