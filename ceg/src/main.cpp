@@ -22,6 +22,7 @@
 #include <QMessageBox>
 #include <QSystemTrayIcon>
 
+#include "CegServer.h"
 #include "Systray.h"
 
 int main(int argc, char *argv[])
@@ -34,5 +35,6 @@ int main(int argc, char *argv[])
     }
     QApplication::setQuitOnLastWindowClosed(false);
     Systray systray;
+    CegServer server;
     return (a.exec());
 }
