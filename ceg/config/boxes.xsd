@@ -7,6 +7,8 @@
 
   <!-- definition of simple elements -->
 
+  <!-- definition of attributes -->
+
   <xs:group name="geometry">
     <xs:attribute name="width" type="xs:nonNegativeInteger"/>
     <xs:attribute name="height" type="xs:nonNegativeInteger"/>
@@ -39,10 +41,6 @@
     <xs:group ref="style"/>
     <xs:attribute ref="type"/>
   </xs:group>
-
-  <!-- definition of attributes -->
-
-
 
   <!-- definition of complex elements -->
 
