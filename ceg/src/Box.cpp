@@ -18,46 +18,43 @@
  * Authors: CEG <ceg@ionlythink.com>, http://www.ionlythink.com
  */
 
+#include <QDomElement>
+
 #include "Box.h"
 
 /************************************************* [ CTOR/DTOR ] *************************************************/
 
-Box::Box(BoxType boxtype, Box * parent, std::list<Box*> const & children, QRect const & geometry):
-	_visible(false), _opacity(0), _type(boxtype), _geometry(geometry),
-	_action(0), _children(children)
+Box::Box(BoxType boxtype, Box const * parent, std::list<Box const *> const & children, QRect const & geometry):
+	_type(boxtype), _geometry(geometry), _action(0), _children(children)
 {
     this->_topUnion._parent = parent;
 }
 
-Box::Box(BoxType boxtype, int level, std::list<Box*> const & children, QRect const & geometry):
-	_visible(false), _opacity(0), _type(boxtype), _geometry(geometry),
-	_action(0), _children(children)
+Box::Box(BoxType boxtype, int level, std::list<Box const *> const & children, QRect const & geometry):
+	_type(boxtype), _geometry(geometry), _action(0), _children(children)
 {
     this->_topUnion._level = level;
 }
 
-Box::Box(const QDomElement& domElement)
+Box::Box(const QDomElement& domElement, Box const * parent) :
+	_action(0), _children()
 {
+    this->_topUnion._parent = parent;
     this->initializeFromXml(domElement);
 }
 
 Box::~Box()
 {
-    for (std::list<Box*>::const_iterator it = this->_children.begin(), itEnd = this->_children.end(); it != itEnd; ++it)
+    for (std::list<Box const *>::const_iterator it = this->_children.begin(), itEnd = this->_children.end(); it != itEnd; ++it)
     {
 	delete (*it);
     }
 }
 
-void Box::initializeFromXml(const QDomElement &)
+void Box::initializeFromXml(const QDomElement & domElement)
 {
-    /*if (domElement.hasAttribute("visible"))
-	this->_visible = domElement.attribute("visible").toUInt();
-    if (domElement.hasAttribute("opacity"))
-	this->_opacity = domElement.attribute("opacity").toUInt();
     if (domElement.hasAttribute("type"))
 	this->_type = static_cast<BoxType>(domElement.attribute("type").toUInt());
-
     if (domElement.hasAttribute("x"))
 	this->_geometry.setX(domElement.attribute("x").toUInt());
     if (domElement.hasAttribute("y"))
@@ -67,22 +64,14 @@ void Box::initializeFromXml(const QDomElement &)
     if (domElement.hasAttribute("height"))
 	this->_geometry.setHeight(domElement.attribute("height").toUInt());
 
-    if (domElement.hasAttribute("actionid"))
-	this->_actionid = domElement.attribute("actionid");
-
-    for (QDomNode n = domElement.firstChild(); !n.isNull(); n = n.nextSibling())
+/*    for (QDomNode domNode = domElement.firstChild(); !domNode.isNull(); domNode = domNode.nextSibling())
     {
-	QDomElement e2 = n.toElement();
+	QDomElement e2 = domNode.toElement();
 	if (e2.isNull())
 	    continue;
 	if (e2.tagName() != "param")
 	    continue;
-
-	QString key = e2.attribute("name");
-	IXmlNode* p = new BoxParameter(e2);
-	this->_params[key] = p;
     }*/
-
 }
 
 /************************************************* [ GETTERS ] *************************************************/
@@ -97,7 +86,7 @@ BoxType	Box::getBoxType() const
     return (this->_type);
 }
 
-std::list<Box *> const &    Box::getChilden() const
+std::list<Box const *> const &    Box::getChilden() const
 {
     return (this->_children);
 }

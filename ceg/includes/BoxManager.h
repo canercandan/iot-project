@@ -37,27 +37,27 @@ class Box;
 class BoxManager
 {
 public:
-  BoxManager();
-  ~BoxManager();
+    BoxManager();
+    ~BoxManager();
 
-  void    getChildren(std::list<QGraphicsRectItem *> &, Box const *) const;
-  void    getParent(std::list<QGraphicsRectItem *> &, Box const *) const;
-  void    getPattern(Ceg::Window const &, std::list<QGraphicsRectItem *> & list) const;
-
-  //! method to import configuration from a XML file to _patterns[name] list
-  void    loadConf(const QString& name);
+    void    getChildren(std::list<QGraphicsRectItem *> &, Box const *) const;
+    void    getParent(std::list<QGraphicsRectItem *> &, Box const *) const;
+    void    getPattern(Ceg::Window const &, std::list<QGraphicsRectItem *> & list) const;
 
 private:
-  void    calcChildren(std::list<Box *> &, QRect const &, unsigned short) const;
-  void    calcParent(std::list<Box *> &, Box const *) const;
-  void    createGraphicItems(std::list<QGraphicsRectItem *> &, std::list<Box *> const & boxs) const;
+    void    initializeFromConfig(QString const & directory = "");
+    //! method to import configuration from a XML file to _patterns[name] list
+    void    initializeFromXml(QString const & fileName);
+    void    calcChildren(std::list<Box const *> &, QRect const &, unsigned short) const;
+    void    calcParent(std::list<Box const *> &, Box const *) const;
+    void    createGraphicItems(std::list<QGraphicsRectItem *> &, std::list<Box const *> const & boxs) const;
 
 private:
-  //! this map associates a list of boxes with a context name,
-  //! it is initialy filled out by loadConf method
-  std::map<std::string, std::list<Box *> > _patterns;
+    //! this map associates a list of boxes with a context name,
+    //! it is initialy filled out by loadConf method
+    std::map<std::string, std::list<Box const *> > _patterns;
 
-  static const int NBGRID = 3; // va sauter sera configurable dans l interface.
+    static const int NBGRID = 3; // va sauter sera configurable dans l interface.
 };
 
 #endif // BOXMANAGER_H

@@ -32,7 +32,7 @@
 View::View(LayerManager & lm)
     : _lm(lm)
 {
-    this->setWindowOpacity(0.5);
+   this->setWindowOpacity(0.5);
 }
 
 /************************************************* [ OTHERS ] *************************************************/

@@ -18,6 +18,7 @@
  * Authors: CEG <ceg@ionlythink.com>, http://www.ionlythink.com
  */
 
+#include <iostream>
 #include <QDesktopWidget>
 #include <QApplication>
 #include <QGraphicsRectItem>
@@ -25,6 +26,7 @@
 #include <QFile>
 #include <QTextStream>
 #include <QDomDocument>
+#include <QDir>
 
 #include "BoxManager.h"
 
@@ -36,17 +38,17 @@
 
 BoxManager::BoxManager()
 {
-    //this->loadConf();
+    //this->initializeFromConfig();
 }
 
 BoxManager::~BoxManager()
 {
-    for (std::map< std::string, std::list< Box * > >::const_iterator it = this->_patterns.begin(), end = this->_patterns.end();
+    for (std::map< std::string, std::list< Box const * > >::const_iterator it = this->_patterns.begin(), end = this->_patterns.end();
     it != end; ++it)
     {
-	std::list< Box* > const & ablist = it->second;
+	std::list< Box const * > const & ablist = it->second;
 
-	for (std::list<Box*>::const_iterator it = ablist.begin(), end = ablist.end();
+	for (std::list<Box const *>::const_iterator it = ablist.begin(), end = ablist.end();
 	it != end; ++it)
 	{
 	    delete *it;
@@ -58,7 +60,7 @@ BoxManager::~BoxManager()
 
 void BoxManager::getChildren(std::list<QGraphicsRectItem *> & graphicItems, Box const * box) const
 {
-    std::list<Box *> childrenBox;
+    std::list<Box const *> childrenBox;
     if (box->getBoxType() == DEFAULT) // mode par default
     {
 	this->calcChildren(childrenBox, box->getGeometry(), box->getLevel() + 1);
@@ -72,7 +74,7 @@ void BoxManager::getChildren(std::list<QGraphicsRectItem *> & graphicItems, Box 
 
 void BoxManager::getParent(std::list<QGraphicsRectItem *> & graphicItems, Box const * box) const
 {
-    std::list<Box *> childrenBox;
+    std::list<Box const *> childrenBox;
     if (box->getBoxType() == DEFAULT) // mode par default
     {
 	this->calcParent(childrenBox, box);
@@ -88,8 +90,8 @@ void BoxManager::getParent(std::list<QGraphicsRectItem *> & graphicItems, Box co
 //! The list of AbstractBox is used to generate Item objects which is an area of the view.
 void    BoxManager::getPattern(Ceg::Window const & aWindow, std::list<QGraphicsRectItem *> & graphicItems) const
 {
-    std::map<std::string, std::list<Box *> >::const_iterator  itFind = this->_patterns.find(aWindow.getProgramName());
-    std::list<Box *> childrenBox;
+    std::map<std::string, std::list<Box const *> >::const_iterator  itFind = this->_patterns.find(aWindow.getProgramName());
+    std::list<Box const *> childrenBox;
     if (itFind != this->_patterns.end())
     {
 	childrenBox = itFind->second;
@@ -106,7 +108,7 @@ void    BoxManager::getPattern(Ceg::Window const & aWindow, std::list<QGraphicsR
 //! This method is used in the case we are using a grid view,
 //! indeed it is going to calculate position and size of each
 //! grid areas in function of _nbGrid static value.
-void BoxManager::calcChildren(std::list<Box *> & boxs, QRect const & geometry, unsigned short level) const
+void BoxManager::calcChildren(std::list<Box const *> & boxs, QRect const & geometry, unsigned short level) const
 {
     int tmpWidth = geometry.width() / NBGRID;
     int tmpHeight = geometry.height() / NBGRID;
@@ -118,14 +120,14 @@ void BoxManager::calcChildren(std::list<Box *> & boxs, QRect const & geometry, u
 	qreal x = geometry.x();
 	while (cols++ < NBGRID)
 	{
-	    boxs.push_back(new Box(DEFAULT, level, std::list<Box*>(0), QRect(x, y, tmpWidth, tmpHeight)));
+	    boxs.push_back(new Box(DEFAULT, level, std::list<Box const *>(0), QRect(x, y, tmpWidth, tmpHeight)));
 	    x += tmpWidth;
 	}
 	y += tmpHeight;
     }
 }
 
-void BoxManager::calcParent(std::list<Box *> & boxs, Box const * item) const
+void BoxManager::calcParent(std::list<Box const *> & boxs, Box const * item) const
 {
     QDesktopWidget *desktop = QApplication::desktop();
     int level = item->getLevel();
@@ -171,47 +173,60 @@ void BoxManager::calcParent(std::list<Box *> & boxs, Box const * item) const
     this->calcChildren(boxs, QRect(posXtop, posYtop, width, height), item->getLevel() - 1);
 }
 
-void BoxManager::createGraphicItems(std::list<QGraphicsRectItem *> & graphicItems, std::list<Box *> const & boxs) const
+void BoxManager::createGraphicItems(std::list<QGraphicsRectItem *> & graphicItems, std::list<Box const *> const & boxs) const
 {
-    for (std::list<Box *>::const_iterator it = boxs.begin(), itEnd = boxs.end(); it != itEnd; ++it)
+    for (std::list<Box const *>::const_iterator it = boxs.begin(), itEnd = boxs.end(); it != itEnd; ++it)
     {
 	graphicItems.push_back(GraphicItemFactory::create(*it));
     }
 }
 
-void    BoxManager::loadConf(const QString& name)
+void	BoxManager::initializeFromConfig(QString const & directoryName)
 {
-    QFile	file(QString("config/" + name + ".xml"));
-    QDomDocument doc(name);
-
-    if (!file.open(QIODevice::ReadOnly) || !doc.setContent( &file ))
+    QDir    directory(directoryName);
+    if (directory.exists())
     {
-	QMessageBox::warning(0, "Loading", "Failed to load file.");
-	return;
+	QStringList const & filesName = directory.entryList(QStringList("*.xml"));
+	for (QStringList::const_iterator it = filesName.begin(), itEnd = filesName.end();
+	it != itEnd; ++it)
+	{
+	    this->initializeFromXml(*it);
+	}
     }
-
-    file.close();
-
-    QDomElement root = doc.documentElement();
-    if (root.tagName() != "boxes")
+    else
     {
-	QMessageBox::warning(0, "Loading", "Invalid file.");
-	return;
+	std::cerr << "BoxManager::initializeFromConfig() "<< directoryName.toStdString() << "doesn't exist" << std::endl;
     }
+}
 
-    std::list<Box*> & ablist = this->_patterns[name.toStdString()];
+void    BoxManager::initializeFromXml(QString const & fileName)
+{
+    QFile	file(fileName);
+    QDomDocument doc(fileName);
 
-    ablist.clear();
-
-    for (QDomNode n = root.firstChild(); !n.isNull(); n = n.nextSibling())
+    if (file.open(QIODevice::ReadOnly) && doc.setContent( &file ))
     {
-	QDomElement e = n.toElement();
-	if (e.isNull())
-	    continue;
-	if (e.tagName() != "box")
-	    continue;
+	file.close();
+	QDomElement rootElement = doc.documentElement();
+	if (rootElement.tagName() == "boxes")
+	{
+	    std::list<Box const *> & ablist = this->_patterns[fileName.toStdString()];
 
-	Box* b = new Box(e);
-	ablist.push_back(b);
+	    for (QDomNode node = rootElement.firstChild(); !node.isNull(); node = node.nextSibling())
+	    {
+		QDomElement element = node.toElement();
+		if (element.isNull())
+		    continue;
+		/*if (element.tagName() != "box")
+		    continue;
+
+		Box* b = new Box(element, 0);
+		ablist.push_back(b);*/
+	    }
+	}
+    }
+    else
+    {
+	std::cerr << "BoxManager::initializeFromXml() : Failed to load file : " <<  fileName.toStdString() << std::endl;
     }
 }

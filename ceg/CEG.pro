@@ -31,7 +31,8 @@ HEADERS += includes/AbstractItem.h \
     includes/Utils.h \
     includes/Systray.h \
     includes/Box.h \
-    includes/IDomFactory.h
+    includes/IDomFactory.h \
+    includes/BoxStyle.h
 SOURCES += src/AbstractItem.cpp \
     src/AbstractScene.cpp \
     src/BoxManager.cpp \
@@ -52,7 +53,8 @@ SOURCES += src/AbstractItem.cpp \
     src/EventMenuAction.cpp \
     src/Utils.cpp \
     src/Systray.cpp \
-    src/Box.cpp
+    src/Box.cpp \
+    src/BoxStyle.cpp
 unix { 
     HEADERS += includes/XWindowSystem.h
     SOURCES += src/XWindowSystem.cpp
