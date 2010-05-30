@@ -1,0 +1,5 @@
+<!DOCTYPE XmlBox>
+<boxes>
+  <box width="100%" x="0" y="0" height="100px" visible="1" type="CUSTOM" text="toolbar area"/>
+  <box width="100%" x="0" y="0" height="500px" visible="1" type="CUSTOM" text="web page area"/>
+</boxes>
