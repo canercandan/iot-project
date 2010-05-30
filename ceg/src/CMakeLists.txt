@@ -1,5 +1,10 @@
 # this file create binary of CEG in including all sources files
 
+IF(UNIX)
+  INCLUDE(FindPkgConfig)
+  PKG_CHECK_MODULES(XMU xmu REQUIRED)
+ENDIF()
+
 SET(SOURCES
   AbstractBox.cpp
   AbstractItem.cpp
@@ -52,9 +57,8 @@ SET(EXECUTABLE_OUTPUT_PATH ${CMAKE_BINARY_DIR})
 ADD_EXECUTABLE(ceg ${SOURCES} ${MOC_SOURCES})
 
 IF(UNIX)
-  INCLUDE(FindPkgConfig)
-  PKG_CHECK_MODULES(XMU xmu)
-  TARGET_LINK_LIBRARIES(ceg ${QT_LIBRARIES} ${XMU_LIBRARIES} ${X11_LIBRARIES})
+  TARGET_LINK_LIBRARIES(ceg ${QT_LIBRARIES} ${XMU_LIBRARIES} #${X11_LIBRARIES}
+    )
 ELSE()
   TARGET_LINK_LIBRARIES(ceg ${QT_LIBRARIES} "C:\Program Files\Microsoft SDKs\Windows\v7.0A\Lib\Psapi.Lib")
 ENDIF()

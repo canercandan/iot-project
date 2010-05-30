@@ -7,12 +7,7 @@ SET(PACKAGE_VERSION "1.0" CACHE STRING "Package version" FORCE)
 
 INCLUDE(FindDoxygen)
 
-FIND_PACKAGE(Qt4 REQUIRED)
-
-IF(QT_QTXML_FOUND AND QT_QTNETWORK_FOUND)
-
-SET(QT_USE_QTNETWORK TRUE)
-SET(QT_USE_QTXML TRUE)
+FIND_PACKAGE(Qt4 COMPONENTS QtCore QtGui QtNetwork QtXml REQUIRED)
 
 # see http://cmake.org/cmake/help/cmake2.6docs.html#module:FindQt4 for a complete list
 
@@ -35,11 +30,5 @@ ADD_SUBDIRECTORY(src)
 ADD_SUBDIRECTORY(config)
 ADD_SUBDIRECTORY(resources)
 ADD_SUBDIRECTORY(test)
-
-ELSE()
-
-MESSAGE(ERROR "QtXML and QtNetwork not found")
-
-ENDIF()
 
 ADD_SUBDIRECTORY(doc)
