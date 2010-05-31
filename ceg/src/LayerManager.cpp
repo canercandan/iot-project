@@ -18,20 +18,25 @@
  * Authors: CEG <ceg@ionlythink.com>, http://www.ionlythink.com
  */
 
+/*********************************/
+#include <algorithm>
+/*********************************/
 #include <QApplication>
 #include <QDesktopWidget>
-
+/*********************************/
 #include "LayerManager.h"
-
+/*********************************/
 #include "Layer.h" // debug
 #include "Window.h" // debug
 #include "BoxManager.h"
 #include "IAction.h"
+#include "Utils.h"
 #ifdef _WIN32
 #include "Win32Explorer.h"
 #else
 #include "XWindowSystem.h"
 #endif
+/*********************************/
 
 /************************************************* [ CTOR/DTOR ] *************************************************/
 
@@ -47,11 +52,7 @@ LayerManager::LayerManager() :
 
 LayerManager::~LayerManager()
 {
-    for (std::list<AbstractScene*>::const_iterator it = this->_layers.begin(), end = this->_layers.end(); it != end; ++it)
-    {
-	delete *it;
-    }
-
+    std::for_each(this->_layers.begin(), this->_layers.end(), Ceg::DeleteObject());
     delete this->_comGs;
 }
 

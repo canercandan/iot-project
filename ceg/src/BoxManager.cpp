@@ -18,7 +18,10 @@
  * Authors: CEG <ceg@ionlythink.com>, http://www.ionlythink.com
  */
 
+/*********************************/
 #include <iostream>
+#include <algorithm>
+/*********************************/
 #include <QDesktopWidget>
 #include <QApplication>
 #include <QGraphicsRectItem>
@@ -27,12 +30,14 @@
 #include <QTextStream>
 #include <QDomDocument>
 #include <QDir>
-
+/*********************************/
 #include "BoxManager.h"
-
+/*********************************/
 #include "Box.h"
 #include "Window.h"
 #include "GraphicItemFactory.h"
+#include "Utils.h"
+/*********************************/
 
 /************************************************* [ CTOR/DTOR ] *************************************************/
 
@@ -46,13 +51,7 @@ BoxManager::~BoxManager()
     for (std::map< std::string, std::list< Box const * > >::const_iterator it = this->_patterns.begin(), end = this->_patterns.end();
     it != end; ++it)
     {
-	std::list< Box const * > const & ablist = it->second;
-
-	for (std::list<Box const *>::const_iterator it = ablist.begin(), end = ablist.end();
-	it != end; ++it)
-	{
-	    delete *it;
-	}
+	std::for_each(it->second.begin(), it->second.end(), Ceg::DeleteObject());
     }
 }
 
@@ -204,7 +203,7 @@ void    BoxManager::initializeFromXml(QString const & fileName)
     QFile	file(fileName);
     QDomDocument doc(fileName);
 
-    if (file.open(QIODevice::ReadOnly) && doc.setContent( &file ))
+    if (file.open(QIODevice::ReadOnly) && doc.setContent(&file))
     {
 	file.close();
 	QDomElement rootElement = doc.documentElement();

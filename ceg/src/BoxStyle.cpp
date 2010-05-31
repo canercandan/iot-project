@@ -18,8 +18,9 @@
  * Authors: CEG <ceg@ionlythink.com>, http://www.ionlythink.com
  */
 
-
+/*********************************/
 #include "BoxStyle.h"
+/*********************************/
 
 BoxStyle::BoxStyle() :
 	_isVisible(true), _opacity(0.5), _imagePath(""), _text(""), _textFont(""), _focusColor(0), _blurColor(0)

@@ -16,7 +16,6 @@ HEADERS += includes/AbstractItem.h \
     includes/Window.h \
     includes/GraphicItemFactory.h \
     includes/LayerManager.h \
-    includes/TypeToString.hpp \
     includes/ICommunicationGraphicalServer.h \
     includes/IAction.h \
     includes/ZoomAction.h \
@@ -57,7 +56,6 @@ SOURCES += src/AbstractItem.cpp \
     src/Box.cpp \
     src/BoxStyle.cpp \
     src/CegServer.cpp
-
 unix { 
     HEADERS += includes/XWindowSystem.h
     SOURCES += src/XWindowSystem.cpp

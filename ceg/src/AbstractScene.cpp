@@ -18,9 +18,14 @@
  * Authors: CEG <ceg@ionlythink.com>, http://www.ionlythink.com
  */
 
+/*********************************/
+#include <functional>
+#include <algorithm>
+/*********************************/
 #include "AbstractScene.h"
-
+/*********************************/
 #include "AbstractItem.h"
+/*********************************/
 
 /************************************************* [ CTOR/DTOR ] *************************************************/
 
@@ -57,13 +62,9 @@ void AbstractScene::initialize(std::list<QGraphicsRectItem *> const & newScene)
 {
     this->clearScene();
 #if (QT_VERSION < QT_VERSION_CHECK(4,6,0))
-    for (std::list<QGraphicsRectItem *>::const_iterator  it = newScene.begin(), itEnd = newScene.end()
+    std::for_each(newScene.begin(), newScene.end(), std::bind1st(std::mem_fun(&QGraphicsScene::addItem), this));
 #else
-	for (std::list<QGraphicsRectItem *>::const_reverse_iterator  it = newScene.rbegin(), itEnd = newScene.rend()
+    std::for_each(newScene.rbegin(), newScene.rend(), std::bind1st(std::mem_fun(&QGraphicsScene::addItem), this));
 #endif
-	    ;it != itEnd; ++it)
-	    {
-	this->addItem(*it);
-    }
     newScene.front()->setFocus();
 }

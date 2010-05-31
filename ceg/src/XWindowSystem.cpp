@@ -18,12 +18,16 @@
  * Authors: CEG <ceg@ionlythink.com>, http://www.ionlythink.com
  */
 
+/*********************************/
 #include <iostream>
 #include <climits>
 #include <cstdio> /* pour le debug seulement */
 #include <cstring> /* used for memset in generateEventClick */
+/*********************************/
 #include <QRect>
+/*********************************/
 #include "XWindowSystem.h"
+/*********************************/
 
 #include "TypeToString.hpp"
 /* http://tronche.com/gui/x/xlib/ICC/client-to-window-manager/XGetTransientForHint.html

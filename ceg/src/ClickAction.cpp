@@ -18,14 +18,16 @@
  * Authors: CEG <ceg@ionlythink.com>, http://www.ionlythink.com
  */
 
+/*********************************/
 #include "ClickAction.h"
-
+/*********************************/
 #include "AbstractItem.h"
 #include "Box.h"
 #include "LayerManager.h"
 #include "AbstractScene.h"
 #include "ICommunicationGraphicalServer.h"
 #include "Utils.h"
+/*********************************/
 
 /************************************************* [ CTOR/DTOR ] *************************************************/
 

@@ -18,15 +18,17 @@
  * Authors: CEG <ceg@ionlythink.com>, http://www.ionlythink.com
  */
 
+/*********************************/
 #include <QSystemTrayIcon>
 #include <QMenu>
 #include <QIcon>
 #include <QMessageBox>
 #include <QApplication>
-
+/*********************************/
 #include "Systray.h"
-
+/*********************************/
 #include "LayerManager.h"
+/*********************************/
 
 Systray::Systray(QWidget *parent) :
 	QWidget(parent), _lm(new LayerManager)

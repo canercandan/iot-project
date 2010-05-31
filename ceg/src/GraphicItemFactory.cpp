@@ -18,10 +18,11 @@
  * Authors: CEG <ceg@ionlythink.com>, http://www.ionlythink.com
  */
 
+/*********************************/
 #include "GraphicItemFactory.h"
-
+/*********************************/
 #include "DefaultItem.h"
-
+/*********************************/
 
 QGraphicsRectItem * GraphicItemFactory::create(Box const * box)
 {

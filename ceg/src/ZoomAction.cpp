@@ -18,12 +18,14 @@
  * Authors: CEG <ceg@ionlythink.com>, http://www.ionlythink.com
  */
 
+/*********************************/
 #include "ZoomAction.h"
-
+/*********************************/
 #include "AbstractItem.h"
 #include "AbstractScene.h"
 #include "LayerManager.h"
 #include "BoxManager.h"
+/*********************************/
 
 /************************************************* [ CTOR/DTOR ] *************************************************/
 

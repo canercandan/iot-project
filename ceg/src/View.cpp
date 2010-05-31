@@ -18,14 +18,16 @@
  * Authors: CEG <ceg@ionlythink.com>, http://www.ionlythink.com
  */
 
+/*********************************/
 #include <QKeyEvent>
-
+/*********************************/
 #include "View.h"
-
+/*********************************/
 #include "LayerManager.h"
 #include "MoveAction.h"
 #include "ClickAction.h"
 #include "AbstractScene.h"
+/*********************************/
 
 /************************************************* [ CTOR/DTOR ] *************************************************/
 

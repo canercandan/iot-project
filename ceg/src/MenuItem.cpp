@@ -18,9 +18,11 @@
  * Authors: CEG <ceg@ionlythink.com>, http://www.ionlythink.com
  */
 
+/*********************************/
 #include "MenuItem.h"
-
+/*********************************/
 #include "Box.h"
+/*********************************/
 
 /************************************************* [ CTOR/DTOR ] *************************************************/
 MenuItem::MenuItem(Box const * box, QGraphicsItem * parent)

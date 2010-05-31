@@ -18,10 +18,12 @@
  * Authors: CEG <ceg@ionlythink.com>, http://www.ionlythink.com
  */
 
+/*********************************/
 #include "MoveAction.h"
-
+/*********************************/
 #include "LayerManager.h"
 #include "AbstractScene.h"
+/*********************************/
 
 /************************************************* [ CTOR/DTOR ] *************************************************/
 

@@ -18,13 +18,14 @@
  * Authors: CEG <ceg@ionlythink.com>, http://www.ionlythink.com
  */
 
-
+/*********************************/
 #include "ActionFactory.h"
-
+/*********************************/
 #include "ClickAction.h"
 #include "MoveAction.h"
 #include "ReadAction.h"
 #include "ZoomAction.h"
+/*********************************/
 
 IAction *	ActionFactory::create(std::string const & xmlString)
 {

@@ -18,13 +18,15 @@
  * Authors: CEG <ceg@ionlythink.com>, http://www.ionlythink.com
  */
 
+/*********************************/
 #include <QPainter>
-
+/*********************************/
 #include "AbstractItem.h"
-
+/*********************************/
 #include "Box.h"
 #include "ZoomAction.h"
 #include "ClickAction.h"
+/*********************************/
 
 /************************************************* [ CTOR/DTOR ] *************************************************/
 

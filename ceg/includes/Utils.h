@@ -21,6 +21,9 @@
 #ifndef UTILS_H
 #define UTILS_H
 
+#include <string>
+#include <sstream>
+
 #include <QThread>
 
 class SleeperThread : public QThread
@@ -29,4 +32,26 @@ public:
     static void msleep(unsigned long msecs);
 };
 
+template<typename T>
+std::string typeToString(T const & input)
+{
+    std::ostringstream oss;
+
+    oss << input;
+    return (oss.str());
+}
+
+
+// Fonctor permettant de delete n'importe quel type de pointeurs
+namespace Ceg
+{
+    struct DeleteObject
+    {
+	template<typename T>
+	void    operator()(T const * ptr) const
+	{
+	    delete ptr;
+	}
+    };
+}
 #endif // UTILS_H

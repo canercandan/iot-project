@@ -18,12 +18,14 @@
  * Authors: CEG <ceg@ionlythink.com>, http://www.ionlythink.com
  */
 
+/*********************************/
 #include <QApplication>
 #include <QMessageBox>
 #include <QSystemTrayIcon>
-
+/*********************************/
 #include "CegServer.h"
 #include "Systray.h"
+/*********************************/
 
 int main(int argc, char *argv[])
 {

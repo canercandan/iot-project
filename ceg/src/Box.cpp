@@ -18,9 +18,15 @@
  * Authors: CEG <ceg@ionlythink.com>, http://www.ionlythink.com
  */
 
+/*********************************/
+#include <algorithm>
+/*********************************/
 #include <QDomElement>
-
+/*********************************/
 #include "Box.h"
+/*********************************/
+#include "Utils.h"
+/*********************************/
 
 /************************************************* [ CTOR/DTOR ] *************************************************/
 
@@ -45,10 +51,7 @@ Box::Box(const QDomElement& domElement, Box const * parent) :
 
 Box::~Box()
 {
-    for (std::list<Box const *>::const_iterator it = this->_children.begin(), itEnd = this->_children.end(); it != itEnd; ++it)
-    {
-	delete (*it);
-    }
+    std::for_each(this->_children.begin(), this->_children.end(), Ceg::DeleteObject());
 }
 
 void Box::initializeFromXml(const QDomElement & domElement)
@@ -64,7 +67,7 @@ void Box::initializeFromXml(const QDomElement & domElement)
     if (domElement.hasAttribute("height"))
 	this->_geometry.setHeight(domElement.attribute("height").toUInt());
 
-/*    for (QDomNode domNode = domElement.firstChild(); !domNode.isNull(); domNode = domNode.nextSibling())
+    /*    for (QDomNode domNode = domElement.firstChild(); !domNode.isNull(); domNode = domNode.nextSibling())
     {
 	QDomElement e2 = domNode.toElement();
 	if (e2.isNull())
