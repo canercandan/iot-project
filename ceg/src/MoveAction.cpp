@@ -37,7 +37,7 @@ bool	MoveAction::exec(LayerManager & lm)
 {
   IAction * action = lm.getCurrentLayer()->keyPressEvent(this->_key);
 
-  if (action != NULL)
+  if (action != 0)
     return (action->exec(lm));
 
   return (true);

@@ -130,7 +130,7 @@ void BoxManager::calcParent(std::list<Box const *> & boxs, Box const * item) con
 {
     QDesktopWidget *desktop = QApplication::desktop();
     int level = item->getLevel();
-    if (!level)
+    if (level == 0)
     {
 	return ;
     }
@@ -183,7 +183,7 @@ void BoxManager::createGraphicItems(std::list<QGraphicsRectItem *> & graphicItem
 void	BoxManager::initializeFromConfig(QString const & directoryName)
 {
     QDir    directory(directoryName);
-    if (directory.exists())
+    if (directory.exists() == true)
     {
 	QStringList const & filesName = directory.entryList(QStringList("*.xml"));
 	for (QStringList::const_iterator it = filesName.begin(), itEnd = filesName.end();
@@ -203,7 +203,7 @@ void    BoxManager::initializeFromXml(QString const & fileName)
     QFile	file(fileName);
     QDomDocument doc(fileName);
 
-    if (file.open(QIODevice::ReadOnly) && doc.setContent(&file))
+    if (file.open(QIODevice::ReadOnly) == true && doc.setContent(&file) == true)
     {
 	file.close();
 	QDomElement rootElement = doc.documentElement();
@@ -214,7 +214,7 @@ void    BoxManager::initializeFromXml(QString const & fileName)
 	    for (QDomNode node = rootElement.firstChild(); !node.isNull(); node = node.nextSibling())
 	    {
 		QDomElement element = node.toElement();
-		if (element.isNull())
+		if (element.isNull() == true)
 		    continue;
 		/*if (element.tagName() != "box")
 		    continue;

@@ -30,7 +30,7 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    if (!QSystemTrayIcon::isSystemTrayAvailable())
+    if (QSystemTrayIcon::isSystemTrayAvailable() == false)
     {
 	QMessageBox::critical(0, QObject::tr("Systray"), QObject::tr("Couldn't detect any system tray on this system."));
 	return (EXIT_FAILURE);

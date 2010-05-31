@@ -56,15 +56,15 @@ Box::~Box()
 
 void Box::initializeFromXml(const QDomElement & domElement)
 {
-    if (domElement.hasAttribute("type"))
+    if (domElement.hasAttribute("type") == true)
 	this->_type = static_cast<BoxType>(domElement.attribute("type").toUInt());
-    if (domElement.hasAttribute("x"))
+    if (domElement.hasAttribute("x") == true)
 	this->_geometry.setX(domElement.attribute("x").toUInt());
-    if (domElement.hasAttribute("y"))
+    if (domElement.hasAttribute("y") == true)
 	this->_geometry.setY(domElement.attribute("y").toUInt());
-    if (domElement.hasAttribute("width"))
+    if (domElement.hasAttribute("width") == true)
 	this->_geometry.setWidth(domElement.attribute("width").toUInt());
-    if (domElement.hasAttribute("height"))
+    if (domElement.hasAttribute("height") == true)
 	this->_geometry.setHeight(domElement.attribute("height").toUInt());
 
     /*    for (QDomNode domNode = domElement.firstChild(); !domNode.isNull(); domNode = domNode.nextSibling())

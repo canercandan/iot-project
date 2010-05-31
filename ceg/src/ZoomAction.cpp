@@ -43,7 +43,7 @@ bool	ZoomAction::exec(LayerManager & lm)
     Box const * box = currentItem->getBox();
     std::list<QGraphicsRectItem *> graphicItems;
     BoxManager const & boxManager = lm.getBoxManager();
-    if (this->_zoom)
+    if (this->_zoom == true)
     {
 	this->zoom(boxManager, box, graphicItems);
     }
@@ -51,7 +51,7 @@ bool	ZoomAction::exec(LayerManager & lm)
     {
 	this->unZoom(boxManager, box, graphicItems);
     }
-    if (!graphicItems.empty())
+    if (graphicItems.empty() == false)
     {
 	scene->initialize(graphicItems);
     }

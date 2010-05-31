@@ -89,7 +89,7 @@ void	Layer::moveVertically() const
 
     int i = 0;
     bool haveRect = false;
-    while (i < sizeList && !haveRect)
+    while (i < sizeList && haveRect == false)
     {
 	index = ((index < sizeList) ? index : (index - sizeList));
 	tmpIt = it;
@@ -98,7 +98,7 @@ void	Layer::moveVertically() const
 	++index;
 	++i;
     }
-    if (haveRect)
+    if (haveRect == true)
     {
 	(*tmpIt)->setFocus();
     }

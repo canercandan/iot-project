@@ -151,7 +151,7 @@ bool XWindowSystem::generateClickEvent(short int buttonID)
 
   Display* display = this->_connection;
 
-  if (display == NULL)
+  if (display == 0)
     return (false);
 
   XEvent event;
@@ -275,7 +275,7 @@ std::string XWindowSystem::getPathOfBinary(std::string const & pidStr) const
 
 char XWindowSystem::printIndent(unsigned int nbIndent) const
 {
-    if (nbIndent)
+    if (nbIndent > 0)
 	for (unsigned int i = 0; i < (nbIndent - 1); ++i)
 	    std::cout << '*';
     return (' ');
