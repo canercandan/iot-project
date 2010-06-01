@@ -29,7 +29,7 @@
 #include "XWindowSystem.h"
 /*********************************/
 
-#include "TypeToString.hpp"
+#include "Utils.h"
 /* http://tronche.com/gui/x/xlib/ICC/client-to-window-manager/XGetTransientForHint.html
  * // confirm window is a client window
     Window client = XmuClientWindow (displ

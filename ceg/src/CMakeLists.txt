@@ -8,12 +8,13 @@ IF(UNIX)
 ENDIF()
 
 SET(SAMPLE_SRCS
-  AbstractBox.cpp
   AbstractItem.cpp
   AbstractScene.cpp
   ActionFactory.cpp
+  Box.cpp
   BoxManager.cpp
-  BoxParameter.cpp
+  BoxStyle.cpp
+  CegTcpServer.cpp
   ClickAction.cpp
   DefaultItem.cpp
   EventMenuAction.cpp
@@ -50,6 +51,7 @@ ENDIF()
 
 SET(SAMPLE_MOC_HDRS
   ${CMAKE_SOURCE_DIR}/includes/Systray.h
+  ${CMAKE_SOURCE_DIR}/includes/CegTcpServer.h
   )
 
 SET(SAMPLE_RCS
