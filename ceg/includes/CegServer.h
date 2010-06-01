@@ -23,9 +23,6 @@
 
 #include <QtNetwork>
 
-//TODO Singleton
-
-
 class CegServer : public QObject
 {
    Q_OBJECT
@@ -35,7 +32,9 @@ class CegServer : public QObject
     ~CegServer();
 
  private:
-    void	_launch();
+    void	launch();
+    void	parseLines(void);
+    void  	interpretLine(const QString &line);
 
 private slots:
     void	_connect();
@@ -43,9 +42,11 @@ private slots:
     void	_readData();
 
  private:
-    QTcpServer *_tcpServer;
+    QTcpServer	*_tcpServer;
     QTcpSocket	*_client;
-    quint16	_bufLen;
+    QString	_buffer;
+    //QByteArray	_buffer;
+    //quint64	_bufLen;
 };
 
 #endif // CEGSERVER_HPP

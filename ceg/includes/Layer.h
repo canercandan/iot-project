@@ -32,7 +32,6 @@ public:
     Layer(Ceg::Window const &);
 
     virtual QRect	getGeometry() const;
-
     virtual IAction *	keyPressEvent(int key) const;
 
 private:

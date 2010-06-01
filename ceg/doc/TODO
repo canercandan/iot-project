@@ -40,11 +40,12 @@ from regis : si tu appuyes enormement sur entre ca crash au bout d un moment
 
 
 -------------------------------------------------- Reminder chris --------------------------------------------------------------------------
-- loader le port d'ecoute par un fichier de conf
-- Doxygen rezo
-- Generer 3 Iactions
-- Metre l'etat de la connexion dans le tray icone (disconnected || connected || error)
 - faire slot deconnexion
+- Generer 3 Iactions
 - verif Cycle de vie des objets propre on exit(s) + valgrind
-- Mettre l'icone iot dans le trayIcon
+- loader le port d'ecoute par un fichier de conf
 - fichier de log avec plusieur bug level (none || errors only || all)
+- Metre l'etat de la connexion dans le tray icone (disconnected || connected || error)
+
+- maj uml
+- Doxygen rezo

@@ -20,13 +20,13 @@
 
 #include <iostream>
 #include <QDataStream>
-
+#include <QTextStream>
 #include "CegServer.h"
 
 
 CegServer::CegServer()
 {
-  this->_launch();
+  this->launch();
 }
 
 CegServer::~CegServer()
@@ -34,11 +34,10 @@ CegServer::~CegServer()
   std::cout<< "TCP server killed"<< std::endl;
 }
 
-void	CegServer::_launch(void)
+void	CegServer::launch(void)
 {
   std::cout<< "TCP server launched" << std::endl;
   this->_tcpServer = new QTcpServer();
-  this->_bufLen = 0;
 
   if (!this->_tcpServer->listen(QHostAddress::Any, 42000))
     {
@@ -65,29 +64,47 @@ void	CegServer::_connect()
 
 void	CegServer::_disconnect()
 {
+  std::cout<< "Disconnected" << std::endl;
 }
 
 void	CegServer::_readData()
 {
-  std::cout << "Message recu" << std::endl;
-  // Si tout va bien, on continue : on récupère le message
-  QDataStream in(this->_client);
-  // Si on ne connaît pas encore la taille du message, on essaie de la récupérer
-  if (this->_bufLen == 0)
+  int			readbytes;
+  char			buffer[128];
+  QDataStream		in(this->_client);
+  //in.setVersion(QDataStream::Qt_4_6); // Not mandatory...
+
+  while (this->_client->bytesAvailable())
     {
-      if (this->_client->bytesAvailable() < (int)sizeof(quint16)) // On n'a pas reçu la taille du message en entier
-	return;
-      in >> this->_bufLen; // Si on a reçu la taille du message en entier, on la récupère
+      readbytes = in.readRawData(buffer, sizeof(buffer) - 1);
+      if (readbytes > 0)
+        {
+	  buffer[readbytes] = '\0';
+	  this->_buffer.append(buffer);
+        }
+      else
+        {
+	  return;
+        }
     }
-  // Si on connaît la taille du message, on vérifie si on a reçu le message en entier
-  if (this->_client->bytesAvailable() < this->_bufLen) // Si on n'a pas encore tout reçu, on arrête la méthode
-    return;
-  // Si ces lignes s'exécutent, c'est qu'on a reçu tout le message : on peut le récupérer !
-  //QString message;
-  //in >> message;
-  std::cout << "tout recu!!" << std::endl;
-  std::cout<< this->_bufLen << std::endl;
-  //reset
-  this->_bufLen = 0;
+  if (this->_buffer.contains('\n'))
+    this->parseLines();
 }
 
+
+void	CegServer::parseLines(void)
+{
+  QStringList cmds = this->_buffer.split('\n', QString::SkipEmptyParts);
+  // Interpret each lines.
+  for (int i = 0; i < cmds.size(); ++i)
+    this->interpretLine(cmds[i]);
+  // Remove read lines.
+  int last = this->_buffer.lastIndexOf('\n');
+  this->_buffer = this->_buffer.remove(0, last + 1);
+}
+
+void	CegServer::interpretLine(const QString &line)
+{
+  QTextStream out(stdout);
+  out << line << endl;
+}
