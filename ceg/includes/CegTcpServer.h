@@ -18,35 +18,33 @@
  * Authors: CEG <ceg@ionlythink.com>, http://www.ionlythink.com
  */
 
-#ifndef CEGSERVER_HPP
-#define CEGSERVER_HPP
+#ifndef CEGTCPSERVER_HPP
+#define CEGTCPSERVER_HPP
 
 #include <QtNetwork>
 
-class CegServer : public QObject
+class CegTcpServer : public QObject
 {
-   Q_OBJECT
+  Q_OBJECT
 
-   public:
-    CegServer();
-    ~CegServer();
+  public:
+  CegTcpServer();
+  ~CegTcpServer();
 
- private:
-    void	launch();
-    void	parseLines(void);
-    void  	interpretLine(const QString &line);
+private:
+  void	launch();
+  void	parseLines(void);
+  void	interpretLine(const QString &line);
 
 private slots:
-    void	_connect();
-    void	_disconnect();
-    void	_readData();
+  void	_connect();
+  void	_disconnect();
+  void	_readData();
 
- private:
-    QTcpServer	*_tcpServer;
-    QTcpSocket	*_client;
-    QString	_buffer;
-    //QByteArray	_buffer;
-    //quint64	_bufLen;
+private:
+  QTcpServer	*_tcpServer;
+  QTcpSocket	*_client;
+  QString	_buffer;
 };
 
-#endif // CEGSERVER_HPP
+#endif // CEGTCPSERVER_HPP

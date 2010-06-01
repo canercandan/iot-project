@@ -21,20 +21,20 @@
 #include <iostream>
 #include <QDataStream>
 #include <QTextStream>
-#include "CegServer.h"
+#include "CegTcpServer.h"
 
 
-CegServer::CegServer()
+CegTcpServer::CegTcpServer()
 {
   this->launch();
 }
 
-CegServer::~CegServer()
+CegTcpServer::~CegTcpServer()
 {
   std::cout<< "TCP server killed"<< std::endl;
 }
 
-void	CegServer::launch(void)
+void	CegTcpServer::launch(void)
 {
   std::cout<< "TCP server launched" << std::endl;
   this->_tcpServer = new QTcpServer();
@@ -54,7 +54,7 @@ void	CegServer::launch(void)
 }
 
 
-void	CegServer::_connect()
+void	CegTcpServer::_connect()
 {
   this->_client = this->_tcpServer->nextPendingConnection();
   QObject::connect(this->_client, SIGNAL(readyRead()), this, SLOT(_readData()));
@@ -62,12 +62,12 @@ void	CegServer::_connect()
 }
 
 
-void	CegServer::_disconnect()
+void	CegTcpServer::_disconnect()
 {
   std::cout<< "Disconnected" << std::endl;
 }
 
-void	CegServer::_readData()
+void	CegTcpServer::_readData()
 {
   int			readbytes;
   char			buffer[128];
@@ -92,7 +92,7 @@ void	CegServer::_readData()
 }
 
 
-void	CegServer::parseLines(void)
+void	CegTcpServer::parseLines(void)
 {
   QStringList cmds = this->_buffer.split('\n', QString::SkipEmptyParts);
   // Interpret each lines.
@@ -103,7 +103,7 @@ void	CegServer::parseLines(void)
   this->_buffer = this->_buffer.remove(0, last + 1);
 }
 
-void	CegServer::interpretLine(const QString &line)
+void	CegTcpServer::interpretLine(const QString &line)
 {
   QTextStream out(stdout);
   out << line << endl;

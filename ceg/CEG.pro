@@ -32,7 +32,7 @@ HEADERS += includes/AbstractItem.h \
     includes/Box.h \
     includes/IDomFactory.h \
     includes/BoxStyle.h \
-    includes/CegServer.h
+    includes/CegTcpServer.h
 SOURCES += src/AbstractItem.cpp \
     src/AbstractScene.cpp \
     src/BoxManager.cpp \
@@ -55,7 +55,7 @@ SOURCES += src/AbstractItem.cpp \
     src/Systray.cpp \
     src/Box.cpp \
     src/BoxStyle.cpp \
-    src/CegServer.cpp
+    src/CegTcpServer.cpp
 unix { 
     HEADERS += includes/XWindowSystem.h
     SOURCES += src/XWindowSystem.cpp

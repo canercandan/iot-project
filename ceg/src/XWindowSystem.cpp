@@ -209,7 +209,7 @@ void XWindowSystem::printRecurse(::Window currentWindow, unsigned int level) con
 	std::cout << this->printIndent(level) << "Pid of the window's creator : " << pid << std::endl;
 	if (pid != 0)
 	{
-	    std::cout << this->printIndent(level) << "Binaire utilise : " << this->getPathOfBinary(typeToString(pid)) << std::endl;
+	  std::cout << this->printIndent(level) << "Binaire utilise : " << this->getPathOfBinary(typeToString(pid)) << std::endl;
 	}
 	this->printCommands(currentWindow, level);
 	this->printWindow(currentWindow, level);
