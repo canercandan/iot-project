@@ -23,13 +23,21 @@
 #define ACTIONFACTORY_H
 
 #include <string>
+#include <map>
 
+class QDomElement;
 class IAction;
 
 class ActionFactory
 {
 public:
-    static IAction *	create(std::string const &);
+    typedef IAction * (*ActionInstantiator)(QDomElement const &);
+
+    static IAction *	create(std::string const & actionId, QDomElement const & domElement);
+    static void		registerInstantiator(std::string const & actionId, ActionInstantiator function);
+
+private:
+    static std::map<std::string, ActionInstantiator>	_instanciators;
 };
 
 #endif // ACTIONFACTORY_H

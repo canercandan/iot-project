@@ -25,6 +25,11 @@
 #include "Utils.h"
 /*********************************/
 
+ReadAction::ReadAction(const QDomElement &)
+{
+
+}
+
 /************************************************* [ OTHERS ] *************************************************/
 
 bool	ReadAction::exec(LayerManager & lm)
@@ -36,4 +41,9 @@ bool	ReadAction::exec(LayerManager & lm)
   lm.getView().show();
 
   return true;
+}
+
+IAction * instanciateReadAction(const QDomElement & actionElement)
+{
+    return (new ReadAction(actionElement));
 }

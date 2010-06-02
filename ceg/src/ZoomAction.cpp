@@ -19,6 +19,8 @@
  */
 
 /*********************************/
+#include <QDomElement>
+/*********************************/
 #include "ZoomAction.h"
 /*********************************/
 #include "AbstractItem.h"
@@ -34,6 +36,11 @@ ZoomAction::ZoomAction(bool zoom) :
 {
 }
 
+ZoomAction::ZoomAction(const QDomElement & actionElement)
+{
+    this->_zoom = actionElement.attribute("isZoom").toUInt();
+}
+
 /************************************************* [ OTHERS ] *************************************************/
 
 bool	ZoomAction::exec(LayerManager & lm)
@@ -43,13 +50,14 @@ bool	ZoomAction::exec(LayerManager & lm)
     Box const * box = currentItem->getBox();
     std::list<QGraphicsRectItem *> graphicItems;
     BoxManager const & boxManager = lm.getBoxManager();
+
     if (this->_zoom == true)
     {
-	this->zoom(boxManager, box, graphicItems);
+	 boxManager.getChildren(graphicItems, box);
     }
     else
     {
-	this->unZoom(boxManager, box, graphicItems);
+	boxManager.getParent(graphicItems, box);
     }
     if (graphicItems.empty() == false)
     {
@@ -58,12 +66,7 @@ bool	ZoomAction::exec(LayerManager & lm)
     return (true);
 }
 
-void ZoomAction::zoom(BoxManager const & boxManager, Box const * box, std::list<QGraphicsRectItem *> & graphicItems)
+IAction * instanciateZoomAction(const QDomElement & actionElement)
 {
-  boxManager.getChildren(graphicItems, box);
-}
-
-void ZoomAction::unZoom(BoxManager const & boxManager, Box const * box, std::list<QGraphicsRectItem *> & graphicItems)
-{
-    boxManager.getParent(graphicItems, box);
+    return (new ZoomAction(actionElement));
 }

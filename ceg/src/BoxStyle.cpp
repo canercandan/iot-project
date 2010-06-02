@@ -19,6 +19,8 @@
  */
 
 /*********************************/
+#include <QDomElement>
+/*********************************/
 #include "BoxStyle.h"
 /*********************************/
 
@@ -27,11 +29,18 @@ BoxStyle::BoxStyle() :
 {
 }
 
-BoxStyle::BoxStyle(QDomElement const &)
+BoxStyle::BoxStyle(QDomElement const & styleElement)
 {
+    this->initializeFromXml(styleElement);
 }
 
-void BoxStyle::initializeFromXml(QDomElement const &)
+void BoxStyle::initializeFromXml(QDomElement const & styleElement)
 {
-
+    this->_isVisible = styleElement.attribute("visible").toInt();
+    this->_opacity = styleElement.attribute("opacity").toFloat();
+    this->_imagePath = styleElement.attribute("imagePath").toStdString();
+    this->_text = styleElement.attribute("text").toStdString();
+    this->_textFont = styleElement.attribute("font").toStdString();
+    this->_focusColor = styleElement.attribute("focusColor").toInt();
+    this->_focusColor = styleElement.attribute("blurColor").toInt();
 }

@@ -32,7 +32,7 @@
 class IAction;
 class BoxParameter;
 
-enum BoxType {DEFAULT = 0, CUSTOM, MENU};
+enum BoxType {DEFAULT_BOX = 0, CUSTOM_BOX, MENU_BOX};
 
 class Box : public IDomFactory
 {
@@ -51,7 +51,8 @@ public:
     Box const *			    getParent() const;
 
 private :
-	virtual void initializeFromXml(QDomElement const &);
+	virtual void initializeFromXml(QDomElement const & boxElement);
+void	createChildren(QDomElement const & childrenElement);
 
 private:
 BoxType		    _type;

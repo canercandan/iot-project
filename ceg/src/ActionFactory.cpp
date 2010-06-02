@@ -21,29 +21,16 @@
 /*********************************/
 #include "ActionFactory.h"
 /*********************************/
-#include "ClickAction.h"
-#include "MoveAction.h"
-#include "ReadAction.h"
-#include "ZoomAction.h"
-/*********************************/
 
-IAction *	ActionFactory::create(std::string const & xmlString)
+std::map<std::string, ActionFactory::ActionInstantiator> ActionFactory::_instanciators;
+
+IAction *	ActionFactory::create(std::string const & actionId, QDomElement const & actionElelement)
 {
-    if (xmlString == "click")
-    {
-	return (new ClickAction);
-    }
-    if (xmlString == "read")
-    {
-	return (new ReadAction);
-    }
-    if (xmlString == "move")
-    {
-	return (new MoveAction(0x01000014)); // 0x01000014 == Qt::Key_Right
-    }
-    if (xmlString == "zoom")
-    {
-	return (new ZoomAction(true));
-    }
-    return (0);
+    std::map<std::string, ActionInstantiator>::const_iterator itFind = ActionFactory::_instanciators.find(actionId);
+    return (itFind != ActionFactory::_instanciators.end() ? (itFind->second)(actionElelement): 0);
+}
+
+void ActionFactory::registerInstantiator(const std::string &actionId, ActionInstantiator function)
+{
+    ActionFactory::_instanciators.insert(std::make_pair(actionId, function));
 }

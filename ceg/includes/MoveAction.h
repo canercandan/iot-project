@@ -23,15 +23,20 @@
 
 #include "IAction.h"
 
+class QDomElement;
+
 class MoveAction : public IAction
 {
 public:
   MoveAction(int key);
+  MoveAction(QDomElement const &);
 
   virtual bool	exec(LayerManager&);
 
 private:
   int	_key;
 };
+
+IAction * instanciateMoveAction(QDomElement const &);
 
 #endif // !MOVEACTION_H

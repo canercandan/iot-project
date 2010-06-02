@@ -29,8 +29,18 @@
 EventMenuAction::EventMenuAction(int)
 {}
 
+EventMenuAction::EventMenuAction(const QDomElement &)
+{
+
+}
+
 /************************************************* [ OTHERS ] *************************************************/
 bool	EventMenuAction::exec(LayerManager&)
 {
     return (true);
+}
+
+IAction * instanciateEventMenuAction(const QDomElement & actionElement)
+{
+    return (new EventMenuAction(actionElement));
 }

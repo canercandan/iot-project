@@ -34,5 +34,5 @@ DefaultItem::DefaultItem(Box const * box, QGraphicsItem * parent) :
 
 DefaultItem::~DefaultItem()
 {
-  delete this->_box;
+//  delete this->_box;
 }

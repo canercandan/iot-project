@@ -26,6 +26,7 @@
 #include "IAction.h"
 
 class QGraphicsRectItem;
+class QDomElement;
 
 class BoxManager;
 class LayerManager;
@@ -35,15 +36,14 @@ class ZoomAction : public IAction
 {
 public:
     ZoomAction(bool zoom);
+    ZoomAction(QDomElement const &);
 
     virtual bool	exec(LayerManager&);
 
 private:
-    void zoom(BoxManager const & boxManager, Box const * box, std::list<QGraphicsRectItem *> & graphicItems);
-    void unZoom(BoxManager const & boxManager, Box const * box, std::list<QGraphicsRectItem *> & graphicItems);
-
-private:
     bool	_zoom;
 };
+
+IAction * instanciateZoomAction(QDomElement const &);
 
 #endif // !ZOOMACTION_H

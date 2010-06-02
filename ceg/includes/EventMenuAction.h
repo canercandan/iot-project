@@ -23,12 +23,17 @@
 
 #include "IAction.h"
 
+class QDomElement;
+
 class EventMenuAction : public IAction
 {
 public:
   EventMenuAction(int);
+  EventMenuAction(QDomElement const &);
 
   virtual bool	exec(LayerManager &);
 };
+
+IAction * instanciateEventMenuAction(QDomElement const &);
 
 #endif // !EVENTMENUACTION_H

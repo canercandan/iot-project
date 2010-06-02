@@ -131,5 +131,8 @@ void	Layer::moveHorizontally() const
 }
 
 // Methode qui va faire appel a l'affichage du menu !
+#include <QMessageBox> // temporaire
 void    Layer::printMenuEvent() const
-{}
+{
+    QMessageBox::information(0, "Title", "Declenche le menu");
+}

@@ -23,6 +23,8 @@
 
 #include "IAction.h"
 
+class QDomElement;
+
 /**
  * ReadAction
  * inherits of IAction
@@ -32,11 +34,14 @@
 class ReadAction : public IAction
 {
 public:
+    ReadAction(QDomElement const &);
     /**
    * exec
    * here is the method hidding/showing ceg interface.
    */
     virtual bool	exec(LayerManager&);
 };
+
+IAction * instanciateReadAction(QDomElement const &);
 
 #endif // !READACTION_H

@@ -25,7 +25,9 @@
 /*********************************/
 #include "Box.h"
 /*********************************/
+#include "ActionFactory.h"
 #include "Utils.h"
+#include "IAction.h"
 /*********************************/
 
 /************************************************* [ CTOR/DTOR ] *************************************************/
@@ -52,29 +54,55 @@ Box::Box(const QDomElement& domElement, Box const * parent) :
 Box::~Box()
 {
     std::for_each(this->_children.begin(), this->_children.end(), Ceg::DeleteObject());
+    delete this->_action;
 }
 
-void Box::initializeFromXml(const QDomElement & domElement)
+void Box::initializeFromXml(const QDomElement & boxElement)
 {
-    if (domElement.hasAttribute("type") == true)
-	this->_type = static_cast<BoxType>(domElement.attribute("type").toUInt());
-    if (domElement.hasAttribute("x") == true)
-	this->_geometry.setX(domElement.attribute("x").toUInt());
-    if (domElement.hasAttribute("y") == true)
-	this->_geometry.setY(domElement.attribute("y").toUInt());
-    if (domElement.hasAttribute("width") == true)
-	this->_geometry.setWidth(domElement.attribute("width").toUInt());
-    if (domElement.hasAttribute("height") == true)
-	this->_geometry.setHeight(domElement.attribute("height").toUInt());
+    // revoir l'initialisation du type, les if pourront etre remove une fois les xsd en place
+    if (boxElement.hasAttribute("type") == true)
+	this->_type = static_cast<BoxType>(boxElement.attribute("type").toUInt());
+    if (boxElement.hasAttribute("x") == true)
+	this->_geometry.setX(boxElement.attribute("x").toInt());
+    if (boxElement.hasAttribute("y") == true)
+	this->_geometry.setY(boxElement.attribute("y").toInt());
+    if (boxElement.hasAttribute("width") == true)
+	this->_geometry.setWidth(boxElement.attribute("width").toInt());
+    if (boxElement.hasAttribute("height") == true)
+	this->_geometry.setHeight(boxElement.attribute("height").toInt());
 
-    /*    for (QDomNode domNode = domElement.firstChild(); !domNode.isNull(); domNode = domNode.nextSibling())
+    for (QDomNode domNode = boxElement.firstChild(); !domNode.isNull(); domNode = domNode.nextSibling())
     {
-	QDomElement e2 = domNode.toElement();
-	if (e2.isNull())
-	    continue;
-	if (e2.tagName() != "param")
-	    continue;
-    }*/
+	QDomElement childElement = domNode.toElement();
+	if (childElement.isNull() == false)
+	{
+	    QString tagName = childElement.tagName();
+	    if (tagName == "action")
+	    {
+		this->_action = ActionFactory::create(childElement.attribute("id").toStdString(), childElement);
+	    }
+	    else if (tagName == "style")
+	    {
+		this->_graphicSytle = BoxStyle(childElement);
+	    }
+	    else if (tagName == "children")
+	    {
+		this->createChildren(childElement);
+	    }
+	}
+    }
+}
+
+void Box::createChildren(QDomElement const & childrenElement)
+{
+    for (QDomNode boxNode = childrenElement.firstChild(); !boxNode.isNull(); boxNode = boxNode.nextSibling())
+    {
+	QDomElement boxElement = boxNode.toElement();
+	if (boxElement.isNull() == false && boxElement.tagName() == "box")
+	{
+	    this->_children.push_back(new Box(boxElement, this));
+	}
+    }
 }
 
 /************************************************* [ GETTERS ] *************************************************/

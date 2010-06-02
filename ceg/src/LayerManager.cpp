@@ -103,7 +103,7 @@ void LayerManager::initialize()
     //this->_comGs->getWindows(windows);
 
     QDesktopWidget *desktop = QApplication::desktop();
-    windows.push_back(Ceg::Window(0, QRect(0 , 0, desktop->width(), desktop->height())));
+    windows.push_back(Ceg::Window(0, QRect(0 , 0, desktop->width(), desktop->height()), true, "Firefox"));
 
     this->createLayers(windows);
     this->_currentLayer = this->_layers.begin();

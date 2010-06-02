@@ -23,6 +23,8 @@
 
 #include "IAction.h"
 
+class QDomElement;
+
 class ClickAction : public IAction
 {
 public:
@@ -30,11 +32,14 @@ public:
 
 public:
   ClickAction(ClickType type = LeftClick);
+  ClickAction(QDomElement const &);
 
   virtual bool	exec(LayerManager &);
 
 private:
   ClickType	_type;
 };
+
+IAction * instanciateClickAction(QDomElement const &);
 
 #endif // !CLICKACTION_H

@@ -43,6 +43,7 @@
 
 BoxManager::BoxManager()
 {
+    this->initializeFromXml("C:\\Users\\yann\\Workspace\\eip\\iot\\trunk\\ceg\\config\\firefox.xml");
     //this->initializeFromConfig();
 }
 
@@ -60,7 +61,7 @@ BoxManager::~BoxManager()
 void BoxManager::getChildren(std::list<QGraphicsRectItem *> & graphicItems, Box const * box) const
 {
     std::list<Box const *> childrenBox;
-    if (box->getBoxType() == DEFAULT) // mode par default
+    if (box->getBoxType() == DEFAULT_BOX) // mode par default
     {
 	this->calcChildren(childrenBox, box->getGeometry(), box->getLevel() + 1);
     }
@@ -74,18 +75,25 @@ void BoxManager::getChildren(std::list<QGraphicsRectItem *> & graphicItems, Box 
 void BoxManager::getParent(std::list<QGraphicsRectItem *> & graphicItems, Box const * box) const
 {
     std::list<Box const *> childrenBox;
-    if (box->getBoxType() == DEFAULT) // mode par default
+    if (box->getBoxType() == DEFAULT_BOX) // mode par default
     {
 	this->calcParent(childrenBox, box);
     }
     else // mode custom
     {
-	childrenBox = box->getParent()->getChilden();
+	Box const * parentBox = box->getParent();
+	if (parentBox != 0)
+	{
+	    if (parentBox->getParent() != 0) // On n'est pas au niveau 0
+		childrenBox = box->getParent()->getChilden(); // pas tres ecolo, copie d une liste :(
+	    //else a fixer par yann
+	}
+
     }
     this->createGraphicItems(graphicItems, childrenBox);
 }
 
-//! This method uses window name to get all AbstractBox[es] (got initially from XML).
+//! This method uses window name to get all Box[es] (got initially from XML).
 //! The list of AbstractBox is used to generate Item objects which is an area of the view.
 void    BoxManager::getPattern(Ceg::Window const & aWindow, std::list<QGraphicsRectItem *> & graphicItems) const
 {
@@ -119,7 +127,7 @@ void BoxManager::calcChildren(std::list<Box const *> & boxs, QRect const & geome
 	qreal x = geometry.x();
 	while (cols++ < NBGRID)
 	{
-	    boxs.push_back(new Box(DEFAULT, level, std::list<Box const *>(0), QRect(x, y, tmpWidth, tmpHeight)));
+	    boxs.push_back(new Box(DEFAULT_BOX, level, std::list<Box const *>(0), QRect(x, y, tmpWidth, tmpHeight)));
 	    x += tmpWidth;
 	}
 	y += tmpHeight;
@@ -209,18 +217,20 @@ void    BoxManager::initializeFromXml(QString const & fileName)
 	QDomElement rootElement = doc.documentElement();
 	if (rootElement.tagName() == "boxes")
 	{
-	    std::list<Box const *> & ablist = this->_patterns[fileName.toStdString()];
+	    std::string programId = rootElement.attribute("id").toStdString();
+	    std::list<Box const *> boxes;
 
-	    for (QDomNode node = rootElement.firstChild(); !node.isNull(); node = node.nextSibling())
+	    for (QDomNode boxNode = rootElement.firstChild(); !boxNode.isNull(); boxNode = boxNode.nextSibling())
 	    {
-		QDomElement element = node.toElement();
-		if (element.isNull() == true)
-		    continue;
-		/*if (element.tagName() != "box")
-		    continue;
-
-		Box* b = new Box(element, 0);
-		ablist.push_back(b);*/
+		QDomElement boxElement = boxNode.toElement();
+		if (boxElement.isNull() == false && boxElement.tagName() == "box")
+		{
+		    boxes.push_back(new Box(boxElement, 0));
+		}
+	    }
+	    if (boxes.empty() == false)
+	    {
+		this->_patterns.insert(std::make_pair(programId, boxes));
 	    }
 	}
     }

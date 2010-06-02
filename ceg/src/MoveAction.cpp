@@ -31,6 +31,11 @@ MoveAction::MoveAction(int key)
   : _key(key)
 {}
 
+MoveAction::MoveAction(const QDomElement &)
+{
+
+}
+
 /************************************************* [ OTHERS ] *************************************************/
 
 bool	MoveAction::exec(LayerManager & lm)
@@ -41,4 +46,9 @@ bool	MoveAction::exec(LayerManager & lm)
     return (action->exec(lm));
 
   return (true);
+}
+
+IAction * instanciateMoveAction(const QDomElement & actionElement)
+{
+    return (new MoveAction(actionElement));
 }

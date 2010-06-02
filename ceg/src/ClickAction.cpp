@@ -19,8 +19,11 @@
  */
 
 /*********************************/
+#include <QDomElement>
+/*********************************/
 #include "ClickAction.h"
 /*********************************/
+#include "ActionFactory.h"
 #include "AbstractItem.h"
 #include "Box.h"
 #include "LayerManager.h"
@@ -34,6 +37,11 @@
 ClickAction::ClickAction(ClickType type /*= LeftClick*/)
     : _type(type)
 {}
+
+ClickAction::ClickAction(const QDomElement &)
+{
+
+}
 
 /************************************************* [ OTHERS ] *************************************************/
 
@@ -69,4 +77,9 @@ bool	ClickAction::exec(LayerManager & lm)
     lm.getView().show();
 
     return (true);
+}
+
+IAction * instanciateClickAction(QDomElement const & actionElement)
+{
+    return (new ClickAction(actionElement));
 }
