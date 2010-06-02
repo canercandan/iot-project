@@ -23,6 +23,9 @@
 #include <QTextStream>
 #include "CegTcpServer.h"
 
+//
+#include "Singleton.hpp"
+#include "Systray.h"
 
 CegTcpServer::CegTcpServer()
 {
@@ -40,19 +43,14 @@ void	CegTcpServer::launch(void)
   this->_tcpServer = new QTcpServer();
 
   if (!this->_tcpServer->listen(QHostAddress::Any, 42000))
-    {
-      // Fail
-      std::cerr << "Network Error: " /*<< this->_tcpServer->errorString()*/ << std::endl;
-    }
+    std::cerr << "Network Error: " /*<< this->_tcpServer->errorString()*/ << std::endl;
   else
     {
-      // OK
       std::cout<< "Network ok, listening on port : 42000" << std::endl;
       this->_tcpServer->setMaxPendingConnections(1);
       QObject::connect(_tcpServer, SIGNAL(newConnection()), this, SLOT(_connect()));
     }
 }
-
 
 void	CegTcpServer::_connect()
 {
@@ -60,7 +58,6 @@ void	CegTcpServer::_connect()
   QObject::connect(this->_client, SIGNAL(readyRead()), this, SLOT(_readData()));
   QObject::connect(this->_client, SIGNAL(disconnected()), this, SLOT(_disconnect()));
 }
-
 
 void	CegTcpServer::_disconnect()
 {
@@ -72,8 +69,8 @@ void	CegTcpServer::_readData()
   int			readbytes;
   char			buffer[128];
   QDataStream		in(this->_client);
-  //in.setVersion(QDataStream::Qt_4_6); // Not mandatory...
 
+  in.setVersion(QDataStream::Qt_4_6);
   while (this->_client->bytesAvailable())
     {
       readbytes = in.readRawData(buffer, sizeof(buffer) - 1);
@@ -83,9 +80,7 @@ void	CegTcpServer::_readData()
 	  this->_buffer.append(buffer);
         }
       else
-        {
-	  return;
-        }
+	return;
     }
   if (this->_buffer.contains('\n'))
     this->parseLines();
@@ -106,5 +101,14 @@ void	CegTcpServer::parseLines(void)
 void	CegTcpServer::interpretLine(const QString &line)
 {
   QTextStream out(stdout);
+  Systray* systray;
+  systray = Singleton<Systray>::getInstance();
+  //systray->lm->;
+  if (systray == NULL)
+    {
+      out << "ooops critical error, could not get systray instance";
+      exit(1);
+    }
   out << line << endl;
+
 }

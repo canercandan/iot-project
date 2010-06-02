@@ -42,6 +42,9 @@ private slots:
     void on__settingAction_triggered();
     void on__aboutCegAction_triggered();
 
+public:
+  LayerManager *	lm;
+
 private:
     QSystemTrayIcon *	_trayIcon;
     QMenu *		_trayIconMenu;
@@ -50,7 +53,7 @@ private:
     QAction *		_aboutQtAction;
     QAction *		_aboutCegAction;
     QAction *		_quitAction;
-    LayerManager *	_lm;
+
 };
 
 #endif // SYSTRAY_H

@@ -29,10 +29,12 @@
 /*********************************/
 #include "LayerManager.h"
 /*********************************/
+#include "Singleton.hpp"
 
 Systray::Systray(QWidget *parent) :
-	QWidget(parent), _lm(new LayerManager)
+	QWidget(parent), lm(new LayerManager)
 {
+
     this->_trayIcon = new QSystemTrayIcon(QIcon(":/images/systray-transparent-32x32.png"), this);
     this->_trayIconMenu = new QMenu(this);
     this->_startAction = new QAction("Start", this);
@@ -60,7 +62,7 @@ Systray::Systray(QWidget *parent) :
 
 Systray::~Systray()
 {
-    delete this->_lm;
+    delete this->lm;
 }
 
 void Systray::on__startAction_triggered()
@@ -69,12 +71,12 @@ void Systray::on__startAction_triggered()
     if (this->_startAction->text() == "Start")
     {
 	QMessageBox::information(0, "Commandes", "Left | Right arrow = Horizontal Move\nUp | Down Arrow = Vertical move\nEnter = Zoom\nBackspace = unzoom\n1 = Simple Click\nAlt + F4 = Quit");
-	this->_lm->start();
+	this->lm->start();
 	content = "Stop";
     }
     else
     {
-	this->_lm->stop();
+	this->lm->stop();
 	content = "Start";
     }
     this->_startAction->setText(content);

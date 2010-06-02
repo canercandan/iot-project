@@ -25,18 +25,21 @@
 /*********************************/
 #include "CegTcpServer.h"
 #include "Systray.h"
+#include "Singleton.hpp"
 /*********************************/
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
+    Systray* systray;
     if (QSystemTrayIcon::isSystemTrayAvailable() == false)
     {
 	QMessageBox::critical(0, QObject::tr("Systray"), QObject::tr("Couldn't detect any system tray on this system."));
 	return (EXIT_FAILURE);
     }
     QApplication::setQuitOnLastWindowClosed(false);
-    Systray systray;
+
+    systray = Singleton<Systray>::getInstance();
     CegTcpServer server;
     return (a.exec());
 }
