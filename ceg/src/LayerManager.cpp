@@ -1,4 +1,4 @@
-// -*- mode: c++; c-indent-level: 4; c++-member-init-indent: 8; comment-column: 35; -*-
+ // -*- mode: c++; c-indent-level: 4; c++-member-init-indent: 8; comment-column: 35; -*-
 
 /* IOT Copyright (C) 2010 CEG development team
  *
@@ -103,7 +103,7 @@ void LayerManager::initialize()
     //this->_comGs->getWindows(windows);
 
     QDesktopWidget *desktop = QApplication::desktop();
-    windows.push_back(Ceg::Window(0, QRect(0 , 0, desktop->width(), desktop->height()), true, "Firefoxe"));
+    windows.push_back(Ceg::Window(0, QRect(0 , 0, desktop->width(), desktop->height()), true, "Firefox"));
 
     this->createLayers(windows);
     this->_currentLayer = this->_layers.begin();

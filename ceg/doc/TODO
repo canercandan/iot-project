@@ -3,9 +3,10 @@
 - reduire l heritage des rectItem
 - finir le XML, faire les test
 - Rajout le code neccessaire pour gerer toutes les possibilite sur les box (YANN) : du genre une image, les couleurs, du texte + regarder l opacity (surement mettre les parents a 0)
+-corriger segfault quand on utilise la souris et que personne na le focus + toucher clavier = fail
+
 
 - mettre a jour l UML et dire a lamine de le remplacer dans les docs (LAMINE)
-- Implementer la methode void    Layer::printMenuEvent() const (YAVUZ)// Methode qui va faire appel a l'affichage du menu ! retourne une action qui connait le menu
 - Utilite des differents types d'item ? (ALL to discuss) : suffisament generique etudier la necessite de les garders
 - Menu (YAVUZ + YANN) : pas sur qu il y ait grand chose selon la solution choisie.
 - Menus de preferences (LAMINE + TUG) : Réglage de Préférence réseau (proxy), Configuration du CEG (reglage de l'Opacite, de la couleur des boxs lors du focus et de la perte de focus.
@@ -33,7 +34,6 @@ pour window on peut difficilement y faire quelquechose les menus sont un problem
 
 TO YAVUZ : bug !!! zoom pas de probleme mais unzoom probleme au bout de 8 zoom dans le case numero 9, boucle infini dans BoxManager::calcParent au niveau du troisieme for, au bout d un moment le while tourne sans changer de valeurs! NE PAS mettre des noms de variables commencant par une Maj !
 lorsque l'on met une grille par defaut de 100*100 ou moins la vue n est pas full screen
-from regis : si tu appuyes enormement sur entre ca crash au bout d un moment
 
 
 -------------------------------------------------- Reminder chris --------------------------------------------------------------------------
