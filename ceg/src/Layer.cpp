@@ -18,6 +18,7 @@
  * Authors: CEG <ceg@ionlythink.com>, http://www.ionlythink.com
  */
 
+#include <QMessageBox> // temporaire
 /*********************************/
 #include "AbstractItem.h"
 /*********************************/
@@ -124,14 +125,13 @@ void	Layer::moveHorizontally() const
     }
     it += index;
     (*it)->setFocus();
-    if (focusItem->x() > (*it)->x())
+    if (focusItem->boundingRect().x() > (*it)->boundingRect().x())
     {
 	this->printMenuEvent();
     }
 }
 
 // Methode qui va faire appel a l'affichage du menu !
-#include <QMessageBox> // temporaire
 void    Layer::printMenuEvent() const
 {
     QMessageBox::information(0, "Title", "Declenche le menu");

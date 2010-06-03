@@ -70,7 +70,7 @@ void	CegTcpServer::_readData()
   char			buffer[128];
   QDataStream		in(this->_client);
 
-  in.setVersion(QDataStream::Qt_4_6);
+  in.setVersion(QDataStream::Qt_4_5);
   while (this->_client->bytesAvailable())
     {
       readbytes = in.readRawData(buffer, sizeof(buffer) - 1);

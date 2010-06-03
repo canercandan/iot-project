@@ -47,8 +47,8 @@ Box const * AbstractItem::getBox() const
 
 IAction * AbstractItem::getEvent() const
 {
-    return (this->_box->getAction());
-    //return (new ZoomAction(true));
+    //return (this->_box->getAction());
+    return (new ZoomAction(true));
 }
 
 /************************************************* [ OTHERS ] *************************************************/

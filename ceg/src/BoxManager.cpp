@@ -43,7 +43,7 @@
 
 BoxManager::BoxManager()
 {
-    this->initializeFromXml("C:\\Users\\yann\\Workspace\\eip\\iot\\trunk\\ceg\\config\\firefox.xml");
+    this->initializeFromXml("../config/firefox.xml");
     //this->initializeFromConfig();
 }
 
