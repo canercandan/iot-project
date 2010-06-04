@@ -1,24 +1,23 @@
-- check convention (YANN) + REVOIR nommage de certaine classe
+/**********YANN pense bete*************/
+- Revoir CTORS
+- Faire heriter IAction de DOM
 - utile de mettre AbstractScene::keyPressEvent en virtual pure? (YANN)
 - reduire l heritage des rectItem
-- finir le XML, faire les test
 - Rajout le code neccessaire pour gerer toutes les possibilite sur les box (YANN) : du genre une image, les couleurs, du texte + regarder l opacity (surement mettre les parents a 0)
--corriger segfault quand on utilise la souris et que personne na le focus + toucher clavier = fail
+- rajouter la methode pour get le schema parent
+/**********YANN*************/
 
-
+- Utiliser les valeurs des menus de preferences pour tout les trucs
 - mettre a jour l UML et dire a lamine de le remplacer dans les docs (LAMINE)
-- Utilite des differents types d'item ? (ALL to discuss) : suffisament generique etudier la necessite de les garders
-- Menu (YAVUZ + YANN) : pas sur qu il y ait grand chose selon la solution choisie.
-- Menus de preferences (LAMINE + TUG) : Réglage de Préférence réseau (proxy), Configuration du CEG (reglage de l'Opacite, de la couleur des boxs lors du focus et de la perte de focus.
+- Menu (CANER) : pas sur qu il y ait grand chose selon la solution choisie. + FAIRE Les xml
+- Menus de preferences (LAMINE + YAVUZ) : Réglage de Préférence réseau (proxy), Configuration du CEG (reglage de l'Opacite, de la couleur des boxs lors du focus et de la perte de focus.
 - Terminer le communication avec le serveur Graphique (YAVUZ + YANN) : facile a terminer sur windows + plus relou sur Linux
 - Trouver comment récupérer les infos utiles (navigateur par défaut, client mail...) (LAMINE).
 - Creation du clavier virtuel faire des test de simulation de touches. (?)
-- Faire des test de compatibilite sur des archis exotiques (que personne utilise) : freebsd, mac os , sunOS et bien d'autre
-- Régler le problème du segfault avec mingw sur windows. (ALL) Erreur système, la solution de rechange est de compiler QT à la main.
 
 -------------------------------------------------- PLUGIN VNC --------------------------------------------------------------------------
 
-- etudier le protocole RFB : si CANER  a fait le parser il pourra facilement contribuer sur cette partie
+- etudier le protocole RFB : si CHRIS  a fait le parser il pourra facilement contribuer sur cette partie
 - Communication Reseau
 - Creation des requetes RFB
 - Creation de l'UML et proposition a yann renard (YAVUZ + YANN)
@@ -27,13 +26,18 @@
 
 ------------------------------------------------------ BUG ----------------------------------------------------------------------
 
-Probleme avec les menus:
+- Régler le problème du segfault avec mingw sur windows. (ALL) Erreur système, la solution de rechange est de compiler QT à la main.
+
+- segfault quand on utilise la souris et que personne na le focus + toucher clavier = fail
+
+- Probleme avec les menus:
  * sur Linux: menu apparait au dessus du ceg et lorsque l'on met le focus sur la fenetre du ceg le menu disparait.
  * sur Windows: le menu apparait mais disparait lorsque la fenetre ceg retrouve le focus.
 pour window on peut difficilement y faire quelquechose les menus sont un probleme.
 
-TO YAVUZ : bug !!! zoom pas de probleme mais unzoom probleme au bout de 8 zoom dans le case numero 9, boucle infini dans BoxManager::calcParent au niveau du troisieme for, au bout d un moment le while tourne sans changer de valeurs! NE PAS mettre des noms de variables commencant par une Maj !
-lorsque l'on met une grille par defaut de 100*100 ou moins la vue n est pas full screen
+- TO YAVUZ : bug !!! zoom pas de probleme mais unzoom probleme au bout de 8 zoom dans le case numero 9, boucle infini dans BoxManager::calcParent au niveau du troisieme for, au bout d un moment le while tourne sans changer de valeurs! NE PAS mettre des noms de variables commencant par une Maj !
+
+- lorsque l'on met une grille par defaut de 100*100 ou moins la vue n est pas full screen
 
 
 -------------------------------------------------- Reminder chris --------------------------------------------------------------------------

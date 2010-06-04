@@ -32,7 +32,7 @@ public:
   View(LayerManager &);
 
   void	initialize();
-  void	keyPressEvent(QKeyEvent* keyEvent);
+  virtual void	keyPressEvent(QKeyEvent* keyEvent);
 
 private:
   LayerManager & _lm;
