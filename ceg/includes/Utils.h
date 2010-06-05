@@ -21,6 +21,10 @@
 #ifndef UTILS_H
 #define UTILS_H
 
+/*
+  Fichier de fonctions utiles
+  */
+
 #include <string>
 #include <sstream>
 
@@ -29,7 +33,7 @@
 class SleeperThread : public QThread
 {
 public:
-    static void msleep(unsigned long msecs);
+    static void msleep(unsigned long msecs); // Methode portable pour faire un sleep
 };
 
 template<typename T>

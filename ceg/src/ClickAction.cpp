@@ -26,7 +26,7 @@
 #include "ActionFactory.h"
 #include "AbstractItem.h"
 #include "Box.h"
-#include "LayerManager.h"
+#include "MainController.h"
 #include "AbstractScene.h"
 #include "ICommunicationGraphicalServer.h"
 #include "Utils.h"
@@ -34,20 +34,16 @@
 
 /************************************************* [ CTOR/DTOR ] *************************************************/
 
-ClickAction::ClickAction(ClickType type /*= LeftClick*/)
-    : _type(type)
-{}
-
-ClickAction::ClickAction(const QDomElement &)
+ClickAction::ClickAction(const QDomElement & actionElement)
 {
-
+    this->initializeFromXml(actionElement);
 }
 
 /************************************************* [ OTHERS ] *************************************************/
 
-bool	ClickAction::exec(LayerManager & lm)
+bool	ClickAction::exec(MainController & lm)
 {
-    AbstractItem const * ai = lm.getCurrentLayer()->getCurrentItem();
+    AbstractItem const * ai = lm.getCurrentScene()->getCurrentItem();
     Box const *	ab = ai->getBox();
 
     if (ab == 0)
@@ -77,6 +73,11 @@ bool	ClickAction::exec(LayerManager & lm)
     lm.getView().show();
 
     return (true);
+}
+
+void ClickAction::initializeFromXml(const QDomElement &)
+{
+
 }
 
 IAction * instanciateClickAction(QDomElement const & actionElement)

@@ -31,11 +31,16 @@ class QRect;
 class IAction;
 class AbstractItem;
 
+/*
+  Classe abstraite implemente des methodes communes aux calques(custom | defaut), menu
+  Une scene est composee d'items graphiques
+  */
 class AbstractScene : public QGraphicsScene
 {
 public:
-    AbstractScene(qreal x, qreal y, qreal width, qreal height, QObject * parent = 0);
-    virtual void	    initialize(std::list<QGraphicsRectItem *> const & newScene);
+    AbstractScene(QRect const & geometry, QObject * parent = 0);
+
+    virtual void	    initialize(std::list<QGraphicsRectItem *> const & newScene); // Ajout des items a la scene
 
     AbstractItem const *    getCurrentItem() const;
     virtual QRect	    getGeometry() const = 0;
@@ -43,7 +48,7 @@ public:
     virtual IAction *	    keyPressEvent(int key) const = 0;
 
 private:
-    void		    clearScene();
+    void		    clearScene(); // Vide la scene et supprimer les elements
 };
 
 #endif // ABSTRACTSCENE_H

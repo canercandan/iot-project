@@ -32,12 +32,6 @@
 
 /************************************************* [ CTOR/DTOR ] *************************************************/
 
-Box::Box(BoxType boxtype, Box const * parent, std::list<Box const *> const & children, QRect const & geometry):
-	_type(boxtype), _geometry(geometry), _action(0), _children(children)
-{
-    this->_topUnion._parent = parent;
-}
-
 Box::Box(BoxType boxtype, int level, std::list<Box const *> const & children, QRect const & geometry):
 	_type(boxtype), _geometry(geometry), _action(0), _children(children)
 {
@@ -73,10 +67,10 @@ void Box::initializeFromXml(const QDomElement & boxElement)
 
     for (QDomNode domNode = boxElement.firstChild(); !domNode.isNull(); domNode = domNode.nextSibling())
     {
-	QDomElement childElement = domNode.toElement();
+	QDomElement const & childElement = domNode.toElement();
 	if (childElement.isNull() == false)
 	{
-	    QString tagName = childElement.tagName();
+	    QString const & tagName = childElement.tagName();
 	    if (tagName == "action")
 	    {
 		this->_action = ActionFactory::create(childElement.attribute("id").toStdString(), childElement);
@@ -97,7 +91,7 @@ void Box::createChildren(QDomElement const & childrenElement)
 {
     for (QDomNode boxNode = childrenElement.firstChild(); !boxNode.isNull(); boxNode = boxNode.nextSibling())
     {
-	QDomElement boxElement = boxNode.toElement();
+	QDomElement const & boxElement = boxNode.toElement();
 	if (boxElement.isNull() == false && boxElement.tagName() == "box")
 	{
 	    this->_children.push_back(new Box(boxElement, this));

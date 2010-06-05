@@ -26,6 +26,10 @@
 
 class IAction;
 
+/*
+  Classe de Vue
+  Represente le calque d'une fenetre
+  */
 class Layer : public AbstractScene
 {
 public:
@@ -35,12 +39,12 @@ public:
     virtual IAction *	keyPressEvent(int key) const;
 
 private:
-    void		moveVertically() const;
-    void		moveHorizontally() const;
+    void		moveVertically() const; // Gere le mouvement vertical
+    void		moveHorizontally() const; // Gere le mouvement horizontal
     void		printMenuEvent() const;
 
 private:
-    Ceg::Window _host;
+    Ceg::Window _host; // la fenetre qui est calquee
 };
 
 #endif // LAYER_H

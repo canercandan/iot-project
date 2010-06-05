@@ -44,8 +44,8 @@ int main(int argc, char *argv[])
     return (a.exec());
 }
 */
-#include "LayerManager.h"
-#include "BoxManager.h"
+#include "MainController.h"
+#include "BoxController.h"
 #include "Utils.h"
 #include "ActionFactory.h"
 #include "ClickAction.h"
@@ -55,7 +55,7 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
     ActionFactory::registerInstantiator("clic", instanciateClickAction);
     ActionFactory::registerInstantiator("zoom", instanciateZoomAction);
-    LayerManager lm;
+    MainController lm;
     lm.start();
     return a.exec();
 }

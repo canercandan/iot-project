@@ -26,13 +26,13 @@
 
 /************************************************* [ CTOR/DTOR ] *************************************************/
 
-DefaultItem::DefaultItem(Box const * box, QGraphicsItem * parent) :
-		AbstractItem(box, parent)
+DefaultItem::DefaultItem(Box const * box, QGraphicsItem * parent /* = 0 */) :
+	AbstractItem(box, parent)
 {
 }
 
 
 DefaultItem::~DefaultItem()
 {
-//  delete this->_box;
+    delete this->_model;
 }

@@ -32,7 +32,7 @@
 
 AbstractItem::AbstractItem(Box const * box, QGraphicsItem * parent) :
 	QGraphicsRectItem(box->getGeometry().x(), box->getGeometry().y(), box->getGeometry().width(), box->getGeometry().height(), parent),
-	_color(Qt::darkBlue), _box(box)
+	_color(Qt::darkBlue), _model(box)
 {
     this->setOpacity(0.5);
     this->setFlag(QGraphicsItem::ItemIsFocusable);
@@ -42,13 +42,12 @@ AbstractItem::AbstractItem(Box const * box, QGraphicsItem * parent) :
 
 Box const * AbstractItem::getBox() const
 {
-    return (this->_box);
+    return (this->_model);
 }
 
 IAction * AbstractItem::getEvent() const
 {
-    //return (this->_box->getAction());
-    return (new ZoomAction(true));
+    return (this->_model->getAction());
 }
 
 /************************************************* [ OTHERS ] *************************************************/

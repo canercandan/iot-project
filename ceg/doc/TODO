@@ -1,15 +1,10 @@
-/**********YANN pense bete*************/
-- Revoir CTORS
-- Faire heriter IAction de DOM
-- utile de mettre AbstractScene::keyPressEvent en virtual pure? (YANN)
-- reduire l heritage des rectItem
+- (YANN) Rajout du code pour gerer les actions de menus
+- (YANN) rajout du code pour faire poper les menus
+- (YANN) : revoir le management des listes dans le boxcontroler
 - Rajout le code neccessaire pour gerer toutes les possibilite sur les box (YANN) : du genre une image, les couleurs, du texte + regarder l opacity (surement mettre les parents a 0)
-- rajouter la methode pour get le schema parent
-/**********YANN*************/
-
 - Utiliser les valeurs des menus de preferences pour tout les trucs
 - mettre a jour l UML et dire a lamine de le remplacer dans les docs (LAMINE)
-- Menu (CANER) : pas sur qu il y ait grand chose selon la solution choisie. + FAIRE Les xml
+- Menu (CANER) :  FAIRE Les xml
 - Menus de preferences (LAMINE + YAVUZ) : Réglage de Préférence réseau (proxy), Configuration du CEG (reglage de l'Opacite, de la couleur des boxs lors du focus et de la perte de focus.
 - Terminer le communication avec le serveur Graphique (YAVUZ + YANN) : facile a terminer sur windows + plus relou sur Linux
 - Trouver comment récupérer les infos utiles (navigateur par défaut, client mail...) (LAMINE).
@@ -23,12 +18,9 @@
 - Creation de l'UML et proposition a yann renard (YAVUZ + YANN)
 - Implementation de l'UML.
 
-
 ------------------------------------------------------ BUG ----------------------------------------------------------------------
 
 - Régler le problème du segfault avec mingw sur windows. (ALL) Erreur système, la solution de rechange est de compiler QT à la main.
-
-- segfault quand on utilise la souris et que personne na le focus + toucher clavier = fail
 
 - Probleme avec les menus:
  * sur Linux: menu apparait au dessus du ceg et lorsque l'on met le focus sur la fenetre du ceg le menu disparait.
@@ -50,7 +42,8 @@ pour window on peut difficilement y faire quelquechose les menus sont un problem
 - Faire une class Config singleton qui load le fichier de conf au start et save a la fin
 - loader le port d'ecoute par un fichier de conf
 
-- faire class Logger, niveau de log loader par le fichier de conf, changeable via systray
+- faire class Logger, niveau de log loader par le fichier de conf, changeable via systray, (YANN) <-
+regarde dans les class de log4j, c un framework java pour les logs ca pourra peut etre donner des bonnes idees, ou bien avec QT, ca serait vraiment classe d avoir le l'AOP pour les logs :)
 - fichier de log avec plusieur bug level (none || errors only || all)
 
 - maj uml

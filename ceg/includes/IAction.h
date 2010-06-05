@@ -21,13 +21,19 @@
 #ifndef IACTION_H
 #define IACTION_H
 
-class LayerManager;
+#include "IDomFactory.h"
 
-class IAction
+class MainController;
+
+/*
+  Interface pour les action
+  */
+class IAction : public IDomFactory
 {
 public:
     virtual ~IAction(){}
-    virtual bool	exec(LayerManager &) = 0;
+    virtual bool	exec(MainController &) = 0;
+    virtual void	initializeFromXml(QDomElement const &) = 0;
 };
 
 #endif // IACTION_H

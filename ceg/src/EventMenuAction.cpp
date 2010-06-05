@@ -21,23 +21,26 @@
 /*********************************/
 #include "EventMenuAction.h"
 /*********************************/
-#include "LayerManager.h"
-/*********************************/
 
 /************************************************* [ CTOR/DTOR ] *************************************************/
 
 EventMenuAction::EventMenuAction(int)
 {}
 
-EventMenuAction::EventMenuAction(const QDomElement &)
+EventMenuAction::EventMenuAction(const QDomElement & actionElement)
 {
-
+    this->initializeFromXml(actionElement);
 }
 
 /************************************************* [ OTHERS ] *************************************************/
-bool	EventMenuAction::exec(LayerManager&)
+bool	EventMenuAction::exec(MainController&)
 {
     return (true);
+}
+
+void EventMenuAction::initializeFromXml(const QDomElement &)
+{
+
 }
 
 IAction * instanciateEventMenuAction(const QDomElement & actionElement)

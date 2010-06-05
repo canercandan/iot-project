@@ -55,10 +55,10 @@ namespace Ceg
 	void		    setId(WindowId);
 
     private:
-	std::string _programName;
+	std::string _programName; // le nom du programme de la fenetre espionnee
 	WindowId    _id;
-	QRect	    _geometry;
-	bool	    _isVisible;
+	QRect	    _geometry; // La taille de la fenetre
+	bool	    _isVisible; // La visibilite de la fenetre
     };
 }
 

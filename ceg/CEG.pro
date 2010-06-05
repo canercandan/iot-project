@@ -10,12 +10,10 @@ INCLUDEPATH += . \
     includes
 HEADERS += includes/AbstractItem.h \
     includes/AbstractScene.h \
-    includes/BoxManager.h \
     includes/DefaultItem.h \
     includes/Layer.h \
     includes/Window.h \
     includes/GraphicItemFactory.h \
-    includes/LayerManager.h \
     includes/ICommunicationGraphicalServer.h \
     includes/IAction.h \
     includes/ZoomAction.h \
@@ -32,16 +30,17 @@ HEADERS += includes/AbstractItem.h \
     includes/Box.h \
     includes/IDomFactory.h \
     includes/BoxStyle.h \
-    includes/CegTcpServer.h
+    includes/CegTcpServer.h \
+    includes/CustomItem.h \
+    includes/MainController.h \
+    includes/BoxController.h
 SOURCES += src/AbstractItem.cpp \
     src/AbstractScene.cpp \
-    src/BoxManager.cpp \
     src/DefaultItem.cpp \
     src/Layer.cpp \
     src/main.cpp \
     src/Window.cpp \
     src/GraphicItemFactory.cpp \
-    src/LayerManager.cpp \
     src/ZoomAction.cpp \
     src/ClickAction.cpp \
     src/View.cpp \
@@ -55,7 +54,10 @@ SOURCES += src/AbstractItem.cpp \
     src/Systray.cpp \
     src/Box.cpp \
     src/BoxStyle.cpp \
-    src/CegTcpServer.cpp
+    src/CegTcpServer.cpp \
+    src/CustomItem.cpp \
+    src/BoxController.cpp \
+    src/MainController.cpp
 unix { 
     HEADERS += includes/XWindowSystem.h
     SOURCES += src/XWindowSystem.cpp

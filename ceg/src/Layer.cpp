@@ -18,6 +18,7 @@
  * Authors: CEG <ceg@ionlythink.com>, http://www.ionlythink.com
  */
 
+/*********************************/
 #include <QMessageBox> // temporaire
 /*********************************/
 #include "AbstractItem.h"
@@ -29,8 +30,7 @@
 /************************************************* [ CTOR/DTOR ] *************************************************/
 
 Layer::Layer(Ceg::Window const & hostWindow) :
-	AbstractScene(hostWindow.getGeometry().x(), hostWindow.getGeometry().y(), hostWindow.getGeometry().width(), hostWindow.getGeometry().height()),
-	_host(hostWindow)
+	AbstractScene(hostWindow.getGeometry()), _host(hostWindow)
 {
 }
 
@@ -65,8 +65,10 @@ IAction * Layer::keyPressEvent(int key) const
 	    return (focusItem->getEvent());
 	}
 	break;
-    case Qt::Key_Backspace :
+    /*case Qt::Key_Backspace :
 	return (new ZoomAction(false));
+	break;*/
+    default:
 	break;
     }
     return (0);

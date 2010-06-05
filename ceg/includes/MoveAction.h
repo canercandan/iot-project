@@ -25,13 +25,17 @@
 
 class QDomElement;
 
+/*
+  Action pour generer des mouvements sur la scene courante
+  */
 class MoveAction : public IAction
 {
 public:
   MoveAction(int key);
   MoveAction(QDomElement const &);
 
-  virtual bool	exec(LayerManager&);
+  virtual bool	exec(MainController&);
+  virtual void	initializeFromXml(QDomElement const &);
 
 private:
   int	_key;

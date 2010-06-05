@@ -23,7 +23,7 @@
 /*********************************/
 #include "View.h"
 /*********************************/
-#include "LayerManager.h"
+#include "MainController.h"
 #include "MoveAction.h"
 #include "ClickAction.h"
 #include "AbstractScene.h"
@@ -31,7 +31,7 @@
 
 /************************************************* [ CTOR/DTOR ] *************************************************/
 
-View::View(LayerManager & lm)
+View::View(MainController & lm)
     : _lm(lm)
 {
    this->setWindowOpacity(0.5);
@@ -41,13 +41,14 @@ View::View(LayerManager & lm)
 
 void	View::initialize()
 {
-    AbstractScene* as = this->_lm.getCurrentLayer();
+    AbstractScene* as = this->_lm.getCurrentScene();
     this->setScene(as);
     this->setGeometry(as->getGeometry());
-    this->setWindowFlags(Qt::CustomizeWindowHint | Qt::FramelessWindowHint);
+    this->setWindowFlags(Qt::CustomizeWindowHint | Qt::FramelessWindowHint); // Enleve la title bar
     this->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     this->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     this->setWindowState(Qt::WindowFullScreen);
+    this->setInteractive(false); // Desactive les interactions (clic) sur la vue
 }
 
 void	View::keyPressEvent(QKeyEvent* keyEvent)
@@ -67,7 +68,7 @@ void	View::keyPressEvent(QKeyEvent* keyEvent)
 	    this->_lm.actionHandler(a);
 	}
 	break;
-    case Qt::Key_1:
+    /*case Qt::Key_1:
 	{
 	    ClickAction a(ClickAction::LeftClick);
 	    this->_lm.actionHandler(a);
@@ -90,7 +91,7 @@ void	View::keyPressEvent(QKeyEvent* keyEvent)
 	    ClickAction a(ClickAction::LeftDbClick);
 	    this->_lm.actionHandler(a);
 	}
-	break;
+	break;*/
     default:
 	break;
     }

@@ -28,17 +28,22 @@
 class QGraphicsRectItem;
 class QDomElement;
 
-class BoxManager;
-class LayerManager;
+class BoxController;
+class MainController;
 class Box;
+
+/*
+  Classe d'action permettant de rentrer plus en profondeur dans un patron.
+  Zoomer ou dezoomer
+  */
 
 class ZoomAction : public IAction
 {
 public:
-    ZoomAction(bool zoom);
     ZoomAction(QDomElement const &);
 
-    virtual bool	exec(LayerManager&);
+    virtual bool	exec(MainController&);
+    virtual void	initializeFromXml(QDomElement const &);
 
 private:
     bool	_zoom;

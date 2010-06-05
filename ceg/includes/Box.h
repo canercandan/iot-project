@@ -32,15 +32,19 @@
 class IAction;
 class BoxParameter;
 
-enum BoxType {DEFAULT_BOX = 0, CUSTOM_BOX, MENU_BOX};
+enum BoxType {DEFAULT_BOX, CUSTOM_BOX, MENU_BOX};
 
+/*
+  Classe de Modele
+  Classe contenant tout les elements permettant de construire les items graphiques
+  Element constitutif des patrons
+  Herite de la IDomFactory, car il est possible de creer une box a partir d'un XML
+  */
 class Box : public IDomFactory
 {
 public:
-    Box(QRect geometry, BoxType boxtype);
-    Box(BoxType boxtype, Box const * parent, std::list<Box const *> const & children, QRect const & geometry);
-    Box(BoxType boxtype, int level, std::list<Box const *> const & children, QRect const & geometry);
-    Box(QDomElement const & domElement, Box const * parent);
+    Box(BoxType boxtype, int level, std::list<Box const *> const & children, QRect const & geometry); // Utiliser lors des box par defaut, construction des enfants
+    Box(QDomElement const & domElement, Box const * parent); // Utiliser pour la creation par XML
     ~Box();
 
     IAction  *			    getAction() const;
@@ -55,16 +59,16 @@ private :
 void	createChildren(QDomElement const & childrenElement);
 
 private:
-BoxType		    _type;
-union
-{
-    Box const *	    _parent;
-    int			    _level;
-}			    _topUnion;
-QRect			    _geometry;
-IAction  *		    _action;
-BoxStyle		_graphicSytle;
-std::list<Box const *>   _children;
+    BoxType		    _type; // Le type de la box
+    union
+    {
+	Box const *	    _parent; // Le parent dans le cas d'une box CUSTOM_BOX
+	int		    _level; // La profondeur (de zoom) d'une box DEFAULT_BOX
+    }			    _topUnion;
+    QRect			    _geometry; // Les dimensions de la boite
+    IAction  *		    _action; // L'action que la box entraine
+    BoxStyle		    _graphicSytle; // Toutes les options graphiques d'une box
+    std::list<Box const *>   _children; // le sous patron
 };
 
 #endif // BOX_H_

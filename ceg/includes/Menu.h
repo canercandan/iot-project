@@ -25,6 +25,10 @@
 
 class IAction;
 
+/*
+  Classe de Vue
+  Represente un menu
+  */
 class Menu : public AbstractScene
 {
 public:

@@ -31,7 +31,7 @@ MenuItem::MenuItem(Box const * box, QGraphicsItem * parent)
 
 MenuItem::~MenuItem()
 {
-  delete this->_box;
+  delete this->_model;
 }
 
 /************************************************* [ OTHERS ] *************************************************/

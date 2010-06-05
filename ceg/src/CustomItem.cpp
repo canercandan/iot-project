@@ -18,30 +18,13 @@
  * Authors: CEG <ceg@ionlythink.com>, http://www.ionlythink.com
  */
 
+/*********************************/
+#include "CustomItem.h"
+/*********************************/
 
-#ifndef ACTIONFACTORY_H
-#define ACTIONFACTORY_H
+/************************************************* [ CTOR/DTOR ] *************************************************/
 
-#include <string>
-#include <map>
-
-class QDomElement;
-class IAction;
-
-/*
-  Pattern Factory
-  Permet de creer une Action selon son Id
-  */
-class ActionFactory
+CustomItem::CustomItem(Box const * box, QGraphicsItem * parent /* = 0 */) :
+	AbstractItem(box, parent)
 {
-public:
-    typedef IAction * (*ActionInstantiator)(QDomElement const &);
-
-    static IAction *	create(std::string const & actionId, QDomElement const & domElement); // Retourne l'action demande
-    static void		registerInstantiator(std::string const & actionId, ActionInstantiator function); // Permet de referencer une action et son constructeur
-
-private:
-    static std::map<std::string, ActionInstantiator>	_instanciators; // Reference les ids des actions et leur constructeurs associes
-};
-
-#endif // ACTIONFACTORY_H
+}

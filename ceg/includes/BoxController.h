@@ -18,8 +18,8 @@
  * Authors: CEG <ceg@ionlythink.com>, http://www.ionlythink.com
  */
 
-#ifndef BOXMANAGER_H
-#define BOXMANAGER_H
+#ifndef BOXCONTROLLER_H
+#define BOXCONTROLLER_H
 
 #include <map>
 #include <list>
@@ -34,30 +34,35 @@ namespace Ceg
 
 class Box;
 
-class BoxManager
+/*
+  Classe de controle
+  Gere tout les patrons (schemas, plan, modele) de logiciels et leur acces, creation
+  */
+
+class BoxController
 {
 public:
-    BoxManager();
-    ~BoxManager();
+    BoxController();
+    ~BoxController();
 
-    void    getChildren(std::list<QGraphicsRectItem *> &, Box const *) const;
-    void    getParent(std::list<QGraphicsRectItem *> &, Box const *) const;
-    void    getPattern(Ceg::Window const &, std::list<QGraphicsRectItem *> & list) const;
+    void    getChildren(std::list<QGraphicsRectItem *> &, Box const *) const; // Retourne le sous patron de la box
+    void    getParent(std::list<QGraphicsRectItem *> &, Box const *) const; // Retourne la patron parent a la box
+    void    getPattern(Ceg::Window const &, std::list<QGraphicsRectItem *> & list) const; // Retourne la patron du niveau 0
 
 private:
-    void    initializeFromConfig(QString const & directory = "");
-    //! method to import configuration from a XML file to _patterns[name] list
-    void    initializeFromXml(QString const & fileName);
+    std::list<Box const *>    getPattern(Box const * boxSearch) const;
+    void    initializeFromConfig(QString const & directory = "../config/"); // Lit le repertoire de config pour instancier tout les patrons (custom)
+    void    initializeFromXml(QString const & fileName); // Creer la patron present dans le fichier
     void    calcChildren(std::list<Box const *> &, QRect const &, unsigned short) const;
     void    calcParent(std::list<Box const *> &, Box const *) const;
-    void    createGraphicItems(std::list<QGraphicsRectItem *> &, std::list<Box const *> const & boxs) const;
+    void    createGraphicItems(std::list<QGraphicsRectItem *> &, std::list<Box const *> const & boxs) const; // Appel la GraphicItemFactory pour toutes les boxs
 
 private:
     //! this map associates a list of boxes with a context name,
     //! it is initialy filled out by loadConf method
-    std::map<std::string, std::list<Box const *> > _patterns;
+    std::map<std::string, std::list<Box const *> > _patterns; // Id du logiciel et son patron associe
 
-    static const int NBGRID = 3; // va sauter sera configurable dans l interface.
+    static const int NBGRID = 3; // va sauter sera configurable par le menu des preferences
 };
 
-#endif // BOXMANAGER_H
+#endif // BOXCONTROLLER_H

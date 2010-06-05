@@ -25,31 +25,26 @@
 /*********************************/
 #include "AbstractItem.h"
 #include "AbstractScene.h"
-#include "LayerManager.h"
-#include "BoxManager.h"
+#include "MainController.h"
+#include "BoxController.h"
 /*********************************/
 
 /************************************************* [ CTOR/DTOR ] *************************************************/
 
-ZoomAction::ZoomAction(bool zoom) :
-	_zoom(zoom)
-{
-}
-
 ZoomAction::ZoomAction(const QDomElement & actionElement)
 {
-    this->_zoom = actionElement.attribute("isZoom").toUInt();
+    this->initializeFromXml(actionElement);
 }
 
 /************************************************* [ OTHERS ] *************************************************/
 
-bool	ZoomAction::exec(LayerManager & lm)
+bool	ZoomAction::exec(MainController & lm)
 {
-    AbstractScene * scene = lm.getCurrentLayer();
+    AbstractScene * scene = lm.getCurrentScene();
     AbstractItem const * currentItem = scene->getCurrentItem();
     Box const * box = currentItem->getBox();
     std::list<QGraphicsRectItem *> graphicItems;
-    BoxManager const & boxManager = lm.getBoxManager();
+    BoxController const & boxManager = lm.getBoxController();
 
     if (this->_zoom == true)
     {
@@ -64,6 +59,11 @@ bool	ZoomAction::exec(LayerManager & lm)
 	scene->initialize(graphicItems);
     }
     return (true);
+}
+
+void ZoomAction::initializeFromXml(const QDomElement & actionElement)
+{
+    this->_zoom = actionElement.attribute("isZoom").toUInt();
 }
 
 IAction * instanciateZoomAction(const QDomElement & actionElement)

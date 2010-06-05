@@ -21,7 +21,7 @@
 /*********************************/
 #include "MoveAction.h"
 /*********************************/
-#include "LayerManager.h"
+#include "MainController.h"
 #include "AbstractScene.h"
 /*********************************/
 
@@ -31,21 +31,26 @@ MoveAction::MoveAction(int key)
   : _key(key)
 {}
 
-MoveAction::MoveAction(const QDomElement &)
+MoveAction::MoveAction(const QDomElement & actionElement)
 {
-
+    this->initializeFromXml(actionElement);
 }
 
 /************************************************* [ OTHERS ] *************************************************/
 
-bool	MoveAction::exec(LayerManager & lm)
+bool	MoveAction::exec(MainController & lm)
 {
-  IAction * action = lm.getCurrentLayer()->keyPressEvent(this->_key);
+  IAction * action = lm.getCurrentScene()->keyPressEvent(this->_key);
 
   if (action != 0)
     return (action->exec(lm));
 
   return (true);
+}
+
+void MoveAction::initializeFromXml(const QDomElement &)
+{
+
 }
 
 IAction * instanciateMoveAction(const QDomElement & actionElement)

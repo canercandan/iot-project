@@ -27,8 +27,15 @@
 class QSystemTrayIcon;
 class QMenu;
 
-class LayerManager;
+class MainController;
 
+/*
+  Classe de vue
+  Classe qui contient le systray.
+  Elle permet de stopper le Ceg
+  Permet d'activer/desactiver la navigation
+  Permet d'acceder au menu de preferences et autres reglages
+  */
 class Systray : public QWidget
 {
     Q_OBJECT
@@ -42,10 +49,8 @@ private slots:
     void on__settingAction_triggered();
     void on__aboutCegAction_triggered();
 
-public:
-  LayerManager *	lm;
-
 private:
+    MainController *	_lm;
     QSystemTrayIcon *	_trayIcon;
     QMenu *		_trayIconMenu;
     QAction *		_startAction;

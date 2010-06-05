@@ -23,6 +23,9 @@
 
 class QDomElement;
 
+/*
+  Interface pour la creation d'objet a partir d'un XML
+  */
 class IDomFactory
 {
 public:

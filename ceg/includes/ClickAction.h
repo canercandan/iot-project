@@ -25,19 +25,22 @@
 
 class QDomElement;
 
+/*
+  Action pour generer les clics
+  */
 class ClickAction : public IAction
 {
 public:
-  enum ClickType{LeftClick = 1, MiddleClick, RightClick, LeftDbClick};
+    enum ClickType{LeftClick = 1, MiddleClick, RightClick, LeftDbClick};
 
 public:
-  ClickAction(ClickType type = LeftClick);
-  ClickAction(QDomElement const &);
+    ClickAction(QDomElement const &);
 
-  virtual bool	exec(LayerManager &);
+    virtual bool	exec(MainController &);
+    virtual void	initializeFromXml(QDomElement const &);
 
 private:
-  ClickType	_type;
+    ClickType	_type;
 };
 
 IAction * instanciateClickAction(QDomElement const &);

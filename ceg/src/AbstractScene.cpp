@@ -29,8 +29,8 @@
 
 /************************************************* [ CTOR/DTOR ] *************************************************/
 
-AbstractScene::AbstractScene(qreal x, qreal y, qreal width, qreal height, QObject * parent) :
-	QGraphicsScene(x, y, width, height, parent)
+AbstractScene::AbstractScene(QRect const & geometry, QObject * parent /* = 0 */) :
+	QGraphicsScene(geometry.x(), geometry.y(), geometry.width(), geometry.height(), parent)
 {
 }
 

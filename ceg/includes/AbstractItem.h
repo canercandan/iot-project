@@ -26,13 +26,17 @@
 class Box;
 class IAction;
 
+/*
+  Classe abstraite implementant les methodes par defaut permettant de dessiner les items
+  Un ensemble d'item forme une scene
+  */
 class AbstractItem : public QGraphicsRectItem
 {
 public:
     AbstractItem(Box const * box, QGraphicsItem * parent = 0);
 
     Box const *	getBox() const;
-    IAction *		getEvent() const;
+    IAction *		getEvent() const; // Donne l'action a effectue lorsque l'item est selectionne (Key = Enter)
 
 protected:
     virtual void	focusInEvent(QFocusEvent * event);
@@ -41,7 +45,7 @@ protected:
 
 protected:
     Qt::GlobalColor	_color;
-    Box const *	_box;
+    Box const *	_model; // Le modele de l'item dessine
 };
 
 #endif // ABSTRACTITEM_H

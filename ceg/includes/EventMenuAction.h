@@ -31,7 +31,8 @@ public:
   EventMenuAction(int);
   EventMenuAction(QDomElement const &);
 
-  virtual bool	exec(LayerManager &);
+  virtual bool	exec(MainController &);
+  virtual void	initializeFromXml(QDomElement const &);
 };
 
 IAction * instanciateEventMenuAction(QDomElement const &);

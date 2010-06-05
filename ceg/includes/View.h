@@ -24,18 +24,24 @@
 #include <QGraphicsView>
 
 class QKeyEvent;
-class LayerManager;
+class MainController;
 
+/*
+  Sera supprimer plutard, utilise pour debuger avec le clavier
+  Implementation de QGraphicsView, Widget Qt representant une scene
+  Une vue est associe  a une scene
+  Lorsque que le clavier est utilise, elle creer une MoveAction et la transmet au MainController
+  */
 class View : public QGraphicsView
 {
 public:
-  View(LayerManager &);
+  View(MainController &);
 
   void	initialize();
   virtual void	keyPressEvent(QKeyEvent* keyEvent);
 
 private:
-  LayerManager & _lm;
+  MainController & _lm;
 };
 
 #endif // !VIEW_H

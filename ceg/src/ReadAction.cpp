@@ -21,18 +21,18 @@
 /*********************************/
 #include "ReadAction.h"
 /*********************************/
-#include "LayerManager.h"
+#include "MainController.h"
 #include "Utils.h"
 /*********************************/
 
-ReadAction::ReadAction(const QDomElement &)
+ReadAction::ReadAction(const QDomElement & actionElement)
 {
-
+    this->initializeFromXml(actionElement);
 }
 
 /************************************************* [ OTHERS ] *************************************************/
 
-bool	ReadAction::exec(LayerManager & lm)
+bool	ReadAction::exec(MainController & lm)
 {
   lm.getView().hide();
 
@@ -41,6 +41,11 @@ bool	ReadAction::exec(LayerManager & lm)
   lm.getView().show();
 
   return true;
+}
+
+void ReadAction::initializeFromXml(const QDomElement &)
+{
+
 }
 
 IAction * instanciateReadAction(const QDomElement & actionElement)
