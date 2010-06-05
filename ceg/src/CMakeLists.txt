@@ -11,16 +11,17 @@ SET(SAMPLE_SRCS
   AbstractItem.cpp
   AbstractScene.cpp
   ActionFactory.cpp
+  BoxController.cpp
   Box.cpp
-  BoxManager.cpp
   BoxStyle.cpp
   CegTcpServer.cpp
   ClickAction.cpp
+  CustomItem.cpp
   DefaultItem.cpp
   EventMenuAction.cpp
   GraphicItemFactory.cpp
   Layer.cpp
-  LayerManager.cpp
+  MainController.cpp
   main.cpp
   Menu.cpp
   MenuItem.cpp

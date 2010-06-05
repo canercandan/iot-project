@@ -20,10 +20,14 @@
 
 #include "WriteAction.h"
 
-WriteAction::WriteAction()
+WriteAction::WriteAction(QDomElement const &)
 {}
 
-bool	WriteAction::exec(LayerManager&)
+bool	WriteAction::exec(MainController &)
 {
   return true;
+}
+
+void	WriteAction::initializeFromXml(QDomElement const &)
+{
 }

@@ -26,9 +26,10 @@
 class WriteAction : public IAction
 {
 public:
-  WriteAction();
+  WriteAction(QDomElement const &);
 
-  virtual bool	exec(LayerManager&);
+  virtual bool	exec(MainController&);
+  virtual void	initializeFromXml(QDomElement const &);
 };
 
 #endif // !WRITEACTION_H
