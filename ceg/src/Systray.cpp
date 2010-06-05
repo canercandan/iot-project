@@ -62,6 +62,13 @@ Systray::Systray(QWidget *parent) :
 
 Systray::~Systray()
 {
+    delete this->_quitAction;
+    delete this->_aboutQtAction;
+    delete this->_aboutCegAction;
+    delete this->_settingAction;
+    delete this->_startAction;
+    delete this->_trayIconMenu;
+    delete this->_trayIcon;
     delete this->_lm;
 }
 

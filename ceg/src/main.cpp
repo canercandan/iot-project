@@ -27,15 +27,15 @@
 #include "Systray.h"
 #include "Singleton.hpp"
 /*********************************/
-/*
+
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
     Systray* systray;
     if (QSystemTrayIcon::isSystemTrayAvailable() == false)
     {
-	QMessageBox::critical(0, QObject::tr("Systray"), QObject::tr("Couldn't detect any system tray on this system."));
-	return (EXIT_FAILURE);
+      QMessageBox::critical(0, QObject::tr("Systray"), QObject::tr("Couldn't detect any system tray on this system."));
+      return (EXIT_FAILURE);
     }
     QApplication::setQuitOnLastWindowClosed(false);
 
@@ -43,19 +43,18 @@ int main(int argc, char *argv[])
     //CegTcpServer server;
     return (a.exec());
 }
-*/
-#include "MainController.h"
-#include "BoxController.h"
-#include "Utils.h"
-#include "ActionFactory.h"
-#include "ClickAction.h"
-#include "ZoomAction.h"
-int main(int argc, char *argv[])
-{
-    QApplication a(argc, argv);
-    ActionFactory::registerInstantiator("clic", instanciateClickAction);
-    ActionFactory::registerInstantiator("zoom", instanciateZoomAction);
-    MainController lm;
-    lm.start();
-    return a.exec();
-}
+// #include "MainController.h"
+// #include "BoxController.h"
+// #include "Utils.h"
+// #include "ActionFactory.h"
+// #include "ClickAction.h"
+// #include "ZoomAction.h"
+// int main(int argc, char *argv[])
+// {
+//     QApplication a(argc, argv);
+//     ActionFactory::registerInstantiator("clic", instanciateClickAction);
+//     ActionFactory::registerInstantiator("zoom", instanciateZoomAction);
+//     MainController lm;
+//     lm.start();
+//     return a.exec();
+// }
