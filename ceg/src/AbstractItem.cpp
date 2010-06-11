@@ -34,8 +34,8 @@ AbstractItem::AbstractItem(Box const * box, QGraphicsItem * parent) :
 	QGraphicsRectItem(box->getGeometry().x(), box->getGeometry().y(), box->getGeometry().width(), box->getGeometry().height(), parent),
 	_color(Qt::darkBlue), _model(box)
 {
-    this->setOpacity(0.5);
-    this->setFlag(QGraphicsItem::ItemIsFocusable);
+  this->setOpacity(0.5);
+  this->setFlag(QGraphicsItem::ItemIsFocusable);
 }
 
 /************************************************* [ GETTERS ] *************************************************/
@@ -68,7 +68,7 @@ void AbstractItem::paint(QPainter * painter, const QStyleOptionGraphicsItem *, Q
 {
     painter->setBrush(this->_color);
     painter->drawRect(this->rect());
-    //     painter->drawText(this->rect(), "MAMAN!!!");
+    //    painter->drawText(this->rect(), "Click !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1");
 
     //     QPixmap pixmap("drawing.png");
     //     QRectF dest(this->rect().x(), this->rect().y(), pixmap.rect().width(), pixmap.rect().height());

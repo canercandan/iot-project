@@ -1,9 +1,5 @@
-- (YANN) Rajout du code pour gerer les actions de menus
-- (YANN) rajout du code pour faire poper les menus
-- (YANN) : revoir le management des listes dans le boxcontroler
-- Rajout le code neccessaire pour gerer toutes les possibilite sur les box (YANN) : du genre une image, les couleurs, du texte + regarder l opacity (surement mettre les parents a 0)
+- Rajout le code neccessaire pour gerer toutes les possibilite sur les box (CANER + YANN) : du genre une image, les couleurs, du texte + regarder l opacity (surement mettre les parents a 0)
 - Utiliser les valeurs des menus de preferences pour tout les trucs
-- mettre a jour l UML et dire a lamine de le remplacer dans les docs (LAMINE)
 - Menu (CANER) :  FAIRE Les xml
 - Menus de preferences (LAMINE + YAVUZ) : Réglage de Préférence réseau (proxy), Configuration du CEG (reglage de l'Opacite, de la couleur des boxs lors du focus et de la perte de focus.
 - Terminer le communication avec le serveur Graphique (YAVUZ + YANN) : facile a terminer sur windows + plus relou sur Linux
@@ -47,3 +43,10 @@ regarde dans les class de log4j, c un framework java pour les logs ca pourra peu
 - maj uml
 - maj Doxygen
 
+-------------------------------------------------- Reminder Yann --------------------------------------------------------------------------
+- creer repertoire pour les actions
+- rajout du code pour faire poper les menus PopMenuAction
+- Rajout du code pour gerer les actions de menus ExecMenuAction
+- Code dans le BoxController pour les menus
+
+- revoir le management des listes dans le boxcontroler

@@ -19,6 +19,7 @@
  */
 
 /*********************************/
+#include <QDebug>
 #include <QMessageBox> // temporaire
 /*********************************/
 #include "AbstractItem.h"
