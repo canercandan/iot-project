@@ -2,7 +2,7 @@ TEMPLATE = app
 QT += network \
     xml
 LANGUAGE = C++
-TARGET = 
+TARGET =
 DEPENDPATH += . \
     includes \
     includes/Action \
@@ -36,7 +36,8 @@ HEADERS += AbstractItem.h \
     CegTcpServer.h \
     CustomItem.h \
     MainController.h \
-    BoxController.h
+    BoxController.h \
+    PopMenuAction.h
 SOURCES += AbstractItem.cpp \
     AbstractScene.cpp \
     DefaultItem.cpp \
@@ -60,18 +61,19 @@ SOURCES += AbstractItem.cpp \
     CegTcpServer.cpp \
     CustomItem.cpp \
     BoxController.cpp \
-    MainController.cpp
-unix { 
+    MainController.cpp \
+    PopMenuAction.cpp
+unix {
     HEADERS += XWindowSystem.h
     SOURCES += XWindowSystem.cpp
     CONFIG += link_pkgconfig
     PKGCONFIG += xmu
 }
-win32 { 
+win32 {
     HEADERS += Win32Adaptor.h \
-        Win32Explorer.h
+	Win32Explorer.h
     SOURCES += Win32Adaptor.cpp \
-        Win32Explorer.cpp
+	Win32Explorer.cpp
     //LIBS += "C:\Program Files\Microsoft SDKs\Windows\v7.0A\Lib\Psapi.Lib"
 }
 CONFIG += warn_on

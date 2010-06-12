@@ -23,11 +23,15 @@
 #include <QMessageBox>
 #include <QSystemTrayIcon>
 /*********************************/
+#include "MainController.h"
 #include "CegTcpServer.h"
 #include "Systray.h"
 #include "Singleton.hpp"
+#include "ActionFactory.h"
+#include "ClickAction.h"
+#include "ZoomAction.h"
 /*********************************/
-
+/*
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
@@ -39,22 +43,20 @@ int main(int argc, char *argv[])
     }
     QApplication::setQuitOnLastWindowClosed(false);
 
+    ActionFactory::registerInstantiator("clic", instanciateClickAction);
+    ActionFactory::registerInstantiator("zoom", instanciateZoomAction);
+    Actio
     systray = Singleton<Systray>::getInstance();
     //CegTcpServer server;
     return (a.exec());
-}
-// #include "MainController.h"
-// #include "BoxController.h"
-// #include "Utils.h"
-// #include "ActionFactory.h"
-// #include "ClickAction.h"
-// #include "ZoomAction.h"
-// int main(int argc, char *argv[])
-// {
-//     QApplication a(argc, argv);
-//     ActionFactory::registerInstantiator("clic", instanciateClickAction);
-//     ActionFactory::registerInstantiator("zoom", instanciateZoomAction);
-//     MainController lm;
-//     lm.start();
-//     return a.exec();
-// }
+}*/
+
+ int main(int argc, char *argv[])
+ {
+     QApplication a(argc, argv);
+     ActionFactory::registerInstantiator("clic", instanciateClickAction);
+     ActionFactory::registerInstantiator("zoom", instanciateZoomAction);
+     MainController lm;
+     lm.start();
+     return a.exec();
+ }

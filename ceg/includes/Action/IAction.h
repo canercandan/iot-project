@@ -32,8 +32,9 @@ class IAction : public IDomFactory
 {
 public:
     virtual ~IAction(){}
-    virtual bool	exec(MainController &) = 0;
-    virtual void	initializeFromXml(QDomElement const &) = 0;
+
+    virtual bool		exec(MainController &) = 0;
+    virtual void		initializeFromXml(QDomElement const &) = 0;
 };
 
 #endif // IACTION_H

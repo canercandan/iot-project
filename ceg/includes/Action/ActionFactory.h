@@ -39,6 +39,7 @@ public:
 
     static IAction *	create(std::string const & actionId, QDomElement const & domElement); // Retourne l'action demande
     static void		registerInstantiator(std::string const & actionId, ActionInstantiator function); // Permet de referencer une action et son constructeur
+    static void		printRegisterInstantiator();
 
 private:
     static std::map<std::string, ActionInstantiator>	_instanciators; // Reference les ids des actions et leur constructeurs associes

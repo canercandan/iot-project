@@ -42,8 +42,8 @@ class ZoomAction : public IAction
 public:
     ZoomAction(QDomElement const &);
 
-    virtual bool	exec(MainController&);
-    virtual void	initializeFromXml(QDomElement const &);
+    virtual bool		exec(MainController&);
+    virtual void		initializeFromXml(QDomElement const &);
 
 private:
     bool	_zoom;

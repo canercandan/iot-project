@@ -44,7 +44,6 @@ regarde dans les class de log4j, c un framework java pour les logs ca pourra peu
 - maj Doxygen
 
 -------------------------------------------------- Reminder Yann --------------------------------------------------------------------------
-- creer repertoire pour les actions
 - rajout du code pour faire poper les menus PopMenuAction
 - Rajout du code pour gerer les actions de menus ExecMenuAction
 - Code dans le BoxController pour les menus

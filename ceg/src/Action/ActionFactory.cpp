@@ -19,6 +19,8 @@
  */
 
 /*********************************/
+#include <QDebug>
+/*********************************/
 #include "ActionFactory.h"
 /*********************************/
 
@@ -27,10 +29,20 @@ std::map<std::string, ActionFactory::ActionInstantiator> ActionFactory::_instanc
 IAction *	ActionFactory::create(std::string const & actionId, QDomElement const & actionElelement)
 {
     std::map<std::string, ActionInstantiator>::const_iterator itFind = ActionFactory::_instanciators.find(actionId);
-    return (itFind != ActionFactory::_instanciators.end() ? (itFind->second)(actionElelement): 0);
+    return (itFind != ActionFactory::_instanciators.end() ? (itFind->second)(actionElelement) : 0);
 }
 
 void ActionFactory::registerInstantiator(const std::string &actionId, ActionInstantiator function)
 {
     ActionFactory::_instanciators.insert(std::make_pair(actionId, function));
+}
+
+void ActionFactory::printRegisterInstantiator()
+{
+    qDebug() << "Actions Registers : " << ActionFactory::_instanciators.size();
+    for (std::map<std::string, ActionInstantiator>::const_iterator it = ActionFactory::_instanciators.begin(),
+	 itEnd = ActionFactory::_instanciators.end(); it != itEnd; ++it)
+    {
+	qDebug() << "Id = " << (it->first).c_str();
+    }
 }

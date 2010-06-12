@@ -18,31 +18,32 @@
  * Authors: CEG <ceg@ionlythink.com>, http://www.ionlythink.com
  */
 
-#ifndef CLICKACTION_H
-#define CLICKACTION_H
+/*********************************/
+#include <QDomElement>
+/*********************************/
+#include "PopMenuAction.h"
+/*********************************/
 
-#include "IAction.h"
-
-class QDomElement;
-
-/*
-  Action pour generer les clics
-  */
-class ClickAction : public IAction
+PopMenuAction::PopMenuAction(std::string const & menuId) : _menuId(menuId)
 {
-public:
-    enum ClickType{LeftClick = 1, MiddleClick, RightClick, LeftDbClick};
+}
 
-public:
-    ClickAction(QDomElement const &);
+PopMenuAction::PopMenuAction(QDomElement const & domElement)
+{
+    this->initializeFromXml(domElement);
+}
 
-    virtual bool		exec(MainController &);
-    virtual void		initializeFromXml(QDomElement const &);
+bool	PopMenuAction::exec(MainController& mc)
+{
+    return (true);
+}
 
-private:
-    ClickType	_type;
-};
+void	PopMenuAction::initializeFromXml(QDomElement const & domElement)
+{
+    this->_menuId = domElement.attribute("MenuId").toStdString();
+}
 
-IAction * instanciateClickAction(QDomElement const &);
-
-#endif // !CLICKACTION_H
+IAction * instanciatePopMenuAction(QDomElement const & domElement)
+{
+    return (new PopMenuAction(domElement));
+}
