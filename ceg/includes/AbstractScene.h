@@ -24,9 +24,9 @@
 #include <list>
 
 #include <QGraphicsScene>
+#include <QRect>
 
 class QGraphicsRectItem;
-class QRect;
 
 class IAction;
 class AbstractItem;

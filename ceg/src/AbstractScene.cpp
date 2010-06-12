@@ -62,7 +62,7 @@ void AbstractScene::initialize(std::list<QGraphicsRectItem *> const & sceneItems
 {
     this->clearScene();
 #if (QT_VERSION < QT_VERSION_CHECK(4,6,0))
-    std::for_each(newScene.begin(), newScene.end(), std::bind1st(std::mem_fun(&QGraphicsScene::addItem), this));
+    std::for_each(sceneItems.begin(), sceneItems.end(), std::bind1st(std::mem_fun(&QGraphicsScene::addItem), this));
 #else
     std::for_each(sceneItems.rbegin(), sceneItems.rend(), std::bind1st(std::mem_fun(&QGraphicsScene::addItem), this));
 #endif

@@ -19,13 +19,10 @@
  * Authors: CEG <ceg@ionlythink.com>, http://www.ionlythink.com
  */
 
-/*********************************/
-#include <QDebug>
-#include <QMessageBox> // temporaire
+#include "AbstractItem.h"
 /*********************************/
 #include "Layer.h"
 /*********************************/
-#include "AbstractItem.h"
 #include "Box.h"
 #include "PopMenuAction.h"
 /*********************************/

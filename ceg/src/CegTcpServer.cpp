@@ -18,14 +18,19 @@
  * Authors: CEG <ceg@ionlythink.com>, http://www.ionlythink.com
  */
 
-
+/*********************************/
 #include <iostream>
-
+/*********************************/
+#include <QTcpServer>
+#include <QTcpSocket>
+/*********************************/
 #include "CegTcpServer.h"
+/*********************************/
 #include "Singleton.hpp"
 #include "MainController.h"
 #include "IAction.h"
 #include "MoveAction.h"
+/*********************************/
 
 CegTcpServer::CegTcpServer()
 {
@@ -55,8 +60,8 @@ void	CegTcpServer::launch(void)
 void	CegTcpServer::_connect()
 {
   this->_client = this->_tcpServer->nextPendingConnection();
-  QObject::connect(this->_client, SIGNAL(readyRead()), this, SLOT(_readData()));
-  QObject::connect(this->_client, SIGNAL(disconnected()), this, SLOT(_disconnect()));
+  this->connect(this->_client, SIGNAL(readyRead()), SLOT(_readData()));
+  this->connect(this->_client, SIGNAL(disconnected()), SLOT(_disconnect()));
 }
 
 void	CegTcpServer::_disconnect()

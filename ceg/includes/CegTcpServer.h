@@ -21,7 +21,11 @@
 #ifndef CEGTCPSERVER_HPP
 #define CEGTCPSERVER_HPP
 
-#include <QtNetwork>
+#include <QObject>
+#include <QString>
+
+class QTcpServer;
+class QTcpSocket;
 
 class CegTcpServer : public QObject
 {

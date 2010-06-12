@@ -22,10 +22,11 @@
 #include <QApplication>
 #include <QMessageBox>
 #include <QSystemTrayIcon>
+#include <QDebug>
 /*********************************/
 #include "Singleton.hpp"
 #include "MainController.h"
-#include "Systray.h"
+//#include "Systray.h"
 #include "ActionFactory.h"
 #include "ClickAction.h"
 #include "ZoomAction.h"
@@ -49,7 +50,7 @@ int main(int argc, char *argv[])
     //CegTcpServer server;
     return (a.exec());
 }*/
-#include <QDebug>
+
  int main(int argc, char *argv[])
  {
      QApplication a(argc, argv);
