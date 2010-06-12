@@ -20,7 +20,7 @@
 
 #ifndef MAINCONTROLLER_H
 #define MAINCONTROLLER_H
-
+#include "CegTcpServer.h"
 #include <list>
 
 #include <QGraphicsView>
@@ -28,6 +28,7 @@
 #include "View.h"
 #include "Window.h"
 #include "BoxController.h"
+
 
 class AbstractScene;
 class ICommunicationGraphicalServer;
@@ -62,7 +63,7 @@ private:
     std::list<AbstractScene *>::iterator    _currentLayer; // La scene utilise
     BoxController			    _boxController;
     ICommunicationGraphicalServer *	    _comGs;
-    
+  CegTcpServer	_tcpServer;
 };
 
 #endif // MAINCONTROLLER_H

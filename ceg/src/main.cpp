@@ -23,6 +23,7 @@
 #include <QMessageBox>
 #include <QSystemTrayIcon>
 /*********************************/
+#include "Singleton.hpp"
 #include "MainController.h"
 #include "Systray.h"
 #include "ActionFactory.h"
@@ -54,7 +55,7 @@ int main(int argc, char *argv[])
      QApplication a(argc, argv);
      ActionFactory::registerInstantiator("clic", instanciateClickAction);
      ActionFactory::registerInstantiator("zoom", instanciateZoomAction);
-     MainController lm;
-     lm.start();
+     MainController *lm = Singleton<MainController>::getInstance();
+     lm->start();
      return a.exec();
  }

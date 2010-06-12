@@ -29,8 +29,7 @@ pour window on peut difficilement y faire quelquechose les menus sont un problem
 
 
 -------------------------------------------------- Reminder chris --------------------------------------------------------------------------
-- methode launch au start du systray
-- Generer 3 Iactions (MoveAction(key)) puis call actionHandler
+- faire ValidAction
 - faire slot deconnexion
 - verif Cycle de vie des objets propre on exit(s) + valgrind
 - Metre l'etat de la connexion dans le tray icone (disconnected || connected || error)

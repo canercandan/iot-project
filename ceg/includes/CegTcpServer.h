@@ -34,7 +34,7 @@ class CegTcpServer : public QObject
 private:
   void	launch();
   void	parseLines(void);
-  void	interpretLine(const QString &line);
+  void	interpretLine(QString &line);
 
 private slots:
   void	_connect();

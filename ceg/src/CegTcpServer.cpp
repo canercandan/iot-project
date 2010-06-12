@@ -20,9 +20,12 @@
 
 
 #include <iostream>
+
 #include "CegTcpServer.h"
 #include "Singleton.hpp"
-#include "Systray.h"
+#include "MainController.h"
+#include "IAction.h"
+#include "MoveAction.h"
 
 CegTcpServer::CegTcpServer()
 {
@@ -40,7 +43,7 @@ void	CegTcpServer::launch(void)
   this->_tcpServer = new QTcpServer();
 
   if (!this->_tcpServer->listen(QHostAddress::Any, 42000))
-    std::cerr << "Network Error: " /*<< this->_tcpServer->errorString()*/ << std::endl;
+    std::cerr << "Netouoooork Error: " /*<< this->_tcpServer->errorString()*/ << std::endl;
   else
     {
       std::cout<< "Network ok, listening on port : 42000" << std::endl;
@@ -67,7 +70,7 @@ void	CegTcpServer::_readData()
   char			buffer[128];
   QDataStream		in(this->_client);
 
-  in.setVersion(QDataStream::Qt_4_5);
+  //in.setVersion(QDataStream::Qt_4_5);
   while (this->_client->bytesAvailable())
     {
       readbytes = in.readRawData(buffer, sizeof(buffer) - 1);
@@ -95,17 +98,36 @@ void	CegTcpServer::parseLines(void)
   this->_buffer = this->_buffer.remove(0, last + 1);
 }
 
-void	CegTcpServer::interpretLine(const QString &line)
+void	CegTcpServer::interpretLine(QString &line)
 {
   QTextStream out(stdout);
-  Systray* systray;
-  systray = Singleton<Systray>::getInstance();
-  //systray->lm->;
-  if (systray == NULL)
-    {
-      out << "Oops critical error, could not get systray instance";
-      exit(1);
-    }
-  out << line << endl;
+  MainController	*mc = Singleton<MainController>::getInstance();
 
+  if (mc == NULL)
+    {
+      out << "Oops critical error, could not get Main Controller instance";
+      out << "Oops critical error, command " << line << "can't be executed";
+      return ;
+    }
+  //FIXME convert real rfb numbers into generic actions
+  if (line[0] == QChar('a'))
+    {
+      IAction *ia = new MoveAction(1);
+      mc->actionHandler(*ia);
+      delete ia;
+    }
+  if (line[0] == QChar('b'))
+    {
+      IAction *ia = new MoveAction(1);
+      mc->actionHandler(*ia);
+      delete ia;
+    }
+
+  if (line[0] == QChar('c'))
+    {
+      //ValidAction
+      //IAction *ia = new MoveAction(line[0] - QChar('a'));
+      //mc->actionHandler(*ia);
+      //delete ia;
+    }
 }

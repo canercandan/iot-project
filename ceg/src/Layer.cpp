@@ -1,3 +1,4 @@
+
 // -*- mode: c++; c-indent-level: 4; c++-member-init-indent: 8; comment-column: 35; -*-
 
 /* IOT Copyleft (C) 2010 CEG development team
@@ -49,14 +50,10 @@ IAction * Layer::keyPressEvent(int key) const
     switch (key)
     {
     case Qt::Key_Left :
-	this->moveHorizontally();
-	break;
     case Qt::Key_Right :
-	this->moveHorizontally();
-	break;
+      this->moveHorizontally();
+      break;
     case Qt::Key_Up :
-	this->moveVertically();
-	break;
     case Qt::Key_Down :
 	this->moveVertically();
 	break;
