@@ -34,6 +34,8 @@
 
 /************************************************* [ CTOR/DTOR ] *************************************************/
 
+char const * ClickAction::IDENTIFIER = "Click";
+
 ClickAction::ClickAction(const QDomElement & actionElement)
 {
     this->initializeFromXml(actionElement);

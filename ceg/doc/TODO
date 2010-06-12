@@ -1,4 +1,5 @@
 - Rajout le code neccessaire pour gerer toutes les possibilite sur les box (CANER + YANN) : du genre une image, les couleurs, du texte + regarder l opacity (surement mettre les parents a 0)
+- Finir les mouvements (YAVUZ) dans Layer.cpp
 - Utiliser les valeurs des menus de preferences pour tout les trucs
 - Menu (CANER) :  FAIRE Les xml
 - Menus de preferences (LAMINE + YAVUZ) : Réglage de Préférence réseau (proxy), Configuration du CEG (reglage de l'Opacite, de la couleur des boxs lors du focus et de la perte de focus.
@@ -43,8 +44,8 @@ regarde dans les class de log4j, c un framework java pour les logs ca pourra peu
 - maj Doxygen
 
 -------------------------------------------------- Reminder Yann --------------------------------------------------------------------------
-- rajout du code pour faire poper les menus PopMenuAction
-- Rajout du code pour gerer les actions de menus ExecMenuAction
-- Code dans le BoxController pour les menus
+- Code dans le BoxController pour initialiser les menus
+
+finir l archi des ressources
 
 - revoir le management des listes dans le boxcontroler

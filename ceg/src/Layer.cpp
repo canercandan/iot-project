@@ -23,17 +23,23 @@
 #include <QDebug>
 #include <QMessageBox> // temporaire
 /*********************************/
-#include "AbstractItem.h"
-/*********************************/
 #include "Layer.h"
-#include "ZoomAction.h" // debug
+/*********************************/
+#include "AbstractItem.h"
+#include "Box.h"
+#include "PopMenuAction.h"
 /*********************************/
 
 /************************************************* [ CTOR/DTOR ] *************************************************/
 
 Layer::Layer(Ceg::Window const & hostWindow) :
-	AbstractScene(hostWindow.getGeometry()), _host(hostWindow)
+	AbstractScene(hostWindow.getGeometry()), _host(hostWindow), _menuAction(0)
 {
+}
+
+Layer::~Layer()
+{
+    delete this->_menuAction;
 }
 
 /************************************************* [ GETTERS ] *************************************************/
@@ -45,17 +51,30 @@ QRect  Layer::getGeometry() const
 
 /************************************************* [ OTHERS ] *************************************************/
 
+void	Layer::initialize(std::list<QGraphicsRectItem *> const & sceneItems)
+{
+    if (sceneItems.empty() == false)
+    {
+	AbstractItem * firstItem = static_cast<AbstractItem *>(sceneItems.front());
+	if (firstItem->getBox()->getBoxType() == DEFAULT_BOX)
+	{
+	    this->_menuAction = new PopMenuAction("Event");
+	}
+    }
+    AbstractScene::initialize(sceneItems);
+}
+
 IAction * Layer::keyPressEvent(int key) const
 {
     switch (key)
     {
     case Qt::Key_Left :
     case Qt::Key_Right :
-      this->moveHorizontally();
-      break;
+	return (this->moveHorizontally());
+	break;
     case Qt::Key_Up :
     case Qt::Key_Down :
-	this->moveVertically();
+	return (this->moveVertically());
 	break;
     case Qt::Key_Return :
 	{
@@ -63,16 +82,13 @@ IAction * Layer::keyPressEvent(int key) const
 	    return (focusItem->getEvent());
 	}
 	break;
-    /*case Qt::Key_Backspace :
-	return (new ZoomAction(false));
-	break;*/
     default:
 	break;
     }
     return (0);
 }
 
-void	Layer::moveVertically() const
+IAction *	Layer::moveVertically() const
 {
     QList<QGraphicsItem *> items =  this->items();
     int sizeList = items.size();
@@ -110,9 +126,10 @@ void	Layer::moveVertically() const
 	it += index;
 	(*it)->setFocus();
     }
+    return (0);
 }
 
-void	Layer::moveHorizontally() const
+IAction *	Layer::moveHorizontally() const
 {
     QList<QGraphicsItem *> items =  this->items();
     QList<QGraphicsItem *>::const_iterator it = items.begin();
@@ -127,12 +144,7 @@ void	Layer::moveHorizontally() const
     (*it)->setFocus();
     if (focusItem->boundingRect().x() > (*it)->boundingRect().x())
     {
-	this->printMenuEvent();
+	return (this->_menuAction);
     }
-}
-
-// Methode qui va faire appel a l'affichage du menu !
-void    Layer::printMenuEvent() const
-{
-    QMessageBox::information(0, "Title", "Declenche le menu");
+    return (0);
 }

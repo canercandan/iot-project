@@ -23,6 +23,13 @@
 /*********************************/
 #include "PopMenuAction.h"
 /*********************************/
+#include "MainController.h"
+#include "Menu.h"
+/*********************************/
+
+/************************************************* [ CTOR/DTOR ] *************************************************/
+
+char const * PopMenuAction::IDENTIFIER = "PopMenu";
 
 PopMenuAction::PopMenuAction(std::string const & menuId) : _menuId(menuId)
 {
@@ -33,8 +40,19 @@ PopMenuAction::PopMenuAction(QDomElement const & domElement)
     this->initializeFromXml(domElement);
 }
 
-bool	PopMenuAction::exec(MainController& mc)
+/************************************************* [ OTHERS ] *************************************************/
+
+bool	PopMenuAction::exec(MainController & mainC)
 {
+    // Recuperation des items du menu
+    BoxController const & boxC = mainC.getBoxController();
+    std::list<QGraphicsRectItem *> menuItems;
+    boxC.getMenu(this->_menuId, menuItems);
+    // Creation du Menu avec les items recuperes
+    Menu * menuScene = new Menu;
+    menuScene->initialize(menuItems);
+    // affichage du menu
+    mainC.pushFrontScene(menuScene);
     return (true);
 }
 

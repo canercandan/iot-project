@@ -36,9 +36,6 @@ class MenuItem : public AbstractItem
 public:
     MenuItem(Box const * box, QGraphicsItem * parent = 0);
     ~MenuItem();
-
-protected:
-    void keyPressEvent(QKeyEvent * event);
 };
 
 #endif // MENUITEM_H

@@ -25,16 +25,11 @@
 /*********************************/
 
 /************************************************* [ CTOR/DTOR ] *************************************************/
-MenuItem::MenuItem(Box const * box, QGraphicsItem * parent)
+MenuItem::MenuItem(Box const * box, QGraphicsItem * parent /* = 0 */)
   : AbstractItem(box, parent)
 {}
 
 MenuItem::~MenuItem()
 {
-  delete this->_model;
 }
 
-/************************************************* [ OTHERS ] *************************************************/
-
-void MenuItem::keyPressEvent(QKeyEvent *) // a implementer
-{}

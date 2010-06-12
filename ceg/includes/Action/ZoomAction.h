@@ -45,6 +45,9 @@ public:
     virtual bool		exec(MainController&);
     virtual void		initializeFromXml(QDomElement const &);
 
+public:
+    static char const * IDENTIFIER;
+
 private:
     bool	_zoom;
 };

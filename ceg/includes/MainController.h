@@ -20,7 +20,7 @@
 
 #ifndef MAINCONTROLLER_H
 #define MAINCONTROLLER_H
-#include "CegTcpServer.h"
+
 #include <list>
 
 #include <QGraphicsView>
@@ -28,7 +28,7 @@
 #include "View.h"
 #include "Window.h"
 #include "BoxController.h"
-
+#include "CegTcpServer.h"
 
 class AbstractScene;
 class ICommunicationGraphicalServer;
@@ -52,6 +52,8 @@ public:
     bool				actionHandler(IAction &); // Attrape les actions a execute
     void				start(); // Active la navigation
     void				stop(); // Stop la navigation
+    void				pushFrontScene(AbstractScene * scene); // Rajoute la scnene au debut des scenes et rafraichi la vue
+    void				popFrontScene(); // Supprime la scene du debut et rafraichi la vue
 
 private:
     void				createScenes(std::list<Ceg::Window> const & windows); // Cree tout les layers pour les fenetres donnees
@@ -59,11 +61,11 @@ private:
 
 private:
     View				    _view; // La vue pour representer les scene (Une vue pour toutes les scenes)
-    std::list<AbstractScene *>		    _scenes; // L'ensemble des scenes, une scnene par fenetre systemes ouvertes
-    std::list<AbstractScene *>::iterator    _currentLayer; // La scene utilise
+    std::list<AbstractScene *>		    _scenes; // L'ensemble des scenes, une scnene par fenetre systemes ouvertes + eventuellement un menu
+    std::list<AbstractScene *>::iterator    _currentScene; // La scene utilise
     BoxController			    _boxController;
     ICommunicationGraphicalServer *	    _comGs;
-  CegTcpServer	_tcpServer;
+    CegTcpServer			    _tcpServer;
 };
 
 #endif // MAINCONTROLLER_H

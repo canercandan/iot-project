@@ -34,17 +34,19 @@ class Layer : public AbstractScene
 {
 public:
     Layer(Ceg::Window const &);
+    ~Layer();
 
     virtual QRect	getGeometry() const;
     virtual IAction *	keyPressEvent(int key) const;
+    virtual void	initialize(std::list<QGraphicsRectItem *> const & sceneItems); // Ajout des items a la scene
 
 private:
-    void		moveVertically() const; // Gere le mouvement vertical
-    void		moveHorizontally() const; // Gere le mouvement horizontal
-    void		printMenuEvent() const;
+    IAction *		moveVertically() const; // Gere le mouvement vertical
+    IAction *		moveHorizontally() const; // Gere le mouvement horizontal
 
 private:
     Ceg::Window _host; // la fenetre qui est calquee
+    IAction *	_menuAction; // Correspond a l'action retourne lorsque l'utilisateur sort du calque seulement dans le cas de la navigation par defaut
 };
 
 #endif // LAYER_H

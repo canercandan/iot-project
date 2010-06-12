@@ -33,11 +33,13 @@ class ClickAction : public IAction
 public:
     enum ClickType{LeftClick = 1, MiddleClick, RightClick, LeftDbClick};
 
-public:
     ClickAction(QDomElement const &);
 
     virtual bool		exec(MainController &);
     virtual void		initializeFromXml(QDomElement const &);
+
+public:
+    static char const * IDENTIFIER;
 
 private:
     ClickType	_type;

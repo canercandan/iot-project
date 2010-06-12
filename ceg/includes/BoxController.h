@@ -48,6 +48,7 @@ public:
     void    getChildren(std::list<QGraphicsRectItem *> &, Box const *) const; // Retourne le sous patron de la box
     void    getParent(std::list<QGraphicsRectItem *> &, Box const *) const; // Retourne la patron parent a la box
     void    getPattern(Ceg::Window const &, std::list<QGraphicsRectItem *> & list) const; // Retourne la patron du niveau 0
+    void    getMenu(std::string const & idMenu, std::list<QGraphicsRectItem *> & menuItems) const; // Retourne les items du menu id
 
 private:
     std::list<Box const *>    getPattern(Box const * boxSearch) const;
@@ -61,6 +62,7 @@ private:
     //! this map associates a list of boxes with a context name,
     //! it is initialy filled out by loadConf method
     std::map<std::string, std::list<Box const *> > _patterns; // Id du logiciel et son patron associe
+    std::map<std::string, std::list<Box const *> > _menus; // Id du menu et son patron associe
 
     static const int NBGRID = 3; // va sauter sera configurable par le menu des preferences
 };

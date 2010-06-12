@@ -31,6 +31,8 @@
 
 /************************************************* [ CTOR/DTOR ] *************************************************/
 
+char const * ZoomAction::IDENTIFIER = "Zoom";
+
 ZoomAction::ZoomAction(const QDomElement & actionElement)
 {
     this->initializeFromXml(actionElement);

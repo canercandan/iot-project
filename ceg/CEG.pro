@@ -27,7 +27,6 @@ HEADERS += AbstractItem.h \
     ActionFactory.h \
     Menu.h \
     MenuItem.h \
-    EventMenuAction.h \
     Utils.h \
     Systray.h \
     Box.h \
@@ -37,7 +36,8 @@ HEADERS += AbstractItem.h \
     CustomItem.h \
     MainController.h \
     BoxController.h \
-    PopMenuAction.h
+    PopMenuAction.h \
+    ExecMenuAction.h
 SOURCES += AbstractItem.cpp \
     AbstractScene.cpp \
     DefaultItem.cpp \
@@ -53,7 +53,6 @@ SOURCES += AbstractItem.cpp \
     ActionFactory.cpp \
     Menu.cpp \
     MenuItem.cpp \
-    EventMenuAction.cpp \
     Utils.cpp \
     Systray.cpp \
     Box.cpp \
@@ -62,7 +61,8 @@ SOURCES += AbstractItem.cpp \
     CustomItem.cpp \
     BoxController.cpp \
     MainController.cpp \
-    PopMenuAction.cpp
+    PopMenuAction.cpp \
+    ExecMenuAction.cpp
 unix {
     HEADERS += XWindowSystem.h
     SOURCES += XWindowSystem.cpp
@@ -82,4 +82,4 @@ OBJECTS_DIR = build
 MOC_DIR = moc
 UI_SOURCES_DIR = ui_src
 UI_HEADERS_DIR = ui_includes
-RESOURCES += resources/images.qrc
+RESOURCES += resources/application.qrc

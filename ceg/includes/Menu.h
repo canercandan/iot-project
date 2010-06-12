@@ -36,7 +36,11 @@ public:
 
     virtual QRect	getGeometry() const;
 
-    virtual IAction *	keyPressEvent(int key);
+    virtual IAction *	keyPressEvent(int key) const;
+
+private:
+    void	moveVertically() const;
+    void	moveHorizontally() const;
 };
 
 #endif // MENU_H

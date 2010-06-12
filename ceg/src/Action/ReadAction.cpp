@@ -25,6 +25,10 @@
 #include "Utils.h"
 /*********************************/
 
+/************************************************* [ CTOR/DTOR ] *************************************************/
+
+char const * ReadAction::IDENTIFIER = "Read";
+
 ReadAction::ReadAction(const QDomElement & actionElement)
 {
     this->initializeFromXml(actionElement);

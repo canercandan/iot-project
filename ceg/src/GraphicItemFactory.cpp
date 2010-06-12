@@ -21,9 +21,10 @@
 /*********************************/
 #include "GraphicItemFactory.h"
 /*********************************/
-#include "DefaultItem.h"
-#include "CustomItem.h"
 #include "Box.h"
+#include "CustomItem.h"
+#include "DefaultItem.h"
+#include "MenuItem.h"
 /*********************************/
 
 QGraphicsRectItem * GraphicItemFactory::create(Box const * box)
@@ -32,16 +33,16 @@ QGraphicsRectItem * GraphicItemFactory::create(Box const * box)
     switch (box->getBoxType())
     {
     case DEFAULT_BOX :
-	instance = new DefaultItem(box, 0);
+	instance = new DefaultItem(box);
 	break;
     case CUSTOM_BOX :
-	instance = new CustomItem(box, 0);
+	instance = new CustomItem(box);
 	break;
-	/*case MENU_BOX :
-	instance = new MenuItem(box, 0);
-	break;*/
+    case MENU_BOX :
+	instance = new MenuItem(box);
+	break;
     default :
 	    break;
-    }
+}
     return (instance);
 }

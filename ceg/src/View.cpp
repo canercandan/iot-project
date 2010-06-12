@@ -68,30 +68,6 @@ void	View::keyPressEvent(QKeyEvent* keyEvent)
 	    this->_lm.actionHandler(a);
 	}
 	break;
-    /*case Qt::Key_1:
-	{
-	    ClickAction a(ClickAction::LeftClick);
-	    this->_lm.actionHandler(a);
-	}
-	break;
-    case Qt::Key_2:
-	{
-	    ClickAction a(ClickAction::MiddleClick);
-	    this->_lm.actionHandler(a);
-	}
-	break;
-    case Qt::Key_3:
-	{
-	    ClickAction a(ClickAction::RightClick);
-	    this->_lm.actionHandler(a);
-	}
-	break;
-    case Qt::Key_4:
-	{
-	    ClickAction a(ClickAction::LeftDbClick);
-	    this->_lm.actionHandler(a);
-	}
-	break;*/
     default:
 	break;
     }

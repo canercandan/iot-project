@@ -58,13 +58,13 @@ void AbstractScene::clearScene()
 //! takes a scene (a list of Items) to draw graphical areas on the view
 // Sous les versions anterieures a 4.6, la methode addItem effectue un push_back et dans les versions superieures un push_front d'ou le rbegin et rend
 // la liste de nos items etant deja triee.
-void AbstractScene::initialize(std::list<QGraphicsRectItem *> const & newScene)
+void AbstractScene::initialize(std::list<QGraphicsRectItem *> const & sceneItems)
 {
     this->clearScene();
 #if (QT_VERSION < QT_VERSION_CHECK(4,6,0))
     std::for_each(newScene.begin(), newScene.end(), std::bind1st(std::mem_fun(&QGraphicsScene::addItem), this));
 #else
-    std::for_each(newScene.rbegin(), newScene.rend(), std::bind1st(std::mem_fun(&QGraphicsScene::addItem), this));
+    std::for_each(sceneItems.rbegin(), sceneItems.rend(), std::bind1st(std::mem_fun(&QGraphicsScene::addItem), this));
 #endif
-    newScene.front()->setFocus();
+    sceneItems.front()->setFocus();
 }

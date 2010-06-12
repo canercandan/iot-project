@@ -1,4 +1,4 @@
- // -*- mode: c++; c-indent-level: 4; c++-member-init-indent: 8; comment-column: 35; -*-
+// -*- mode: c++; c-indent-level: 4; c++-member-init-indent: 8; comment-column: 35; -*-
 
 /* IOT Copyright (C) 2010 CEG development team
  *
@@ -41,7 +41,7 @@
 /************************************************* [ CTOR/DTOR ] *************************************************/
 
 MainController::MainController() :
-  _view(*this), _scenes(),_currentLayer(), _boxController(),
+	_view(*this), _scenes(),_currentScene(), _boxController(),
 #ifdef _WIN32
 	_comGs(new Win32Explorer)
 #else
@@ -68,9 +68,9 @@ ICommunicationGraphicalServer *	MainController::getComGs() const
     return (this->_comGs);
 }
 
-AbstractScene*	MainController::getCurrentScene() const
+AbstractScene *	MainController::getCurrentScene() const
 {
-    return (*this->_currentLayer);
+    return (*this->_currentScene);
 }
 
 View &	MainController::getView()
@@ -106,7 +106,7 @@ void MainController::initialize()
     windows.push_back(Ceg::Window(0, QRect(0 , 0, desktop->width(), desktop->height()), true, "Firefox"));
 
     this->createScenes(windows);
-    this->_currentLayer = this->_scenes.begin();
+    this->_currentScene = this->_scenes.begin();
 }
 
 void MainController::start()
@@ -119,4 +119,26 @@ void MainController::start()
 void MainController::stop()
 {
     this->_view.hide();
+}
+
+void MainController::pushFrontScene(AbstractScene *scene)
+{
+    this->_scenes.push_front(scene);
+    this->_currentScene = this->_scenes.begin();
+    this->_view.hide();
+    this->_view.setScene(*(this->_currentScene));
+    this->_view.setGeometry((*this->_currentScene)->getGeometry());
+    this->_view.show();
+}
+
+void MainController::popFrontScene()
+{
+    AbstractScene const * currentScene = *(this->_currentScene);
+    this->_scenes.pop_front();
+    this->_currentScene = this->_scenes.begin();
+    this->_view.hide();
+    this->_view.setScene(*(this->_currentScene));
+    this->_view.setGeometry((*this->_currentScene)->getGeometry());
+    this->_view.show();
+    delete currentScene;
 }

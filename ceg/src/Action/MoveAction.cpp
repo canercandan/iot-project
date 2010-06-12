@@ -27,6 +27,8 @@
 
 /************************************************* [ CTOR/DTOR ] *************************************************/
 
+char const * MoveAction::IDENTIFIER = "Move";
+
 MoveAction::MoveAction(int key)
   : _key(key)
 {}

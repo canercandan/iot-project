@@ -49,12 +49,13 @@ int main(int argc, char *argv[])
     //CegTcpServer server;
     return (a.exec());
 }*/
-
+#include <QDebug>
  int main(int argc, char *argv[])
  {
      QApplication a(argc, argv);
-     ActionFactory::registerInstantiator("clic", instanciateClickAction);
-     ActionFactory::registerInstantiator("zoom", instanciateZoomAction);
+     ActionFactory::registerInstantiator(ClickAction::IDENTIFIER, instanciateClickAction);
+     ActionFactory::registerInstantiator(ZoomAction::IDENTIFIER, instanciateZoomAction);
+     ActionFactory::printRegisterInstantiator();
      MainController *lm = Singleton<MainController>::getInstance();
      lm->start();
      return a.exec();

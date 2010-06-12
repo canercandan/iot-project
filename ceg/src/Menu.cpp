@@ -22,6 +22,7 @@
 #include "Menu.h"
 /*********************************/
 #include "AbstractItem.h"
+#include "Box.h"
 /*********************************/
 
 /************************************************* [ CTOR/DTOR ] *************************************************/
@@ -34,37 +35,29 @@ Menu::Menu()
 
 QRect  Menu::getGeometry() const
 {
-    return (QRect(100, 100, 100, 100));
+    QList<QGraphicsItem *> items =  this->items();
+    QRect totalSize(0,0,0,0);
+    for (QList<QGraphicsItem *>::const_iterator it = items.begin(), itEnd = items.end(); it != itEnd; ++it)
+    {
+	AbstractItem * item = static_cast<AbstractItem *>(*it);
+	totalSize.united(item->getBox()->getGeometry());
+    }
+    return (totalSize);
 }
 
 /************************************************* [ OTHERS ] *************************************************/
 
-IAction * Menu::keyPressEvent(int key)
+IAction * Menu::keyPressEvent(int key) const
 {
-    QList<QGraphicsItem *> items =  this->items();
-    int sizeList = items.size();
     switch (key)
     {
     case Qt::Key_Left :
     case Qt::Key_Right :
-	{
-	    QGraphicsItem * focusItem = this->focusItem();
-	    int index = items.indexOf(focusItem) + 1;
-	    QList<QGraphicsItem *>::iterator it = items.begin();
-	    if (index < sizeList)
-		it += index;
-	    (*it)->setFocus();
-	}
+	this->moveHorizontally();
 	break;
     case Qt::Key_Up :
-    case Qt::Key_Down:
-	{
-	    QGraphicsItem * focusItem = this->focusItem();
-	    int index = items.indexOf(focusItem) + 3;
-	    QList<QGraphicsItem *>::iterator it = items.begin();
-	    it += ((index < sizeList) ? index : (index - sizeList));
-	    (*it)->setFocus();
-	}
+    case Qt::Key_Down :
+	this->moveVertically();
 	break;
     case Qt::Key_Return :
 	{
@@ -72,6 +65,61 @@ IAction * Menu::keyPressEvent(int key)
 	    return (focusItem->getEvent());
 	}
 	break;
+    default:
+	break;
     }
     return (0);
+}
+
+void	Menu::moveVertically() const
+{
+    QList<QGraphicsItem *> items =  this->items();
+    int sizeList = items.size();
+    QGraphicsItem * focusItem = this->focusItem();
+    QList<QGraphicsItem *>::const_iterator it = items.begin();
+    QList<QGraphicsItem *>::const_iterator tmpIt = it;
+
+    int index = items.indexOf(focusItem);
+    ++index;
+    QRectF currentRectF = focusItem->boundingRect();
+    currentRectF.setHeight(this->getGeometry().height());
+    currentRectF.setWidth(currentRectF.width());
+    currentRectF.setX(currentRectF.x());
+    currentRectF.setY(0);
+
+    int i = 0;
+    bool haveRect = false;
+    while (i < sizeList && haveRect == false)
+    {
+	index = ((index < sizeList) ? index : (index - sizeList));
+	tmpIt = it;
+	tmpIt += index;
+	haveRect = currentRectF.intersects((*tmpIt)->boundingRect());
+	++index;
+	++i;
+    }
+    if (haveRect == true)
+    {
+	(*tmpIt)->setFocus();
+    }
+    else
+    {
+	index = items.indexOf(focusItem) + 1;
+	index = ((index < sizeList) ? index : (index - sizeList));
+	it += index;
+	(*it)->setFocus();
+    }
+}
+
+void	Menu::moveHorizontally() const
+{
+    QList<QGraphicsItem *> items =  this->items();
+    int index = items.indexOf(this->focusItem());
+    ++index;
+    if (index >= items.size())
+    {
+	index = 0;
+    }
+    QList<QGraphicsItem *>::const_iterator it = items.begin() + index;
+    (*it)->setFocus();
 }

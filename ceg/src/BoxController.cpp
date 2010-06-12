@@ -53,6 +53,11 @@ BoxController::~BoxController()
     {
 	std::for_each(it->second.begin(), it->second.end(), Ceg::DeleteObject());
     }
+    for (std::map< std::string, std::list< Box const * > >::const_iterator it = this->_menus.begin(), end = this->_menus.end();
+    it != end; ++it)
+    {
+	std::for_each(it->second.begin(), it->second.end(), Ceg::DeleteObject());
+    }
 }
 
 /************************************************* [ GETTERS ] *************************************************/
@@ -122,6 +127,15 @@ std::list<Box const *>    BoxController::getPattern(Box const * boxSearch) const
 
     }
     return (std::list<Box const *>());
+}
+
+void	BoxController::getMenu(std::string const & idMenu, std::list<QGraphicsRectItem *> & menuItems) const
+{
+    std::map<std::string, std::list<Box const *> >::const_iterator  itFind = this->_menus.find(idMenu);
+    if (itFind != this->_menus.end())
+    {
+	this->createGraphicItems(menuItems, itFind->second);
+    }
 }
 
 /************************************************* [ OTHERS ] *************************************************/
