@@ -77,7 +77,7 @@ void Box::initializeFromXml(const QDomElement & boxElement)
 	    }
 	    else if (tagName == "style")
 	    {
-		this->_graphicSytle = BoxStyle(childElement);
+		this->_graphicStyle = BoxStyle(childElement);
 	    }
 	    else if (tagName == "children")
 	    {
@@ -129,4 +129,9 @@ unsigned short	Box::getLevel() const
 Box const *	Box::getParent() const
 {
     return (this->_topUnion._parent);
+}
+
+BoxStyle const &	Box::getGraphicStyle() const
+{
+    return (this->_graphicStyle);
 }

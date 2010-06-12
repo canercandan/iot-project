@@ -53,8 +53,9 @@ public:
     QRect const &		    getGeometry() const;
     unsigned short		    getLevel() const;
     Box const *			    getParent() const;
+    BoxStyle const &		    getGraphicStyle() const;
 
-private :
+private:
 	virtual void initializeFromXml(QDomElement const & boxElement);
 void	createChildren(QDomElement const & childrenElement);
 
@@ -67,7 +68,7 @@ private:
     }			    _topUnion;
     QRect			    _geometry; // Les dimensions de la boite
     IAction  *		    _action; // L'action que la box entraine
-    BoxStyle		    _graphicSytle; // Toutes les options graphiques d'une box
+    BoxStyle		    _graphicStyle; // Toutes les options graphiques d'une box
     std::list<Box const *>   _children; // le sous patron
 };
 

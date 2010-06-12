@@ -32,7 +32,7 @@
 
 AbstractItem::AbstractItem(Box const * box, QGraphicsItem * parent) :
 	QGraphicsRectItem(box->getGeometry().x(), box->getGeometry().y(), box->getGeometry().width(), box->getGeometry().height(), parent),
-	_color(Qt::darkBlue), _model(box)
+	_color(box->getGraphicStyle().getBlurColor()), _model(box)
 {
   this->setOpacity(0.5);
   this->setFlag(QGraphicsItem::ItemIsFocusable);
@@ -54,25 +54,66 @@ IAction * AbstractItem::getEvent() const
 
 void AbstractItem::focusInEvent(QFocusEvent *)
 {
-    this->_color = Qt::yellow;
-    this->update();
+  this->_color = this->_model->getGraphicStyle().getFocusColor();
+  this->update();
 }
 
 void AbstractItem::focusOutEvent(QFocusEvent *)
 {
-    this->_color = Qt::darkBlue;
-    this->update();
+  this->_color = this->_model->getGraphicStyle().getBlurColor();
+  this->update();
 }
+
+#include <QDebug>
 
 void AbstractItem::paint(QPainter * painter, const QStyleOptionGraphicsItem *, QWidget *)
 {
-    painter->setBrush(this->_color);
-    painter->drawRect(this->rect());
-    //    painter->drawText(this->rect(), "Click !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1");
+  BoxStyle const & style = _model->getGraphicStyle();
 
-    //     QPixmap pixmap("drawing.png");
-    //     QRectF dest(this->rect().x(), this->rect().y(), pixmap.rect().width(), pixmap.rect().height());
-    //     dest.moveCenter(this->rect().center());
+  bool visibility = style.isVisible();
 
-    //     painter->drawPixmap(dest, pixmap, pixmap.rect());
+  qDebug() << "before" << visibility;
+
+  if (visibility == false)
+    return;
+
+  qDebug() << "after" << visibility;
+
+  painter->setBrush(QBrush(QColor(this->_color.c_str())));
+  painter->drawRect(this->rect());
+
+  std::string text(style.getText());
+
+  if (! text.empty())
+    {
+      qDebug() << text.c_str();
+
+      std::string textFont(style.getTextFont());
+
+      if (! textFont.empty())
+	{
+	  qDebug() << textFont.c_str();
+
+	  painter->setFont(QFont(textFont.c_str(), style.getTextFontSize()));
+	}
+
+      std::string textColor(style.getTextColor());
+
+      if (! textColor.empty())
+	{
+	  painter->setPen(textColor.c_str());
+	}
+
+      painter->drawText(this->rect(), Qt::AlignCenter, text.c_str());
+    }
+
+  std::string imagePath(style.getImagePath());
+
+  if (! imagePath.empty())
+    {
+      QPixmap pixmap(imagePath.c_str());
+      QRectF dest(this->rect().x(), this->rect().y(), pixmap.rect().width(), pixmap.rect().height());
+      dest.moveCenter(this->rect().center());
+      painter->drawPixmap(dest, pixmap, pixmap.rect());
+    }
 }

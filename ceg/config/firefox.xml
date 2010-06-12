@@ -1,29 +1,32 @@
 <!DOCTYPE XmlBox>
 <boxes id="Firefox">
 	<box type="1" x="5" y="5" height="100" width="100">
+ 	  <style focusColor="blue" />
 		<action id="zoom" isZoom="1" />
-		<children>
-			<box type="1" x="10" y="10" height="25" width="30">
-				<action id="zoom" isZoom="0" />
-			</box>
-			<box type="1" x="60" y="60" height="10" width="10">
-				<action id="zoom" isZoom="0" />
-			</box>
-		</children>
+		<!-- <children> -->
+		<!-- 	<box type="1" x="10" y="10" height="25" width="30"> -->
+		<!-- 		<action id="zoom" isZoom="0" /> -->
+		<!-- 	</box> -->
+		<!-- 	<box type="1" x="60" y="60" height="10" width="10"> -->
+		<!-- 		<action id="zoom" isZoom="0" /> -->
+		<!-- 	</box> -->
+		<!-- </children> -->
 	</box>
-	<box type="1" x="350" y="489" height="75" width="250">
-		<action id="zoom" isZoom="1" />
-		<style visible="1" opacity="0.5" imagePath="" text="Un super texte" font="Le font" focusColor="180" blurColor="200"/>
-		<children>
-			<box type="1" x="351" y="490" height="25" width="30">
-				<action id="click" isZoom="0" />
-			</box>
-		</children>
-	</box>
-	<box type="1" x="1000" y="489" height="354" width="250">
-		<action id="zoom" isZoom="1" />
-	</box>
-	<box type="1" x="350" y="800" height="450" width="250">
-		<action id="zoom" isZoom="1" />
-	</box>
+	<!-- <box type="1" x="350" y="489" height="75" width="250"> -->
+	<!-- 	<action id="zoom" isZoom="1" /> -->
+	<!-- 	<style visible="1" opacity="0.5" imagePath="logo.png" text="Un super texte" font="Arial Black" fontSize="20" textColor="blue" focusColor="red"/> -->
+	<!-- 	<children> -->
+	<!-- 		<box type="1" x="351" y="490" height="25" width="30"> -->
+	<!-- 			<action id="click" isZoom="0" /> -->
+	<!-- 		</box> -->
+	<!-- 	</children> -->
+	<!-- </box> -->
+	<!-- <box type="1" x="1000" y="489" height="354" width="250"> -->
+ 	<!--   <style focusColor="orange"/> -->
+	<!-- 	<action id="zoom" isZoom="1" /> -->
+	<!-- </box> -->
+	<!-- <box type="1" x="350" y="800" height="450" width="250"> -->
+ 	<!--   <style focusColor="pulpe"/> -->
+	<!-- 	<action id="zoom" isZoom="1" /> -->
+	<!-- </box> -->
 </boxes>

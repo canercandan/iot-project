@@ -24,9 +24,14 @@
 #include "BoxStyle.h"
 /*********************************/
 
+// FIXME: utiliser le font avec QPainter.setFont()
+
+#include <QDebug>
+
 BoxStyle::BoxStyle() :
-	_isVisible(true), _opacity(0.5), _imagePath(""), _text(""), _textFont(""), _focusColor(0), _blurColor(0)
+  _isVisible(true), _opacity(0.5), _imagePath(""), _text(""), _textFont(""), _textFontSize(20), _textColor("black"),  _focusColor("yellow"), _blurColor("black")
 {
+  qDebug() << "in ctor";
 }
 
 BoxStyle::BoxStyle(QDomElement const & styleElement)
@@ -34,13 +39,38 @@ BoxStyle::BoxStyle(QDomElement const & styleElement)
     this->initializeFromXml(styleElement);
 }
 
+#include <QDebug>
+
 void BoxStyle::initializeFromXml(QDomElement const & styleElement)
 {
-    this->_isVisible = styleElement.attribute("visible").toInt();
+  if (styleElement.hasAttribute("visible") == true)
+    {this->_isVisible = styleElement.attribute("visible").toUInt();}
+  else
+    {
+      qDebug() << "COUCOU";
+      qDebug() << _isVisible;
+    }
+
     this->_opacity = styleElement.attribute("opacity").toFloat();
     this->_imagePath = styleElement.attribute("imagePath").toStdString();
     this->_text = styleElement.attribute("text").toStdString();
     this->_textFont = styleElement.attribute("font").toStdString();
-    this->_focusColor = styleElement.attribute("focusColor").toInt();
-    this->_focusColor = styleElement.attribute("blurColor").toInt();
+    this->_textFontSize = styleElement.attribute("fontSize").toInt();
+    this->_textColor = styleElement.attribute("textColor").toStdString();
+    this->_focusColor = styleElement.attribute("focusColor").toStdString();
+    this->_blurColor = styleElement.attribute("blurColor").toStdString();
 }
+
+// ATTRIBUTES GETTER
+
+bool BoxStyle::isVisible() const {return _isVisible;}
+float BoxStyle::getOpacity() const {return _opacity;}
+std::string BoxStyle::getImagePath() const {return _imagePath;}
+std::string BoxStyle::getText() const {return _text;}
+std::string BoxStyle::getTextFont() const {return _textFont;}
+int BoxStyle::getTextFontSize() const {return _textFontSize;}
+std::string BoxStyle::getTextColor() const {return _textColor;}
+std::string BoxStyle::getFocusColor() const {return _focusColor;}
+std::string BoxStyle::getBlurColor() const {return _blurColor;}
+
+// END ATTRIBUTES GETTER
