@@ -29,7 +29,7 @@ pour window on peut difficilement y faire quelquechose les menus sont un problem
 
 
 -------------------------------------------------- Reminder chris --------------------------------------------------------------------------
-- TcpServer singleton, methode launch au start du systray
+- methode launch au start du systray
 - Generer 3 Iactions (MoveAction(key)) puis call actionHandler
 - faire slot deconnexion
 - verif Cycle de vie des objets propre on exit(s) + valgrind
@@ -38,7 +38,7 @@ pour window on peut difficilement y faire quelquechose les menus sont un problem
 - loader le port d'ecoute par un fichier de conf
 - faire class Logger, niveau de log loader par le fichier de conf, changeable via systray, (YANN) <-
 regarde dans les class de log4j, c un framework java pour les logs ca pourra peut etre donner des bonnes idees, ou bien avec QT, ca serait vraiment classe d avoir le l'AOP pour les logs :)
-- fichier de log avec plusieur bug level (none || errors only || all)
+- fichier de log avec plusieur bug level (DEBUG || INFO || WARN  || ERROR)
 
 - maj uml
 - maj Doxygen

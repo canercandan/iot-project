@@ -18,12 +18,9 @@
  * Authors: CEG <ceg@ionlythink.com>, http://www.ionlythink.com
  */
 
-#include <iostream>
-#include <QDataStream>
-#include <QTextStream>
-#include "CegTcpServer.h"
 
-//
+#include <iostream>
+#include "CegTcpServer.h"
 #include "Singleton.hpp"
 #include "Systray.h"
 
@@ -106,7 +103,7 @@ void	CegTcpServer::interpretLine(const QString &line)
   //systray->lm->;
   if (systray == NULL)
     {
-      out << "ooops critical error, could not get systray instance";
+      out << "Oops critical error, could not get systray instance";
       exit(1);
     }
   out << line << endl;

@@ -24,9 +24,7 @@
 #include <QSystemTrayIcon>
 /*********************************/
 #include "MainController.h"
-#include "CegTcpServer.h"
 #include "Systray.h"
-#include "Singleton.hpp"
 #include "ActionFactory.h"
 #include "ClickAction.h"
 #include "ZoomAction.h"

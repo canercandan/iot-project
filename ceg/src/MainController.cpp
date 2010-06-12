@@ -114,6 +114,7 @@ void MainController::start()
     this->initialize();
     this->_view.initialize();
     this->_view.show();
+    //this->
 }
 
 void MainController::stop()

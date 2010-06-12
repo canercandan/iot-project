@@ -62,6 +62,7 @@ private:
     std::list<AbstractScene *>::iterator    _currentLayer; // La scene utilise
     BoxController			    _boxController;
     ICommunicationGraphicalServer *	    _comGs;
+    
 };
 
 #endif // MAINCONTROLLER_H
