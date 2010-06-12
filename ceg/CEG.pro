@@ -5,70 +5,73 @@ LANGUAGE = C++
 TARGET = 
 DEPENDPATH += . \
     includes \
-    src
+    includes/Action \
+    src \
+    src/Action
 INCLUDEPATH += . \
-    includes
-HEADERS += includes/AbstractItem.h \
-    includes/AbstractScene.h \
-    includes/DefaultItem.h \
-    includes/Layer.h \
-    includes/Window.h \
-    includes/GraphicItemFactory.h \
-    includes/ICommunicationGraphicalServer.h \
-    includes/IAction.h \
-    includes/ZoomAction.h \
-    includes/ClickAction.h \
-    includes/View.h \
-    includes/MoveAction.h \
-    includes/ReadAction.h \
-    includes/ActionFactory.h \
-    includes/Menu.h \
-    includes/MenuItem.h \
-    includes/EventMenuAction.h \
-    includes/Utils.h \
-    includes/Systray.h \
-    includes/Box.h \
-    includes/IDomFactory.h \
-    includes/BoxStyle.h \
-    includes/CegTcpServer.h \
-    includes/CustomItem.h \
-    includes/MainController.h \
-    includes/BoxController.h
-SOURCES += src/AbstractItem.cpp \
-    src/AbstractScene.cpp \
-    src/DefaultItem.cpp \
-    src/Layer.cpp \
-    src/main.cpp \
-    src/Window.cpp \
-    src/GraphicItemFactory.cpp \
-    src/ZoomAction.cpp \
-    src/ClickAction.cpp \
-    src/View.cpp \
-    src/MoveAction.cpp \
-    src/ReadAction.cpp \
-    src/ActionFactory.cpp \
-    src/Menu.cpp \
-    src/MenuItem.cpp \
-    src/EventMenuAction.cpp \
-    src/Utils.cpp \
-    src/Systray.cpp \
-    src/Box.cpp \
-    src/BoxStyle.cpp \
-    src/CegTcpServer.cpp \
-    src/CustomItem.cpp \
-    src/BoxController.cpp \
-    src/MainController.cpp
+    includes \
+    includes/Action
+HEADERS += AbstractItem.h \
+    AbstractScene.h \
+    DefaultItem.h \
+    Layer.h \
+    Window.h \
+    GraphicItemFactory.h \
+    ICommunicationGraphicalServer.h \
+    IAction.h \
+    ZoomAction.h \
+    ClickAction.h \
+    View.h \
+    MoveAction.h \
+    ReadAction.h \
+    ActionFactory.h \
+    Menu.h \
+    MenuItem.h \
+    EventMenuAction.h \
+    Utils.h \
+    Systray.h \
+    Box.h \
+    IDomFactory.h \
+    BoxStyle.h \
+    CegTcpServer.h \
+    CustomItem.h \
+    MainController.h \
+    BoxController.h
+SOURCES += AbstractItem.cpp \
+    AbstractScene.cpp \
+    DefaultItem.cpp \
+    Layer.cpp \
+    main.cpp \
+    Window.cpp \
+    GraphicItemFactory.cpp \
+    ZoomAction.cpp \
+    ClickAction.cpp \
+    View.cpp \
+    MoveAction.cpp \
+    ReadAction.cpp \
+    ActionFactory.cpp \
+    Menu.cpp \
+    MenuItem.cpp \
+    EventMenuAction.cpp \
+    Utils.cpp \
+    Systray.cpp \
+    Box.cpp \
+    BoxStyle.cpp \
+    CegTcpServer.cpp \
+    CustomItem.cpp \
+    BoxController.cpp \
+    MainController.cpp
 unix { 
-    HEADERS += includes/XWindowSystem.h
-    SOURCES += src/XWindowSystem.cpp
+    HEADERS += XWindowSystem.h
+    SOURCES += XWindowSystem.cpp
     CONFIG += link_pkgconfig
     PKGCONFIG += xmu
 }
 win32 { 
-    HEADERS += includes/Win32Adaptor.h \
-        includes/Win32Explorer.h
-    SOURCES += src/Win32Adaptor.cpp \
-        src/Win32Explorer.cpp
+    HEADERS += Win32Adaptor.h \
+        Win32Explorer.h
+    SOURCES += Win32Adaptor.cpp \
+        Win32Explorer.cpp
     //LIBS += "C:\Program Files\Microsoft SDKs\Windows\v7.0A\Lib\Psapi.Lib"
 }
 CONFIG += warn_on
