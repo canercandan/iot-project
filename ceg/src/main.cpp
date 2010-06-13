@@ -26,7 +26,7 @@
 /*********************************/
 #include "Singleton.hpp"
 #include "MainController.h"
-//#include "Systray.h"
+#include "Systray.h"
 #include "ActionFactory.h"
 #include "ClickAction.h"
 #include "ZoomAction.h"
@@ -54,6 +54,14 @@ int main(int argc, char *argv[])
  int main(int argc, char *argv[])
  {
      QApplication a(argc, argv);
+     Systray* systray;
+     if (QSystemTrayIcon::isSystemTrayAvailable() == false)
+     {
+       QMessageBox::critical(0, QObject::tr("Systray"), QObject::tr("Couldn't detect any system tray on this system."));
+       return (EXIT_FAILURE);
+     }
+     QApplication::setQuitOnLastWindowClosed(false);
+     systray = Singleton<Systray>::getInstance();
      ActionFactory::registerInstantiator(ClickAction::IDENTIFIER, instanciateClickAction);
      ActionFactory::registerInstantiator(ZoomAction::IDENTIFIER, instanciateZoomAction);
      ActionFactory::printRegisterInstantiator();

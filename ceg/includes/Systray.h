@@ -27,6 +27,7 @@
 class QSystemTrayIcon;
 class QMenu;
 
+class Settings;
 class MainController;
 
 /*
@@ -51,6 +52,7 @@ private slots:
 
 private:
     MainController *	_lm;
+    Settings    *       _settings;
     QSystemTrayIcon *	_trayIcon;
     QMenu *		_trayIconMenu;
     QAction *		_startAction;

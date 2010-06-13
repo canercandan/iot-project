@@ -11,6 +11,7 @@ DEPENDPATH += . \
 INCLUDEPATH += . \
     includes \
     includes/Action
+FORMS += forms/settings.ui
 HEADERS += AbstractItem.h \
     AbstractScene.h \
     DefaultItem.h \
@@ -28,6 +29,7 @@ HEADERS += AbstractItem.h \
     Menu.h \
     MenuItem.h \
     Utils.h \
+    Settings.h \
     Systray.h \
     Box.h \
     IDomFactory.h \
@@ -54,6 +56,7 @@ SOURCES += AbstractItem.cpp \
     Menu.cpp \
     MenuItem.cpp \
     Utils.cpp \
+    Settings.cpp \
     Systray.cpp \
     Box.cpp \
     BoxStyle.cpp \
