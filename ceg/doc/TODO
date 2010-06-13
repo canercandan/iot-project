@@ -2,7 +2,6 @@
 - Finir les mouvements (YAVUZ) dans Layer.cpp
 - Utiliser les valeurs des menus de preferences pour tout les trucs
 - Menu (CANER) :  FAIRE Les xml
-- Menus de preferences (LAMINE + YAVUZ) : Réglage de Préférence réseau (proxy), Configuration du CEG (reglage de l'Opacite, de la couleur des boxs lors du focus et de la perte de focus.
 - Terminer le communication avec le serveur Graphique (YAVUZ + YANN) : facile a terminer sur windows + plus relou sur Linux
 - Trouver comment récupérer les infos utiles (navigateur par défaut, client mail...) (LAMINE).
 - Creation du clavier virtuel faire des test de simulation de touches. (?)
