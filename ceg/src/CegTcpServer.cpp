@@ -32,7 +32,8 @@
 #include "MoveAction.h"
 /*********************************/
 
-CegTcpServer::CegTcpServer()
+CegTcpServer::CegTcpServer() :
+	   _tcpServer(0), _client(0), _buffer()
 {
   this->launch();
 }
@@ -80,10 +81,10 @@ void	CegTcpServer::_readData()
     {
       readbytes = in.readRawData(buffer, sizeof(buffer) - 1);
       if (readbytes > 0)
-        {
+	{
 	  buffer[readbytes] = '\0';
 	  this->_buffer.append(buffer);
-        }
+	}
       else
 	return;
     }

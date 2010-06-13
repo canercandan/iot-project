@@ -64,20 +64,12 @@ void AbstractItem::focusOutEvent(QFocusEvent *)
   this->update();
 }
 
-#include <QDebug>
-
 void AbstractItem::paint(QPainter * painter, const QStyleOptionGraphicsItem *, QWidget *)
 {
   BoxStyle const & style = _model->getGraphicStyle();
 
-  bool visibility = style.isVisible();
-
-  qDebug() << "before" << visibility;
-
-  if (visibility == false)
+  if (style.isVisible() == false)
     return;
-
-  qDebug() << "after" << visibility;
 
   painter->setBrush(QBrush(QColor(this->_color.c_str())));
   painter->drawRect(this->rect());
@@ -86,14 +78,10 @@ void AbstractItem::paint(QPainter * painter, const QStyleOptionGraphicsItem *, Q
 
   if (! text.empty())
     {
-      qDebug() << text.c_str();
-
       std::string textFont(style.getTextFont());
 
       if (! textFont.empty())
 	{
-	  qDebug() << textFont.c_str();
-
 	  painter->setFont(QFont(textFont.c_str(), style.getTextFontSize()));
 	}
 

@@ -43,10 +43,11 @@
 MainController::MainController() :
 	_view(*this), _scenes(),_currentScene(), _boxController(),
 #ifdef _WIN32
-	_comGs(new Win32Explorer)
+	_comGs(new Win32Explorer),
 #else
-	_comGs(new XWindowSystem)
+	_comGs(new XWindowSystem),
 #endif
+	_tcpServer()
 {
 }
 

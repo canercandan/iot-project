@@ -34,32 +34,32 @@
 class BoxStyle : public IDomFactory
 {
 public:
-  BoxStyle();
-  BoxStyle(QDomElement const &);
+    BoxStyle();
+    BoxStyle(QDomElement const &);
 
-  bool isVisible() const;
-  float getOpacity() const;
-  std::string getImagePath() const;
-  std::string getText() const;
-  std::string getTextFont() const;
-  int getTextFontSize() const;
-  std::string getTextColor() const;
-  std::string getFocusColor() const;
-  std::string getBlurColor() const;
-
-private:
-  virtual void initializeFromXml(QDomElement const &);
+    bool		isVisible() const;
+    float		getOpacity() const;
+    std::string const & getImagePath() const;
+    std::string const & getText() const;
+    std::string const & getTextFont() const;
+    int			getTextFontSize() const;
+    std::string const & getTextColor() const;
+    std::string const & getFocusColor() const;
+    std::string const & getBlurColor() const;
 
 private:
-  bool    _isVisible;
-  float   _opacity;
-  std::string _imagePath;
-  std::string _text;
-  std::string _textFont;
-  int  _textFontSize;
-  std::string _textColor;
-  std::string	_focusColor;
-  std::string _blurColor;
+    virtual void	initializeFromXml(QDomElement const &);
+
+private:
+    bool	_isVisible;
+    float	_opacity;
+    std::string _imagePath;
+    std::string _text;
+    std::string _textFont;
+    int		_textFontSize;
+    std::string _textColor;
+    std::string	_focusColor;
+    std::string _blurColor;
 };
 
 #endif // BOXSTYLE_H

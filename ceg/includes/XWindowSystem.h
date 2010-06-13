@@ -28,6 +28,7 @@
 #include <X11/Xmu/WinUtil.h>
 
 #include "ICommunicationGraphicalServer.h"
+
 #include "Window.h"
 
 /* doc pour l'API http://tronche.com/gui/x/xlib/

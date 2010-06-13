@@ -41,7 +41,8 @@
 
 /************************************************* [ CTOR/DTOR ] *************************************************/
 
-BoxController::BoxController()
+BoxController::BoxController() :
+	_patterns(), _menus()
 {
     this->initializeFromConfig();
 }

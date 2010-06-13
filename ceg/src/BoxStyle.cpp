@@ -24,33 +24,23 @@
 #include "BoxStyle.h"
 /*********************************/
 
-// FIXME: utiliser le font avec QPainter.setFont()
-
-#include <QDebug>
+/************************************************* [ CTOR/DTOR ] *************************************************/
 
 BoxStyle::BoxStyle() :
-  _isVisible(true), _opacity(0.5), _imagePath(""), _text(""), _textFont(""), _textFontSize(20), _textColor("black"),  _focusColor("yellow"), _blurColor("black")
+	_isVisible(true), _opacity(0.5), _imagePath(""), _text(""), _textFont(""), _textFontSize(20), _textColor("black"),  _focusColor("yellow"), _blurColor("black")
 {
-  qDebug() << "in ctor";
 }
 
-BoxStyle::BoxStyle(QDomElement const & styleElement)
+BoxStyle::BoxStyle(QDomElement const & styleElement) :
+	_isVisible(true), _opacity(0.5), _imagePath(""), _text(""), _textFont(""), _textFontSize(20), _textColor("black"),  _focusColor("yellow"), _blurColor("black")
 {
     this->initializeFromXml(styleElement);
 }
 
-#include <QDebug>
-
 void BoxStyle::initializeFromXml(QDomElement const & styleElement)
 {
-  if (styleElement.hasAttribute("visible") == true)
-    {this->_isVisible = styleElement.attribute("visible").toUInt();}
-  else
-    {
-      qDebug() << "COUCOU";
-      qDebug() << _isVisible;
-    }
-
+    if (styleElement.hasAttribute("visible") == true)
+	this->_isVisible = styleElement.attribute("visible").toUInt();
     this->_opacity = styleElement.attribute("opacity").toFloat();
     this->_imagePath = styleElement.attribute("imagePath").toStdString();
     this->_text = styleElement.attribute("text").toStdString();
@@ -61,16 +51,49 @@ void BoxStyle::initializeFromXml(QDomElement const & styleElement)
     this->_blurColor = styleElement.attribute("blurColor").toStdString();
 }
 
-// ATTRIBUTES GETTER
+/************************************************* [ GETTERS ] *************************************************/
 
-bool BoxStyle::isVisible() const {return _isVisible;}
-float BoxStyle::getOpacity() const {return _opacity;}
-std::string BoxStyle::getImagePath() const {return _imagePath;}
-std::string BoxStyle::getText() const {return _text;}
-std::string BoxStyle::getTextFont() const {return _textFont;}
-int BoxStyle::getTextFontSize() const {return _textFontSize;}
-std::string BoxStyle::getTextColor() const {return _textColor;}
-std::string BoxStyle::getFocusColor() const {return _focusColor;}
-std::string BoxStyle::getBlurColor() const {return _blurColor;}
+bool BoxStyle::isVisible() const
+{
+    return (this->_isVisible);
+}
 
-// END ATTRIBUTES GETTER
+float BoxStyle::getOpacity() const
+{
+    return (this->_opacity);
+}
+
+std::string const & BoxStyle::getImagePath() const
+{
+    return (this->_imagePath);
+}
+
+std::string const & BoxStyle::getText() const
+{
+    return (this->_text);
+}
+
+std::string const & BoxStyle::getTextFont() const
+{
+    return (this->_textFont);
+}
+
+int BoxStyle::getTextFontSize() const
+{
+    return (this->_textFontSize);
+}
+
+std::string const & BoxStyle::getTextColor() const
+{
+    return (this->_textColor);
+}
+
+std::string const & BoxStyle::getFocusColor() const
+{
+    return (this->_focusColor);
+}
+
+std::string const & BoxStyle::getBlurColor() const
+{
+    return (this->_blurColor);
+}

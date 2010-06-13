@@ -33,13 +33,13 @@
 /************************************************* [ CTOR/DTOR ] *************************************************/
 
 Box::Box(BoxType boxtype, int level, std::list<Box const *> const & children, QRect const & geometry):
-	_type(boxtype), _geometry(geometry), _action(0), _children(children)
+	_type(boxtype), _geometry(geometry), _action(0), _graphicStyle(), _children(children)
 {
     this->_topUnion._level = level;
 }
 
 Box::Box(const QDomElement& domElement, Box const * parent) :
-	_action(0), _children()
+	_type(CUSTOM_BOX), _geometry(), _action(0), _graphicStyle(), _children()
 {
     this->_topUnion._parent = parent;
     this->initializeFromXml(domElement);

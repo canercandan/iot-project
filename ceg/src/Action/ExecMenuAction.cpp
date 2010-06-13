@@ -49,9 +49,9 @@ bool ExecMenuAction::exec(MainController & mainC)
     return (true);
 }
 
-void ExecMenuAction::initializeFromXml(const QDomElement & domElement)
+void ExecMenuAction::initializeFromXml(const QDomElement & actionElement)
 {
-    for (QDomNode domElement = domElement.firstChild(); !domElement.isNull(); domElement = domElement.nextSibling())
+    for (QDomNode domElement = actionElement.firstChild(); !domElement.isNull(); domElement = domElement.nextSibling())
     {
 	QDomElement const & actionParam = domElement.toElement();
 	if (actionParam.isNull() == false && actionParam.tagName() == "action")

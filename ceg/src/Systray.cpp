@@ -32,9 +32,8 @@
 /*********************************/
 
 Systray::Systray(QWidget *parent) :
-	QWidget(parent), _lm(new MainController)
+	QWidget(parent), _lm(new MainController), _trayIcon(0), _trayIconMenu(0), _startAction(0), _settingAction(0), _aboutQtAction(0), _aboutCegAction(0), _quitAction(0)
 {
-
     this->_trayIcon = new QSystemTrayIcon(QIcon(":/images/systray-transparent-32x32.png"), this);
     this->_trayIconMenu = new QMenu(this);
     this->_startAction = new QAction("Start", this);
