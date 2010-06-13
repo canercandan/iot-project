@@ -23,6 +23,8 @@
 
 #include <string>
 
+#include <QRect>
+
 #ifdef _WIN32
 #include <windows.h>
 #include <psapi.h>		// NT only!
@@ -30,8 +32,6 @@
 #else
 #include <X11/Xlib.h>
 #endif
-
-#include <QRect>
 
 namespace Ceg
 {
