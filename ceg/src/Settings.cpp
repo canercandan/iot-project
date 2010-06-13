@@ -2,7 +2,7 @@
 #include <QSettings>
 #include <QMessageBox>
 
-#include "includes/Settings.h"
+#include "Settings.h"
 
 Settings::Settings(QWidget *parent) :
         QDialog(parent), _dir()

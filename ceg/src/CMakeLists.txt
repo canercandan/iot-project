@@ -24,6 +24,7 @@ SET(SAMPLE_SRCS
   main.cpp
   Menu.cpp
   MenuItem.cpp
+  Settings.cpp
   Systray.cpp
   Utils.cpp
   View.cpp
@@ -45,8 +46,13 @@ ENDIF()
 # Here is an explaination to how to use qt4_wrap_cpp:
 # http://www.mail-archive.com/cmake@cmake.org/msg18900.html
 
+SET(SAMPLE_UIS
+  ${CMAKE_SOURCE_DIR}/forms/settings.ui
+)
+
 SET(SAMPLE_MOC_HDRS
   ${CMAKE_SOURCE_DIR}/includes/Systray.h
+  ${CMAKE_SOURCE_DIR}/includes/Settings.h
   ${CMAKE_SOURCE_DIR}/includes/CegTcpServer.h
   )
 
@@ -56,10 +62,13 @@ SET(SAMPLE_RCS
 
 SET(EXECUTABLE_OUTPUT_PATH ${CMAKE_BINARY_DIR})
 
+QT4_WRAP_UI(SAMPLE_UIS_SRCS ${SAMPLE_UIS})
 QT4_WRAP_CPP(SAMPLE_MOC_SRCS ${SAMPLE_MOC_HDRS})
 QT4_ADD_RESOURCES(SAMPLE_RC_SRCS ${SAMPLE_RCS})
 
-ADD_EXECUTABLE(ceg ${SAMPLE_SRCS} ${SAMPLE_MOC_SRCS} ${SAMPLE_RC_SRCS} )
+INCLUDE_DIRECTORIES(${CMAKE_CURRENT_BINARY_DIR})
+
+ADD_EXECUTABLE(ceg ${SAMPLE_SRCS} ${SAMPLE_UIS_SRCS} ${SAMPLE_MOC_SRCS} ${SAMPLE_RC_SRCS} )
 
 SET(CEG_LIBS action)
 
