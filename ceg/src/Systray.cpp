@@ -24,9 +24,11 @@
 #include <QIcon>
 #include <QMessageBox>
 #include <QApplication>
+#include <QSettings>
 /*********************************/
 #include "Systray.h"
 /*********************************/
+#include "Settings.h"
 #include "MainController.h"
 #include "Singleton.hpp"
 /*********************************/
@@ -34,6 +36,7 @@
 Systray::Systray(QWidget *parent) :
 	QWidget(parent), _lm(new MainController), _trayIcon(0), _trayIconMenu(0), _startAction(0), _settingAction(0), _aboutQtAction(0), _aboutCegAction(0), _quitAction(0)
 {
+    this->_settings = new Settings(this);
     this->_trayIcon = new QSystemTrayIcon(QIcon(":/images/systray-transparent-32x32.png"), this);
     this->_trayIconMenu = new QMenu(this);
     this->_startAction = new QAction("Start", this);
@@ -76,9 +79,19 @@ void Systray::on__startAction_triggered()
     QString content;
     if (this->_startAction->text() == "Start")
     {
-	QMessageBox::information(0, "Commandes", "Left | Right arrow = Horizontal Move\nUp | Down Arrow = Vertical move\nEnter = Zoom\nBackspace = unzoom\n1 = Simple Click\nAlt + F4 = Quit");
-	this->_lm->start();
-	content = "Stop";
+        QSettings settings("ionlythink-ceg.ini", QSettings::IniFormat);
+        QVariant first = settings.value("general/squareNumber");
+        if (first.toInt() == 0)
+        {
+            QMessageBox::information(0, "Error", "Please check the settings of application before start it !");
+            content = "Start";
+        }
+        else
+        {
+            QMessageBox::information(0, "Commandes", "Left | Right arrow = Horizontal Move\nUp | Down Arrow = Vertical move\nEnter = Zoom\nBackspace = unzoom\n1 = Simple Click\nAlt + F4 = Quit");
+            this->_lm->start();
+            content = "Stop";
+        }
     }
     else
     {
@@ -95,7 +108,7 @@ void Systray::on__aboutQtAction_triggered()
 
 void Systray::on__settingAction_triggered()
 {
-    QMessageBox::information(0, "Setting", "une widget qui permet de mettre les options");
+    this->_settings->show();
 }
 
 void Systray::on__aboutCegAction_triggered()
