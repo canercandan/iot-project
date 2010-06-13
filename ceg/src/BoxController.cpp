@@ -219,7 +219,7 @@ void BoxController::createGraphicItems(std::list<QGraphicsRectItem *> & graphicI
     }
 }
 
-void	BoxController::initializeFromConfig(QString const & directoryName)
+void	BoxController::initializeFromConfig(QString const & directoryName /*= "config/"*/)
 {
     QDir    directory(directoryName);
 
