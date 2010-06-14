@@ -59,7 +59,12 @@ Systray::Systray(QWidget *parent) :
     this->connect(this->_aboutQtAction, SIGNAL(triggered()), SLOT(on__aboutQtAction_triggered()));
     this->connect(this->_settingAction, SIGNAL(triggered()), SLOT(on__settingAction_triggered()));
     this->_trayIcon->show();
+
+#ifdef _WIN32
+    // FIXME: we are getting a display bug issue when the message appears on the screen
+    // on Linux. It appears on the left but it must be on the right.
     this->_trayIcon->showMessage("Information Message", "Click on Start to launch the Default Navigator", QSystemTrayIcon::MessageIcon(), 7000);
+#endif
 }
 
 Systray::~Systray()
