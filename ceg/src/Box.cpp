@@ -22,19 +22,27 @@
 #include <algorithm>
 /*********************************/
 #include <QDomElement>
+#include <QDebug>
 /*********************************/
 #include "Box.h"
 /*********************************/
 #include "ActionFactory.h"
 #include "Utils.h"
 #include "IAction.h"
+#include "PopMenuAction.h"
 /*********************************/
 
 /************************************************* [ CTOR/DTOR ] *************************************************/
 
-Box::Box(BoxType boxtype, int level, std::list<Box const *> const & children, QRect const & geometry):
-	_type(boxtype), _geometry(geometry), _action(0), _graphicStyle(), _children(children)
+Box::Box(BoxType boxtype, int level, QRect const & geometry):
+	_type(boxtype), _geometry(geometry), _action(0), _graphicStyle(), _children()
 {
+    QDomElement actionElement;
+    actionElement.setTagName("action");
+    actionElement.setAttribute("id", PopMenuAction::IDENTIFIER);
+    actionElement.setAttribute("MenuId", "Event");
+    qDebug() << " debug " << actionElement.text();
+    this->_action = ActionFactory::create(actionElement);
     this->_topUnion._level = level;
 }
 
@@ -73,7 +81,7 @@ void Box::initializeFromXml(const QDomElement & boxElement)
 	    QString const & tagName = childElement.tagName();
 	    if (tagName == "action")
 	    {
-		this->_action = ActionFactory::create(childElement.attribute("id").toStdString(), childElement);
+		this->_action = ActionFactory::create(childElement);
 	    }
 	    else if (tagName == "style")
 	    {

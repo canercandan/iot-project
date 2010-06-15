@@ -43,7 +43,7 @@ enum BoxType {DEFAULT_BOX, CUSTOM_BOX, MENU_BOX};
 class Box : public IDomFactory
 {
 public:
-    Box(BoxType boxtype, int level, std::list<Box const *> const & children, QRect const & geometry); // Utiliser lors des box par defaut, construction des enfants
+    Box(BoxType boxtype, int level, QRect const & geometry); // Utiliser lors des box par defaut, construction des enfants
     Box(QDomElement const & domElement, Box const * parent); // Utiliser pour la creation par XML
     ~Box();
 

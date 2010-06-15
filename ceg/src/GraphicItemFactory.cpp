@@ -19,6 +19,8 @@
  */
 
 /*********************************/
+#include <QDebug>
+/*********************************/
 #include "GraphicItemFactory.h"
 /*********************************/
 #include "Box.h"
@@ -42,7 +44,8 @@ QGraphicsRectItem * GraphicItemFactory::create(Box const * box)
 	instance = new MenuItem(box);
 	break;
     default :
-	    break;
-}
+	    qDebug() << "[WARNING] : Box de type Inconnu";
+    break;
+    }
     return (instance);
 }

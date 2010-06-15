@@ -19,6 +19,8 @@
  */
 
 /*********************************/
+#include <QDebug>
+/*********************************/
 #include "ReadAction.h"
 /*********************************/
 #include "MainController.h"
@@ -31,6 +33,7 @@ char const * ReadAction::IDENTIFIER = "Read";
 
 ReadAction::ReadAction(const QDomElement & actionElement)
 {
+    qDebug() << "ReadAction::ReadAction(const QDomElement & actionElement)";
     this->initializeFromXml(actionElement);
 }
 
@@ -38,13 +41,15 @@ ReadAction::ReadAction(const QDomElement & actionElement)
 
 bool	ReadAction::exec(MainController & lm)
 {
-  lm.getView().hide();
+    qDebug() << "ReadAction::exec";
+    View & view = lm.getView();
+    view.hide();
 
-  SleeperThread::msleep(1000);
+    SleeperThread::msleep(1000);
 
-  lm.getView().show();
+    view.show();
 
-  return true;
+    return (true);
 }
 
 void ReadAction::initializeFromXml(const QDomElement &)

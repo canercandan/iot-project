@@ -19,6 +19,9 @@
  * Authors: CEG <ceg@ionlythink.com>, http://www.ionlythink.com
  */
 
+/*********************************/
+#include <QDebug>
+/*********************************/
 #include "AbstractItem.h"
 /*********************************/
 #include "Layer.h"
@@ -30,7 +33,7 @@
 /************************************************* [ CTOR/DTOR ] *************************************************/
 
 Layer::Layer(Ceg::Window const & hostWindow) :
-	AbstractScene(hostWindow.getGeometry()), _host(hostWindow), _menuAction(0)
+	AbstractScene(0), _host(hostWindow), _menuAction(0)
 {
 }
 
@@ -52,10 +55,10 @@ void	Layer::initialize(std::list<QGraphicsRectItem *> const & sceneItems)
 {
     if (sceneItems.empty() == false)
     {
-	AbstractItem * firstItem = static_cast<AbstractItem *>(sceneItems.front());
+	AbstractItem const * firstItem = static_cast<AbstractItem const *>(sceneItems.front());
 	if (firstItem->getBox()->getBoxType() == DEFAULT_BOX)
 	{
-	    this->_menuAction = new PopMenuAction("Event");
+	    this->_menuAction = 0;//new PopMenuAction("Event"); Mettre a la place l'id du main menu
 	}
     }
     AbstractScene::initialize(sceneItems);
@@ -75,6 +78,7 @@ IAction * Layer::keyPressEvent(int key) const
 	break;
     case Qt::Key_Return :
 	{
+	    qDebug() << "ici";
 	    AbstractItem * focusItem = static_cast<AbstractItem *>(this->focusItem());
 	    return (focusItem->getEvent());
 	}

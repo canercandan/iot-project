@@ -19,6 +19,8 @@
  */
 
 /*********************************/
+#include <QDebug>
+/*********************************/
 #include "Menu.h"
 /*********************************/
 #include "AbstractItem.h"
@@ -28,7 +30,7 @@
 /************************************************* [ CTOR/DTOR ] *************************************************/
 
 Menu::Menu()
-    : AbstractScene(QRect(100, 100, 100, 100))
+    : AbstractScene(0)
 {
 }
 
@@ -36,14 +38,8 @@ Menu::Menu()
 
 QRect  Menu::getGeometry() const
 {
-    QList<QGraphicsItem *> items =  this->items();
-    QRect totalSize(0,0,0,0);
-    for (QList<QGraphicsItem *>::const_iterator it = items.begin(), itEnd = items.end(); it != itEnd; ++it)
-    {
-	AbstractItem * item = static_cast<AbstractItem *>(*it);
-	totalSize.united(item->getBox()->getGeometry());
-    }
-    return (totalSize);
+    QRectF const &  temp = this->itemsBoundingRect();
+    return (QRect(temp.x(), temp.y(), temp.width(), temp.height()));
 }
 
 /************************************************* [ OTHERS ] *************************************************/

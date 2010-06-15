@@ -20,6 +20,7 @@
 
 /*********************************/
 #include <QDomElement>
+#include <QDebug>
 /*********************************/
 #include "ZoomAction.h"
 /*********************************/
@@ -35,6 +36,7 @@ char const * ZoomAction::IDENTIFIER = "Zoom";
 
 ZoomAction::ZoomAction(const QDomElement & actionElement)
 {
+    qDebug() << "ZoomAction::ZoomAction(const QDomElement & actionElement)";
     this->initializeFromXml(actionElement);
 }
 
@@ -42,6 +44,7 @@ ZoomAction::ZoomAction(const QDomElement & actionElement)
 
 bool	ZoomAction::exec(MainController & lm)
 {
+    qDebug() << "ZoomAction::exec";
     AbstractScene * scene = lm.getCurrentScene();
     AbstractItem const * currentItem = scene->getCurrentItem();
     Box const * box = currentItem->getBox();

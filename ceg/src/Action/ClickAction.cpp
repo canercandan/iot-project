@@ -20,6 +20,7 @@
 
 /*********************************/
 #include <QDomElement>
+#include <QDebug>
 /*********************************/
 #include "ClickAction.h"
 /*********************************/
@@ -38,6 +39,7 @@ char const * ClickAction::IDENTIFIER = "Click";
 
 ClickAction::ClickAction(const QDomElement & actionElement)
 {
+    qDebug() << "ClickAction::ClickAction";
     this->initializeFromXml(actionElement);
 }
 
@@ -45,6 +47,7 @@ ClickAction::ClickAction(const QDomElement & actionElement)
 
 bool	ClickAction::exec(MainController & lm)
 {
+    qDebug() << "ClickAction::exec";
     AbstractItem const * ai = lm.getCurrentScene()->getCurrentItem();
     Box const *	ab = ai->getBox();
 

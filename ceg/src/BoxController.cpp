@@ -30,6 +30,7 @@
 #include <QTextStream>
 #include <QDomDocument>
 #include <QDir>
+#include <QDebug>
 /*********************************/
 #include "BoxController.h"
 /*********************************/
@@ -44,7 +45,10 @@
 BoxController::BoxController() :
 	_patterns(), _menus()
 {
+    qDebug() << "Chargement des fichiers xml pour les programmes";
     this->initializeFromConfig();
+    qDebug() << "\nChargement des fichiers xml pour les menus";
+    this->initializeFromXml("/home/yann/workspace/eip/iot/trunk/ceg/resources/xml/menus/EventMenu.xml");
 }
 
 BoxController::~BoxController()
@@ -157,7 +161,7 @@ void BoxController::calcChildren(std::list<Box const *> & boxs, QRect const & ge
 	qreal x = geometry.x();
 	while (cols++ < NBGRID)
 	{
-	    boxs.push_back(new Box(DEFAULT_BOX, level, std::list<Box const *>(0), QRect(x, y, tmpWidth, tmpHeight)));
+	    boxs.push_back(new Box(DEFAULT_BOX, level, QRect(x, y, tmpWidth, tmpHeight)));
 	    x += tmpWidth;
 	}
 	y += tmpHeight;
@@ -234,20 +238,22 @@ void	BoxController::initializeFromConfig(QString const & directoryName /*= "conf
     }
     else
     {
-	std::cerr << "BoxManager::initializeFromConfig() "<< directoryName.toStdString() << "doesn't exist" << std::endl;
+	qDebug() << "[ERROR] in BoxManager::initializeFromConfig() : "<< directoryName << "doesn't exist .";
     }
 }
 
 void    BoxController::initializeFromXml(QString const & fileName)
 {
+    qDebug() << "Tentative de chargement du fichier : " << fileName;
     QFile	file(fileName);
     QDomDocument doc(fileName);
 
-    if (file.open(QIODevice::ReadOnly) == true && doc.setContent(&file) == true)
+    QString  errorMsg; int  errorLine = 0, errorColumn = 0;
+    if (file.open(QIODevice::ReadOnly) == true  &&  doc.setContent(&file, &errorMsg, &errorLine, &errorColumn) == true)
     {
 	file.close();
 	QDomElement const & rootElement = doc.documentElement();
-	if (rootElement.tagName() == "boxes")
+	if (rootElement.tagName() == "boxes" || rootElement.tagName() == "menu")
 	{
 	    std::string const & programId = rootElement.attribute("id").toStdString();
 	    std::list<Box const *> boxes;
@@ -262,12 +268,16 @@ void    BoxController::initializeFromXml(QString const & fileName)
 	    }
 	    if (boxes.empty() == false)
 	    {
-		this->_patterns.insert(std::make_pair(programId, boxes));
+		qDebug() << "Chargement reussi .";
+		if (rootElement.tagName() == "boxes")
+		    this->_patterns.insert(std::make_pair(programId, boxes));
+		else
+		    this->_menus.insert(std::make_pair(programId, boxes));
 	    }
 	}
     }
     else
     {
-	std::cerr << "BoxManager::initializeFromXml() : Failed to load file : " <<  fileName.toStdString() << std::endl;
+	qDebug() << "[ERROR] " << errorMsg << " at line : = "<< errorLine << " - column = " << errorColumn << ".";
     }
 }

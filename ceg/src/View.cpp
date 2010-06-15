@@ -20,6 +20,7 @@
 
 /*********************************/
 #include <QKeyEvent>
+#include <QDebug>
 /*********************************/
 #include "View.h"
 /*********************************/
@@ -34,7 +35,7 @@
 View::View(MainController & lm)
     : _lm(lm)
 {
-  //   this->setWindowOpacity(0.5);
+     this->setWindowOpacity(0.5);
 }
 
 /************************************************* [ OTHERS ] *************************************************/
@@ -54,7 +55,7 @@ void	View::initialize()
 void	View::keyPressEvent(QKeyEvent* keyEvent)
 {
     int	key = keyEvent->key();
-
+    qDebug() << "Touche clavier utilisee : " << key;
     switch (key)
     {
     case Qt::Key_Left:

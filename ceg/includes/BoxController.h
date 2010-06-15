@@ -52,7 +52,7 @@ public:
 
 private:
     std::list<Box const *>    getPattern(Box const * boxSearch) const;
-    void    initializeFromConfig(QString const & directory = "config/"); // Lit le repertoire de config pour instancier tout les patrons (custom)
+    void    initializeFromConfig(QString const & directory = "../config/"); // Lit le repertoire de config pour instancier tout les patrons (custom)
     void    initializeFromXml(QString const & fileName); // Creer la patron present dans le fichier
     void    calcChildren(std::list<Box const *> &, QRect const &, unsigned short) const;
     void    calcParent(std::list<Box const *> &, Box const *) const;

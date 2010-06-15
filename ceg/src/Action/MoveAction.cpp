@@ -19,6 +19,8 @@
  */
 
 /*********************************/
+#include <QDebug>
+/*********************************/
 #include "MoveAction.h"
 /*********************************/
 #include "MainController.h"
@@ -30,11 +32,14 @@
 char const * MoveAction::IDENTIFIER = "Move";
 
 MoveAction::MoveAction(int key)
-  : _key(key)
-{}
+    : _key(key)
+{
+    qDebug() << "MoveAction::MoveAction(int key)";
+}
 
 MoveAction::MoveAction(const QDomElement & actionElement)
 {
+    qDebug() << "MoveAction::MoveAction(const QDomElement & actionElement)";
     this->initializeFromXml(actionElement);
 }
 
@@ -42,12 +47,12 @@ MoveAction::MoveAction(const QDomElement & actionElement)
 
 bool	MoveAction::exec(MainController & lm)
 {
-  IAction * action = lm.getCurrentScene()->keyPressEvent(this->_key);
-
-  if (action != 0)
-    return (action->exec(lm));
-
-  return (true);
+    qDebug() << "MoveAction::exec";
+    IAction * action = lm.getCurrentScene()->keyPressEvent(this->_key);
+    if (action != 0)
+	return (action->exec(lm));
+    qDebug() <<"rien a effectue apres le mouvement";
+    return (true);
 }
 
 void MoveAction::initializeFromXml(const QDomElement &)

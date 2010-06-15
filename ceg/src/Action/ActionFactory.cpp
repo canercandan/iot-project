@@ -20,15 +20,17 @@
 
 /*********************************/
 #include <QDebug>
+#include <QDomElement>
 /*********************************/
 #include "ActionFactory.h"
 /*********************************/
 
 std::map<std::string, ActionFactory::ActionInstantiator> ActionFactory::_instanciators;
 
-IAction *	ActionFactory::create(std::string const & actionId, QDomElement const & actionElelement)
+IAction *	ActionFactory::create(QDomElement const & actionElelement)
 {
-    std::map<std::string, ActionInstantiator>::const_iterator itFind = ActionFactory::_instanciators.find(actionId);
+    qDebug() << "[INFO] ActionFactory : instance demandee - id = " << actionElelement.attribute("id") << ".";
+    std::map<std::string, ActionInstantiator>::const_iterator itFind = ActionFactory::_instanciators.find(actionElelement.attribute("id").toStdString());
     return (itFind != ActionFactory::_instanciators.end() ? (itFind->second)(actionElelement) : 0);
 }
 
@@ -39,10 +41,11 @@ void ActionFactory::registerInstantiator(const std::string &actionId, ActionInst
 
 void ActionFactory::printRegisterInstantiator()
 {
-    qDebug() << "Actions Registers : " << ActionFactory::_instanciators.size();
+    qDebug() << "[INFO] ActionFactory : Liste des actions connus :";
     for (std::map<std::string, ActionInstantiator>::const_iterator it = ActionFactory::_instanciators.begin(),
 	 itEnd = ActionFactory::_instanciators.end(); it != itEnd; ++it)
     {
-	qDebug() << "Id = " << (it->first).c_str();
+	qDebug() << "- " << (it->first).c_str();
     }
+    qDebug() << ActionFactory::_instanciators.size() << " actions enregistrees .";
 }

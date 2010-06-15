@@ -29,6 +29,10 @@
 #include "Systray.h"
 #include "ActionFactory.h"
 #include "ClickAction.h"
+#include "ExecMenuAction.h"
+#include "MoveAction.h"
+#include "PopMenuAction.h"
+#include "ReadAction.h"
 #include "ZoomAction.h"
 /*********************************/
 /*
@@ -49,7 +53,7 @@ int main(int argc, char *argv[])
     systray = Singleton<Systray>::getInstance();
     //CegTcpServer server;
     return (a.exec());
-}*/
+}
 
  int main(int argc, char *argv[])
  {
@@ -69,3 +73,19 @@ int main(int argc, char *argv[])
      lm->start();
      return a.exec();
  }
+*/
+int main(int argc, char *argv[])
+{
+    QApplication a(argc, argv);
+    qDebug() << "\n\n";
+    ActionFactory::registerInstantiator(ClickAction::IDENTIFIER, instanciateClickAction);
+    ActionFactory::registerInstantiator(ExecMenuAction::IDENTIFIER, instanciateExecMenuAction);
+    ActionFactory::registerInstantiator(MoveAction::IDENTIFIER, instanciateMoveAction);
+    ActionFactory::registerInstantiator(PopMenuAction::IDENTIFIER, instanciatePopMenuAction);
+    ActionFactory::registerInstantiator(ReadAction::IDENTIFIER, instanciateReadAction);
+    ActionFactory::registerInstantiator(ZoomAction::IDENTIFIER, instanciateZoomAction);
+    ActionFactory::printRegisterInstantiator();
+    MainController lm;
+    lm.start();
+    return a.exec();
+}

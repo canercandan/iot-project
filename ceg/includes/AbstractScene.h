@@ -38,7 +38,7 @@ class AbstractItem;
 class AbstractScene : public QGraphicsScene
 {
 public:
-    AbstractScene(QRect const & geometry, QObject * parent = 0);
+    AbstractScene(QObject * parent = 0);
 
     virtual void	    initialize(std::list<QGraphicsRectItem *> const & sceneItems); // Ajout des items a la scene
 

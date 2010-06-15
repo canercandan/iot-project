@@ -22,6 +22,8 @@
 #include <functional>
 #include <algorithm>
 /*********************************/
+#include <QDebug>
+/*********************************/
 #include "AbstractScene.h"
 /*********************************/
 #include "AbstractItem.h"
@@ -29,8 +31,8 @@
 
 /************************************************* [ CTOR/DTOR ] *************************************************/
 
-AbstractScene::AbstractScene(QRect const & geometry, QObject * parent /* = 0 */) :
-	QGraphicsScene(geometry.x(), geometry.y(), geometry.width(), geometry.height(), parent)
+AbstractScene::AbstractScene(QObject * parent /* = 0 */) :
+	QGraphicsScene(parent)
 {
 }
 
@@ -61,6 +63,7 @@ void AbstractScene::clearScene()
 void AbstractScene::initialize(std::list<QGraphicsRectItem *> const & sceneItems)
 {
     this->clearScene();
+    qDebug() << "AbstractScene::initialize - " << sceneItems.size() << "items a ajoute a la scene";
 #if (QT_VERSION < QT_VERSION_CHECK(4,6,0))
     std::for_each(sceneItems.begin(), sceneItems.end(), std::bind1st(std::mem_fun(&QGraphicsScene::addItem), this));
 #else

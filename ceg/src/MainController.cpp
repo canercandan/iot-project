@@ -23,6 +23,7 @@
 /*********************************/
 #include <QApplication>
 #include <QDesktopWidget>
+#include <QDebug>
 /*********************************/
 #include "MainController.h"
 /*********************************/
@@ -104,7 +105,7 @@ void MainController::initialize()
     //this->_comGs->getWindows(windows);
 
     QDesktopWidget *desktop = QApplication::desktop();
-    windows.push_back(Ceg::Window(0, QRect(0 , 0, desktop->width(), desktop->height()), true, "Firefox"));
+    windows.push_back(Ceg::Window(0, QRect(0 , 0, desktop->width(), desktop->height()), true, "Firefoxx"));
 
     this->createScenes(windows);
     this->_currentScene = this->_scenes.begin();
@@ -128,7 +129,6 @@ void MainController::pushFrontScene(AbstractScene *scene)
     this->_currentScene = this->_scenes.begin();
     this->_view.hide();
     this->_view.setScene(*(this->_currentScene));
-    this->_view.setGeometry((*this->_currentScene)->getGeometry());
     this->_view.show();
 }
 

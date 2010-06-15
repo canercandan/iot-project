@@ -37,7 +37,7 @@ class ActionFactory
 public:
     typedef IAction * (*ActionInstantiator)(QDomElement const &);
 
-    static IAction *	create(std::string const & actionId, QDomElement const & domElement); // Retourne l'action demande
+    static IAction *	create(QDomElement const & domElement); // Retourne l'action demande
     static void		registerInstantiator(std::string const & actionId, ActionInstantiator function); // Permet de referencer une action et son constructeur
     static void		printRegisterInstantiator();
 

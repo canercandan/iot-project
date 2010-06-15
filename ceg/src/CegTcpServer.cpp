@@ -35,7 +35,7 @@
 CegTcpServer::CegTcpServer() :
 	   _tcpServer(0), _client(0), _buffer()
 {
-  this->launch();
+  //this->launch();
 }
 
 CegTcpServer::~CegTcpServer()

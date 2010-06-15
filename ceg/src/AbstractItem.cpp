@@ -20,6 +20,7 @@
 
 /*********************************/
 #include <QPainter>
+#include <QDebug>
 /*********************************/
 #include "AbstractItem.h"
 /*********************************/
@@ -34,8 +35,8 @@ AbstractItem::AbstractItem(Box const * box, QGraphicsItem * parent) :
 	QGraphicsRectItem(box->getGeometry().x(), box->getGeometry().y(), box->getGeometry().width(), box->getGeometry().height(), parent),
 	_color(box->getGraphicStyle().getBlurColor()), _model(box)
 {
-  this->setOpacity(0.5);
-  this->setFlag(QGraphicsItem::ItemIsFocusable);
+    //this->setOpacity(0.5);
+    this->setFlag(QGraphicsItem::ItemIsFocusable);
 }
 
 /************************************************* [ GETTERS ] *************************************************/
@@ -54,54 +55,50 @@ IAction * AbstractItem::getEvent() const
 
 void AbstractItem::focusInEvent(QFocusEvent *)
 {
-  this->_color = this->_model->getGraphicStyle().getFocusColor();
-  this->update();
+    this->_color = this->_model->getGraphicStyle().getFocusColor();
+    this->update();
 }
 
 void AbstractItem::focusOutEvent(QFocusEvent *)
 {
-  this->_color = this->_model->getGraphicStyle().getBlurColor();
-  this->update();
+    this->_color = this->_model->getGraphicStyle().getBlurColor();
+    this->update();
 }
 
 void AbstractItem::paint(QPainter * painter, const QStyleOptionGraphicsItem *, QWidget *)
 {
-  BoxStyle const & style = _model->getGraphicStyle();
+    BoxStyle const & style = _model->getGraphicStyle();
+    if (style.isVisible() == false)
+	return;
 
-  if (style.isVisible() == false)
-    return;
-
-  painter->setBrush(QBrush(QColor(this->_color.c_str())));
-  painter->drawRect(this->rect());
-
-  std::string text(style.getText());
-
-  if (! text.empty())
+    painter->setBrush(QBrush(QColor(this->_color.c_str())));
+    painter->drawRect(this->rect());
+    std::string const & text = style.getText();
+    if (! text.empty())
     {
-      std::string textFont(style.getTextFont());
+	std::string const & textFont = style.getTextFont();
 
-      if (! textFont.empty())
+	if (textFont.empty() == false)
 	{
-	  painter->setFont(QFont(textFont.c_str(), style.getTextFontSize()));
+	    painter->setFont(QFont(textFont.c_str(), style.getTextFontSize()));
 	}
 
-      std::string textColor(style.getTextColor());
+	std::string const & textColor = style.getTextColor();
 
-      if (! textColor.empty())
+	if (textColor.empty() == false)
 	{
-	  painter->setPen(textColor.c_str());
+	    painter->setPen(textColor.c_str());
 	}
 
-      painter->drawText(this->rect(), Qt::AlignCenter, text.c_str());
+	painter->drawText(this->rect(), Qt::AlignCenter, text.c_str());
     }
 
-  std::string imagePath(style.getImagePath());
-
-  if (! imagePath.empty())
+    std::string const & imagePath  = style.getImagePath();
+    if (imagePath.empty() == false)
     {
-      QPixmap pixmap(imagePath.c_str());
-      QRectF dest(this->rect().x(), this->rect().y(), pixmap.rect().width(), pixmap.rect().height());
-      dest.moveCenter(this->rect().center());
-      painter->drawPixmap(dest, pixmap, pixmap.rect());
+	QPixmap pixmap(imagePath.c_str());
+	QRectF dest(this->rect().x(), this->rect().y(), pixmap.rect().width(), pixmap.rect().height());
+	dest.moveCenter(this->rect().center());
+	painter->drawPixmap(dest, pixmap, pixmap.rect());
     }
 }
