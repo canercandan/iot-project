@@ -22,6 +22,7 @@
 #include <algorithm>
 /*********************************/
 #include <QDomElement>
+#include <QDomDocument>
 #include <QDebug>
 /*********************************/
 #include "Box.h"
@@ -37,11 +38,10 @@
 Box::Box(BoxType boxtype, int level, QRect const & geometry):
 	_type(boxtype), _geometry(geometry), _action(0), _graphicStyle(), _children()
 {
-    QDomElement actionElement;
-    actionElement.setTagName("action");
-    actionElement.setAttribute("id", PopMenuAction::IDENTIFIER);
+    QDomDocument xmld;
+    QDomElement actionElement = xmld.createElement("action");
+    actionElement.setAttribute("id", QString(PopMenuAction::IDENTIFIER));
     actionElement.setAttribute("MenuId", "Event");
-    qDebug() << " debug " << actionElement.text();
     this->_action = ActionFactory::create(actionElement);
     this->_topUnion._level = level;
 }
