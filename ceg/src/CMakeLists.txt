@@ -81,5 +81,7 @@ ENDIF()
 
 INSTALL(
   TARGETS ${PROJECT_NAME}
-  RUNTIME DESTINATION bin # RUNTIME keyword allows to make binary executable (chmod +x)
+  RUNTIME # RUNTIME keyword allows to make binary executable (chmod +x)
+  DESTINATION bin
+  COMPONENT applications
   )

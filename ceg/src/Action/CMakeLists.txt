@@ -12,3 +12,10 @@ SET(ACTION_SRCS
   )
 
 ADD_LIBRARY(action ${ACTION_SRCS})
+
+# INSTALL(
+#   TARGETS action
+#   ARCHIVE
+#   DESTINATION lib
+#   COMPONENT libraries
+#   )
