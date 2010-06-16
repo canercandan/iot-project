@@ -16,7 +16,7 @@
     <action id="ExecMenu">
       <action id="Valid"/>
     </action>
-    <style opacity="1" text="Validate"/>
+    <style opacity="1" text="Validate SEGFAULT USELESS"/>
   </box>
   <box type="2" x="750" y="303" height="100" width="300">
     <action id="ExecMenu">

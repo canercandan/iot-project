@@ -37,6 +37,11 @@ ReadAction::ReadAction(const QDomElement & actionElement)
     this->initializeFromXml(actionElement);
 }
 
+void ReadAction::initializeFromXml(const QDomElement &)
+{
+
+}
+
 /************************************************* [ OTHERS ] *************************************************/
 
 bool	ReadAction::exec(MainController & lm)
@@ -52,10 +57,7 @@ bool	ReadAction::exec(MainController & lm)
     return (true);
 }
 
-void ReadAction::initializeFromXml(const QDomElement &)
-{
-
-}
+/************************************************* [ OTHERS ] *************************************************/
 
 IAction * instanciateReadAction(const QDomElement & actionElement)
 {

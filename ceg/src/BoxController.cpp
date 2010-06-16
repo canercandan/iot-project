@@ -48,7 +48,7 @@ BoxController::BoxController() :
     qDebug() << "Chargement des fichiers xml pour les programmes";
     this->initializeFromConfig();
     qDebug() << "\nChargement des fichiers xml pour les menus";
-    this->initializeFromXml("/home/yann/workspace/eip/iot/trunk/ceg/resources/xml/menus/EventMenu.xml");
+    this->initializeFromXml("../resources/xml/menus/EventMenu.xml");
 }
 
 BoxController::~BoxController()

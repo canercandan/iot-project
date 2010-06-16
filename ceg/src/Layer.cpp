@@ -78,7 +78,6 @@ IAction * Layer::keyPressEvent(int key) const
 	break;
     case Qt::Key_Return :
 	{
-	    qDebug() << "ici";
 	    AbstractItem * focusItem = static_cast<AbstractItem *>(this->focusItem());
 	    return (focusItem->getEvent());
 	}

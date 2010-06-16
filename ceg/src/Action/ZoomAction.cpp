@@ -34,10 +34,16 @@
 
 char const * ZoomAction::IDENTIFIER = "Zoom";
 
-ZoomAction::ZoomAction(const QDomElement & actionElement)
+ZoomAction::ZoomAction(const QDomElement & actionElement) :
+	_zoom(true)
 {
     qDebug() << "ZoomAction::ZoomAction(const QDomElement & actionElement)";
     this->initializeFromXml(actionElement);
+}
+
+void ZoomAction::initializeFromXml(const QDomElement & actionElement)
+{
+    this->_zoom = actionElement.attribute("isZoom").toUInt();
 }
 
 /************************************************* [ OTHERS ] *************************************************/
@@ -53,7 +59,7 @@ bool	ZoomAction::exec(MainController & lm)
 
     if (this->_zoom == true)
     {
-	 boxManager.getChildren(graphicItems, box);
+	boxManager.getChildren(graphicItems, box);
     }
     else
     {
@@ -66,10 +72,7 @@ bool	ZoomAction::exec(MainController & lm)
     return (true);
 }
 
-void ZoomAction::initializeFromXml(const QDomElement & actionElement)
-{
-    this->_zoom = actionElement.attribute("isZoom").toUInt();
-}
+/************************************************* [ OTHERS ] *************************************************/
 
 IAction * instanciateZoomAction(const QDomElement & actionElement)
 {

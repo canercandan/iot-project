@@ -1,10 +1,25 @@
-- Rajout le code neccessaire pour gerer toutes les possibilite sur les box (CANER + YANN) : du genre une image, les couleurs, du texte + regarder l opacity (surement mettre les parents a 0)
-- Finir les mouvements (YAVUZ) dans Layer.cpp
+- Finir les mouvements (YAVUZ) dans Layer.cpp - rajouter pour custom aussi?
+- (TO YAVUZ) pour les settings :
+.. quelque ajustement de taille a faire pour linux
+.. afficher la valeur du xml folder path
+.. rajouter un liste deroulante de langue, je crois que c pas evident de changer de langue au runtime
+.. rajouter les traductions (tuto sur le site du zero) et donc creer avec le logiciel de qt
+.. donner window title a la box de dialogue
+.. Color :
+   - la couleur des boxs il existe QColorDialog ca sera peut etre mieux
+   - la couleur outsides of boxes ne se choisis pas (enfin a verifier ensemble)
+   - mettre on focus et on blur
+   - pour opacite ca serait pas mal de voir un carre de test qui change lorsque tu bouge le truc
+.. Network:
+   - un bouton test pour le proxy ca serait bien si c pas compliquer a faire (classe proxy existe dans qt)
+   - rajouter les configs VNC ? est ce qu'un user aura un casque brancher a un pc et utilisera sur un autre pc (faut voir avec les autres), mais chris en a besoin pour le network
+
+- Menu (LAMINE) :  FAIRE Les xml internationnal
 - Utiliser les valeurs des menus de preferences pour tout les trucs
-- Menu (CANER) :  FAIRE Les xml
-- Terminer le communication avec le serveur Graphique (YAVUZ + YANN) : facile a terminer sur windows + plus relou sur Linux
-- Trouver comment récupérer les infos utiles (navigateur par défaut, client mail...) (LAMINE).
+- Terminer le communication avec le serveur Graphique (YAVUZ + YANN + CANER) : facile a terminer sur windows + plus relou sur Linux
+
 - Creation du clavier virtuel faire des test de simulation de touches. (?)
+- Trouver comment récupérer les infos utiles (navigateur par défaut, client mail...) (LAMINE).
 
 -------------------------------------------------- PLUGIN VNC --------------------------------------------------------------------------
 
@@ -17,15 +32,12 @@
 ------------------------------------------------------ BUG ----------------------------------------------------------------------
 
 - Régler le problème du segfault avec mingw sur windows. (ALL) Erreur système, la solution de rechange est de compiler QT à la main.
+SI Lamine peut test de recompiler a la main sur qt
 
 - Probleme avec les menus:
  * sur Linux: menu apparait au dessus du ceg et lorsque l'on met le focus sur la fenetre du ceg le menu disparait.
  * sur Windows: le menu apparait mais disparait lorsque la fenetre ceg retrouve le focus.
 pour window on peut difficilement y faire quelquechose les menus sont un probleme.
-
-- TO YAVUZ : bug !!! zoom pas de probleme mais unzoom probleme au bout de 8 zoom dans le case numero 9, boucle infini dans BoxManager::calcParent au niveau du troisieme for, au bout d un moment le while tourne sans changer de valeurs! NE PAS mettre des noms de variables commencant par une Maj !
-
-- lorsque l'on met une grille par defaut de 100*100 ou moins la vue n est pas full screen
 
 
 -------------------------------------------------- Reminder chris --------------------------------------------------------------------------
@@ -43,14 +55,18 @@ regarde dans les class de log4j, c un framework java pour les logs ca pourra peu
 - maj Doxygen
 
 -------------------------------------------------- Reminder Yann --------------------------------------------------------------------------
-- Code dans le BoxController pour initialiser les menus
-
-finir l archi des ressources
-
+- mettre a jour uml
+- traduction du systray + fichier de traduction
+- AJOuter une methode pour loader proprement les menus depuis le ressource
 - revoir le management des listes dans le boxcontroler
 
--------------------------------------------------- Reminder Moi* --------------------------------------------------------------------------
+- bug !!! zoom pas de probleme mais unzoom probleme au bout de 8 zoom dans le case numero 9, boucle infini dans BoxManager::calcParent au niveau du troisieme for, au bout d un moment le while tourne sans changer de valeurs! NE PAS mettre des noms de variables commencant par une Maj !
+
+- lorsque l'on met une grille par defaut de 100*100 ou moins la vue n est pas full screen
+
+
+-------------------------------------------------- Reminder Caner --------------------------------------------------------------------------
+- cpack
+- voir les xsd (avec yann)
 - QtValidator pour XSD n'est disponible que sur la derniere version de Qt (4.6)
-
-
-*Caner
+- Rajout le code neccessaire pour gerer toutes les possibilite sur les box: rendre le code plus propre dans la methode paint de abstractitem

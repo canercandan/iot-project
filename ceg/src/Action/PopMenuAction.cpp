@@ -32,15 +32,22 @@
 
 char const * PopMenuAction::IDENTIFIER = "PopMenu";
 
-PopMenuAction::PopMenuAction(std::string const & menuId) : _menuId(menuId)
+PopMenuAction::PopMenuAction(std::string const & menuId) :
+	_menuId(menuId)
 {
     qDebug() << "PopMenuAction::PopMenuAction(std::string const & menuId)";
 }
 
-PopMenuAction::PopMenuAction(QDomElement const & domElement)
+PopMenuAction::PopMenuAction(QDomElement const & domElement) :
+	_menuId()
 {
     qDebug() << "PopMenuAction::PopMenuAction(QDomElement const & domElement)";
     this->initializeFromXml(domElement);
+}
+
+void	PopMenuAction::initializeFromXml(QDomElement const & domElement)
+{
+    this->_menuId = domElement.attribute("MenuId").toStdString();
 }
 
 /************************************************* [ OTHERS ] *************************************************/
@@ -60,10 +67,7 @@ bool	PopMenuAction::exec(MainController & mainC)
     return (true);
 }
 
-void	PopMenuAction::initializeFromXml(QDomElement const & domElement)
-{
-    this->_menuId = domElement.attribute("MenuId").toStdString();
-}
+/************************************************* [ OTHERS ] *************************************************/
 
 IAction * instanciatePopMenuAction(QDomElement const & domElement)
 {

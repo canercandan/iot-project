@@ -29,6 +29,7 @@ class ExecMenuAction : public IAction
 public:
     ExecMenuAction(IAction * actionToExec);
     ExecMenuAction(QDomElement const &);
+    ~ExecMenuAction();
 
     virtual bool	exec(MainController&);
     virtual void	initializeFromXml(QDomElement const &);

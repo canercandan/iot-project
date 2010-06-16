@@ -32,25 +32,22 @@
 
 char const * ExecMenuAction::IDENTIFIER = "ExecMenu";
 
-ExecMenuAction::ExecMenuAction(IAction * actionToExec) : _actionToExec(actionToExec)
+ExecMenuAction::ExecMenuAction(IAction * actionToExec) :
+	_actionToExec(actionToExec)
 {
     qDebug() << "ExecMenuAction::ExecMenuAction(IAction * actionToExec)";
 }
 
-ExecMenuAction::ExecMenuAction(const QDomElement & domElement)
+ExecMenuAction::ExecMenuAction(const QDomElement & domElement) :
+	_actionToExec(0)
 {
     qDebug() << "ExecMenuAction::ExecMenuAction(const QDomElement & domElement)";
     this->initializeFromXml(domElement);
 }
 
-/************************************************* [ OTHERS ] *************************************************/
-
-bool ExecMenuAction::exec(MainController & mainC)
+ExecMenuAction::~ExecMenuAction()
 {
-    qDebug() << "ExecMenuAction::exec";
-    mainC.popFrontScene();
-    mainC.actionHandler(*this->_actionToExec);
-    return (true);
+    delete (this->_actionToExec);
 }
 
 void ExecMenuAction::initializeFromXml(const QDomElement & actionElement)
@@ -63,8 +60,19 @@ void ExecMenuAction::initializeFromXml(const QDomElement & actionElement)
 	    this->_actionToExec = ActionFactory::create(actionParam);
 	}
     }
-
 }
+
+/************************************************* [ OTHERS ] *************************************************/
+
+bool ExecMenuAction::exec(MainController & mainC)
+{
+    qDebug() << "ExecMenuAction::exec";
+    mainC.popFrontScene();
+    mainC.actionHandler(*this->_actionToExec);
+    return (true);
+}
+
+/************************************************* [ OTHERS ] *************************************************/
 
 IAction * instanciateExecMenuAction(QDomElement const & actionElement)
 {

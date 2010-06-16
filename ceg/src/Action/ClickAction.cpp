@@ -37,10 +37,15 @@
 
 char const * ClickAction::IDENTIFIER = "Click";
 
-ClickAction::ClickAction(const QDomElement & actionElement)
+ClickAction::ClickAction(const QDomElement & actionElement) : _type(LeftClick)
 {
     qDebug() << "ClickAction::ClickAction";
     this->initializeFromXml(actionElement);
+}
+
+void ClickAction::initializeFromXml(const QDomElement &)
+{
+
 }
 
 /************************************************* [ OTHERS ] *************************************************/
@@ -80,10 +85,7 @@ bool	ClickAction::exec(MainController & lm)
     return (true);
 }
 
-void ClickAction::initializeFromXml(const QDomElement &)
-{
-
-}
+/************************************************* [ OTHERS ] *************************************************/
 
 IAction * instanciateClickAction(QDomElement const & actionElement)
 {
