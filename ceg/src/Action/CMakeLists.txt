@@ -1,4 +1,4 @@
-INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/includes/Action)
+INCLUDE_DIRECTORIES(${IOT_CEG_SRC_DIR}/includes/Action)
 
 SET(ACTION_SRCS
   ActionFactory.cpp

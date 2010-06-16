@@ -16,6 +16,19 @@ SET(PROJECT_VERSION "${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT
 
 
 ######################################################################################
+### 1) Prepare some useful variables
+######################################################################################
+
+SET(IOT_CEG_SRC_DIR "${CMAKE_CURRENT_SOURCE_DIR}")
+SET(IOT_CEG_BIN_DIR "${CMAKE_CURRENT_BINARY_DIR}")
+
+MESSAGE("Ceg SOURCE DIR: " ${IOT_CEG_SRC_DIR})
+MESSAGE("Ceg PROJECT NAME: " ${PROJECT_NAME})
+
+######################################################################################
+
+
+######################################################################################
 ### 2) Include useful features
 ######################################################################################
 
@@ -33,8 +46,8 @@ INCLUDE(${QT_USE_FILE})
 ######################################################################################
 
 INCLUDE_DIRECTORIES(
-  ${CMAKE_SOURCE_DIR}/includes
-  ${CMAKE_SOURCE_DIR}/includes/Action
+  ${CMAKE_CURRENT_SOURCE_DIR}/includes
+  ${CMAKE_CURRENT_SOURCE_DIR}/includes/Action
   )
 
 ######################################################################################

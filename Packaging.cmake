@@ -17,31 +17,19 @@ ENDIF()
 ### 2) Set up components
 ######################################################################################
 
-SET(CPACK_COMPONENTS_ALL applications libraries)
-
-SET(CPACK_COMPONENT_APPLICATIONS_DISPLAY_NAME "CEG Application")
-SET(CPACK_COMPONENT_APPLICATIONS_DESCRIPTION "Here is the main program")
-
-# SET(CPACK_COMPONENT_LIBRARIES_DISPLAY_NAME "Libraries")
-# SET(CPACK_COMPONENT_LIBRARIES_DESCRIPTION "The library can be useful for developpers")
-
-# SET(CPACK_COMPONENT_HEADERS_DISPLAY_NAME "C++ Headers")
-# SET(CPACK_COMPONENT_HEADERS_DESCRIPTION "The header filers can be useful for developpers")
-
-# SET(CPACK_COMPONENT_HEADERS_DEPENDS libraries)
-
-SET(CPACK_COMPONENT_APPLICATIONS_GROUP "Runtime")
-# SET(CPACK_COMPONENT_LIBRARIES_GROUP "Development")
-# SET(CPACK_COMPONENT_HEADERS_GROUP "Development")
-
-# SET(CPACK_COMPONENT_GROUP_DEVELOPMENT_DESCRIPTION "All of the tools you'll ever need to develop software")
-
-# SET(CPACK_ALL_INSTALL_TYPES Full Developer)
+#SET(CPACK_COMPONENTS_ALL ceg builder)
+SET(CPACK_COMPONENTS_ALL ceg)
 SET(CPACK_ALL_INSTALL_TYPES Full)
 
-# SET(CPACK_COMPONENT_LIBRARIES_INSTALL_TYPES Developer Full)
-# SET(CPACK_COMPONENT_HEADERS_INSTALL_TYPES Developer Full)
-SET(CPACK_COMPONENT_APPLICATIONS_INSTALL_TYPES Full)
+SET(CPACK_COMPONENT_CEG_DISPLAY_NAME "CEG")
+SET(CPACK_COMPONENT_CEG_DESCRIPTION "Graphical Environment Controler interface")
+SET(CPACK_COMPONENT_CEG_GROUP "Runtime")
+SET(CPACK_COMPONENT_CEG_INSTALL_TYPES Full)
+
+# SET(CPACK_COMPONENT_BUILDER_DISPLAY_NAME "Builder")
+# SET(CPACK_COMPONENT_BUILDER_DESCRIPTION "Layer editor to edit boxes on a graphical application")
+# SET(CPACK_COMPONENT_BUILDER_GROUP "Runtime")
+# SET(CPACK_COMPONENT_BUILDER_INSTALL_TYPES Full)
 
 ######################################################################################
 
@@ -54,11 +42,11 @@ SET(CPACK_COMPONENT_APPLICATIONS_INSTALL_TYPES Full)
 
 #cpack package information
 SET(CPACK_PACKAGE_DESCRIPTION_FILE "${CMAKE_CURRENT_SOURCE_DIR}/README")
-SET(CPACK_PACKAGE_DESCRIPTION "CEG has been developped as part of IOT project and allows users to control machine by thinking.")
+SET(CPACK_PACKAGE_DESCRIPTION "IOT project allows users to control machine by thinking.")
 SET(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/COPYING")
-SET(CPACK_PACKAGE_DESCRIPTION_SUMMARY "IOT - Graphical Environment Control")
+SET(CPACK_PACKAGE_DESCRIPTION_SUMMARY "IOT - Control machine by thinking")
 SET(CPACK_PACKAGE_VENDOR "IOnlyThink.com")
-SET(CPACK_PACKAGE_CONTACT "ceg@ionlythink.com")
+SET(CPACK_PACKAGE_CONTACT "all@ionlythink.com")
 SET(CPACK_PACKAGE_VERSION ${PROJECT_VERSION})
 SET(CPACK_STRIP_FILES ${PROJECT_NAME})
 SET(CPACK_SOURCE_STRIP_FILES "bin/${PROJECT_NAME}")
@@ -75,7 +63,7 @@ SET(CPACK_PACKAGE_INSTALL_DIRECTORY "test ${PROJECT_NAME} ${PROJECT_VERSION_MAJO
 ### 3) Set up debian packaging information
 ######################################################################################
 
-SET(CPACK_DEBIAN_PACKAGE_DEPENDS "libqtgui4, libpng12-0, libsm6, libice6, libxrender1, libfreetype6, libfontconfig1, libxext6, libx11-6, libqt4-xml, libqt4-network, libqt4-core, libglib2.0-cil, libxmu6, libstdc++6, libgcc1, libc6")
+#SET(CPACK_DEBIAN_PACKAGE_DEPENDS "libqtgui4, libpng12-0, libsm6, libice6, libxrender1, libfreetype6, libfontconfig1, libxext6, libx11-6, libqt4-xml, libqt4-network, libqt4-core, libglib2.0-cil, libxmu6, libstdc++6, libgcc1, libc6")
 
 SET(CPACK_DEBIAN_PACKAGE_SECTION "tools")
 SET(CPACK_DEBIAN_PACKAGE_PRIORITY "optional")

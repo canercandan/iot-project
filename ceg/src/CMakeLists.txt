@@ -47,20 +47,20 @@ ENDIF()
 # http://www.mail-archive.com/cmake@cmake.org/msg18900.html
 
 SET(SAMPLE_UIS
-  ${CMAKE_SOURCE_DIR}/forms/settings.ui
+  ${IOT_CEG_SRC_DIR}/forms/settings.ui
 )
 
 SET(SAMPLE_MOC_HDRS
-  ${CMAKE_SOURCE_DIR}/includes/Systray.h
-  ${CMAKE_SOURCE_DIR}/includes/Settings.h
-  ${CMAKE_SOURCE_DIR}/includes/CegTcpServer.h
+  ${IOT_CEG_SRC_DIR}/includes/Systray.h
+  ${IOT_CEG_SRC_DIR}/includes/Settings.h
+  ${IOT_CEG_SRC_DIR}/includes/CegTcpServer.h
   )
 
 SET(SAMPLE_RCS
-  ${CMAKE_SOURCE_DIR}/resources/application.qrc
+  ${IOT_CEG_SRC_DIR}/resources/application.qrc
   )
 
-SET(EXECUTABLE_OUTPUT_PATH ${CMAKE_BINARY_DIR})
+SET(EXECUTABLE_OUTPUT_PATH ${IOT_CEG_BIN_DIR})
 
 QT4_WRAP_UI(SAMPLE_UIS_SRCS ${SAMPLE_UIS})
 QT4_WRAP_CPP(SAMPLE_MOC_SRCS ${SAMPLE_MOC_HDRS})

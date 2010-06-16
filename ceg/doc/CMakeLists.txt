@@ -1,9 +1,9 @@
-##########################################################################################
+#######################################################################################
 ### Doc generation using Doxygen
-##########################################################################################
+#######################################################################################
 
 IF (DOXYGEN_FOUND)
-  SET(DOC_DIR ${CMAKE_BINARY_DIR}/doc CACHE PATH "Documentation directory")
+  SET(DOC_DIR ${CMAKE_CURRENT_BINARY_DIR} CACHE PATH "Documentation directory")
   SET(DOC_CONFIG_FILE "doxyfile" CACHE PATH "Documentation configuration file")
   # define the doc target
   IF (DOXYGEN_EXECUTABLE)
@@ -15,10 +15,10 @@ IF (DOXYGEN_FOUND)
 
   # configure doxyfile file
   CONFIGURE_FILE(
-    "${CMAKE_SOURCE_DIR}/doc/${DOC_CONFIG_FILE}.cmake"
-    "${CMAKE_BINARY_DIR}/doc/${DOC_CONFIG_FILE}")
+    "${CMAKE_CURRENT_SOURCE_DIR}/${DOC_CONFIG_FILE}.cmake"
+    "${CMAKE_CURRENT_BINARY_DIR}/${DOC_CONFIG_FILE}")
 ELSE (DOXYGEN_FOUND)
   MESSAGE(STATUS "Unable to generate the documentation, Doxygen package not found")
 ENDIF (DOXYGEN_FOUND)
 
-##########################################################################################
+#######################################################################################
