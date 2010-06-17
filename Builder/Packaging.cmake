@@ -17,28 +17,13 @@ ENDIF()
 ### 2) Set up components
 ######################################################################################
 
-SET(CPACK_COMPONENTS_ALL applications libraries)
-
-# SET(CPACK_ALL_INSTALL_TYPES Full Developer)
+SET(CPACK_COMPONENTS_ALL applications)
 SET(CPACK_ALL_INSTALL_TYPES Full)
 
-SET(CPACK_COMPONENT_APPLICATIONS_DISPLAY_NAME "CEG Application")
+SET(CPACK_COMPONENT_APPLICATIONS_DISPLAY_NAME "Builder Application")
 SET(CPACK_COMPONENT_APPLICATIONS_DESCRIPTION "Here is the main program")
 SET(CPACK_COMPONENT_APPLICATIONS_GROUP "Runtime")
 SET(CPACK_COMPONENT_APPLICATIONS_INSTALL_TYPES Full)
-
-# SET(CPACK_COMPONENT_LIBRARIES_DISPLAY_NAME "Libraries")
-# SET(CPACK_COMPONENT_LIBRARIES_DESCRIPTION "The library can be useful for developpers")
-# SET(CPACK_COMPONENT_LIBRARIES_GROUP "Development")
-# SET(CPACK_COMPONENT_LIBRARIES_INSTALL_TYPES Developer Full)
-
-# SET(CPACK_COMPONENT_HEADERS_DISPLAY_NAME "C++ Headers")
-# SET(CPACK_COMPONENT_HEADERS_DESCRIPTION "The header filers can be useful for developpers")
-# SET(CPACK_COMPONENT_HEADERS_DEPENDS libraries)
-# SET(CPACK_COMPONENT_HEADERS_GROUP "Development")
-# SET(CPACK_COMPONENT_HEADERS_INSTALL_TYPES Developer Full)
-
-# SET(CPACK_COMPONENT_GROUP_DEVELOPMENT_DESCRIPTION "All of the tools you'll ever need to develop software")
 
 ######################################################################################
 
@@ -51,11 +36,11 @@ SET(CPACK_COMPONENT_APPLICATIONS_INSTALL_TYPES Full)
 
 #cpack package information
 SET(CPACK_PACKAGE_DESCRIPTION_FILE "${CMAKE_CURRENT_SOURCE_DIR}/README")
-SET(CPACK_PACKAGE_DESCRIPTION "CEG has been developped as part of IOT project and allows users to control machine by thinking.")
+SET(CPACK_PACKAGE_DESCRIPTION "Builder has been developped as part of IOT project and allows users to edit boxes used by CEG to highlight some program features.")
 SET(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/COPYING")
-SET(CPACK_PACKAGE_DESCRIPTION_SUMMARY "IOT - Graphical Environment Control")
+SET(CPACK_PACKAGE_DESCRIPTION_SUMMARY "IOT - Boxes editor")
 SET(CPACK_PACKAGE_VENDOR "IOnlyThink.com")
-SET(CPACK_PACKAGE_CONTACT "ceg@ionlythink.com")
+SET(CPACK_PACKAGE_CONTACT "builder@ionlythink.com")
 SET(CPACK_PACKAGE_VERSION ${PROJECT_VERSION})
 SET(CPACK_STRIP_FILES ${PROJECT_NAME})
 SET(CPACK_SOURCE_STRIP_FILES "bin/${PROJECT_NAME}")
@@ -72,9 +57,9 @@ SET(CPACK_PACKAGE_INSTALL_DIRECTORY "${PROJECT_NAME} ${PROJECT_VERSION_MAJOR}.${
 ### 3) Set up debian packaging information
 ######################################################################################
 
-SET(CPACK_DEBIAN_PACKAGE_DEPENDS "libqtgui4, libpng12-0, libsm6, libice6, libxrender1, libfreetype6, libfontconfig1, libxext6, libx11-6, libqt4-xml, libqt4-network, libqt4-core, libglib2.0-cil, libxmu6, libstdc++6, libgcc1, libc6")
+SET(CPACK_DEBIAN_PACKAGE_DEPENDS "python2.6, python-qt4")
 
-SET(CPACK_DEBIAN_PACKAGE_SECTION "tools")
+SET(CPACK_DEBIAN_PACKAGE_SECTION "editor")
 SET(CPACK_DEBIAN_PACKAGE_PRIORITY "optional")
 
 ######################################################################################
