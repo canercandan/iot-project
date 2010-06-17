@@ -22,7 +22,8 @@ MESSAGE("IOT PROJECT NAME: " ${PROJECT_NAME})
 ### 2) Now where we go ?
 ######################################################################################
 
-ADD_SUBDIRECTORY(ceg)
+ADD_SUBDIRECTORY(CEG)
+ADD_SUBDIRECTORY(Builder)
 
 ######################################################################################
 
