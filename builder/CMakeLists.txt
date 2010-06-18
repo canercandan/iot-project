@@ -29,12 +29,14 @@ SET(IOT_BUILDER_BIN_DIR "${CMAKE_CURRENT_BINARY_DIR}")
 ### 2) Set target and create executable
 ######################################################################################
 
-INSTALL(
-  TARGETS ${PROJECT_NAME}
-  RUNTIME # RUNTIME keyword allows to make binary executable (chmod +x)
-  DESTINATION bin
-  COMPONENT applications
-  )
+#CONFIGURE_FILE()
+
+# INSTALL(
+#   TARGETS ${PROJECT_NAME}
+#   RUNTIME # RUNTIME keyword allows to make binary executable (chmod +x)
+#   DESTINATION bin
+#   COMPONENT applications
+#   )
 
 ######################################################################################
 
@@ -43,6 +45,6 @@ INSTALL(
 ### 3) Include packaging
 ######################################################################################
 
-INCLUDE(Packaging.cmake)
+#INCLUDE(Packaging.cmake)
 
 ######################################################################################

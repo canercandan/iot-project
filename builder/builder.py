@@ -146,7 +146,7 @@ class BuilderWidget(QtGui.QWidget):
                     self.list[ind].setTopLeft(topl)
                     self.list[ind].setBottomRight(botr)
                     self.onEdge(mouseEvent.pos(), self.list[ind])
-                    
+
                 self.beginPos = QPoint(mouseEvent.pos())
 
             self.endPos = QPoint(mouseEvent.pos())
