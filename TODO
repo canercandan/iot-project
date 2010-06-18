@@ -5,7 +5,7 @@
 
 -------------------------------------------------- WEB --------------------------------------------------------------------------
 - Add link vers sources (ANTOINE)
-
+- Fournir les sources du graphique (ANTOINE)
 -------------------------------------------------- DOC --------------------------------------------------------------------------
 - Mettre a jour la doc (LAMINE + OTHERS)
 - Ajouter la doc du builder a la doc utilisateur et technique (RICHARD)
@@ -27,6 +27,7 @@
 - Retirer dependance ogre.
 - Interface de chargement scénarios.
 - Faire des tests.
+- Fournir les sources du player.
 
 -------------------------------------------------- Wizard ------------------------------------------------------------------------
 - Completer le wizard (CEG + BUILDER)
