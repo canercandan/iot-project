@@ -1,30 +1,12 @@
-<plan>
-	<programName | ID>Possibilite de mettre une regex</programName>
-	<boxs>
-		<box>
-			<geometry>
-				<x>0</x>
-				<y>0</y>
-				<width>150</width>
-				<height>150</height>
-			</geometry>
-			<visible>true|false</visible>
-			<opacity>les valeurs vont de 0 a 1 (en qt qreal)</opacity>
-			<colorOnFocus>une couleur a definir en hexa, string</colorOnFocus>
-			<colorOnBlur>une couleur a definir en hexa, string</colorOnBlur>
-			<action>L'action a effectue sous forme d'Id
-				<id>Click<id>
-				<param>
-					<name>Nom du parametre</name>
-					<value>value</value>
-				</param>
-			</action>
-			<content>
-				<image>path to l image</image>
-				<text>le texte ...</text>
-			</content>
-			<type>CUSTOM | MENUITEM | DEFAULT</type>
-			<children ou boxs>des <box> dedans</children>
-		</box>
-	</boxs>
-</plan>
+<boxes id="NomProgram">
+  <box type="0|1|2" x="" y="" width="" height="">
+    <style  visible="1" opacity="0.5" focusColor="enhexa ou du style orange" blurColor="enhexa ou du style orange"
+	    imagePath="Path to l'image"
+	    text="Un texte a afficher dans la box" fontSize="20" font="Arial"
+	    />
+    <action id="Id de l'action"/>
+    <children>
+      <!-- des box ici -->
+    </children>
+  </box>
+</boxes>
