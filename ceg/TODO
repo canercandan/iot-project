@@ -1,18 +1,19 @@
+
+
+
 - Finir les mouvements (YAVUZ) dans Layer.cpp - rajouter pour custom aussi?
+
+
+
+
 - (TO YAVUZ) pour les settings :
-.. quelque ajustement de taille a faire pour linux
-.. afficher la valeur du xml folder path
+.. chargement des param par defaut
+.. chargement des settings !
 .. rajouter un liste deroulante de langue, je crois que c pas evident de changer de langue au runtime
 .. rajouter les traductions (tuto sur le site du zero) et donc creer avec le logiciel de qt
-.. donner window title a la box de dialogue
-.. Color :
-   - la couleur des boxs il existe QColorDialog ca sera peut etre mieux
-   - la couleur outsides of boxes ne se choisis pas (enfin a verifier ensemble)
-   - mettre on focus et on blur
-   - pour opacite ca serait pas mal de voir un carre de test qui change lorsque tu bouge le truc
-.. Network:
-   - un bouton test pour le proxy ca serait bien si c pas compliquer a faire (classe proxy existe dans qt)
-   - rajouter les configs VNC ? est ce qu'un user aura un casque brancher a un pc et utilisera sur un autre pc (faut voir avec les autres), mais chris en a besoin pour le network
+
+
+
 
 - Menu (LAMINE) :  FAIRE Les xml internationnal
 - Utiliser les valeurs des menus de preferences pour tout les trucs

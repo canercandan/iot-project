@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>653</width>
-    <height>494</height>
+    <height>520</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -22,17 +22,21 @@
   <property name="minimumSize">
    <size>
     <width>653</width>
-    <height>494</height>
+    <height>520</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
     <width>653</width>
-    <height>494</height>
+    <height>520</height>
    </size>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Settings</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="../resources/application.qrc">
+    <normaloff>:/images/systray-transparent-32x32.png</normaloff>:/images/systray-transparent-32x32.png</iconset>
   </property>
   <widget class="QWidget" name="verticalLayoutWidget">
    <property name="geometry">
@@ -40,7 +44,7 @@
      <x>0</x>
      <y>0</y>
      <width>651</width>
-     <height>491</height>
+     <height>471</height>
     </rect>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout">
@@ -80,7 +84,7 @@
           <string>General</string>
          </property>
          <property name="icon">
-          <iconset resource="../resources/images.qrc">
+          <iconset resource="../resources/application.qrc">
            <normaloff>:/images/settings/parameter.png</normaloff>:/images/settings/parameter.png</iconset>
          </property>
         </item>
@@ -89,25 +93,16 @@
           <string>Color</string>
          </property>
          <property name="icon">
-          <iconset resource="../resources/images.qrc">
+          <iconset resource="../resources/application.qrc">
            <normaloff>:/images/settings/color.png</normaloff>:/images/settings/color.png</iconset>
          </property>
         </item>
         <item>
          <property name="text">
-          <string>Programs</string>
+          <string>Server</string>
          </property>
          <property name="icon">
-          <iconset resource="../resources/images.qrc">
-           <normaloff>:/images/settings/program.png</normaloff>:/images/settings/program.png</iconset>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>Network</string>
-         </property>
-         <property name="icon">
-          <iconset resource="../resources/images.qrc">
+          <iconset resource="../resources/application.qrc">
            <normaloff>:/images/settings/network.png</normaloff>:/images/settings/network.png</iconset>
          </property>
         </item>
@@ -128,7 +123,7 @@
          <enum>QFrame::Plain</enum>
         </property>
         <property name="currentIndex">
-         <number>3</number>
+         <number>1</number>
         </property>
         <widget class="QWidget" name="General">
          <widget class="QWidget" name="verticalLayoutWidget_2">
@@ -240,28 +235,36 @@
                </rect>
               </property>
               <layout class="QFormLayout" name="formLayout_2">
+               <property name="fieldGrowthPolicy">
+                <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
+               </property>
                <property name="formAlignment">
                 <set>Qt::AlignCenter</set>
                </property>
                <item row="0" column="0">
                 <widget class="QLabel" name="customXMLPathLabel">
                  <property name="text">
-                  <string>Path:</string>
+                  <string>Define the XML Path:</string>
                  </property>
                 </widget>
                </item>
                <item row="0" column="1">
-                <widget class="QPushButton" name="customXMLPathButton">
-                 <property name="maximumSize">
-                  <size>
-                   <width>150</width>
-                   <height>16777215</height>
-                  </size>
-                 </property>
-                 <property name="text">
-                  <string>Choose XML Folder path...</string>
-                 </property>
-                </widget>
+                <layout class="QHBoxLayout" name="horizontalLayout_2">
+                 <item>
+                  <widget class="QLineEdit" name="customXMLPathLine">
+                   <property name="echoMode">
+                    <enum>QLineEdit::Normal</enum>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QPushButton" name="customXMLPathButton">
+                   <property name="text">
+                    <string>Browse...</string>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
                </item>
               </layout>
              </widget>
@@ -316,306 +319,162 @@
               <number>40</number>
              </property>
              <item row="0" column="0">
-              <widget class="QLabel" name="label_3">
+              <widget class="QLabel" name="label_4">
                <property name="text">
-                <string>Outside of boxes:</string>
+                <string>On focus:</string>
                </property>
-              </widget>
-             </item>
-             <item row="0" column="1">
-              <widget class="QComboBox" name="colorOutsideCombo">
-               <property name="maximumSize">
-                <size>
-                 <width>150</width>
-                 <height>16777215</height>
-                </size>
-               </property>
-               <item>
-                <property name="text">
-                 <string>White</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>Yellow</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>Orange</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>Red</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>Blue</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>Purple</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>Pink</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>Green</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>Brown</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>Gray</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>Black</string>
-                </property>
-               </item>
               </widget>
              </item>
              <item row="1" column="0">
-              <widget class="QLabel" name="label_4">
+              <widget class="QLabel" name="label_5">
                <property name="text">
-                <string>Selected box:</string>
+                <string>On blur:</string>
                </property>
-              </widget>
-             </item>
-             <item row="1" column="1">
-              <widget class="QComboBox" name="colorSelectedCombo">
-               <property name="maximumSize">
-                <size>
-                 <width>150</width>
-                 <height>16777215</height>
-                </size>
-               </property>
-               <property name="currentIndex">
-                <number>1</number>
-               </property>
-               <property name="modelColumn">
-                <number>0</number>
-               </property>
-               <item>
-                <property name="text">
-                 <string>White</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>Yellow</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>Orange</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>Red</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>Blue</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>Purple</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>Pink</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>Green</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>Brown</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>Gray</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>Black</string>
-                </property>
-               </item>
               </widget>
              </item>
              <item row="2" column="0">
-              <widget class="QLabel" name="label_5">
-               <property name="text">
-                <string>Unselected boxes:</string>
-               </property>
-              </widget>
-             </item>
-             <item row="2" column="1">
-              <widget class="QComboBox" name="colorUnselectedCombo">
-               <property name="maximumSize">
+              <widget class="QLabel" name="label_6">
+               <property name="minimumSize">
                 <size>
-                 <width>150</width>
-                 <height>16777215</height>
+                 <width>0</width>
+                 <height>50</height>
                 </size>
                </property>
-               <property name="currentIndex">
-                <number>4</number>
-               </property>
-               <item>
-                <property name="text">
-                 <string>White</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>Yellow</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>Orange</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>Red</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>Blue</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>Purple</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>Pink</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>Green</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>Brown</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>Gray</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>Black</string>
-                </property>
-               </item>
-              </widget>
-             </item>
-             <item row="3" column="0">
-              <widget class="QLabel" name="label_6">
                <property name="text">
                 <string>Opacity (min to max):</string>
                </property>
               </widget>
              </item>
-             <item row="3" column="1">
-              <widget class="QSlider" name="colorOpacitySlider">
-               <property name="maximumSize">
-                <size>
-                 <width>150</width>
-                 <height>16777215</height>
-                </size>
+             <item row="2" column="1">
+              <layout class="QHBoxLayout" name="horizontalLayout_3">
+               <property name="spacing">
+                <number>50</number>
                </property>
-               <property name="maximum">
-                <number>100</number>
+               <item>
+                <widget class="QSlider" name="colorOpacitySlider">
+                 <property name="maximumSize">
+                  <size>
+                   <width>150</width>
+                   <height>16777215</height>
+                  </size>
+                 </property>
+                 <property name="maximum">
+                  <number>100</number>
+                 </property>
+                 <property name="value">
+                  <number>75</number>
+                 </property>
+                 <property name="sliderPosition">
+                  <number>75</number>
+                 </property>
+                 <property name="tracking">
+                  <bool>true</bool>
+                 </property>
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                 <property name="invertedAppearance">
+                  <bool>false</bool>
+                 </property>
+                 <property name="invertedControls">
+                  <bool>false</bool>
+                 </property>
+                 <property name="tickPosition">
+                  <enum>QSlider::TicksBelow</enum>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLabel" name="colorOpacityLabel">
+                 <property name="minimumSize">
+                  <size>
+                   <width>50</width>
+                   <height>50</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>50</width>
+                   <height>50</height>
+                  </size>
+                 </property>
+                 <property name="text">
+                  <string/>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item row="0" column="1">
+              <layout class="QHBoxLayout" name="horizontalLayout_4">
+               <property name="spacing">
+                <number>50</number>
                </property>
-               <property name="value">
-                <number>80</number>
+               <property name="leftMargin">
+                <number>10</number>
                </property>
-               <property name="tracking">
-                <bool>true</bool>
+               <property name="rightMargin">
+                <number>20</number>
                </property>
-               <property name="orientation">
-                <enum>Qt::Horizontal</enum>
+               <item>
+                <widget class="QPushButton" name="colorFocusButton">
+                 <property name="text">
+                  <string>Choose a color</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLabel" name="colorFocusLabel">
+                 <property name="frameShape">
+                  <enum>QFrame::WinPanel</enum>
+                 </property>
+                 <property name="frameShadow">
+                  <enum>QFrame::Sunken</enum>
+                 </property>
+                 <property name="text">
+                  <string/>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item row="1" column="1">
+              <layout class="QHBoxLayout" name="horizontalLayout_5">
+               <property name="spacing">
+                <number>50</number>
                </property>
-               <property name="invertedAppearance">
-                <bool>false</bool>
+               <property name="leftMargin">
+                <number>10</number>
                </property>
-               <property name="invertedControls">
-                <bool>false</bool>
+               <property name="rightMargin">
+                <number>20</number>
                </property>
-               <property name="tickPosition">
-                <enum>QSlider::TicksBelow</enum>
-               </property>
-              </widget>
+               <item>
+                <widget class="QPushButton" name="colorBlurButton">
+                 <property name="text">
+                  <string>Choose a color</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLabel" name="colorBlurLabel">
+                 <property name="frameShape">
+                  <enum>QFrame::WinPanel</enum>
+                 </property>
+                 <property name="frameShadow">
+                  <enum>QFrame::Sunken</enum>
+                 </property>
+                 <property name="lineWidth">
+                  <number>1</number>
+                 </property>
+                 <property name="text">
+                  <string/>
+                 </property>
+                </widget>
+               </item>
+              </layout>
              </item>
             </layout>
-           </item>
-          </layout>
-         </widget>
-        </widget>
-        <widget class="QWidget" name="Programs">
-         <widget class="QWidget" name="verticalLayoutWidget_5">
-          <property name="geometry">
-           <rect>
-            <x>0</x>
-            <y>0</y>
-            <width>511</width>
-            <height>451</height>
-           </rect>
-          </property>
-          <layout class="QVBoxLayout" name="verticalLayout_5">
-           <item>
-            <widget class="QLabel" name="programsLabel">
-             <property name="maximumSize">
-              <size>
-               <width>16777215</width>
-               <height>25</height>
-              </size>
-             </property>
-             <property name="font">
-              <font>
-               <pointsize>15</pointsize>
-               <weight>75</weight>
-               <bold>true</bold>
-              </font>
-             </property>
-             <property name="text">
-              <string>Programs</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
-             </property>
-            </widget>
            </item>
           </layout>
          </widget>
@@ -647,7 +506,7 @@
               </font>
              </property>
              <property name="text">
-              <string>Network</string>
+              <string>Server</string>
              </property>
              <property name="alignment">
               <set>Qt::AlignCenter</set>
@@ -657,19 +516,12 @@
            <item>
             <layout class="QVBoxLayout" name="verticalLayout_6">
              <item>
-              <widget class="QCheckBox" name="proxyCheck">
-               <property name="text">
-                <string>Enable Proxy setting</string>
-               </property>
-              </widget>
-             </item>
-             <item>
               <widget class="QGroupBox" name="proxyGroupBox">
                <property name="enabled">
-                <bool>false</bool>
+                <bool>true</bool>
                </property>
                <property name="title">
-                <string>Proxy setting</string>
+                <string>Server setting</string>
                </property>
                <widget class="QWidget" name="formLayoutWidget_4">
                 <property name="geometry">
@@ -694,65 +546,14 @@
                   <number>40</number>
                  </property>
                  <item row="0" column="0">
-                  <widget class="QLabel" name="label_7">
-                   <property name="text">
-                    <string>Hostname:</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="0" column="1">
-                  <widget class="QLineEdit" name="proxyHost">
-                   <property name="maximumSize">
-                    <size>
-                     <width>150</width>
-                     <height>16777215</height>
-                    </size>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="1" column="0">
                   <widget class="QLabel" name="label_8">
                    <property name="text">
                     <string>Port:</string>
                    </property>
                   </widget>
                  </item>
-                 <item row="2" column="0">
-                  <widget class="QLabel" name="label_9">
-                   <property name="text">
-                    <string>Name:</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="2" column="1">
-                  <widget class="QLineEdit" name="proxyName">
-                   <property name="maximumSize">
-                    <size>
-                     <width>150</width>
-                     <height>16777215</height>
-                    </size>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="3" column="0">
-                  <widget class="QLabel" name="label_10">
-                   <property name="text">
-                    <string>Password:</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="3" column="1">
-                  <widget class="QLineEdit" name="proxyPassword">
-                   <property name="maximumSize">
-                    <size>
-                     <width>150</width>
-                     <height>16777215</height>
-                    </size>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="1" column="1">
-                  <widget class="QSpinBox" name="proxyPort">
+                 <item row="0" column="1">
+                  <widget class="QSpinBox" name="serverPort">
                    <property name="maximumSize">
                     <size>
                      <width>150</width>
@@ -766,7 +567,30 @@
                     <number>65535</number>
                    </property>
                    <property name="value">
-                    <number>0</number>
+                    <number>5900</number>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="1" column="1">
+                  <widget class="QLineEdit" name="serverPassword">
+                   <property name="enabled">
+                    <bool>false</bool>
+                   </property>
+                   <property name="maximumSize">
+                    <size>
+                     <width>150</width>
+                     <height>16777215</height>
+                    </size>
+                   </property>
+                   <property name="echoMode">
+                    <enum>QLineEdit::Password</enum>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="1" column="0">
+                  <widget class="QCheckBox" name="serverPasswordCheckBox">
+                   <property name="text">
+                    <string>Require the user to enter this password:</string>
                    </property>
                   </widget>
                  </item>
@@ -783,18 +607,24 @@
       </item>
      </layout>
     </item>
-    <item>
-     <widget class="QDialogButtonBox" name="buttonBox">
-      <property name="standardButtons">
-       <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
-      </property>
-     </widget>
-    </item>
    </layout>
+  </widget>
+  <widget class="QDialogButtonBox" name="buttonBox">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>480</y>
+     <width>649</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <property name="standardButtons">
+    <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+   </property>
   </widget>
  </widget>
  <resources>
-  <include location="../resources/images.qrc"/>
+  <include location="../resources/application.qrc"/>
  </resources>
  <connections>
   <connection>
@@ -814,18 +644,18 @@
    </hints>
   </connection>
   <connection>
-   <sender>proxyCheck</sender>
+   <sender>serverPasswordCheckBox</sender>
    <signal>clicked(bool)</signal>
-   <receiver>proxyGroupBox</receiver>
+   <receiver>serverPassword</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>391</x>
-     <y>38</y>
+     <x>317</x>
+     <y>270</y>
     </hint>
     <hint type="destinationlabel">
-     <x>391</x>
-     <y>252</y>
+     <x>541</x>
+     <y>273</y>
     </hint>
    </hints>
   </connection>

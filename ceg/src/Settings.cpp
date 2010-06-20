@@ -1,13 +1,36 @@
+// -*- mode: c++; c-indent-level: 4; c++-member-init-indent: 8; comment-column: 35; -*-
+
+/* IOT Copyright (C) 2010 CEG development team
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2
+ * as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+ *
+ * Authors: CEG <ceg@ionlythink.com>, http://www.ionlythink.com
+ */
+
 #include <QFileDialog>
 #include <QSettings>
 #include <QMessageBox>
+#include <QColorDialog>
+#include <QPainter>
 
 #include "Settings.h"
 
 Settings::Settings(QWidget *parent) :
-        QDialog(parent), _dir()
+        QDialog(parent)
 {
     this->setupUi(this);
+    this->on_colorOpacitySlider_valueChanged(this->colorOpacitySlider->value());
 }
 
 void Settings::on_confList_currentItemChanged(QListWidgetItem* current, QListWidgetItem* previous)
@@ -20,40 +43,35 @@ void Settings::on_confList_currentItemChanged(QListWidgetItem* current, QListWid
 
 void Settings::on_buttonBox_accepted()
 {
-  if (!this->customCheck->isChecked() && this->_dir.isEmpty())
+    if (!this->customCheck->isChecked() && this->customXMLPathLine->text().isEmpty())
     {
       QMessageBox::information(0, tr("Error"), tr("Please define the custom xml path !"));
       return;
     }
-  if (this->proxyCheck->isChecked() &&
-      (this->proxyHost->text().isEmpty() ||
-       this->proxyName->text().isEmpty() ||
-       this->proxyPassword->text().isEmpty()))
+    if (this->serverPasswordCheckBox->isChecked() &&
+        this->serverPassword->text().isEmpty())
     {
       QMessageBox::information(0, tr("Error"), tr("Please fill all proxy fields !"));
       return;
     }
 
-  QSettings settings;
-  settings.beginGroup("general");
-  settings.setValue("squareNumber", this->squareNumberBox->text());
-  settings.setValue("customCheck", this->customCheck->isChecked());
-  settings.setValue("customXMLPath", this->_dir);
-  settings.endGroup();
-  settings.beginGroup("color");
-  settings.setValue("outside", this->colorOutsideCombo->currentText());
-  settings.setValue("selected", this->colorSelectedCombo->currentText());
-  settings.setValue("unselected", this->colorUnselectedCombo->currentText());
-  settings.setValue("opacity", this->colorOpacitySlider->value());
-  settings.endGroup();
-  settings.beginGroup("network");
-  settings.setValue("proxyCheck", this->proxyCheck->text());
-  settings.setValue("host", this->proxyHost->text());
-  settings.setValue("port", this->proxyPort->text());
-  settings.setValue("name", this->proxyName->text());
-  settings.setValue("password", this->proxyPassword->text());
-  settings.endGroup();
-  this->close();
+    QSettings settings;
+    settings.setValue("firstStart", false);
+    settings.beginGroup("general");
+    settings.setValue("squareNumber", this->squareNumberBox->text());
+    settings.setValue("customCheck", this->customCheck->isChecked());
+    settings.setValue("customXMLPath", this->customXMLPathLine->text());
+    settings.endGroup();
+    settings.beginGroup("color");
+    settings.setValue("focus", this->colorFocusLabel->text());
+    settings.setValue("blur", this->colorBlurLabel->text());
+    settings.setValue("opacity", this->colorOpacitySlider->value());
+    settings.endGroup();
+    settings.beginGroup("server");
+    settings.setValue("port", this->serverPort->text());
+    settings.setValue("password", this->serverPassword->text());
+    settings.endGroup();
+    this->close();
 }
 
 void Settings::on_buttonBox_rejected()
@@ -63,12 +81,42 @@ void Settings::on_buttonBox_rejected()
 
 void Settings::on_customXMLPathButton_clicked()
 {
-  this->_dir = QFileDialog::getExistingDirectory(this, tr("Open Directory"),
-						 "",
-						 QFileDialog::ShowDirsOnly
-						 | QFileDialog::DontResolveSymlinks);
-  if (!this->_dir.isEmpty())
+    QString dir = QFileDialog::getExistingDirectory(this, tr("Open Directory"),
+                                                    "",
+                                                    QFileDialog::ShowDirsOnly
+                                                    | QFileDialog::DontResolveSymlinks);
+    if (!dir.isEmpty())
     {
-      this->customXMLPathLabel->setText(tr("Path") + "(" + this->_dir + "):");
+        this->customXMLPathLine->setText(dir);
     }
+}
+
+void Settings::on_colorFocusButton_clicked()
+{
+    QColor color = QColorDialog::getColor(Qt::green, this);
+    if (color.isValid()) {
+        this->colorFocusLabel->setText(color.name());
+        this->colorFocusLabel->setPalette(QPalette(color));
+        this->colorFocusLabel->setAutoFillBackground(true);
+    }
+}
+
+void Settings::on_colorBlurButton_clicked()
+{
+    QColor color = QColorDialog::getColor(Qt::green, this);
+    if (color.isValid()) {
+        this->colorBlurLabel->setText(color.name());
+        this->colorBlurLabel->setPalette(QPalette(color));
+        this->colorBlurLabel->setAutoFillBackground(true);
+    }
+}
+
+void Settings::on_colorOpacitySlider_valueChanged(int value)
+{
+    qreal realValue = value;
+    realValue /= 100;
+    QColor color(Qt::blue);
+    color.setAlphaF(realValue);
+    this->colorOpacityLabel->setPalette(QPalette(color));
+    this->colorOpacityLabel->setAutoFillBackground(true);
 }
