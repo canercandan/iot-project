@@ -35,6 +35,13 @@ INCLUDE(FindDoxygen)
 FIND_PACKAGE(Qt4 COMPONENTS QtCore QtGui QtNetwork QtXml REQUIRED)
 INCLUDE(${QT_USE_FILE})
 
+IF (UNIX)
+  INCLUDE(FindPkgConfig)
+  PKG_CHECK_MODULES(XMU xmu REQUIRED)
+  INCLUDE_DIRECTORIES(${XMU_INCLUDE_DIR})
+  LINK_DIRECTORIES(${XMU_LIBRARY_DIRS})
+ENDIF()
+
 ######################################################################################
 
 
@@ -65,12 +72,27 @@ ENDIF()
 
 
 ######################################################################################
-### 6) Now where we go ?
+### 6) Prepare some variables for CMAKE usage
 ######################################################################################
 
+SET(SAMPLE_SRCS)
+SET(SAMPLE_UIS)
+SET(SAMPLE_MOC_HDRS)
+SET(SAMPLE_RCS)
+SET(SAMPLE_TRANS)
+
+######################################################################################
+
+
+######################################################################################
+### 7) Now where we go ?
+######################################################################################
+
+ADD_SUBDIRECTORY(resources)
+ADD_SUBDIRECTORY(forms)
+ADD_SUBDIRECTORY(includes)
 ADD_SUBDIRECTORY(src)
 ADD_SUBDIRECTORY(config)
-#ADD_SUBDIRECTORY(resources)
 ADD_SUBDIRECTORY(test)
 ADD_SUBDIRECTORY(doc)
 
@@ -78,7 +100,62 @@ ADD_SUBDIRECTORY(doc)
 
 
 ######################################################################################
-### 7) Include packaging
+### 8) Some routine for Qt resources
+######################################################################################
+
+QT4_WRAP_UI(SAMPLE_UIS_SRCS ${SAMPLE_UIS})
+QT4_WRAP_CPP(SAMPLE_MOC_SRCS ${SAMPLE_MOC_HDRS})
+QT4_ADD_RESOURCES(SAMPLE_RC_SRCS ${SAMPLE_RCS})
+QT4_ADD_TRANSLATION(SAMPLE_TRANS_SRCS ${SAMPLE_TRANS})
+
+######################################################################################
+
+
+######################################################################################
+### 9) Create executable, link libraries and prepare target
+######################################################################################
+
+INCLUDE_DIRECTORIES(${CMAKE_CURRENT_BINARY_DIR})
+LINK_DIRECTORIES(${LIBRARY_OUTPUT_PATH})
+
+ADD_EXECUTABLE(
+  ${PROJECT_NAME}
+  ${SAMPLE_SRCS}
+  ${SAMPLE_UIS_SRCS}
+  ${SAMPLE_MOC_SRCS}
+  ${SAMPLE_RC_SRCS}
+  ${SAMPLE_TRANS_SRCS}
+  )
+
+SET(CEG_LIBS action)
+
+IF (UNIX)
+  TARGET_LINK_LIBRARIES(
+    ${PROJECT_NAME}
+    ${QT_LIBRARIES}
+    ${XMU_LIBRARIES}
+    ${X11_LIBRARIES}
+    ${CEG_LIBS}
+    )
+ELSEIF(WIN32)
+  SET(PSAPI "C:/Program Files/Microsoft SDKs/Windows/v7.0A/Lib/Psapi.Lib")
+  TARGET_LINK_LIBRARIES(
+    ${PROJECT_NAME}
+    ${QT_LIBRARIES}
+    ${PSAPI}
+    ${CEG_LIBS}
+    )
+ENDIF()
+
+INSTALL(
+  TARGETS ${PROJECT_NAME}
+  RUNTIME
+  DESTINATION bin
+  COMPONENT applications
+  )
+
+######################################################################################
+### 10) Include packaging
 ######################################################################################
 
 INCLUDE(Packaging.cmake)

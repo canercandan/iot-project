@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE XmlBox>
 <boxes id="Firefox">
   <box type="1" x="5" y="5" height="100" width="100">
@@ -29,4 +30,5 @@
     <style focusColor="purple" text="Tata TOTOTTOFDFSD"/>
     <action id="Zoom" isZoom="1" />
   </box>
+  <string> totot </string>
 </boxes>

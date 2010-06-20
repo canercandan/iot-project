@@ -36,39 +36,39 @@
 #include "ZoomAction.h"
 /*********************************/
 
-// int main(int argc, char *argv[])
-// {
-//   QApplication a(argc, argv);
-
-//   if (QSystemTrayIcon::isSystemTrayAvailable() == false)
-//     {
-//       QMessageBox::critical(0, QObject::tr("Systray"), QObject::tr("Couldn't detect any system tray on this system."));
-//       return (EXIT_FAILURE);
-//     }
-//   QApplication::setQuitOnLastWindowClosed(false);
-
-//   ActionFactory::registerInstantiator(ClickAction::IDENTIFIER, instanciateClickAction);
-//   ActionFactory::registerInstantiator(ExecMenuAction::IDENTIFIER, instanciateExecMenuAction);
-//   ActionFactory::registerInstantiator(MoveAction::IDENTIFIER, instanciateMoveAction);
-//   ActionFactory::registerInstantiator(PopMenuAction::IDENTIFIER, instanciatePopMenuAction);
-//   ActionFactory::registerInstantiator(ReadAction::IDENTIFIER, instanciateReadAction);
-//   ActionFactory::registerInstantiator(ZoomAction::IDENTIFIER, instanciateZoomAction);
-//   Systray * systray = Singleton<Systray>::getInstance();
-//   return (a.exec());
-// }
-
 int main(int argc, char *argv[])
 {
-    QApplication a(argc, argv);
-    qDebug() << "\n\n";
-    ActionFactory::registerInstantiator(ClickAction::IDENTIFIER, instanciateClickAction);
-    ActionFactory::registerInstantiator(ExecMenuAction::IDENTIFIER, instanciateExecMenuAction);
-    ActionFactory::registerInstantiator(MoveAction::IDENTIFIER, instanciateMoveAction);
-    ActionFactory::registerInstantiator(PopMenuAction::IDENTIFIER, instanciatePopMenuAction);
-    ActionFactory::registerInstantiator(ReadAction::IDENTIFIER, instanciateReadAction);
-    ActionFactory::registerInstantiator(ZoomAction::IDENTIFIER, instanciateZoomAction);
-    ActionFactory::printRegisterInstantiator();
-    MainController lm;
-    lm.start();
-    return a.exec();
+  QCoreApplication::setOrganizationName("IOT");
+  QCoreApplication::setOrganizationDomain("ionlythink.com");
+  QCoreApplication::setApplicationName("CEG");
+
+  QApplication a(argc, argv);
+
+  if (QSystemTrayIcon::isSystemTrayAvailable() == false)
+    {
+      QMessageBox::critical(0, QObject::tr("Systray"),
+			    QObject::tr("Couldn't detect any system tray on this system."));
+      return (EXIT_FAILURE);
+    }
+
+  qDebug() << "\n\n";
+
+  ActionFactory::registerInstantiator(ClickAction::IDENTIFIER, instanciateClickAction);
+  ActionFactory::registerInstantiator(ExecMenuAction::IDENTIFIER, instanciateExecMenuAction);
+  ActionFactory::registerInstantiator(MoveAction::IDENTIFIER, instanciateMoveAction);
+  ActionFactory::registerInstantiator(PopMenuAction::IDENTIFIER, instanciatePopMenuAction);
+  ActionFactory::registerInstantiator(ReadAction::IDENTIFIER, instanciateReadAction);
+  ActionFactory::registerInstantiator(ZoomAction::IDENTIFIER, instanciateZoomAction);
+  ActionFactory::printRegisterInstantiator();
+
+  Systray * systray = Singleton<Systray>::getInstance();
+
+  (void)systray;
+
+  // Je sais il faut garder que le systray, mais c'est juste pour les tests.
+
+  MainController lm;
+  lm.start();
+
+  return a.exec();
 }

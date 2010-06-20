@@ -32,6 +32,8 @@
 #include "MoveAction.h"
 /*********************************/
 
+#include <QDebug>
+
 CegTcpServer::CegTcpServer() :
 	   _tcpServer(0), _client(0), _buffer()
 {
@@ -49,10 +51,10 @@ void	CegTcpServer::launch(void)
   this->_tcpServer = new QTcpServer();
 
   if (!this->_tcpServer->listen(QHostAddress::Any, 42000))
-    std::cerr << "Netouoooork Error: " /*<< this->_tcpServer->errorString()*/ << std::endl;
+    qDebug() << "Netouoooork Error: " /*<< this->_tcpServer->errorString()*/;
   else
     {
-      std::cout<< "Network ok, listening on port : 42000" << std::endl;
+      qDebug() << "Network ok, listening on port : 42000";
       this->_tcpServer->setMaxPendingConnections(1);
       QObject::connect(_tcpServer, SIGNAL(newConnection()), this, SLOT(_connect()));
     }
@@ -67,7 +69,7 @@ void	CegTcpServer::_connect()
 
 void	CegTcpServer::_disconnect()
 {
-  std::cout<< "Disconnected" << std::endl;
+  qDebug() << "Disconnected";
 }
 
 void	CegTcpServer::_readData()

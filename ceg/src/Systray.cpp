@@ -39,11 +39,11 @@ Systray::Systray(QWidget *parent) :
     this->_settings = new Settings(this);
     this->_trayIcon = new QSystemTrayIcon(QIcon(":/images/systray-transparent-32x32.png"), this);
     this->_trayIconMenu = new QMenu(this);
-    this->_startAction = new QAction("Start", this);
-    this->_settingAction = new QAction("Setting", this);
-    this->_aboutQtAction = new QAction("About Qt", this);
-    this->_aboutCegAction = new QAction("About Ceg", this);
-    this->_quitAction = new QAction("Quit", this);
+    this->_startAction = new QAction(tr("Start"), this);
+    this->_settingAction = new QAction(tr("Setting"), this);
+    this->_aboutQtAction = new QAction(tr("About Qt"), this);
+    this->_aboutCegAction = new QAction(tr("About Ceg"), this);
+    this->_quitAction = new QAction(tr("Quit"), this);
 
     this->_trayIconMenu->addAction(this->_startAction);
     this->_trayIconMenu->addAction(this->_settingAction);
@@ -63,7 +63,7 @@ Systray::Systray(QWidget *parent) :
 #ifdef _WIN32
     // FIXME: we are getting a display bug issue when the message appears on the screen
     // on Linux. It appears on the left but it must be on the right.
-    this->_trayIcon->showMessage("Information Message", "Click on Start to launch the Default Navigator", QSystemTrayIcon::MessageIcon(), 7000);
+    this->_trayIcon->showMessage(tr("Information Message"), tr("Click on Start to launch the Default Navigator"), QSystemTrayIcon::MessageIcon(), 7000);
 #endif
 }
 
@@ -82,33 +82,33 @@ Systray::~Systray()
 void Systray::on__startAction_triggered()
 {
     QString content;
-    if (this->_startAction->text() == "Start")
+    if (this->_startAction->text() == tr("Start"))
     {
-        QSettings settings("ionlythink-ceg.ini", QSettings::IniFormat);
+        QSettings settings;
         QVariant first = settings.value("general/squareNumber");
         if (first.toInt() == 0)
         {
-            QMessageBox::information(0, "Error", "Please check the settings of application before start it !");
-            content = "Start";
+	  QMessageBox::information(0, tr("Error"), tr("Please check the settings of application before start it !"));
+	  content = tr("Start");
         }
         else
         {
-            QMessageBox::information(0, "Commandes", "Left | Right arrow = Horizontal Move\nUp | Down Arrow = Vertical move\nEnter = Zoom\nBackspace = unzoom\n1 = Simple Click\nAlt + F4 = Quit");
+	  QMessageBox::information(0, tr("Commandes"), tr("Left | Right arrow = Horizontal Move\nUp | Down Arrow = Vertical move\nEnter = Zoom\nBackspace = unzoom\n1 = Simple Click\nAlt + F4 = Quit"));
             this->_lm->start();
-            content = "Stop";
+            content = tr("Stop");
         }
     }
     else
     {
 	this->_lm->stop();
-	content = "Start";
+	content = tr("Start");
     }
     this->_startAction->setText(content);
 }
 
 void Systray::on__aboutQtAction_triggered()
 {
-    QMessageBox::aboutQt(0, "About Qt");
+  QMessageBox::aboutQt(0, tr("About Qt"));
 }
 
 void Systray::on__settingAction_triggered()
@@ -118,5 +118,5 @@ void Systray::on__settingAction_triggered()
 
 void Systray::on__aboutCegAction_triggered()
 {
-    QMessageBox::information(0, "About CEG", "Des infos sur le CEG...");
+  QMessageBox::information(0, tr("About CEG"), tr("Allows users to control machine by thinking."));
 }

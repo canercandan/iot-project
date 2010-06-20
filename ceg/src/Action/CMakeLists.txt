@@ -1,5 +1,3 @@
-INCLUDE_DIRECTORIES(${IOT_CEG_SRC_DIR}/includes/Action)
-
 SET(ACTION_SRCS
   ActionFactory.cpp
   ClickAction.cpp
@@ -10,6 +8,8 @@ SET(ACTION_SRCS
   WriteAction.cpp
   ZoomAction.cpp
   )
+
+SET(LIBRARY_OUTPUT_PATH ${IOT_CEG_BIN_DIR}/lib)
 
 ADD_LIBRARY(action ${ACTION_SRCS})
 
