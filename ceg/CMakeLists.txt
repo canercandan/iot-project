@@ -103,10 +103,16 @@ ADD_SUBDIRECTORY(doc)
 ### 8) Some routine for Qt resources
 ######################################################################################
 
+# Here is an explaination to how to use qt4_wrap_cpp:
+# http://www.mail-archive.com/cmake@cmake.org/msg18900.html
+
 QT4_WRAP_UI(SAMPLE_UIS_SRCS ${SAMPLE_UIS})
 QT4_WRAP_CPP(SAMPLE_MOC_SRCS ${SAMPLE_MOC_HDRS})
 QT4_ADD_RESOURCES(SAMPLE_RC_SRCS ${SAMPLE_RCS})
 QT4_ADD_TRANSLATION(SAMPLE_TRANS_SRCS ${SAMPLE_TRANS})
+
+# Further details about translation below:
+# http://www.cmake.org/Wiki/CMake:How_To_Build_Qt4_Software
 
 ######################################################################################
 

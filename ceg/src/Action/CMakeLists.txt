@@ -1,3 +1,7 @@
+######################################################################################
+### 1) Create dynamic library for Action classes
+######################################################################################
+
 SET(ACTION_SRCS
   ActionFactory.cpp
   ClickAction.cpp
@@ -13,9 +17,4 @@ SET(LIBRARY_OUTPUT_PATH ${IOT_CEG_BIN_DIR}/lib)
 
 ADD_LIBRARY(action ${ACTION_SRCS})
 
-# INSTALL(
-#   TARGETS action
-#   ARCHIVE
-#   DESTINATION lib
-#   COMPONENT libraries
-#   )
+######################################################################################
