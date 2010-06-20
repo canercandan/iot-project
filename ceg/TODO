@@ -55,15 +55,9 @@ regarde dans les class de log4j, c un framework java pour les logs ca pourra peu
 - maj Doxygen
 
 -------------------------------------------------- Reminder Yann --------------------------------------------------------------------------
-- mettre a jour uml
 - traduction du systray + fichier de traduction
 - AJOuter une methode pour loader proprement les menus depuis le ressource
 - revoir le management des listes dans le boxcontroler
-
-- bug !!! zoom pas de probleme mais unzoom probleme au bout de 8 zoom dans le case numero 9, boucle infini dans BoxManager::calcParent au niveau du troisieme for, au bout d un moment le while tourne sans changer de valeurs! NE PAS mettre des noms de variables commencant par une Maj !
-
-- lorsque l'on met une grille par defaut de 100*100 ou moins la vue n est pas full screen
-
 
 -------------------------------------------------- Reminder Caner --------------------------------------------------------------------------
 - cpack

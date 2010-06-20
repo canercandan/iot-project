@@ -70,7 +70,7 @@ BoxController::~BoxController()
 void BoxController::getChildren(std::list<QGraphicsRectItem *> & graphicItems, Box const * box) const
 {
     std::list<Box const *> childrenBox;
-    if (box->getBoxType() == DEFAULT_BOX) // mode par default
+    if (box->getBoxType() == DEFAULT_BOX && box->getLevel() < 8) // mode par default, on limite la profondeur en mode par defaut a 8
     {
 	this->calcChildren(childrenBox, box->getGeometry(), box->getLevel() + 1);
     }

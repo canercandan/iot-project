@@ -64,7 +64,7 @@ private:
     std::map<std::string, std::list<Box const *> > _patterns; // Id du logiciel et son patron associe
     std::map<std::string, std::list<Box const *> > _menus; // Id du menu et son patron associe
 
-    static const int NBGRID = 3; // va sauter sera configurable par le menu des preferences
+    static const int NBGRID = 100; // va sauter sera configurable par le menu des preferences
 };
 
 #endif // BOXCONTROLLER_H

@@ -58,7 +58,7 @@ IF(UNIX)
   # enable warnings
   ADD_DEFINITIONS( -Wall -W -Wextra )
   # ADD_DEFINITIONS( -Weffc++)
-#   ADD_DEFINITIONS( -g3 )
+   ADD_DEFINITIONS( -g3 )
 ENDIF()
 
 ######################################################################################
