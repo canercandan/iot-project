@@ -1,3 +1,7 @@
+Pour l'installation merci de lire le INSTALL
+
+Info :
+
 loggers permettent d'écrire les messages
 appenders servent à sélectionner la destination des messages
 layouts mettre en forme les messages
@@ -29,17 +33,11 @@ il faut setter le niveau de log au root
 
 Chainsaw outil graphique permettant de visualiser les logs
 
-info sur le packet http://packages.ubuntu.com/source/hardy/log4cxx
 tutoriel http://www.yolinux.com/TUTORIALS/Log4cxx.html
 site officiel http://logging.apache.org/log4cxx/index.html 
 
-Pour l'installer:
-sudo apt-get install liblog4cxx10
-
-
 Structure des loggers dans le ceg:
 Root - system on y touche pas
-ceg - Main logger file
 ceg.Network - Pour loggers les packet
 ceg.MainController
 ceg.BoxController

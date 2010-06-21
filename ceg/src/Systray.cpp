@@ -86,17 +86,17 @@ void Systray::on__startAction_triggered()
     {
         QSettings settings;
         QVariant first = settings.value("general/squareNumber");
-        if (first.toInt() == 0)
+	/*        if (first.toInt() == 0)
         {
 	  QMessageBox::information(0, tr("Error"), tr("Please check the settings of application before start it !"));
 	  content = tr("Start");
         }
         else
-        {
+        {*/
 	  QMessageBox::information(0, tr("Commandes"), tr("Left | Right arrow = Horizontal Move\nUp | Down Arrow = Vertical move\nEnter = Zoom\nBackspace = unzoom\n1 = Simple Click\nAlt + F4 = Quit"));
             this->_lm->start();
             content = tr("Stop");
-        }
+	    //}
     }
     else
     {

@@ -30,6 +30,7 @@ SET(IOT_CEG_BIN_DIR "${CMAKE_CURRENT_BINARY_DIR}")
 ######################################################################################
 
 INCLUDE(FindDoxygen)
+INCLUDE(FindLog4Cxx)
 
 # see http://cmake.org/cmake/help/cmake2.6docs.html#module:FindQt4 for a complete list
 FIND_PACKAGE(Qt4 COMPONENTS QtCore QtGui QtNetwork QtXml REQUIRED)
@@ -121,7 +122,7 @@ QT4_ADD_TRANSLATION(SAMPLE_TRANS_SRCS ${SAMPLE_TRANS})
 ### 9) Create executable, link libraries and prepare target
 ######################################################################################
 
-INCLUDE_DIRECTORIES(${CMAKE_CURRENT_BINARY_DIR})
+INCLUDE_DIRECTORIES(${CMAKE_CURRENT_BINARY_DIR} ${LOG4CXX_INCLUDE_DIR})
 LINK_DIRECTORIES(${LIBRARY_OUTPUT_PATH})
 
 ADD_EXECUTABLE(
@@ -141,6 +142,7 @@ IF (UNIX)
     ${QT_LIBRARIES}
     ${XMU_LIBRARIES}
     ${X11_LIBRARIES}
+    ${LOG4CXX_LIBRARIES}
     ${CEG_LIBS}
     )
 ELSEIF(WIN32)

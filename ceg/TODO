@@ -48,9 +48,6 @@ pour window on peut difficilement y faire quelquechose les menus sont un problem
 - Metre l'etat de la connexion dans le tray icone (disconnected || connected || error)
 - Faire une class Config singleton qui load le fichier de conf au start et save a la fin
 - loader le port d'ecoute par un fichier de conf
-- faire class Logger, niveau de log loader par le fichier de conf, changeable via systray, (YANN) <-
-regarde dans les class de log4j, c un framework java pour les logs ca pourra peut etre donner des bonnes idees, ou bien avec QT, ca serait vraiment classe d avoir le l'AOP pour les logs :)
-- fichier de log avec plusieur bug level (DEBUG || INFO || WARN  || ERROR)
 
 - maj uml
 - maj Doxygen

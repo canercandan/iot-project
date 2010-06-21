@@ -22,10 +22,8 @@
 #include <QApplication>
 #include <QMessageBox>
 #include <QSystemTrayIcon>
-#include <QDebug>
 /*********************************/
 #include "Singleton.hpp"
-#include "MainController.h"
 #include "Systray.h"
 #include "ActionFactory.h"
 #include "ClickAction.h"
@@ -35,9 +33,16 @@
 #include "ReadAction.h"
 #include "ZoomAction.h"
 /*********************************/
+#include <log4cxx/logger.h>
+#include <log4cxx/xml/domconfigurator.h>
+using namespace log4cxx;
+using namespace log4cxx::xml;
+using namespace log4cxx::helpers;
+
 
 int main(int argc, char *argv[])
 {
+  DOMConfigurator::configure("Log4cxxConfig.xml");
   QCoreApplication::setOrganizationName("IOT");
   QCoreApplication::setOrganizationDomain("ionlythink.com");
   QCoreApplication::setApplicationName("CEG");
@@ -46,12 +51,11 @@ int main(int argc, char *argv[])
 
   if (QSystemTrayIcon::isSystemTrayAvailable() == false)
     {
-      QMessageBox::critical(0, QObject::tr("Systray"),
-			    QObject::tr("Couldn't detect any system tray on this system."));
+      QMessageBox::critical(0, QObject::tr("Systray"), QObject::tr("Couldn't detect any system tray on this system."));
       return (EXIT_FAILURE);
     }
 
-  qDebug() << "\n\n";
+  QApplication::setQuitOnLastWindowClosed(false); // Ne jamais retire cette ligne
 
   ActionFactory::registerInstantiator(ClickAction::IDENTIFIER, instanciateClickAction);
   ActionFactory::registerInstantiator(ExecMenuAction::IDENTIFIER, instanciateExecMenuAction);
@@ -61,14 +65,7 @@ int main(int argc, char *argv[])
   ActionFactory::registerInstantiator(ZoomAction::IDENTIFIER, instanciateZoomAction);
   ActionFactory::printRegisterInstantiator();
 
-  Systray * systray = Singleton<Systray>::getInstance();
-
-  (void)systray;
-
-  // Je sais il faut garder que le systray, mais c'est juste pour les tests.
-
-  MainController lm;
-  lm.start();
+  Singleton<Systray>::getInstance();
 
   return a.exec();
 }

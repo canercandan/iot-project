@@ -60,7 +60,6 @@ private:
     QAction *		_aboutQtAction;
     QAction *		_aboutCegAction;
     QAction *		_quitAction;
-
 };
 
 #endif // SYSTRAY_H
