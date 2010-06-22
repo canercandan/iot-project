@@ -19,33 +19,28 @@
  */
 
 /*********************************/
-#include <QDebug>
 #include <QDomElement>
 /*********************************/
 #include "ActionFactory.h"
 /*********************************/
 
+/************************************************* [ CTOR/DTOR ] *************************************************/
+
 std::map<std::string, ActionFactory::ActionInstantiator> ActionFactory::_instanciators;
+log4cxx::LoggerPtr ActionFactory::logger(log4cxx::Logger::getLogger("ceg.boxfactory"));
 
 IAction *	ActionFactory::create(QDomElement const & actionElelement)
 {
-    qDebug() << "[INFO] ActionFactory : instance demandee - id = " << actionElelement.attribute("id") << ".";
-    std::map<std::string, ActionInstantiator>::const_iterator itFind = ActionFactory::_instanciators.find(actionElelement.attribute("id").toStdString());
-    return (itFind != ActionFactory::_instanciators.end() ? (itFind->second)(actionElelement) : 0);
+  std::string const & id = actionElelement.attribute("id").toStdString();
+  LOG4CXX_INFO(ActionFactory::logger, "Instance de type '" << id << "' demande.");
+  std::map<std::string, ActionInstantiator>::const_iterator itFind = ActionFactory::_instanciators.find(id);
+  return (itFind != ActionFactory::_instanciators.end() ? (itFind->second)(actionElelement) : 0);
 }
+
+/************************************************* [ OTHERS ] *************************************************/
 
 void ActionFactory::registerInstantiator(const std::string &actionId, ActionInstantiator function)
 {
-    ActionFactory::_instanciators.insert(std::make_pair(actionId, function));
-}
-
-void ActionFactory::printRegisterInstantiator()
-{
-    qDebug() << "[INFO] ActionFactory : Liste des actions connus :";
-    for (std::map<std::string, ActionInstantiator>::const_iterator it = ActionFactory::_instanciators.begin(),
-	 itEnd = ActionFactory::_instanciators.end(); it != itEnd; ++it)
-    {
-	qDebug() << "- " << (it->first).c_str();
-    }
-    qDebug() << ActionFactory::_instanciators.size() << " actions enregistrees .";
+  LOG4CXX_INFO(ActionFactory::logger, "Action '" << actionId << "' enregistree (Valeur du Pointeur : " << function << ").");
+  ActionFactory::_instanciators.insert(std::make_pair(actionId, function));
 }

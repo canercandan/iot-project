@@ -46,7 +46,5 @@
 - Qt
 - Cmake
 - Microsoft SDK (pour le psapi.lib a voir)
-
-----------------------------------------------------LINKS-------------------------------------------------------------------
-http://www.supertangas.com/
-http://www.howtoNinja.com/karim-tug-builder-chris.html
+- libxmu6 libxmu-dev (Unix)
+- log4cxx http://logging.apache.org/log4cxx/download.html

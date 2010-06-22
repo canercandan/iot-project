@@ -25,6 +25,8 @@
 #include <string>
 #include <map>
 
+#include <log4cxx/logger.h>
+
 class QDomElement;
 class IAction;
 
@@ -35,14 +37,14 @@ class IAction;
 class ActionFactory
 {
 public:
-    typedef IAction * (*ActionInstantiator)(QDomElement const &);
+  typedef IAction * (*ActionInstantiator)(QDomElement const &);
 
-    static IAction *	create(QDomElement const & domElement); // Retourne l'action demande
-    static void		registerInstantiator(std::string const & actionId, ActionInstantiator function); // Permet de referencer une action et son constructeur
-    static void		printRegisterInstantiator();
+  static IAction *	create(QDomElement const & domElement); // Retourne l'action demande
+  static void		registerInstantiator(std::string const & actionId, ActionInstantiator function); // Permet de referencer une action et son constructeur
 
 private:
-    static std::map<std::string, ActionInstantiator>	_instanciators; // Reference les ids des actions et leur constructeurs associes
+  static std::map<std::string, ActionInstantiator>	_instanciators; // Reference les ids des actions et leur constructeurs associes
+  static log4cxx::LoggerPtr logger;
 };
 
 #endif // ACTIONFACTORY_H

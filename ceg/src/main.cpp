@@ -23,6 +23,8 @@
 #include <QMessageBox>
 #include <QSystemTrayIcon>
 /*********************************/
+#include <log4cxx/xml/domconfigurator.h>
+/*********************************/
 #include "Singleton.hpp"
 #include "Systray.h"
 #include "ActionFactory.h"
@@ -33,16 +35,15 @@
 #include "ReadAction.h"
 #include "ZoomAction.h"
 /*********************************/
-#include <log4cxx/logger.h>
-#include <log4cxx/xml/domconfigurator.h>
-using namespace log4cxx;
-using namespace log4cxx::xml;
-using namespace log4cxx::helpers;
 
+#if defined(Q_WS_WIN)
+# define LOGCXXCF "../config/log4cxx/WindowsConfig.xml" // Log4cxx Configuration file
+#else
+# define LOGCXXCF "../config/log4cxx/UnixConfig.xml"
+#endif
 
 int main(int argc, char *argv[])
 {
-  DOMConfigurator::configure("Log4cxxConfig.xml");
   QCoreApplication::setOrganizationName("IOT");
   QCoreApplication::setOrganizationDomain("ionlythink.com");
   QCoreApplication::setApplicationName("CEG");
@@ -55,6 +56,8 @@ int main(int argc, char *argv[])
       return (EXIT_FAILURE);
     }
 
+  log4cxx::xml::DOMConfigurator::configure(LOGCXXCF);
+
   QApplication::setQuitOnLastWindowClosed(false); // Ne jamais retire cette ligne
 
   ActionFactory::registerInstantiator(ClickAction::IDENTIFIER, instanciateClickAction);
@@ -63,7 +66,6 @@ int main(int argc, char *argv[])
   ActionFactory::registerInstantiator(PopMenuAction::IDENTIFIER, instanciatePopMenuAction);
   ActionFactory::registerInstantiator(ReadAction::IDENTIFIER, instanciateReadAction);
   ActionFactory::registerInstantiator(ZoomAction::IDENTIFIER, instanciateZoomAction);
-  ActionFactory::printRegisterInstantiator();
 
   Singleton<Systray>::getInstance();
 

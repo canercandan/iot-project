@@ -25,6 +25,8 @@
 
 #include <QGraphicsView>
 
+#include <log4cxx/logger.h>
+
 #include "View.h"
 #include "Window.h"
 #include "BoxController.h"
@@ -41,31 +43,32 @@ class IAction;
 class MainController
 {
 public:
-    MainController();
-    ~MainController();
+  MainController();
+  ~MainController();
 
-    BoxController const &		getBoxController() const;
-    ICommunicationGraphicalServer*	getComGs() const;
-    AbstractScene*			getCurrentScene() const;
-    View &				getView();
+  BoxController const &		getBoxController() const;
+  ICommunicationGraphicalServer*	getComGs() const;
+  AbstractScene*			getCurrentScene() const;
+  View &				getView();
 
-    bool				actionHandler(IAction &); // Attrape les actions a execute
-    void				start(); // Active la navigation
-    void				stop(); // Stop la navigation
-    void				pushFrontScene(AbstractScene * scene); // Rajoute la scnene au debut des scenes et rafraichi la vue
-    void				popFrontScene(); // Supprime la scene du debut et rafraichi la vue
-
-private:
-    void				createScenes(std::list<Ceg::Window> const & windows); // Cree tout les layers pour les fenetres donnees
-    void				initialize(); // Initialise tout les paremetres pour la navigation
+  bool				actionHandler(IAction &); // Attrape les actions a execute
+  void				start(); // Active la navigation
+  void				stop(); // Stop la navigation
+  void				pushFrontScene(AbstractScene * scene); // Rajoute la scnene au debut des scenes et rafraichi la vue
+  void				popFrontScene(); // Supprime la scene du debut et rafraichi la vue
 
 private:
-    View				    _view; // La vue pour representer les scene (Une vue pour toutes les scenes)
-    std::list<AbstractScene *>		    _scenes; // L'ensemble des scenes, une scnene par fenetre systemes ouvertes + eventuellement un menu
-    std::list<AbstractScene *>::iterator    _currentScene; // La scene utilise
-    BoxController			    _boxController;
-    ICommunicationGraphicalServer *	    _comGs;
-    CegTcpServer			    _tcpServer;
+  void				createScenes(std::list<Ceg::Window> const & windows); // Cree tout les layers pour les fenetres donnees
+  void				initialize(); // Initialise tout les paremetres pour la navigation
+
+private:
+  View				    _view; // La vue pour representer les scene (Une vue pour toutes les scenes)
+  std::list<AbstractScene *>		    _scenes; // L'ensemble des scenes, une scnene par fenetre systemes ouvertes + eventuellement un menu
+  std::list<AbstractScene *>::iterator    _currentScene; // La scene utilise
+  BoxController			    _boxController;
+  ICommunicationGraphicalServer *	    _comGs;
+  CegTcpServer				_tcpServer;
+  log4cxx::LoggerPtr			_logger;
 };
 
 #endif // MAINCONTROLLER_H

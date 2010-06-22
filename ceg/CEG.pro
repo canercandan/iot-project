@@ -2,7 +2,7 @@ TEMPLATE = app
 QT += network \
     xml
 LANGUAGE = C++
-TARGET = 
+TARGET =
 DEPENDPATH += . \
     includes \
     includes/Action \
@@ -66,17 +66,17 @@ SOURCES += AbstractItem.cpp \
     MainController.cpp \
     PopMenuAction.cpp \
     ExecMenuAction.cpp
-unix { 
+unix {
     HEADERS += XWindowSystem.h
     SOURCES += XWindowSystem.cpp
     CONFIG += link_pkgconfig
-    PKGCONFIG += xmu
+    PKGCONFIG += xmu log4cxx
 }
-win32 { 
+win32 {
     HEADERS += Win32Adaptor.h \
-        Win32Explorer.h
+	Win32Explorer.h
     SOURCES += Win32Adaptor.cpp \
-        Win32Explorer.cpp
+	Win32Explorer.cpp
     //LIBS += "C:\Program Files\Microsoft SDKs\Windows\v7.0A\Lib\Psapi.Lib"
 }
 CONFIG += warn_on

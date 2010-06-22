@@ -42,13 +42,14 @@
 /************************************************* [ CTOR/DTOR ] *************************************************/
 
 MainController::MainController() :
-	_view(*this), _scenes(),_currentScene(), _boxController(),
+  _view(*this), _scenes(),_currentScene(), _boxController(),
 #ifdef _WIN32
-	_comGs(new Win32Explorer),
+  _comGs(new Win32Explorer),
 #else
-	_comGs(new XWindowSystem),
+  _comGs(new XWindowSystem),
 #endif
-	_tcpServer()
+  _tcpServer(), 
+  _logger(log4cxx::Logger::getLogger("ceg.main"))
 {
 }
 
@@ -84,6 +85,7 @@ View &	MainController::getView()
 
 bool    MainController::actionHandler(IAction & anAction)
 {
+  LOG4CXX_INFO (this->_logger, "Execution de l'action suivante : .");
     return (anAction.exec(*this));
 }
 
@@ -101,6 +103,7 @@ void MainController::createScenes(std::list<Ceg::Window> const & windows)
 
 void MainController::initialize()
 {
+  LOG4CXX_INFO (this->_logger, "Initialisation.");
     std::list<Ceg::Window>  windows;
     //this->_comGs->getWindows(windows);
 
@@ -113,6 +116,7 @@ void MainController::initialize()
 
 void MainController::start()
 {
+  LOG4CXX_INFO (this->_logger, "Demarrage de la navigation.");
     this->initialize();
     this->_view.initialize();
     this->_view.show();
@@ -120,6 +124,7 @@ void MainController::start()
 
 void MainController::stop()
 {
+  LOG4CXX_INFO (this->_logger, "Stoppage de la navigation.");
     this->_view.hide();
 }
 

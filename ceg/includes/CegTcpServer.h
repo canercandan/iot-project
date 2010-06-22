@@ -24,6 +24,8 @@
 #include <QObject>
 #include <QString>
 
+#include <log4cxx/logger.h>
+
 class QTcpServer;
 class QTcpSocket;
 
@@ -49,6 +51,7 @@ private:
   QTcpServer	*_tcpServer;
   QTcpSocket	*_client;
   QString	_buffer;
+  log4cxx::LoggerPtr _logger;
 };
 
 #endif // CEGTCPSERVER_HPP

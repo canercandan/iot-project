@@ -1,11 +1,4 @@
-
-
-
 - Finir les mouvements (YAVUZ) dans Layer.cpp - rajouter pour custom aussi?
-
-
-
-
 - (TO YAVUZ) pour les settings :
 .. chargement des param par defaut
 .. chargement des settings !
@@ -13,9 +6,6 @@
 .. rajouter les traductions (tuto sur le site du zero) et donc creer avec le logiciel de qt
 
 
-
-
-- Menu (LAMINE) :  FAIRE Les xml internationnal
 - Utiliser les valeurs des menus de preferences pour tout les trucs
 - Terminer le communication avec le serveur Graphique (YAVUZ + YANN + CANER) : facile a terminer sur windows + plus relou sur Linux
 
@@ -53,6 +43,9 @@ pour window on peut difficilement y faire quelquechose les menus sont un problem
 - maj Doxygen
 
 -------------------------------------------------- Reminder Yann --------------------------------------------------------------------------
+- finir d implementer les logs
+- Faire test de log4cxx sur windows
+- rajouter une methode to string dans Iaction
 - traduction du systray + fichier de traduction
 - AJOuter une methode pour loader proprement les menus depuis le ressource
 - revoir le management des listes dans le boxcontroler

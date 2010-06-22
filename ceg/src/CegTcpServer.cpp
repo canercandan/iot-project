@@ -23,6 +23,7 @@
 /*********************************/
 #include <QTcpServer>
 #include <QTcpSocket>
+#include <QDebug>
 /*********************************/
 #include "CegTcpServer.h"
 /*********************************/
@@ -32,10 +33,8 @@
 #include "MoveAction.h"
 /*********************************/
 
-#include <QDebug>
-
 CegTcpServer::CegTcpServer() :
-	   _tcpServer(0), _client(0), _buffer()
+  _tcpServer(0), _client(0), _buffer(), _logger(log4cxx::Logger::getLogger("ceg.network"))
 {
   //this->launch();
 }
