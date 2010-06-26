@@ -30,7 +30,7 @@ SET(IOT_CEG_BIN_DIR "${CMAKE_CURRENT_BINARY_DIR}")
 ######################################################################################
 
 INCLUDE(FindDoxygen)
-INCLUDE(FindLog4Cxx)
+#INCLUDE(FindLog4Cxx)
 
 # see http://cmake.org/cmake/help/cmake2.6docs.html#module:FindQt4 for a complete list
 FIND_PACKAGE(Qt4 COMPONENTS QtCore QtGui QtNetwork QtXml REQUIRED)
@@ -38,9 +38,12 @@ INCLUDE(${QT_USE_FILE})
 
 IF (UNIX)
   INCLUDE(FindPkgConfig)
+
   PKG_CHECK_MODULES(XMU xmu REQUIRED)
-  INCLUDE_DIRECTORIES(${XMU_INCLUDE_DIR})
-  LINK_DIRECTORIES(${XMU_LIBRARY_DIRS})
+  PKG_CHECK_MODULES(LOG4CXX liblog4cxx REQUIRED)
+
+  INCLUDE_DIRECTORIES(${XMU_INCLUDE_DIR} ${LOG4CXX_INCLUDE_DIR})
+  LINK_DIRECTORIES(${XMU_LIBRARY_DIRS} ${LOG4CXX_LIBRARY_DIRS})
 ENDIF()
 
 ######################################################################################
@@ -101,7 +104,7 @@ ADD_SUBDIRECTORY(doc)
 
 
 ######################################################################################
-### 8) Some routine for Qt resources
+### 8) Some routines for Qt resources
 ######################################################################################
 
 # Here is an explaination to how to use qt4_wrap_cpp:
@@ -123,7 +126,7 @@ QT4_ADD_TRANSLATION(SAMPLE_TRANS_SRCS ${SAMPLE_TRANS})
 ######################################################################################
 
 INCLUDE_DIRECTORIES(${CMAKE_CURRENT_BINARY_DIR} ${LOG4CXX_INCLUDE_DIR})
-LINK_DIRECTORIES(${LIBRARY_OUTPUT_PATH})
+LINK_DIRECTORIES(${CMAKE_CURRENT_BINARY_DIR}/lib)
 
 ADD_EXECUTABLE(
   ${PROJECT_NAME}
