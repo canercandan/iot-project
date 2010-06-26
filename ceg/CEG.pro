@@ -70,7 +70,7 @@ unix {
     HEADERS += XWindowSystem.h
     SOURCES += XWindowSystem.cpp
     CONFIG += link_pkgconfig
-    PKGCONFIG += xmu log4cxx
+    PKGCONFIG += xmu liblog4cxx
 }
 win32 {
     HEADERS += Win32Adaptor.h \
