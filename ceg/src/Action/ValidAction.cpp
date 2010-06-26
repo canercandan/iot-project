@@ -21,7 +21,7 @@
 /*********************************/
 #include <QDebug>
 /*********************************/
-#include "MoveAction.h"
+#include "ValidAction.h"
 /*********************************/
 #include "MainController.h"
 #include "AbstractScene.h"
@@ -29,42 +29,38 @@
 
 /************************************************* [ CTOR/DTOR ] *************************************************/
 
-char const * MoveAction::IDENTIFIER = "Move";
+char const * ValidAction::IDENTIFIER = "Valid";
 
-MoveAction::MoveAction(int key) :
-	_key(key)
+ValidAction::ValidAction()
 {
-  qDebug() << "MoveAction::MoveAction(int key)--";
+    qDebug() << "ValidAction::ValidAction()";
 }
 
-MoveAction::MoveAction(const QDomElement & actionElement) :
-	_key(0)
+ValidAction::ValidAction(const QDomElement & actionElement)
 {
-    qDebug() << "MoveAction::MoveAction(const QDomElement & actionElement)";
+    qDebug() << "ValidAction::ValidAction(const QDomElement & actionElement)";
     this->initializeFromXml(actionElement);
 }
 
-void MoveAction::initializeFromXml(const QDomElement &)
+void ValidAction::initializeFromXml(const QDomElement &)
 {
 
 }
 
 /************************************************* [ OTHERS ] *************************************************/
-#include <iostream>
-bool	MoveAction::exec(MainController & lm)
+
+bool	ValidAction::exec(MainController & mc)
 {
-  //qDebug() << "MoveAction:sdasdasdasasd:exec " << this->_key;
-  //qDebug() << "ca va segfault " << this->_key;
-  std::cout<< "ca va segfault" << this->_key << std::endl;
-  IAction * action = lm.getCurrentScene()->keyPressEvent(this->_key);
-  if (action != 0)
-    return (action->exec(lm));
-  return (true);
+    qDebug() << "ValidAction::exec";
+    IAction * action = mc.getCurrentScene()->keyPressEvent(Qt::Key_Enter);
+    if (action != 0)
+	return (action->exec(mc));
+    return (true);
 }
 
 /************************************************* [ OTHERS ] *************************************************/
 
-IAction * instanciateMoveAction(const QDomElement & actionElement)
+IAction * instanciateValidAction(const QDomElement & actionElement)
 {
-    return (new MoveAction(actionElement));
+    return (new ValidAction(actionElement));
 }

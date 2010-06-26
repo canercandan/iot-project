@@ -16,25 +16,31 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  *
  * Authors: CEG <ceg@ionlythink.com>, http://www.ionlythink.com
-*/
+ */
 
-#ifndef IACTION_H
-#define IACTION_H
+#ifndef VALIDACTION_H
+#define VALIDACTION_H
 
-#include "IDomFactory.h"
+#include "IAction.h"
 
-class MainController;
+class QDomElement;
 
 /*
-  Interface pour les action
+  Action pour generer l'action de validation sur la scene courante
   */
-class IAction : public IDomFactory
+class ValidAction : public IAction
 {
 public:
-    virtual ~IAction(){}
+  ValidAction();
+  ValidAction(QDomElement const &);
 
-    virtual bool		exec(MainController &) = 0;
-    virtual void		initializeFromXml(QDomElement const &) = 0;
+  virtual bool	exec(MainController&);
+  virtual void	initializeFromXml(QDomElement const &);
+
+public:
+    static char const * IDENTIFIER;
 };
 
-#endif // IACTION_H
+IAction * instanciateMoveAction(QDomElement const &);
+
+#endif // !VALIDACTION_H

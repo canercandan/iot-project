@@ -24,7 +24,7 @@
 #include <list>
 
 #include <QGraphicsView>
-
+#include "CegTcpServer.h"
 #ifndef Q_WS_WIN
 #include <log4cxx/logger.h>
 #endif
@@ -32,7 +32,7 @@
 #include "View.h"
 #include "Window.h"
 #include "BoxController.h"
-#include "CegTcpServer.h"
+
 
 class AbstractScene;
 class ICommunicationGraphicalServer;

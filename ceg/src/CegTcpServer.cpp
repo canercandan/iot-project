@@ -23,7 +23,8 @@
 /*********************************/
 #include <QTcpServer>
 #include <QTcpSocket>
-#include <QDebug>
+#include <QSettings>
+
 /*********************************/
 #include "CegTcpServer.h"
 /*********************************/
@@ -31,6 +32,8 @@
 #include "MainController.h"
 #include "IAction.h"
 #include "MoveAction.h"
+#include "ValidAction.h"
+#include "ActionFactory.h"
 /*********************************/
 
 CegTcpServer::CegTcpServer() :
@@ -39,24 +42,30 @@ CegTcpServer::CegTcpServer() :
 , _logger(log4cxx::Logger::getLogger("ceg.network"))
 #endif
 {
-  //this->launch();
+  this->launch();
 }
 
 CegTcpServer::~CegTcpServer()
 {
-  std::cout<< "TCP server killed"<< std::endl;
+  LOG4CXX_INFO(this->_logger, "TCP server killed");
 }
 
 void	CegTcpServer::launch(void)
 {
-  std::cout<< "TCP server launched" << std::endl;
+  QSettings settings;
+  QVariant port = settings.value("server/port");
+
+  LOG4CXX_INFO(this->_logger, "TCP server launched on port " << port.toInt());
   this->_tcpServer = new QTcpServer();
 
-  if (!this->_tcpServer->listen(QHostAddress::Any, 42000))
-    qDebug() << "Netouoooork Error: " /*<< this->_tcpServer->errorString()*/;
+  if (!this->_tcpServer->listen(QHostAddress::Any, port.toInt()))
+    {
+      LOG4CXX_ERROR(this->_logger, "Error: can't listen on port: " << port.toInt());
+      LOG4CXX_ERROR(this->_logger, this->_tcpServer->errorString().toStdString());
+    }
   else
     {
-      qDebug() << "Network ok, listening on port : 42000";
+      LOG4CXX_INFO(this->_logger, "Listening on port: " << port.toInt());
       this->_tcpServer->setMaxPendingConnections(1);
       QObject::connect(_tcpServer, SIGNAL(newConnection()), this, SLOT(_connect()));
     }
@@ -71,7 +80,7 @@ void	CegTcpServer::_connect()
 
 void	CegTcpServer::_disconnect()
 {
-  qDebug() << "Disconnected";
+  LOG4CXX_INFO(this->_logger,"Disconnected");
 }
 
 void	CegTcpServer::_readData()
@@ -110,16 +119,16 @@ void	CegTcpServer::parseLines(void)
 
 void	CegTcpServer::interpretLine(QString &line)
 {
-  QTextStream out(stdout);
+  QTextStream		out(stdout);
   MainController	*mc = Singleton<MainController>::getInstance();
 
   if (mc == NULL)
     {
-      out << "Oops critical error, could not get Main Controller instance";
-      out << "Oops critical error, command " << line << "can't be executed";
+      LOG4CXX_ERROR(this->_logger,"CegTcpServer:: Could not get Main Controller instance");
+      LOG4CXX_ERROR(this->_logger,"CegTcpServer:: command " << line.toStdString() << "can't be executed");
       return ;
     }
-  //FIXME convert real rfb numbers into generic actions
+  // FIXME convert real rfb numbers into generic actions
   if (line[0] == QChar('a'))
     {
       IAction *ia = new MoveAction(1);
@@ -128,16 +137,15 @@ void	CegTcpServer::interpretLine(QString &line)
     }
   if (line[0] == QChar('b'))
     {
-      IAction *ia = new MoveAction(1);
+      IAction *ia = new MoveAction(2);
       mc->actionHandler(*ia);
       delete ia;
     }
 
   if (line[0] == QChar('c'))
     {
-      //ValidAction
-      //IAction *ia = new MoveAction(line[0] - QChar('a'));
-      //mc->actionHandler(*ia);
-      //delete ia;
+      IAction	*ia = new ValidAction();
+      mc->actionHandler(*ia);
+      delete ia;
     }
 }

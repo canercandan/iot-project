@@ -39,7 +39,9 @@ HEADERS += AbstractItem.h \
     MainController.h \
     BoxController.h \
     PopMenuAction.h \
-    ExecMenuAction.h
+    ExecMenuAction.h \
+    ValidAction.h
+
 SOURCES += AbstractItem.cpp \
     AbstractScene.cpp \
     DefaultItem.cpp \
@@ -65,7 +67,8 @@ SOURCES += AbstractItem.cpp \
     BoxController.cpp \
     MainController.cpp \
     PopMenuAction.cpp \
-    ExecMenuAction.cpp
+    ExecMenuAction.cpp \
+    ValidAction.cpp
 unix {
     HEADERS += XWindowSystem.h
     SOURCES += XWindowSystem.cpp

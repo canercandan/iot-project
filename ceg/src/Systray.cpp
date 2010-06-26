@@ -86,7 +86,8 @@ void Systray::on__startAction_triggered()
     {
         QSettings settings;
         QVariant first = settings.value("general/squareNumber");
-	/*        if (first.toInt() == 0)
+	/*
+	  if (first.toInt() == 0)
         {
 	  QMessageBox::information(0, tr("Error"), tr("Please check the settings of application before start it !"));
 	  content = tr("Start");

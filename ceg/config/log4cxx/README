@@ -22,5 +22,5 @@ ceg.boxfactory - Logger pour toute la partie creation des box ou des items
 
 Ressources :
 tutoriel http://www.yolinux.com/TUTORIALS/Log4cxx.html
-site officiel http://logging.apache.org/log4cxx/index.html 
+site officiel http://logging.apache.org/log4cxx/index.html
 Chainsaw outil graphique permettant de visualiser les logs
