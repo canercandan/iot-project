@@ -23,7 +23,11 @@
 #include <QMessageBox>
 #include <QSystemTrayIcon>
 /*********************************/
-#include <log4cxx/xml/domconfigurator.h>
+
+#ifndef Q_WS_WIN
+# include <log4cxx/xml/domconfigurator.h>
+#endif
+
 /*********************************/
 #include "Singleton.hpp"
 #include "Systray.h"
@@ -36,10 +40,12 @@
 #include "ZoomAction.h"
 /*********************************/
 
+#ifndef Q_WS_WIN
 #if defined(Q_WS_WIN)
 # define LOGCXXCF "../config/log4cxx/WindowsConfig.xml" // Log4cxx Configuration file
 #else
 # define LOGCXXCF "../config/log4cxx/UnixConfig.xml"
+#endif
 #endif
 
 int main(int argc, char *argv[])
@@ -56,7 +62,9 @@ int main(int argc, char *argv[])
       return (EXIT_FAILURE);
     }
 
+#ifndef Q_WS_WIN
   log4cxx::xml::DOMConfigurator::configure(LOGCXXCF);
+#endif
 
   QApplication::setQuitOnLastWindowClosed(false); // Ne jamais retire cette ligne
 

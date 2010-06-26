@@ -25,7 +25,9 @@
 #include <list>
 #include <string>
 
+#ifndef Q_WS_WIN
 #include <log4cxx/logger.h>
+#endif
 
 class QGraphicsRectItem;
 
@@ -66,7 +68,9 @@ private:
     std::map<std::string, std::list<Box const *> > _patterns; // Id du logiciel et son patron associe
     std::map<std::string, std::list<Box const *> > _menus; // Id du menu et son patron associe
 
+#ifndef Q_WS_WIN
     log4cxx::LoggerPtr _logger;
+#endif
 
     static const int NBGRID = 3; // va sauter sera configurable par le menu des preferences
 };

@@ -34,7 +34,10 @@
 /*********************************/
 
 CegTcpServer::CegTcpServer() :
-  _tcpServer(0), _client(0), _buffer(), _logger(log4cxx::Logger::getLogger("ceg.network"))
+  _tcpServer(0), _client(0), _buffer()
+#ifndef Q_WS_WIN
+, _logger(log4cxx::Logger::getLogger("ceg.network"))
+#endif
 {
   //this->launch();
 }

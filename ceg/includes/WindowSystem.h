@@ -18,45 +18,16 @@
  * Authors: CEG <ceg@ionlythink.com>, http://www.ionlythink.com
  */
 
-#ifndef CEGTCPSERVER_HPP
-#define CEGTCPSERVER_HPP
+#ifdef _WIN32
 
-#include <QObject>
-#include <QString>
+# include "Win32Explorer.h"
 
-#ifndef Q_WS_WIN
-#include <log4cxx/logger.h>
+typedef Win32Explorer	WindowSystem;
+
+#else
+
+# include "XWindowSystem.h"
+
+typedef XWindowSystem	WindowSystem;
+
 #endif
-
-class QTcpServer;
-class QTcpSocket;
-
-class CegTcpServer : public QObject
-{
-  Q_OBJECT
-
-  public:
-  CegTcpServer();
-  ~CegTcpServer();
-
-private:
-  void	launch();
-  void	parseLines(void);
-  void	interpretLine(QString &line);
-
-private slots:
-  void	_connect();
-  void	_disconnect();
-  void	_readData();
-
-private:
-  QTcpServer	*_tcpServer;
-  QTcpSocket	*_client;
-  QString	_buffer;
-
-#ifndef Q_WS_WIN
-  log4cxx::LoggerPtr _logger;
-#endif
-};
-
-#endif // CEGTCPSERVER_HPP

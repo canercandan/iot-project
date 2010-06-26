@@ -32,24 +32,18 @@
 #include "BoxController.h"
 #include "IAction.h"
 #include "Utils.h"
-#ifdef _WIN32
-#include "Win32Explorer.h"
-#else
-#include "XWindowSystem.h"
-#endif
+#include "WindowSystem.h"
 /*********************************/
 
 /************************************************* [ CTOR/DTOR ] *************************************************/
 
 MainController::MainController() :
         _view(*this), _scenes(),_currentScene(), _boxController(),
-#ifdef _WIN32
-        _comGs(new Win32Explorer),
-#else
-        _comGs(new XWindowSystem),
+        _comGs(new WindowSystem), _tcpServer()
+
+#ifndef Q_WS_WIN
+        , _logger(log4cxx::Logger::getLogger("ceg.main"))
 #endif
-        _tcpServer(),
-        _logger(log4cxx::Logger::getLogger("ceg.main"))
 {
 }
 
@@ -85,7 +79,10 @@ View &	MainController::getView()
 
 bool    MainController::actionHandler(IAction & anAction)
 {
+#ifndef Q_WS_WIN
     LOG4CXX_INFO (this->_logger, "Execution de l'action suivante : .");
+#endif
+
     return (anAction.exec(*this));
 }
 
@@ -103,7 +100,10 @@ void MainController::createScenes(std::list<Ceg::Window> const & windows)
 
 void MainController::initialize()
 {
+#ifndef Q_WS_WIN
     LOG4CXX_INFO (this->_logger, "Initialisation.");
+#endif
+
     std::list<Ceg::Window>  windows;
     //this->_comGs->getWindows(windows);
 
@@ -116,7 +116,10 @@ void MainController::initialize()
 
 void MainController::start()
 {
+#ifndef Q_WS_WIN
     LOG4CXX_INFO (this->_logger, "Demarrage de la navigation.");
+#endif
+
     this->initialize();
     this->_view.initialize();
     this->_view.show();
@@ -124,7 +127,10 @@ void MainController::start()
 
 void MainController::stop()
 {
+#ifndef Q_WS_WIN
     LOG4CXX_INFO (this->_logger, "Stoppage de la navigation.");
+#endif
+
     this->_view.hide();
 }
 

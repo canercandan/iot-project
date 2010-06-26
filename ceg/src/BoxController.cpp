@@ -42,11 +42,21 @@
 /************************************************* [ CTOR/DTOR ] *************************************************/
 
 BoxController::BoxController() :
-        _patterns(), _menus(), _logger(log4cxx::Logger::getLogger("ceg.boxfactory"))
+        _patterns(), _menus()
+#ifndef Q_WS_WIN
+, _logger(log4cxx::Logger::getLogger("ceg.boxfactory"))
+#endif
 {
+#ifndef Q_WS_WIN
     LOG4CXX_INFO(this->_logger, "Chargement des fichiers xml pour les programmes");
+#endif
+
     this->initializeFromConfig();
+
+#ifndef Q_WS_WIN
     LOG4CXX_INFO(this->_logger, "Chargement des fichiers xml pour les menus");
+#endif
+
     this->initializeFromXml("../resources/xml/menus/EventMenu.xml");
 }
 
@@ -109,15 +119,22 @@ void    BoxController::getPattern(Ceg::Window const & aWindow, std::list<QGraphi
     std::map<std::string, std::list<Box const *> >::const_iterator  itFind = this->_patterns.find(aWindow.getProgramName());
     std::list<Box const *> childrenBox;
 
+#ifndef Q_WS_WIN
     LOG4CXX_INFO(this->_logger, "Schema pour '" << aWindow.getProgramName() << "' demande");
+#endif
+
     if (itFind != this->_patterns.end())
     {
+#ifndef Q_WS_WIN
         LOG4CXX_INFO(this->_logger, "Configuration trouvee, chargement du schema");
+#endif
 	childrenBox = itFind->second;
     }
     else
     {
+#ifndef Q_WS_WIN
         LOG4CXX_WARN(this->_logger, "Pas de configuration pour le programme, chargement du schema par defaut");
+#endif
 	this->calcChildren(childrenBox, aWindow.getGeometry(), 0);
     }
     this->createGraphicItems(graphicItems, childrenBox);
@@ -138,7 +155,10 @@ std::list<Box const *>    BoxController::getPattern(Box const * boxSearch) const
 
 void	BoxController::getMenu(std::string const & idMenu, std::list<QGraphicsRectItem *> & menuItems) const
 {
+#ifndef Q_WS_WIN
     LOG4CXX_INFO(this->_logger, "Menu - id(" << idMenu << ") demande");
+#endif
+
     std::map<std::string, std::list<Box const *> >::const_iterator  itFind = this->_menus.find(idMenu);
     if (itFind != this->_menus.end())
     {
@@ -146,7 +166,9 @@ void	BoxController::getMenu(std::string const & idMenu, std::list<QGraphicsRectI
     }
     else
     {
+#ifndef Q_WS_WIN
         LOG4CXX_WARN(this->_logger, "Menu inconnu");
+#endif
     }
 }
 
@@ -245,13 +267,18 @@ void	BoxController::initializeFromConfig(QString const & directoryName /*= "conf
     }
     else
     {
+#ifndef Q_WS_WIN
         LOG4CXX_WARN(this->_logger, directoryName.toStdString() << " doesn't exist");
+#endif
     }
 }
 
 void    BoxController::initializeFromXml(QString const & fileName)
 {
+#ifndef Q_WS_WIN
     LOG4CXX_INFO(this->_logger, "Tentative de chargement du fichier : '" << fileName.toStdString() << "'");
+#endif
+
     QFile	file(fileName);
     QDomDocument doc(fileName);
 
@@ -259,7 +286,10 @@ void    BoxController::initializeFromXml(QString const & fileName)
     int  errorLine = 0, errorColumn = 0;
     if (file.open(QIODevice::ReadOnly) == true  &&  doc.setContent(&file, &errorMsg, &errorLine, &errorColumn) == true)
     {
+#ifndef Q_WS_WIN
         LOG4CXX_INFO(this->_logger, "Chargement reussi");
+#endif
+
 	file.close();
 	QDomElement const & rootElement = doc.documentElement();
 	if (rootElement.tagName() == "boxes" || rootElement.tagName() == "menu")
@@ -267,7 +297,10 @@ void    BoxController::initializeFromXml(QString const & fileName)
 	    std::string const & programId = rootElement.attribute("id").toStdString();
 	    std::list<Box const *> boxes;
 
+#ifndef Q_WS_WIN
             LOG4CXX_INFO(this->_logger, rootElement.tagName().toStdString() << " - Id '" << programId << "'");
+#endif
+
 	    for (QDomNode boxNode = rootElement.firstChild(); !boxNode.isNull(); boxNode = boxNode.nextSibling())
 	    {
 		QDomElement const & boxElement = boxNode.toElement();
@@ -287,7 +320,8 @@ void    BoxController::initializeFromXml(QString const & fileName)
     }
     else
     {
-        LOG4CXX_ERROR(this->_logger, "Echec du chargement du fichier : " << fileName.toStdString() <<
-                      "\nRaison " << errorMsg.toStdString() << " at line = "<< errorLine << " - column = " << errorColumn);
+#ifndef Q_WS_WIN
+        LOG4CXX_ERROR(this->_logger, "Echec du chargement du fichier : " << fileName.toStdString() << "\nRaison " << errorMsg.toStdString() << " at line = "<< errorLine << " - column = " << errorColumn);
+#endif
     }
 }

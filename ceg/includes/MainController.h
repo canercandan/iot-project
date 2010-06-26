@@ -25,7 +25,9 @@
 
 #include <QGraphicsView>
 
+#ifndef Q_WS_WIN
 #include <log4cxx/logger.h>
+#endif
 
 #include "View.h"
 #include "Window.h"
@@ -68,7 +70,10 @@ private:
   BoxController			    _boxController;
   ICommunicationGraphicalServer *	    _comGs;
   CegTcpServer				_tcpServer;
+
+#ifndef Q_WS_WIN
   log4cxx::LoggerPtr			_logger;
+#endif
 };
 
 #endif // MAINCONTROLLER_H
