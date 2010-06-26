@@ -55,7 +55,8 @@ bool	MoveAction::exec(MainController & lm)
 {
   //qDebug() << "MoveAction:sdasdasdasasd:exec " << this->_key;
   //qDebug() << "ca va segfault " << this->_key;
-  std::cout<< "ca va segfault" << this->_key << std::endl;
+  std::cerr<< "ca va segfault" << this->_key << " lm = " << &lm <<std::endl;
+  
   IAction * action = lm.getCurrentScene()->keyPressEvent(this->_key);
   if (action != 0)
     return (action->exec(lm));

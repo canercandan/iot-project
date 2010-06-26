@@ -145,17 +145,16 @@ void	CegTcpServer::interpretLine(QString &line)
   // FIXME convert real rfb numbers into generic actions
   if (line[0] == QChar('a'))
     {
-      IAction *ia = new MoveAction(1);
+      IAction *ia = new MoveAction(Qt::Key_Left);
       mc->actionHandler(*ia);
       delete ia;
     }
   if (line[0] == QChar('b'))
     {
-      IAction *ia = new MoveAction(2);
+      IAction *ia = new MoveAction(Qt::Key_Up);
       mc->actionHandler(*ia);
       delete ia;
     }
-
   if (line[0] == QChar('c'))
     {
       IAction	*ia = new ValidAction();

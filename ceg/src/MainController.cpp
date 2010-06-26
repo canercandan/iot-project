@@ -36,7 +36,7 @@
 /*********************************/
 
 /************************************************* [ CTOR/DTOR ] *************************************************/
-
+#include <iostream>
 MainController::MainController() :
         _view(*this), _scenes(),_currentScene(), _boxController(),
         _comGs(new WindowSystem), _tcpServer()
@@ -45,6 +45,7 @@ MainController::MainController() :
         , _logger(log4cxx::Logger::getLogger("ceg.main"))
 #endif
 {
+  //std::cerr << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~`powa" << std::endl
 }
 
 MainController::~MainController()
@@ -65,8 +66,10 @@ ICommunicationGraphicalServer *	MainController::getComGs() const
     return (this->_comGs);
 }
 
+
 AbstractScene *	MainController::getCurrentScene() const
 {
+    std::cerr<< "Size:" << this->_scenes.size() << std::endl;
     return (*this->_currentScene);
 }
 

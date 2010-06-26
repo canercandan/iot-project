@@ -85,8 +85,8 @@ IAction * Layer::keyPressEvent(int key) const
     case Qt::Key_Enter:
       {
 	qDebug() << "Nothing to do for validate action";
-	break;
       }
+      break;
     default:
 	break;
     }
