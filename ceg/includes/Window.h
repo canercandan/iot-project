@@ -25,21 +25,41 @@
 
 #include <QRect>
 
-#ifdef _WIN32
+#if defined(__MINGW32__)
+
+// do stuff...
+
+#elif defined(Q_WS_WIN)
+
 #include <windows.h>
 #include <psapi.h>		// NT only!
 //#pragma comment(lib, "psapi")	// NT only!
-#else
+
+#elif defined(Q_WS_X11)
+
 #include <X11/Xlib.h>
+
+#else
+
+#warning "Not yet implemented"
+
 #endif
 
 namespace Ceg
 {
-#ifdef _WIN32
-    typedef ::HWND WindowId;
+    typedef
+
+#if defined(__MINGW32__)
+    void*
+#elif defined(Q_WS_WIN)
+    ::HWND
+#elif defined(Q_WS_X11)
+    ::Window
 #else
-    typedef ::Window WindowId;
+    void*
 #endif
+
+    WindowId;
 
     class Window
     {

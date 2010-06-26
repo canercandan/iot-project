@@ -148,6 +148,12 @@ IF (UNIX)
     ${LOG4CXX_LIBRARIES}
     ${CEG_LIBS}
     )
+ELSEIF(MINGW)
+  TARGET_LINK_LIBRARIES(
+    ${PROJECT_NAME}
+    ${QT_LIBRARIES}
+    ${CEG_LIBS}
+    )
 ELSEIF(WIN32)
   SET(PSAPI "C:/Program Files/Microsoft SDKs/Windows/v7.0A/Lib/Psapi.Lib")
   TARGET_LINK_LIBRARIES(

@@ -18,16 +18,50 @@
  * Authors: CEG <ceg@ionlythink.com>, http://www.ionlythink.com
  */
 
-#ifdef _WIN32
+#if defined(__MINGW32__)
 
-# include "Win32Explorer.h"
+#warning "MINGW32"
+
+#include "ICommunicationGraphicalServer.h"
+
+class WindowSystem : public ICommunicationGraphicalServer
+{
+public:
+    WindowSystem()
+    {}
+
+    virtual inline bool getWindows(std::list<Ceg::Window> & windows)
+    {return true;}
+
+    virtual inline bool getFocusedWindow(Ceg::Window & focusedWindow)
+    {return true;}
+
+    virtual inline bool setFocusToWindow(Ceg::Window & oldFocusedWindow, Ceg::Window & newFocusedWindow)
+    {return true;}
+
+    virtual inline bool refreshWindowInfo(Ceg::Window &)
+    {return true;}
+
+    virtual inline bool generateClickEvent(short int buttonID)
+    {return true;}
+};
+
+#elif defined(Q_WS_WIN)
+
+#warning "WINDOWS"
+
+#include "Win32Explorer.h"
 
 typedef Win32Explorer	WindowSystem;
 
-#else
+#elif defined(Q_WS_X11)
 
-# include "XWindowSystem.h"
+#include "XWindowSystem.h"
 
 typedef XWindowSystem	WindowSystem;
+
+#else
+
+#warning "Not yet implemented"
 
 #endif

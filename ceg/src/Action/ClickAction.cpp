@@ -59,7 +59,7 @@ bool	ClickAction::exec(MainController & lm)
     if (ab == 0)
 	return (false);
 
-    QCursor::setPos(ab->getGeometry().center());
+    //    QCursor::setPos(ab->getGeometry().center());
 
     lm.getView().hide();
 

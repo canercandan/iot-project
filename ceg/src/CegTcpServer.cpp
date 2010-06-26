@@ -47,7 +47,9 @@ CegTcpServer::CegTcpServer() :
 
 CegTcpServer::~CegTcpServer()
 {
+#ifndef Q_WS_WIN
   LOG4CXX_INFO(this->_logger, "TCP server killed");
+#endif
 }
 
 void	CegTcpServer::launch(void)
@@ -55,17 +57,25 @@ void	CegTcpServer::launch(void)
   QSettings settings;
   QVariant port = settings.value("server/port");
 
+#ifndef Q_WS_WIN
   LOG4CXX_INFO(this->_logger, "TCP server launched on port " << port.toInt());
+#endif
+
   this->_tcpServer = new QTcpServer();
 
   if (!this->_tcpServer->listen(QHostAddress::Any, port.toInt()))
     {
+#ifndef Q_WS_WIN
       LOG4CXX_ERROR(this->_logger, "Error: can't listen on port: " << port.toInt());
       LOG4CXX_ERROR(this->_logger, this->_tcpServer->errorString().toStdString());
+#endif
     }
   else
     {
+#ifndef Q_WS_WIN
       LOG4CXX_INFO(this->_logger, "Listening on port: " << port.toInt());
+#endif
+
       this->_tcpServer->setMaxPendingConnections(1);
       QObject::connect(_tcpServer, SIGNAL(newConnection()), this, SLOT(_connect()));
     }
@@ -80,7 +90,9 @@ void	CegTcpServer::_connect()
 
 void	CegTcpServer::_disconnect()
 {
+#ifndef Q_WS_WIN
   LOG4CXX_INFO(this->_logger,"Disconnected");
+#endif
 }
 
 void	CegTcpServer::_readData()
@@ -124,8 +136,10 @@ void	CegTcpServer::interpretLine(QString &line)
 
   if (mc == NULL)
     {
+#ifndef Q_WS_WIN
       LOG4CXX_ERROR(this->_logger,"CegTcpServer:: Could not get Main Controller instance");
       LOG4CXX_ERROR(this->_logger,"CegTcpServer:: command " << line.toStdString() << "can't be executed");
+#endif
       return ;
     }
   // FIXME convert real rfb numbers into generic actions
