@@ -30,6 +30,7 @@ SI Lamine peut test de recompiler a la main sur qt
  * sur Windows: le menu apparait mais disparait lorsque la fenetre ceg retrouve le focus.
 pour window on peut difficilement y faire quelquechose les menus sont un probleme.
 
+- Faux bug: sur les versions inferieur a 4.6, lorsqu'on change de scene le focusItem vaut 0, donc segfault
 
 -------------------------------------------------- Reminder chris --------------------------------------------------------------------------
 - faire ValidAction

@@ -25,6 +25,8 @@
 #include <list>
 #include <string>
 
+#include <log4cxx/logger.h>
+
 class QGraphicsRectItem;
 
 namespace Ceg
@@ -63,6 +65,8 @@ private:
     //! it is initialy filled out by loadConf method
     std::map<std::string, std::list<Box const *> > _patterns; // Id du logiciel et son patron associe
     std::map<std::string, std::list<Box const *> > _menus; // Id du menu et son patron associe
+
+    log4cxx::LoggerPtr _logger;
 
     static const int NBGRID = 3; // va sauter sera configurable par le menu des preferences
 };

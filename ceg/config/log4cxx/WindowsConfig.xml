@@ -14,7 +14,7 @@
     <param name="file" value="/tmp/cegNetwork.log" />
     <param name="append" value="true" />
     <layout class="org.apache.log4j.PatternLayout">
-      <param name="ConversionPattern" value="%d %-5p [%t:%x] %C{2} (%F:%L) - %m%n" />
+      <param name="ConversionPattern" value="%p (%d{dd/MM/yyyy HH:mm:ss}) : %m%n" />
     </layout>
   </appender>
   
@@ -22,7 +22,7 @@
     <param name="file" value="/tmp/cegComgs.log" />
     <param name="append" value="true" />
     <layout class="org.apache.log4j.PatternLayout">
-      <param name="ConversionPattern" value="%d %-5p [%t:%x] %C{2} (%F:%L) - %m%n" />
+      <param name="ConversionPattern" value="%p (%d{dd/MM/yyyy HH:mm:ss}) : %m%n" />
     </layout>
   </appender>
   
@@ -30,7 +30,7 @@
     <param name="file" value="/tmp/cegMain.log" />
     <param name="append" value="true" />
     <layout class="org.apache.log4j.PatternLayout">
-      <param name="ConversionPattern" value="%d %-5p [%t:%x] %C{2} (%F:%L) - %m%n" />
+      <param name="ConversionPattern" value="%p (%d{dd/MM/yyyy HH:mm:ss}) : %m%n" />
     </layout>
   </appender>
 
@@ -38,7 +38,7 @@
     <param name="file" value="/tmp/cegFactory.log" />
     <param name="append" value="true" />
     <layout class="org.apache.log4j.PatternLayout">
-      <param name="ConversionPattern" value="%d %-5p [%t:%x] %C{2} (%F:%L) - %m%n" />
+      <param name="ConversionPattern" value="%p (%d{dd/MM/yyyy HH:mm:ss}) : %m%n" />
     </layout>
   </appender>
   

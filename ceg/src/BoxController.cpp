@@ -30,7 +30,6 @@
 #include <QTextStream>
 #include <QDomDocument>
 #include <QDir>
-#include <QDebug>
 /*********************************/
 #include "BoxController.h"
 /*********************************/
@@ -43,11 +42,11 @@
 /************************************************* [ CTOR/DTOR ] *************************************************/
 
 BoxController::BoxController() :
-	_patterns(), _menus()
+        _patterns(), _menus(), _logger(log4cxx::Logger::getLogger("ceg.boxfactory"))
 {
-    qDebug() << "Chargement des fichiers xml pour les programmes";
+    LOG4CXX_INFO(this->_logger, "Chargement des fichiers xml pour les programmes");
     this->initializeFromConfig();
-    qDebug() << "\nChargement des fichiers xml pour les menus";
+    LOG4CXX_INFO(this->_logger, "Chargement des fichiers xml pour les menus");
     this->initializeFromXml("../resources/xml/menus/EventMenu.xml");
 }
 
@@ -110,12 +109,15 @@ void    BoxController::getPattern(Ceg::Window const & aWindow, std::list<QGraphi
     std::map<std::string, std::list<Box const *> >::const_iterator  itFind = this->_patterns.find(aWindow.getProgramName());
     std::list<Box const *> childrenBox;
 
+    LOG4CXX_INFO(this->_logger, "Schema pour '" << aWindow.getProgramName() << "' demande");
     if (itFind != this->_patterns.end())
     {
+        LOG4CXX_INFO(this->_logger, "Configuration trouvee, chargement du schema");
 	childrenBox = itFind->second;
     }
     else
     {
+        LOG4CXX_WARN(this->_logger, "Pas de configuration pour le programme, chargement du schema par defaut");
 	this->calcChildren(childrenBox, aWindow.getGeometry(), 0);
     }
     this->createGraphicItems(graphicItems, childrenBox);
@@ -136,10 +138,15 @@ std::list<Box const *>    BoxController::getPattern(Box const * boxSearch) const
 
 void	BoxController::getMenu(std::string const & idMenu, std::list<QGraphicsRectItem *> & menuItems) const
 {
+    LOG4CXX_INFO(this->_logger, "Menu - id(" << idMenu << ") demande");
     std::map<std::string, std::list<Box const *> >::const_iterator  itFind = this->_menus.find(idMenu);
     if (itFind != this->_menus.end())
     {
 	this->createGraphicItems(menuItems, itFind->second);
+    }
+    else
+    {
+        LOG4CXX_WARN(this->_logger, "Menu inconnu");
     }
 }
 
@@ -238,19 +245,21 @@ void	BoxController::initializeFromConfig(QString const & directoryName /*= "conf
     }
     else
     {
-	qDebug() << "[ERROR] in BoxManager::initializeFromConfig() : "<< directoryName << "doesn't exist .";
+        LOG4CXX_WARN(this->_logger, directoryName.toStdString() << " doesn't exist");
     }
 }
 
 void    BoxController::initializeFromXml(QString const & fileName)
 {
-    qDebug() << "Tentative de chargement du fichier : " << fileName;
+    LOG4CXX_INFO(this->_logger, "Tentative de chargement du fichier : '" << fileName.toStdString() << "'");
     QFile	file(fileName);
     QDomDocument doc(fileName);
 
-    QString  errorMsg; int  errorLine = 0, errorColumn = 0;
+    QString  errorMsg;
+    int  errorLine = 0, errorColumn = 0;
     if (file.open(QIODevice::ReadOnly) == true  &&  doc.setContent(&file, &errorMsg, &errorLine, &errorColumn) == true)
     {
+        LOG4CXX_INFO(this->_logger, "Chargement reussi");
 	file.close();
 	QDomElement const & rootElement = doc.documentElement();
 	if (rootElement.tagName() == "boxes" || rootElement.tagName() == "menu")
@@ -258,6 +267,7 @@ void    BoxController::initializeFromXml(QString const & fileName)
 	    std::string const & programId = rootElement.attribute("id").toStdString();
 	    std::list<Box const *> boxes;
 
+            LOG4CXX_INFO(this->_logger, rootElement.tagName().toStdString() << " - Id '" << programId << "'");
 	    for (QDomNode boxNode = rootElement.firstChild(); !boxNode.isNull(); boxNode = boxNode.nextSibling())
 	    {
 		QDomElement const & boxElement = boxNode.toElement();
@@ -268,8 +278,7 @@ void    BoxController::initializeFromXml(QString const & fileName)
 	    }
 	    if (boxes.empty() == false)
 	    {
-		qDebug() << "Chargement reussi .";
-		if (rootElement.tagName() == "boxes")
+                if (rootElement.tagName() == "boxes")
 		    this->_patterns.insert(std::make_pair(programId, boxes));
 		else
 		    this->_menus.insert(std::make_pair(programId, boxes));
@@ -278,6 +287,7 @@ void    BoxController::initializeFromXml(QString const & fileName)
     }
     else
     {
-	qDebug() << "[ERROR] " << errorMsg << " at line : = "<< errorLine << " - column = " << errorColumn << ".";
+        LOG4CXX_ERROR(this->_logger, "Echec du chargement du fichier : " << fileName.toStdString() <<
+                      "\nRaison " << errorMsg.toStdString() << " at line = "<< errorLine << " - column = " << errorColumn);
     }
 }
