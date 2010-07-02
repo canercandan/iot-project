@@ -23,6 +23,8 @@ class Box(QRect):
     def __init__(self, t_left=QPoint(), b_right=QPoint()):
         QRect.__init__(self, t_left, b_right)
         self.focus = 0
+        self.son = 0
+        self.father = 0
 
 class BuilderWidget(QtGui.QWidget):
     def __init__(self, parent=None):
@@ -39,6 +41,7 @@ class BuilderWidget(QtGui.QWidget):
         self.setGeometry(300, 300, 600, 600)
         self.setWindowTitle('IOT Builder')
         self.setMouseTracking(1)
+        self.father = 0
 
     def selectBox(self, pos):
         topBox = 0
@@ -52,6 +55,16 @@ class BuilderWidget(QtGui.QWidget):
 
     def keyPressEvent(self, keyEvent):
         if self.focused:
+            if keyEvent.key() == QtCore.Qt.Key_Enter or keyEvent.key() == QtCore.Qt.Key_Return:
+                self.father = self.list
+                if self.focused.son:
+                    self.list = self.focused.son
+                else:
+                    self.list = []
+                    self.focused.son = self.list
+                self.focused.focus = 0
+                self.focused = 0
+                # here
             if keyEvent.key() == QtCore.Qt.Key_Left:
                 self.focused.translate(-1, 0)
             elif keyEvent.key() == QtCore.Qt.Key_Right:
@@ -64,6 +77,15 @@ class BuilderWidget(QtGui.QWidget):
                 self.list.remove(self.focused)
                 self.focused = 0
             self.repaint()
+        if keyEvent.key() == QtCore.Qt.Key_Backspace:
+            if self.father:
+                self.list = self.father
+                if self.focused:
+                    self.focused.focus = 0
+                self.focused = 0
+                self.repaint()
+                self.father = self.list[0].father
+            # else: faire un bip ou un flash visuel ou ...
         if keyEvent.key() == QtCore.Qt.Key_Shift:
             self.shiftPressed = 1
         elif keyEvent.key() == QtCore.Qt.Key_Escape:
@@ -191,7 +213,9 @@ class BuilderWidget(QtGui.QWidget):
                 self.endPos = mouseEvent.pos()
                 va1 = QPoint(min(self.beginPos.x(), mouseEvent.pos().x()), min(self.beginPos.y(), mouseEvent.pos().y()))
                 va2 = QPoint(max(self.beginPos.x(), mouseEvent.pos().x()), max(self.beginPos.y(), mouseEvent.pos().y()))
-                self.list.append(Box(va1, va2))
+                tmpBox = Box(va1, va2)
+                tmpBox.father = self.father
+                self.list.append(tmpBox)
                 self.repaint()
         else:
             QtGui.QWidget.mouseReleaseEvent(self, mouseEvent)
