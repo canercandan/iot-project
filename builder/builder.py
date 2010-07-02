@@ -64,7 +64,6 @@ class BuilderWidget(QtGui.QWidget):
                     self.focused.son = self.list
                 self.focused.focus = 0
                 self.focused = 0
-                # here
             if keyEvent.key() == QtCore.Qt.Key_Left:
                 self.focused.translate(-1, 0)
             elif keyEvent.key() == QtCore.Qt.Key_Right:
@@ -85,7 +84,9 @@ class BuilderWidget(QtGui.QWidget):
                 self.focused = 0
                 self.repaint()
                 self.father = self.list[0].father
-            # else: faire un bip ou un flash visuel ou ...
+            else:
+                #faire un bip ou un flash visuel ou ...
+                print "bip"
         if keyEvent.key() == QtCore.Qt.Key_Shift:
             self.shiftPressed = 1
         elif keyEvent.key() == QtCore.Qt.Key_Escape:
