@@ -1,7 +1,39 @@
+------------------------------------------------------ ? ----------------------------------------------------------------------
 - Utiliser les valeurs des menus de preferences pour tout les trucs
-- Terminer le communication avec le serveur Graphique (YAVUZ + YANN + CANER) : facile a terminer sur windows + plus relou sur Linux
-
 - Creation du clavier virtuel faire des test de simulation de touches. (?)
+
+-------------------------------------------------- Reminder chris --------------------------------------------------------------------------
+- Bien implementer le Singleton (regarde sur le net car pour le moment c des fakes singletons) et rajouter un destroyInstance et y faire appel
+- voir logs + redirection sur fichiers qFatal() qDebug() qInfo()
+- Metre l'etat de la connexion dans le tray icone (disconnected || connected || error)
+- renommer CEgTcpServer  et le nom de fichier aussi
+- maj uml
+- maj Doxygen
+
+-------------------------------------------------- Reminder Yann --------------------------------------------------------------------------
+- AJOuter une methode pour loader proprement les menus depuis le ressource
+- Terminer le communication avec le serveur Graphique sur Linux
+- revoir le management des listes dans le boxcontroler (new les listes)
+
+-------------------------------------------------- Reminder Caner --------------------------------------------------------------------------
+- voir les xsd (avec yann)
+- QtValidator pour XSD n'est disponible que sur la derniere version de Qt (4.6)
+- Rajout le code neccessaire pour gerer toutes les possibilite sur les box: rendre le code plus propre dans la methode paint de abstractitem
+
+-------------------------------------------------- Reminder Yavuz --------------------------------------------------------------------------
+- renommer classe settings et le nom de fichier aussi
+- Finir les mouvements (YAVUZ) dans Layer.cpp - rajouter pour custom aussi?
+- (TO YAVUZ) pour les settings :
+- chargement des param par defaut
+- chargement des settings !
+- rajouter un liste deroulante de langue (Team Turkish glouglou)
+- Terminer le communication avec le serveur Graphique sur Windows
+
+-------------------------------------------------- Reminder Lamine --------------------------------------------------------------------------
+- Faire les traductions a l'aide de qt linguist
+- Trouver comment récupérer les infos utiles (navigateur par défaut, client mail...) (LAMINE).
+- rajouter les traductions (tuto sur le site du zero) et donc creer avec le logiciel de qt
+
 ------------------------------------------------------ BUG ----------------------------------------------------------------------
 - Régler le problème du segfault avec mingw sur windows. (ALL) Erreur système, la solution de rechange est de compiler QT à la main.
 
@@ -11,33 +43,3 @@
 pour window on peut difficilement y faire quelquechose les menus sont un probleme.
 
 - Faux bug: sur les versions inferieur a 4.6, lorsqu'on change de scene le focusItem vaut 0, donc segfault
-
--------------------------------------------------- Reminder chris --------------------------------------------------------------------------
-- voir logs + redirection sur fichiers qFatal() qDebug() qInfo()
-- Metre l'etat de la connexion dans le tray icone (disconnected || connected || error)
-- renommer CEgTcpServer
-- maj uml
-- maj Doxygen
-
--------------------------------------------------- Reminder Yann --------------------------------------------------------------------------
-- rajouter une methode to string dans Iaction
-- traduction du systray + fichier de traduction
-- AJOuter une methode pour loader proprement les menus depuis le ressource
-- revoir le management des listes dans le boxcontroler
-
--------------------------------------------------- Reminder Caner --------------------------------------------------------------------------
-- voir les xsd (avec yann)
-- QtValidator pour XSD n'est disponible que sur la derniere version de Qt (4.6)
-- Rajout le code neccessaire pour gerer toutes les possibilite sur les box: rendre le code plus propre dans la methode paint de abstractitem
-
--------------------------------------------------- Reminder Yavuz --------------------------------------------------------------------------
-- renommer classe settings
-- Finir les mouvements (YAVUZ) dans Layer.cpp - rajouter pour custom aussi?
-- (TO YAVUZ) pour les settings :
-- chargement des param par defaut
-- chargement des settings !
-- rajouter un liste deroulante de langue (Team Turkish glouglou)
-
--------------------------------------------------- Reminder Lamine --------------------------------------------------------------------------
-- Trouver comment récupérer les infos utiles (navigateur par défaut, client mail...) (LAMINE).
-- rajouter les traductions (tuto sur le site du zero) et donc creer avec le logiciel de qt
