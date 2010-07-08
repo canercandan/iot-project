@@ -3,3 +3,6 @@
 For commiters and contributors:
 /!\ Don't add "build" directory into SVN
 /!\ Do not add either .pyc files THX.
+
+How to generate resources ?
+=> pyrcc4 resources.qrc -o qrc_resources_rc.py
