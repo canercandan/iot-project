@@ -18,18 +18,17 @@
 import PyQt4
 from PyQt4 import QtGui, QtCore
 from PyQt4.QtCore import *
+from PyQt4.QtGui import *
 
-class Box(QRect):
-    def __init__(self, t_left=QPoint(), b_right=QPoint()):
-        QRect.__init__(self, t_left, b_right)
-        self.focus = 0
-        self.son = 0
-        self.father = 0
+import box, toolbar
+from box import Box
+from toolbar import Toolbar
 
-class BuilderWidget(QtGui.QWidget):
+class BuilderWidget(QtGui.QMainWindow):
     def __init__(self, parent=None):
         QtGui.QWidget.__init__(self, parent)
 
+        self.toolbar = self.addToolBar(Toolbar(self))
         self.tolerence = 0
         self.curs = 0
         self.focused = 0
