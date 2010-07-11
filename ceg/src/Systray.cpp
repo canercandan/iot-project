@@ -34,7 +34,7 @@
 /*********************************/
 
 Systray::Systray(QWidget *parent) :
-  QWidget(parent), _lm(Singleton<MainController>::getInstance()), _trayIcon(0), _trayIconMenu(0), _startAction(0), _settingAction(0), _aboutQtAction(0), _aboutCegAction(0), _quitAction(0)
+        QWidget(parent), _lm(Singleton<MainController>::getInstance()), _trayIcon(0), _trayIconMenu(0), _startAction(0), _settingAction(0), _aboutQtAction(0), _aboutCegAction(0), _quitAction(0)
 {
     this->_settings = new Settings(this);
     this->_trayIcon = new QSystemTrayIcon(QIcon(":/images/systray-transparent-32x32.png"), this);
@@ -59,12 +59,38 @@ Systray::Systray(QWidget *parent) :
     this->connect(this->_aboutQtAction, SIGNAL(triggered()), SLOT(on__aboutQtAction_triggered()));
     this->connect(this->_settingAction, SIGNAL(triggered()), SLOT(on__settingAction_triggered()));
     this->_trayIcon->show();
+    this->createSettingFile();
 
 #ifdef _WIN32
     // FIXME: we are getting a display bug issue when the message appears on the screen
     // on Linux. It appears on the left but it must be on the right.
     this->_trayIcon->showMessage(tr("Information Message"), tr("Click on Start to launch the Default Navigator"), QSystemTrayIcon::MessageIcon(), 7000);
 #endif
+}
+
+void    Systray::createSettingFile()
+{
+    QSettings settings;
+    QVariant first = settings.value("general/squareNumber");
+
+    if (first.toInt() == 0)
+    {
+        settings.setValue("firstStart", false);
+        settings.beginGroup("general");
+        settings.setValue("squareNumber", 3);
+        settings.setValue("customCheck", true);
+        settings.setValue("customXMLPath", "/config/");
+        settings.endGroup();
+        settings.beginGroup("color");
+        settings.setValue("focus", "#aa0022");
+        settings.setValue("blur", "#0");
+        settings.setValue("opacity", 0.5);
+        settings.endGroup();
+        settings.beginGroup("server");
+        settings.setValue("port", "5900");
+        settings.setValue("password", "");
+        settings.endGroup();
+    }
 }
 
 Systray::~Systray()
@@ -76,7 +102,7 @@ Systray::~Systray()
     delete this->_startAction;
     delete this->_trayIconMenu;
     delete this->_trayIcon;
-    delete this->_lm;
+    Singleton<MainController>::destroyInstance();
 }
 
 void Systray::on__startAction_triggered()
@@ -84,20 +110,9 @@ void Systray::on__startAction_triggered()
     QString content;
     if (this->_startAction->text() == tr("Start"))
     {
-        QSettings settings;
-        QVariant first = settings.value("general/squareNumber");
-	/*
-	  if (first.toInt() == 0)
-        {
-	  QMessageBox::information(0, tr("Error"), tr("Please check the settings of application before start it !"));
-	  content = tr("Start");
-        }
-        else
-        {*/
-	  QMessageBox::information(0, tr("Commandes"), tr("Left | Right arrow = Horizontal Move\nUp | Down Arrow = Vertical move\nEnter = Zoom\nBackspace = unzoom\n1 = Simple Click\nAlt + F4 = Quit"));
-            this->_lm->start();
-            content = tr("Stop");
-	    //}
+        QMessageBox::information(0, tr("Commandes"), tr("Left | Right arrow = Horizontal Move\nUp | Down Arrow = Vertical move\nEnter = Zoom\nBackspace = unzoom\n1 = Simple Click\nAlt + F4 = Quit"));
+        this->_lm->start();
+        content = tr("Stop");
     }
     else
     {
@@ -109,7 +124,7 @@ void Systray::on__startAction_triggered()
 
 void Systray::on__aboutQtAction_triggered()
 {
-  QMessageBox::aboutQt(0, tr("About Qt"));
+    QMessageBox::aboutQt(0, tr("About Qt"));
 }
 
 void Systray::on__settingAction_triggered()
@@ -119,5 +134,5 @@ void Systray::on__settingAction_triggered()
 
 void Systray::on__aboutCegAction_triggered()
 {
-  QMessageBox::information(0, tr("About CEG"), tr("Allows users to control machine by thinking."));
+    QMessageBox::information(0, tr("About CEG"), tr("Allows users to control machine by thinking."));
 }

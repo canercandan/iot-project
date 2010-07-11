@@ -44,7 +44,7 @@ protected:
     virtual void	paint(QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget = 0);
 
 protected:
-  std::string _color;
+    QString _color;
     Box const *	_model; // Le modele de l'item dessine
 };
 

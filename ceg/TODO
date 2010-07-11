@@ -1,4 +1,6 @@
 ------------------------------------------------------ ? ----------------------------------------------------------------------
+- implementer le systeme pour demarrer des programmes
+- rajouter le menu Home
 - Utiliser les valeurs des menus de preferences pour tout les trucs
 - Creation du clavier virtuel faire des test de simulation de touches. (?)
 
@@ -22,14 +24,13 @@
 
 -------------------------------------------------- Reminder Yavuz --------------------------------------------------------------------------
 - renommer classe settings et le nom de fichier aussi
-- Finir les mouvements (YAVUZ) dans Layer.cpp - rajouter pour custom aussi?
 - (TO YAVUZ) pour les settings :
 - chargement des param par defaut
 - chargement des settings !
 - rajouter un liste deroulante de langue (Team Turkish glouglou)
 - Terminer le communication avec le serveur Graphique sur Windows
 
--------------------------------------------------- Reminder Lamine --------------------------------------------------------------------------
+-------------------------------------------------- Reminder Lamine -------------------------------------------------------------------------
 - Faire les traductions a l'aide de qt linguist
 - Trouver comment récupérer les infos utiles (navigateur par défaut, client mail...) (LAMINE).
 - rajouter les traductions (tuto sur le site du zero) et donc creer avec le logiciel de qt

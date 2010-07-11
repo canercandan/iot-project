@@ -71,32 +71,32 @@ void AbstractItem::paint(QPainter * painter, const QStyleOptionGraphicsItem *, Q
     if (style.isVisible() == false)
 	return;
 
-    painter->setBrush(QBrush(QColor(this->_color.c_str())));
+    painter->setBrush(QBrush(QColor(this->_color)));
     painter->drawRect(this->rect());
-    std::string const & text = style.getText();
-    if (! text.empty())
+    QString const & text = style.getText();
+    if (! text.isEmpty())
     {
-	std::string const & textFont = style.getTextFont();
+        QString const & textFont = style.getTextFont();
 
-	if (textFont.empty() == false)
+        if (textFont.isEmpty() == false)
 	{
-	    painter->setFont(QFont(textFont.c_str(), style.getTextFontSize()));
+            painter->setFont(QFont(textFont, style.getTextFontSize()));
 	}
 
-	std::string const & textColor = style.getTextColor();
+        QString const & textColor = style.getTextColor();
 
-	if (textColor.empty() == false)
+        if (textColor.isEmpty() == false)
 	{
-	    painter->setPen(textColor.c_str());
+            painter->setPen(textColor);
 	}
 
-	painter->drawText(this->rect(), Qt::AlignCenter, text.c_str());
+        painter->drawText(this->rect(), Qt::AlignCenter, text);
     }
 
-    std::string const & imagePath  = style.getImagePath();
-    if (imagePath.empty() == false)
+    QString const & imagePath  = style.getImagePath();
+    if (imagePath.isEmpty() == false)
     {
-	QPixmap pixmap(imagePath.c_str());
+        QPixmap pixmap(imagePath);
 	QRectF dest(this->rect().x(), this->rect().y(), pixmap.rect().width(), pixmap.rect().height());
 	dest.moveCenter(this->rect().center());
 	painter->drawPixmap(dest, pixmap, pixmap.rect());

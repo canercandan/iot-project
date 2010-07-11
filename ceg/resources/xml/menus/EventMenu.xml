@@ -14,17 +14,11 @@
   </box>
   <box type="2" x="750" y="202" height="100" width="300">
     <action id="ExecMenu">
-      <action id="Valid"/>
-    </action>
-    <style opacity="1" text="Validate SEGFAULT USELESS"/>
-  </box>
-  <box type="2" x="750" y="303" height="100" width="300">
-    <action id="ExecMenu">
       <action id="Click"/>
     </action>
     <style opacity="1" text="Clic"/>
   </box>
-  <box type="2" x="750" y="404" height="100" width="300">
+  <box type="2" x="750" y="303" height="100" width="300">
     <action id="ExecMenu">
       <action id="Read"/>
     </action>

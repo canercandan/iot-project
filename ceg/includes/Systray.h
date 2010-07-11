@@ -44,6 +44,9 @@ public:
     explicit Systray(QWidget *parent = 0);
     ~Systray();
 
+private:
+    void    createSettingFile();
+
 private slots:
     void on__startAction_triggered();
     void on__aboutQtAction_triggered();

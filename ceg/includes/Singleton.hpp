@@ -31,8 +31,8 @@ private:
 public:
   static T* getInstance()
   {
-    if (theInstance == NULL)
-      theInstance = new T();
+    if (theInstance == 0)
+      theInstance = new T;
     return theInstance;
   }
 
@@ -44,6 +44,12 @@ public:
 	theInstance = new T(val);
       }
     return theInstance;
+  }
+
+  static void destroyInstance()
+  {
+    delete theInstance;
+    theInstance = 0;
   }
 };
 

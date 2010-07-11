@@ -20,6 +20,7 @@
 
 /*********************************/
 #include <QDomElement>
+#include <QSettings>
 /*********************************/
 #include "BoxStyle.h"
 /*********************************/
@@ -32,39 +33,43 @@ BoxStyle::BoxStyle() :
 }
 
 BoxStyle::BoxStyle(QDomElement const & styleElement) :
-	_isVisible(true), _opacity(0.5), _imagePath(""), _text(""), _textFont("Arial"), _textFontSize(20), _textColor("black"),  _focusColor("yellow"), _blurColor("black")
+        _isVisible(true), _opacity(0.5), _imagePath(""), _text(""), _textFont("Arial"), _textFontSize(20), _textColor("#000000"),  _focusColor(""), _blurColor("")
 {
+    QSettings settings;
+    this->_focusColor = settings.value("color/focus").toString();
+    this->_blurColor = settings.value("color/blur").toString();
+    this->_opacity = settings.value("color/opacity").toFloat();
     this->initializeFromXml(styleElement);
 }
 
 void BoxStyle::initializeFromXml(QDomElement const & styleElement)
 {
-  if (styleElement.hasAttribute("visible"))
-    this->_isVisible = styleElement.attribute("visible").toUInt();
+    if (styleElement.hasAttribute("visible"))
+        this->_isVisible = styleElement.attribute("visible").toUInt();
 
-  if (styleElement.hasAttribute("opacity"))
-    this->_opacity = styleElement.attribute("opacity").toFloat();
+    if (styleElement.hasAttribute("opacity"))
+        this->_opacity = styleElement.attribute("opacity").toFloat();
 
-  if (styleElement.hasAttribute("imagePath"))
-    this->_imagePath = styleElement.attribute("imagePath").toStdString();
+    if (styleElement.hasAttribute("imagePath"))
+        this->_imagePath = styleElement.attribute("imagePath");
 
-  if (styleElement.hasAttribute("text"))
-    this->_text = styleElement.attribute("text").toStdString();
+    if (styleElement.hasAttribute("text"))
+        this->_text = styleElement.attribute("text");
 
-  if (styleElement.hasAttribute("font"))
-    this->_textFont = styleElement.attribute("font").toStdString();
+    if (styleElement.hasAttribute("font"))
+        this->_textFont = styleElement.attribute("font");
 
-  if (styleElement.hasAttribute("fontSize"))
-    this->_textFontSize = styleElement.attribute("fontSize").toInt();
+    if (styleElement.hasAttribute("fontSize"))
+        this->_textFontSize = styleElement.attribute("fontSize").toInt();
 
-  if (styleElement.hasAttribute("textColor"))
-    this->_textColor = styleElement.attribute("textColor").toStdString();
+    if (styleElement.hasAttribute("textColor"))
+        this->_textColor = styleElement.attribute("textColor");
 
-  if (styleElement.hasAttribute("focusColor"))
-    this->_focusColor = styleElement.attribute("focusColor").toStdString();
+    if (styleElement.hasAttribute("focusColor"))
+        this->_focusColor = styleElement.attribute("focusColor");
 
-  if (styleElement.hasAttribute("blurColor"))
-    this->_blurColor = styleElement.attribute("blurColor").toStdString();
+    if (styleElement.hasAttribute("blurColor"))
+        this->_blurColor = styleElement.attribute("blurColor");
 }
 
 /************************************************* [ GETTERS ] *************************************************/
@@ -79,17 +84,17 @@ float BoxStyle::getOpacity() const
     return (this->_opacity);
 }
 
-std::string const & BoxStyle::getImagePath() const
+QString const & BoxStyle::getImagePath() const
 {
     return (this->_imagePath);
 }
 
-std::string const & BoxStyle::getText() const
+QString const & BoxStyle::getText() const
 {
     return (this->_text);
 }
 
-std::string const & BoxStyle::getTextFont() const
+QString const & BoxStyle::getTextFont() const
 {
     return (this->_textFont);
 }
@@ -99,17 +104,17 @@ int BoxStyle::getTextFontSize() const
     return (this->_textFontSize);
 }
 
-std::string const & BoxStyle::getTextColor() const
+QString const & BoxStyle::getTextColor() const
 {
     return (this->_textColor);
 }
 
-std::string const & BoxStyle::getFocusColor() const
+QString const & BoxStyle::getFocusColor() const
 {
     return (this->_focusColor);
 }
 
-std::string const & BoxStyle::getBlurColor() const
+QString const & BoxStyle::getBlurColor() const
 {
     return (this->_blurColor);
 }

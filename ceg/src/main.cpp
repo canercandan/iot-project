@@ -76,6 +76,5 @@ int main(int argc, char *argv[])
   ActionFactory::registerInstantiator(ZoomAction::IDENTIFIER, instanciateZoomAction);
 
   Singleton<Systray>::getInstance();
-
   return a.exec();
 }
