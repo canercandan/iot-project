@@ -53,6 +53,7 @@ bool	ReadAction::exec(MainController & lm)
     SleeperThread::msleep(1000);
 
     view.show();
+    exit(0);
 
     return (true);
 }

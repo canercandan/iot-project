@@ -36,6 +36,7 @@ BoxStyle::BoxStyle(QDomElement const & styleElement) :
         _isVisible(true), _opacity(0.5), _imagePath(""), _text(""), _textFont("Arial"), _textFontSize(20), _textColor("#000000"),  _focusColor(""), _blurColor("")
 {
     QSettings settings;
+
     this->_focusColor = settings.value("color/focus").toString();
     this->_blurColor = settings.value("color/blur").toString();
     this->_opacity = settings.value("color/opacity").toFloat();

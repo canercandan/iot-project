@@ -36,6 +36,7 @@ class View : public QGraphicsView
 {
 public:
   View(MainController &);
+  ~View();
 
   void	initialize();
   virtual void	keyPressEvent(QKeyEvent* keyEvent);

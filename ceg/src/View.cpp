@@ -38,6 +38,11 @@ View::View(MainController & lm)
      this->setWindowOpacity(0.5);
 }
 
+View::~View()
+{
+    qDebug() << "View::~View()";
+}
+
 /************************************************* [ OTHERS ] *************************************************/
 
 void	View::initialize()
