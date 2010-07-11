@@ -15,6 +15,8 @@
 #
 # Authors: Builder <builder@ionlythink.com>, http://www.ionlythink.com
 
+import sys
+
 import PyQt4
 from PyQt4 import QtGui, QtCore
 from PyQt4.QtCore import *
@@ -28,10 +30,15 @@ class BuilderWidget(QtGui.QMainWindow):
     def __init__(self, parent=None):
         QtGui.QWidget.__init__(self, parent)
 
-        self.toolbar = self.addToolBar(Toolbar(self))
-        self.tolerence = 0
+        try:
+            self.toolbar = self.addToolBar(Toolbar(self))
+        except:
+            print "Unexpected error:", sys.exc_info()[0]
+            raise
+
+        self.tolerance = 0
         self.curs = 0
-        self.focused = 0
+        self.focused = None
         self.shiftPressed = 0
         self.leftButtonPressed = 0
         self.beginPos = QPoint()
@@ -41,6 +48,93 @@ class BuilderWidget(QtGui.QMainWindow):
         self.setWindowTitle('IOT Builder')
         self.setMouseTracking(1)
         self.father = 0
+        self.saveDialog = 'Save xml file'
+        self.loadDialog = 'Open xml file'
+        self.extensionDialog = 'Xml Files (*.xml)'
+        self.extension = '.xml'
+
+    def newFile(self):
+        print 'newFile method'
+
+    def saveFile(self):
+        filename = QFileDialog.getSaveFileName(None, \
+                                               self.saveDialog, \
+                                               QDir.currentPath(), \
+                                               self.extensionDialog)
+        if filename == '':
+            return
+        if not QString(filename).endsWith(self.extension):
+            filename.append(self.extension)
+        if QDir(QDir.currentPath()).exists(filename):
+            QMessageBox.critical(self, 'Error', 'File already exists...')
+            return
+
+        qfile = QFile(filename)
+        if qfile.open(QIODevice.WriteOnly | QIODevice.Text):
+            out = QTextStream(qfile)
+            out << 'lol'
+            qfile.close()
+
+    def loadFile(self):
+        filename = QFileDialog.getOpenFileName(None, \
+                                               self.loadDialog, \
+                                               QDir.currentPath(), \
+                                               self.extensionDialog)
+        if filename == '':
+            return
+        print filename
+
+    def selectionMode(self):
+        print 'selectionMode method'
+
+    def boxMode(self):
+        print 'boxMode method'
+
+    def zoomIn(self):
+        if self.focused:
+            self.father = self.list
+            if self.focused.son:
+                self.list = self.focused.son
+            else:
+                self.list = []
+                self.focused.son = self.list
+            self.focused.focus = 0
+            self.focused = 0
+            self.repaint()
+        else:
+            print 'Cant zoom in'
+
+    def zoomOut(self):
+        if self.father:
+            self.list = self.father
+            if self.focused:
+                self.focused.focus = 0
+            self.focused = 0
+            self.father = self.list[0].father
+            self.repaint()
+        else:
+            print 'Cant zoom out'
+
+    def copyBox(self):
+        print 'copyBox method'
+
+    def cutBox(self):
+        print 'cutBox method'
+
+    def pasteBox(self):
+        print 'pasteBox method'
+
+    def builderHelp(self):
+        print 'builderHelp method'
+
+    def shortcuts(self):
+        print 'shortcuts method'
+
+    def aboutUs(self):
+        print 'aboutUs method'
+
+    def quitBuilder(self):
+        app.quit()
 
     def selectBox(self, pos):
         topBox = 0
@@ -54,15 +148,9 @@ class BuilderWidget(QtGui.QMainWindow):
 
     def keyPressEvent(self, keyEvent):
         if self.focused:
-            if keyEvent.key() == QtCore.Qt.Key_Enter or keyEvent.key() == QtCore.Qt.Key_Return:
-                self.father = self.list
-                if self.focused.son:
-                    self.list = self.focused.son
-                else:
-                    self.list = []
-                    self.focused.son = self.list
-                self.focused.focus = 0
-                self.focused = 0
+            if keyEvent.key() == QtCore.Qt.Key_Enter or \
+                keyEvent.key() == QtCore.Qt.Key_Return:
+                self.zoomIn()
             if keyEvent.key() == QtCore.Qt.Key_Left:
                 self.focused.translate(-1, 0)
             elif keyEvent.key() == QtCore.Qt.Key_Right:
@@ -71,27 +159,17 @@ class BuilderWidget(QtGui.QMainWindow):
                 self.focused.translate(0, -1)
             elif keyEvent.key() == QtCore.Qt.Key_Down:
                 self.focused.translate(0, 1)
-            elif keyEvent.key() == QtCore.Qt.Key_Delete and self.focused != 0:
+            elif keyEvent.key() == QtCore.Qt.Key_Delete and \
+                     self.focused != 0:
                 self.list.remove(self.focused)
                 self.focused = 0
             self.repaint()
         if keyEvent.key() == QtCore.Qt.Key_Backspace:
-            if self.father:
-                self.list = self.father
-                if self.focused:
-                    self.focused.focus = 0
-                self.focused = 0
-                self.repaint()
-                self.father = self.list[0].father
-            else:
-                #faire un bip ou un flash visuel ou ...
-                print "bip"
+            self.zoomOut()
         if keyEvent.key() == QtCore.Qt.Key_Shift:
             self.shiftPressed = 1
         elif keyEvent.key() == QtCore.Qt.Key_Escape:
-            self.close()
-        else:
-            QtGui.QWidget.keyPressEvent(self, keyEvent)
+            self.quitBuilder()
 
     def keyReleaseEvent(self, keyEvent):
         if keyEvent.key() == QtCore.Qt.Key_Shift:
@@ -102,10 +180,10 @@ class BuilderWidget(QtGui.QMainWindow):
 
     def onEdge(self, point, Box):
         if point.x() == Box.left():
-            if point.y() >= Box.top() and point.y() <= Box.top() + self.tolerence:
+            if point.y() >= Box.top() and point.y() <= Box.top() + self.tolerance:
                 QtGui.QWidget.setCursor(self, Qt.SizeFDiagCursor)
                 self.curs = 1
-            elif point.y() <= Box.bottom() and point.y() >= Box.bottom() - self.tolerence:
+            elif point.y() <= Box.bottom() and point.y() >= Box.bottom() - self.tolerance:
                 QtGui.QWidget.setCursor(self, Qt.SizeBDiagCursor)
                 self.curs = 7
             else:
@@ -113,10 +191,10 @@ class BuilderWidget(QtGui.QMainWindow):
                 self.curs = 8
             return 1
         if point.x() == Box.right():
-            if point.y() >= Box.top() and point.y() <= Box.top() + self.tolerence:
+            if point.y() >= Box.top() and point.y() <= Box.top() + self.tolerance:
                 QtGui.QWidget.setCursor(self, Qt.SizeBDiagCursor)
                 self.curs = 3
-            elif point.y() <= Box.bottom() and point.y() >= Box.bottom() - self.tolerence:
+            elif point.y() <= Box.bottom() and point.y() >= Box.bottom() - self.tolerance:
                 QtGui.QWidget.setCursor(self, Qt.SizeFDiagCursor)
                 self.curs = 5
             else:
@@ -125,10 +203,10 @@ class BuilderWidget(QtGui.QMainWindow):
             return 1
 
         if point.y() == Box.top():
-            if point.x() >= Box.left() and point.x() <= Box.left() + self.tolerence:
+            if point.x() >= Box.left() and point.x() <= Box.left() + self.tolerance:
                 QtGui.QWidget.setCursor(self, Qt.SizeFDiagCursor)
                 self.curs = 1
-            elif point.x() <= Box.right() and point.x() >= Box.right() - self.tolerence:
+            elif point.x() <= Box.right() and point.x() >= Box.right() - self.tolerance:
                 QtGui.QWidget.setCursor(self, Qt.SizeBDiagCursor)
                 self.curs = 3
             else:
@@ -136,10 +214,10 @@ class BuilderWidget(QtGui.QMainWindow):
                 self.curs = 2
             return 1
         if point.y() == Box.bottom():
-            if point.x() >= Box.left() and point.x() <= Box.left() + self.tolerence:
+            if point.x() >= Box.left() and point.x() <= Box.left() + self.tolerance:
                 QtGui.QWidget.setCursor(self, Qt.SizeBDiagCursor)
                 self.curs = 7
-            elif point.x() <= Box.right() and point.x() >= Box.right() - self.tolerence:
+            elif point.x() <= Box.right() and point.x() >= Box.right() - self.tolerance:
                 QtGui.QWidget.setCursor(self, Qt.SizeFDiagCursor)
                 self.curs = 5
             else:
@@ -243,3 +321,11 @@ class BuilderWidget(QtGui.QMainWindow):
                     paint.drawRect(x)
         paint.end()
 
+
+if __name__ == "__main__":
+    app = QtGui.QApplication(sys.argv)
+    builder = BuilderWidget()
+    builder.setWindowOpacity(0.4)
+    builder.setWindowFlags(QtCore.Qt.FramelessWindowHint)
+    builder.show()
+    app.exec_()

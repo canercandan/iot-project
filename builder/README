@@ -3,6 +3,10 @@
 For commiters and contributors:
 /!\ Don't add "build" directory into SVN
 /!\ Do not add either .pyc files THX.
+/!\ No need to add icons_rc.py either...
 
 How to generate resources ?
-=> pyrcc4 resources.qrc -o qrc_resources_rc.py
+=> pyrcc4 resources.qrc -o icons_rc.py
+
+Thanks to Nicola Larosa & Michael Foord for their ordered dictionnary.
+http://www.voidspace.org.uk/python/odict.html

@@ -1,5 +1,18 @@
 <RCC>
   <qresource prefix="/" >
-        <file>pix/whitewinningpiece.png</file>
+        <file>pix/about.png</file>
+        <file>pix/box.png</file>
+        <file>pix/cut_box.png</file>
+        <file>pix/copy_box.png</file>
+        <file>pix/paste_box.png</file>
+        <file>pix/help.png</file>
+        <file>pix/new_file.png</file>
+        <file>pix/load_file.png</file>
+        <file>pix/save_file.png</file>
+        <file>pix/selection.png</file>
+	<file>pix/shortcuts.png</file>
+        <file>pix/zoom_in.png</file>
+        <file>pix/zoom_out.png</file>
+        <file>pix/quit.png</file>
   </qresource>
 </RCC>
