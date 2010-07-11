@@ -5,8 +5,10 @@ For commiters and contributors:
 /!\ Do not add either .pyc files THX.
 /!\ No need to add icons_rc.py either...
 
-How to generate resources ?
-=> pyrcc4 resources.qrc -o icons_rc.py
+How to test (Debian/Ubuntu) ?
+1- Install this package: pyqt4-dev-tools
+2- $ pyrcc4 resources.qrc -o icons_rc.py
+3- $ python builder.py
 
-Thanks to Nicola Larosa & Michael Foord for their ordered dictionnary.
-http://www.voidspace.org.uk/python/odict.html
+Thanks to Mark James (Silk icon set)
+http://www.famfamfam.com/lab/icons/silk/

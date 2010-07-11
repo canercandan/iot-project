@@ -26,35 +26,52 @@ import box, toolbar
 from box import Box
 from toolbar import Toolbar
 
+class Mode:
+    box = 0
+    selection = 1
+
 class BuilderWidget(QtGui.QMainWindow):
-    def __init__(self, parent=None):
-        QtGui.QWidget.__init__(self, parent)
+    def __init__(self):
+        QtGui.QMainWindow.__init__(self)
 
         try:
-            self.toolbar = self.addToolBar(Toolbar(self))
+            print "lolz"
+            self.toolbar = Toolbar(self)
+            self.addToolBar(self.toolbar)
         except:
             print "Unexpected error:", sys.exc_info()[0]
             raise
 
-        self.tolerance = 0
-        self.curs = 0
-        self.focused = None
-        self.shiftPressed = 0
-        self.leftButtonPressed = 0
-        self.beginPos = QPoint()
-        self.endPos = QPoint()
-        self.list = []
+        self.init()
         self.setGeometry(300, 300, 600, 600)
         self.setWindowTitle('IOT Builder')
         self.setMouseTracking(1)
-        self.father = 0
         self.saveDialog = 'Save xml file'
         self.loadDialog = 'Open xml file'
         self.extensionDialog = 'Xml Files (*.xml)'
         self.extension = '.xml'
 
+    def init(self):
+        self.tolerance = 0
+        self.curs = 0
+        self.focused = None
+        self.clipboard = None
+        self.father = None
+        self.mode = Mode.selection
+        self.leftButtonPressed = 0
+        self.beginPos = QPoint()
+        self.endPos = QPoint()
+        self.list = []
+
     def newFile(self):
-        print 'newFile method'
+        if self.list or self.father:
+            r = QMessageBox.question(self, 'IotBuilder', \
+                                     'Are you sure to clean all boxes ?', \
+                                     QMessageBox.Ok, QMessageBox.Cancel)
+            if r == QMessageBox.Cancel:
+                return
+        self.init()
+        self.repaint()
 
     def saveFile(self):
         filename = QFileDialog.getSaveFileName(None, \
@@ -66,7 +83,7 @@ class BuilderWidget(QtGui.QMainWindow):
         if not QString(filename).endsWith(self.extension):
             filename.append(self.extension)
         if QDir(QDir.currentPath()).exists(filename):
-            QMessageBox.critical(self, 'Error', 'File already exists...')
+            QMessageBox.critical(self, 'IotBuilder', 'File already exists...')
             return
 
         qfile = QFile(filename)
@@ -85,10 +102,10 @@ class BuilderWidget(QtGui.QMainWindow):
         print filename
 
     def selectionMode(self):
-        print 'selectionMode method'
+        self.mode = Mode.selection
 
     def boxMode(self):
-        print 'boxMode method'
+        self.mode = Mode.box
 
     def zoomIn(self):
         if self.focused:
@@ -102,7 +119,7 @@ class BuilderWidget(QtGui.QMainWindow):
             self.focused = 0
             self.repaint()
         else:
-            print 'Cant zoom in'
+            QMessageBox.information(self, 'IotBuilder', 'You have not selected any box.')
 
     def zoomOut(self):
         if self.father:
@@ -113,7 +130,7 @@ class BuilderWidget(QtGui.QMainWindow):
             self.father = self.list[0].father
             self.repaint()
         else:
-            print 'Cant zoom out'
+            QMessageBox.information(self, 'IotBuilder', 'You are on the top level.')
 
     def copyBox(self):
         print 'copyBox method'
@@ -148,9 +165,6 @@ class BuilderWidget(QtGui.QMainWindow):
 
     def keyPressEvent(self, keyEvent):
         if self.focused:
-            if keyEvent.key() == QtCore.Qt.Key_Enter or \
-                keyEvent.key() == QtCore.Qt.Key_Return:
-                self.zoomIn()
             if keyEvent.key() == QtCore.Qt.Key_Left:
                 self.focused.translate(-1, 0)
             elif keyEvent.key() == QtCore.Qt.Key_Right:
@@ -159,69 +173,62 @@ class BuilderWidget(QtGui.QMainWindow):
                 self.focused.translate(0, -1)
             elif keyEvent.key() == QtCore.Qt.Key_Down:
                 self.focused.translate(0, 1)
-            elif keyEvent.key() == QtCore.Qt.Key_Delete and \
-                     self.focused != 0:
+            elif keyEvent.key() == QtCore.Qt.Key_Delete and self.focused:
                 self.list.remove(self.focused)
                 self.focused = 0
             self.repaint()
-        if keyEvent.key() == QtCore.Qt.Key_Backspace:
+        elif keyEvent.key() == QtCore.Qt.Key_Enter or \
+            keyEvent.key() == QtCore.Qt.Key_Return:
+            self.zoomIn()
+        elif keyEvent.key() == QtCore.Qt.Key_Backspace:
             self.zoomOut()
-        if keyEvent.key() == QtCore.Qt.Key_Shift:
-            self.shiftPressed = 1
-        elif keyEvent.key() == QtCore.Qt.Key_Escape:
-            self.quitBuilder()
-
-    def keyReleaseEvent(self, keyEvent):
-        if keyEvent.key() == QtCore.Qt.Key_Shift:
-            self.shiftPressed = 0
-            self.repaint()
         else:
-            QtGui.QWidget.keyReleaseEvent(self, keyEvent)
+            QtGui.QMainWindow.keyPressEvent(self, keyEvent)
 
     def onEdge(self, point, Box):
         if point.x() == Box.left():
             if point.y() >= Box.top() and point.y() <= Box.top() + self.tolerance:
-                QtGui.QWidget.setCursor(self, Qt.SizeFDiagCursor)
+                QtGui.QMainWindow.setCursor(self, Qt.SizeFDiagCursor)
                 self.curs = 1
             elif point.y() <= Box.bottom() and point.y() >= Box.bottom() - self.tolerance:
-                QtGui.QWidget.setCursor(self, Qt.SizeBDiagCursor)
+                QtGui.QMainWindow.setCursor(self, Qt.SizeBDiagCursor)
                 self.curs = 7
             else:
-                QtGui.QWidget.setCursor(self, Qt.SizeHorCursor)
+                QtGui.QMainWindow.setCursor(self, Qt.SizeHorCursor)
                 self.curs = 8
             return 1
         if point.x() == Box.right():
             if point.y() >= Box.top() and point.y() <= Box.top() + self.tolerance:
-                QtGui.QWidget.setCursor(self, Qt.SizeBDiagCursor)
+                QtGui.QMainWindow.setCursor(self, Qt.SizeBDiagCursor)
                 self.curs = 3
             elif point.y() <= Box.bottom() and point.y() >= Box.bottom() - self.tolerance:
-                QtGui.QWidget.setCursor(self, Qt.SizeFDiagCursor)
+                QtGui.QMainWindow.setCursor(self, Qt.SizeFDiagCursor)
                 self.curs = 5
             else:
-                QtGui.QWidget.setCursor(self, Qt.SizeHorCursor)
+                QtGui.QMainWindow.setCursor(self, Qt.SizeHorCursor)
                 self.curs = 4
             return 1
 
         if point.y() == Box.top():
             if point.x() >= Box.left() and point.x() <= Box.left() + self.tolerance:
-                QtGui.QWidget.setCursor(self, Qt.SizeFDiagCursor)
+                QtGui.QMainWindow.setCursor(self, Qt.SizeFDiagCursor)
                 self.curs = 1
             elif point.x() <= Box.right() and point.x() >= Box.right() - self.tolerance:
-                QtGui.QWidget.setCursor(self, Qt.SizeBDiagCursor)
+                QtGui.QMainWindow.setCursor(self, Qt.SizeBDiagCursor)
                 self.curs = 3
             else:
-                QtGui.QWidget.setCursor(self, Qt.SizeVerCursor)
+                QtGui.QMainWindow.setCursor(self, Qt.SizeVerCursor)
                 self.curs = 2
             return 1
         if point.y() == Box.bottom():
             if point.x() >= Box.left() and point.x() <= Box.left() + self.tolerance:
-                QtGui.QWidget.setCursor(self, Qt.SizeBDiagCursor)
+                QtGui.QMainWindow.setCursor(self, Qt.SizeBDiagCursor)
                 self.curs = 7
             elif point.x() <= Box.right() and point.x() >= Box.right() - self.tolerance:
-                QtGui.QWidget.setCursor(self, Qt.SizeFDiagCursor)
+                QtGui.QMainWindow.setCursor(self, Qt.SizeFDiagCursor)
                 self.curs = 5
             else:
-                QtGui.QWidget.setCursor(self, Qt.SizeVerCursor)
+                QtGui.QMainWindow.setCursor(self, Qt.SizeVerCursor)
                 self.curs = 6
             return 1
         self.curs = 0
@@ -235,7 +242,7 @@ class BuilderWidget(QtGui.QMainWindow):
 
     def mouseMoveEvent(self, mouseEvent):
         if self.leftButtonPressed:
-            if self.focused != 0 and self.shiftPressed == 0 and self.leftButtonPressed == 1:
+            if self.focused and self.mode == Mode.selection:
                 offset_x = mouseEvent.pos().x() - self.beginPos.x()
                 offset_y = mouseEvent.pos().y() - self.beginPos.y()
                 if self.curs ==  0:                    # deplacer la box
@@ -268,26 +275,26 @@ class BuilderWidget(QtGui.QMainWindow):
 
             self.endPos = QPoint(mouseEvent.pos())
             self.repaint()
-        else:
+        elif self.mode == Mode.selection:
             for box in self.list:
                 if self.onEdge(mouseEvent.pos(), box) == 1:
                     return
-            QtGui.QWidget.setCursor(self, Qt.ArrowCursor)
+            QtGui.QMainWindow.setCursor(self, Qt.ArrowCursor)
 
     def mousePressEvent(self, mouseEvent):
         if mouseEvent.button() == QtCore.Qt.LeftButton:
             self.leftButtonPressed = 1
             self.beginPos = QPoint(mouseEvent.pos())
-            if self.shiftPressed == 0:
+            if self.mode == Mode.selection:
                 self.selectBox(mouseEvent.pos())
             self.repaint()
         else:
-            QtGui.QWidget.mousePressEvent(self, mouseEvent)
+            QtGui.QMainWindow.mousePressEvent(self, mouseEvent)
 
     def mouseReleaseEvent(self, mouseEvent):
         if mouseEvent.button() == QtCore.Qt.LeftButton:
             self.leftButtonPressed = 0
-            if self.shiftPressed == 1:
+            if self.mode == Mode.box:
                 self.endPos = mouseEvent.pos()
                 va1 = QPoint(min(self.beginPos.x(), mouseEvent.pos().x()), min(self.beginPos.y(), mouseEvent.pos().y()))
                 va2 = QPoint(max(self.beginPos.x(), mouseEvent.pos().x()), max(self.beginPos.y(), mouseEvent.pos().y()))
@@ -296,7 +303,7 @@ class BuilderWidget(QtGui.QMainWindow):
                 self.list.append(tmpBox)
                 self.repaint()
         else:
-            QtGui.QWidget.mouseReleaseEvent(self, mouseEvent)
+            QtGui.QMainWindow.mouseReleaseEvent(self, mouseEvent)
 
     def paintEvent(self, event):
         paint = QtGui.QPainter()
@@ -308,7 +315,7 @@ class BuilderWidget(QtGui.QMainWindow):
 
         paint.setBrush(QtGui.QColor(0, 0, 255, 80))              # RVB, opacity
 
-        if self.leftButtonPressed and self.shiftPressed:
+        if self.leftButtonPressed and self.mode == Mode.box:
             paint.drawRect(self.beginPos.x(), self.beginPos.y(), self.endPos.x() - self.beginPos.x(), self.endPos.y() - self.beginPos.y())
 
         if self.list:
@@ -328,4 +335,4 @@ if __name__ == "__main__":
     builder.setWindowOpacity(0.4)
     builder.setWindowFlags(QtCore.Qt.FramelessWindowHint)
     builder.show()
-    app.exec_()
+    sys.exit(app.exec_())
