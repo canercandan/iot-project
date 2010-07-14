@@ -35,7 +35,6 @@ class BuilderWidget(QtGui.QMainWindow):
         QtGui.QMainWindow.__init__(self)
 
         try:
-            print "lolz"
             self.toolbar = Toolbar(self)
             self.addToolBar(self.toolbar)
         except:
@@ -89,7 +88,7 @@ class BuilderWidget(QtGui.QMainWindow):
         qfile = QFile(filename)
         if qfile.open(QIODevice.WriteOnly | QIODevice.Text):
             out = QTextStream(qfile)
-            out << 'lol'
+            out << 'XML  data'
             qfile.close()
 
     def loadFile(self):
@@ -151,6 +150,7 @@ class BuilderWidget(QtGui.QMainWindow):
         print 'aboutUs method'
 
     def quitBuilder(self):
+        self.deleteLater()
         app.quit()
 
     def selectBox(self, pos):
