@@ -16,17 +16,7 @@ SET(PROJECT_VERSION "${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT
 
 
 ######################################################################################
-### 2) Prepare some useful variables
-######################################################################################
-
-SET(IOT_CEG_SRC_DIR "${CMAKE_CURRENT_SOURCE_DIR}")
-SET(IOT_CEG_BIN_DIR "${CMAKE_CURRENT_BINARY_DIR}")
-
-######################################################################################
-
-
-######################################################################################
-### 3) Include useful features
+### 2) Include useful features
 ######################################################################################
 
 INCLUDE(FindDoxygen)
@@ -50,7 +40,7 @@ ENDIF()
 
 
 ######################################################################################
-### 4) Include header files path
+### 3) Include header files path
 ######################################################################################
 
 INCLUDE_DIRECTORIES(
@@ -62,7 +52,7 @@ INCLUDE_DIRECTORIES(
 
 
 ######################################################################################
-### 5) Set compiler definitions
+### 4) Set compiler definitions
 ######################################################################################
 
 IF(UNIX)
@@ -76,7 +66,7 @@ ENDIF()
 
 
 ######################################################################################
-### 6) Prepare some variables for CMAKE usage
+### 5) Prepare some variables for CMAKE usage
 ######################################################################################
 
 SET(SAMPLE_SRCS)
@@ -89,7 +79,7 @@ SET(SAMPLE_TRANS)
 
 
 ######################################################################################
-### 7) Now where we go ?
+### 6) Now where we go ?
 ######################################################################################
 
 ADD_SUBDIRECTORY(resources)
@@ -104,7 +94,7 @@ ADD_SUBDIRECTORY(doc)
 
 
 ######################################################################################
-### 8) Some routines for Qt resources
+### 7) Some routines for Qt resources
 ######################################################################################
 
 # Here is an explaination to how to use qt4_wrap_cpp:
@@ -122,7 +112,7 @@ QT4_ADD_TRANSLATION(SAMPLE_TRANS_SRCS ${SAMPLE_TRANS})
 
 
 ######################################################################################
-### 9) Create executable, link libraries and prepare target
+### 8) Create executable, link libraries and prepare target
 ######################################################################################
 
 INCLUDE_DIRECTORIES(${CMAKE_CURRENT_BINARY_DIR} ${LOG4CXX_INCLUDE_DIR})
@@ -172,7 +162,7 @@ INSTALL(
   )
 
 ######################################################################################
-### 10) Include packaging
+### 9) Include packaging
 ######################################################################################
 
 INCLUDE(Packaging.cmake)
