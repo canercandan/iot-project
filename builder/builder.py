@@ -115,30 +115,45 @@ class BuilderWidget(QtGui.QMainWindow):
                 self.list = []
                 self.focused.son = self.list
             self.focused.focus = 0
-            self.focused = 0
+            self.focused = None
+            self.clipboard = None
             self.repaint()
         else:
-            QMessageBox.information(self, 'IotBuilder', 'You have not selected any box.')
+            QMessageBox.information(self, 'IotBuilder', \
+                                    'You have not selected any box.')
 
     def zoomOut(self):
         if self.father:
             self.list = self.father
             if self.focused:
                 self.focused.focus = 0
-            self.focused = 0
+            self.focused = None
+            self.clipboard = None
             self.father = self.list[0].father
             self.repaint()
         else:
-            QMessageBox.information(self, 'IotBuilder', 'You are on the top level.')
+            QMessageBox.information(self, 'IotBuilder', \
+                                    'You are on the top level.')
 
     def copyBox(self):
-        print 'copyBox method'
+        if self.focused:
+            self.clipboard = Box(self.focused.topLeft(), \
+                                 self.focused.bottomRight())
+            self.clipboard.father = self.focused.father
 
     def cutBox(self):
-        print 'cutBox method'
+        if self.focused:
+            self.copyBox()
+            self.deleteFocusedBox()
+            self.repaint()
 
     def pasteBox(self):
-        print 'pasteBox method'
+        if self.clipboard:
+            copy = Box(self.clipboard.topLeft(), \
+                       self.clipboard.bottomRight())
+            copy.father = self.clipboard.father
+            self.list.append(copy)
+            self.repaint()
 
     def builderHelp(self):
         print 'builderHelp method'
@@ -163,8 +178,30 @@ class BuilderWidget(QtGui.QMainWindow):
         if topBox:
             topBox.focus = 1
 
-    def keyPressEvent(self, keyEvent):
+    def selectNextBox(self):
+        if self.focused and len(self.list) > 1:
+            index = self.list.index(self.focused)
+            self.focused.focus = 0
+            self.focused = self.list[(index + 1) % len(self.list)]
+            self.focused.focus = 1
+        elif len(self.list):
+            self.focused = self.list[0]
+            self.focused.focus = 1
+        self.repaint()
+
+    def deleteFocusedBox(self):
         if self.focused:
+            self.list.remove(self.focused)
+            self.focused = None
+
+    def mouseDoubleClickEvent(self, mouseEvent):
+        if self.focused and self.mode == Mode.selection:
+            self.zoomIn()
+
+    def keyPressEvent(self, keyEvent):
+        if keyEvent.key() == QtCore.Qt.Key_Tab:
+            self.selectNextBox()
+        elif self.focused:
             if keyEvent.key() == QtCore.Qt.Key_Left:
                 self.focused.translate(-1, 0)
             elif keyEvent.key() == QtCore.Qt.Key_Right:
@@ -173,17 +210,14 @@ class BuilderWidget(QtGui.QMainWindow):
                 self.focused.translate(0, -1)
             elif keyEvent.key() == QtCore.Qt.Key_Down:
                 self.focused.translate(0, 1)
-            elif keyEvent.key() == QtCore.Qt.Key_Delete and self.focused:
-                self.list.remove(self.focused)
-                self.focused = 0
+            elif keyEvent.key() == QtCore.Qt.Key_Delete:
+                self.deleteFocusedBox()
             self.repaint()
         elif keyEvent.key() == QtCore.Qt.Key_Enter or \
             keyEvent.key() == QtCore.Qt.Key_Return:
             self.zoomIn()
         elif keyEvent.key() == QtCore.Qt.Key_Backspace:
             self.zoomOut()
-        else:
-            QtGui.QMainWindow.keyPressEvent(self, keyEvent)
 
     def onEdge(self, point, Box):
         if point.x() == Box.left():

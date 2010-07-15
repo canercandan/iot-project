@@ -20,8 +20,8 @@ from PyQt4 import QtGui, QtCore
 from PyQt4.QtCore import *
 
 class Box(QRect):
-    def __init__(self, t_left=QPoint(), b_right=QPoint()):
-        QRect.__init__(self, t_left, b_right)
-        self.focus = 0
+    def __init__(self, topLeft, bottomRight):
+        QRect.__init__(self, topLeft, bottomRight)
         self.son = 0
+        self.focus = 0
         self.father = 0
