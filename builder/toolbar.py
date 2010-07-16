@@ -44,6 +44,9 @@ class Toolbar(QtGui.QToolBar):
             s('', '', '', None), \
             s(':/pix/selection', 'Selection mode', 'S', parent.selectionMode), \
             s(':/pix/box', 'Box mode', 'B', parent.boxMode), \
+            s('', '', '', None), \
+            s(':/pix/prev_box', 'Select previous box', 'Shift+Tab', parent.selectPreviousBox), \
+            s(':/pix/next_box', 'Select next box', 'Tab', parent.selectNextBox), \
             s(':/pix/zoom_in', 'Zoom in', '+', parent.zoomIn), \
             s(':/pix/zoom_out', 'Zoom out', '-', parent.zoomOut), \
             s('', '', '', None), \

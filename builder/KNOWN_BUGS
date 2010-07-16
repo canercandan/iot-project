@@ -1,5 +1,4 @@
                              === KNOWN BUGS ===
 
-- When the toolbar is floating, exiting triggers a segfault (PyQt bug).
 - In box mode, drawing a box triggers fake box to appear.
 - In selection mode, cursor changes even if it's not on a box's edge.

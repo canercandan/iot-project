@@ -1,45 +1,52 @@
-How to Install:
+How to compile and install:
 
 ################################################################################
-## on UNIX
+##   Linux Platform
 ################################################################################
+o--------------o
+  Requirements
+o--------------o
+- Python (at least 2.6) => http://www.python.org/download/
+- PyQt (at least 4.5)   => http://www.riverbankcomputing.co.uk/software/pyqt/download
 
-1) Be sure you have installed the last version of CMAKE (2.6)
+o-------------------------o
+  Additionnal Softwares
+o-------------------------o
+- pyInstaller 1.4       => http://www.pyinstaller.org/
+- cmake (at least 2.6)  => http://www.cmake.org/cmake/resources/software.html
 
-2) Create a directory called "build" into .
+-----------------
+Simple Execution:
+-----------------
+[1-] Compile icons into python file
+$ pyrcc4 resources.qrc -o icons_rc.py
 
-3) Go to the new "build" directory
+[2-] Enjoy the builder
+$ python builder.py
 
-4) Type the following command: cmake ..
+-------------------
+Static compilation:
+-------------------
+[1-] Read setup.sh
+$ sh setup.sh
 
-5) Use the Makefile to generate binary with the command: make
+[2-] Read static.sh
+$ sh static.sh build
+
+[3-] Grab the binary in build/dist
+
 
 ################################################################################
-
-
+##   Windows Platform
 ################################################################################
-## on Windows/MinGW
-################################################################################
+o--------------o
+  Requirements
+o--------------o
+- Python (at least 2.6) => http://www.python.org/download/
+- PyQt (at least 4.5)   => http://www.riverbankcomputing.co.uk/software/pyqt/download
 
-1) Install CMake for Windows:
-http://cmake.org/cmake/resources/software.html
-and add the CMake path in the PATH environment variable,
 
-2) Install MinGW (GCC) Compiler Suite, look at the following address
-http://www.mingw.org/wiki/HOWTO_Install_the_MinGW_GCC_Compiler_Suite
 
-3) Install Python
-
-(4)) For commiters, install SVN from
-http://subversion.tigris.org/servlets/ProjectDocumentList?folderID=8100
-
-5) Create a directory called "build" into .
-
-6) Go to the new "build" directory
-
-################################################################################
-
-How to make packaging with Cpack:
 
 ################################################################################
 ## Packaging
@@ -61,3 +68,5 @@ an so on.
 Look at `man cpack` to learn further things.
 
 ################################################################################
+
+Last modified: Fri Jul 16 02:46:51 CEST 2010

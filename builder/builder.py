@@ -189,6 +189,22 @@ class BuilderWidget(QtGui.QMainWindow):
             self.focused.focus = 1
         self.repaint()
 
+    def selectPreviousBox(self):
+        length = len(self.list)
+        if self.focused and length > 1:
+            index = self.list.index(self.focused)
+            if index == 0:
+                index = length - 1
+            else:
+                index = index - 1
+            self.focused.focus = 0
+            self.focused = self.list[index]
+            self.focused.focus = 1
+        elif length > 0:
+            self.focused = self.list[length - 1]
+            self.focused.focus = 1
+        self.repaint()
+
     def deleteFocusedBox(self):
         if self.focused:
             self.list.remove(self.focused)
@@ -199,9 +215,7 @@ class BuilderWidget(QtGui.QMainWindow):
             self.zoomIn()
 
     def keyPressEvent(self, keyEvent):
-        if keyEvent.key() == QtCore.Qt.Key_Tab:
-            self.selectNextBox()
-        elif self.focused:
+        if self.focused:
             if keyEvent.key() == QtCore.Qt.Key_Left:
                 self.focused.translate(-1, 0)
             elif keyEvent.key() == QtCore.Qt.Key_Right:

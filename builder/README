@@ -6,9 +6,11 @@ For commiters and contributors:
 /!\ No need to add icons_rc.py either...
 
 How to test (Debian/Ubuntu) ?
-1- Install this package: pyqt4-dev-tools
+1- Install this package: pyqt4-dev-tools python-dev
 2- $ pyrcc4 resources.qrc -o icons_rc.py
 3- $ python builder.py
+
+Read INSTALL for more information.
 
 Thanks to Mark James (Silk icon set)
 http://www.famfamfam.com/lab/icons/silk/

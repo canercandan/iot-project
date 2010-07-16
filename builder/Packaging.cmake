@@ -36,7 +36,8 @@ SET(CPACK_COMPONENT_APPLICATIONS_INSTALL_TYPES Full)
 
 #cpack package information
 SET(CPACK_PACKAGE_DESCRIPTION_FILE "${CMAKE_CURRENT_SOURCE_DIR}/README")
-SET(CPACK_PACKAGE_DESCRIPTION "Builder has been developped as part of IOT project and allows users to edit boxes used by CEG to highlight some program features.")
+SET(CPACK_PACKAGE_DESCRIPTION "Builder has been developped as part of IOT project and"
+"allows users to edit boxes used by CEG to highlight some program features.")
 SET(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/COPYING")
 SET(CPACK_PACKAGE_DESCRIPTION_SUMMARY "IOT - Boxes editor")
 SET(CPACK_PACKAGE_VENDOR "IOnlyThink.com")
@@ -57,7 +58,7 @@ SET(CPACK_PACKAGE_INSTALL_DIRECTORY "${PROJECT_NAME} ${PROJECT_VERSION_MAJOR}.${
 ### 4) Set up debian packaging information
 ######################################################################################
 
-SET(CPACK_DEBIAN_PACKAGE_DEPENDS "python2.6, python-qt4")
+SET(CPACK_DEBIAN_PACKAGE_DEPENDS "pyqt4-dev-tools, python-dev, python2.6, python-qt4")
 SET(CPACK_DEBIAN_PACKAGE_SECTION "editor")
 SET(CPACK_DEBIAN_PACKAGE_PRIORITY "optional")
 

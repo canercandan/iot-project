@@ -1,8 +1,3 @@
-######################################################################################
-### 1) Set the application properties
-######################################################################################
-
-# Checks cmake version compatibility
 CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
 
 PROJECT(builder)
@@ -12,39 +7,24 @@ SET(PROJECT_VERSION_MINOR 0)
 SET(PROJECT_VERSION_PATCH 0)
 SET(PROJECT_VERSION "${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT_VERSION_PATCH}")
 
-######################################################################################
+SET(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR})
+SET (EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR}/bin CACHE PATH "Single output directory for building all executables.")
+SET (LIBRARY_OUTPUT_PATH ${PROJECT_BINARY_DIR}/bin CACHE PATH "Single output directory for building all libraries.")
+MARK_AS_ADVANCED(LIBRARY_OUTPUT_PATH EXECUTABLE_OUTPUT_PATH)
 
 
-######################################################################################
-### 2) Prepare some useful variables
-######################################################################################
+FIND_PACKAGE(PyInstaller REQUIRED)
+INCLUDE(UsePyInstaller)
 
-SET(IOT_BUILDER_SRC_DIR "${CMAKE_CURRENT_SOURCE_DIR}")
-SET(IOT_BUILDER_BIN_DIR "${CMAKE_CURRENT_BINARY_DIR}")
+SET(PY_SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/builder.py)
+ADD_PI_EXECUTABLE({PROJECT_NAME} ${PY_SOURCES})
 
-######################################################################################
-
-
-######################################################################################
-### 2) Set target and create executable
-######################################################################################
-
-#CONFIGURE_FILE()
 
 # INSTALL(
 #   TARGETS ${PROJECT_NAME}
-#   RUNTIME # RUNTIME keyword allows to make binary executable (chmod +x)
+#   RUNTIME
 #   DESTINATION bin
 #   COMPONENT applications
 #   )
 
-######################################################################################
-
-
-######################################################################################
-### 3) Include packaging
-######################################################################################
-
-#INCLUDE(Packaging.cmake)
-
-######################################################################################
+INCLUDE(Packaging.cmake)

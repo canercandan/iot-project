@@ -2,6 +2,8 @@
   <qresource prefix="/" >
         <file>pix/about.png</file>
         <file>pix/box.png</file>
+        <file>pix/next_box.png</file>
+        <file>pix/prev_box.png</file>
         <file>pix/cut_box.png</file>
         <file>pix/copy_box.png</file>
         <file>pix/paste_box.png</file>
