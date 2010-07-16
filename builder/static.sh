@@ -9,6 +9,9 @@ build()
 	mkdir build
     fi
 
+    # All icons (.png) become one file (.py)
+    pyrcc4 resources.qrc -o icons_rc.py
+
     cd build
     cmake ..
     make
