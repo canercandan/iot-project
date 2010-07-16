@@ -38,6 +38,7 @@
 #include "PopMenuAction.h"
 #include "ReadAction.h"
 #include "ZoomAction.h"
+#include "QuitHandler.h"
 /*********************************/
 
 #ifndef Q_WS_WIN
@@ -50,31 +51,32 @@
 
 int main(int argc, char *argv[])
 {
-  QCoreApplication::setOrganizationName("IOT");
-  QCoreApplication::setOrganizationDomain("ionlythink.com");
-  QCoreApplication::setApplicationName("CEG");
+    QCoreApplication::setOrganizationName("IOT");
+    QCoreApplication::setOrganizationDomain("ionlythink.com");
+    QCoreApplication::setApplicationName("CEG");
 
-  QApplication a(argc, argv);
+    QApplication app(argc, argv);
 
-  if (QSystemTrayIcon::isSystemTrayAvailable() == false)
+    if (QSystemTrayIcon::isSystemTrayAvailable() == false)
     {
-      QMessageBox::critical(0, QObject::tr("Systray"), QObject::tr("Couldn't detect any system tray on this system."));
-      return (EXIT_FAILURE);
+	QMessageBox::critical(0, QObject::tr("Systray"), QObject::tr("Couldn't detect any system tray on this system."));
+	return (EXIT_FAILURE);
     }
 
 #ifndef Q_WS_WIN
-  log4cxx::xml::DOMConfigurator::configure(LOGCXXCF);
+    log4cxx::xml::DOMConfigurator::configure(LOGCXXCF);
 #endif
 
-  QApplication::setQuitOnLastWindowClosed(false); // Ne jamais retire cette ligne
+    QApplication::setQuitOnLastWindowClosed(false); // Ne jamais retire cette ligne
 
-  ActionFactory::registerInstantiator(ClickAction::IDENTIFIER, instanciateClickAction);
-  ActionFactory::registerInstantiator(ExecMenuAction::IDENTIFIER, instanciateExecMenuAction);
-  ActionFactory::registerInstantiator(MoveAction::IDENTIFIER, instanciateMoveAction);
-  ActionFactory::registerInstantiator(PopMenuAction::IDENTIFIER, instanciatePopMenuAction);
-  ActionFactory::registerInstantiator(ReadAction::IDENTIFIER, instanciateReadAction);
-  ActionFactory::registerInstantiator(ZoomAction::IDENTIFIER, instanciateZoomAction);
+    ActionFactory::registerInstantiator(ClickAction::IDENTIFIER, instanciateClickAction);
+    ActionFactory::registerInstantiator(ExecMenuAction::IDENTIFIER, instanciateExecMenuAction);
+    ActionFactory::registerInstantiator(MoveAction::IDENTIFIER, instanciateMoveAction);
+    ActionFactory::registerInstantiator(PopMenuAction::IDENTIFIER, instanciatePopMenuAction);
+    ActionFactory::registerInstantiator(ReadAction::IDENTIFIER, instanciateReadAction);
+    ActionFactory::registerInstantiator(ZoomAction::IDENTIFIER, instanciateZoomAction);
 
-  Singleton<Systray>::getInstance();
-  return a.exec();
+    QuitHandler quitHandler(&app);
+    Singleton<Systray>::getInstance();
+    return app.exec();
 }

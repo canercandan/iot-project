@@ -18,41 +18,19 @@
  * Authors: CEG <ceg@ionlythink.com>, http://www.ionlythink.com
  */
 
-#ifndef SINGLETON_HPP
-# define SINGLETON_HPP
+#ifndef QUITHANDLER_H
+#define QUITHANDLER_H
 
-template <typename T>
-	class Singleton
+#include <QObject>
+
+class QuitHandler : public QObject
 {
-private:
-    Singleton(){}
-    static T* theInstance;
-
+Q_OBJECT
 public:
-    static T* getInstance()
-    {
-	if (theInstance == 0)
-	    theInstance = new T;
-	return theInstance;
-    }
+    explicit QuitHandler(QObject *parent = 0);
 
-    template <typename C>
-	    static T* getInstance(C val)
-    {
-	if (theInstance == 0)
-	{
-	    theInstance = new T(val);
-	}
-	return theInstance;
-    }
-
-    static void destroyInstance()
-    {
-	delete theInstance;
-	theInstance = 0;
-    }
+public slots:
+    void    handleQuit();
 };
 
-template <class T>  T* Singleton<T>::theInstance = 0;
-
-#endif /*!SINGLETON_HPP*/
+#endif // QUITHANDLER_H
