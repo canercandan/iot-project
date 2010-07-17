@@ -20,7 +20,7 @@
 
 #if defined(__MINGW32__)
 
-#warning "MINGW32"
+//#warning "MINGW32"
 
 #include "ICommunicationGraphicalServer.h"
 
@@ -48,7 +48,7 @@ public:
 
 #elif defined(Q_WS_WIN)
 
-#warning "WINDOWS"
+//#warning "WINDOWS"
 
 #include "Win32Explorer.h"
 
@@ -62,6 +62,6 @@ typedef XWindowSystem	WindowSystem;
 
 #else
 
-#warning "Not yet implemented"
+//#warning "Not yet implemented"
 
 #endif

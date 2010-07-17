@@ -20,7 +20,8 @@ How to Install:
 
 
 ################################################################################
-## on Windows/MinGW
+## on Windows/MinGW 
+fini
 ################################################################################
 
 1) Install CMake for Windows:
@@ -44,6 +45,13 @@ http://subversion.tigris.org/servlets/ProjectDocumentList?folderID=8100
 8) Use the Makefile to generate binary with the command: mingw32-make
 
 9) A binary has been normally generated into "build" called "ceg"
+
+################################################################################
+## On Windows/VS2008
+################################################################################
+
+Follow thoses instructions without the compilation part :
+http://www.siteduzero.com/tutoriel-3-36553-utiliser-qt-avec-visual-studio.html
 
 ################################################################################
 

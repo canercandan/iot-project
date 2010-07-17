@@ -27,6 +27,8 @@
 #include "Win32Adaptor.h"
 /*********************************/
 
+#include <QDebug>
+
 Win32Explorer::Win32Explorer()
 {
 }
@@ -67,7 +69,7 @@ bool	Win32Explorer::getFocusedWindow(Ceg::Window & oneWindow)
 	return (false);		// Not a window
     if (!::IsWindowVisible(hWnd))
 	return (false);		// Not visible
-    if (!GetWindowText(hWnd, (WCHAR *)windowTitle, sizeof(windowTitle)))
+    if (!GetWindowText(hWnd, windowTitle, sizeof(windowTitle)))
 	return (false);		// No window title
     oneWindow.setId(hWnd);
     if (GetWindowInfo(hWnd, &winInfo))
@@ -138,7 +140,7 @@ BOOL	Win32Explorer::fillWindowList(HWND hWnd)
 	return TRUE;		// Not a window
     if (!::IsWindowVisible(hWnd))
 	return TRUE;		// Not visible
-    if (!GetWindowText(hWnd, (WCHAR *)windowTitle, sizeof(windowTitle)))
+    if (!GetWindowText(hWnd, windowTitle, sizeof(windowTitle)))
 	return TRUE;		// No window title
     WINDOWINFO  winInfo;
     qDebug() << "Valuer hWind1: " << hWnd;
