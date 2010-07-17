@@ -123,7 +123,7 @@
          <enum>QFrame::Plain</enum>
         </property>
         <property name="currentIndex">
-         <number>2</number>
+         <number>0</number>
         </property>
         <widget class="QWidget" name="General">
          <widget class="QWidget" name="verticalLayoutWidget_2">
@@ -160,6 +160,43 @@
             </widget>
            </item>
            <item>
+            <layout class="QFormLayout" name="formLayout_5">
+             <property name="labelAlignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+             <property name="formAlignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+             <item row="0" column="0">
+              <widget class="QLabel" name="label_2">
+               <property name="text">
+                <string>Language:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QComboBox" name="comboBox">
+               <property name="maximumSize">
+                <size>
+                 <width>150</width>
+                 <height>16777215</height>
+                </size>
+               </property>
+               <item>
+                <property name="text">
+                 <string>English</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Français</string>
+                </property>
+               </item>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
             <widget class="QGroupBox" name="defaultGroupBox">
              <property name="title">
               <string>Default Boxes</string>
@@ -170,7 +207,7 @@
                 <x>10</x>
                 <y>20</y>
                 <width>491</width>
-                <height>171</height>
+                <height>101</height>
                </rect>
               </property>
               <layout class="QFormLayout" name="formLayout">
@@ -231,7 +268,7 @@
                 <x>10</x>
                 <y>20</y>
                 <width>491</width>
-                <height>171</height>
+                <height>101</height>
                </rect>
               </property>
               <layout class="QFormLayout" name="formLayout_2">
