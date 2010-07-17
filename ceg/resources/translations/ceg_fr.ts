@@ -188,7 +188,7 @@
     <message>
         <location filename="../../src/SettingsDialog.cpp" line="85"/>
         <source>Please fill all proxy fields !</source>
-        <translation type="unfinished">Veuillez remplir tous les champs correspondants au proxy !</translation>
+        <translation>Veuillez remplir tous les champs correspondants au proxy !</translation>
     </message>
     <message>
         <location filename="../../src/SettingsDialog.cpp" line="120"/>
