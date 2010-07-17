@@ -178,22 +178,22 @@
         <location filename="../../src/SettingsDialog.cpp" line="79"/>
         <location filename="../../src/SettingsDialog.cpp" line="85"/>
         <source>Error</source>
-        <translation type="unfinished">Erreur</translation>
+        <translation>Erreur</translation>
     </message>
     <message>
         <location filename="../../src/SettingsDialog.cpp" line="79"/>
         <source>Please define the custom xml path !</source>
-        <translation type="unfinished">Veuillez definir le chemin du fichier XML !</translation>
+        <translation>Veuillez definir le chemin du fichier XML !</translation>
     </message>
     <message>
         <location filename="../../src/SettingsDialog.cpp" line="85"/>
         <source>Please fill all proxy fields !</source>
-        <translation type="unfinished">Veuillez remplir tout les champs correspondants au proxy !</translation>
+        <translation>Veuillez remplir tout les champs correspondants au proxy !</translation>
     </message>
     <message>
         <location filename="../../src/SettingsDialog.cpp" line="120"/>
         <source>Open Directory</source>
-        <translation type="unfinished">Ouvrir repertoire</translation>
+        <translation>Ouvrir repertoire</translation>
     </message>
 </context>
 <context>
