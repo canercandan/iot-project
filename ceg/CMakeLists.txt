@@ -105,6 +105,8 @@ QT4_WRAP_CPP(SAMPLE_MOC_SRCS ${SAMPLE_MOC_HDRS})
 QT4_ADD_RESOURCES(SAMPLE_RC_SRCS ${SAMPLE_RCS})
 QT4_ADD_TRANSLATION(SAMPLE_TRANS_SRCS ${SAMPLE_TRANS})
 
+MESSAGE(STATUS ${SAMPLE_TRANS_SRCS})
+
 # Further details about translation below:
 # http://www.cmake.org/Wiki/CMake:How_To_Build_Qt4_Software
 

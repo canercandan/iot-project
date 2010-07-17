@@ -1,11 +1,6 @@
-FILE(GLOB RESOURCES *.qrc)
-SET(SAMPLE_RCS ${RESOURCES} PARENT_SCOPE)
-
-FILE(GLOB TRANSLATIONS translations/*.ts)
-SET(SAMPLE_TRANS ${TRANSLATIONS} PARENT_SCOPE)
-
 SET(SOURCES
-  application.qrc
+  systray-transparent-32x32.png
+  TempSystrayIcon.png
   )
 
 FOREACH(current ${SOURCES})
@@ -17,4 +12,4 @@ FOREACH(current ${SOURCES})
   MESSAGE(STATUS "${current} file copied")
 ENDFOREACH()
 
-ADD_SUBDIRECTORY(images)
+ADD_SUBDIRECTORY(settings)

@@ -58,6 +58,7 @@ BoxController::BoxController() :
 #endif
 
     this->initializeFromXml("../resources/xml/menus/EventMenu_en_US.xml");
+    this->initializeFromXml("../resources/xml/menus/NavigationMenu_en_US.xml");
 }
 
 BoxController::~BoxController()

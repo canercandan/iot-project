@@ -1,11 +1,8 @@
-FILE(GLOB RESOURCES *.qrc)
-SET(SAMPLE_RCS ${RESOURCES} PARENT_SCOPE)
-
-FILE(GLOB TRANSLATIONS translations/*.ts)
-SET(SAMPLE_TRANS ${TRANSLATIONS} PARENT_SCOPE)
-
 SET(SOURCES
-  application.qrc
+  color.png
+  network.png
+  parameter.png
+  program.png
   )
 
 FOREACH(current ${SOURCES})
@@ -16,5 +13,3 @@ FOREACH(current ${SOURCES})
     )
   MESSAGE(STATUS "${current} file copied")
 ENDFOREACH()
-
-ADD_SUBDIRECTORY(images)

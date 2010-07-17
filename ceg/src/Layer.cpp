@@ -58,7 +58,8 @@ void	Layer::initialize(std::list<QGraphicsRectItem *> const & sceneItems)
 	AbstractItem const * firstItem = static_cast<AbstractItem const *>(sceneItems.front());
 	if (firstItem->getBox()->getBoxType() == DEFAULT_BOX)
 	{
-	    this->_menuAction = 0;//new PopMenuAction("Event"); Mettre a la place l'id du main menu
+	    //this->_menuAction = 0;
+	    this->_menuAction = new PopMenuAction("Navigation"); //Mettre a la place l'id du main menu
 	}
     }
     AbstractScene::initialize(sceneItems);
