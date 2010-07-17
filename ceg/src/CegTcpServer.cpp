@@ -24,11 +24,9 @@
 #include <QTcpServer>
 #include <QTcpSocket>
 #include <QSettings>
-
 /*********************************/
 #include "CegTcpServer.h"
 /*********************************/
-#include "Singleton.hpp"
 #include "MainController.h"
 #include "IAction.h"
 #include "MoveAction.h"
@@ -37,131 +35,117 @@
 /*********************************/
 
 CegTcpServer::CegTcpServer(MainController& lm) :
-  _tcpServer(0), _client(0), _buffer()
+        _tcpServer(0), _client(0), _buffer()
 #ifndef Q_WS_WIN
-, _logger(log4cxx::Logger::getLogger("ceg.network"))
+        , _logger(log4cxx::Logger::getLogger("ceg.network"))
 #endif
 {
- //QObject::connect(this, SIGNAL(actionEmitted(IAction &)),&lm, SLOT(onActionEmitted(IAction&)));
-  this->launch();
+    QObject::connect(this, SIGNAL(actionEmitted(IAction &)),&lm, SLOT(onActionEmitted(IAction&)));
+    this->launch();
 }
 
 CegTcpServer::~CegTcpServer()
 {
 #ifndef Q_WS_WIN
-  LOG4CXX_INFO(this->_logger, "TCP server killed");
+    LOG4CXX_INFO(this->_logger, "TCP server killed");
 #endif
 }
 
 void	CegTcpServer::launch(void)
 {
-  QSettings settings;
-  QVariant port = settings.value("server/port");
+    QSettings settings;
+    QVariant port = settings.value("server/port");
 
 #ifndef Q_WS_WIN
-  LOG4CXX_INFO(this->_logger, "TCP server launched on port " << port.toInt());
+    LOG4CXX_INFO(this->_logger, "TCP server launched on port " << port.toInt());
 #endif
 
-  this->_tcpServer = new QTcpServer();
+    this->_tcpServer = new QTcpServer();
 
-  if (!this->_tcpServer->listen(QHostAddress::Any, port.toInt()))
+    if (!this->_tcpServer->listen(QHostAddress::Any, port.toInt()))
     {
 #ifndef Q_WS_WIN
-      LOG4CXX_ERROR(this->_logger, "Error: can't listen on port: " << port.toInt());
-      LOG4CXX_ERROR(this->_logger, this->_tcpServer->errorString().toStdString());
+        LOG4CXX_ERROR(this->_logger, "Error: can't listen on port: " << port.toInt());
+        LOG4CXX_ERROR(this->_logger, this->_tcpServer->errorString().toStdString());
 #endif
     }
-  else
+    else
     {
 #ifndef Q_WS_WIN
-      LOG4CXX_INFO(this->_logger, "Listening on port: " << port.toInt());
+        LOG4CXX_INFO(this->_logger, "Listening on port: " << port.toInt());
 #endif
 
-      this->_tcpServer->setMaxPendingConnections(1);
-      QObject::connect(_tcpServer, SIGNAL(newConnection()), this, SLOT(_connect()));
+        this->_tcpServer->setMaxPendingConnections(1);
+        QObject::connect(_tcpServer, SIGNAL(newConnection()), this, SLOT(_connect()));
     }
 }
 
 void	CegTcpServer::_connect()
 {
-  this->_client = this->_tcpServer->nextPendingConnection();
-  this->connect(this->_client, SIGNAL(readyRead()), SLOT(_readData()));
-  this->connect(this->_client, SIGNAL(disconnected()), SLOT(_disconnect()));
+    this->_client = this->_tcpServer->nextPendingConnection();
+    this->connect(this->_client, SIGNAL(readyRead()), SLOT(_readData()));
+    this->connect(this->_client, SIGNAL(disconnected()), SLOT(_disconnect()));
 }
 
 void	CegTcpServer::_disconnect()
 {
 #ifndef Q_WS_WIN
-  LOG4CXX_INFO(this->_logger,"Disconnected");
+    LOG4CXX_INFO(this->_logger,"Disconnected");
 #endif
 }
 
 void	CegTcpServer::_readData()
 {
-  int			readbytes;
-  char			buffer[128];
-  QDataStream		in(this->_client);
+    int			readbytes;
+    char			buffer[128];
+    QDataStream		in(this->_client);
 
-  //in.setVersion(QDataStream::Qt_4_5);
-  while (this->_client->bytesAvailable())
+    //in.setVersion(QDataStream::Qt_4_5);
+    while (this->_client->bytesAvailable())
     {
-      readbytes = in.readRawData(buffer, sizeof(buffer) - 1);
-      if (readbytes > 0)
+        readbytes = in.readRawData(buffer, sizeof(buffer) - 1);
+        if (readbytes > 0)
 	{
-	  buffer[readbytes] = '\0';
-	  this->_buffer.append(buffer);
+            buffer[readbytes] = '\0';
+            this->_buffer.append(buffer);
 	}
-      else
-	return;
+        else
+            return;
     }
-  if (this->_buffer.contains('\n'))
-    this->parseLines();
+    if (this->_buffer.contains('\n'))
+        this->parseLines();
 }
 
 
 void	CegTcpServer::parseLines(void)
 {
-  QStringList cmds = this->_buffer.split('\n', QString::SkipEmptyParts);
-  // Interpret each lines.
-  for (int i = 0; i < cmds.size(); ++i)
-    this->interpretLine(cmds[i]);
-  // Remove read lines.
-  int last = this->_buffer.lastIndexOf('\n');
-  this->_buffer = this->_buffer.remove(0, last + 1);
+    QStringList cmds = this->_buffer.split('\n', QString::SkipEmptyParts);
+    // Interpret each lines.
+    for (int i = 0; i < cmds.size(); ++i)
+        this->interpretLine(cmds[i]);
+    // Remove read lines.
+    int last = this->_buffer.lastIndexOf('\n');
+    this->_buffer = this->_buffer.remove(0, last + 1);
 }
 
 void	CegTcpServer::interpretLine(QString &/*line*/)
 {
-  //QTextStream		out(stdout);
-  //MainController	*mc = Singleton<MainController>::getInstance();
+    QTextStream		out(stdout);
 
-//  if (mc == NULL)
+    //FIXME convert real rfb numbers into generic actions
+    IAction *ia = 0;
+//    if (line[0] == QChar('a'))
 //    {
-//#ifndef Q_WS_WIN
-//      LOG4CXX_ERROR(this->_logger,"CegTcpServer:: Could not get Main Controller instance");
-//      LOG4CXX_ERROR(this->_logger,"CegTcpServer:: command " << line.toStdString() << "can't be executed");
-//#endif
-//      return ;
+//        ia = new MoveAction(Qt::Key_Left);
 //    }
-  // FIXME convert real rfb numbers into generic actions
-//  if (line[0] == QChar('a'))
+//    if (line[0] == QChar('b'))
 //    {
-//      IAction *ia = new MoveAction(Qt::Key_Left);
-//      mc->actionHandler(*ia);
-//      delete ia;
+//        ia = new MoveAction(Qt::Key_Up);
 //    }
-//  if (line[0] == QChar('b'))
+//    if (line[0] == QChar('c'))
 //    {
-//      IAction *ia = new MoveAction(Qt::Key_Up);
-//      mc->actionHandler(*ia);
-//      delete ia;
+//        ia = new ValidAction();
 //    }
-//  if (line[0] == QChar('c'))
-//    {
-//      IAction	*ia = new ValidAction();
-//      mc->actionHandler(*ia);
-//      delete ia;
-//    }
-
-
+    emit actionEmitted(*ia);
+    delete ia;
 }

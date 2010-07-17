@@ -29,7 +29,6 @@
 #endif
 
 /*********************************/
-#include "Singleton.hpp"
 #include "Systray.h"
 #include "ActionFactory.h"
 #include "ClickAction.h"
@@ -76,8 +75,6 @@ int main(int argc, char *argv[])
     ActionFactory::registerInstantiator(ReadAction::IDENTIFIER, instanciateReadAction);
     ActionFactory::registerInstantiator(ZoomAction::IDENTIFIER, instanciateZoomAction);
 
-    QuitHandler quitHandler(&app);
-    Singleton<Systray>::getInstance();
-
-    return app.exec();
+   Systray sytray;
+    return (app.exec());
 }

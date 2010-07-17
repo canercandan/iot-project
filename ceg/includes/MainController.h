@@ -44,7 +44,7 @@ class IAction;
   */
 class MainController :  public QObject
 {
-    //Q_OBJECT
+    Q_OBJECT
 public:
     MainController();
     ~MainController();
@@ -62,9 +62,6 @@ public:
 private:
     void				createScenes(std::list<Ceg::Window> const & windows); // Cree tout les layers pour les fenetres donnees
     void				initialize(); // Initialise tout les paremetres pour la navigation
-
-signals:
-    void                          actionEmitted(IAction &); //signal d'action
 
 public slots:
     void				onActionEmitted(IAction &); // Attrape les actions a execute

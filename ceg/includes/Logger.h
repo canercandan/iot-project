@@ -1,7 +1,6 @@
 #ifndef LOGGER_H
 #define LOGGER_H
 
-#include <Singleton.hpp>
 #include <QTextStream>
 
 enum loglevel
@@ -16,7 +15,7 @@ static const char* logLevelMsg[4] = {"INFO", "DEBUG", "WARNING", "ERROR: "};
 
 class Logger
 {
-    friend class Singleton<Logger>;
+    //friend class Singleton<Logger>;
 public:
     loglevel getLogLevel() const;
     void    setLogLevel(loglevel newLogLevel);

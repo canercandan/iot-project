@@ -41,7 +41,6 @@ HEADERS += AbstractItem.h \
     PopMenuAction.h \
     ExecMenuAction.h \
     ValidAction.h \
-    includes/QuitHandler.h \
     includes/Logger.h
 SOURCES += AbstractItem.cpp \
     AbstractScene.cpp \
@@ -70,7 +69,6 @@ SOURCES += AbstractItem.cpp \
     PopMenuAction.cpp \
     ExecMenuAction.cpp \
     ValidAction.cpp \
-    src/QuitHandler.cpp \
     src/Logger.cpp
 unix { 
     HEADERS += XWindowSystem.h
@@ -84,7 +82,6 @@ win32 {
         Win32Explorer.h
     SOURCES += Win32Adaptor.cpp \
         Win32Explorer.cpp
-    //LIBS += "C:\Program Files\Microsoft SDKs\Windows\v7.0A\Lib\Psapi.Lib"
 }
 CONFIG += warn_on
 DESTDIR = build

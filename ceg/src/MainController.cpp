@@ -36,7 +36,7 @@
 /*********************************/
 
 /************************************************* [ CTOR/DTOR ] *************************************************/
-#include <iostream>
+
 MainController::MainController() :
         QObject(0),
         _view(*this), _scenes(),_currentScene(), _boxController(),
@@ -70,7 +70,6 @@ ICommunicationGraphicalServer *	MainController::getComGs() const
 
 AbstractScene *	MainController::getCurrentScene() const
 {
-    std::cerr<< "Size:" << this->_scenes.size() << std::endl;
     return (*this->_currentScene);
 }
 

@@ -31,32 +31,36 @@
 class QTcpServer;
 class QTcpSocket;
 class MainController;
+class IAction;
 
 class CegTcpServer : public QObject
 {
-  Q_OBJECT
+    Q_OBJECT
 
-  public:
-  CegTcpServer(MainController& lm);
-  ~CegTcpServer();
+public:
+    CegTcpServer(MainController& lm);
+    ~CegTcpServer();
 
 private:
-  void	launch();
-  void	parseLines(void);
-  void	interpretLine(QString &line);
+    void	launch();
+    void	parseLines(void);
+    void	interpretLine(QString &line);
+
+signals:
+    void actionEmitted(IAction &); //signal d'action
 
 private slots:
-  void	_connect();
-  void	_disconnect();
-  void	_readData();
+    void	_connect();
+    void	_disconnect();
+    void	_readData();
 
 private:
-  QTcpServer	*_tcpServer;
-  QTcpSocket	*_client;
-  QString	_buffer;
+    QTcpServer	*_tcpServer;
+    QTcpSocket	*_client;
+    QString	_buffer;
 
 #ifndef Q_WS_WIN
-  log4cxx::LoggerPtr _logger;
+    log4cxx::LoggerPtr _logger;
 #endif
 };
 

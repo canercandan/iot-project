@@ -25,6 +25,7 @@
 
 class QKeyEvent;
 class MainController;
+class IAction;
 
 /*
   Sera supprimer plutard, utilise pour debuger avec le clavier
@@ -34,15 +35,18 @@ class MainController;
   */
 class View : public QGraphicsView
 {
+    Q_OBJECT
 public:
-  View(MainController &);
-  ~View();
+    View(MainController &);
 
-  void	initialize();
-  virtual void	keyPressEvent(QKeyEvent* keyEvent);
+    void                initialize();
+    virtual void	keyPressEvent(QKeyEvent* keyEvent);
+
+signals:
+    void actionEmitted(IAction &); //signal d'action
 
 private:
-  MainController & _lm;
+    MainController & _lm;
 };
 
 #endif // !VIEW_H

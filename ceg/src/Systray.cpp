@@ -30,14 +30,11 @@
 #include "Systray.h"
 /*********************************/
 #include "Settings.h"
-#include "MainController.h"
-#include "Singleton.hpp"
 /*********************************/
 
 Systray::Systray(QWidget *parent) :
-        QWidget(parent), _lm(Singleton<MainController>::getInstance()), _trayIcon(0), _trayIconMenu(0), _startAction(0), _settingAction(0), _aboutQtAction(0), _aboutCegAction(0), _quitAction(0)
+        QWidget(parent), _lm(), _trayIcon(0), _trayIconMenu(0), _startAction(0), _settingAction(0), _aboutQtAction(0), _aboutCegAction(0), _quitAction(0)
 {
-    //this->_settings = new Settings(this);
     this->_trayIcon = new QSystemTrayIcon(QIcon(":/images/systray-transparent-32x32.png"), this);
     this->_trayIconMenu = new QMenu(this);
     this->_startAction = new QAction(tr("Start"), this);
@@ -103,7 +100,6 @@ Systray::~Systray()
     delete this->_startAction;
     delete this->_trayIconMenu;
     delete this->_trayIcon;
-    Singleton<MainController>::destroyInstance();
 }
 
 void Systray::on__startAction_triggered()
@@ -112,12 +108,12 @@ void Systray::on__startAction_triggered()
     if (this->_startAction->text() == tr("Start"))
     {
         QMessageBox::information(0, tr("Commandes"), tr("Left | Right arrow = Horizontal Move\nUp | Down Arrow = Vertical move\nEnter = Zoom\nBackspace = unzoom\n1 = Simple Click\nAlt + F4 = Quit"));
-        this->_lm->start();
+        this->_lm.start();
         content = tr("Stop");
     }
     else
     {
-	this->_lm->stop();
+        this->_lm.stop();
 	content = tr("Start");
     }
     this->_startAction->setText(content);
@@ -131,10 +127,7 @@ void Systray::on__aboutQtAction_triggered()
 void Systray::on__settingAction_triggered()
 {
     Settings settings(this);
-
-    if (settings.exec())
-	{
-	}
+    settings.exec();
 }
 
 void Systray::on__aboutCegAction_triggered()

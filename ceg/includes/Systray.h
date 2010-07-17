@@ -24,11 +24,10 @@
 
 #include <QWidget>
 
+#include "MainController.h"
+
 class QSystemTrayIcon;
 class QMenu;
-
-class Settings;
-class MainController;
 
 /*
   Classe de vue
@@ -54,8 +53,7 @@ private slots:
     void on__aboutCegAction_triggered();
 
 private:
-    MainController *	_lm;
-    //Settings    *       _settings;
+    MainController 	_lm;
     QSystemTrayIcon *	_trayIcon;
     QMenu *		_trayIconMenu;
     QAction *		_startAction;
