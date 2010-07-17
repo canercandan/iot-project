@@ -78,5 +78,6 @@ int main(int argc, char *argv[])
 
     QuitHandler quitHandler(&app);
     Singleton<Systray>::getInstance();
+
     return app.exec();
 }

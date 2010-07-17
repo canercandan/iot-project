@@ -25,13 +25,20 @@
 #include "Systray.h"
 /*********************************/
 #include <QDebug>
+#include <QApplication>
 QuitHandler::QuitHandler(QObject *parent) :
     QObject(parent)
 {
-    this->connect(parent,SIGNAL(aboutQuit()), SLOT(handleQuit()));
+    this->connect(qApp,SIGNAL(aboutQuit()), SLOT(handleQuit()));
 }
 
-void QuitHandler::handleQuit()
+QuitHandler::~QuitHandler()
+{
+    qDebug() << "destroyed";
+    Singleton<Systray>::destroyInstance();
+}
+
+void QuitHandler::handleQuit() // FIXME: trouver le moyen dappeler cette methode par les signaux Qt
 {
     qDebug() << "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII";
     Singleton<Systray>::destroyInstance();

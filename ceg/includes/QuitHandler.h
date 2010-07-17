@@ -29,6 +29,8 @@ Q_OBJECT
 public:
     explicit QuitHandler(QObject *parent = 0);
 
+    ~QuitHandler();
+
 public slots:
     void    handleQuit();
 };
