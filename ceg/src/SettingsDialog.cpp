@@ -52,7 +52,7 @@ SettingsDialog::SettingsDialog(QWidget *parent) :
     this->colorBlurLabel->setText(color);
     this->colorBlurLabel->setPalette(QPalette(color));
     this->colorBlurLabel->setAutoFillBackground(true);
-    this->colorOpacitySlider->setValue(settings.value("opacity").toInt());
+	this->colorOpacitySlider->setValue((settings.value("opacity").toFloat() * 100));
     settings.endGroup();
 
     settings.beginGroup("server");
@@ -97,7 +97,9 @@ void SettingsDialog::on_buttonBox_accepted()
     settings.beginGroup("color");
     settings.setValue("focus", this->colorFocusLabel->text());
     settings.setValue("blur", this->colorBlurLabel->text());
-    settings.setValue("opacity", this->colorOpacitySlider->value());
+	qreal realValue = this->colorOpacitySlider->value();
+    realValue /= 100;
+    settings.setValue("opacity", realValue);
     settings.endGroup();
 
     settings.beginGroup("server");

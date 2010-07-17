@@ -83,7 +83,7 @@ void    Systray::createSettingFile()
         settings.beginGroup("color");
         settings.setValue("focus", "#aa0022");
         settings.setValue("blur", "#0");
-        settings.setValue("opacity", 50);
+        settings.setValue("opacity", 0.5);
         settings.endGroup();
         settings.beginGroup("server");
         settings.setValue("port", "5900");
