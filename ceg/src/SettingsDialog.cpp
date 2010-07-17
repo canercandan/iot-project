@@ -37,10 +37,9 @@ SettingsDialog::SettingsDialog(QWidget *parent) :
     QSettings settings;
 
     settings.beginGroup("general");
-
+	this->languageComboBox->setCurrentIndex(settings.value("language").toInt());
     this->squareNumberBox->setValue(settings.value("squareNumber").toInt());
     this->customCheck->setChecked(settings.value("customCheck").toBool());
-
     this->customXMLPathLine->setText(settings.value("customXMLPath").toString());
     settings.endGroup();
 
@@ -88,8 +87,8 @@ void SettingsDialog::on_buttonBox_accepted()
 
     QSettings settings;
 
-    settings.setValue("firstStart", false);
     settings.beginGroup("general");
+	settings.setValue("language", this->languageComboBox->currentIndex());
     settings.setValue("squareNumber", this->squareNumberBox->text());
     settings.setValue("customCheck", this->customCheck->isChecked());
     settings.setValue("customXMLPath", this->customXMLPathLine->text());
