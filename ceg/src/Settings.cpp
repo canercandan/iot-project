@@ -31,6 +31,31 @@ Settings::Settings(QWidget *parent) :
 {
     this->setupUi(this);
     this->on_colorOpacitySlider_valueChanged(this->colorOpacitySlider->value());
+
+    // LOAD
+
+    QSettings settings;
+
+    settings.beginGroup("general");
+
+    this->squareNumberBox->setValue(settings.value("squareNumber").toInt());
+    this->customCheck->setChecked(settings.value("customCheck").toBool());
+
+    this->customXMLPathLine->setText(settings.value("customXMLPath").toString());
+    settings.endGroup();
+
+    settings.beginGroup("color");
+    this->colorFocusLabel->setText(settings.value("focus").toString());
+    this->colorBlurLabel->setText(settings.value("blur").toString());
+    this->colorOpacitySlider->setValue(settings.value("opacity").toInt());
+    settings.endGroup();
+
+    settings.beginGroup("server");
+    this->serverPort->setValue(settings.value("port").toInt());
+    this->serverPasswordCheckBox->setChecked(settings.value("passwordCheckBox").toBool());
+    this->serverPassword->setText(settings.value("password").toString());
+    this->serverPassword->setEnabled(this->serverPasswordCheckBox->isChecked());
+    settings.endGroup();
 }
 
 void Settings::on_confList_currentItemChanged(QListWidgetItem* current, QListWidgetItem* previous)
@@ -56,27 +81,32 @@ void Settings::on_buttonBox_accepted()
     }
 
     QSettings settings;
+
     settings.setValue("firstStart", false);
     settings.beginGroup("general");
     settings.setValue("squareNumber", this->squareNumberBox->text());
     settings.setValue("customCheck", this->customCheck->isChecked());
     settings.setValue("customXMLPath", this->customXMLPathLine->text());
     settings.endGroup();
+
     settings.beginGroup("color");
     settings.setValue("focus", this->colorFocusLabel->text());
     settings.setValue("blur", this->colorBlurLabel->text());
     settings.setValue("opacity", this->colorOpacitySlider->value());
     settings.endGroup();
+
     settings.beginGroup("server");
     settings.setValue("port", this->serverPort->text());
+    settings.setValue("passwordCheckBox", this->serverPasswordCheckBox->isChecked());
     settings.setValue("password", this->serverPassword->text());
     settings.endGroup();
-    this->close();
+
+    this->accept();
 }
 
 void Settings::on_buttonBox_rejected()
 {
-    this->close();
+    this->reject();
 }
 
 void Settings::on_customXMLPathButton_clicked()

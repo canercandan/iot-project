@@ -55,7 +55,7 @@ private slots:
 
 private:
     MainController *	_lm;
-    Settings    *       _settings;
+    //Settings    *       _settings;
     QSystemTrayIcon *	_trayIcon;
     QMenu *		_trayIconMenu;
     QAction *		_startAction;

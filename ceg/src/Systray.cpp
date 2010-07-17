@@ -25,6 +25,7 @@
 #include <QMessageBox>
 #include <QApplication>
 #include <QSettings>
+#include <QDebug>
 /*********************************/
 #include "Systray.h"
 /*********************************/
@@ -36,7 +37,7 @@
 Systray::Systray(QWidget *parent) :
         QWidget(parent), _lm(Singleton<MainController>::getInstance()), _trayIcon(0), _trayIconMenu(0), _startAction(0), _settingAction(0), _aboutQtAction(0), _aboutCegAction(0), _quitAction(0)
 {
-    this->_settings = new Settings(this);
+    //this->_settings = new Settings(this);
     this->_trayIcon = new QSystemTrayIcon(QIcon(":/images/systray-transparent-32x32.png"), this);
     this->_trayIconMenu = new QMenu(this);
     this->_startAction = new QAction(tr("Start"), this);
@@ -129,10 +130,18 @@ void Systray::on__aboutQtAction_triggered()
 
 void Systray::on__settingAction_triggered()
 {
-    this->_settings->show();
+    Settings settings(this);
+
+    if (settings.exec())
+	{
+	}
 }
 
 void Systray::on__aboutCegAction_triggered()
 {
-    QMessageBox::information(0, tr("About CEG"), tr("Allows users to control machine by thinking."));
+    QMessageBox::information
+	(0,
+	 tr("About CEG"),
+	 tr("Allows users to control machine by thinking.")
+	 );
 }
