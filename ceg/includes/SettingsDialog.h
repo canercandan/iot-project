@@ -4,9 +4,9 @@
 #include <QDialog>
 #include <QPaintEvent>
 
-#include "ui_settings.h"
+#include "ui_settingsDialog.h"
 
-class SettingsDialog : public QDialog, private Ui_Settings
+class SettingsDialog : public QDialog, private Ui_SettingsDialog
 {
     Q_OBJECT
 public:
