@@ -37,7 +37,6 @@
 #include "PopMenuAction.h"
 #include "ReadAction.h"
 #include "ZoomAction.h"
-#include "QuitHandler.h"
 /*********************************/
 
 #ifndef Q_WS_WIN
