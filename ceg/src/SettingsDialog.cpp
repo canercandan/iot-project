@@ -24,9 +24,9 @@
 #include <QColorDialog>
 #include <QPainter>
 
-#include "Settings.h"
+#include "SettingsDialog.h"
 
-Settings::Settings(QWidget *parent) :
+SettingsDialog::SettingsDialog(QWidget *parent) :
         QDialog(parent)
 {
     this->setupUi(this);
@@ -64,7 +64,7 @@ Settings::Settings(QWidget *parent) :
     settings.endGroup();
 }
 
-void Settings::on_confList_currentItemChanged(QListWidgetItem* current, QListWidgetItem* previous)
+void SettingsDialog::on_confList_currentItemChanged(QListWidgetItem* current, QListWidgetItem* previous)
 {
     if (!current)
         current = previous;
@@ -72,7 +72,7 @@ void Settings::on_confList_currentItemChanged(QListWidgetItem* current, QListWid
     this->confStack->setCurrentIndex(this->confList->row(current));
 }
 
-void Settings::on_buttonBox_accepted()
+void SettingsDialog::on_buttonBox_accepted()
 {
     if (!this->customCheck->isChecked() && this->customXMLPathLine->text().isEmpty())
     {
@@ -110,12 +110,12 @@ void Settings::on_buttonBox_accepted()
     this->accept();
 }
 
-void Settings::on_buttonBox_rejected()
+void SettingsDialog::on_buttonBox_rejected()
 {
     this->reject();
 }
 
-void Settings::on_customXMLPathButton_clicked()
+void SettingsDialog::on_customXMLPathButton_clicked()
 {
     QString dir = QFileDialog::getExistingDirectory(this, tr("Open Directory"),
                                                     "",
@@ -127,7 +127,7 @@ void Settings::on_customXMLPathButton_clicked()
     }
 }
 
-void Settings::on_colorFocusButton_clicked()
+void SettingsDialog::on_colorFocusButton_clicked()
 {
     QColor color = QColorDialog::getColor(Qt::green, this);
     if (color.isValid()) {
@@ -136,7 +136,7 @@ void Settings::on_colorFocusButton_clicked()
     }
 }
 
-void Settings::on_colorBlurButton_clicked()
+void SettingsDialog::on_colorBlurButton_clicked()
 {
     QColor color = QColorDialog::getColor(Qt::green, this);
     if (color.isValid()) {
@@ -145,7 +145,7 @@ void Settings::on_colorBlurButton_clicked()
     }
 }
 
-void Settings::on_colorOpacitySlider_valueChanged(int value)
+void SettingsDialog::on_colorOpacitySlider_valueChanged(int value)
 {
     qreal realValue = value;
     realValue /= 100;

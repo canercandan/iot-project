@@ -29,7 +29,7 @@
 /*********************************/
 #include "Systray.h"
 /*********************************/
-#include "Settings.h"
+#include "SettingsDialog.h"
 /*********************************/
 
 Systray::Systray(QWidget *parent) :
@@ -126,7 +126,7 @@ void Systray::on__aboutQtAction_triggered()
 
 void Systray::on__settingAction_triggered()
 {
-    Settings settings(this);
+    SettingsDialog settings(this);
     settings.exec();
 }
 

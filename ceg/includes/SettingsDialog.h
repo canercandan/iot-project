@@ -1,16 +1,16 @@
-#ifndef SETTINGS_H
-#define SETTINGS_H
+#ifndef SETTINGSDIALOG_H
+#define SETTINGSDIALOG_H
 
 #include <QDialog>
 #include <QPaintEvent>
 
 #include "ui_settings.h"
 
-class Settings : public QDialog, private Ui_Settings
+class SettingsDialog : public QDialog, private Ui_Settings
 {
     Q_OBJECT
 public:
-    Settings(QWidget *parent = 0);
+    SettingsDialog(QWidget *parent = 0);
 
 public slots:
     void on_confList_currentItemChanged(QListWidgetItem*, QListWidgetItem*);
@@ -22,4 +22,4 @@ public slots:
     void on_colorOpacitySlider_valueChanged(int value);
 };
 
-#endif // SETTINGS_H
+#endif // SETTINGSDIALOG_H
