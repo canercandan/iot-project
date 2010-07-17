@@ -37,16 +37,15 @@
 
 /************************************************* [ CTOR/DTOR ] *************************************************/
 
-MainController::MainController() :
-        QObject(0),
-        _view(*this), _scenes(),_currentScene(), _boxController(),
-        _comGs(new WindowSystem), _tcpServer(*this)
+MainController::MainController(Systray & systray) :
+	_view(*this, systray), _scenes(),_currentScene(), _boxController(),
+	_comGs(new WindowSystem), _tcpServer(*this)
 
 #ifndef Q_WS_WIN
-        , _logger(log4cxx::Logger::getLogger("ceg.main"))
+	, _logger(log4cxx::Logger::getLogger("ceg.main"))
 #endif
 {
-    
+
 }
 
 MainController::~MainController()
@@ -92,11 +91,11 @@ void MainController::createScenes(std::list<Ceg::Window> const & windows)
 {
     for (std::list<Ceg::Window>::const_iterator it = windows.begin(), itEnd = windows.end(); it != itEnd; ++it)
     {
-        Layer * oneLayer = new Layer(*it);
-        std::list<QGraphicsRectItem *> graphicItems;
-        this->_boxController.getPattern(*it, graphicItems);
-        oneLayer->initialize(graphicItems);
-        this->_scenes.push_front(oneLayer);
+	Layer * oneLayer = new Layer(*it);
+	std::list<QGraphicsRectItem *> graphicItems;
+	this->_boxController.getPattern(*it, graphicItems);
+	oneLayer->initialize(graphicItems);
+	this->_scenes.push_front(oneLayer);
     }
 }
 
@@ -122,9 +121,13 @@ void MainController::start()
 #ifndef Q_WS_WIN
     LOG4CXX_INFO (this->_logger, "Demarrage de la navigation.");
 #endif
-
-    this->initialize();
-    this->_view.initialize();
+    static bool isInit = false;
+    if (isInit == false)
+    {
+	this->initialize();
+	this->_view.initialize();
+	isInit = true;
+    }
     this->_view.show();
 }
 

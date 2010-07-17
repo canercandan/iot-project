@@ -27,15 +27,17 @@
 #include "MoveAction.h"
 #include "ClickAction.h"
 #include "AbstractScene.h"
+#include "Systray.h"
 /*********************************/
 
 /************************************************* [ CTOR/DTOR ] *************************************************/
 
-View::View(MainController & lm)
+View::View(MainController & lm, Systray & systray)
     : _lm(lm)
 {
     this->setWindowOpacity(0.5);
     QObject::connect(this, SIGNAL(actionEmitted(IAction&)),&lm, SLOT(onActionEmitted(IAction&)));
+    QObject::connect(this, SIGNAL(triggered()),&systray, SLOT(on__startAction_triggered()));
 }
 
 /************************************************* [ OTHERS ] *************************************************/
@@ -65,10 +67,15 @@ void	View::keyPressEvent(QKeyEvent* keyEvent)
     case Qt::Key_Backspace:
 	{
 	    MoveAction a(key);
-            emit actionEmitted(a);
+	    emit actionEmitted(a);
 	}
 	break;
     default:
 	break;
     }
+}
+
+void View::closeEvent(QCloseEvent *)
+{
+    emit triggered();
 }

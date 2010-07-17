@@ -26,13 +26,10 @@
 #include <QMessageBox>
 #include <QSystemTrayIcon>
 #include <QSettings>
-#include <QDebug>
 /*********************************/
-
 #ifndef Q_WS_WIN
 # include <log4cxx/xml/domconfigurator.h>
 #endif
-
 /*********************************/
 #include "Systray.h"
 #include "ActionFactory.h"
@@ -105,6 +102,5 @@ int main(int argc, char *argv[])
     	return -1;
 
     Systray sytray;
-    qDebug() << QLocale::system().name() << " - la langue = " << QLocale::system().languageToString(QLocale::system().language());
     return (app.exec());
 }

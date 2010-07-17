@@ -59,11 +59,14 @@ bool	PopMenuAction::exec(MainController & mainC)
     BoxController const & boxC = mainC.getBoxController();
     std::list<QGraphicsRectItem *> menuItems;
     boxC.getMenu(this->_menuId, menuItems);
-    // Creation du Menu avec les items recuperes
-    Menu * menuScene = new Menu;
-    menuScene->initialize(menuItems);
-    // affichage du menu
-    mainC.pushFrontScene(menuScene);
+    if (menuItems.empty() == false)
+    {
+	// Creation du Menu avec les items recuperes
+	Menu * menuScene = new Menu;
+	menuScene->initialize(menuItems);
+	// affichage du menu
+	mainC.pushFrontScene(menuScene);
+    }
     return (true);
 }
 

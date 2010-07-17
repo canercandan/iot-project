@@ -33,20 +33,20 @@
 #include "Window.h"
 #include "BoxController.h"
 
-
 class AbstractScene;
 class ICommunicationGraphicalServer;
 class IAction;
+class Systray;
 
 /*
   Classe de Controle
   Elle Gere le fonctionnement general du CEG et ses evenements (actions | reseau)
   */
-class MainController :  public QObject
+class MainController : public QObject
 {
     Q_OBJECT
 public:
-    MainController();
+    MainController(Systray &);
     ~MainController();
 
     BoxController const &		getBoxController() const;

@@ -13,32 +13,20 @@
 - maj Doxygen
 
 -------------------------------------------------- Reminder Yann --------------------------------------------------------------------------
-- AJOuter une methode pour loader proprement les menus depuis le ressource
+- AJOuter une methode pour loader proprement les menus depuis le ressource !!!!!!!!!!!!!!!
+- Mettre au propre la methode pour valider ou bouger, creer des nouvelles methodes.
 - Terminer le communication avec le serveur Graphique sur Linux
 - revoir le management des listes dans le boxcontroler (new les listes)
 
 -------------------------------------------------- Reminder Caner --------------------------------------------------------------------------
-- voir les xsd (avec yann)
-- QtValidator pour XSD n'est disponible que sur la derniere version de Qt (4.6)
+- voir les xsd (avec yann) - QtValidator
 - Rajout le code neccessaire pour gerer toutes les possibilite sur les box: rendre le code plus propre dans la methode paint de abstractitem
 
 -------------------------------------------------- Reminder Yavuz --------------------------------------------------------------------------
-- renommer classe settings et le nom de fichier aussi
 - (TO YAVUZ) pour les settings :
 - rajouter un liste deroulante de langue (Team Turkish glouglou)
 - Terminer le communication avec le serveur Graphique sur Windows
 
 -------------------------------------------------- Reminder Lamine -------------------------------------------------------------------------
-- Faire les traductions a l'aide de qt linguist
 - Trouver comment récupérer les infos utiles (navigateur par défaut, client mail...) (LAMINE).
-- rajouter les traductions (tuto sur le site du zero) et donc creer avec le logiciel de qt
 
------------------------------------------------------- BUG ----------------------------------------------------------------------
-- Régler le problème du segfault avec mingw sur windows. (ALL) Erreur système, la solution de rechange est de compiler QT à la main.
-
-- Probleme avec les menus:
- * sur Linux: menu apparait au dessus du ceg et lorsque l'on met le focus sur la fenetre du ceg le menu disparait.
- * sur Windows: le menu apparait mais disparait lorsque la fenetre ceg retrouve le focus.
-pour window on peut difficilement y faire quelquechose les menus sont un probleme.
-
-- Faux bug: sur les versions inferieur a 4.6, lorsqu'on change de scene le focusItem vaut 0, donc segfault

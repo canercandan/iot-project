@@ -47,8 +47,10 @@ public:
 private:
     void    createSettingFile();
 
-private slots:
+public slots:
     void on__startAction_triggered();
+
+private slots:
     void on__aboutQtAction_triggered();
     void on__settingAction_triggered();
     void on__aboutCegAction_triggered();

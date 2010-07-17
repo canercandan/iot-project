@@ -42,9 +42,9 @@
 /************************************************* [ CTOR/DTOR ] *************************************************/
 
 BoxController::BoxController() :
-        _patterns(), _menus()
+	_patterns(), _menus()
 #ifndef Q_WS_WIN
-        , _logger(log4cxx::Logger::getLogger("ceg.boxfactory"))
+	, _logger(log4cxx::Logger::getLogger("ceg.boxfactory"))
 #endif
 {
 #ifndef Q_WS_WIN
@@ -57,7 +57,7 @@ BoxController::BoxController() :
     LOG4CXX_INFO(this->_logger, "Chargement des fichiers xml pour les menus");
 #endif
 
-    this->initializeFromXml("../resources/xml/menus/EventMenu.xml");
+    this->initializeFromXml("../resources/xml/menus/EventMenu_en_US.xml");
 }
 
 BoxController::~BoxController()
@@ -126,14 +126,14 @@ void    BoxController::getPattern(Ceg::Window const & aWindow, std::list<QGraphi
     if (itFind != this->_patterns.end())
     {
 #ifndef Q_WS_WIN
-        LOG4CXX_INFO(this->_logger, "Configuration trouvee, chargement du schema");
+	LOG4CXX_INFO(this->_logger, "Configuration trouvee, chargement du schema");
 #endif
 	childrenBox = itFind->second;
     }
     else
     {
 #ifndef Q_WS_WIN
-        LOG4CXX_WARN(this->_logger, "Pas de configuration pour le programme, chargement du schema par defaut");
+	LOG4CXX_WARN(this->_logger, "Pas de configuration pour le programme, chargement du schema par defaut");
 #endif
 	this->calcChildren(childrenBox, aWindow.getGeometry(), 0);
     }
@@ -167,7 +167,7 @@ void	BoxController::getMenu(std::string const & idMenu, std::list<QGraphicsRectI
     else
     {
 #ifndef Q_WS_WIN
-        LOG4CXX_WARN(this->_logger, "Menu inconnu");
+	LOG4CXX_WARN(this->_logger, "Menu inconnu");
 #endif
     }
 }
@@ -268,7 +268,7 @@ void	BoxController::initializeFromConfig(QString const & directoryName)
     else
     {
 #ifndef Q_WS_WIN
-        LOG4CXX_WARN(this->_logger, directoryName.toStdString() << " doesn't exist");
+	LOG4CXX_WARN(this->_logger, directoryName.toStdString() << " doesn't exist");
 #endif
     }
 }
@@ -287,7 +287,7 @@ void    BoxController::initializeFromXml(QString const & fileName)
     if (file.open(QIODevice::ReadOnly) == true  &&  doc.setContent(&file, &errorMsg, &errorLine, &errorColumn) == true)
     {
 #ifndef Q_WS_WIN
-        LOG4CXX_INFO(this->_logger, "Chargement reussi");
+	LOG4CXX_INFO(this->_logger, "Chargement reussi");
 #endif
 
 	file.close();
@@ -298,7 +298,7 @@ void    BoxController::initializeFromXml(QString const & fileName)
 	    std::list<Box const *> boxes;
 
 #ifndef Q_WS_WIN
-            LOG4CXX_INFO(this->_logger, rootElement.tagName().toStdString() << " - Id '" << programId << "'");
+	    LOG4CXX_INFO(this->_logger, rootElement.tagName().toStdString() << " - Id '" << programId << "'");
 #endif
 
 	    for (QDomNode boxNode = rootElement.firstChild(); !boxNode.isNull(); boxNode = boxNode.nextSibling())
@@ -311,7 +311,7 @@ void    BoxController::initializeFromXml(QString const & fileName)
 	    }
 	    if (boxes.empty() == false)
 	    {
-                if (rootElement.tagName() == "boxes")
+		if (rootElement.tagName() == "boxes")
 		    this->_patterns.insert(std::make_pair(programId, boxes));
 		else
 		    this->_menus.insert(std::make_pair(programId, boxes));
@@ -320,8 +320,9 @@ void    BoxController::initializeFromXml(QString const & fileName)
     }
     else
     {
+	QFileInfo fileInfo(fileName);
 #ifndef Q_WS_WIN
-        LOG4CXX_ERROR(this->_logger, "Echec du chargement du fichier : " << fileName.toStdString() << "\nRaison " << errorMsg.toStdString() << " at line = "<< errorLine << " - column = " << errorColumn);
+	LOG4CXX_ERROR(this->_logger, "Echec du chargement du fichier : " << fileInfo.absoluteFilePath().toStdString() << "\nRaison " << errorMsg.toStdString() << " at line = "<< errorLine << " - column = " << errorColumn);
 #endif
     }
 }
