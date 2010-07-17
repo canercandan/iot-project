@@ -44,14 +44,14 @@
 BoxController::BoxController() :
         _patterns(), _menus()
 #ifndef Q_WS_WIN
-, _logger(log4cxx::Logger::getLogger("ceg.boxfactory"))
+        , _logger(log4cxx::Logger::getLogger("ceg.boxfactory"))
 #endif
 {
 #ifndef Q_WS_WIN
     LOG4CXX_INFO(this->_logger, "Chargement des fichiers xml pour les programmes");
 #endif
 
-    this->initializeFromConfig();
+    this->initializeFromConfig("config");
 
 #ifndef Q_WS_WIN
     LOG4CXX_INFO(this->_logger, "Chargement des fichiers xml pour les menus");
@@ -252,7 +252,7 @@ void BoxController::createGraphicItems(std::list<QGraphicsRectItem *> & graphicI
     }
 }
 
-void	BoxController::initializeFromConfig(QString const & directoryName /*= "config/"*/)
+void	BoxController::initializeFromConfig(QString const & directoryName)
 {
     QDir    directory(directoryName);
 

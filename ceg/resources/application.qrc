@@ -1,9 +1,10 @@
 <RCC>
-    <qresource prefix="/">
+    <qresource prefix="/images">
         <file>images/systray-transparent-32x32.png</file>
         <file>images/settings/color.png</file>
         <file>images/settings/network.png</file>
         <file>images/settings/parameter.png</file>
         <file>images/settings/program.png</file>
     </qresource>
+    <qresource prefix="/fr"/>
 </RCC>
