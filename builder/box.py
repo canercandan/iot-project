@@ -25,3 +25,4 @@ class Box(QRect):
         self.son = 0
         self.focus = 0
         self.father = 0
+        self.action = 0

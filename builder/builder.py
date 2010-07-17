@@ -30,6 +30,12 @@ class Mode:
     box = 0
     selection = 1
 
+class Action:
+    zoom = 0
+    clickLeft = 1
+    clickDouble = 2
+    clickRight = 3
+
 class BuilderWidget(QtGui.QMainWindow):
     def __init__(self):
         QtGui.QMainWindow.__init__(self)
@@ -88,8 +94,25 @@ class BuilderWidget(QtGui.QMainWindow):
         qfile = QFile(filename)
         if qfile.open(QIODevice.WriteOnly | QIODevice.Text):
             out = QTextStream(qfile)
-            out << 'XML  data'
+            out << '<boxes id="NomProgram">' + "\n"
+            while self.list[0].father:
+                self.zoomOut()
+            out << self.xmlRec(self.list)
+            out << '</boxes>' + "\n"
             qfile.close()
+
+    def xmlRec(self, li):
+        tmp = ''
+        for elem in li:
+            tmp += '<box type="1" x="' + str(elem.topLeft().x()) + '" y="' + str(elem.topLeft().y()) + '" width="' + str(elem.bottomRight().x() - elem.topLeft().x()) + '" height="' + str(elem.bottomRight().y() - elem.topLeft().y()) + '">' + "\n"
+            tmp += '<style  visible="1" opacity="0.5" focusColor="green" blurColor="blue" imagePath="" text="" fontSize="20" font="Arial" />' + "\n"
+            tmp += '<action id="' + str(elem.action) + '"/>' + "\n"
+            if elem.son:
+                tmp += '<children>' + "\n"
+                tmp += self.xmlRec(elem.son)
+                tmp += '</children>' + "\n"
+            tmp += '</box>' + "\n"
+        return tmp
 
     def loadFile(self):
         filename = QFileDialog.getOpenFileName(None, \
@@ -333,6 +356,7 @@ class BuilderWidget(QtGui.QMainWindow):
         if mouseEvent.button() == QtCore.Qt.LeftButton:
             self.leftButtonPressed = 1
             self.beginPos = QPoint(mouseEvent.pos())
+            self.endPos = QPoint(mouseEvent.pos())
             if self.mode == Mode.selection:
                 self.selectBox(mouseEvent.pos())
             self.repaint()
@@ -375,6 +399,8 @@ class BuilderWidget(QtGui.QMainWindow):
                 else:
                     paint.drawRect(x)
         paint.end()
+
+
 
 
 if __name__ == "__main__":
