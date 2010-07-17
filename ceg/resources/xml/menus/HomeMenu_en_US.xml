@@ -1,0 +1,46 @@
+<!DOCTYPE XmlBox>
+<menu id="Navigation">
+
+  <box type="2" x="750" y="1" height="100" width="300">
+    <action id="ExecMenu">
+      <action id="FreeMode" />
+    </action>
+    <style opacity="1" text="Free Mode"/>
+  </box>
+  
+  <box type="2" x="750" y="101" height="100" width="300">
+    <action id="ExecMenu">
+      <action id="MultiMenu" />
+    </action>
+    <style opacity="1" text="Multimedia Menu"/>
+  </box>
+  
+  <box type="2" x="750" y="101" height="100" width="300">
+    <action id="ExecMenu">
+      <action id="AppListing" />
+    </action>
+    <style opacity="1" text="Application Listing"/>
+  </box>
+  
+  <box type="2" x="750" y="101" height="100" width="300">
+    <action id="ExecMenu">
+      <action id="AppSetting" />
+    </action>
+    <style opacity="1" text="Configure an application"/>
+  </box>
+  
+  <box type="2" x="750" y="101" height="100" width="300">
+    <action id="ExecMenu">
+      <action id="WSwitcher" />
+    </action>
+    <style opacity="1" text="Windows Switcher"/>
+  </box>
+  
+  <box type="2" x="750" y="101" height="100" width="300">
+    <action id="ExecMenu">
+      <action id="Quit" />
+    </action>
+    <style opacity="1" text="Quit"/>
+  </box>
+  
+</menu>
