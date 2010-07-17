@@ -28,6 +28,7 @@
 
 class QSystemTrayIcon;
 class QMenu;
+class QAction;
 
 /*
   Classe de vue

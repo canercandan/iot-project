@@ -21,6 +21,7 @@
 /*********************************/
 #include <QSystemTrayIcon>
 #include <QMenu>
+#include <QAction>
 #include <QIcon>
 #include <QMessageBox>
 #include <QApplication>
@@ -28,7 +29,6 @@
 #include <QDebug>
 /*********************************/
 #include "Systray.h"
-/*********************************/
 #include "SettingsDialog.h"
 /*********************************/
 

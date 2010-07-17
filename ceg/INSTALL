@@ -20,8 +20,7 @@ How to Install:
 
 
 ################################################################################
-## on Windows/MinGW 
-fini
+## on Windows/MinGW
 ################################################################################
 
 1) Install CMake for Windows:
@@ -47,6 +46,9 @@ http://subversion.tigris.org/servlets/ProjectDocumentList?folderID=8100
 9) A binary has been normally generated into "build" called "ceg"
 
 ################################################################################
+
+
+################################################################################
 ## On Windows/VS2008
 ################################################################################
 
@@ -55,11 +57,12 @@ http://www.siteduzero.com/tutoriel-3-36553-utiliser-qt-avec-visual-studio.html
 
 ################################################################################
 
-How to make packaging with Cpack:
 
 ################################################################################
 ## Packaging
 ################################################################################
+
+How to make packaging with Cpack:
 
 After to have prepared cmake commands, you can use the following command to
 generate what ever packages you want:
@@ -75,5 +78,16 @@ installing the package nsis (sudo apt-get install nsis).
 an so on.
 
 Look at `man cpack` to learn further things.
+
+################################################################################
+
+
+################################################################################
+## To generate translations files since the root directory
+################################################################################
+
+Here is the command to generate translations files:
+
+lupdate src/*.cpp -ts resources/translations/*.ts
 
 ################################################################################
