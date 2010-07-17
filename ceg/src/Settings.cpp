@@ -45,8 +45,14 @@ Settings::Settings(QWidget *parent) :
     settings.endGroup();
 
     settings.beginGroup("color");
-    this->colorFocusLabel->setText(settings.value("focus").toString());
-    this->colorBlurLabel->setText(settings.value("blur").toString());
+	QString color = settings.value("focus").toString();
+    this->colorFocusLabel->setText(color);
+    this->colorFocusLabel->setPalette(QPalette(color));
+    this->colorFocusLabel->setAutoFillBackground(true);
+	color = settings.value("blur").toString();
+    this->colorBlurLabel->setText(color);
+    this->colorBlurLabel->setPalette(QPalette(color));
+    this->colorBlurLabel->setAutoFillBackground(true);
     this->colorOpacitySlider->setValue(settings.value("opacity").toInt());
     settings.endGroup();
 
@@ -127,7 +133,6 @@ void Settings::on_colorFocusButton_clicked()
     if (color.isValid()) {
         this->colorFocusLabel->setText(color.name());
         this->colorFocusLabel->setPalette(QPalette(color));
-        this->colorFocusLabel->setAutoFillBackground(true);
     }
 }
 
@@ -137,7 +142,6 @@ void Settings::on_colorBlurButton_clicked()
     if (color.isValid()) {
         this->colorBlurLabel->setText(color.name());
         this->colorBlurLabel->setPalette(QPalette(color));
-        this->colorBlurLabel->setAutoFillBackground(true);
     }
 }
 
