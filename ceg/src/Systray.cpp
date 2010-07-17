@@ -28,8 +28,9 @@
 #include <QSettings>
 #include <QDebug>
 /*********************************/
-#include "Systray.h"
 #include "SettingsDialog.h"
+/*********************************/
+#include "Systray.h"
 /*********************************/
 
 Systray::Systray(QWidget *parent) :
