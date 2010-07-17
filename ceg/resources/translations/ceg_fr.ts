@@ -18,7 +18,7 @@
     <message>
         <location filename="../../src/main.cpp" line="60"/>
         <source>Couldn&apos;t detect any system tray on this system.</source>
-        <translation>Ne peut pas detecter de zone de notification sur ce systeme.</translation>
+        <translation>Ne peut pas détecter de zone de notification sur ce systeme.</translation>
     </message>
 </context>
 <context>
@@ -183,7 +183,7 @@
     <message>
         <location filename="../../src/SettingsDialog.cpp" line="79"/>
         <source>Please define the custom xml path !</source>
-        <translation>Veuillez definir le chemin du fichier XML !</translation>
+        <translation>Veuillez définir le chemin du fichier XML !</translation>
     </message>
     <message>
         <location filename="../../src/SettingsDialog.cpp" line="85"/>
@@ -193,7 +193,7 @@
     <message>
         <location filename="../../src/SettingsDialog.cpp" line="120"/>
         <source>Open Directory</source>
-        <translation>Ouvrir repertoire</translation>
+        <translation>Ouvrir répertoire</translation>
     </message>
 </context>
 <context>
@@ -203,12 +203,12 @@
         <location filename="../../src/Systray.cpp" line="108"/>
         <location filename="../../src/Systray.cpp" line="117"/>
         <source>Start</source>
-        <translation>Debut</translation>
+        <translation>Début</translation>
     </message>
     <message>
         <location filename="../../src/Systray.cpp" line="41"/>
         <source>Setting</source>
-        <translation>Parametre</translation>
+        <translation>Paramètre</translation>
     </message>
     <message>
         <location filename="../../src/Systray.cpp" line="42"/>
@@ -234,7 +234,7 @@
     <message>
         <location filename="../../src/Systray.cpp" line="66"/>
         <source>Click on Start to launch the Default Navigator</source>
-        <translation>Cliquez sur Debut pour lancer le navigateur par default</translation>
+        <translation>Cliquez sur Début pour lancer le navigateur par default</translation>
     </message>
     <message>
         <source>Error</source>
@@ -277,7 +277,7 @@ Alt + F4 = Quitter</translation>
     <message>
         <location filename="../../src/Systray.cpp" line="138"/>
         <source>Allows users to control machine by thinking.</source>
-        <translation>Autoriser les utilisateurs a controler la machine par la pensee.</translation>
+        <translation>Autoriser les utilisateurs a controler la machine par la pensée.</translation>
     </message>
     <message>
         <source>&amp;Restore</source>
