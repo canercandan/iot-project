@@ -41,7 +41,8 @@ HEADERS += AbstractItem.h \
     PopMenuAction.h \
     ExecMenuAction.h \
     ValidAction.h \
-    includes/QuitHandler.h
+    includes/QuitHandler.h \
+    includes/Logger.h
 SOURCES += AbstractItem.cpp \
     AbstractScene.cpp \
     DefaultItem.cpp \
@@ -69,7 +70,8 @@ SOURCES += AbstractItem.cpp \
     PopMenuAction.cpp \
     ExecMenuAction.cpp \
     ValidAction.cpp \
-    src/QuitHandler.cpp
+    src/QuitHandler.cpp \
+    src/Logger.cpp
 unix { 
     HEADERS += XWindowSystem.h
     SOURCES += XWindowSystem.cpp

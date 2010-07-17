@@ -36,12 +36,13 @@
 #include "ActionFactory.h"
 /*********************************/
 
-CegTcpServer::CegTcpServer() :
+CegTcpServer::CegTcpServer(MainController& lm) :
   _tcpServer(0), _client(0), _buffer()
 #ifndef Q_WS_WIN
 , _logger(log4cxx::Logger::getLogger("ceg.network"))
 #endif
 {
+ //QObject::connect(this, SIGNAL(actionEmitted(IAction &)),&lm, SLOT(onActionEmitted(IAction&)));
   this->launch();
 }
 
@@ -129,36 +130,38 @@ void	CegTcpServer::parseLines(void)
   this->_buffer = this->_buffer.remove(0, last + 1);
 }
 
-void	CegTcpServer::interpretLine(QString &line)
+void	CegTcpServer::interpretLine(QString &/*line*/)
 {
-  QTextStream		out(stdout);
-  MainController	*mc = Singleton<MainController>::getInstance();
+  //QTextStream		out(stdout);
+  //MainController	*mc = Singleton<MainController>::getInstance();
 
-  if (mc == NULL)
-    {
-#ifndef Q_WS_WIN
-      LOG4CXX_ERROR(this->_logger,"CegTcpServer:: Could not get Main Controller instance");
-      LOG4CXX_ERROR(this->_logger,"CegTcpServer:: command " << line.toStdString() << "can't be executed");
-#endif
-      return ;
-    }
+//  if (mc == NULL)
+//    {
+//#ifndef Q_WS_WIN
+//      LOG4CXX_ERROR(this->_logger,"CegTcpServer:: Could not get Main Controller instance");
+//      LOG4CXX_ERROR(this->_logger,"CegTcpServer:: command " << line.toStdString() << "can't be executed");
+//#endif
+//      return ;
+//    }
   // FIXME convert real rfb numbers into generic actions
-  if (line[0] == QChar('a'))
-    {
-      IAction *ia = new MoveAction(Qt::Key_Left);
-      mc->actionHandler(*ia);
-      delete ia;
-    }
-  if (line[0] == QChar('b'))
-    {
-      IAction *ia = new MoveAction(Qt::Key_Up);
-      mc->actionHandler(*ia);
-      delete ia;
-    }
-  if (line[0] == QChar('c'))
-    {
-      IAction	*ia = new ValidAction();
-      mc->actionHandler(*ia);
-      delete ia;
-    }
+//  if (line[0] == QChar('a'))
+//    {
+//      IAction *ia = new MoveAction(Qt::Key_Left);
+//      mc->actionHandler(*ia);
+//      delete ia;
+//    }
+//  if (line[0] == QChar('b'))
+//    {
+//      IAction *ia = new MoveAction(Qt::Key_Up);
+//      mc->actionHandler(*ia);
+//      delete ia;
+//    }
+//  if (line[0] == QChar('c'))
+//    {
+//      IAction	*ia = new ValidAction();
+//      mc->actionHandler(*ia);
+//      delete ia;
+//    }
+
+
 }

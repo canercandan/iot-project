@@ -35,6 +35,7 @@
 View::View(MainController & lm)
     : _lm(lm)
 {
+    // QObject::connect(this, SIGNAL(actionEmitted(IAction &)),&lm, SLOT(onActionEmitted(IAction&)));
      this->setWindowOpacity(0.5);
 }
 
@@ -59,6 +60,7 @@ void	View::initialize()
 
 void	View::keyPressEvent(QKeyEvent* keyEvent)
 {
+
     int	key = keyEvent->key();
     qDebug() << "Touche clavier utilisee : " << key;
     switch (key)
@@ -71,7 +73,7 @@ void	View::keyPressEvent(QKeyEvent* keyEvent)
     case Qt::Key_Backspace:
 	{
 	    MoveAction a(key);
-	    this->_lm.actionHandler(a);
+            //this->_lm.actionHandler(a);
 	}
 	break;
     default:

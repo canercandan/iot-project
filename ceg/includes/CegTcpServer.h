@@ -30,13 +30,14 @@
 
 class QTcpServer;
 class QTcpSocket;
+class MainController;
 
 class CegTcpServer : public QObject
 {
   Q_OBJECT
 
   public:
-  CegTcpServer();
+  CegTcpServer(MainController& lm);
   ~CegTcpServer();
 
 private:

@@ -38,14 +38,15 @@
 /************************************************* [ CTOR/DTOR ] *************************************************/
 #include <iostream>
 MainController::MainController() :
+        QObject(0),
         _view(*this), _scenes(),_currentScene(), _boxController(),
-        _comGs(new WindowSystem), _tcpServer()
+        _comGs(new WindowSystem), _tcpServer(*this)
 
 #ifndef Q_WS_WIN
         , _logger(log4cxx::Logger::getLogger("ceg.main"))
 #endif
 {
-  //std::cerr << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~`powa" << std::endl
+    
 }
 
 MainController::~MainController()
@@ -80,24 +81,23 @@ View &	MainController::getView()
 
 /************************************************* [ OTHERS ] *************************************************/
 
-bool    MainController::actionHandler(IAction & anAction)
+void    MainController::onActionEmitted(IAction & anAction)
 {
 #ifndef Q_WS_WIN
     LOG4CXX_INFO (this->_logger, "Execution de l'action suivante : .");
 #endif
-
-    return (anAction.exec(*this));
+    anAction.exec(*this);
 }
 
 void MainController::createScenes(std::list<Ceg::Window> const & windows)
 {
     for (std::list<Ceg::Window>::const_iterator it = windows.begin(), itEnd = windows.end(); it != itEnd; ++it)
     {
-	Layer * oneLayer = new Layer(*it);
-	std::list<QGraphicsRectItem *> graphicItems;
-	this->_boxController.getPattern(*it, graphicItems);
-	oneLayer->initialize(graphicItems);
-	this->_scenes.push_front(oneLayer);
+        Layer * oneLayer = new Layer(*it);
+        std::list<QGraphicsRectItem *> graphicItems;
+        this->_boxController.getPattern(*it, graphicItems);
+        oneLayer->initialize(graphicItems);
+        this->_scenes.push_front(oneLayer);
     }
 }
 
@@ -116,6 +116,7 @@ void MainController::initialize()
     this->createScenes(windows);
     this->_currentScene = this->_scenes.begin();
 }
+
 
 void MainController::start()
 {
@@ -157,3 +158,4 @@ void MainController::popFrontScene()
     this->_view.show();
     delete currentScene;
 }
+

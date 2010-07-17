@@ -68,8 +68,7 @@ bool ExecMenuAction::exec(MainController & mainC)
 {
     qDebug() << "ExecMenuAction::exec";
     mainC.popFrontScene();
-    mainC.actionHandler(*this->_actionToExec);
-    return (true);
+    return (this->_actionToExec->exec(mainC));
 }
 
 /************************************************* [ OTHERS ] *************************************************/
