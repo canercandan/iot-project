@@ -27,7 +27,7 @@
 #include "SettingsDialog.h"
 
 SettingsDialog::SettingsDialog(QWidget *parent) :
-        QDialog(parent)
+    QDialog(parent)
 {
     this->setupUi(this);
     this->on_colorOpacitySlider_valueChanged(this->colorOpacitySlider->value());
@@ -37,22 +37,23 @@ SettingsDialog::SettingsDialog(QWidget *parent) :
     QSettings settings;
 
     settings.beginGroup("general");
-	this->languageComboBox->setCurrentIndex(settings.value("language").toInt());
+    this->languageComboBox->setCurrentIndex(settings.value("language").toInt());
     this->squareNumberBox->setValue(settings.value("squareNumber").toInt());
     this->customCheck->setChecked(settings.value("customCheck").toBool());
     this->customXMLPathLine->setText(settings.value("customXMLPath").toString());
+    this->customGroupBox->setEnabled( ! this->customCheck->isChecked() );
     settings.endGroup();
 
     settings.beginGroup("color");
-	QString color = settings.value("focus").toString();
+    QString color = settings.value("focus").toString();
     this->colorFocusLabel->setText(color);
     this->colorFocusLabel->setPalette(QPalette(color));
     this->colorFocusLabel->setAutoFillBackground(true);
-	color = settings.value("blur").toString();
+    color = settings.value("blur").toString();
     this->colorBlurLabel->setText(color);
     this->colorBlurLabel->setPalette(QPalette(color));
     this->colorBlurLabel->setAutoFillBackground(true);
-	this->colorOpacitySlider->setValue((settings.value("opacity").toFloat() * 100));
+    this->colorOpacitySlider->setValue((settings.value("opacity").toFloat() * 100));
     settings.endGroup();
 
     settings.beginGroup("server");
@@ -74,21 +75,21 @@ void SettingsDialog::on_confList_currentItemChanged(QListWidgetItem* current, QL
 void SettingsDialog::on_buttonBox_accepted()
 {
     if (!this->customCheck->isChecked() && this->customXMLPathLine->text().isEmpty())
-    {
-      QMessageBox::information(0, tr("Error"), tr("Please define the custom xml path !"));
-      return;
-    }
+	{
+	    QMessageBox::information(0, tr("Error"), tr("Please define the custom xml path !"));
+	    return;
+	}
     if (this->serverPasswordCheckBox->isChecked() &&
         this->serverPassword->text().isEmpty())
-    {
-      QMessageBox::information(0, tr("Error"), tr("Please fill all proxy fields !"));
-      return;
-    }
+	{
+	    QMessageBox::information(0, tr("Error"), tr("Please fill all proxy fields !"));
+	    return;
+	}
 
     QSettings settings;
 
     settings.beginGroup("general");
-	settings.setValue("language", this->languageComboBox->currentIndex());
+    settings.setValue("language", this->languageComboBox->currentIndex());
     settings.setValue("squareNumber", this->squareNumberBox->text());
     settings.setValue("customCheck", this->customCheck->isChecked());
     settings.setValue("customXMLPath", this->customXMLPathLine->text());
@@ -97,7 +98,7 @@ void SettingsDialog::on_buttonBox_accepted()
     settings.beginGroup("color");
     settings.setValue("focus", this->colorFocusLabel->text());
     settings.setValue("blur", this->colorBlurLabel->text());
-	qreal realValue = this->colorOpacitySlider->value();
+    qreal realValue = this->colorOpacitySlider->value();
     realValue /= 100;
     settings.setValue("opacity", realValue);
     settings.endGroup();
@@ -123,9 +124,9 @@ void SettingsDialog::on_customXMLPathButton_clicked()
                                                     QFileDialog::ShowDirsOnly
                                                     | QFileDialog::DontResolveSymlinks);
     if (!dir.isEmpty())
-    {
-        this->customXMLPathLine->setText(dir);
-    }
+	{
+	    this->customXMLPathLine->setText(dir);
+	}
 }
 
 void SettingsDialog::on_colorFocusButton_clicked()

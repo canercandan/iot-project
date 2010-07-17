@@ -22,6 +22,7 @@
 #include <QApplication>
 #include <QMessageBox>
 #include <QSystemTrayIcon>
+#include <QSettings>
 /*********************************/
 
 #ifndef Q_WS_WIN
@@ -47,6 +48,26 @@
 #endif
 #endif
 
+// static bool configure_language(QApplication& app, QTranslator& translator)
+// {
+//     QSettings settings;
+
+//     unsigned int languageID(settings.value("general/language").toUInt());
+
+//     std::vector< std::string > languages (2);
+
+//     languages[0] = "en";
+//     languages[1] = "fr";
+
+//     if (languageID < languages.size())
+// 	return false;
+
+//     translator.load(QString(":/translations/translations/ceg_") + languages[ languageID ]);
+//     app.installTranslator(&translator);
+
+//     return true;
+// }
+
 int main(int argc, char *argv[])
 {
     QCoreApplication::setOrganizationName("IOT");
@@ -56,10 +77,10 @@ int main(int argc, char *argv[])
     QApplication app(argc, argv);
 
     if (QSystemTrayIcon::isSystemTrayAvailable() == false)
-    {
-	QMessageBox::critical(0, QObject::tr("Systray"), QObject::tr("Couldn't detect any system tray on this system."));
-	return (EXIT_FAILURE);
-    }
+	{
+	    QMessageBox::critical(0, QObject::tr("Systray"), QObject::tr("Couldn't detect any system tray on this system."));
+	    return (EXIT_FAILURE);
+	}
 
 #ifndef Q_WS_WIN
     log4cxx::xml::DOMConfigurator::configure(LOGCXXCF);
@@ -74,6 +95,12 @@ int main(int argc, char *argv[])
     ActionFactory::registerInstantiator(ReadAction::IDENTIFIER, instanciateReadAction);
     ActionFactory::registerInstantiator(ZoomAction::IDENTIFIER, instanciateZoomAction);
 
-   Systray sytray;
+    //QTranslator	translator;
+
+    // if (!configure_language(app, translator))
+    // 	return -1;
+
+    Systray sytray;
+
     return (app.exec());
 }
