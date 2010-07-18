@@ -21,6 +21,7 @@
 /*********************************/
 #include <QApplication>
 #include <QTranslator>
+#include <QLibraryInfo>
 #include <QMessageBox>
 #include <QSystemTrayIcon>
 #include <QSettings>
@@ -107,6 +108,58 @@ int main(int ac, char** av)
     ActionFactory::registerInstantiator(PopMenuAction::IDENTIFIER, instanciatePopMenuAction);
     ActionFactory::registerInstantiator(ReadAction::IDENTIFIER, instanciateReadAction);
     ActionFactory::registerInstantiator(ZoomAction::IDENTIFIER, instanciateZoomAction);
+
+    //-----------------------------------------------------------------------------
+
+
+    //-----------------------------------------------------------------------------
+    // Loading translations
+    //-----------------------------------------------------------------------------
+
+    QString trans_name;
+    bool loaded;
+
+    QTranslator qt_trans;
+    trans_name = "qt_" + QLocale::system().name();
+    loaded = qt_trans.load(trans_name, QLibraryInfo::location(QLibraryInfo::TranslationsPath));
+
+    if (loaded)
+	{
+	    qDebug() << "Translation" << trans_name << "loaded";
+	}
+    else
+	{
+	    qDebug() << "Failed to load translation" << trans_name;
+	}
+
+    app.installTranslator(&qt_trans);
+
+    QTranslator ceg_tr;
+    trans_name = "ceg_" + QLocale::system().name();
+
+#if defined(Q_OS_UNIX)
+    loaded = ceg_tr.load(trans_name, "/usr/share/ceg/translations");
+    if (!loaded)
+	{
+	    loaded = ceg_tr.load(trans_name, "./translations");
+	}
+#elif defined(Q_OS_WIN)
+    loaded = ceg_tr.load(trans_name, "./translations");
+#elif defined(Q_OS_MAC)
+    // FIXME i don't know how do this on mac
+    loaded = ceg_tr.load(trans_name, "./translations");
+#endif
+
+    if (loaded)
+	{
+	    qDebug() << "Translation" << trans_name << "loaded";
+	}
+    else
+	{
+	    qDebug() << "Failed to load translation" << trans_name;
+	}
+
+    app.installTranslator(&ceg_tr);
 
     //-----------------------------------------------------------------------------
 
