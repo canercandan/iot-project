@@ -24,6 +24,9 @@
 
 #include "IAction.h"
 
+/*
+  Action permettant d'executer une action depuis un menu
+  */
 class ExecMenuAction : public IAction
 {
 public:

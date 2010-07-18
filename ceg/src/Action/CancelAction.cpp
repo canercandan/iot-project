@@ -18,9 +18,13 @@
  * Authors: CEG <ceg@ionlythink.com>, http://www.ionlythink.com
  */
 
+/*********************************/
+#include <QDebug>
+/*********************************/
 #include "CancelAction.h"
-
+/*********************************/
 #include "MainController.h"
+/*********************************/
 
 /************************************************* [ CTOR/DTOR ] *************************************************/
 
@@ -37,14 +41,14 @@ CancelAction::CancelAction(const QDomElement &)
 
 void CancelAction::initializeFromXml(const QDomElement &)
 {
-
 }
 
 /************************************************* [ OTHERS ] *************************************************/
 
 void    CancelAction::exec(MainController & mainC)
 {
-    mainC.popFrontScene();
+    // Le menu est deja cache, donc il n'y a rien a faire
+    qDebug() << "CancelAction::exec";
 }
 
 /************************************************* [ OTHERS ] *************************************************/

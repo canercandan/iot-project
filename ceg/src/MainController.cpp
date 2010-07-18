@@ -160,4 +160,3 @@ void MainController::popFrontScene()
     this->_view.show();
     delete currentScene;
 }
-

@@ -34,7 +34,7 @@ char const * MoveAction::IDENTIFIER = "Move";
 MoveAction::MoveAction(int key) :
 	_key(key)
 {
-  qDebug() << "MoveAction::MoveAction(int key)--";
+    qDebug() << "MoveAction::MoveAction(int key)--";
 }
 
 MoveAction::MoveAction(const QDomElement & actionElement) :
@@ -51,13 +51,16 @@ void MoveAction::initializeFromXml(const QDomElement &)
 
 /************************************************* [ OTHERS ] *************************************************/
 
-void	MoveAction::exec(MainController & lm)
+void	MoveAction::exec(MainController & mainC)
 {
-  qDebug() << "MoveAction::exec " << this->_key;
-  
-  IAction * action = lm.getCurrentScene()->keyPressEvent(this->_key);
-  if (action != 0)
-    action->exec(lm);
+    qDebug() << "MoveAction::exec " << this->_key;
+
+    IAction * action = mainC.getCurrentScene()->keyPressEvent(this->_key);
+    if (action != 0)
+    {
+        //mainC.popFrontScene();
+        action->exec(mainC);
+    }
 }
 
 /************************************************* [ OTHERS ] *************************************************/
