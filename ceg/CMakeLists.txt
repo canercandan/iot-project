@@ -20,7 +20,6 @@ SET(PROJECT_VERSION "${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT
 ######################################################################################
 
 INCLUDE(FindDoxygen)
-#INCLUDE(FindLog4Cxx)
 
 # see http://cmake.org/cmake/help/cmake2.6docs.html#module:FindQt4 for a complete list
 FIND_PACKAGE(Qt4 COMPONENTS QtCore QtGui QtNetwork QtXml REQUIRED)
@@ -73,7 +72,6 @@ SET(SAMPLE_SRCS)
 SET(SAMPLE_UIS)
 SET(SAMPLE_MOC_HDRS)
 SET(SAMPLE_RCS)
-#SET(SAMPLE_TRANS)
 
 ######################################################################################
 
@@ -104,7 +102,6 @@ ADD_SUBDIRECTORY(doc)
 QT4_WRAP_UI(SAMPLE_UIS_SRCS ${SAMPLE_UIS})
 QT4_WRAP_CPP(SAMPLE_MOC_SRCS ${SAMPLE_MOC_HDRS})
 QT4_ADD_RESOURCES(SAMPLE_RC_SRCS ${SAMPLE_RCS})
-#QT4_ADD_TRANSLATION(SAMPLE_TRANS_SRCS ${SAMPLE_TRANS})
 
 # Further details about translation below:
 # http://www.cmake.org/Wiki/CMake:How_To_Build_Qt4_Software
@@ -125,7 +122,6 @@ ADD_EXECUTABLE(
   ${SAMPLE_UIS_SRCS}
   ${SAMPLE_MOC_SRCS}
   ${SAMPLE_RC_SRCS}
-  #${SAMPLE_TRANS_SRCS}
   )
 
 SET(CEG_LIBS action)
@@ -139,18 +135,10 @@ IF (UNIX)
     ${LOG4CXX_LIBRARIES}
     ${CEG_LIBS}
     )
-ELSEIF(MINGW)
+ELSEIF(MINGW or WIN32)
   TARGET_LINK_LIBRARIES(
     ${PROJECT_NAME}
     ${QT_LIBRARIES}
-    ${CEG_LIBS}
-    )
-ELSEIF(WIN32)
-  #SET(PSAPI "C:/Program Files/Microsoft SDKs/Windows/v7.0A/Lib/Psapi.Lib")
-  TARGET_LINK_LIBRARIES(
-    ${PROJECT_NAME}
-    ${QT_LIBRARIES}
-   # ${PSAPI}
     ${CEG_LIBS}
     )
 ENDIF()
@@ -161,20 +149,20 @@ INSTALL(
   DESTINATION bin
   COMPONENT applications
   )
-  
+
 IF(WIN32)
-SET(DLL_SOURCES
-${QT_BINARY_DIR}/QtGui4.dll
-${QT_BINARY_DIR}/QtCore4.dll
-${QT_BINARY_DIR}/QtXml4.dll
-${QT_BINARY_DIR}/QtNetwork4.dll
-)
-  
-INSTALL(
-  FILES ${DLL_SOURCES}
-  DESTINATION bin
-  COMPONENT applications
-  )
+  SET(DLL_SOURCES
+    ${QT_BINARY_DIR}/QtGui4.dll
+    ${QT_BINARY_DIR}/QtCore4.dll
+    ${QT_BINARY_DIR}/QtXml4.dll
+    ${QT_BINARY_DIR}/QtNetwork4.dll
+    )
+
+  INSTALL(
+    FILES ${DLL_SOURCES}
+    DESTINATION bin
+    COMPONENT applications
+    )
 ENDIF()
 
 ######################################################################################
