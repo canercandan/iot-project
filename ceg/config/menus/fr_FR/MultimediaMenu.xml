@@ -1,4 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE XmlBox>
+
 <menu id="Navigation">
 
   <box type="2" x="750" y="1" height="100" width="300">
@@ -7,41 +9,40 @@
     </action>
     <style opacity="1" text="Internet"/>
   </box>
-  
-   <box type="2" x="750" y="1" height="100" width="300">
+
+  <box type="2" x="750" y="1" height="100" width="300">
     <action id="ExecMenu">
       <action id="Mail" />
     </action>
     <style opacity="1" text="Mail"/>
   </box>
-  
-   <box type="2" x="750" y="1" height="100" width="300">
+
+  <box type="2" x="750" y="1" height="100" width="300">
     <action id="ExecMenu">
       <action id="FavApp" />
     </action>
     <style opacity="1" text="Applications Favorites"/>
   </box>
-  
-   <box type="2" x="750" y="1" height="100" width="300">
+
+  <box type="2" x="750" y="1" height="100" width="300">
     <action id="ExecMenu">
       <action id="TextEdit" />
     </action>
     <style opacity="1" text="Editeur de Texte"/>
   </box>
-  
-   <box type="2" x="750" y="1" height="100" width="300">
+
+  <box type="2" x="750" y="1" height="100" width="300">
     <action id="ExecMenu">
       <action id="Video" />
     </action>
     <style opacity="1" text="Video"/>
   </box>
-  
-   <box type="2" x="750" y="1" height="100" width="300">
+
+  <box type="2" x="750" y="1" height="100" width="300">
     <action id="ExecMenu">
       <action id="Music" />
     </action>
     <style opacity="1" text="Musique"/>
   </box>
-  
- 
+
 </menu>

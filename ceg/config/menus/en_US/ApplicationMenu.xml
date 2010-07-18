@@ -1,4 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE XmlBox>
+
 <menu id="Navigation">
 
   <box type="2" x="750" y="1" height="100" width="300">
@@ -7,19 +9,19 @@
     </action>
     <style opacity="1" text="Firefox"/>
   </box>
-  
+
   <box type="2" x="750" y="1" height="100" width="300">
     <action id="ExecMenu">
       <action id="ExecProcess" path="../wmp.exe"/>
     </action>
     <style opacity="1" text="Windows Media Player"/>
   </box>
-  
+
   <box type="2" x="750" y="1" height="100" width="300">
     <action id="ExecMenu">
       <action id="ExecProcess" path="../Notepad.exe"/>
     </action>
     <style opacity="1" text="Notepad++"/>
   </box>
-  
+
 </menu>
