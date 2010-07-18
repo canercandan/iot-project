@@ -18,32 +18,30 @@
  * Authors: CEG <ceg@ionlythink.com>, http://www.ionlythink.com
  */
 
-#ifndef MOVEACTION_H
-#define MOVEACTION_H
+#ifndef CANCELACTION_H
+#define CANCELACTION_H
 
 #include "IAction.h"
 
 class QDomElement;
 
 /*
-  Action pour generer des mouvements sur la scene courante
+  Action qui sert a sortir d'un menu
   */
-class MoveAction : public IAction
+
+class CancelAction : public IAction
 {
 public:
-  MoveAction(int key);
-  MoveAction(QDomElement const &);
+    CancelAction();
+    CancelAction(QDomElement const &);
 
-  virtual void	exec(MainController&);
-  virtual void	initializeFromXml(QDomElement const &);
+    virtual void		exec(MainController &);
+    virtual void		initializeFromXml(QDomElement const &);
 
 public:
     static char const * IDENTIFIER;
-
-private:
-  int	_key;
 };
 
-IAction * instanciateMoveAction(QDomElement const &);
+IAction * instanciateCancelAction(QDomElement const &);
 
-#endif // !MOVEACTION_H
+#endif // CANCELACTION_H

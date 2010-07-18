@@ -34,7 +34,7 @@ public:
   ValidAction();
   ValidAction(QDomElement const &);
 
-  virtual bool	exec(MainController&);
+  virtual void	exec(MainController&);
   virtual void	initializeFromXml(QDomElement const &);
 
 public:

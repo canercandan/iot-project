@@ -48,7 +48,7 @@ void ZoomAction::initializeFromXml(const QDomElement & actionElement)
 
 /************************************************* [ OTHERS ] *************************************************/
 
-bool	ZoomAction::exec(MainController & lm)
+void	ZoomAction::exec(MainController & lm)
 {
     qDebug() << "ZoomAction::exec";
     AbstractScene * scene = lm.getCurrentScene();
@@ -69,7 +69,6 @@ bool	ZoomAction::exec(MainController & lm)
     {
 	scene->initialize(graphicItems);
     }
-    return (true);
 }
 
 /************************************************* [ OTHERS ] *************************************************/

@@ -50,17 +50,14 @@ void MoveAction::initializeFromXml(const QDomElement &)
 }
 
 /************************************************* [ OTHERS ] *************************************************/
-#include <iostream>
-bool	MoveAction::exec(MainController & lm)
+
+void	MoveAction::exec(MainController & lm)
 {
-  //qDebug() << "MoveAction:sdasdasdasasd:exec " << this->_key;
-  //qDebug() << "ca va segfault " << this->_key;
-  std::cerr<< "ca va segfault" << this->_key << " lm = " << &lm <<std::endl;
+  qDebug() << "MoveAction::exec " << this->_key;
   
   IAction * action = lm.getCurrentScene()->keyPressEvent(this->_key);
   if (action != 0)
-    return (action->exec(lm));
-  return (true);
+    action->exec(lm);
 }
 
 /************************************************* [ OTHERS ] *************************************************/

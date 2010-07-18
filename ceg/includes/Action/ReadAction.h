@@ -39,7 +39,7 @@ public:
    * exec
    * here is the method hidding/showing ceg interface.
    */
-    virtual bool	exec(MainController&);
+    virtual void	exec(MainController&);
     virtual void	initializeFromXml(QDomElement const &);
 
 public:

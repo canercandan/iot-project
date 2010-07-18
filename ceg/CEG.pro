@@ -10,20 +10,15 @@ LANGUAGE = C++
 
 # le nom du binaire
 TARGET = ceg
-
 DEPENDPATH += . \
     includes \
     includes/Action \
     src \
     src/Action
-
-
 INCLUDEPATH += . \
     includes \
     includes/Action
-
 FORMS += forms/settingsDialog.ui
-
 HEADERS += AbstractItem.h \
     AbstractScene.h \
     BoxController.h \
@@ -46,6 +41,7 @@ HEADERS += AbstractItem.h \
     View.h \
     Window.h \
     ActionFactory.h \
+    CancelAction.h \
     ClickAction.h \
     ExecMenuAction.h \
     IAction.h \
@@ -54,7 +50,7 @@ HEADERS += AbstractItem.h \
     ReadAction.h \
     ValidAction.h \
     WriteAction.h \
-    ZoomAction.h \
+    ZoomAction.h
 
 SOURCES += AbstractItem.cpp \
     AbstractScene.cpp \
@@ -77,13 +73,14 @@ SOURCES += AbstractItem.cpp \
     View.cpp \
     Window.cpp \
     ActionFactory.cpp \
+    CancelAction.cpp \
     ClickAction.cpp \
     ExecMenuAction.cpp \
     MoveAction.cpp \
     PopMenuAction.cpp \
     ReadAction.cpp \
     ValidAction.cpp \
-    ZoomAction.cpp \
+    ZoomAction.cpp
 
 unix { 
     HEADERS += XWindowSystem.h
@@ -98,17 +95,11 @@ win32 {
     SOURCES += Win32Adaptor.cpp \
         Win32Explorer.cpp
 }
-
 CONFIG += warn_on
-
 DESTDIR = build
-
 OBJECTS_DIR = build
-
 MOC_DIR = moc
-
 UI_SOURCES_DIR = ui_src
-
 UI_HEADERS_DIR = ui_includes
 
 # les fichiers de ressources utilisees par l application

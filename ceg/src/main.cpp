@@ -34,6 +34,7 @@
 /*********************************/
 #include "Systray.h"
 #include "ActionFactory.h"
+#include "CancelAction.h"
 #include "ClickAction.h"
 #include "ExecMenuAction.h"
 #include "MoveAction.h"
@@ -72,15 +73,15 @@ int main(int ac, char** av)
     //-----------------------------------------------------------------------------
 
     if (QSystemTrayIcon::isSystemTrayAvailable() == false)
-	{
-	    QMessageBox::critical
+    {
+        QMessageBox::critical
 		(0,
 		 QObject::tr("Systray"),
 		 QObject::tr("Couldn't detect any system tray on this system.")
 		 );
 
-	    return EXIT_FAILURE;
-	}
+        return EXIT_FAILURE;
+    }
 
 #ifndef Q_WS_WIN
     log4cxx::xml::DOMConfigurator::configure(LOGCXXCF);
@@ -102,6 +103,7 @@ int main(int ac, char** av)
     // Prepare the Action instances
     //-----------------------------------------------------------------------------
 
+    ActionFactory::registerInstantiator(CancelAction::IDENTIFIER, instanciateCancelAction);
     ActionFactory::registerInstantiator(ClickAction::IDENTIFIER, instanciateClickAction);
     ActionFactory::registerInstantiator(ExecMenuAction::IDENTIFIER, instanciateExecMenuAction);
     ActionFactory::registerInstantiator(MoveAction::IDENTIFIER, instanciateMoveAction);
@@ -116,21 +118,18 @@ int main(int ac, char** av)
     // Loading translations
     //-----------------------------------------------------------------------------
 
-    QString trans_name;
-    bool loaded;
-
     QTranslator qt_trans;
-    trans_name = "qt_" + QLocale::system().name();
-    loaded = qt_trans.load(trans_name, QLibraryInfo::location(QLibraryInfo::TranslationsPath));
+    QString trans_name = "qt_" + QLocale::system().name();
+    bool loaded = qt_trans.load(trans_name, QLibraryInfo::location(QLibraryInfo::TranslationsPath));
 
     if (loaded)
-	{
-	    qDebug() << "Translation" << trans_name << "loaded";
-	}
+    {
+        qDebug() << "Translation" << trans_name << "loaded";
+    }
     else
-	{
-	    qDebug() << "Failed to load translation" << trans_name;
-	}
+    {
+        qDebug() << "Failed to load translation" << trans_name;
+    }
 
     app.installTranslator(&qt_trans);
 
@@ -140,9 +139,9 @@ int main(int ac, char** av)
 #if defined(Q_OS_UNIX)
     loaded = ceg_tr.load(trans_name, "/usr/share/ceg/translations");
     if (!loaded)
-	{
-	    loaded = ceg_tr.load(trans_name, "./translations");
-	}
+    {
+        loaded = ceg_tr.load(trans_name, "./translations");
+    }
 #elif defined(Q_OS_WIN)
     loaded = ceg_tr.load(trans_name, "./translations");
 #elif defined(Q_OS_MAC)
@@ -151,13 +150,13 @@ int main(int ac, char** av)
 #endif
 
     if (loaded)
-	{
-	    qDebug() << "Translation" << trans_name << "loaded";
-	}
+    {
+        qDebug() << "Translation" << trans_name << "loaded";
+    }
     else
-	{
-	    qDebug() << "Failed to load translation" << trans_name;
-	}
+    {
+        qDebug() << "Failed to load translation" << trans_name;
+    }
 
     app.installTranslator(&ceg_tr);
 
@@ -178,6 +177,4 @@ int main(int ac, char** av)
     //-----------------------------------------------------------------------------
 
     return (app.exec());
-
-    //-----------------------------------------------------------------------------
 }

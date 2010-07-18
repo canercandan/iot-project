@@ -32,7 +32,7 @@ public:
     PopMenuAction(std::string const & menuId);
     PopMenuAction(QDomElement const & domElement);
 
-    virtual bool	exec(MainController&);
+    virtual void	exec(MainController&);
     virtual void	initializeFromXml(QDomElement const &);
 
 public:

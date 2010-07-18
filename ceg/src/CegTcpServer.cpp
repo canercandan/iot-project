@@ -49,6 +49,7 @@ CegTcpServer::~CegTcpServer()
 #ifndef Q_WS_WIN
     LOG4CXX_INFO(this->_logger, "TCP server killed");
 #endif
+    delete this->_tcpServer;
 }
 
 void	CegTcpServer::launch(void)
@@ -134,18 +135,18 @@ void	CegTcpServer::interpretLine(QString &/*line*/)
 
     //FIXME convert real rfb numbers into generic actions
     IAction *ia = 0;
-//    if (line[0] == QChar('a'))
-//    {
-//        ia = new MoveAction(Qt::Key_Left);
-//    }
-//    if (line[0] == QChar('b'))
-//    {
-//        ia = new MoveAction(Qt::Key_Up);
-//    }
-//    if (line[0] == QChar('c'))
-//    {
-//        ia = new ValidAction();
-//    }
+    //    if (line[0] == QChar('a'))
+    //    {
+    //        ia = new MoveAction(Qt::Key_Left);
+    //    }
+    //    if (line[0] == QChar('b'))
+    //    {
+    //        ia = new MoveAction(Qt::Key_Up);
+    //    }
+    //    if (line[0] == QChar('c'))
+    //    {
+    //        ia = new ValidAction();
+    //    }
     emit actionEmitted(*ia);
     delete ia;
 }

@@ -52,7 +52,7 @@ void	PopMenuAction::initializeFromXml(QDomElement const & domElement)
 
 /************************************************* [ OTHERS ] *************************************************/
 
-bool	PopMenuAction::exec(MainController & mainC)
+void	PopMenuAction::exec(MainController & mainC)
 {
     qDebug() << "PopMenuAction::exec";
     // Recuperation des items du menu
@@ -67,7 +67,6 @@ bool	PopMenuAction::exec(MainController & mainC)
 	// affichage du menu
 	mainC.pushFrontScene(menuScene);
     }
-    return (true);
 }
 
 /************************************************* [ OTHERS ] *************************************************/

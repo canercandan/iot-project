@@ -64,11 +64,18 @@ void ExecMenuAction::initializeFromXml(const QDomElement & actionElement)
 
 /************************************************* [ OTHERS ] *************************************************/
 
-bool ExecMenuAction::exec(MainController & mainC)
+void ExecMenuAction::exec(MainController & mainC)
 {
     qDebug() << "ExecMenuAction::exec";
-    mainC.popFrontScene();
-    return (this->_actionToExec->exec(mainC));
+    if (this->_actionToExec != 0)
+    {
+        mainC.popFrontScene();
+        this->_actionToExec->exec(mainC);
+    }
+    else
+    {
+        qDebug() << "Action null, rien a executer";
+    }
 }
 
 /************************************************* [ OTHERS ] *************************************************/

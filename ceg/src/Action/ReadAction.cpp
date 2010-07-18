@@ -44,7 +44,7 @@ void ReadAction::initializeFromXml(const QDomElement &)
 
 /************************************************* [ OTHERS ] *************************************************/
 
-bool	ReadAction::exec(MainController & lm)
+void	ReadAction::exec(MainController & lm)
 {
     qDebug() << "ReadAction::exec";
     View & view = lm.getView();
@@ -53,9 +53,6 @@ bool	ReadAction::exec(MainController & lm)
     SleeperThread::msleep(1000);
 
     view.show();
-    exit(0);
-
-    return (true);
 }
 
 /************************************************* [ OTHERS ] *************************************************/

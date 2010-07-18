@@ -28,7 +28,7 @@ class WriteAction : public IAction
 public:
   WriteAction(QDomElement const &);
 
-  virtual bool	exec(MainController&);
+  virtual void	exec(MainController&);
   virtual void	initializeFromXml(QDomElement const &);
 };
 

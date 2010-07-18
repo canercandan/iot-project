@@ -50,14 +50,14 @@ void ClickAction::initializeFromXml(const QDomElement &)
 
 /************************************************* [ OTHERS ] *************************************************/
 
-bool	ClickAction::exec(MainController & lm)
+void	ClickAction::exec(MainController & lm)
 {
     qDebug() << "ClickAction::exec";
     AbstractItem const * ai = lm.getCurrentScene()->getCurrentItem();
     Box const *	ab = ai->getBox();
 
     if (ab == 0)
-	return (false);
+        return ;
 
     //    QCursor::setPos(ab->getGeometry().center());
 
@@ -81,8 +81,6 @@ bool	ClickAction::exec(MainController & lm)
     SleeperThread::msleep(1000);
 
     lm.getView().show();
-
-    return (true);
 }
 
 /************************************************* [ OTHERS ] *************************************************/

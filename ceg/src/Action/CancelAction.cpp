@@ -1,6 +1,6 @@
 // -*- mode: c++; c-indent-level: 4; c++-member-init-indent: 8; comment-column: 35; -*-
 
-/* IOT Copyright (C) 2010 CEG development team
+/* IOT Copyleft (C) 2010 CEG development team
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2
@@ -18,48 +18,38 @@
  * Authors: CEG <ceg@ionlythink.com>, http://www.ionlythink.com
  */
 
-/*********************************/
-#include <QDebug>
-/*********************************/
-#include "ValidAction.h"
-/*********************************/
+#include "CancelAction.h"
+
 #include "MainController.h"
-#include "AbstractScene.h"
-/*********************************/
 
 /************************************************* [ CTOR/DTOR ] *************************************************/
 
-char const * ValidAction::IDENTIFIER = "Valid";
+char const * CancelAction::IDENTIFIER = "Cancel ";
 
-ValidAction::ValidAction()
+CancelAction::CancelAction()
 {
-    qDebug() << "ValidAction::ValidAction()";
 }
 
-ValidAction::ValidAction(const QDomElement & actionElement)
-{
-    qDebug() << "ValidAction::ValidAction(const QDomElement & actionElement)";
-    this->initializeFromXml(actionElement);
-}
-
-void ValidAction::initializeFromXml(const QDomElement &)
+CancelAction::CancelAction(const QDomElement &)
 {
 
 }
 
-/************************************************* [ OTHERS ] *************************************************/
-
-void	ValidAction::exec(MainController & mc)
+void CancelAction::initializeFromXml(const QDomElement &)
 {
-    qDebug() << "ValidAction::exec";
-    IAction * action = mc.getCurrentScene()->keyPressEvent(Qt::Key_Enter);
-    if (action != 0)
-        action->exec(mc);
+
 }
 
 /************************************************* [ OTHERS ] *************************************************/
 
-IAction * instanciateValidAction(const QDomElement & actionElement)
+void    CancelAction::exec(MainController & mainC)
 {
-    return (new ValidAction(actionElement));
+    mainC.popFrontScene();
+}
+
+/************************************************* [ OTHERS ] *************************************************/
+
+IAction * instanciateCancelAction(QDomElement const & actionElement)
+{
+    return (new CancelAction(actionElement));
 }
