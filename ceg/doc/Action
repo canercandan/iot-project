@@ -6,7 +6,7 @@ Exemple:
 
 - Cancel : Permet de sortir d'un menu
 
-- Click : Permet de generer un clic	
+- Click : Permet de generer un clic
   - type : 1, 2, 3, 4
 
 - ExecMenu : permettant d'executer une action depuis un menu
@@ -27,4 +27,5 @@ Exemple:
  - buffer : ce qu'il y a ecrire
 
 - Zoom : permet de zoomer dans une zone
- - isZoom : 0 ou 1
+ - 2 valeurs: zoom out  0
+     	      zoom in   1
