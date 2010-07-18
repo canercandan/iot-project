@@ -2,7 +2,7 @@
 
 build()
 {
-    output=`pwd`'build/dist'
+    output=`pwd`'/build/dist'
 
     if [ ! -d build ]
     then

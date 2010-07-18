@@ -4,7 +4,7 @@ install()
 {
     pyiPath="$HOME/pyinstaller-1.4"
 
-    if [ ! -d pyiPath ]
+    if [ -d pyiPath ]
     then
 	echo "PyInstaller is already installed in $pyiPath"
 	exit 0
