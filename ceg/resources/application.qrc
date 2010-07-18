@@ -6,5 +6,4 @@
         <file>images/settings/parameter.png</file>
         <file>images/settings/program.png</file>
     </qresource>
-    <qresource prefix="/fr"/>
 </RCC>

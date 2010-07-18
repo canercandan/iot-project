@@ -22,10 +22,12 @@
 #include <vector>
 /*********************************/
 #include <QApplication>
-#include <QTranslator>
+//#include <QTranslator>
 #include <QMessageBox>
 #include <QSystemTrayIcon>
 #include <QSettings>
+#include <QDebug>
+#include <QLocale>
 /*********************************/
 #ifndef Q_WS_WIN
 # include <log4cxx/xml/domconfigurator.h>
@@ -49,27 +51,27 @@
 #endif
 #endif
 
-static bool configure_language(QApplication& app, QTranslator& translator)
-{
-    QSettings settings;
+// static bool configure_language(QApplication& app, QTranslator& translator)
+// {
+//     QSettings settings;
 
-    unsigned int languageID(settings.value("general/language").toUInt());
+//     unsigned int languageID(settings.value("general/language").toUInt());
 
-    std::vector< QString > languages (2);
+//     std::vector< QString > languages (2);
 
-    languages[0] = "en_US";
-    languages[1] = "fr";
+//     languages[0] = "en_US";
+//     languages[1] = "fr_FR";
 
-    if (languageID >= languages.size())
-	return false;
+//     if (languageID >= languages.size())
+// 	return false;
 
-    translator.load(QString(":/translations/translations/ceg_") + languages[ languageID ]);
-    app.installTranslator(&translator);
+//     translator.load(QString(":/translations/translations/ceg_") + languages[ languageID ]);
+//     app.installTranslator(&translator);
 
-    return true;
-}
+//     return true;
+// }
 
-int main(int argc, char *argv[])
+int main(int argc, char** argv)
 {
     QCoreApplication::setOrganizationName("IOT");
     QCoreApplication::setOrganizationDomain("ionlythink.com");
@@ -96,11 +98,14 @@ int main(int argc, char *argv[])
     ActionFactory::registerInstantiator(ReadAction::IDENTIFIER, instanciateReadAction);
     ActionFactory::registerInstantiator(ZoomAction::IDENTIFIER, instanciateZoomAction);
 
-    QTranslator	translator;
+    // QTranslator	translator;
 
-    if (!configure_language(app, translator))
-    	return -1;
+    // if (!configure_language(app, translator))
+    // 	return -1;
 
     Systray sytray;
+
+    qDebug() << QLocale::system().name();
+
     return (app.exec());
 }
