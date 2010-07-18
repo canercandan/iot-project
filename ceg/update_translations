@@ -1,0 +1,7 @@
+#!/usr/bin/env sh
+
+DIR=translations
+
+[ -d $DIR ] || mkdir $DIR
+
+lupdate src src/Action forms -ts $DIR/*.ts
