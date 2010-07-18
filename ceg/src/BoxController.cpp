@@ -45,7 +45,7 @@
 /************************************************* [ CTOR/DTOR ] *************************************************/
 
 BoxController::BoxController() :
-        _patterns(), _menus(), _nbSquare(3)
+	_patterns(), _menus(), _nbSquare(3)
 #ifndef Q_WS_WIN
 	, _logger(log4cxx::Logger::getLogger("ceg.boxfactory"))
 #endif
@@ -58,14 +58,8 @@ BoxController::BoxController() :
     LOG4CXX_INFO(this->_logger, "Chargement des fichiers xml pour les menus");
 #endif
 
-    QString directoryName = "/config/menus/" + QLocale::system().name();
-//    /usr/share/ceg/
-//    qDebug() << " =============" << directoryName;
-    //config/menus/lang
-    //config/boxes/lang
-    /*this->initializeFromConfig("config");
-    this->initializeFromXml("../config/menus/EventMenu_en_US.xml");
-    this->initializeFromXml("../config/menus/NavigationMenu_en_US.xml");*/
+    this->loadConfig("menus/");
+    this->loadConfig("boxes/");
 
     QSettings settings;
     this->_nbSquare = settings.value("general/squareNumber").toInt();
@@ -87,6 +81,12 @@ BoxController::~BoxController()
 
 /************************************************* [ GETTERS ] *************************************************/
 
+bool BoxController::isZoomable(unsigned short level) const
+{
+    int value = 7 - this->_nbSquare;
+    return (level < ((value < 1) ? 1 : value));
+}
+
 void BoxController::getChildren(std::list<QGraphicsRectItem *> & graphicItems, Box const * box) const
 {
     std::list<Box const *> childrenBox;
@@ -99,12 +99,6 @@ void BoxController::getChildren(std::list<QGraphicsRectItem *> & graphicItems, B
 	childrenBox = box->getChilden();
     }
     this->createGraphicItems(graphicItems, childrenBox);
-}
-
-bool BoxController::isZoomable(unsigned short level) const
-{
-    int value = 7 - this->_nbSquare;
-    return (level < ((value < 1) ? 1 : value));
 }
 
 void BoxController::getParent(std::list<QGraphicsRectItem *> & graphicItems, Box const * box) const
@@ -205,7 +199,7 @@ void BoxController::calcChildren(std::list<Box const *> & boxs, QRect const & ge
     {
 	int cols = 0;
 	qreal x = geometry.x();
-        while (cols++ < this->_nbSquare)
+	while (cols++ < this->_nbSquare)
 	{
 	    boxs.push_back(new Box(DEFAULT_BOX, level, QRect(x, y, tmpWidth, tmpHeight)));
 	    x += tmpWidth;
@@ -227,12 +221,12 @@ void BoxController::calcParent(std::list<Box const *> & boxs, Box const * item) 
     int width = desktop->width();
     for (int i = 0; i < level; ++i)
     {
-        width /= this->_nbSquare;
+	width /= this->_nbSquare;
     }
     int height = desktop->height();
     for (int i = 0; i < level; ++i)
     {
-        height /= this->_nbSquare;
+	height /= this->_nbSquare;
     }
 
     int posXtop = 0;
@@ -245,7 +239,7 @@ void BoxController::calcParent(std::list<Box const *> & boxs, Box const * item) 
 	{
 	    posYtop += dynamicHeight;
 	}
-        dynamicHeight /= this->_nbSquare;
+	dynamicHeight /= this->_nbSquare;
     }
 
     int dynamicWidth = desktop->width() / this->_nbSquare;
@@ -256,7 +250,7 @@ void BoxController::calcParent(std::list<Box const *> & boxs, Box const * item) 
 	{
 	    posXtop += dynamicWidth;
 	}
-        dynamicWidth /= this->_nbSquare;
+	dynamicWidth /= this->_nbSquare;
     }
     this->calcChildren(boxs, QRect(posXtop, posYtop, width, height), item->getLevel() - 1);
 }
@@ -269,25 +263,40 @@ void BoxController::createGraphicItems(std::list<QGraphicsRectItem *> & graphicI
     }
 }
 
-void	BoxController::initializeFromConfig(QString const & directoryName)
+void BoxController::loadConfig(QString const & typeSearch)
 {
-    QDir    directory(directoryName);
+    QString directoryName = "/config/"+ typeSearch + QLocale::system().name();
+    QStringList	pathsToSearch(QCoreApplication::applicationDirPath());
+#if defined(Q_OS_UNIX) || defined(Q_OS_MAC)
+    pathsToSearch << "/usr/share/ceg";
+#endif
 
-    if (directory.exists() == true)
+    for (QStringList::const_iterator it = pathsToSearch.constBegin(), itEnd = pathsToSearch.end(); it != itEnd; ++it)
     {
-	QFileInfoList const & files = directory.entryInfoList(QStringList("*.xml"));
-	for (QFileInfoList::const_iterator it = files.begin(), itEnd = files.end();
-	it != itEnd; ++it)
+	QDir    directory(*it + directoryName);
+	if (directory.exists() == true)
 	{
-	    this->initializeFromXml(it->absoluteFilePath());
+	    this->initializeFromConfig(directory);
+	    break;
+	}
+	else
+	{
+#ifndef Q_WS_WIN
+	    LOG4CXX_WARN(this->_logger, directory.absolutePath().toStdString() << " doesn't exist");
+#endif
 	}
     }
-    else
+}
+
+void	BoxController::initializeFromConfig(QDir const & directory)
+{
+    QFileInfoList const & files = directory.entryInfoList(QStringList("*.xml"));
+    for (QFileInfoList::const_iterator it = files.begin(), itEnd = files.end();
+    it != itEnd; ++it)
     {
-#ifndef Q_WS_WIN
-	LOG4CXX_WARN(this->_logger, directoryName.toStdString() << " doesn't exist");
-#endif
+	this->initializeFromXml(it->absoluteFilePath());
     }
+
 }
 
 void    BoxController::initializeFromXml(QString const & fileName)

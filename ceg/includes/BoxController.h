@@ -30,6 +30,7 @@
 #endif
 
 class QGraphicsRectItem;
+class QDir;
 
 namespace Ceg
 {
@@ -55,8 +56,9 @@ public:
     void    getMenu(std::string const & idMenu, std::list<QGraphicsRectItem *> & menuItems) const; // Retourne les items du menu id
 
 private:
-    std::list<Box const *>    getPattern(Box const * boxSearch) const;
-    void    initializeFromConfig(QString const & directory); // Lit le repertoire de config pour instancier tout les patrons (custom)
+    std::list<Box const *>  getPattern(Box const * boxSearch) const;
+    void    loadConfig(QString const &);
+    void    initializeFromConfig(QDir const & directory); // Lit le repertoire de config pour instancier tout les patrons (custom ou menu)
     void    initializeFromXml(QString const & fileName); // Creer la patron present dans le fichier
     void    calcChildren(std::list<Box const *> &, QRect const &, unsigned short) const;
     void    calcParent(std::list<Box const *> &, Box const *) const;
@@ -68,7 +70,7 @@ private:
     //! it is initialy filled out by loadConf method
     std::map<std::string, std::list<Box const *> > _patterns; // Id du logiciel et son patron associe
     std::map<std::string, std::list<Box const *> > _menus; // Id du menu et son patron associe
-    int                                             _nbSquare;
+    int                                             _nbSquare; // Nb de boxs utilisees pour le mode par defaut
 
 #ifndef Q_WS_WIN
     log4cxx::LoggerPtr _logger;

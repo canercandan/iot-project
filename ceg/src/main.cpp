@@ -66,20 +66,19 @@ int main(int ac, char** av)
 
     QApplication app(ac, av);
 
-
     //-----------------------------------------------------------------------------
     // System detection before starting
     //-----------------------------------------------------------------------------
 
     if (QSystemTrayIcon::isSystemTrayAvailable() == false)
     {
-        QMessageBox::critical
+	QMessageBox::critical
 		(0,
 		 QObject::tr("Systray"),
 		 QObject::tr("Couldn't detect any system tray on this system.")
 		 );
 
-        return EXIT_FAILURE;
+	return EXIT_FAILURE;
     }
 
 #ifndef Q_WS_WIN
@@ -127,11 +126,11 @@ int main(int ac, char** av)
 
     if (loaded)
     {
-        qDebug() << "Translation" << trans_name << "loaded";
+	qDebug() << "Translation" << trans_name << "loaded";
     }
     else
     {
-        qDebug() << "Failed to load translation" << trans_name;
+	qDebug() << "Failed to load translation" << trans_name;
     }
 
     app.installTranslator(&qt_trans);
@@ -143,7 +142,7 @@ int main(int ac, char** av)
     loaded = ceg_tr.load(trans_name, "/usr/share/ceg/translations");
     if (!loaded)
     {
-        loaded = ceg_tr.load(trans_name, "./translations");
+	loaded = ceg_tr.load(trans_name, "./translations");
     }
 #elif defined(Q_OS_WIN)
     loaded = ceg_tr.load(trans_name, "./translations");
@@ -154,11 +153,11 @@ int main(int ac, char** av)
 
     if (loaded)
     {
-        qDebug() << "Translation" << trans_name << "loaded";
+	qDebug() << "Translation" << trans_name << "loaded";
     }
     else
     {
-        qDebug() << "Failed to load translation" << trans_name;
+	qDebug() << "Failed to load translation" << trans_name;
     }
 
     app.installTranslator(&ceg_tr);
