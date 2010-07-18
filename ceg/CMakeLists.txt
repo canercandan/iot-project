@@ -73,7 +73,7 @@ SET(SAMPLE_SRCS)
 SET(SAMPLE_UIS)
 SET(SAMPLE_MOC_HDRS)
 SET(SAMPLE_RCS)
-SET(SAMPLE_TRANS)
+#SET(SAMPLE_TRANS)
 
 ######################################################################################
 
@@ -83,6 +83,7 @@ SET(SAMPLE_TRANS)
 ######################################################################################
 
 ADD_SUBDIRECTORY(resources)
+ADD_SUBDIRECTORY(translations)
 ADD_SUBDIRECTORY(forms)
 ADD_SUBDIRECTORY(includes)
 ADD_SUBDIRECTORY(src)
@@ -103,9 +104,7 @@ ADD_SUBDIRECTORY(doc)
 QT4_WRAP_UI(SAMPLE_UIS_SRCS ${SAMPLE_UIS})
 QT4_WRAP_CPP(SAMPLE_MOC_SRCS ${SAMPLE_MOC_HDRS})
 QT4_ADD_RESOURCES(SAMPLE_RC_SRCS ${SAMPLE_RCS})
-QT4_ADD_TRANSLATION(SAMPLE_TRANS_SRCS ${SAMPLE_TRANS})
-
-MESSAGE(STATUS ${SAMPLE_TRANS_SRCS})
+#QT4_ADD_TRANSLATION(SAMPLE_TRANS_SRCS ${SAMPLE_TRANS})
 
 # Further details about translation below:
 # http://www.cmake.org/Wiki/CMake:How_To_Build_Qt4_Software
