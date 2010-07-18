@@ -46,11 +46,9 @@ SettingsDialog::SettingsDialog(QWidget *parent) :
 
     settings.beginGroup("color");
     QString color = settings.value("focus").toString();
-    this->colorFocusLabel->setText(color);
     this->colorFocusLabel->setPalette(QPalette(color));
     this->colorFocusLabel->setAutoFillBackground(true);
     color = settings.value("blur").toString();
-    this->colorBlurLabel->setText(color);
     this->colorBlurLabel->setPalette(QPalette(color));
     this->colorBlurLabel->setAutoFillBackground(true);
     this->colorOpacitySlider->setValue((settings.value("opacity").toFloat() * 100));
@@ -96,8 +94,8 @@ void SettingsDialog::on_buttonBox_accepted()
     settings.endGroup();
 
     settings.beginGroup("color");
-    settings.setValue("focus", this->colorFocusLabel->text());
-    settings.setValue("blur", this->colorBlurLabel->text());
+    settings.setValue("focus", this->colorFocusLabel->palette().color(QPalette::Background).name());
+    settings.setValue("blur", this->colorBlurLabel->palette().color(QPalette::Background).name());
     qreal realValue = this->colorOpacitySlider->value();
     realValue /= 100;
     settings.setValue("opacity", realValue);
@@ -131,18 +129,16 @@ void SettingsDialog::on_customXMLPathButton_clicked()
 
 void SettingsDialog::on_colorFocusButton_clicked()
 {
-    QColor color = QColorDialog::getColor(Qt::green, this);
+	QColor color = QColorDialog::getColor(this->colorFocusLabel->palette().color(QPalette::Background), this);
     if (color.isValid()) {
-        this->colorFocusLabel->setText(color.name());
         this->colorFocusLabel->setPalette(QPalette(color));
     }
 }
 
 void SettingsDialog::on_colorBlurButton_clicked()
 {
-    QColor color = QColorDialog::getColor(Qt::green, this);
+	QColor color = QColorDialog::getColor(this->colorBlurLabel->palette().color(QPalette::Background), this);
     if (color.isValid()) {
-        this->colorBlurLabel->setText(color.name());
         this->colorBlurLabel->setPalette(QPalette(color));
     }
 }
