@@ -72,8 +72,13 @@ int main(int ac, char** av)
 
     if (QSystemTrayIcon::isSystemTrayAvailable() == false)
 	{
-	    QMessageBox::critical(0, QObject::tr("Systray"), QObject::tr("Couldn't detect any system tray on this system."));
-	    return (EXIT_FAILURE);
+	    QMessageBox::critical
+		(0,
+		 QObject::tr("Systray"),
+		 QObject::tr("Couldn't detect any system tray on this system.")
+		 );
+
+	    return EXIT_FAILURE;
 	}
 
 #ifndef Q_WS_WIN
