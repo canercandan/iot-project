@@ -123,7 +123,7 @@
          <enum>QFrame::Plain</enum>
         </property>
         <property name="currentIndex">
-         <number>0</number>
+         <number>1</number>
         </property>
         <widget class="QWidget" name="General">
          <widget class="QWidget" name="verticalLayoutWidget_2">
@@ -395,14 +395,17 @@
                    <height>16777215</height>
                   </size>
                  </property>
+                 <property name="minimum">
+                  <number>30</number>
+                 </property>
                  <property name="maximum">
-                  <number>100</number>
+                  <number>70</number>
                  </property>
                  <property name="value">
-                  <number>75</number>
+                  <number>50</number>
                  </property>
                  <property name="sliderPosition">
-                  <number>75</number>
+                  <number>50</number>
                  </property>
                  <property name="tracking">
                   <bool>true</bool>
@@ -462,6 +465,12 @@
                </item>
                <item>
                 <widget class="QLabel" name="colorFocusLabel">
+                 <property name="maximumSize">
+                  <size>
+                   <width>100</width>
+                   <height>16777215</height>
+                  </size>
+                 </property>
                  <property name="frameShape">
                   <enum>QFrame::WinPanel</enum>
                  </property>
@@ -495,6 +504,12 @@
                </item>
                <item>
                 <widget class="QLabel" name="colorBlurLabel">
+                 <property name="maximumSize">
+                  <size>
+                   <width>100</width>
+                   <height>16777215</height>
+                  </size>
+                 </property>
                  <property name="frameShape">
                   <enum>QFrame::WinPanel</enum>
                  </property>
