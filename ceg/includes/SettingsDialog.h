@@ -1,6 +1,8 @@
 #ifndef SETTINGSDIALOG_H
 #define SETTINGSDIALOG_H
 
+#include <vector>
+
 #include <QDialog>
 #include <QPaintEvent>
 
@@ -20,6 +22,10 @@ public slots:
     void on_colorBlurButton_clicked();
     void on_colorFocusButton_clicked();
     void on_colorOpacitySlider_valueChanged(int value);
+
+private:
+    typedef std::vector< QString > Languages;
+    Languages _languages;
 };
 
 #endif // SETTINGSDIALOG_H

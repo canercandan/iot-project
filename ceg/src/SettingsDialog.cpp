@@ -18,6 +18,8 @@
  * Authors: CEG <ceg@ionlythink.com>, http://www.ionlythink.com
  */
 
+#include <algorithm>
+
 #include <QFileDialog>
 #include <QSettings>
 #include <QMessageBox>
@@ -27,17 +29,27 @@
 #include "SettingsDialog.h"
 
 SettingsDialog::SettingsDialog(QWidget *parent) :
-    QDialog(parent)
+    QDialog(parent), _languages(2)
 {
     this->setupUi(this);
     this->on_colorOpacitySlider_valueChanged(this->colorOpacitySlider->value());
+
+    _languages[0] = "en_US";
+    _languages[1] = "fr";
 
     // LOAD
 
     QSettings settings;
 
     settings.beginGroup("general");
-    this->languageComboBox->setCurrentIndex(settings.value("language").toInt());
+
+    Languages::iterator it = std::find(_languages.begin(), _languages.end(), settings.value("language").toString());
+
+    if (it != _languages.end())
+	{
+	    this->languageComboBox->setCurrentIndex(_languages.begin() - it);
+	}
+
     this->squareNumberBox->setValue(settings.value("squareNumber").toInt());
     this->customCheck->setChecked(settings.value("customCheck").toBool());
     this->customXMLPathLine->setText(settings.value("customXMLPath").toString());

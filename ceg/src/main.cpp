@@ -120,6 +120,8 @@ int main(int ac, char** av)
     // Loading translations
     //-----------------------------------------------------------------------------
 
+    QSettings settings;
+
     QTranslator qt_trans;
     QString trans_name = "qt_" + QLocale::system().name();
     bool loaded = qt_trans.load(trans_name, QLibraryInfo::location(QLibraryInfo::TranslationsPath));

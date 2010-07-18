@@ -24,7 +24,7 @@
 
 /************************************************* [ CTOR/DTOR ] *************************************************/
 
-char const * CancelAction::IDENTIFIER = "Cancel ";
+char const * CancelAction::IDENTIFIER = "Cancel";
 
 CancelAction::CancelAction()
 {
