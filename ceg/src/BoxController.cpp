@@ -30,6 +30,7 @@
 #include <QTextStream>
 #include <QDomDocument>
 #include <QDir>
+#include <QSettings>
 /*********************************/
 #include "BoxController.h"
 /*********************************/
@@ -42,7 +43,7 @@
 /************************************************* [ CTOR/DTOR ] *************************************************/
 
 BoxController::BoxController() :
-	_patterns(), _menus()
+        _patterns(), _menus(), _nbSquare(3)
 #ifndef Q_WS_WIN
 	, _logger(log4cxx::Logger::getLogger("ceg.boxfactory"))
 #endif
@@ -59,6 +60,10 @@ BoxController::BoxController() :
 
     this->initializeFromXml("../resources/xml/menus/EventMenu_en_US.xml");
     this->initializeFromXml("../resources/xml/menus/NavigationMenu_en_US.xml");
+
+    QSettings settings;
+
+    this->_nbSquare = settings.value("general/squareNumber").toInt();
 }
 
 BoxController::~BoxController()
@@ -80,7 +85,7 @@ BoxController::~BoxController()
 void BoxController::getChildren(std::list<QGraphicsRectItem *> & graphicItems, Box const * box) const
 {
     std::list<Box const *> childrenBox;
-    if (box->getBoxType() == DEFAULT_BOX && box->getLevel() < 8) // mode par default, on limite la profondeur en mode par defaut a 8
+    if (box->getBoxType() == DEFAULT_BOX && box->getLevel() < 6) // mode par default, on limite la profondeur en mode par defaut a 8
     {
 	this->calcChildren(childrenBox, box->getGeometry(), box->getLevel() + 1);
     }
@@ -180,16 +185,16 @@ void	BoxController::getMenu(std::string const & idMenu, std::list<QGraphicsRectI
 //! grid areas in function of _nbGrid static value.
 void BoxController::calcChildren(std::list<Box const *> & boxs, QRect const & geometry, unsigned short level) const
 {
-    int tmpWidth = geometry.width() / NBGRID;
-    int tmpHeight = geometry.height() / NBGRID;
+    int tmpWidth = geometry.width() / this->_nbSquare;
+    int tmpHeight = geometry.height() / this->_nbSquare;
     int rows = 0;
     int y = geometry.y();
 
-    while (rows++ < NBGRID)
+    while (rows++ < this->_nbSquare)
     {
 	int cols = 0;
 	qreal x = geometry.x();
-	while (cols++ < NBGRID)
+        while (cols++ < this->_nbSquare)
 	{
 	    boxs.push_back(new Box(DEFAULT_BOX, level, QRect(x, y, tmpWidth, tmpHeight)));
 	    x += tmpWidth;
@@ -211,17 +216,17 @@ void BoxController::calcParent(std::list<Box const *> & boxs, Box const * item) 
     int width = desktop->width();
     for (int i = 0; i < level; ++i)
     {
-	width /= NBGRID;
+        width /= this->_nbSquare;
     }
     int height = desktop->height();
     for (int i = 0; i < level; ++i)
     {
-	height /= NBGRID;
+        height /= this->_nbSquare;
     }
 
     int posXtop = 0;
     int posYtop = 0;
-    int dynamicHeight = desktop->height() / NBGRID;
+    int dynamicHeight = desktop->height() / this->_nbSquare;
     int maxHeight = item->getGeometry().y() + item->getGeometry().height();
     for (int i = 0; i < level; ++i)
     {
@@ -229,10 +234,10 @@ void BoxController::calcParent(std::list<Box const *> & boxs, Box const * item) 
 	{
 	    posYtop += dynamicHeight;
 	}
-	dynamicHeight /= NBGRID;
+        dynamicHeight /= this->_nbSquare;
     }
 
-    int dynamicWidth = desktop->width() / NBGRID;
+    int dynamicWidth = desktop->width() / this->_nbSquare;
     int maxWidth = item->getGeometry().x() + item->getGeometry().width();
     for (int i = 0; i < level; ++i)
     {
@@ -240,7 +245,7 @@ void BoxController::calcParent(std::list<Box const *> & boxs, Box const * item) 
 	{
 	    posXtop += dynamicWidth;
 	}
-	dynamicWidth /= NBGRID;
+        dynamicWidth /= this->_nbSquare;
     }
     this->calcChildren(boxs, QRect(posXtop, posYtop, width, height), item->getLevel() - 1);
 }

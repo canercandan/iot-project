@@ -67,12 +67,11 @@ private:
     //! it is initialy filled out by loadConf method
     std::map<std::string, std::list<Box const *> > _patterns; // Id du logiciel et son patron associe
     std::map<std::string, std::list<Box const *> > _menus; // Id du menu et son patron associe
+    int                                             _nbSquare;
 
 #ifndef Q_WS_WIN
     log4cxx::LoggerPtr _logger;
 #endif
-
-    static const int NBGRID = 3; // va sauter sera configurable par le menu des preferences
 };
 
 #endif // BOXCONTROLLER_H

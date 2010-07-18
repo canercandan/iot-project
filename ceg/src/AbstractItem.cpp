@@ -35,7 +35,6 @@ AbstractItem::AbstractItem(Box const * box, QGraphicsItem * parent) :
 	QGraphicsRectItem(box->getGeometry().x(), box->getGeometry().y(), box->getGeometry().width(), box->getGeometry().height(), parent),
 	_color(box->getGraphicStyle().getBlurColor()), _model(box)
 {
-    //this->setOpacity(0.5);
     this->setFlag(QGraphicsItem::ItemIsFocusable);
 }
 
@@ -70,7 +69,7 @@ void AbstractItem::paint(QPainter * painter, const QStyleOptionGraphicsItem *, Q
     BoxStyle const & style = _model->getGraphicStyle();
     if (style.isVisible() == false)
 	return;
-
+    painter->setOpacity(style.getOpacity());
     painter->setBrush(QBrush(QColor(this->_color)));
     painter->drawRect(this->rect());
     QString const & text = style.getText();
