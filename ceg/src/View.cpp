@@ -28,6 +28,7 @@
 #include "ClickAction.h"
 #include "AbstractScene.h"
 #include "Systray.h"
+#include "ValidAction.h"
 /*********************************/
 
 /************************************************* [ CTOR/DTOR ] *************************************************/
@@ -63,13 +64,17 @@ void	View::keyPressEvent(QKeyEvent* keyEvent)
     case Qt::Key_Right:
     case Qt::Key_Up:
     case Qt::Key_Down:
-    case Qt::Key_Return:
-    case Qt::Key_Backspace:
 	{
-	    MoveAction a(key);
-	    emit actionEmitted(a);
+            MoveAction action(key);
+            emit actionEmitted(action);
 	}
 	break;
+    case Qt::Key_Return:
+        {
+            ValidAction action;
+            emit actionEmitted(action);
+        }
+        break;
     default:
 	break;
     }

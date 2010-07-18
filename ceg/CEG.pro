@@ -80,6 +80,7 @@ SOURCES += AbstractItem.cpp \
     PopMenuAction.cpp \
     ReadAction.cpp \
     ValidAction.cpp \
+    WriteAction.cpp \
     ZoomAction.cpp
 
 unix { 

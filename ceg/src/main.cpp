@@ -40,6 +40,7 @@
 #include "MoveAction.h"
 #include "PopMenuAction.h"
 #include "ReadAction.h"
+#include "WriteAction.h"
 #include "ZoomAction.h"
 /*********************************/
 
@@ -109,6 +110,7 @@ int main(int ac, char** av)
     ActionFactory::registerInstantiator(MoveAction::IDENTIFIER, instanciateMoveAction);
     ActionFactory::registerInstantiator(PopMenuAction::IDENTIFIER, instanciatePopMenuAction);
     ActionFactory::registerInstantiator(ReadAction::IDENTIFIER, instanciateReadAction);
+    ActionFactory::registerInstantiator(WriteAction::IDENTIFIER, instanciateWriteAction);
     ActionFactory::registerInstantiator(ZoomAction::IDENTIFIER, instanciateZoomAction);
 
     //-----------------------------------------------------------------------------

@@ -23,6 +23,7 @@
 /*********************************/
 #include "ValidAction.h"
 /*********************************/
+#include "AbstractItem.h"
 #include "MainController.h"
 #include "AbstractScene.h"
 /*********************************/
@@ -52,7 +53,8 @@ void ValidAction::initializeFromXml(const QDomElement &)
 void	ValidAction::exec(MainController & mc)
 {
     qDebug() << "ValidAction::exec";
-    IAction * action = mc.getCurrentScene()->keyPressEvent(Qt::Key_Enter);
+    AbstractItem const * item = mc.getCurrentScene()->getCurrentItem();
+    IAction * action = item->getEvent();
     if (action != 0)
         action->exec(mc);
 }

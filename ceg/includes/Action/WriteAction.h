@@ -26,10 +26,15 @@
 class WriteAction : public IAction
 {
 public:
-  WriteAction(QDomElement const &);
+    WriteAction(QDomElement const &);
 
-  virtual void	exec(MainController&);
-  virtual void	initializeFromXml(QDomElement const &);
+    virtual void	exec(MainController&);
+    virtual void	initializeFromXml(QDomElement const &);
+
+public:
+    static char const * IDENTIFIER;
 };
+
+IAction * instanciateWriteAction(const QDomElement &);
 
 #endif // !WRITEACTION_H

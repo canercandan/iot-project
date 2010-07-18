@@ -20,14 +20,26 @@
 
 #include "WriteAction.h"
 
+/************************************************* [ CTOR/DTOR ] *************************************************/
+
+char const * WriteAction::IDENTIFIER = "Write";
+
 WriteAction::WriteAction(QDomElement const &)
 {}
 
-bool	WriteAction::exec(MainController &)
-{
-  return true;
-}
-
 void	WriteAction::initializeFromXml(QDomElement const &)
 {
+}
+
+/************************************************* [ OTHERS ] *************************************************/
+
+void	WriteAction::exec(MainController &)
+{
+}
+
+/************************************************* [ OTHERS ] *************************************************/
+
+IAction * instanciateWriteAction(const QDomElement & actionElement)
+{
+    return (new WriteAction(actionElement));
 }
