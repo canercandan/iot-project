@@ -11,12 +11,12 @@
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../src/main.cpp" line="78"/>
+        <location filename="../src/main.cpp" line="79"/>
         <source>Systray</source>
         <translation>Zone de notification</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="79"/>
+        <location filename="../src/main.cpp" line="80"/>
         <source>Couldn&apos;t detect any system tray on this system.</source>
         <translation>Ne peut pas détecter de zone de notification sur ce systeme.</translation>
     </message>
@@ -175,23 +175,33 @@
 <context>
     <name>SettingsDialog</name>
     <message>
-        <location filename="../src/SettingsDialog.cpp" line="79"/>
-        <location filename="../src/SettingsDialog.cpp" line="85"/>
+        <location filename="../src/SettingsDialog.cpp" line="90"/>
+        <location filename="../src/SettingsDialog.cpp" line="96"/>
         <source>Error</source>
         <translation>Erreur</translation>
     </message>
     <message>
-        <location filename="../src/SettingsDialog.cpp" line="79"/>
+        <location filename="../src/SettingsDialog.cpp" line="90"/>
         <source>Please define the custom xml path !</source>
         <translation>Veuillez définir le chemin du fichier XML !</translation>
     </message>
     <message>
-        <location filename="../src/SettingsDialog.cpp" line="85"/>
+        <location filename="../src/SettingsDialog.cpp" line="96"/>
         <source>Please fill all proxy fields !</source>
         <translation>Veuillez remplir tous les champs correspondants au proxy !</translation>
     </message>
     <message>
-        <location filename="../src/SettingsDialog.cpp" line="122"/>
+        <location filename="../src/SettingsDialog.cpp" line="110"/>
+        <source>Language changed</source>
+        <translation>Langue modifiée</translation>
+    </message>
+    <message>
+        <location filename="../src/SettingsDialog.cpp" line="110"/>
+        <source>The language has been changed. To apply this modification you have to restart the program.</source>
+        <translation>Le langage du programme a été changé. Pour prendre en compte les modifications, vous devez redémarrer le programme.</translation>
+    </message>
+    <message>
+        <location filename="../src/SettingsDialog.cpp" line="145"/>
         <source>Open Directory</source>
         <translation>Ouvrir répertoire</translation>
     </message>
@@ -307,8 +317,8 @@
     <name>Systray</name>
     <message>
         <location filename="../src/Systray.cpp" line="41"/>
-        <location filename="../src/Systray.cpp" line="109"/>
-        <location filename="../src/Systray.cpp" line="118"/>
+        <location filename="../src/Systray.cpp" line="113"/>
+        <location filename="../src/Systray.cpp" line="122"/>
         <source>Start</source>
         <translation>Début</translation>
     </message>
@@ -319,7 +329,7 @@
     </message>
     <message>
         <location filename="../src/Systray.cpp" line="43"/>
-        <location filename="../src/Systray.cpp" line="125"/>
+        <location filename="../src/Systray.cpp" line="129"/>
         <source>About Qt</source>
         <translation>A propos de Qt</translation>
     </message>
@@ -334,12 +344,12 @@
         <translation>Quitter</translation>
     </message>
     <message>
-        <location filename="../src/Systray.cpp" line="67"/>
+        <location filename="../src/Systray.cpp" line="68"/>
         <source>Information Message</source>
         <translation>Message informatif</translation>
     </message>
     <message>
-        <location filename="../src/Systray.cpp" line="67"/>
+        <location filename="../src/Systray.cpp" line="68"/>
         <source>Click on Start to launch the Default Navigator</source>
         <translation>Cliquez sur Début pour lancer le navigateur par default</translation>
     </message>
@@ -352,12 +362,12 @@
         <translation type="obsolete">Veuillez verifier les parametres de l&apos;application avant de la lancer !</translation>
     </message>
     <message>
-        <location filename="../src/Systray.cpp" line="111"/>
+        <location filename="../src/Systray.cpp" line="115"/>
         <source>Commandes</source>
         <translation>Commandes</translation>
     </message>
     <message>
-        <location filename="../src/Systray.cpp" line="111"/>
+        <location filename="../src/Systray.cpp" line="115"/>
         <source>Left | Right arrow = Horizontal Move
 Up | Down Arrow = Vertical move
 Enter = Zoom
@@ -372,17 +382,17 @@ Effacer = Zoom Arriere
 Alt + F4 = Quitter</translation>
     </message>
     <message>
-        <location filename="../src/Systray.cpp" line="113"/>
+        <location filename="../src/Systray.cpp" line="117"/>
         <source>Stop</source>
         <translation>Stop</translation>
     </message>
     <message>
-        <location filename="../src/Systray.cpp" line="136"/>
+        <location filename="../src/Systray.cpp" line="140"/>
         <source>About CEG</source>
         <translation>A propos du Ceg</translation>
     </message>
     <message>
-        <location filename="../src/Systray.cpp" line="136"/>
+        <location filename="../src/Systray.cpp" line="140"/>
         <source>Allows users to control machine by thinking.</source>
         <translation>Autoriser les utilisateurs a controler la machine par la pensée.</translation>
     </message>
