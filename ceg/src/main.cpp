@@ -115,11 +115,8 @@ int main(int ac, char** av)
     //-----------------------------------------------------------------------------
 
 
-    qDebug() << QLocale::system().name();
-
-
     //-----------------------------------------------------------------------------
-    // Let's the main thread and return the error code!
+    // Let's start the main thread and return the error code!
     //-----------------------------------------------------------------------------
 
     return (app.exec());
