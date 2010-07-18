@@ -161,6 +161,21 @@ INSTALL(
   DESTINATION bin
   COMPONENT applications
   )
+  
+IF(WIN32)
+SET(DLL_SOURCES
+${QT_BINARY_DIR}/QtGui4.dll
+${QT_BINARY_DIR}/QtCore4.dll
+${QT_BINARY_DIR}/QtXml4.dll
+${QT_BINARY_DIR}/QtNetwork4.dll
+)
+  
+INSTALL(
+  FILES ${DLL_SOURCES}
+  DESTINATION bin
+  COMPONENT applications
+  )
+ENDIF()
 
 ######################################################################################
 ### 9) Include packaging
