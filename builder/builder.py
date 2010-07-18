@@ -26,6 +26,8 @@ import box, toolbar
 from box import Box
 from toolbar import Toolbar
 
+import xml.parsers.expat, sys
+
 class Mode:
     box = 0
     selection = 1
@@ -114,6 +116,8 @@ class BuilderWidget(QtGui.QMainWindow):
             tmp += '</box>' + "\n"
         return tmp
 
+    # release : create a box
+    # zoom in create box child
     def loadFile(self):
         filename = QFileDialog.getOpenFileName(None, \
                                                self.loadDialog, \
@@ -121,8 +125,53 @@ class BuilderWidget(QtGui.QMainWindow):
                                                self.extensionDialog)
         if filename == '':
             return
-        print filename
 
+        print filename
+        
+        self.parser = xml.parsers.expat.ParserCreate()
+        self.parserCurrentBox = None
+
+        def XMLstartElement(name, attrs):
+            if name == 'box':
+                x = QString(attrs['x']).toInt()
+                y = QString(attrs['y']).toInt()
+                width = QString(attrs['width']).toInt()
+                height = QString(attrs['height']).toInt()
+                
+                if not x[1] or not y[1] or not width[1] or not height[1]:
+                    print 'Warning : XML Attributes Parse Error'
+                
+                posStart = QPoint(x[0], y[0])
+                posEnd = QPoint(x[0] + width[0], y[0] + height[0])
+                tmpBox = Box(posStart, posEnd)
+                
+                tmpBox.father = self.father
+
+                self.list.append(tmpBox)
+                self.parserCurrentBox = tmpBox
+
+            if name == 'children':
+                self.father = self.list
+                tmp = []
+                self.list = tmp
+                self.parserCurrentBox.son = tmp
+                    
+        def XMLendElement(name):
+             if name == 'children':
+                self.list = self.father
+                self.father = self.list[0].father
+
+        #def XMLcharData(data):
+            # print 'Character data:', repr(data)
+
+        self.parser.StartElementHandler = XMLstartElement
+        self.parser.EndElementHandler = XMLendElement
+        self.list = []
+        self.father = None
+        self.focus = None
+        self.parser.ParseFile(open(filename, "r"))        
+        self.repaint()
+ 
     def selectionMode(self):
         self.mode = Mode.selection
 
