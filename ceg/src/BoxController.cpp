@@ -131,20 +131,20 @@ void    BoxController::getPattern(Ceg::Window const & aWindow, std::list<QGraphi
     std::list<Box const *> childrenBox;
 
 #ifndef Q_WS_WIN
-    LOG4CXX_INFO(this->_logger, "Schema pour '" << aWindow.getProgramName() << "' demande");
+    LOG4CXX_INFO(this->_logger, "Schema for '" << aWindow.getProgramName() << "' asked");
 #endif
 
     if (itFind != this->_patterns.end())
     {
 #ifndef Q_WS_WIN
-	LOG4CXX_INFO(this->_logger, "Configuration trouvee, chargement du schema");
+	LOG4CXX_INFO(this->_logger, "Configuration found, schema loading");
 #endif
 	childrenBox = itFind->second;
     }
     else
     {
 #ifndef Q_WS_WIN
-	LOG4CXX_WARN(this->_logger, "Pas de configuration pour le programme, chargement du schema par defaut");
+	LOG4CXX_WARN(this->_logger, "No configuration found for program, loading of the default schema");
 #endif
 	this->calcChildren(childrenBox, aWindow.getGeometry(), 0);
     }
@@ -167,7 +167,7 @@ std::list<Box const *>    BoxController::getPattern(Box const * boxSearch) const
 void	BoxController::getMenu(std::string const & idMenu, std::list<QGraphicsRectItem *> & menuItems) const
 {
 #ifndef Q_WS_WIN
-    LOG4CXX_INFO(this->_logger, "Menu - id(" << idMenu << ") demande");
+    LOG4CXX_INFO(this->_logger, "Menu - id(" << idMenu << ") asked");
 #endif
 
     std::map<std::string, std::list<Box const *> >::const_iterator  itFind = this->_menus.find(idMenu);
@@ -178,7 +178,7 @@ void	BoxController::getMenu(std::string const & idMenu, std::list<QGraphicsRectI
     else
     {
 #ifndef Q_WS_WIN
-	LOG4CXX_WARN(this->_logger, "Menu inconnu");
+	LOG4CXX_WARN(this->_logger, "Unknown menu");
 #endif
     }
 }
@@ -265,10 +265,17 @@ void BoxController::createGraphicItems(std::list<QGraphicsRectItem *> & graphicI
 
 void BoxController::loadConfig(QString const & typeSearch)
 {
-    QString directoryName = "/config/"+ typeSearch + QLocale::system().name();
+    QSettings settings;
+    QString language = settings.value("general/language").toString();
+    QString directoryName = "/config/" + typeSearch + language;
     QStringList	pathsToSearch(QCoreApplication::applicationDirPath());
-#if defined(Q_OS_UNIX) || defined(Q_OS_MAC)
+#if defined(Q_OS_UNIX)
     pathsToSearch << "/usr/share/ceg";
+#elif defined(Q_OS_WIN)
+    pathsToSearch << "../share/ceg";
+#elif defined(Q_OS_MAC)
+    // FIXME i don't know how do this on mac
+    pathsToSearch << "../share/ceg";
 #endif
 
     for (QStringList::const_iterator it = pathsToSearch.constBegin(), itEnd = pathsToSearch.end(); it != itEnd; ++it)
@@ -302,7 +309,7 @@ void	BoxController::initializeFromConfig(QDir const & directory)
 void    BoxController::initializeFromXml(QString const & fileName)
 {
 #ifndef Q_WS_WIN
-    LOG4CXX_INFO(this->_logger, "Tentative de chargement du fichier : '" << fileName.toStdString() << "'");
+    LOG4CXX_INFO(this->_logger, "Trying to load file: '" << fileName.toStdString() << "'");
 #endif
 
     QFile	file(fileName);
@@ -313,7 +320,7 @@ void    BoxController::initializeFromXml(QString const & fileName)
     if (file.open(QIODevice::ReadOnly) == true  &&  doc.setContent(&file, &errorMsg, &errorLine, &errorColumn) == true)
     {
 #ifndef Q_WS_WIN
-	LOG4CXX_INFO(this->_logger, "Chargement reussi");
+	LOG4CXX_INFO(this->_logger, "Loading succeed");
 #endif
 
 	file.close();
@@ -348,7 +355,7 @@ void    BoxController::initializeFromXml(QString const & fileName)
     {
 	QFileInfo fileInfo(fileName);
 #ifndef Q_WS_WIN
-	LOG4CXX_ERROR(this->_logger, "Echec du chargement du fichier : " << fileInfo.absoluteFilePath().toStdString() << "\nRaison " << errorMsg.toStdString() << " at line = "<< errorLine << " - column = " << errorColumn);
+	LOG4CXX_ERROR(this->_logger, "Fail during file loading : " << fileInfo.absoluteFilePath().toStdString() << "\nCause " << errorMsg.toStdString() << " at line = "<< errorLine << " - column = " << errorColumn);
 #endif
     }
 }

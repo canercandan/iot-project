@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE XmlBox>
 
-<menu id="Navigation">
+<menu id="Application">
 
   <box type="2" x="750" y="1" height="100" width="300">
     <action id="ExecMenu">
