@@ -1,0 +1,30 @@
+Liste des actions disponibles :
+
+Exemple:
+- IdDeLAction : description
+ - NomDelAttribut : valeur possible
+
+- Cancel : Permet de sortir d'un menu
+
+- Click : Permet de generer un clic	
+  - type : 1, 2, 3, 4
+
+- ExecMenu : permettant d'executer une action depuis un menu
+  - une action
+
+- Move :  generer des mouvements sur la scene courante
+ - key : valeur d'une touche clavier cf dans qt Qt::Key
+
+- PopMenu : Permet de faire apparaitre un menu
+  - MenuId : id du menu a faire apparaitre
+
+- Read : Cache le calque permettant de lire
+  - time : temps a cacher en milliseconde
+
+- Valid : valide son choix
+
+- Write : permet d ecrire
+ - buffer : ce qu'il y a ecrire
+
+- Zoom : permet de zoomer dans une zone
+ - isZoom : 0 ou 1

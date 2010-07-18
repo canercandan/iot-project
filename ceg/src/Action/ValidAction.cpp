@@ -37,10 +37,9 @@ ValidAction::ValidAction()
     qDebug() << "ValidAction::ValidAction()";
 }
 
-ValidAction::ValidAction(const QDomElement & actionElement)
+ValidAction::ValidAction(const QDomElement &)
 {
     qDebug() << "ValidAction::ValidAction(const QDomElement & actionElement)";
-    this->initializeFromXml(actionElement);
 }
 
 void ValidAction::initializeFromXml(const QDomElement &)

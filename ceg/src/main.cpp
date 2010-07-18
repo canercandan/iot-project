@@ -26,7 +26,6 @@
 #include <QSystemTrayIcon>
 #include <QSettings>
 #include <QDebug>
-#include <QLocale>
 /*********************************/
 #ifndef Q_WS_WIN
 # include <log4cxx/xml/domconfigurator.h>

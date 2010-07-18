@@ -20,6 +20,7 @@
 
 /*********************************/
 #include <QDebug>
+#include <QDomElement>
 /*********************************/
 #include "ReadAction.h"
 /*********************************/
@@ -31,15 +32,15 @@
 
 char const * ReadAction::IDENTIFIER = "Read";
 
-ReadAction::ReadAction(const QDomElement & actionElement)
+ReadAction::ReadAction(const QDomElement & actionElement) : _hideTime(1000)
 {
     qDebug() << "ReadAction::ReadAction(const QDomElement & actionElement)";
     this->initializeFromXml(actionElement);
 }
 
-void ReadAction::initializeFromXml(const QDomElement &)
+void ReadAction::initializeFromXml(const QDomElement & domElement)
 {
-
+    this->_hideTime = domElement.attribute("time").toULong();
 }
 
 /************************************************* [ OTHERS ] *************************************************/
@@ -50,7 +51,7 @@ void	ReadAction::exec(MainController & lm)
     View & view = lm.getView();
     view.hide();
 
-    SleeperThread::msleep(1000);
+    SleeperThread::msleep(this->_hideTime);
 
     view.show();
 }

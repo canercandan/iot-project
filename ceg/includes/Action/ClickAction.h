@@ -42,7 +42,7 @@ public:
     static char const * IDENTIFIER;
 
 private:
-    ClickType	_type;
+    int	_type;
 };
 
 IAction * instanciateClickAction(QDomElement const &);

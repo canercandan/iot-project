@@ -41,7 +41,7 @@ public:
     static char const * IDENTIFIER;
 
 private:
-  int	_key;
+  int _key;
 };
 
 IAction * instanciateMoveAction(QDomElement const &);

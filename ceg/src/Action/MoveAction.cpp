@@ -20,6 +20,7 @@
 
 /*********************************/
 #include <QDebug>
+#include <QDomElement>
 /*********************************/
 #include "MoveAction.h"
 /*********************************/
@@ -38,15 +39,15 @@ MoveAction::MoveAction(int key) :
 }
 
 MoveAction::MoveAction(const QDomElement & actionElement) :
-	_key(0)
+        _key(Qt::Key_Left)
 {
     qDebug() << "MoveAction::MoveAction(const QDomElement & actionElement)";
     this->initializeFromXml(actionElement);
 }
 
-void MoveAction::initializeFromXml(const QDomElement &)
+void MoveAction::initializeFromXml(const QDomElement & domElement)
 {
-
+    this->_key = domElement.attribute("key").toInt();
 }
 
 /************************************************* [ OTHERS ] *************************************************/
@@ -58,7 +59,6 @@ void	MoveAction::exec(MainController & mainC)
     IAction * action = mainC.getCurrentScene()->keyPressEvent(this->_key);
     if (action != 0)
     {
-        //mainC.popFrontScene();
         action->exec(mainC);
     }
 }

@@ -37,15 +37,15 @@
 
 char const * ClickAction::IDENTIFIER = "Click";
 
-ClickAction::ClickAction(const QDomElement & actionElement) : _type(LeftClick)
+ClickAction::ClickAction(const QDomElement & actionElement) : _type(1)
 {
     qDebug() << "ClickAction::ClickAction";
     this->initializeFromXml(actionElement);
 }
 
-void ClickAction::initializeFromXml(const QDomElement &)
+void ClickAction::initializeFromXml(const QDomElement & domElement)
 {
-
+    this->_type = domElement.attribute("type").toInt();
 }
 
 /************************************************* [ OTHERS ] *************************************************/
@@ -59,7 +59,7 @@ void	ClickAction::exec(MainController & lm)
     if (ab == 0)
         return ;
 
-    //    QCursor::setPos(ab->getGeometry().center());
+    QCursor::setPos(ab->getGeometry().center());
 
     lm.getView().hide();
 
@@ -71,8 +71,8 @@ void	ClickAction::exec(MainController & lm)
 	lm.getComGs()->generateClickEvent(this->_type);
 	break;
     case LeftDbClick:
-	lm.getComGs()->generateClickEvent(LeftClick);
-	lm.getComGs()->generateClickEvent(LeftClick);
+        lm.getComGs()->generateClickEvent(this->_type);
+        lm.getComGs()->generateClickEvent(this->_type);
 	break;
     default:
 	break;

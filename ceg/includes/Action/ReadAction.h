@@ -27,7 +27,6 @@ class QDomElement;
 
 /**
  * ReadAction
- * inherits of IAction
  * This action allows ceg interface hidding during 5 seconds and shows it again.
  * Feature to forecast: Disable hidding with a signal
  */
@@ -44,6 +43,9 @@ public:
 
 public:
     static char const * IDENTIFIER;
+
+private:
+    unsigned long _hideTime;
 };
 
 IAction * instanciateReadAction(QDomElement const &);

@@ -31,6 +31,8 @@
 #include <QDomDocument>
 #include <QDir>
 #include <QSettings>
+#include <QLocale>
+#include <QDebug>
 /*********************************/
 #include "BoxController.h"
 /*********************************/
@@ -52,17 +54,20 @@ BoxController::BoxController() :
     LOG4CXX_INFO(this->_logger, "Chargement des fichiers xml pour les programmes");
 #endif
 
-    this->initializeFromConfig("config");
-
 #ifndef Q_WS_WIN
     LOG4CXX_INFO(this->_logger, "Chargement des fichiers xml pour les menus");
 #endif
 
-    this->initializeFromXml("../resources/xml/menus/EventMenu_en_US.xml");
-    this->initializeFromXml("../resources/xml/menus/NavigationMenu_en_US.xml");
+    QString directoryName = "/config/menus/" + QLocale::system().name();
+//    /usr/share/ceg/
+//    qDebug() << " =============" << directoryName;
+    //config/menus/lang
+    //config/boxes/lang
+    /*this->initializeFromConfig("config");
+    this->initializeFromXml("../config/menus/EventMenu_en_US.xml");
+    this->initializeFromXml("../config/menus/NavigationMenu_en_US.xml");*/
 
     QSettings settings;
-
     this->_nbSquare = settings.value("general/squareNumber").toInt();
 }
 
@@ -85,7 +90,7 @@ BoxController::~BoxController()
 void BoxController::getChildren(std::list<QGraphicsRectItem *> & graphicItems, Box const * box) const
 {
     std::list<Box const *> childrenBox;
-    if (box->getBoxType() == DEFAULT_BOX && box->getLevel() < 6) // mode par default, on limite la profondeur en mode par defaut a 8
+    if (box->getBoxType() == DEFAULT_BOX && this->isZoomable(box->getLevel()) == true) // mode par default
     {
 	this->calcChildren(childrenBox, box->getGeometry(), box->getLevel() + 1);
     }
@@ -94,6 +99,12 @@ void BoxController::getChildren(std::list<QGraphicsRectItem *> & graphicItems, B
 	childrenBox = box->getChilden();
     }
     this->createGraphicItems(graphicItems, childrenBox);
+}
+
+bool BoxController::isZoomable(unsigned short level) const
+{
+    int value = 7 - this->_nbSquare;
+    return (level < ((value < 1) ? 1 : value));
 }
 
 void BoxController::getParent(std::list<QGraphicsRectItem *> & graphicItems, Box const * box) const

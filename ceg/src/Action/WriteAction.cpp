@@ -18,17 +18,22 @@
  * Authors: CEG <ceg@ionlythink.com>, http://www.ionlythink.com
  */
 
+#include <QDomElement>
+
 #include "WriteAction.h"
 
 /************************************************* [ CTOR/DTOR ] *************************************************/
 
 char const * WriteAction::IDENTIFIER = "Write";
 
-WriteAction::WriteAction(QDomElement const &)
-{}
-
-void	WriteAction::initializeFromXml(QDomElement const &)
+WriteAction::WriteAction(QDomElement const & domElement) : _toWrite()
 {
+    this->initializeFromXml(domElement);
+}
+
+void	WriteAction::initializeFromXml(QDomElement const & domElement)
+{
+    this->_toWrite = domElement.attribute("buffer").toStdString();
 }
 
 /************************************************* [ OTHERS ] *************************************************/

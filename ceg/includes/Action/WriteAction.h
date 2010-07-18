@@ -21,6 +21,8 @@
 #ifndef WRITEACTION_H
 #define WRITEACTION_H
 
+#include <string>
+
 #include "IAction.h"
 
 class WriteAction : public IAction
@@ -33,6 +35,9 @@ public:
 
 public:
     static char const * IDENTIFIER;
+
+private:
+    std::string     _toWrite;
 };
 
 IAction * instanciateWriteAction(const QDomElement &);

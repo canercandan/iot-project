@@ -61,6 +61,7 @@ private:
     void    calcChildren(std::list<Box const *> &, QRect const &, unsigned short) const;
     void    calcParent(std::list<Box const *> &, Box const *) const;
     void    createGraphicItems(std::list<QGraphicsRectItem *> &, std::list<Box const *> const & boxs) const; // Appel la GraphicItemFactory pour toutes les boxs
+    bool    isZoomable(unsigned short level) const; // Methode qui permet de limiter la profondeur de zoom en mode par defaut
 
 private:
     //! this map associates a list of boxes with a context name,
