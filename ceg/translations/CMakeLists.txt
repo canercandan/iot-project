@@ -2,6 +2,8 @@
 ### Qt translation cmake configuration for CEG
 ######################################################################################
 
+# thanks to the project http://code.google.com/p/urtconnector
+
 PROJECT(translations)
 
 FILE(GLOB TRANSLATION_FILES *.ts)

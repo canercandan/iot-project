@@ -19,10 +19,8 @@
  */
 
 /*********************************/
-#include <vector>
-/*********************************/
 #include <QApplication>
-//#include <QTranslator>
+#include <QTranslator>
 #include <QMessageBox>
 #include <QSystemTrayIcon>
 #include <QSettings>
@@ -51,33 +49,26 @@
 #endif
 #endif
 
-// static bool configure_language(QApplication& app, QTranslator& translator)
-// {
-//     QSettings settings;
 
-//     unsigned int languageID(settings.value("general/language").toUInt());
-
-//     std::vector< QString > languages (2);
-
-//     languages[0] = "en_US";
-//     languages[1] = "fr_FR";
-
-//     if (languageID >= languages.size())
-// 	return false;
-
-//     translator.load(QString(":/translations/translations/ceg_") + languages[ languageID ]);
-//     app.installTranslator(&translator);
-
-//     return true;
-// }
-
-int main(int argc, char** argv)
+int main(int ac, char** av)
 {
+    //-----------------------------------------------------------------------------
+    // Needed Qt information about the project used by QSettings
+    //-----------------------------------------------------------------------------
+
     QCoreApplication::setOrganizationName("IOT");
     QCoreApplication::setOrganizationDomain("ionlythink.com");
     QCoreApplication::setApplicationName("CEG");
 
-    QApplication app(argc, argv);
+    //-----------------------------------------------------------------------------
+
+
+    QApplication app(ac, av);
+
+
+    //-----------------------------------------------------------------------------
+    // System detection before starting
+    //-----------------------------------------------------------------------------
 
     if (QSystemTrayIcon::isSystemTrayAvailable() == false)
 	{
@@ -89,7 +80,21 @@ int main(int argc, char** argv)
     log4cxx::xml::DOMConfigurator::configure(LOGCXXCF);
 #endif
 
-    QApplication::setQuitOnLastWindowClosed(false); // Ne jamais retire cette ligne
+    //-----------------------------------------------------------------------------
+
+
+    //-----------------------------------------------------------------------------
+    // Never remove the following line
+    //-----------------------------------------------------------------------------
+
+    QApplication::setQuitOnLastWindowClosed(false);
+
+    //-----------------------------------------------------------------------------
+
+
+    //-----------------------------------------------------------------------------
+    // Prepare the Action instances
+    //-----------------------------------------------------------------------------
 
     ActionFactory::registerInstantiator(ClickAction::IDENTIFIER, instanciateClickAction);
     ActionFactory::registerInstantiator(ExecMenuAction::IDENTIFIER, instanciateExecMenuAction);
@@ -98,14 +103,26 @@ int main(int argc, char** argv)
     ActionFactory::registerInstantiator(ReadAction::IDENTIFIER, instanciateReadAction);
     ActionFactory::registerInstantiator(ZoomAction::IDENTIFIER, instanciateZoomAction);
 
-    // QTranslator	translator;
+    //-----------------------------------------------------------------------------
 
-    // if (!configure_language(app, translator))
-    // 	return -1;
+
+    //-----------------------------------------------------------------------------
+    // Instanciate the higher object of the program before starting the thread
+    //-----------------------------------------------------------------------------
 
     Systray sytray;
 
+    //-----------------------------------------------------------------------------
+
+
     qDebug() << QLocale::system().name();
 
+
+    //-----------------------------------------------------------------------------
+    // Let's the main thread and return the error code!
+    //-----------------------------------------------------------------------------
+
     return (app.exec());
+
+    //-----------------------------------------------------------------------------
 }
