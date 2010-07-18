@@ -161,7 +161,7 @@ IF(WIN32)
   INSTALL(
     FILES ${DLL_SOURCES}
     DESTINATION bin
-    COMPONENT applications
+    COMPONENT libraries
     )
 ENDIF()
 

@@ -9,6 +9,8 @@ FOREACH(current ${SOURCES})
   MESSAGE(STATUS "${current} file copied")
 ENDFOREACH()
 
+FILE(GLOB SOURCES ${CMAKE_CURRENT_BINARY_DIR}/*.xml)
+
 INSTALL(
   FILES ${SOURCES}
   DESTINATION share/ceg/config/menus/fr_FR

@@ -203,14 +203,12 @@
     <message>
         <location filename="../src/SettingsDialog.cpp" line="145"/>
         <source>Open Directory</source>
-        <translation>Ouvrir répertoire</translation>
+        <translation>Ouvrir le répertoire</translation>
     </message>
     <message>
         <location filename="../forms/settingsDialog.ui" line="35"/>
         <source>Settings</source>
-        <translation>Paramètres
-
-</translation>
+        <translation>Paramètres</translation>
     </message>
     <message>
         <location filename="../forms/settingsDialog.ui" line="84"/>
@@ -244,7 +242,7 @@
     <message utf8="true">
         <location filename="../forms/settingsDialog.ui" line="192"/>
         <source>Français</source>
-        <translation>Français</translation>
+        <translation>French</translation>
     </message>
     <message>
         <location filename="../forms/settingsDialog.ui" line="202"/>
@@ -254,17 +252,17 @@
     <message>
         <location filename="../forms/settingsDialog.ui" line="223"/>
         <source>Number of squares:</source>
-        <translation>Nombres de carres:</translation>
+        <translation>Nombre de zones:</translation>
     </message>
     <message>
         <location filename="../forms/settingsDialog.ui" line="253"/>
         <source>Disable Custom Boxes Mode</source>
-        <translation>Désactiver le mode Boites Personnalisées</translation>
+        <translation>Désactiver le mode d&apos;affichage de zones personnalisées</translation>
     </message>
     <message>
         <location filename="../forms/settingsDialog.ui" line="263"/>
         <source>Custom Boxes</source>
-        <translation>Boites personnalisées</translation>
+        <translation>Affichage de zones personnalisées</translation>
     </message>
     <message>
         <location filename="../forms/settingsDialog.ui" line="284"/>
@@ -289,7 +287,7 @@
     <message>
         <location filename="../forms/settingsDialog.ui" line="381"/>
         <source>Opacity (min to max):</source>
-        <translation>Opacité (min au max):</translation>
+        <translation>Opacité (min à max):</translation>
     </message>
     <message>
         <location filename="../forms/settingsDialog.ui" line="459"/>
@@ -320,12 +318,12 @@
         <location filename="../src/Systray.cpp" line="113"/>
         <location filename="../src/Systray.cpp" line="122"/>
         <source>Start</source>
-        <translation>Début</translation>
+        <translation>Démarrer</translation>
     </message>
     <message>
         <location filename="../src/Systray.cpp" line="42"/>
         <source>Setting</source>
-        <translation>Paramètre</translation>
+        <translation>Paramètres</translation>
     </message>
     <message>
         <location filename="../src/Systray.cpp" line="43"/>
@@ -346,12 +344,12 @@
     <message>
         <location filename="../src/Systray.cpp" line="68"/>
         <source>Information Message</source>
-        <translation>Message informatif</translation>
+        <translation>Message d&apos;information</translation>
     </message>
     <message>
         <location filename="../src/Systray.cpp" line="68"/>
         <source>Click on Start to launch the Default Navigator</source>
-        <translation>Cliquez sur Début pour lancer le navigateur par default</translation>
+        <translation>Cliquez sur Démarrer pour lancer le navigateur par default</translation>
     </message>
     <message>
         <source>Error</source>
@@ -384,7 +382,7 @@ Alt + F4 = Quitter</translation>
     <message>
         <location filename="../src/Systray.cpp" line="117"/>
         <source>Stop</source>
-        <translation>Stop</translation>
+        <translation>Arrêter</translation>
     </message>
     <message>
         <location filename="../src/Systray.cpp" line="140"/>
@@ -394,7 +392,7 @@ Alt + F4 = Quitter</translation>
     <message>
         <location filename="../src/Systray.cpp" line="140"/>
         <source>Allows users to control machine by thinking.</source>
-        <translation>Autoriser les utilisateurs a controler la machine par la pensée.</translation>
+        <translation>Autoriser les utilisateurs à controler la machine par la pensée.</translation>
     </message>
     <message>
         <source>&amp;Restore</source>

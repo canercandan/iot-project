@@ -13,6 +13,6 @@ FILE(GLOB SOURCES ${CMAKE_CURRENT_BINARY_DIR}/*.xml)
 
 INSTALL(
   FILES ${SOURCES}
-  DESTINATION share/ceg/config/menus/en_US
+  DESTINATION share/ceg/config/boxes
   COMPONENT applications
   )
