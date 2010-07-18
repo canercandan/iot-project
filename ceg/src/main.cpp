@@ -71,15 +71,15 @@ int main(int ac, char** av)
     //-----------------------------------------------------------------------------
 
     if (QSystemTrayIcon::isSystemTrayAvailable() == false)
-    {
-	QMessageBox::critical
+	{
+	    QMessageBox::critical
 		(0,
 		 QObject::tr("Systray"),
 		 QObject::tr("Couldn't detect any system tray on this system.")
 		 );
 
-	return EXIT_FAILURE;
-    }
+	    return EXIT_FAILURE;
+	}
 
 #ifndef Q_WS_WIN
     log4cxx::xml::DOMConfigurator::configure(LOGCXXCF);
@@ -125,13 +125,13 @@ int main(int ac, char** av)
     bool loaded = qt_trans.load(trans_name, QLibraryInfo::location(QLibraryInfo::TranslationsPath));
 
     if (loaded)
-    {
-	qDebug() << "Translation" << trans_name << "loaded";
-    }
+	{
+	    qDebug() << "Translation" << trans_name << "loaded";
+	}
     else
-    {
-	qDebug() << "Failed to load translation" << trans_name;
-    }
+	{
+	    qDebug() << "Failed to load translation" << trans_name;
+	}
 
     app.installTranslator(&qt_trans);
 
@@ -141,24 +141,28 @@ int main(int ac, char** av)
 #if defined(Q_OS_UNIX)
     loaded = ceg_tr.load(trans_name, "/usr/share/ceg/translations");
     if (!loaded)
-    {
-	loaded = ceg_tr.load(trans_name, "./translations");
-    }
+	{
+	    loaded = ceg_tr.load(trans_name, "./translations");
+	}
 #elif defined(Q_OS_WIN)
-    loaded = ceg_tr.load(trans_name, "./translations");
+    loaded = ceg_tr.load(trans_name, "../share/ceg/translations");
+    if (!loaded)
+	{
+	    loaded = ceg_tr.load(trans_name, "./translations");
+	}
 #elif defined(Q_OS_MAC)
     // FIXME i don't know how do this on mac
     loaded = ceg_tr.load(trans_name, "./translations");
 #endif
 
     if (loaded)
-    {
-	qDebug() << "Translation" << trans_name << "loaded";
-    }
+	{
+	    qDebug() << "Translation" << trans_name << "loaded";
+	}
     else
-    {
-	qDebug() << "Failed to load translation" << trans_name;
-    }
+	{
+	    qDebug() << "Failed to load translation" << trans_name;
+	}
 
     app.installTranslator(&ceg_tr);
 
