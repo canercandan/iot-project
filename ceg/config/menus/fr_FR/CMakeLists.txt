@@ -8,3 +8,9 @@ FOREACH(current ${SOURCES})
     )
   MESSAGE(STATUS "${current} file copied")
 ENDFOREACH()
+
+INSTALL(
+  FILES ${SOURCES}
+  DESTINATION share/ceg/config/menus/fr_FR
+  COMPONENT applications
+  )

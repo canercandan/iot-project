@@ -14,6 +14,10 @@ QT4_ADD_TRANSLATION(QM_FILES ${TRANSLATION_FILES})
 
 ADD_CUSTOM_TARGET(${PROJECT_NAME} ALL DEPENDS ${QM_FILES})
 
-INSTALL(FILES ${QM_FILES} DESTINATION share/ceg/translations)
+INSTALL(
+  FILES ${QM_FILES}
+  DESTINATION share/ceg/translations
+  COMPONENT translations
+  )
 
 ######################################################################################

@@ -17,28 +17,24 @@ ENDIF()
 ### 2) Set up components
 ######################################################################################
 
-SET(CPACK_COMPONENTS_ALL applications libraries)
+SET(CPACK_COMPONENTS_ALL applications libraries translations)
 
-# SET(CPACK_ALL_INSTALL_TYPES Full Developer)
 SET(CPACK_ALL_INSTALL_TYPES Full)
 
 SET(CPACK_COMPONENT_APPLICATIONS_DISPLAY_NAME "CEG Application")
-SET(CPACK_COMPONENT_APPLICATIONS_DESCRIPTION "Here is the main program")
+SET(CPACK_COMPONENT_APPLICATIONS_DESCRIPTION "Here is the main program.")
 SET(CPACK_COMPONENT_APPLICATIONS_GROUP "Runtime")
 SET(CPACK_COMPONENT_APPLICATIONS_INSTALL_TYPES Full)
 
-# SET(CPACK_COMPONENT_LIBRARIES_DISPLAY_NAME "Libraries")
-# SET(CPACK_COMPONENT_LIBRARIES_DESCRIPTION "The library can be useful for developpers")
-# SET(CPACK_COMPONENT_LIBRARIES_GROUP "Development")
-# SET(CPACK_COMPONENT_LIBRARIES_INSTALL_TYPES Developer Full)
+SET(CPACK_COMPONENT_LIBRARIES_DISPLAY_NAME "Libraries")
+SET(CPACK_COMPONENT_LIBRARIES_DESCRIPTION "The libraries is needed if you have not installed external libraries.")
+SET(CPACK_COMPONENT_LIBRARIES_GROUP "Development")
+SET(CPACK_COMPONENT_LIBRARIES_INSTALL_TYPES Developer Full)
 
-# SET(CPACK_COMPONENT_HEADERS_DISPLAY_NAME "C++ Headers")
-# SET(CPACK_COMPONENT_HEADERS_DESCRIPTION "The header filers can be useful for developpers")
-# SET(CPACK_COMPONENT_HEADERS_DEPENDS libraries)
-# SET(CPACK_COMPONENT_HEADERS_GROUP "Development")
-# SET(CPACK_COMPONENT_HEADERS_INSTALL_TYPES Developer Full)
-
-# SET(CPACK_COMPONENT_GROUP_DEVELOPMENT_DESCRIPTION "All of the tools you'll ever need to develop software")
+SET(CPACK_COMPONENT_TRANSLATIONS_DISPLAY_NAME "Translations")
+SET(CPACK_COMPONENT_TRANSLATIONS_DESCRIPTION "Translations to get other languages than english.")
+SET(CPACK_COMPONENT_TRANSLATIONS_GROUP "Runtime")
+SET(CPACK_COMPONENT_TRANSLATIONS_INSTALL_TYPES Full)
 
 ######################################################################################
 
