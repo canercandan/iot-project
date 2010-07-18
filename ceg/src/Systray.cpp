@@ -34,7 +34,7 @@
 /*********************************/
 
 Systray::Systray(QWidget *parent) :
-	QWidget(parent), _lm(*this), _trayIcon(0), _trayIconMenu(0), _startAction(0), _settingAction(0), _aboutQtAction(0), _aboutCegAction(0), _quitAction(0)
+    QWidget(parent), _lm(*this), _trayIcon(0), _trayIconMenu(0), _startAction(0), _settingAction(0), _aboutQtAction(0), _aboutCegAction(0), _quitAction(0)
 {
     this->_trayIcon = new QSystemTrayIcon(QIcon(":/images/systray-transparent-32x32.png"), this);
     this->_trayIconMenu = new QMenu(this);
@@ -73,24 +73,27 @@ void    Systray::createSettingFile()
 {
     QSettings settings;
     QVariant first = settings.value("general/squareNumber");
+
     if (first.toInt() == 0)
-    {
-	settings.beginGroup("general");
-	settings.setValue("language", 0);
-	settings.setValue("squareNumber", 3);
-	settings.setValue("customCheck", true);
-	settings.setValue("customXMLPath", "/config/");
-	settings.endGroup();
-	settings.beginGroup("color");
-	settings.setValue("focus", "#aa0022");
-	settings.setValue("blur", "#0");
-	settings.setValue("opacity", 0.5);
-	settings.endGroup();
-	settings.beginGroup("server");
-	settings.setValue("port", "5900");
-	settings.setValue("password", "");
-	settings.endGroup();
-    }
+	{
+	    settings.beginGroup("general");
+	    settings.setValue("language", "en_US");
+	    settings.setValue("squareNumber", 3);
+	    settings.setValue("customCheck", true);
+	    settings.setValue("customXMLPath", "./config/");
+	    settings.endGroup();
+
+	    settings.beginGroup("color");
+	    settings.setValue("focus", "#aa0022");
+	    settings.setValue("blur", "#0");
+	    settings.setValue("opacity", 0.5);
+	    settings.endGroup();
+
+	    settings.beginGroup("server");
+	    settings.setValue("port", "5900");
+	    settings.setValue("password", "");
+	    settings.endGroup();
+	}
 }
 
 Systray::~Systray()

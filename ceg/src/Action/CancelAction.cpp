@@ -45,7 +45,7 @@ void CancelAction::initializeFromXml(const QDomElement &)
 
 /************************************************* [ OTHERS ] *************************************************/
 
-void    CancelAction::exec(MainController & mainC)
+void    CancelAction::exec(MainController &)
 {
     // Le menu est deja cache, donc il n'y a rien a faire
     qDebug() << "CancelAction::exec";

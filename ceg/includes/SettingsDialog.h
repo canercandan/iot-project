@@ -49,6 +49,8 @@ public slots:
 
 private:
     typedef std::vector< QString > Languages;
+
+private:
     Languages _languages;
 };
 

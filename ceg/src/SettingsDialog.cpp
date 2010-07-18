@@ -25,6 +25,7 @@
 #include <QMessageBox>
 #include <QColorDialog>
 #include <QPainter>
+#include <QDebug>
 
 #include "SettingsDialog.h"
 
@@ -35,7 +36,7 @@ SettingsDialog::SettingsDialog(QWidget *parent) :
     this->on_colorOpacitySlider_valueChanged(this->colorOpacitySlider->value());
 
     _languages[0] = "en_US";
-    _languages[1] = "fr";
+    _languages[1] = "fr_FR";
 
     // LOAD
 
@@ -47,7 +48,7 @@ SettingsDialog::SettingsDialog(QWidget *parent) :
 
     if (it != _languages.end())
 	{
-	    this->languageComboBox->setCurrentIndex(_languages.begin() - it);
+	    this->languageComboBox->setCurrentIndex(it - _languages.begin());
 	}
 
     this->squareNumberBox->setValue(settings.value("squareNumber").toInt());
@@ -99,7 +100,19 @@ void SettingsDialog::on_buttonBox_accepted()
     QSettings settings;
 
     settings.beginGroup("general");
-    settings.setValue("language", this->languageComboBox->currentIndex());
+
+    if ( (unsigned int)this->languageComboBox->currentIndex() < _languages.size() )
+	{
+	    QString& language = _languages[ this->languageComboBox->currentIndex() ];
+
+	    if (settings.value("language").toString() != language)
+		{
+		    QMessageBox::information(0, tr("Language changed"), tr("The language has been changed. To apply this modification you have to restart the program."));
+		}
+
+	    settings.setValue("language", language);
+	}
+
     settings.setValue("squareNumber", this->squareNumberBox->text());
     settings.setValue("customCheck", this->customCheck->isChecked());
     settings.setValue("customXMLPath", this->customXMLPathLine->text());

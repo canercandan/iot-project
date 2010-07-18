@@ -52,7 +52,6 @@
 #endif
 #endif
 
-
 int main(int ac, char** av)
 {
     //-----------------------------------------------------------------------------
@@ -121,9 +120,10 @@ int main(int ac, char** av)
     //-----------------------------------------------------------------------------
 
     QSettings settings;
+    QString language = settings.value("general/language", QLocale::system().name()).toString();
 
     QTranslator qt_trans;
-    QString trans_name = "qt_" + QLocale::system().name();
+    QString trans_name = "qt_" + language;
     bool loaded = qt_trans.load(trans_name, QLibraryInfo::location(QLibraryInfo::TranslationsPath));
 
     if (loaded)
@@ -138,7 +138,7 @@ int main(int ac, char** av)
     app.installTranslator(&qt_trans);
 
     QTranslator ceg_tr;
-    trans_name = "ceg_" + QLocale::system().name();
+    trans_name = "ceg_" + language;
 
 #if defined(Q_OS_UNIX)
     loaded = ceg_tr.load(trans_name, "/usr/share/ceg/translations");
