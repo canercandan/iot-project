@@ -50,8 +50,9 @@ class BuilderWidget(QtGui.QMainWindow):
             raise
 
         self.init()
+        self.createMenu()
         self.setGeometry(300, 300, 600, 600)
-        self.setWindowTitle('IOT Builder')
+        self.setWindowTitle('IotBuilder')
         self.setMouseTracking(1)
         self.saveDialog = 'Save xml file'
         self.loadDialog = 'Open xml file'
@@ -69,6 +70,9 @@ class BuilderWidget(QtGui.QMainWindow):
         self.beginPos = QPoint()
         self.endPos = QPoint()
         self.list = []
+
+    def createMenu(self):
+        self.menu = QMainWindow.createPopupMenu(self)
 
     def newFile(self):
         if self.list or self.father:
@@ -127,7 +131,7 @@ class BuilderWidget(QtGui.QMainWindow):
             return
 
         print filename
-        
+
         self.parser = xml.parsers.expat.ParserCreate()
         self.parserCurrentBox = None
 
@@ -137,14 +141,14 @@ class BuilderWidget(QtGui.QMainWindow):
                 y = QString(attrs['y']).toInt()
                 width = QString(attrs['width']).toInt()
                 height = QString(attrs['height']).toInt()
-                
+
                 if not x[1] or not y[1] or not width[1] or not height[1]:
                     print 'Warning : XML Attributes Parse Error'
-                
+
                 posStart = QPoint(x[0], y[0])
                 posEnd = QPoint(x[0] + width[0], y[0] + height[0])
                 tmpBox = Box(posStart, posEnd)
-                
+
                 tmpBox.father = self.father
 
                 self.list.append(tmpBox)
@@ -155,9 +159,9 @@ class BuilderWidget(QtGui.QMainWindow):
                 tmp = []
                 self.list = tmp
                 self.parserCurrentBox.son = tmp
-                    
+
         def XMLendElement(name):
-             if name == 'children':
+            if name == 'children':
                 self.list = self.father
                 self.father = self.list[0].father
 
@@ -169,9 +173,9 @@ class BuilderWidget(QtGui.QMainWindow):
         self.list = []
         self.father = None
         self.focus = None
-        self.parser.ParseFile(open(filename, "r"))        
+        self.parser.ParseFile(open(filename, "r"))
         self.repaint()
- 
+
     def selectionMode(self):
         self.mode = Mode.selection
 
@@ -399,7 +403,10 @@ class BuilderWidget(QtGui.QMainWindow):
             for box in self.list:
                 if self.onEdge(mouseEvent.pos(), box) == 1:
                     return
-            QtGui.QMainWindow.setCursor(self, Qt.ArrowCursor)
+                QtGui.QMainWindow.setCursor(self, Qt.ArrowCursor)
+
+    def contextMenuEvent(self, contextMenuEvent):
+        self.menu.exec_(QCursor.pos())
 
     def mousePressEvent(self, mouseEvent):
         if mouseEvent.button() == QtCore.Qt.LeftButton:

@@ -25,6 +25,7 @@ from shortcuts import Shortcuts
 
 import icons_rc
 
+# C struct style
 class s():
     def __init__(self, pixPath, tooltip, shortcut, slot):
         self.pixPath = pixPath
@@ -54,8 +55,8 @@ class Toolbar(QtGui.QToolBar):
             s(':/pix/cut_box', 'Cut box', 'Ctrl+X', parent.cutBox), \
             s(':/pix/paste_box', 'Paste box', 'Ctrl+V', parent.pasteBox), \
             s('', '', '', None), \
-            s(':/pix/help', 'Builder help', 'F1', parent.builderHelp), \
             #s(':/pix/shortcuts', 'Shortcuts', 'F2', self.shortcuts.open), \
+            s(':/pix/help', 'Builder help', 'F1', parent.builderHelp), \
             s(':/pix/about', 'About us', 'F3', parent.aboutUs), \
             s(':/pix/quit', 'Quit', 'Ctrl+Q', parent.quitBuilder)]
 
