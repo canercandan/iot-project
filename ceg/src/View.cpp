@@ -20,6 +20,7 @@
 
 /*********************************/
 #include <QKeyEvent>
+#include <QIcon>
 /*********************************/
 #include "View.h"
 /*********************************/
@@ -37,6 +38,8 @@ View::View(MainController & lm, Systray & systray)
     : _lm(lm)
 {
     this->setWindowOpacity(0.5);
+    this->setWindowIcon(QIcon(":/images/systray-transparent-32x32.png"));
+
     QObject::connect(this, SIGNAL(actionEmitted(IAction&)),&lm, SLOT(onActionEmitted(IAction&)));
     QObject::connect(this, SIGNAL(triggered()),&systray, SLOT(on__startAction_triggered()));
 }

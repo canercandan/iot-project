@@ -59,6 +59,7 @@ Systray::Systray(QWidget *parent) :
     this->connect(this->_settingAction, SIGNAL(triggered()), SLOT(on__settingAction_triggered()));
 
     this->createSettingFile();
+    this->setWindowIcon(QIcon(":/images/systray-transparent-32x32.png"));
 
     this->_trayIcon->show();
 #ifdef _WIN32
@@ -108,7 +109,7 @@ void Systray::on__startAction_triggered()
     QString content;
     if (this->_startAction->text() == tr("Start"))
     {
-	QMessageBox::information(0, tr("Commandes"), tr("Left | Right arrow = Horizontal Move\nUp | Down Arrow = Vertical move\nEnter = Zoom\nBackspace = unzoom\n1 = Simple Click\nAlt + F4 = Quit"));
+        QMessageBox::information(this, tr("Commandes"), tr("Left | Right arrow = Horizontal Move\nUp | Down Arrow = Vertical move\nEnter = Zoom\nBackspace = unzoom\n1 = Simple Click\nAlt + F4 = Quit"));
 	this->_lm.start();
 	content = tr("Stop");
     }
@@ -122,7 +123,7 @@ void Systray::on__startAction_triggered()
 
 void Systray::on__aboutQtAction_triggered()
 {
-    QMessageBox::aboutQt(0, tr("About Qt"));
+    QMessageBox::aboutQt(this, tr("About Qt"));
 }
 
 void Systray::on__settingAction_triggered()
@@ -133,5 +134,5 @@ void Systray::on__settingAction_triggered()
 
 void Systray::on__aboutCegAction_triggered()
 {
-    QMessageBox::information(0,tr("About CEG"),tr("Allows users to control machine by thinking."));
+    QMessageBox::information(this ,tr("About CEG"), tr("Allows users to control machine by thinking."));
 }

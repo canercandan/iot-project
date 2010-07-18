@@ -21,6 +21,7 @@
 
 /*********************************/
 #include <QDebug>
+#include <QMessageBox>
 /*********************************/
 #include "AbstractItem.h"
 /*********************************/
@@ -56,7 +57,7 @@ void	Layer::initialize(std::list<QGraphicsRectItem *> const & sceneItems)
     if (sceneItems.empty() == false)
     {
 	AbstractItem const * firstItem = static_cast<AbstractItem const *>(sceneItems.front());
-        if (firstItem->getBox()->getBoxType() == DEFAULT_BOX && this->_menuAction != 0)
+        if (firstItem->getBox()->getBoxType() == DEFAULT_BOX && this->_menuAction == 0)
 	{
             this->_menuAction = new PopMenuAction("Navigation");
 	}
