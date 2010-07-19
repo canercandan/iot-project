@@ -88,33 +88,44 @@ class BoxEditor(QtGui.QDialog):
                 self.setDictionnary[tabTitle](attribute)
 
     # TODO
-    def setCancelAttribute(self):
+    def setCancelAttribute(self, attribute):
         print ''
 
-    def setClickAttribute(self):
-        print 'Implement that'
+    def setClickAttribute(self, attribute):
+        r = QString(attribute).toInt()
+        if not r[1]:
+            return
+        if r[0] < self.ui.clickComboBox.count():
+            self.ui.clickComboBox.setCurrentIndex(r[0])
 
     # TODO
-    def setExecMenuAttribute(self):
+    def setExecMenuAttribute(self, attribute):
         print ''
 
     # TODO
-    def setMoveAttribute(self):
+    def setMoveAttribute(self, attribute):
         print ''
 
     # TODO
-    def setPopMenuAttribute(self):
+    def setPopMenuAttribute(self, attribute):
         print ''
 
-    def setReadAttribute(self):
-        print 'Implement that'
+    def setReadAttribute(self, attribute):
+        r = QString(attribute).toFloat()
+        if not r[1]:
+            return
+        self.ui.readDoubleSpinBox.setValue(r[0])
 
     # TODO
-    def setValidAttribute(self):
+    def setValidAttribute(self, attribute):
         print ''
 
-    def setWriteAttribute(self):
-        print 'Implement that'
+    def setWriteAttribute(self, attribute):
+        self.ui.writeLineEdit.setText(attribute)
 
-    def setZoomAttribute(self):
-        print 'Implement that'
+    def setZoomAttribute(self, attribute):
+        r = QString(attribute).toInt()
+        if not r[1]:
+            return
+        if r[0] < self.ui.zoomComboBox.count():
+            self.ui.zoomComboBox.setCurrentIndex(r[0])

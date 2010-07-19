@@ -23,6 +23,7 @@ from PyQt4.QtGui import *
 
 from box import Box
 from toolbar import Toolbar
+from boxeditor import BoxEditor
 
 import xml.parsers.expat
 
@@ -78,6 +79,11 @@ class BuilderWidget(QtGui.QMainWindow):
         self.init()
         self.repaint()
 
+    def getFilenameFromFullPath(self, filename):
+        result = QString(filename).section(QDir.separator(), -1)
+        result = QString(result).section('.', 0)
+        return result
+
     def overwriteQuestion(self, filename):
         shortFilename = QString(filename).section(QDir.separator(), -1)
         directory = QString(filename).section(QDir.separator(), -2, -2)
@@ -100,15 +106,15 @@ class BuilderWidget(QtGui.QMainWindow):
             return
         if not QString(filename).endsWith(self.extension):
             filename.append(self.extension)
-        if QDir(QDir.currentPath()).exists(filename):
-            r = self.overwriteQuestion(filename)
-            if r == QMessageBox.Cancel:
-                return
+            if QDir(QDir.currentPath()).exists(filename):
+                r = self.overwriteQuestion(filename)
+                if r == QMessageBox.Cancel:
+                    return
 
         qfile = QFile(filename)
         if qfile.open(QIODevice.WriteOnly | QIODevice.Text):
             out = QTextStream(qfile)
-            out << '<boxes id="NomProgram">' + "\n"
+            out << '<boxes id="' << self.getFilenameFromFullPath(filename) << '">' + "\n"
             while self.list[0].father:
                 self.zoomOut()
             out << self.xmlRec(self.list)
@@ -119,8 +125,9 @@ class BuilderWidget(QtGui.QMainWindow):
         tmp = ''
         for elem in li:
             tmp += '<box type="1" x="' + str(elem.topLeft().x()) + '" y="' + str(elem.topLeft().y()) + '" width="' + str(elem.bottomRight().x() - elem.topLeft().x()) + '" height="' + str(elem.bottomRight().y() - elem.topLeft().y()) + '">' + "\n"
-            tmp += '<style  visible="1" opacity="0.5" focusColor="green" blurColor="blue" imagePath="" text="" fontSize="20" font="Arial" />' + "\n"
-            tmp += '<action id="' + str(elem.action) + '"/>' + "\n"
+            tmp += '<style visible="1" opacity="0.5" focusColor="green" blurColor="blue" imagePath="" text="" fontSize="20" font="Arial" />' + "\n"
+            tmp += '<action id="' + str(elem.getActionId()) + '"/>' + "\n"
+            tmp += '<attribute id="' + str(elem.getAttribute()) + '"/>' + "\n"
             if elem.son:
                 tmp += '<children>' + "\n"
                 tmp += self.xmlRec(elem.son)
@@ -153,12 +160,18 @@ class BuilderWidget(QtGui.QMainWindow):
 
                 posStart = QPoint(x[0], y[0])
                 posEnd = QPoint(x[0] + width[0], y[0] + height[0])
-                tmpBox = Box(posStart, posEnd)
 
+                tmpBox = Box(posStart, posEnd)
                 tmpBox.father = self.father
 
                 self.list.append(tmpBox)
                 self.parserCurrentBox = tmpBox
+
+            if name == 'action':
+                self.parserCurrentBox.setActionId(attrs['id'])
+
+            if name == 'attribute':
+                self.parserCurrentBox.setAttribute(attrs['id'])
 
             if name == 'children':
                 self.father = self.list
@@ -262,7 +275,10 @@ class BuilderWidget(QtGui.QMainWindow):
         if self.focused:
             self.clipboard = Box(self.focused.topLeft(),
                                  self.focused.bottomRight())
+            self.clipboard.setActionId(self.focused.getActionId())
+            self.clipboard.setAttribute(self.focused.getAttribute())
             self.clipboard.father = self.focused.father
+
 
     def cutBox(self):
         if self.focused:
@@ -274,6 +290,8 @@ class BuilderWidget(QtGui.QMainWindow):
         if self.clipboard:
             copy = Box(self.clipboard.topLeft(),
                        self.clipboard.bottomRight())
+            copy.setActionId(self.clipboard.getActionId())
+            copy.setAttribute(self.clipboard.getAttribute())
             copy.father = self.clipboard.father
             self.list.append(copy)
             self.repaint()
@@ -289,8 +307,8 @@ class BuilderWidget(QtGui.QMainWindow):
 
     def quitBuilder(self):
         self.deleteLater()
-        for box in self.list:
-            box.deleteBoxEditor()
+        while self.list and self.list[0].father:
+            self.zoomOut()
         app.quit()
 
     def deleteFocusedBox(self):

@@ -60,6 +60,8 @@ class Box(QRect):
         self.son = None
         self.focus = None
         self.father = None
+        self.actionIdSet = 0
+        self.attributeBuffer = ''
         self.boxEditor = BoxEditor()
 
     def getActionId(self):
@@ -77,11 +79,17 @@ class Box(QRect):
                 for i in range(self.boxEditor.ui.tabs.count()):
                     if reverseActionsDictionnary[btype] == self.boxEditor.ui.tabs.tabText(i):
                         self.boxEditor.ui.tabs.setCurrentIndex(i)
+                        if self.attributeBuffer != '':
+                            self.boxEditor.setAttribute(self.attributeBuffer)
+                        self.actionIdSet = 1
                         return
         raise NameError('Action id "', boxType, '" not found.')
 
     def setAttribute(self, attribute):
-        self.boxEditor.setAttribute(attribute)
+        if self.actionIdSet == 1 and attribute != '':
+            self.boxEditor.setAttribute(attribute)
+        else:
+            self.attributeBuffer = attribute
 
     def editBox(self):
         self.boxEditor.open()

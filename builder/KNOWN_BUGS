@@ -1,3 +1,4 @@
                              === KNOWN BUGS ===
 
+- Segfault occurs sometimes (BoxEditor is highly probably the source)
 - In selection mode, cursor changes even if it's not on a box's edge.
