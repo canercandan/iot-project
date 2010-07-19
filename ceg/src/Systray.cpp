@@ -34,7 +34,7 @@
 /*********************************/
 
 Systray::Systray(QWidget *parent) :
-    QWidget(parent), _lm(*this), _trayIcon(0), _trayIconMenu(0), _startAction(0), _settingAction(0), _aboutQtAction(0), _aboutCegAction(0), _quitAction(0)
+	QWidget(parent), _mainC(*this), _trayIcon(0), _trayIconMenu(0), _startAction(0), _settingAction(0), _aboutQtAction(0), _aboutCegAction(0), _quitAction(0)
 {
     this->_trayIcon = new QSystemTrayIcon(QIcon(":/images/systray-transparent-32x32.png"), this);
     this->_trayIconMenu = new QMenu(this);
@@ -57,6 +57,9 @@ Systray::Systray(QWidget *parent) :
     this->connect(this->_aboutCegAction, SIGNAL(triggered()), SLOT(on__aboutCegAction_triggered()));
     this->connect(this->_aboutQtAction, SIGNAL(triggered()), SLOT(on__aboutQtAction_triggered()));
     this->connect(this->_settingAction, SIGNAL(triggered()), SLOT(on__settingAction_triggered()));
+
+    QObject::connect(this, SIGNAL(navigationStarted()), &(this->_mainC), SLOT(on_start_navigation()));
+    QObject::connect(this, SIGNAL(navigationStoped()), &(this->_mainC), SLOT(on_stop_navigation()));
 
     this->createSettingFile();
     this->setWindowIcon(QIcon(":/images/systray-transparent-32x32.png"));
@@ -129,13 +132,13 @@ void Systray::on__startAction_triggered()
     QString content;
     if (this->_startAction->text() == tr("Start"))
     {
-        QMessageBox::information(this, tr("Commandes"), tr("Left | Right arrow = Horizontal Move\nUp | Down Arrow = Vertical move\nEnter = Zoom\nBackspace = unzoom\n1 = Simple Click\nAlt + F4 = Quit"));
-	this->_lm.start();
+	QMessageBox::information(this, tr("Commandes"), tr("Left | Right arrow = Horizontal Move\nUp | Down Arrow = Vertical move\nEnter = Zoom\nBackspace = unzoom\n1 = Simple Click\nAlt + F4 = Quit"));
+	emit navigationStarted();
 	content = tr("Stop");
     }
     else
     {
-	this->_lm.stop();
+	emit navigationStoped();
 	content = tr("Start");
     }
     this->_startAction->setText(content);

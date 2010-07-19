@@ -33,6 +33,7 @@
 #include "IAction.h"
 #include "Utils.h"
 #include "WindowSystem.h"
+#include "PopMenuAction.h"
 /*********************************/
 
 /************************************************* [ CTOR/DTOR ] *************************************************/
@@ -79,7 +80,7 @@ View &	MainController::getView()
 
 /************************************************* [ OTHERS ] *************************************************/
 
-void    MainController::onActionEmitted(IAction & anAction)
+void    MainController::on_action_emitted(IAction & anAction)
 {
 #ifndef Q_WS_WIN
     LOG4CXX_INFO (this->_logger, "Execution de l'action suivante : .");
@@ -105,18 +106,12 @@ void MainController::initialize()
     LOG4CXX_INFO (this->_logger, "Initialisation.");
 #endif
 
-    std::list<Ceg::Window>  windows;
-    //this->_comGs->getWindows(windows);
-
-    QDesktopWidget *desktop = QApplication::desktop();
-    windows.push_back(Ceg::Window(0, QRect(0 , 0, desktop->width(), desktop->height()), true, "Firefoxx"));
-
-    this->createScenes(windows);
-    this->_currentScene = this->_scenes.begin();
+    PopMenuAction popAction("Home");
+    this->on_action_emitted(popAction);
 }
 
 
-void MainController::start()
+void MainController::on_start_navigation()
 {
 #ifndef Q_WS_WIN
     LOG4CXX_INFO (this->_logger, "Demarrage de la navigation.");
@@ -131,7 +126,7 @@ void MainController::start()
     this->_view.show();
 }
 
-void MainController::stop()
+void MainController::on_stop_navigation()
 {
 #ifndef Q_WS_WIN
     LOG4CXX_INFO (this->_logger, "Stoppage de la navigation.");

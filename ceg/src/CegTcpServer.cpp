@@ -35,12 +35,12 @@
 /*********************************/
 
 CegTcpServer::CegTcpServer(MainController& lm) :
-        _tcpServer(0), _client(0), _buffer()
+	_tcpServer(0), _client(0), _buffer()
 #ifndef Q_WS_WIN
-        , _logger(log4cxx::Logger::getLogger("ceg.network"))
+	, _logger(log4cxx::Logger::getLogger("ceg.network"))
 #endif
 {
-    QObject::connect(this, SIGNAL(actionEmitted(IAction &)),&lm, SLOT(onActionEmitted(IAction&)));
+    QObject::connect(this, SIGNAL(actionEmitted(IAction &)),&lm, SLOT(on_action_emitted(IAction&)));
     this->launch();
 }
 
@@ -66,18 +66,18 @@ void	CegTcpServer::launch(void)
     if (!this->_tcpServer->listen(QHostAddress::Any, port.toInt()))
     {
 #ifndef Q_WS_WIN
-        LOG4CXX_ERROR(this->_logger, "Error: can't listen on port: " << port.toInt());
-        LOG4CXX_ERROR(this->_logger, this->_tcpServer->errorString().toStdString());
+	LOG4CXX_ERROR(this->_logger, "Error: can't listen on port: " << port.toInt());
+	LOG4CXX_ERROR(this->_logger, this->_tcpServer->errorString().toStdString());
 #endif
     }
     else
     {
 #ifndef Q_WS_WIN
-        LOG4CXX_INFO(this->_logger, "Listening on port: " << port.toInt());
+	LOG4CXX_INFO(this->_logger, "Listening on port: " << port.toInt());
 #endif
 
-        this->_tcpServer->setMaxPendingConnections(1);
-        QObject::connect(_tcpServer, SIGNAL(newConnection()), this, SLOT(_connect()));
+	this->_tcpServer->setMaxPendingConnections(1);
+	QObject::connect(_tcpServer, SIGNAL(newConnection()), this, SLOT(_connect()));
     }
 }
 
@@ -104,17 +104,17 @@ void	CegTcpServer::_readData()
     //in.setVersion(QDataStream::Qt_4_5);
     while (this->_client->bytesAvailable())
     {
-        readbytes = in.readRawData(buffer, sizeof(buffer) - 1);
-        if (readbytes > 0)
+	readbytes = in.readRawData(buffer, sizeof(buffer) - 1);
+	if (readbytes > 0)
 	{
-            buffer[readbytes] = '\0';
-            this->_buffer.append(buffer);
+	    buffer[readbytes] = '\0';
+	    this->_buffer.append(buffer);
 	}
-        else
-            return;
+	else
+	    return;
     }
     if (this->_buffer.contains('\n'))
-        this->parseLines();
+	this->parseLines();
 }
 
 
@@ -123,7 +123,7 @@ void	CegTcpServer::parseLines(void)
     QStringList cmds = this->_buffer.split('\n', QString::SkipEmptyParts);
     // Interpret each lines.
     for (int i = 0; i < cmds.size(); ++i)
-        this->interpretLine(cmds[i]);
+	this->interpretLine(cmds[i]);
     // Remove read lines.
     int last = this->_buffer.lastIndexOf('\n');
     this->_buffer = this->_buffer.remove(0, last + 1);

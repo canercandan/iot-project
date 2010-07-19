@@ -34,8 +34,8 @@ class QAction;
  * \brief Classe de vue qui contient le systray.
  * Elle permet de stopper le Ceg
  */
- 
- /**  
+
+/**
  * Permet d'activer/desactiver la navigation
  * Permet d'acceder au menu de preferences et autres reglages
  */
@@ -46,11 +46,15 @@ public:
     explicit Systray(QWidget *parent = 0);
     ~Systray();
 
-private:
-    void    createSettingFile();
+signals:
+    void navigationStarted();
+    void navigationStoped();
 
 public slots:
     void on__startAction_triggered();
+
+private:
+    void    createSettingFile();
 
 private slots:
     void on__aboutQtAction_triggered();
@@ -58,7 +62,7 @@ private slots:
     void on__aboutCegAction_triggered();
 
 private:
-    MainController 	_lm;
+    MainController 	_mainC;
     QSystemTrayIcon *	_trayIcon;
     QMenu *		_trayIconMenu;
     QAction *		_startAction;

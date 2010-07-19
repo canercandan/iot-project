@@ -5,15 +5,14 @@
 - Creation du clavier virtuel faire des test de simulation de touches. (?)
 
 -------------------------------------------------- Reminder chris --------------------------------------------------------------------------
-- Bien implementer le Singleton (regarde sur le net car pour le moment c des fakes singletons) et rajouter un destroyInstance et y faire appel
 - voir logs + redirection sur fichiers qFatal() qDebug() qInfo()
 - Metre l'etat de la connexion dans le tray icone (disconnected || connected || error)
+- rajouter deux slots en public :  on_start_navigation et on_stop_navigation
 - renommer CEgTcpServer  et le nom de fichier aussi
 - maj uml
 - maj Doxygen
 
 -------------------------------------------------- Reminder Yann --------------------------------------------------------------------------
-- AJOuter une methode pour loader proprement les menus depuis le ressource !!!!!!!!!!!!!!!
 - Terminer le communication avec le serveur Graphique sur Linux
 - revoir le management des listes dans le boxcontroler (new les listes)
 

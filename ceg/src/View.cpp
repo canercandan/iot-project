@@ -40,7 +40,7 @@ View::View(MainController & lm, Systray & systray)
     this->setWindowOpacity(0.5);
     this->setWindowIcon(QIcon(":/images/systray-transparent-32x32.png"));
 
-    QObject::connect(this, SIGNAL(actionEmitted(IAction&)),&lm, SLOT(onActionEmitted(IAction&)));
+    QObject::connect(this, SIGNAL(actionEmitted(IAction&)),&lm, SLOT(on_action_emitted(IAction&)));
     QObject::connect(this, SIGNAL(triggered()),&systray, SLOT(on__startAction_triggered()));
 }
 
@@ -68,16 +68,16 @@ void	View::keyPressEvent(QKeyEvent* keyEvent)
     case Qt::Key_Up:
     case Qt::Key_Down:
 	{
-            MoveAction action(key);
-            emit actionEmitted(action);
+	    MoveAction action(key);
+	    emit actionEmitted(action);
 	}
 	break;
     case Qt::Key_Return:
-        {
-            ValidAction action;
-            emit actionEmitted(action);
-        }
-        break;
+	{
+	    ValidAction action;
+	    emit actionEmitted(action);
+	}
+	break;
     default:
 	break;
     }

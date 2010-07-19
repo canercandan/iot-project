@@ -54,17 +54,18 @@ public:
     AbstractScene*			getCurrentScene() const;
     View &				getView();
 
-    void				start(); // Active la navigation
-    void				stop(); // Stop la navigation
     void				pushFrontScene(AbstractScene * scene); // Rajoute la scnene au debut des scenes et rafraichi la vue
     void				popFrontScene(); // Supprime la scene du debut et rafraichi la vue
+
+public slots:
+    void				on_start_navigation(); // Active la navigation
+    void				on_stop_navigation(); // Stop la navigationF
+    void				on_action_emitted(IAction &); // Attrape les actions a execute
 
 private:
     void				createScenes(std::list<Ceg::Window> const & windows); // Cree tout les layers pour les fenetres donnees
     void				initialize(); // Initialise tout les paremetres pour la navigation
 
-public slots:
-    void				onActionEmitted(IAction &); // Attrape les actions a execute
 
 private:
     View				    _view; // La vue pour representer les scene (Une vue pour toutes les scenes)
