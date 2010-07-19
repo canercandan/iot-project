@@ -3,42 +3,42 @@
 
 <menu id="Multimedia">
 
-  <box type="2" x="750" y="1" height="100" width="300">
+  <box type="2" x="750" y="101" height="100" width="300">
     <action id="ExecMenu">
       <action id="Internet" />
     </action>
     <style opacity="1" text="Internet"/>
   </box>
 
-  <box type="2" x="750" y="1" height="100" width="300">
+  <box type="2" x="750" y="202" height="100" width="300">
     <action id="ExecMenu">
       <action id="Mail" />
     </action>
     <style opacity="1" text="Mail"/>
   </box>
 
-  <box type="2" x="750" y="1" height="100" width="300">
+  <box type="2" x="750" y="303" height="100" width="300">
     <action id="ExecMenu">
       <action id="FavApp" />
     </action>
     <style opacity="1" text="Favourite Applications"/>
   </box>
 
-  <box type="2" x="750" y="1" height="100" width="300">
+  <box type="2" x="750" y="404" height="100" width="300">
     <action id="ExecMenu">
       <action id="TextEdit" />
     </action>
     <style opacity="1" text="Text Editor"/>
   </box>
 
-  <box type="2" x="750" y="1" height="100" width="300">
+  <box type="2" x="750" y="505" height="100" width="300">
     <action id="ExecMenu">
       <action id="Video" />
     </action>
     <style opacity="1" text="Video"/>
   </box>
 
-  <box type="2" x="750" y="1" height="100" width="300">
+  <box type="2" x="750" y="606" height="100" width="300">
     <action id="ExecMenu">
       <action id="Music" />
     </action>

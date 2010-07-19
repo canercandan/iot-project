@@ -69,14 +69,16 @@ void ExecMenuAction::exec(MainController & mainC)
     qDebug() << "ExecMenuAction::exec";
     if (this->_actionToExec != 0)
     {
-        // On ferme le menu
-        mainC.popFrontScene();
-        // On execute l'action
-        this->_actionToExec->exec(mainC);
+	// On ferme le menu
+	qDebug() << "Avant le pop";
+	mainC.popFrontScene();
+	// On execute l'action
+	qDebug() << "Avant le exec";
+	this->_actionToExec->exec(mainC);
     }
     else
     {
-        qDebug() << "Action null, rien a executer";
+	qDebug() << "Action null, rien a executer";
     }
 }
 

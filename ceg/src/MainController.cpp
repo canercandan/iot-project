@@ -88,17 +88,17 @@ void    MainController::on_action_emitted(IAction & anAction)
     anAction.exec(*this);
 }
 
-void MainController::createScenes(std::list<Ceg::Window> const & windows)
-{
-    for (std::list<Ceg::Window>::const_iterator it = windows.begin(), itEnd = windows.end(); it != itEnd; ++it)
-    {
-	Layer * oneLayer = new Layer(*it);
-	std::list<QGraphicsRectItem *> graphicItems;
-	this->_boxController.getPattern(*it, graphicItems);
-	oneLayer->initialize(graphicItems);
-	this->_scenes.push_front(oneLayer);
-    }
-}
+//void MainController::createScenes(std::list<Ceg::Window> const & windows)
+//{
+//    for (std::list<Ceg::Window>::const_iterator it = windows.begin(), itEnd = windows.end(); it != itEnd; ++it)
+//    {
+//	Layer * oneLayer = new Layer(*it);
+//	std::list<QGraphicsRectItem *> graphicItems;
+//	this->_boxController.getPattern(*it, graphicItems);
+//	oneLayer->initialize(graphicItems);
+//	this->_scenes.push_front(oneLayer);
+//    }
+//}
 
 void MainController::initialize()
 {
@@ -117,7 +117,7 @@ void MainController::on_start_navigation()
     LOG4CXX_INFO (this->_logger, "Demarrage de la navigation.");
 #endif
     static bool isInit = false;
-    if (isInit == false)
+    if (isInit == false || this->_scenes.empty() == true) // si c la premiere fois que l on lance la navigation ou qu'il n'y a plus de scene en cours d'utilisation
     {
 	this->initialize();
 	this->_view.initialize();
@@ -146,12 +146,15 @@ void MainController::pushFrontScene(AbstractScene *scene)
 
 void MainController::popFrontScene()
 {
-    AbstractScene const * currentScene = *(this->_currentScene);
+    AbstractScene const * oldCurrentScene = *(this->_currentScene);
     this->_scenes.pop_front();
-    this->_currentScene = this->_scenes.begin();
-    this->_view.hide();
-    this->_view.setScene(*(this->_currentScene));
-    this->_view.setGeometry((*this->_currentScene)->getGeometry());
-    this->_view.show();
-    delete currentScene;
+    if (this->_scenes.empty() == false)
+    {
+	this->_currentScene = this->_scenes.begin();
+	this->_view.hide();
+	this->_view.setScene(*(this->_currentScene));
+	this->_view.setGeometry((*this->_currentScene)->getGeometry());
+	this->_view.show();
+    }
+    delete oldCurrentScene;
 }

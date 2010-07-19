@@ -12,14 +12,14 @@
 
   <box type="2" x="750" y="101" height="100" width="300">
     <action id="ExecMenu">
-      <action id="MultiMenu" />
+      <action id="PopMenu" MenuId="Multimedia"/>
     </action>
     <style opacity="1" text="Multimedia Menu"/>
   </box>
 
   <box type="2" x="750" y="202" height="100" width="300">
     <action id="ExecMenu">
-      <action id="AppListing" />
+      <action id="PopMenu" MenuId="Application"/>
     </action>
     <style opacity="1" text="Application Listing"/>
   </box>

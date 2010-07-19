@@ -50,8 +50,8 @@ HEADERS += AbstractItem.h \
     ReadAction.h \
     ValidAction.h \
     WriteAction.h \
-    ZoomAction.h
-
+    ZoomAction.h \
+    includes/Action/QuitAction.h
 SOURCES += AbstractItem.cpp \
     AbstractScene.cpp \
     BoxController.cpp \
@@ -81,8 +81,8 @@ SOURCES += AbstractItem.cpp \
     ReadAction.cpp \
     ValidAction.cpp \
     WriteAction.cpp \
-    ZoomAction.cpp
-
+    ZoomAction.cpp \
+    src/Action/QuitAction.cpp
 unix { 
     HEADERS += XWindowSystem.h
     SOURCES += XWindowSystem.cpp

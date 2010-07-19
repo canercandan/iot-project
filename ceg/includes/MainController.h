@@ -63,7 +63,7 @@ public slots:
     void				on_action_emitted(IAction &); // Attrape les actions a execute
 
 private:
-    void				createScenes(std::list<Ceg::Window> const & windows); // Cree tout les layers pour les fenetres donnees
+//    void				createScenes(std::list<Ceg::Window> const & windows); // Cree tout les layers pour les fenetres donnees
     void				initialize(); // Initialise tout les paremetres pour la navigation
 
 

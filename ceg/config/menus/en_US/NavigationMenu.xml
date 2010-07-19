@@ -5,7 +5,7 @@
 
   <box type="2" x="750" y="1" height="100" width="300">
     <action id="ExecMenu">
-      <action id="Home" />
+      <action id="PopMenu" MenuId="Home"/>
     </action>
     <style opacity="1" text="Home"/>
   </box>
