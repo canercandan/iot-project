@@ -41,7 +41,7 @@ MACRO(ADD_PI_EXECUTABLE PI_TARGET_NAME PYTHON_FILENAME)
   IF(makespec_strip)
     SET(MAKESPEC_OPTIONS "${MAKESPEC_OPTIONS} -s")
   ENDIF(makespec_strip)
-  # By default Build.py is console : -c 
+  # By default Build.py is console : -c
   GET_SOURCE_FILE_PROPERTY(makespec_windowed ${PYTHON_FILENAME} WINDOWED)
   IF(makespec_windowed)
     SET(MAKESPEC_OPTIONS "${MAKESPEC_OPTIONS} -w")
@@ -109,7 +109,7 @@ MACRO(ADD_PI_EXECUTABLE PI_TARGET_NAME PYTHON_FILENAME)
   #MESSAGE("${pi_copied_files}")
   # TODO: there are some issues with make clean
   #SET_DIRECTORY_PROPERTIES(PROPERTIES
-  #  ADDITIONAL_MAKE_CLEAN_FILES 
+  #  ADDITIONAL_MAKE_CLEAN_FILES
   #  "${additional_make_clean_files} ${EXECUTABLE_OUTPUT_PATH}/${PI_TARGET_NAME} ${PI_GENERATED_FILES} ${pi_copied_files}")
   #GET_DIRECTORY_PROPERTY(dummy ADDITIONAL_MAKE_CLEAN_FILES)
   #MESSAGE(${dummy})
