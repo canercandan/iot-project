@@ -72,28 +72,45 @@ Systray::Systray(QWidget *parent) :
 void    Systray::createSettingFile()
 {
     QSettings settings;
-    QVariant first = settings.value("general/squareNumber");
 
-    if (first.toInt() == 0)
-	{
-	    settings.beginGroup("general");
-	    settings.setValue("language", "en_US");
-	    settings.setValue("squareNumber", 3);
-	    settings.setValue("customCheck", true);
-	    settings.setValue("customXMLPath", "./config/");
-	    settings.endGroup();
+    settings.beginGroup("general");
 
-	    settings.beginGroup("color");
-	    settings.setValue("focus", "#aa0022");
-	    settings.setValue("blur", "#0");
-	    settings.setValue("opacity", 0.5);
-	    settings.endGroup();
+    if (settings.value("language").toString() == "")
+	settings.setValue("language", "en_US");
 
-	    settings.beginGroup("server");
-	    settings.setValue("port", "5900");
-	    settings.setValue("password", "");
-	    settings.endGroup();
-	}
+    if (settings.value("squareNumber").toString() == "")
+	settings.setValue("squareNumber", 3);
+
+    if (settings.value("customCheck").toString() == "")
+	settings.setValue("customCheck", true);
+
+    if (settings.value("customCheck").toString() == "")
+	settings.setValue("customXMLPath", "./config/");
+
+    settings.endGroup();
+
+    settings.beginGroup("color");
+
+    if (settings.value("focus").toString() == "")
+	settings.setValue("focus", "#aa0022");
+
+    if (settings.value("blur").toString() == "")
+	settings.setValue("blur", "#000000");
+
+    if (settings.value("opacity").toString() == "")
+	settings.setValue("opacity", 0.5);
+
+    settings.endGroup();
+
+    settings.beginGroup("server");
+
+    if (settings.value("port").toString() == "")
+	settings.setValue("port", "5900");
+
+    if (settings.value("customCheck").toString() == "")
+	settings.setValue("password", "");
+
+    settings.endGroup();
 }
 
 Systray::~Systray()
