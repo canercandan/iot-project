@@ -123,6 +123,7 @@ class BuilderWidget(QtGui.QMainWindow):
             out << '</boxes>' + "\n"
             qfile.close()
 
+    # TODO change <action id=' part
     def xmlRec(self, li):
         tmp = ''
         for elem in li:
@@ -171,9 +172,8 @@ class BuilderWidget(QtGui.QMainWindow):
 
             if name == 'action':
                 self.parserCurrentBox.setActionId(attrs['id'])
-
-            if name == 'attribute':
-                self.parserCurrentBox.setAttribute(attrs['id'])
+                # example: call setAttribute(attrs['isZoom']) if attrs['id'] == "Zoom"
+                #self.parserCurrentBox.setAttribute(attrs['id'])
 
             if name == 'children':
                 self.father = self.list
