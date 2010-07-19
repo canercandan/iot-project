@@ -35,6 +35,8 @@ class Toolbar(QtGui.QToolBar):
     def __init__(self, parent):
         QtGui.QToolBar.__init__(self, 'Display toolbar')
 
+        QtGui.QWidget.setAttribute(self, Qt.WA_AlwaysShowToolTips)
+
         #self.shortcuts = Shortcuts(self)
         self.buttons = [
             s(':/pix/new_file', 'New file', 'Ctrl+N', parent.newFile),

@@ -35,6 +35,8 @@ class BuilderWidget(QtGui.QMainWindow):
     def __init__(self):
         QtGui.QMainWindow.__init__(self)
 
+        QtGui.QMainWindow.setAttribute(self, Qt.WA_AlwaysShowToolTips)
+
         try:
             self.toolbar = Toolbar(self)
             self.addToolBar(self.toolbar)
