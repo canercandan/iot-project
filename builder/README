@@ -7,8 +7,9 @@ For commiters and contributors:
 
 How to test (Debian/Ubuntu) ?
 1- Install this package: pyqt4-dev-tools python-dev
-2- $ pyrcc4 resources.qrc -o icons_rc.py
-3- $ python builder.py
+2- $ pyuic4 BoxEditor.ui > BoxEditor_ui.py
+3- $ pyrcc4 resources.qrc -o icons_rc.py
+4- $ python builder.py
 
 Read INSTALL for more information.
 

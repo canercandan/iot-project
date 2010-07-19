@@ -1,0 +1,72 @@
+How to compile and install:
+
+################################################################################
+##   Linux Platform
+################################################################################
+o--------------o
+  Requirements
+o--------------o
+- Python (at least 2.6) => http://www.python.org/download/
+- PyQt (at least 4.5)   => http://www.riverbankcomputing.co.uk/software/pyqt/download
+
+o-------------------------o
+  Additionnal Softwares
+o-------------------------o
+- pyInstaller 1.4       => http://www.pyinstaller.org/
+- cmake (at least 2.6)  => http://www.cmake.org/cmake/resources/software.html
+
+-----------------
+Simple Execution:
+-----------------
+[1-] Compile icons into python file
+$ pyrcc4 resources.qrc -o icons_rc.py
+
+[2-] Enjoy the builder
+$ python builder.py
+
+-------------------
+Static compilation:
+-------------------
+[1-] Read setup.sh
+$ sh setup.sh
+
+[2-] Read static.sh
+$ sh static.sh build
+
+[3-] Grab the binary in build/dist
+
+
+################################################################################
+##   Windows Platform
+################################################################################
+o--------------o
+  Requirements
+o--------------o
+- Python (at least 2.6) => http://www.python.org/download/
+- PyQt (at least 4.5)   => http://www.riverbankcomputing.co.uk/software/pyqt/download
+
+
+
+
+################################################################################
+## Packaging
+################################################################################
+
+After to have prepared cmake commands, you can use the following command to
+generate what ever packages you want:
+
+Debian package: cpack -G DEB
+
+Redhat package: cpack -G RPM
+
+Windows Install: cpack -G NSIS (you have to install NSIS Installer engine first
+from http://nsis.sourceforge.net/). It is possible to simulate these on Debian in
+installing the package nsis (sudo apt-get install nsis).
+
+an so on.
+
+Look at `man cpack` to learn further things.
+
+################################################################################
+
+Last modified: Fri Jul 16 02:46:51 CEST 2010

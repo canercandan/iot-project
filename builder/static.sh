@@ -1,5 +1,8 @@
 #!/bin/sh
 
+icons='icons_rc.py'
+boxEditorUiPy='BoxEditor_ui.py'
+
 build()
 {
     output=`pwd`'/build/dist'
@@ -10,7 +13,12 @@ build()
     fi
 
     # All icons (.png) become one file (.py)
-    pyrcc4 resources.qrc -o icons_rc.py
+    echo 'Compiling resources...'
+    pyrcc4 resources.qrc -o $icons
+
+    # Xml file (.ui) becomes a python class
+    echo 'Compiling ui files...'
+    pyuic4 BoxEditor.ui > $boxEditorUiPy
 
     cd build
     cmake ..
@@ -35,7 +43,10 @@ debpack()
 
 clean()
 {
-    rm -r build
+    rm -rf build
+    echo 'build directory removed'
+    rm -vf $icons
+    rm -vf $boxEditorUiPy
 }
 
 case $1 in

@@ -15,12 +15,10 @@
 #
 # Authors: Builder <builder@ionlythink.com>, http://www.ionlythink.com
 
-import PyQt4
 from PyQt4 import QtGui, QtCore
 from PyQt4.QtCore import *
 from PyQt4.QtGui import QToolBar
 
-import shortcuts
 from shortcuts import Shortcuts
 
 import icons_rc
@@ -38,16 +36,17 @@ class Toolbar(QtGui.QToolBar):
         QtGui.QToolBar.__init__(self, 'Display toolbar')
 
         #self.shortcuts = Shortcuts(self)
-        self.buttons = [ \
-            s(':/pix/new_file', 'New file', 'Ctrl+N', parent.newFile), \
-            s(':/pix/load_file', 'Load file', 'Ctrl+L', parent.loadFile), \
-            s(':/pix/save_file', 'Save file', 'Ctrl+S', parent.saveFile), \
+        self.buttons = [
+            s(':/pix/new_file', 'New file', 'Ctrl+N', parent.newFile),
+            s(':/pix/load_file', 'Load file', 'Ctrl+L', parent.loadFile),
+            s(':/pix/save_file', 'Save file', 'Ctrl+S', parent.saveFile),
             s('', '', '', None), \
             s(':/pix/selection', 'Selection mode', 'S', parent.selectionMode), \
             s(':/pix/box', 'Box mode', 'B', parent.boxMode), \
             s('', '', '', None), \
             s(':/pix/prev_box', 'Select previous box', 'Shift+Tab', parent.selectPreviousBox), \
             s(':/pix/next_box', 'Select next box', 'Tab', parent.selectNextBox), \
+            s(':/pix/edit_box', 'Edit box type', 'E', parent.editBox), \
             s(':/pix/zoom_in', 'Zoom in', '+', parent.zoomIn), \
             s(':/pix/zoom_out', 'Zoom out', '-', parent.zoomOut), \
             s('', '', '', None), \

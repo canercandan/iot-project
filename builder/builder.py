@@ -17,26 +17,18 @@
 
 import sys
 
-import PyQt4
 from PyQt4 import QtGui, QtCore
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
-import box, toolbar
 from box import Box
 from toolbar import Toolbar
 
-import xml.parsers.expat, sys
+import xml.parsers.expat
 
 class Mode:
     box = 0
     selection = 1
-
-class Action:
-    zoom = 0
-    clickLeft = 1
-    clickDouble = 2
-    clickRight = 3
 
 class BuilderWidget(QtGui.QMainWindow):
     def __init__(self):
@@ -51,7 +43,7 @@ class BuilderWidget(QtGui.QMainWindow):
 
         self.init()
         self.createMenu()
-        self.setGeometry(300, 300, 600, 600)
+        self.setGeometry(200, 200, 700, 700)
         self.setWindowTitle('IotBuilder')
         self.setMouseTracking(1)
         self.saveDialog = 'Save xml file'
@@ -75,27 +67,43 @@ class BuilderWidget(QtGui.QMainWindow):
         self.menu = QMainWindow.createPopupMenu(self)
 
     def newFile(self):
-        if self.list or self.father:
-            r = QMessageBox.question(self, 'IotBuilder', \
-                                     'Are you sure to clean all boxes ?', \
-                                     QMessageBox.Ok, QMessageBox.Cancel)
-            if r == QMessageBox.Cancel:
-                return
+        if not self.list and not self.father:
+            return
+
+        r = QMessageBox.question(self, 'IotBuilder',
+                                 'Are you sure to clean all boxes ?',
+                                 QMessageBox.Ok, QMessageBox.Cancel)
+        if r == QMessageBox.Cancel:
+            return
         self.init()
         self.repaint()
 
+    def overwriteQuestion(self, filename):
+        shortFilename = QString(filename).section(QDir.separator(), -1)
+        directory = QString(filename).section(QDir.separator(), -2, -2)
+        return QMessageBox.question(self, 'IotBuilder',
+                                    QString('<b>A file named "%1" already exists.<br />Do you want to replace it ?</b><br /><br />'
+                                            'The file already exists in "%2".<br />Replacing it will overwrite its contents.'
+                                            ).arg(shortFilename).arg(directory),
+                                    QMessageBox.Ok, QMessageBox.Cancel)
+
     def saveFile(self):
-        filename = QFileDialog.getSaveFileName(None, \
-                                               self.saveDialog, \
-                                               QDir.currentPath(), \
+        if not self.list and not self.father:
+            QMessageBox.information(self, 'IotBuilder', 'Nothing to save :)')
+            return
+
+        filename = QFileDialog.getSaveFileName(None,
+                                               self.saveDialog,
+                                               QDir.currentPath(),
                                                self.extensionDialog)
         if filename == '':
             return
         if not QString(filename).endsWith(self.extension):
             filename.append(self.extension)
         if QDir(QDir.currentPath()).exists(filename):
-            QMessageBox.critical(self, 'IotBuilder', 'File already exists...')
-            return
+            r = self.overwriteQuestion(filename)
+            if r == QMessageBox.Cancel:
+                return
 
         qfile = QFile(filename)
         if qfile.open(QIODevice.WriteOnly | QIODevice.Text):
@@ -123,14 +131,12 @@ class BuilderWidget(QtGui.QMainWindow):
     # release : create a box
     # zoom in create box child
     def loadFile(self):
-        filename = QFileDialog.getOpenFileName(None, \
-                                               self.loadDialog, \
-                                               QDir.currentPath(), \
+        filename = QFileDialog.getOpenFileName(None,
+                                               self.loadDialog,
+                                               QDir.currentPath(),
                                                self.extensionDialog)
         if filename == '':
             return
-
-        print filename
 
         self.parser = xml.parsers.expat.ParserCreate()
         self.parserCurrentBox = None
@@ -182,68 +188,6 @@ class BuilderWidget(QtGui.QMainWindow):
     def boxMode(self):
         self.mode = Mode.box
 
-    def zoomIn(self):
-        if self.focused:
-            self.father = self.list
-            if self.focused.son:
-                self.list = self.focused.son
-            else:
-                self.list = []
-                self.focused.son = self.list
-            self.focused.focus = 0
-            self.focused = None
-            self.clipboard = None
-            self.repaint()
-        else:
-            QMessageBox.information(self, 'IotBuilder', \
-                                    'You have not selected any box.')
-
-    def zoomOut(self):
-        if self.father:
-            self.list = self.father
-            if self.focused:
-                self.focused.focus = 0
-            self.focused = None
-            self.clipboard = None
-            self.father = self.list[0].father
-            self.repaint()
-        else:
-            QMessageBox.information(self, 'IotBuilder', \
-                                    'You are on the top level.')
-
-    def copyBox(self):
-        if self.focused:
-            self.clipboard = Box(self.focused.topLeft(), \
-                                 self.focused.bottomRight())
-            self.clipboard.father = self.focused.father
-
-    def cutBox(self):
-        if self.focused:
-            self.copyBox()
-            self.deleteFocusedBox()
-            self.repaint()
-
-    def pasteBox(self):
-        if self.clipboard:
-            copy = Box(self.clipboard.topLeft(), \
-                       self.clipboard.bottomRight())
-            copy.father = self.clipboard.father
-            self.list.append(copy)
-            self.repaint()
-
-    def builderHelp(self):
-        print 'builderHelp method'
-
-    def shortcuts(self):
-        print 'shortcuts method'
-
-    def aboutUs(self):
-        print 'aboutUs method'
-
-    def quitBuilder(self):
-        self.deleteLater()
-        app.quit()
-
     def selectBox(self, pos):
         topBox = 0
         for box in self.list:
@@ -253,17 +197,6 @@ class BuilderWidget(QtGui.QMainWindow):
         self.focused = topBox
         if topBox:
             topBox.focus = 1
-
-    def selectNextBox(self):
-        if self.focused and len(self.list) > 1:
-            index = self.list.index(self.focused)
-            self.focused.focus = 0
-            self.focused = self.list[(index + 1) % len(self.list)]
-            self.focused.focus = 1
-        elif len(self.list):
-            self.focused = self.list[0]
-            self.focused.focus = 1
-        self.repaint()
 
     def selectPreviousBox(self):
         length = len(self.list)
@@ -281,14 +214,89 @@ class BuilderWidget(QtGui.QMainWindow):
             self.focused.focus = 1
         self.repaint()
 
+    def selectNextBox(self):
+        if self.focused and len(self.list) > 1:
+            index = self.list.index(self.focused)
+            self.focused.focus = 0
+            self.focused = self.list[(index + 1) % len(self.list)]
+            self.focused.focus = 1
+        elif len(self.list):
+            self.focused = self.list[0]
+            self.focused.focus = 1
+        self.repaint()
+
+    def editBox(self):
+        if self.focused:
+            self.focused.editBox()
+
+    def zoomIn(self):
+        if self.focused:
+            self.father = self.list
+            if self.focused.son:
+                self.list = self.focused.son
+            else:
+                self.list = []
+                self.focused.son = self.list
+            self.focused.focus = 0
+            self.focused = None
+            self.clipboard = None
+            self.repaint()
+        else:
+            QMessageBox.information(self, 'IotBuilder',
+                                    'You have not selected any box.')
+
+    def zoomOut(self):
+        if self.father:
+            self.list = self.father
+            if self.focused:
+                self.focused.focus = 0
+            self.focused = None
+            self.clipboard = None
+            self.father = self.list[0].father
+            self.repaint()
+        else:
+            QMessageBox.information(self, 'IotBuilder',
+                                    'You are on the top level.')
+
+    def copyBox(self):
+        if self.focused:
+            self.clipboard = Box(self.focused.topLeft(),
+                                 self.focused.bottomRight())
+            self.clipboard.father = self.focused.father
+
+    def cutBox(self):
+        if self.focused:
+            self.copyBox()
+            self.deleteFocusedBox()
+            self.repaint()
+
+    def pasteBox(self):
+        if self.clipboard:
+            copy = Box(self.clipboard.topLeft(),
+                       self.clipboard.bottomRight())
+            copy.father = self.clipboard.father
+            self.list.append(copy)
+            self.repaint()
+
+    def builderHelp(self):
+        print 'builderHelp method'
+
+    def shortcuts(self):
+        print 'shortcuts method'
+
+    def aboutUs(self):
+        print 'aboutUs method'
+
+    def quitBuilder(self):
+        self.deleteLater()
+        for box in self.list:
+            box.deleteBoxEditor()
+        app.quit()
+
     def deleteFocusedBox(self):
         if self.focused:
             self.list.remove(self.focused)
             self.focused = None
-
-    def mouseDoubleClickEvent(self, mouseEvent):
-        if self.focused and self.mode == Mode.selection:
-            self.zoomIn()
 
     def keyPressEvent(self, keyEvent):
         if self.focused:
@@ -302,12 +310,12 @@ class BuilderWidget(QtGui.QMainWindow):
                 self.focused.translate(0, 1)
             elif keyEvent.key() == QtCore.Qt.Key_Delete:
                 self.deleteFocusedBox()
-            self.repaint()
-        elif keyEvent.key() == QtCore.Qt.Key_Enter or \
-            keyEvent.key() == QtCore.Qt.Key_Return:
-            self.zoomIn()
+            elif keyEvent.key() == QtCore.Qt.Key_Enter or \
+                keyEvent.key() == QtCore.Qt.Key_Return:
+                self.zoomIn()
         elif keyEvent.key() == QtCore.Qt.Key_Backspace:
             self.zoomOut()
+        self.repaint()
 
     def onEdge(self, point, Box):
         if point.x() == Box.left():
@@ -415,9 +423,10 @@ class BuilderWidget(QtGui.QMainWindow):
             self.endPos = QPoint(mouseEvent.pos())
             if self.mode == Mode.selection:
                 self.selectBox(mouseEvent.pos())
-            self.repaint()
-        else:
-            QtGui.QMainWindow.mousePressEvent(self, mouseEvent)
+                self.repaint()
+
+    def mouseDoubleClickEvent(self, mouseEvent):
+        self.editBox()
 
     def mouseReleaseEvent(self, mouseEvent):
         if mouseEvent.button() == QtCore.Qt.LeftButton:
@@ -455,8 +464,6 @@ class BuilderWidget(QtGui.QMainWindow):
                 else:
                     paint.drawRect(x)
         paint.end()
-
-
 
 
 if __name__ == "__main__":

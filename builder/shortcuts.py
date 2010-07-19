@@ -15,11 +15,12 @@
 #
 # Authors: Builder <builder@ionlythink.com>, http://www.ionlythink.com
 
-import PyQt4
 from PyQt4 import QtGui, QtCore
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
+
+# Not implemented yet...
 class Shortcuts(QtGui.QDialog):
     def __init__(self, parent):
         QtGui.QDialog.__init__(self, parent)
