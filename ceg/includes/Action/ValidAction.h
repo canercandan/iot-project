@@ -25,9 +25,9 @@
 
 class QDomElement;
 
-/*
-  Action pour generer l'action de validation sur la scene courante
-  */
+/**
+ * \brief Action pour generer l'action de validation sur la scene courante
+ */
 class ValidAction : public IAction
 {
 public:

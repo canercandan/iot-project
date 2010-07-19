@@ -25,9 +25,9 @@
 
 class QDomElement;
 
-/*
-  Action pour generer des mouvements sur la scene courante
-  */
+/**
+ * \brief Action pour generer des mouvements sur la scene courante
+ */
 class MoveAction : public IAction
 {
 public:

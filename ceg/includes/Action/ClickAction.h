@@ -25,9 +25,9 @@
 
 class QDomElement;
 
-/*
-  Action pour generer les clics
-  */
+/**
+ * \brief Action pour generer les clics
+ */
 class ClickAction : public IAction
 {
 public:

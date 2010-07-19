@@ -26,10 +26,10 @@
 
 class IAction;
 
-/*
-  Classe de Vue
-  Represente le calque d'une fenetre
-  */
+/**
+ * \brief Classe de Vue
+ * Represente le calque d'une fenetre
+ */
 class Layer : public AbstractScene
 {
 public:

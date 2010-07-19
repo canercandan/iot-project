@@ -26,10 +26,13 @@
 class Box;
 class IAction;
 
-/*
-  Classe abstraite implementant les methodes par defaut permettant de dessiner les items
-  Un ensemble d'item forme une scene
-  */
+/**
+ * \brief Classe abstraite implementant les methodes par defaut permettant de dessiner les items
+ */
+ 
+ /**
+ * Un ensemble d'item forme une scene
+ */
 class AbstractItem : public QGraphicsRectItem
 {
 public:

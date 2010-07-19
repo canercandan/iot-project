@@ -25,10 +25,10 @@ class QGraphicsItem;
 
 #include "AbstractItem.h"
 
-/*
-Classe de Vue
-Vue d'une box du mode defaut
-*/
+/**
+ * \brief Classe de Vue
+ * Vue d'une box du mode defaut
+ */
 class DefaultItem : public AbstractItem
 {
 public:

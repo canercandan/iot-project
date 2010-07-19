@@ -28,12 +28,15 @@ class MainController;
 class IAction;
 class Systray;
 
-/*
-  Sera supprimer plutard, utilise pour debuger avec le clavier
-  Implementation de QGraphicsView, Widget Qt representant une scene
-  Une vue est associe  a une scene
-  Lorsque que le clavier est utilise, elle creer une MoveAction et la transmet au MainController
-  */
+/**
+ * \brief Implementation de QGraphicsView, Widget Qt representant une scene
+ */
+ 
+ /**
+ * Sera supprimer plutard, utilise pour debuger avec le clavier
+ * Une vue est associe  a une scene
+ * Lorsque que le clavier est utilise, elle creer une MoveAction et la transmet au MainController
+ */
 class View : public QGraphicsView
 {
     Q_OBJECT

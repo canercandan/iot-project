@@ -28,10 +28,12 @@
 
 #include "ui_settingsDialog.h"
 
-/*
-  Classe de Configuration
-  Permet de parametrer l'application via une interface graphique.
-  */
+/**
+ * \brief Classe de Configuration
+ */
+ /** 
+ * Permet de parametrer l'application via une interface graphique.
+ */
 class SettingsDialog : public QDialog, private Ui_SettingsDialog
 {
     Q_OBJECT

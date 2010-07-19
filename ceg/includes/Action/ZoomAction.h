@@ -32,10 +32,13 @@ class BoxController;
 class MainController;
 class Box;
 
-/*
-  Classe d'action permettant de rentrer plus en profondeur dans un patron.
-  Zoomer ou dezoomer
-  */
+/**
+ * \brief Classe d'action permettant de rentrer plus en profondeur dans un patron.
+ */
+ 
+ /**
+ * Zoomer ou dezoomer
+ */
 
 class ZoomAction : public IAction
 {

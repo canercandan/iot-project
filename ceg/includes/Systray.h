@@ -30,13 +30,15 @@ class QSystemTrayIcon;
 class QMenu;
 class QAction;
 
-/*
-  Classe de vue
-  Classe qui contient le systray.
-  Elle permet de stopper le Ceg
-  Permet d'activer/desactiver la navigation
-  Permet d'acceder au menu de preferences et autres reglages
-  */
+/**
+ * \brief Classe de vue qui contient le systray.
+ * Elle permet de stopper le Ceg
+ */
+ 
+ /**  
+ * Permet d'activer/desactiver la navigation
+ * Permet d'acceder au menu de preferences et autres reglages
+ */
 class Systray : public QWidget
 {
     Q_OBJECT

@@ -38,10 +38,10 @@ class ICommunicationGraphicalServer;
 class IAction;
 class Systray;
 
-/*
-  Classe de Controle
-  Elle Gere le fonctionnement general du CEG et ses evenements (actions | reseau)
-  */
+/**
+ * \brief Classe de Controle
+ * Elle Gere le fonctionnement general du CEG et ses evenements (actions | reseau)
+ */
 class MainController : public QObject
 {
     Q_OBJECT

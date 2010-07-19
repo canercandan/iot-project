@@ -32,10 +32,10 @@
 class QDomElement;
 class IAction;
 
-/*
-  Pattern Factory
-  Permet de creer une Action selon son Id
-  */
+/**
+ * \brief Pattern Factory
+ * Permet de creer une Action selon son Id
+ */
 class ActionFactory
 {
 public:

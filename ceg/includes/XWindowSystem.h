@@ -31,7 +31,8 @@
 
 #include "Window.h"
 
-/* doc pour l'API http://tronche.com/gui/x/xlib/
+/**
+ * doc pour l'API http://tronche.com/gui/x/xlib/
  * ressource tres utile http://standards.freedesktop.org/wm-spec/1.3/ar01s05.html
  * pour recupere le PID du programme http://lists.samba.org/archive/linux/2008-July/020298.html  _NET_WM_PID
  * http://stackoverflow.com/questions/151407/how-to-get-an-x11-window-from-a-process-id

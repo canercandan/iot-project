@@ -39,10 +39,10 @@ namespace Ceg
 
 class Box;
 
-/*
-  Classe de controle
-  Gere tout les patrons (schemas, plan, modele) de logiciels et leur acces, creation
-  */
+/**
+ * \brief Classe de controle
+ * Gere tout les patrons (schemas, plan, modele) de logiciels et leur acces, creation
+ */
 
 class BoxController
 {

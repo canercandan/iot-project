@@ -34,12 +34,14 @@ class BoxParameter;
 
 enum BoxType {DEFAULT_BOX, CUSTOM_BOX, MENU_BOX};
 
-/*
-  Classe de Modele
-  Classe contenant tout les elements permettant de construire les items graphiques
-  Element constitutif des patrons
-  Herite de la IDomFactory, car il est possible de creer une box a partir d'un XML
-  */
+/**
+ * \brief Classe de Modele
+ * Classe contenant tout les elements permettant de construire les items graphiques
+ */
+ /**
+ * Element constitutif des patrons
+ * Herite de la IDomFactory, car il est possible de creer une box a partir d'un XML
+ */
 class Box : public IDomFactory
 {
 public:

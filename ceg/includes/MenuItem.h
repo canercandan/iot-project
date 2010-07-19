@@ -26,10 +26,10 @@
 class QGraphicsItem;
 class QKeyEvent;
 
-/*
-Classe de Vue
-Vue d'un item(box) de menu
-*/
+/**
+ * \brief Classe de Vue
+ * Vue d'un item(box) de menu
+ */
 
 class MenuItem : public AbstractItem
 {

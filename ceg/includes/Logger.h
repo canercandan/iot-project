@@ -32,10 +32,10 @@ enum loglevel
 
 static const char* logLevelMsg[4] = {"INFO", "DEBUG", "WARNING", "ERROR: "};
 
-/*
-  Classe de Log
-  Permet d'enregistrer du log
-  */
+/**
+ * \brief Classe de Log
+ * Permet d'enregistrer du log
+ */
 class Logger
 {
     //friend class Singleton<Logger>;

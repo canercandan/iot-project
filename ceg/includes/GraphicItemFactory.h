@@ -25,11 +25,13 @@ class QGraphicsRectItem;
 
 class Box;
 
-/*
-  Creer un item graphique selon sa box
-  L'item graphique peut etre de type : Default, Custom, Menu
-  Pattern Factory
-  */
+/**
+ * \brief Creer un item graphique selon sa box
+ */
+ /*
+ * L'item graphique peut etre de type : Default, Custom, Menu
+ * Pattern Factory
+ */
 class GraphicItemFactory
 {
 public:

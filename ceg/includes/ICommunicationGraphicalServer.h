@@ -28,6 +28,9 @@
 /**
  * \interface ICommunicationGraphicalServer
  * \brief Interface pour la communication avec le serveur graphique
+ */
+ 
+ /* 
  * Cette interface doit etre implemente pour tout les serveurs graphiques existants.
  * Elle permet la communication avec le serveur graphique pour recuperer des informations sur les fenetres ou sur generer des evenements souris.
  */

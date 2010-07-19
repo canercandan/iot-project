@@ -21,9 +21,9 @@
 #ifndef UTILS_H
 #define UTILS_H
 
-/*
-  Fichier de fonctions utiles
-  */
+/**
+ * \brief Fichier de fonctions utiles
+ */
 
 #include <string>
 #include <sstream>
@@ -46,7 +46,9 @@ std::string typeToString(T const & input)
 }
 
 
-// Fonctor permettant de delete n'importe quel type de pointeurs
+/**
+ * Fonctor permettant de delete n'importe quel type de pointeurs
+ */
 namespace Ceg
 {
     struct DeleteObject

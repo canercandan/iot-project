@@ -31,10 +31,12 @@ class QGraphicsRectItem;
 class IAction;
 class AbstractItem;
 
-/*
-  Classe abstraite implemente des methodes communes aux calques(custom | defaut), menu
-  Une scene est composee d'items graphiques
-  */
+/**
+ * \brief Classe abstraite implemente des methodes communes aux calques(custom | defaut), menu
+ */
+ /**
+ * Une scene est composee d'items graphiques
+ */
 class AbstractScene : public QGraphicsScene
 {
 public:

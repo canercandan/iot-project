@@ -24,10 +24,10 @@
 
 #include "AbstractItem.h"
 
-/*
-  Classe de Vue
-  Vue d'une box custom
-  */
+/**
+ * \brief Classe de Vue
+ * Vue d'une box custom
+ */
 class CustomItem : public AbstractItem
 {
 public:

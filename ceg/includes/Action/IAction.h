@@ -25,9 +25,9 @@
 
 class MainController;
 
-/*
-  Interface pour les action
-  */
+/**
+ * \brief Interface pour les action
+ */
 class IAction : public IDomFactory
 {
 public:

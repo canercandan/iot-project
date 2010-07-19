@@ -24,11 +24,13 @@
 
 #include "IDomFactory.h"
 
-/*
-  Classe de modele
-  Contient toute les aspect relatif au graphisme d'une box
-  Herite de la IDomFactory, car il est possible de creer une box a partir d'un XML
-  */
+/**
+ * \brief Classe de modele
+ * Contient toute les aspect relatif au graphisme d'une box
+ */
+ /**
+ * Herite de la IDomFactory, car il est possible de creer une box a partir d'un XML
+ */
 class BoxStyle : public IDomFactory
 {
 public:

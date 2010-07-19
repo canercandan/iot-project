@@ -25,9 +25,9 @@
 
 class QDomElement;
 
-/*
-  Action qui sert a sortir d'un menu
-  */
+/**
+ * \brief Action qui sert a sortir d'un menu
+ */
 
 class CancelAction : public IAction
 {
