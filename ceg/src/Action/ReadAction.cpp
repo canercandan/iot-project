@@ -57,8 +57,6 @@ void	ReadAction::exec(MainController & lm)
     SleeperThread::msleep(this->_hideTime);
 
     view.show();
-
-    qDebug() << "ReadAction: after execution";
 }
 
 /************************************************* [ OTHERS ] *************************************************/

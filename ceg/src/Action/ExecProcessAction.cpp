@@ -33,7 +33,7 @@
 
 char const * ExecProcessAction::IDENTIFIER = "ExecProcess";
 
-ExecProcessAction::ExecProcessAction(const QDomElement & actionElement) : _path()
+ExecProcessAction::ExecProcessAction(const QDomElement & actionElement) : _path(""), _hideTime(1000)
 {
     qDebug() << "ExecProcessAction::ExecProcessAction(const QDomElement & actionElement)";
     this->initializeFromXml(actionElement);
@@ -41,7 +41,15 @@ ExecProcessAction::ExecProcessAction(const QDomElement & actionElement) : _path(
 
 void ExecProcessAction::initializeFromXml(const QDomElement & domElement)
 {
-    this->_path = domElement.attribute("path");
+    if (domElement.hasAttribute("time"))
+	{
+	    this->_hideTime = domElement.attribute("time").toULong();
+	}
+
+    if (domElement.hasAttribute("path"))
+	{
+	    this->_path = domElement.attribute("path");
+	}
 }
 
 /************************************************* [ OTHERS ] *************************************************/
@@ -49,10 +57,24 @@ void ExecProcessAction::initializeFromXml(const QDomElement & domElement)
 void	ExecProcessAction::exec(MainController & lm)
 {
     qDebug() << "ExecProcessAction::exec";
+
+    if (this->_path == "")
+	{
+	    qDebug() << "No path found";
+	    return;
+	}
+
     qDebug() << "We are going to execute" << this->_path;
+
+    View & view = lm.getView();
+    view.hide();
 
     QProcess* process = new QProcess( &lm );
     process->start( this->_path );
+
+    SleeperThread::msleep(this->_hideTime);
+
+    view.show();
 }
 
 /************************************************* [ OTHERS ] *************************************************/

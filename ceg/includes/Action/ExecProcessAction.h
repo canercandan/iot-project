@@ -48,6 +48,7 @@ public:
 
 private:
     QString _path;
+    unsigned long _hideTime;
 };
 
 IAction * instanciateExecProcessAction(QDomElement const &);
