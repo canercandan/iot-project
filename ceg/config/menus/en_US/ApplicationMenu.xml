@@ -32,4 +32,12 @@
     <style opacity="1" text="Cancel"/>
   </box>
 
+  <box type="2" x="750" y="404" height="100" width="300">
+    <action id="ExecMenu">
+      <action id="ExecProcess" path="/usr/bin/gnome-calculator"/>
+      <action id="Read"/>
+    </action>
+    <style opacity="1" text="Calculator"/>
+  </box>
+
 </menu>

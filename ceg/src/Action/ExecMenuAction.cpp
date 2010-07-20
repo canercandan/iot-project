@@ -80,7 +80,7 @@ void ExecMenuAction::exec(MainController & mainC)
 	    qDebug() << "Avant le pop";
 	    mainC.popFrontScene();
 
-	    View& view = mainC.getView();
+	    //View& view = mainC.getView();
 	    //view.setWindowFlags(view.windowFlags() | Qt::WindowStaysOnTopHint);
 
 	    // On execute l'action

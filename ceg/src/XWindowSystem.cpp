@@ -228,6 +228,7 @@ void XWindowSystem::printRecurse(::Window currentWindow, unsigned int level) con
         //	qDebug() << this->printIndent(level) << "Nb child : " << nbChildrenReturn;
         Logger::getInstance()->Log(INFO, msg);
 	::Window muclient = ::XmuClientWindow(this->_connection, currentWindow);
+	(void)muclient;
         //	qDebug() << this->printIndent(level) << "XmuClientWindow : 0x" << muclient << "\n" <<
         msg = lvl.toString();
         Logger::getInstance()->Log(INFO, msg);
