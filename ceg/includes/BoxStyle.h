@@ -42,15 +42,16 @@ public:
     QString const & getImagePath() const;
     QString const & getText() const;
     QString const & getTextFont() const;
-    int			getTextFontSize() const;
-    QString const & getTextColor() const;
-    QString const & getFocusColor() const;
-    QString const & getBlurColor() const;
+    int	    getTextFontSize() const;
+    QString getTextColor() const;
+    QString getFocusColor() const;
+    QString getBlurColor() const;
 
 private:
     virtual void	initializeFromXml(QDomElement const &);
 
 private:
+    bool _fromXML;
     bool	_isVisible;
     float	_opacity;
     QString _imagePath;

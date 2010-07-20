@@ -52,6 +52,56 @@
 #endif
 #endif
 
+void createSettingFile()
+{
+    QSettings settings;
+
+    settings.beginGroup("general");
+
+    if (settings.value("language").toString() == "")
+	settings.setValue("language", "en_US");
+
+    if (settings.value("squareNumber").toString() == "")
+	settings.setValue("squareNumber", 3);
+
+    if (settings.value("customCheck").toString() == "")
+	settings.setValue("customCheck", true);
+
+    if (settings.value("customXMLPath").toString() == "")
+	settings.setValue("customXMLPath", "./config/");
+
+    settings.endGroup();
+
+    settings.beginGroup("color");
+
+    if (settings.value("focus").toString() == "")
+	settings.setValue("focus", "#aa0022");
+
+    if (settings.value("blur").toString() == "")
+	settings.setValue("blur", "#624768");
+
+    if (settings.value("opacity").toString() == "")
+	settings.setValue("opacity", 0.5);
+
+    if (settings.value("text").toString() == "")
+	settings.setValue("text", "#ffffff");
+
+    settings.endGroup();
+
+    settings.beginGroup("server");
+
+    if (settings.value("port").toString() == "")
+	settings.setValue("port", "5900");
+
+    if (settings.value("passwordCheckBox").toString() == "")
+	settings.setValue("passwordCheckBox", false);
+
+    if (settings.value("password").toString() == "")
+	settings.setValue("password", "");
+
+    settings.endGroup();
+}
+
 int main(int ac, char** av)
 {
     //-----------------------------------------------------------------------------
@@ -66,6 +116,16 @@ int main(int ac, char** av)
 
 
     QApplication app(ac, av);
+
+
+    //-----------------------------------------------------------------------------
+    // Create QSettings parameters
+    //-----------------------------------------------------------------------------
+
+    createSettingFile();
+
+    //-----------------------------------------------------------------------------
+
 
     //-----------------------------------------------------------------------------
     // System detection before starting
@@ -185,4 +245,6 @@ int main(int ac, char** av)
     //-----------------------------------------------------------------------------
 
     return (app.exec());
+
+    //-----------------------------------------------------------------------------
 }

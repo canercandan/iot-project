@@ -27,29 +27,40 @@
 
 /************************************************* [ CTOR/DTOR ] *************************************************/
 
-BoxStyle::BoxStyle() :
-	_isVisible(true), _opacity(0.5), _imagePath(""), _text(""), _textFont("Arial"), _textFontSize(20), _textColor("black"),  _focusColor("yellow"), _blurColor("black")
+BoxStyle::BoxStyle()
+    : _fromXML(false), _isVisible(true), _opacity(0.5), _imagePath(""), _text(""), _textFont("Arial"), _textFontSize(20), _textColor("black"),  _focusColor("yellow"), _blurColor("black")
 {
-    QSettings settings;
-
-    this->_focusColor = settings.value("color/focus").toString();
-    this->_blurColor = settings.value("color/blur").toString();
-    this->_opacity = settings.value("color/opacity").toFloat();
 }
 
-BoxStyle::BoxStyle(QDomElement const & styleElement) :
-        _isVisible(true), _opacity(0.5), _imagePath(""), _text(""), _textFont("Arial"), _textFontSize(20), _textColor("black"),  _focusColor("yellow"), _blurColor("black")
+BoxStyle::BoxStyle(QDomElement const & styleElement)
+    : _fromXML(true), _isVisible(true), _opacity(0.5), _imagePath(""), _text(""), _textFont("Arial"), _textFontSize(20), _textColor("black"),  _focusColor("yellow"), _blurColor("black")
 {
-    QSettings settings;
-
-    this->_focusColor = settings.value("color/focus").toString();
-    this->_blurColor = settings.value("color/blur").toString();
-    this->_opacity = settings.value("color/opacity").toFloat();
     this->initializeFromXml(styleElement);
 }
 
 void BoxStyle::initializeFromXml(QDomElement const & styleElement)
 {
+    //-----------------------------------------------------------------------------
+    // We are setting first the parameters with the default values coming
+    // from QSettings.
+    //-----------------------------------------------------------------------------
+
+    QSettings settings;
+
+    settings.beginGroup("color");
+    this->_focusColor = settings.value("focus").toString();
+    this->_blurColor = settings.value("blur").toString();
+    this->_opacity = settings.value("opacity").toFloat();
+    this->_textColor = settings.value("text").toString();
+    settings.endGroup();
+
+    //-----------------------------------------------------------------------------
+
+
+    //-----------------------------------------------------------------------------
+    // Now we are overwritten the parameters with the values coming from XML.
+    //-----------------------------------------------------------------------------
+
     if (styleElement.hasAttribute("visible"))
         this->_isVisible = styleElement.attribute("visible").toUInt();
 
@@ -76,6 +87,8 @@ void BoxStyle::initializeFromXml(QDomElement const & styleElement)
 
     if (styleElement.hasAttribute("blurColor"))
         this->_blurColor = styleElement.attribute("blurColor");
+
+    //-----------------------------------------------------------------------------
 }
 
 /************************************************* [ GETTERS ] *************************************************/
@@ -87,7 +100,13 @@ bool BoxStyle::isVisible() const
 
 float BoxStyle::getOpacity() const
 {
-    return (this->_opacity);
+    if ( ! this->_fromXML )
+	{
+	    QSettings settings;
+	    return settings.value("color/opacity").toFloat();
+	}
+
+    return this->_opacity;
 }
 
 QString const & BoxStyle::getImagePath() const
@@ -110,17 +129,35 @@ int BoxStyle::getTextFontSize() const
     return (this->_textFontSize);
 }
 
-QString const & BoxStyle::getTextColor() const
+QString BoxStyle::getTextColor() const
 {
-    return (this->_textColor);
+    if ( ! this->_fromXML )
+	{
+	    QSettings settings;
+	    return settings.value("color/text").toString();
+	}
+
+    return this->_textColor;
 }
 
-QString const & BoxStyle::getFocusColor() const
+QString BoxStyle::getFocusColor() const
 {
-    return (this->_focusColor);
+    if ( ! this->_fromXML )
+	{
+	    QSettings settings;
+	    return settings.value("color/focus").toString();
+	}
+
+    return this->_focusColor;
 }
 
-QString const & BoxStyle::getBlurColor() const
+QString BoxStyle::getBlurColor() const
 {
-    return (this->_blurColor);
+    if ( ! this->_fromXML )
+	{
+	    QSettings settings;
+	    return settings.value("color/blur").toString();
+	}
+
+    return this->_blurColor;
 }

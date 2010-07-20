@@ -64,7 +64,10 @@ SettingsDialog::SettingsDialog(QWidget *parent) :
     color = settings.value("blur").toString();
     this->colorBlurLabel->setPalette(QPalette(color));
     this->colorBlurLabel->setAutoFillBackground(true);
-    this->colorOpacitySlider->setValue((settings.value("opacity").toFloat() * 100));
+    this->colorOpacitySlider->setValue((settings.value("opacity").toDouble() * 100.));
+    color = settings.value("text").toString();
+    this->colorTextLabel->setPalette(QPalette(color));
+    this->colorTextLabel->setAutoFillBackground(true);
     settings.endGroup();
 
     settings.beginGroup("server");
@@ -103,14 +106,18 @@ void SettingsDialog::on_buttonBox_accepted()
 
     if ( (unsigned int)this->languageComboBox->currentIndex() < _languages.size() )
 	{
-	    QString& language = _languages[ this->languageComboBox->currentIndex() ];
+	    QString language = _languages[ this->languageComboBox->currentIndex() ];
 
 	    if (settings.value("language").toString() != language)
 		{
-		    QMessageBox::information(0, tr("Language changed"), tr("The language has been changed. To apply this modification you have to restart the program."));
-		}
+		    QMessageBox::information
+			(0,
+			 tr("Language changed"),
+			 tr("The language has been changed. To apply this modification you have to restart the program.")
+			 );
 
-	    settings.setValue("language", language);
+		    settings.setValue("language", language);
+		}
 	}
 
     settings.setValue("squareNumber", this->squareNumberBox->text());
@@ -119,11 +126,29 @@ void SettingsDialog::on_buttonBox_accepted()
     settings.endGroup();
 
     settings.beginGroup("color");
-    settings.setValue("focus", this->colorFocusLabel->palette().color(QPalette::Background).name());
-    settings.setValue("blur", this->colorBlurLabel->palette().color(QPalette::Background).name());
-    qreal realValue = this->colorOpacitySlider->value();
-    realValue /= 100;
-    settings.setValue("opacity", realValue);
+
+    QString focusColor = this->colorFocusLabel->palette().color(QPalette::Background).name();
+    QString blurColor = this->colorBlurLabel->palette().color(QPalette::Background).name();
+    double opacityValue = this->colorOpacitySlider->value() / 100.;
+    QString textColor = this->colorTextLabel->palette().color(QPalette::Background).name();
+
+    if (settings.value("focus").toString() != focusColor ||
+	settings.value("blur").toString() != blurColor ||
+	settings.value("opacity").toDouble() != opacityValue ||
+	settings.value("text").toString() != textColor)
+	{
+	    QMessageBox::information
+		(0,
+		 tr("Color changed"),
+		 tr("To apply correctly colors updates, we recommand you to restart the program.")
+		 );
+
+	    settings.setValue("focus", focusColor);
+	    settings.setValue("blur", blurColor);
+	    settings.setValue("opacity", opacityValue);
+	    settings.setValue("text", textColor);
+	}
+
     settings.endGroup();
 
     settings.beginGroup("server");
@@ -176,4 +201,12 @@ void SettingsDialog::on_colorOpacitySlider_valueChanged(int value)
     color.setAlphaF(realValue);
     this->colorOpacityLabel->setPalette(QPalette(color));
     this->colorOpacityLabel->setAutoFillBackground(true);
+}
+
+void SettingsDialog::on_colorTextButton_clicked()
+{
+	QColor color = QColorDialog::getColor(this->colorTextLabel->palette().color(QPalette::Background), this);
+    if (color.isValid()) {
+        this->colorTextLabel->setPalette(QPalette(color));
+    }
 }

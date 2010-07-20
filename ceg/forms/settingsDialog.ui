@@ -362,6 +362,45 @@
                </property>
               </widget>
              </item>
+             <item row="0" column="1">
+              <layout class="QHBoxLayout" name="horizontalLayout_4">
+               <property name="spacing">
+                <number>50</number>
+               </property>
+               <property name="leftMargin">
+                <number>10</number>
+               </property>
+               <property name="rightMargin">
+                <number>20</number>
+               </property>
+               <item>
+                <widget class="QPushButton" name="colorFocusButton">
+                 <property name="text">
+                  <string>Choose a color</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLabel" name="colorFocusLabel">
+                 <property name="maximumSize">
+                  <size>
+                   <width>100</width>
+                   <height>16777215</height>
+                  </size>
+                 </property>
+                 <property name="frameShape">
+                  <enum>QFrame::WinPanel</enum>
+                 </property>
+                 <property name="frameShadow">
+                  <enum>QFrame::Sunken</enum>
+                 </property>
+                 <property name="text">
+                  <string/>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
              <item row="1" column="0">
               <widget class="QLabel" name="label_5">
                <property name="text">
@@ -369,8 +408,99 @@
                </property>
               </widget>
              </item>
+             <item row="1" column="1">
+              <layout class="QHBoxLayout" name="horizontalLayout_5">
+               <property name="spacing">
+                <number>50</number>
+               </property>
+               <property name="leftMargin">
+                <number>10</number>
+               </property>
+               <property name="rightMargin">
+                <number>20</number>
+               </property>
+               <item>
+                <widget class="QPushButton" name="colorBlurButton">
+                 <property name="text">
+                  <string>Choose a color</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLabel" name="colorBlurLabel">
+                 <property name="maximumSize">
+                  <size>
+                   <width>100</width>
+                   <height>16777215</height>
+                  </size>
+                 </property>
+                 <property name="frameShape">
+                  <enum>QFrame::WinPanel</enum>
+                 </property>
+                 <property name="frameShadow">
+                  <enum>QFrame::Sunken</enum>
+                 </property>
+                 <property name="lineWidth">
+                  <number>1</number>
+                 </property>
+                 <property name="text">
+                   <string/>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
              <item row="2" column="0">
               <widget class="QLabel" name="label_6">
+               <property name="text">
+                <string>Text:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="1">
+              <layout class="QHBoxLayout" name="horizontalLayout_215">
+               <property name="spacing">
+                <number>50</number>
+               </property>
+               <property name="leftMargin">
+                <number>10</number>
+               </property>
+               <property name="rightMargin">
+                <number>20</number>
+               </property>
+               <item>
+                <widget class="QPushButton" name="colorTextButton">
+                 <property name="text">
+                  <string>Choose a color</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLabel" name="colorTextLabel">
+                 <property name="maximumSize">
+                  <size>
+                   <width>100</width>
+                   <height>16777215</height>
+                  </size>
+                 </property>
+                 <property name="frameShape">
+                  <enum>QFrame::WinPanel</enum>
+                 </property>
+                 <property name="frameShadow">
+                  <enum>QFrame::Sunken</enum>
+                 </property>
+                 <property name="lineWidth">
+                  <number>1</number>
+                 </property>
+                 <property name="text">
+                   <string/>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item row="3" column="0">
+              <widget class="QLabel" name="label_7">
                <property name="minimumSize">
                 <size>
                  <width>0</width>
@@ -382,7 +512,7 @@
                </property>
               </widget>
              </item>
-             <item row="2" column="1">
+             <item row="3" column="1">
               <layout class="QHBoxLayout" name="horizontalLayout_3">
                <property name="spacing">
                 <number>50</number>
@@ -437,87 +567,6 @@
                    <width>50</width>
                    <height>50</height>
                   </size>
-                 </property>
-                 <property name="text">
-                  <string/>
-                 </property>
-                </widget>
-               </item>
-              </layout>
-             </item>
-             <item row="0" column="1">
-              <layout class="QHBoxLayout" name="horizontalLayout_4">
-               <property name="spacing">
-                <number>50</number>
-               </property>
-               <property name="leftMargin">
-                <number>10</number>
-               </property>
-               <property name="rightMargin">
-                <number>20</number>
-               </property>
-               <item>
-                <widget class="QPushButton" name="colorFocusButton">
-                 <property name="text">
-                  <string>Choose a color</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QLabel" name="colorFocusLabel">
-                 <property name="maximumSize">
-                  <size>
-                   <width>100</width>
-                   <height>16777215</height>
-                  </size>
-                 </property>
-                 <property name="frameShape">
-                  <enum>QFrame::WinPanel</enum>
-                 </property>
-                 <property name="frameShadow">
-                  <enum>QFrame::Sunken</enum>
-                 </property>
-                 <property name="text">
-                  <string/>
-                 </property>
-                </widget>
-               </item>
-              </layout>
-             </item>
-             <item row="1" column="1">
-              <layout class="QHBoxLayout" name="horizontalLayout_5">
-               <property name="spacing">
-                <number>50</number>
-               </property>
-               <property name="leftMargin">
-                <number>10</number>
-               </property>
-               <property name="rightMargin">
-                <number>20</number>
-               </property>
-               <item>
-                <widget class="QPushButton" name="colorBlurButton">
-                 <property name="text">
-                  <string>Choose a color</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QLabel" name="colorBlurLabel">
-                 <property name="maximumSize">
-                  <size>
-                   <width>100</width>
-                   <height>16777215</height>
-                  </size>
-                 </property>
-                 <property name="frameShape">
-                  <enum>QFrame::WinPanel</enum>
-                 </property>
-                 <property name="frameShadow">
-                  <enum>QFrame::Sunken</enum>
-                 </property>
-                 <property name="lineWidth">
-                  <number>1</number>
                  </property>
                  <property name="text">
                   <string/>

@@ -48,6 +48,7 @@ public slots:
     void on_colorBlurButton_clicked();
     void on_colorFocusButton_clicked();
     void on_colorOpacitySlider_valueChanged(int value);
+    void on_colorTextButton_clicked();
 
 private:
     typedef std::vector< QString > Languages;

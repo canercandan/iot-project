@@ -53,9 +53,6 @@ signals:
 public slots:
     void on__startAction_triggered();
 
-private:
-    void    createSettingFile();
-
 private slots:
     void on__aboutQtAction_triggered();
     void on__settingAction_triggered();

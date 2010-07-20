@@ -61,7 +61,6 @@ Systray::Systray(QWidget *parent) :
     QObject::connect(this, SIGNAL(navigationStarted()), &(this->_mainC), SLOT(on_start_navigation()));
     QObject::connect(this, SIGNAL(navigationStoped()), &(this->_mainC), SLOT(on_stop_navigation()));
 
-    this->createSettingFile();
     this->setWindowIcon(QIcon(":/images/systray-transparent-32x32.png"));
 
     this->_trayIcon->show();
@@ -70,50 +69,6 @@ Systray::Systray(QWidget *parent) :
     // on Linux. It appears on the left but it must be on the right.
     this->_trayIcon->showMessage(tr("Information Message"), tr("Click on Start to launch the Default Navigator"), QSystemTrayIcon::MessageIcon(), 7000);
 #endif
-}
-
-void    Systray::createSettingFile()
-{
-    QSettings settings;
-
-    settings.beginGroup("general");
-
-    if (settings.value("language").toString() == "")
-	settings.setValue("language", "en_US");
-
-    if (settings.value("squareNumber").toString() == "")
-	settings.setValue("squareNumber", 3);
-
-    if (settings.value("customCheck").toString() == "")
-	settings.setValue("customCheck", true);
-
-    if (settings.value("customCheck").toString() == "")
-	settings.setValue("customXMLPath", "./config/");
-
-    settings.endGroup();
-
-    settings.beginGroup("color");
-
-    if (settings.value("focus").toString() == "")
-	settings.setValue("focus", "#aa0022");
-
-    if (settings.value("blur").toString() == "")
-	settings.setValue("blur", "#000000");
-
-    if (settings.value("opacity").toString() == "")
-	settings.setValue("opacity", 0.5);
-
-    settings.endGroup();
-
-    settings.beginGroup("server");
-
-    if (settings.value("port").toString() == "")
-	settings.setValue("port", "5900");
-
-    if (settings.value("customCheck").toString() == "")
-	settings.setValue("password", "");
-
-    settings.endGroup();
 }
 
 Systray::~Systray()
