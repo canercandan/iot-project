@@ -4,12 +4,12 @@
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../src/main.cpp" line="79"/>
+        <location filename="../src/main.cpp" line="138"/>
         <source>Systray</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="80"/>
+        <location filename="../src/main.cpp" line="139"/>
         <source>Couldn&apos;t detect any system tray on this system.</source>
         <translation></translation>
     </message>
@@ -17,147 +17,173 @@
 <context>
     <name>SettingsDialog</name>
     <message>
-        <location filename="../src/SettingsDialog.cpp" line="90"/>
-        <location filename="../src/SettingsDialog.cpp" line="96"/>
+        <location filename="../src/SettingsDialog.cpp" line="93"/>
+        <location filename="../src/SettingsDialog.cpp" line="99"/>
         <source>Error</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
-        <location filename="../src/SettingsDialog.cpp" line="90"/>
+        <location filename="../src/SettingsDialog.cpp" line="93"/>
         <source>Please define the custom xml path !</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
-        <location filename="../src/SettingsDialog.cpp" line="96"/>
+        <location filename="../src/SettingsDialog.cpp" line="99"/>
         <source>Please fill all proxy fields !</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
-        <location filename="../src/SettingsDialog.cpp" line="110"/>
+        <location filename="../src/SettingsDialog.cpp" line="115"/>
         <source>Language changed</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
-        <location filename="../src/SettingsDialog.cpp" line="110"/>
+        <location filename="../src/SettingsDialog.cpp" line="116"/>
         <source>The language has been changed. To apply this modification you have to restart the program.</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
-        <location filename="../src/SettingsDialog.cpp" line="145"/>
+        <location filename="../src/SettingsDialog.cpp" line="142"/>
+        <source>Color changed</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/SettingsDialog.cpp" line="143"/>
+        <source>To apply correctly colors updates, we recommand you to restart the program.</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/SettingsDialog.cpp" line="166"/>
+        <source>Server changed</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/SettingsDialog.cpp" line="167"/>
+        <source>To apply server updates, you have to restart the program.</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/SettingsDialog.cpp" line="186"/>
         <source>Open Directory</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../forms/settingsDialog.ui" line="35"/>
         <source>Settings</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../forms/settingsDialog.ui" line="84"/>
         <location filename="../forms/settingsDialog.ui" line="155"/>
         <source>General</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../forms/settingsDialog.ui" line="93"/>
         <location filename="../forms/settingsDialog.ui" line="340"/>
         <source>Color</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../forms/settingsDialog.ui" line="102"/>
-        <location filename="../forms/settingsDialog.ui" line="546"/>
+        <location filename="../forms/settingsDialog.ui" line="610"/>
         <source>Server</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../forms/settingsDialog.ui" line="173"/>
         <source>Language:</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../forms/settingsDialog.ui" line="187"/>
         <source>English</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message utf8="true">
         <location filename="../forms/settingsDialog.ui" line="192"/>
         <source>Français</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../forms/settingsDialog.ui" line="202"/>
         <source>Default Boxes</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../forms/settingsDialog.ui" line="223"/>
         <source>Number of squares:</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../forms/settingsDialog.ui" line="253"/>
         <source>Disable Custom Boxes Mode</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../forms/settingsDialog.ui" line="263"/>
         <source>Custom Boxes</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../forms/settingsDialog.ui" line="284"/>
         <source>Define the XML Path:</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../forms/settingsDialog.ui" line="300"/>
         <source>Browse...</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../forms/settingsDialog.ui" line="361"/>
         <source>On focus:</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
-        <location filename="../forms/settingsDialog.ui" line="368"/>
+        <location filename="../forms/settingsDialog.ui" line="407"/>
         <source>On blur:</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
-        <location filename="../forms/settingsDialog.ui" line="381"/>
+        <location filename="../forms/settingsDialog.ui" line="456"/>
+        <source>Text:</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../forms/settingsDialog.ui" line="511"/>
         <source>Opacity (min to max):</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
-        <location filename="../forms/settingsDialog.ui" line="459"/>
-        <location filename="../forms/settingsDialog.ui" line="492"/>
+        <location filename="../forms/settingsDialog.ui" line="379"/>
+        <location filename="../forms/settingsDialog.ui" line="425"/>
+        <location filename="../forms/settingsDialog.ui" line="474"/>
         <source>Choose a color</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
-        <location filename="../forms/settingsDialog.ui" line="561"/>
+        <location filename="../forms/settingsDialog.ui" line="625"/>
         <source>Server setting</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
-        <location filename="../forms/settingsDialog.ui" line="588"/>
+        <location filename="../forms/settingsDialog.ui" line="652"/>
         <source>Port:</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
-        <location filename="../forms/settingsDialog.ui" line="630"/>
+        <location filename="../forms/settingsDialog.ui" line="694"/>
         <source>Require the user to enter this password:</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 <context>
     <name>Systray</name>
     <message>
         <location filename="../src/Systray.cpp" line="41"/>
-        <location filename="../src/Systray.cpp" line="113"/>
-        <location filename="../src/Systray.cpp" line="122"/>
+        <location filename="../src/Systray.cpp" line="88"/>
+        <location filename="../src/Systray.cpp" line="97"/>
         <source>Start</source>
         <translation></translation>
     </message>
@@ -168,7 +194,7 @@
     </message>
     <message>
         <location filename="../src/Systray.cpp" line="43"/>
-        <location filename="../src/Systray.cpp" line="129"/>
+        <location filename="../src/Systray.cpp" line="104"/>
         <source>About Qt</source>
         <translation></translation>
     </message>
@@ -183,22 +209,22 @@
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/Systray.cpp" line="68"/>
+        <location filename="../src/Systray.cpp" line="70"/>
         <source>Information Message</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/Systray.cpp" line="68"/>
+        <location filename="../src/Systray.cpp" line="70"/>
         <source>Click on Start to launch the Default Navigator</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/Systray.cpp" line="115"/>
+        <location filename="../src/Systray.cpp" line="90"/>
         <source>Commandes</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/Systray.cpp" line="115"/>
+        <location filename="../src/Systray.cpp" line="90"/>
         <source>Left | Right arrow = Horizontal Move
 Up | Down Arrow = Vertical move
 Enter = Zoom
@@ -208,17 +234,17 @@ Alt + F4 = Quit</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/Systray.cpp" line="117"/>
+        <location filename="../src/Systray.cpp" line="92"/>
         <source>Stop</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/Systray.cpp" line="140"/>
+        <location filename="../src/Systray.cpp" line="115"/>
         <source>About CEG</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/Systray.cpp" line="140"/>
+        <location filename="../src/Systray.cpp" line="115"/>
         <source>Allows users to control machine by thinking.</source>
         <translation></translation>
     </message>
