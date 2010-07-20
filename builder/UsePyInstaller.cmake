@@ -7,7 +7,7 @@
 #
 # SET_SOURCE_FILES_PROPERTIES(hello.py PROPERTIES UPX ON)
 # ADD_PI_EXECUTABLE(hello hello.py)
-# 
+#
 # An important option is PYTHONPATH it needs to be specified so that modules can be found properly
 # This is a set of directory separated by ':', eg:
 # SET_SOURCE_FILES_PROPERTIES(hello.py PROPERTIES PYTHONPATH "/tmp:/opt")
@@ -16,7 +16,6 @@
 MACRO(ADD_PI_EXECUTABLE PI_TARGET_NAME PYTHON_FILENAME)
   # python installer creates a directory names exe.py -> exe
   GET_FILENAME_COMPONENT(PI_NAME ${PYTHON_FILENAME} NAME_WE)
-  #SET(PI_NAME ${PI_TARGET_NAME})
 
 #Step 1: Makespec.py
   # First need to find the options for Makespec.py user requested:
@@ -123,11 +122,16 @@ MACRO(ADD_PI_EXECUTABLE PI_TARGET_NAME PYTHON_FILENAME)
     DESTINATION lib
   )
   # Install exe in bin:
-  INSTALL(
+  if (UNIX)
+    INSTALL(
     PROGRAMS ${MAKESPEC_OUTPUT_PATH}/dist/${PI_NAME}
     DESTINATION bin
-    COMPONENT applications
-  )
+    COMPONENT applications)
+  else()
+    INSTALL(
+    PROGRAMS ${MAKESPEC_OUTPUT_PATH}/dist/${PI_NAME}.exe
+    DESTINATION bin
+    COMPONENT applications)
+  endif()
 
 ENDMACRO(ADD_PI_EXECUTABLE)
-

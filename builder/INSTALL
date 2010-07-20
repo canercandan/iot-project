@@ -21,16 +21,19 @@ Simple Execution:
 [1-] Compile icons into python file
 $ pyrcc4 resources.qrc -o icons_rc.py
 
-[2-] Enjoy the builder
+[2-] Compile xml ui into python file
+$ pyuic4 BoxEditor.ui -o BoxEditor_ui.py
+
+[3-] Enjoy the builder
 $ python builder.py
 
 -------------------
 Static compilation:
 -------------------
-[1-] Read setup.sh
+[1-] Read setup.sh then execute
 $ sh setup.sh
 
-[2-] Read static.sh
+[2-] Read static.sh then execute
 $ sh static.sh build
 
 [3-] Grab the binary in build/dist
@@ -42,14 +45,72 @@ $ sh static.sh build
 o--------------o
   Requirements
 o--------------o
-- Python (at least 2.6) => http://www.python.org/download/
+- Python (2.6.5 is good) => http://www.python.org/download/
 - PyQt (at least 4.5)   => http://www.riverbankcomputing.co.uk/software/pyqt/download
 
+o-------------------------o
+  Additionnal Softwares
+o-------------------------o
+- pyInstaller 1.4        => http://www.pyinstaller.org/
+- cmake (at least 2.6)   => http://www.cmake.org/cmake/resources/software.html
+- pywin32-214            => http://sourceforge.net/projects/pywin32/
+- Mingw (C/C++ compiler) => http://sourceforge.net/projects/mingw/files/
 
+-----------------
+Simple Execution:
+-----------------
+[1-]  Install Python 2.6.5
+[2-]  Install PyQt-Py2.6
 
+[3-] Compile icons into python file
+$ pyrcc4 resources.qrc -o icons_rc.py
+
+[4-] Compile xml ui into python file
+$ pyuic4 BoxEditor.ui -o BoxEditor_ui.py
+
+[5-] Enjoy the builder: double click on builder.py
+
+------------------------------------
+Static compilation with pyinstaller:
+------------------------------------
+[1-]  Install Python 2.6.5
+[2-]  Install PyQt-Py2.6
+[3-]  Install pywin32
+[4-]  Download lastest revision (snapshot) from SVN trunk (tested with r854)
+[4a-] Extract and rename to C:\pyinstaller for example
+[4b-] If you didnt use "C:/pyinstaller" path, modify FindPyInstaller.cmake: replace C:/pyinstaller by yours
+[4c-] Open a shell (cmd.exe) and cd to pyinstaller directory then $ python Configure.py
+[5-] Set all environement variables (Python + PyQt + pyinstaller) in order to properly use the Windows shell
+[6-] Double click on static.bat
+[7-] Static binary appears in build\dist\
+
+-------------------------------
+Static compilation with py2exe:
+-------------------------------
+[1-] Install Python 2.6.5
+[2-] Install PyQt-Py2.6
+[3-] Set all environement variables (Python + PyQt) in order to properly use the Windows shell
+[3-] Install py2exe according to your Python version
+
+[4-] Upgrade your python modules
+$ python setup.py install
+
+[5-] Compile icons into python file
+$ pyrcc4 resources.qrc -o icons_rc.py
+
+[6-] Compile xml ui into python file
+$ pyuic4 BoxEditor.ui -o BoxEditor_ui.py
+
+[7-] Compile
+$ python setup.py py2exe
+
+[8-] Static binary appears in dist directory
+
+Some issues ?
+=> http://www.py2exe.org/index.cgi/Py2exeAndPyQt
 
 ################################################################################
-## Packaging
+##   Packaging
 ################################################################################
 
 After to have prepared cmake commands, you can use the following command to
@@ -69,4 +130,4 @@ Look at `man cpack` to learn further things.
 
 ################################################################################
 
-Last modified: Fri Jul 16 02:46:51 CEST 2010
+Last modified: Tue Jul 20 03:19:59 CEST 2010

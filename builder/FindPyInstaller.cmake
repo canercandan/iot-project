@@ -3,13 +3,19 @@
 
 # python Makespec.py [opts] <scriptname> [<scriptname> ...]
 # python Build.py specfile
-FIND_PATH(
-  PyInstaller_PATH
-  Makespec.py
-# TODO an env var should be easier to maintain
-  $ENV{HOME}/pyinstaller-1.4
-  DOC "Path to the pyinstaller directory (where to find Makespec.py)"
-  )
+if (UNIX)
+  FIND_PATH(
+    PyInstaller_PATH
+    Makespec.py
+    $ENV{HOME}/pyinstaller-1.4
+    DOC "Path to the pyinstaller directory (where to find Makespec.py)")
+else()
+  FIND_PATH(
+    PyInstaller_PATH
+    Makespec.py
+    C:/pyinstaller
+    DOC "Path to the pyinstaller directory (where to find Makespec.py)")
+endif()
 
 # $ python Makespec.py hello.py
 # -> wrote /home/mmalaterre/Projects/pyinstaller/hello/hello.spec
