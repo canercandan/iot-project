@@ -70,11 +70,11 @@ XWindowSystem::~XWindowSystem()
     {
 	if (::XCloseDisplay(this->_connection) == BadGC)
 	{
-	    Logger::getInstance()->Log(ERROR, "Scope : XWindowSystem::~XWindowSystem\tFunction : XCloseDisplay fail");
+	    Logger::getInstance()->Log(ERROR_LOG, "Scope : XWindowSystem::~XWindowSystem\tFunction : XCloseDisplay fail");
 	}
 	else
 	{
-	    Logger::getInstance()->Log(ERROR,  "Connection to Graphical Server close with success.");
+	    Logger::getInstance()->Log(ERROR_LOG,  "Connection to Graphical Server close with success.");
 	}
     }
 }
@@ -214,25 +214,25 @@ void XWindowSystem::printRecurse(::Window currentWindow, unsigned int level) con
 	QVariant lvl(this->printIndent(level));
 	//QVariant rootRet(&rootReturn);
 	//msg += currentWindow; msg += " Root:"; msg += rootRet.toString();
-	Logger::getInstance()->Log(INFO, msg);
+	Logger::getInstance()->Log(INFO_LOG, msg);
 	//lvl << "Parent : 0x" << std::hex << parentReturn << std::dec;
 	pid_t pid = this->getPid(currentWindow);
 	//	qDebug() << lvl << "Pid of the window's creator : " << pid;
-	Logger::getInstance()->Log(INFO, msg);
+	Logger::getInstance()->Log(INFO_LOG, msg);
 	if (pid != 0)
 	{
 	//	  qDebug() << this->printIndent(level) << "Binaire utilise : " << this->getPathOfBinary(typeToString(pid)).c_str();
-	Logger::getInstance()->Log(INFO, msg);
+	Logger::getInstance()->Log(INFO_LOG, msg);
 	}
 	this->printCommands(currentWindow, level);
 	this->printWindow(currentWindow, level);
 	//	qDebug() << this->printIndent(level) << "Nb child : " << nbChildrenReturn;
-	Logger::getInstance()->Log(INFO, msg);
+	Logger::getInstance()->Log(INFO_LOG, msg);
 	::Window muclient = ::XmuClientWindow(this->_connection, currentWindow);
 	(void)muclient;
 	//	qDebug() << this->printIndent(level) << "XmuClientWindow : 0x" << muclient << "\n" <<
 	msg = lvl.toString();
-	Logger::getInstance()->Log(INFO, msg);
+	Logger::getInstance()->Log(INFO_LOG, msg);
 	for (unsigned int i = 0; i < nbChildrenReturn; ++i)
 	{
 	    this->printRecurse(childrenReturn[i], level + 1);
@@ -241,7 +241,7 @@ void XWindowSystem::printRecurse(::Window currentWindow, unsigned int level) con
     }
     else
     {
-	Logger::getInstance()->Log(ERROR, "Scope : XWindowSystem::printRecurse\tFunction XQueryTree fail");
+	Logger::getInstance()->Log(ERROR_LOG, "Scope : XWindowSystem::printRecurse\tFunction XQueryTree fail");
     }
 }
 
@@ -291,7 +291,7 @@ char XWindowSystem::printIndent(unsigned int nbIndent) const
 {
     if (nbIndent > 0)
 	for (unsigned int i = 0; i < (nbIndent - 1); ++i)
-	    Logger::getInstance()->Log(INFO, "*");
+	    Logger::getInstance()->Log(INFO_LOG, "*");
     return (' ');
 }
 
@@ -305,12 +305,12 @@ void XWindowSystem::printWindow(::Window windowId, unsigned int level) const
 	msg = lvl.toString(); msg += "Window Name : ";
 	//QString value(propWindowName.value);
 	//msg += value;
-	Logger::getInstance()->Log(INFO, msg);
+	Logger::getInstance()->Log(INFO_LOG, msg);
 	::XFree(propWindowName.value);
     }
     else
     {
-	Logger::getInstance()->Log(ERROR, "Scope : XWindowSystem::printWindow\tFunction XGetWMName fail");
+	Logger::getInstance()->Log(ERROR_LOG, "Scope : XWindowSystem::printWindow\tFunction XGetWMName fail");
     }
 
     XTextProperty propIconName;
@@ -340,7 +340,7 @@ void XWindowSystem::printWindow(::Window windowId, unsigned int level) const
     }
     else
     {
-	Logger::getInstance()->Log(ERROR, "Scope : XWindowSystem::printWindow\tFunction XGetClassHint fail");
+	Logger::getInstance()->Log(ERROR_LOG, "Scope : XWindowSystem::printWindow\tFunction XGetClassHint fail");
     }
 
     ::XWindowAttributes windowInfos;
@@ -357,20 +357,20 @@ void XWindowSystem::printWindow(::Window windowId, unsigned int level) const
 	varH = windowInfos.height;
 
 	msg = varLevel.toString(); msg += "x : "; msg += varX.toString();
-	Logger::getInstance()->Log(INFO, msg);
+	Logger::getInstance()->Log(INFO_LOG, msg);
 	msg = varLevel.toString(); msg += "Y : ";msg += varY.toString();
-	Logger::getInstance()->Log(INFO, msg);
+	Logger::getInstance()->Log(INFO_LOG, msg);
 	// cf function Display_Stats_Info for absolute window
 	msg = varLevel.toString(); msg += "heigth : ";msg += varH.toString();
-	Logger::getInstance()->Log(INFO, msg);
+	Logger::getInstance()->Log(INFO_LOG, msg);
 	msg = varLevel.toString(); msg += "width : ";msg += varW.toString();
-	Logger::getInstance()->Log(INFO, msg);
+	Logger::getInstance()->Log(INFO_LOG, msg);
 	msg = varLevel.toString(); msg += "Visible :"; msg += ((windowInfos.map_state == IsUnmapped) ? "IsUnmapped" : (windowInfos.map_state == IsUnviewable) ? "IsUnviewable" : "IsViewable");
-	Logger::getInstance()->Log(INFO, msg);
+	Logger::getInstance()->Log(INFO_LOG, msg);
     }
     else
     {
-	Logger::getInstance()->Log(ERROR, "Scope : XWindowSystem::printWindow\tFunction XGetWindowAttributes fail");
+	Logger::getInstance()->Log(ERROR_LOG, "Scope : XWindowSystem::printWindow\tFunction XGetWindowAttributes fail");
     }
 }
 
@@ -392,6 +392,6 @@ void XWindowSystem::printCommands(::Window windowId, unsigned int /*level*/) con
     }
     else
     {
-	Logger::getInstance()->Log(ERROR, "Scope : XWindowSystem::printCommands\tFunction XGetCommand fail");
+	Logger::getInstance()->Log(ERROR_LOG, "Scope : XWindowSystem::printCommands\tFunction XGetCommand fail");
     }
 }
