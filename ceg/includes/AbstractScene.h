@@ -30,7 +30,7 @@ class QGraphicsRectItem;
 
 class IAction;
 class AbstractItem;
-
+#include "Logger.h"
 /**
  * \brief Classe abstraite implemente des methodes communes aux calques(custom | defaut), menu
  */

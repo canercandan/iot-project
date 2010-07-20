@@ -20,7 +20,9 @@
  #ifndef LOGGER_H
 #define LOGGER_H
 
-#include <QTextStream>
+#include <QString>
+
+
 
 enum loglevel
 {
@@ -30,26 +32,29 @@ enum loglevel
     ERROR = 3,
 };
 
-static const char* logLevelMsg[4] = {"INFO", "DEBUG", "WARNING", "ERROR: "};
-
 /**
  * \brief Classe de Log
  * Permet d'enregistrer du log
  */
 class Logger
 {
+    public:
+
     //friend class Singleton<Logger>;
-public:
-    loglevel getLogLevel() const;
+   static   Logger* getInstance();
+   static   void destroy();
+   loglevel getLogLevel() const;
     void    setLogLevel(loglevel newLogLevel);
     void    setLogFile(QString filename);
     QString& getLogFile();
     void    Log(loglevel msgLogLevel, QString& msg);
+    void    Log(loglevel msgLogLevel, const char *msg);
 private:
     Logger();
     ~Logger();
     loglevel _currentLogLevel;
     QString _filename;
+    static Logger*  _instance;
 };
 
 #endif // LOGGER_H

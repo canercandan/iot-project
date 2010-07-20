@@ -32,13 +32,12 @@
 #include "MoveAction.h"
 #include "ValidAction.h"
 #include "ActionFactory.h"
+#include "Logger.h"
 /*********************************/
+#include <iostream>
 
 CegTcpServer::CegTcpServer(MainController& lm) :
 	_tcpServer(0), _client(0), _buffer()
-#ifndef Q_WS_WIN
-	, _logger(log4cxx::Logger::getLogger("ceg.network"))
-#endif
 {
     QObject::connect(this, SIGNAL(actionEmitted(IAction &)),&lm, SLOT(on_action_emitted(IAction&)));
     this->launch();
@@ -46,9 +45,9 @@ CegTcpServer::CegTcpServer(MainController& lm) :
 
 CegTcpServer::~CegTcpServer()
 {
-#ifndef Q_WS_WIN
-    LOG4CXX_INFO(this->_logger, "TCP server killed");
-#endif
+    QString msg("TCP server Killed");
+
+    Logger::getInstance()->Log(INFO, msg);
     delete this->_tcpServer;
 }
 
@@ -56,26 +55,23 @@ void	CegTcpServer::launch(void)
 {
     QSettings settings;
     QVariant port = settings.value("server/port");
-
-#ifndef Q_WS_WIN
-    LOG4CXX_INFO(this->_logger, "TCP server launched on port " << port.toInt());
-#endif
-
+    QString msg("TCP server launched on port ");
+    msg.append(port.toString());
+    Logger::getInstance()->Log(INFO, msg);
     this->_tcpServer = new QTcpServer();
-
     if (!this->_tcpServer->listen(QHostAddress::Any, port.toInt()))
     {
-#ifndef Q_WS_WIN
-	LOG4CXX_ERROR(this->_logger, "Error: can't listen on port: " << port.toInt());
-	LOG4CXX_ERROR(this->_logger, this->_tcpServer->errorString().toStdString());
-#endif
+        msg = "Error: can't listen on port: ";
+        msg += port.toString();
+        msg += " ";
+        msg +=  this->_tcpServer->errorString();
+        Logger::getInstance()->Log(ERROR, msg);
     }
     else
     {
-#ifndef Q_WS_WIN
-	LOG4CXX_INFO(this->_logger, "Listening on port: " << port.toInt());
-#endif
-
+        msg = "Listening on port: ";
+        msg += port.toString();
+        Logger::getInstance()->Log(INFO, msg);
 	this->_tcpServer->setMaxPendingConnections(1);
 	QObject::connect(_tcpServer, SIGNAL(newConnection()), this, SLOT(_connect()));
     }
@@ -90,9 +86,8 @@ void	CegTcpServer::_connect()
 
 void	CegTcpServer::_disconnect()
 {
-#ifndef Q_WS_WIN
-    LOG4CXX_INFO(this->_logger,"Disconnected");
-#endif
+    QString msg("Disconnected");
+     Logger::getInstance()->Log(INFO, msg);
 }
 
 void	CegTcpServer::_readData()
@@ -131,7 +126,7 @@ void	CegTcpServer::parseLines(void)
 
 void	CegTcpServer::interpretLine(QString &/*line*/)
 {
-    QTextStream		out(stdout);
+    //QTextStream		out(stdout);
 
     //FIXME convert real rfb numbers into generic actions
     IAction *ia = 0;

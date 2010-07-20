@@ -34,6 +34,7 @@
 #include <Action>
 /*********************************/
 #include "Systray.h"
+#include "Logger.h"
 /*********************************/
 
 #ifndef Q_WS_WIN
@@ -148,7 +149,10 @@ int main(int ac, char** av)
     QApplication::setQuitOnLastWindowClosed(false);
 
     //-----------------------------------------------------------------------------
-
+    // Log level and logFile configuration
+    //-----------------------------------------------------------------------------
+    Logger::getInstance()->setLogLevel(INFO);
+    Logger::getInstance()->setLogFile("ceg.log");
 
     //-----------------------------------------------------------------------------
     // Prepare the Action instances
@@ -220,6 +224,7 @@ int main(int ac, char** av)
     }
 
     app.installTranslator(&ceg_tr);
+
 
     //-----------------------------------------------------------------------------
 

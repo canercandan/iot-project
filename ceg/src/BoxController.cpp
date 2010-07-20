@@ -32,7 +32,7 @@
 #include <QDir>
 #include <QSettings>
 #include <QLocale>
-#include <QDebug>
+
 /*********************************/
 #include "BoxController.h"
 /*********************************/
@@ -41,23 +41,15 @@
 #include "GraphicItemFactory.h"
 #include "Utils.h"
 /*********************************/
+#include "Logger.h"
 
 /************************************************* [ CTOR/DTOR ] *************************************************/
 
 BoxController::BoxController() :
 	_patterns(), _menus(), _nbSquare(3)
-#ifndef Q_WS_WIN
-	, _logger(log4cxx::Logger::getLogger("ceg.boxfactory"))
-#endif
 {
-#ifndef Q_WS_WIN
-    LOG4CXX_INFO(this->_logger, "Chargement des fichiers xml pour les programmes");
-#endif
-
-#ifndef Q_WS_WIN
-    LOG4CXX_INFO(this->_logger, "Chargement des fichiers xml pour les menus");
-#endif
-
+    Logger::getInstance()->Log(INFO, "Chargement des fichiers xml pour les programmes");
+    Logger::getInstance()->Log(INFO, "Chargement des fichiers xml pour les menus");
     this->loadConfig("menus/");
     this->loadConfig("boxes/");
 
@@ -129,24 +121,19 @@ void    BoxController::getPattern(Ceg::Window const & aWindow, std::list<QGraphi
 {
     std::map<std::string, std::list<Box const *> >::const_iterator  itFind = this->_patterns.find(aWindow.getProgramName());
     std::list<Box const *> childrenBox;
-
-#ifndef Q_WS_WIN
-    LOG4CXX_INFO(this->_logger, "Schema for '" << aWindow.getProgramName() << "' asked");
-#endif
-
+    QString msg("Schema for '");
+    msg += aWindow.getProgramName().c_str();
+    msg += "' asked";
+    Logger::getInstance()->Log(INFO, msg);
     if (itFind != this->_patterns.end())
     {
-#ifndef Q_WS_WIN
-	LOG4CXX_INFO(this->_logger, "Configuration found, schema loading");
-#endif
+        Logger::getInstance()->Log(INFO, "Configuration found, schema loading");
 	childrenBox = itFind->second;
     }
     else
     {
-#ifndef Q_WS_WIN
-	LOG4CXX_WARN(this->_logger, "No configuration found for program, loading of the default schema");
-#endif
-	this->calcChildren(childrenBox, aWindow.getGeometry(), 0);
+        Logger::getInstance()->Log(WARNING,"No configuration found for this program, loading the default schema");
+        this->calcChildren(childrenBox, aWindow.getGeometry(), 0);
     }
     this->createGraphicItems(graphicItems, childrenBox);
 }
@@ -166,9 +153,10 @@ std::list<Box const *>    BoxController::getPattern(Box const * boxSearch) const
 
 void	BoxController::getMenu(std::string const & idMenu, std::list<QGraphicsRectItem *> & menuItems) const
 {
-#ifndef Q_WS_WIN
-    LOG4CXX_INFO(this->_logger, "Menu - id(" << idMenu << ") asked");
-#endif
+    QString msg("Menu - id(");
+    msg += idMenu.c_str();
+    msg += ") asked";
+    Logger::getInstance()->Log(INFO, msg);
 
     std::map<std::string, std::list<Box const *> >::const_iterator  itFind = this->_menus.find(idMenu);
     if (itFind != this->_menus.end())
@@ -177,9 +165,7 @@ void	BoxController::getMenu(std::string const & idMenu, std::list<QGraphicsRectI
     }
     else
     {
-#ifndef Q_WS_WIN
-	LOG4CXX_WARN(this->_logger, "Unknown menu");
-#endif
+     Logger::getInstance()->Log(WARNING, "Unknown menu");
     }
 }
 
@@ -288,10 +274,10 @@ void BoxController::loadConfig(QString const & typeSearch)
 	}
 	else
 	{
-#ifndef Q_WS_WIN
-	    LOG4CXX_WARN(this->_logger, directory.absolutePath().toStdString() << " doesn't exist");
-#endif
-	}
+            QString msg(directory.absolutePath());
+            msg += " doesn't exist";
+            Logger::getInstance()->Log(WARNING, msg);
+        }
     }
 }
 
@@ -308,10 +294,9 @@ void	BoxController::initializeFromConfig(QDir const & directory)
 
 void    BoxController::initializeFromXml(QString const & fileName)
 {
-#ifndef Q_WS_WIN
-    LOG4CXX_INFO(this->_logger, "Trying to load file: '" << fileName.toStdString() << "'");
-#endif
-
+    QString msg("Trying to load file: ");
+    msg += fileName;
+    Logger::getInstance()->Log(INFO, msg);
     QFile	file(fileName);
     QDomDocument doc(fileName);
 
@@ -319,22 +304,17 @@ void    BoxController::initializeFromXml(QString const & fileName)
     int  errorLine = 0, errorColumn = 0;
     if (file.open(QIODevice::ReadOnly) == true  &&  doc.setContent(&file, &errorMsg, &errorLine, &errorColumn) == true)
     {
-#ifndef Q_WS_WIN
-	LOG4CXX_INFO(this->_logger, "Loading succeed");
-#endif
-
+        Logger::getInstance()->Log(INFO, "Loading succeeded");
 	file.close();
 	QDomElement const & rootElement = doc.documentElement();
 	if (rootElement.tagName() == "boxes" || rootElement.tagName() == "menu")
 	{
-	    std::string const & programId = rootElement.attribute("id").toStdString();
+            QString msg(rootElement.tagName());
+            QString progId(rootElement.attribute("id"));
+            msg += " Id: "; msg += progId;
+            Logger::getInstance()->Log(INFO, msg);
 	    std::list<Box const *> boxes;
-
-#ifndef Q_WS_WIN
-	    LOG4CXX_INFO(this->_logger, rootElement.tagName().toStdString() << " - Id '" << programId << "'");
-#endif
-
-	    for (QDomNode boxNode = rootElement.firstChild(); !boxNode.isNull(); boxNode = boxNode.nextSibling())
+            for (QDomNode boxNode = rootElement.firstChild(); !boxNode.isNull(); boxNode = boxNode.nextSibling())
 	    {
 		QDomElement const & boxElement = boxNode.toElement();
 		if (boxElement.isNull() == false && boxElement.tagName() == "box")
@@ -345,17 +325,19 @@ void    BoxController::initializeFromXml(QString const & fileName)
 	    if (boxes.empty() == false)
 	    {
 		if (rootElement.tagName() == "boxes")
-		    this->_patterns.insert(std::make_pair(programId, boxes));
+                    this->_patterns.insert(std::make_pair(progId.toStdString(), boxes));
 		else
-		    this->_menus.insert(std::make_pair(programId, boxes));
+                    this->_menus.insert(std::make_pair(progId.toStdString(), boxes));
 	    }
 	}
     }
     else
     {
 	QFileInfo fileInfo(fileName);
-#ifndef Q_WS_WIN
-	LOG4CXX_ERROR(this->_logger, "Fail during file loading : " << fileInfo.absoluteFilePath().toStdString() << "\nCause " << errorMsg.toStdString() << " at line = "<< errorLine << " - column = " << errorColumn);
-#endif
+        QString msg("Fail during file loading : ");
+        msg += fileInfo.absoluteFilePath();
+        msg += "\nCause "; msg += errorMsg;msg += " at line = "; msg += errorLine;
+        msg += " - column = "; msg += errorColumn;
+        Logger::getInstance()->Log(ERROR, msg);
     }
 }

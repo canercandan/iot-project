@@ -23,7 +23,6 @@
 /*********************************/
 #include <QDomElement>
 #include <QDomDocument>
-#include <QDebug>
 /*********************************/
 #include "Box.h"
 /*********************************/

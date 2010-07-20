@@ -20,7 +20,6 @@
 
 /*********************************/
 #include <QPainter>
-#include <QDebug>
 /*********************************/
 #include "AbstractItem.h"
 /*********************************/
@@ -28,7 +27,7 @@
 #include "ZoomAction.h"
 #include "ClickAction.h"
 /*********************************/
-
+#include "Logger.h"
 /************************************************* [ CTOR/DTOR ] *************************************************/
 
 AbstractItem::AbstractItem(Box const * box, QGraphicsItem * parent) :

@@ -26,7 +26,7 @@
 #include <QMessageBox>
 #include <QApplication>
 #include <QSettings>
-#include <QDebug>
+
 /*********************************/
 #include "SettingsDialog.h"
 /*********************************/

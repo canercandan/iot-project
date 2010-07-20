@@ -1,6 +1,10 @@
-#include <Logger.h>
 #include <QTime>
+#include <QTextStream>
+#include <Logger.h>
 
+static const char* logLevelMsg[4] = {"INFO: ", "DEBUG: ", "WARNING: ", "ERROR: "};
+
+Logger* Logger::_instance = 0;
 
 Logger::Logger()
 {
@@ -10,7 +14,8 @@ Logger::Logger()
 
 Logger::~Logger()
 {
-
+    //FIXME close le handle sur fichier
+    //delete this->_filename;
 }
 
 loglevel Logger::getLogLevel() const
@@ -36,9 +41,33 @@ QString&    Logger::getLogFile()
     return (this->_filename);
 }
 
-void    Logger::Log(loglevel msgLogLevel, QString& msg )
+void    Logger::Log(loglevel msgLogLevel,QString& msg)
 {
+
  QTextStream out(stdout);
  out << "[" << QTime::currentTime().toString().toAscii().data() << "] " << logLevelMsg[msgLogLevel]<< msg;
-  //out << "[" << QTime::currentTime().toString().toAscii().data() << "] " << logLevelMsg[msgLogLevel];
+}
+
+void    Logger::Log(loglevel msgLogLevel,const char *msg)
+{
+
+ QTextStream out(stdout);
+ out << "[" << QTime::currentTime().toString().toAscii().data() << "] " << logLevelMsg[msgLogLevel]<< msg;
+}
+Logger* Logger::getInstance()
+{
+    if (!_instance)
+    {
+        Logger::_instance = new Logger();
+    }
+    return Logger::_instance;
+}
+
+void Logger::destroy()
+{
+    if (Logger::_instance)
+    {
+        delete Logger::_instance;
+        Logger::_instance = 0;
+    }
 }

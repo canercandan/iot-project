@@ -23,7 +23,7 @@
 /*********************************/
 #include <QApplication>
 #include <QDesktopWidget>
-#include <QDebug>
+
 /*********************************/
 #include "MainController.h"
 /*********************************/
@@ -34,6 +34,7 @@
 #include "Utils.h"
 #include "WindowSystem.h"
 #include "PopMenuAction.h"
+#include <Logger.h>
 /*********************************/
 
 /************************************************* [ CTOR/DTOR ] *************************************************/
@@ -41,10 +42,6 @@
 MainController::MainController(Systray & systray) :
 	_view(*this, systray), _scenes(),_currentScene(), _boxController(),
 	_comGs(new WindowSystem), _tcpServer(*this)
-
-#ifndef Q_WS_WIN
-	, _logger(log4cxx::Logger::getLogger("ceg.main"))
-#endif
 {
 
 }
@@ -82,9 +79,7 @@ View &	MainController::getView()
 
 void    MainController::on_action_emitted(IAction & anAction)
 {
-#ifndef Q_WS_WIN
-    LOG4CXX_INFO (this->_logger, "Execution de l'action suivante : .");
-#endif
+    Logger::getInstance()->Log(INFO,  "Execution de l'action suivante : .");
     anAction.exec(*this);
 }
 
@@ -102,10 +97,7 @@ void    MainController::on_action_emitted(IAction & anAction)
 
 void MainController::initialize()
 {
-#ifndef Q_WS_WIN
-    LOG4CXX_INFO (this->_logger, "Initialisation.");
-#endif
-
+    Logger::getInstance()->Log(INFO, "Initialisation du MainController.");
     PopMenuAction popAction("Home");
     this->on_action_emitted(popAction);
 }
@@ -113,9 +105,7 @@ void MainController::initialize()
 
 void MainController::on_start_navigation()
 {
-#ifndef Q_WS_WIN
-    LOG4CXX_INFO (this->_logger, "Demarrage de la navigation.");
-#endif
+    Logger::getInstance()->Log(INFO,"Demarrage de la navigation.");
     static bool isInit = false;
     if (isInit == false || this->_scenes.empty() == true) // si c la premiere fois que l on lance la navigation ou qu'il n'y a plus de scene en cours d'utilisation
     {
@@ -128,10 +118,7 @@ void MainController::on_start_navigation()
 
 void MainController::on_stop_navigation()
 {
-#ifndef Q_WS_WIN
-    LOG4CXX_INFO (this->_logger, "Stoppage de la navigation.");
-#endif
-
+    Logger::getInstance()->Log(INFO,"Stoppage de la navigation.");
     this->_view.hide();
 }
 

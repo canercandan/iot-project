@@ -19,7 +19,7 @@
  */
 
 /*********************************/
-#include <QDebug>
+#include "Logger.h"
 /*********************************/
 #include "GraphicItemFactory.h"
 /*********************************/
@@ -44,7 +44,7 @@ QGraphicsRectItem * GraphicItemFactory::create(Box const * box)
 	instance = new MenuItem(box);
 	break;
     default :
-	    qDebug() << "[WARNING] : Box de type Inconnu";
+            Logger::getInstance()->Log(WARNING, "Box de type Inconnu");
     break;
     }
     return (instance);

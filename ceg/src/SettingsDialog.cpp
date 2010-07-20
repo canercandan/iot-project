@@ -25,7 +25,6 @@
 #include <QMessageBox>
 #include <QColorDialog>
 #include <QPainter>
-#include <QDebug>
 
 #include "SettingsDialog.h"
 
