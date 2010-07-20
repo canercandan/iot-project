@@ -33,7 +33,7 @@ Logger* Logger::_instance = 0;
 
 Logger::Logger()
 {
-    this->_currentLogLevel = INFO;
+    this->_currentLogLevel = INFO_LOG;
     this->_filename = "Ceg.log";
 }
 

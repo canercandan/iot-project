@@ -65,7 +65,7 @@ void AbstractScene::initialize(std::list<QGraphicsRectItem *> const & sceneItems
     QVariant size(static_cast<unsigned int>(sceneItems.size()));
     msg += size.toString();
     msg.append("items a ajoute a la scene");
-    Logger::getInstance()->Log(INFO, msg);
+    Logger::getInstance()->Log(INFO_LOG, msg);
     this->clearScene();
     std::for_each(sceneItems.rbegin(), sceneItems.rend(), std::bind1st(std::mem_fun(&QGraphicsScene::addItem), this));
     sceneItems.front()->setFocus();

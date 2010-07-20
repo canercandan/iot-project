@@ -43,7 +43,7 @@ QGraphicsRectItem * GraphicItemFactory::create(Box const * box)
 	instance = new MenuItem(box);
 	break;
     default :
-	    Logger::getInstance()->Log(WARNING, "Box de type Inconnu");
+	    Logger::getInstance()->Log(WARNING_LOG, "Box de type Inconnu");
     break;
     }
     return (instance);

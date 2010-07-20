@@ -131,7 +131,7 @@ int main(int ac, char** av)
     //-----------------------------------------------------------------------------
     // Log level and logFile configuration
     //-----------------------------------------------------------------------------
-    Logger::getInstance()->setLogLevel(INFO);
+    Logger::getInstance()->setLogLevel(INFO_LOG);
     Logger::getInstance()->setLogFile("ceg.log");
 
     //-----------------------------------------------------------------------------

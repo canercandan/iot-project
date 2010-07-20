@@ -26,10 +26,10 @@
 
 enum loglevel
 {
-    INFO = 0,
-    DEBUG = 1,
-    WARNING = 2,
-    ERROR = 3,
+    INFO_LOG = 0,
+    DEBUG_LOG = 1,
+    WARNING_LOG = 2,
+    ERROR_LOG = 3,
 };
 
 /**
