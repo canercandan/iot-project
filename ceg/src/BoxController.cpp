@@ -251,10 +251,19 @@ void BoxController::createGraphicItems(std::list<QGraphicsRectItem *> & graphicI
 
 void BoxController::loadConfig(QString const & typeSearch)
 {
-    QSettings settings;
-    QString language = settings.value("general/language").toString();
-    QString directoryName = "/config/" + typeSearch + language;
+    // QSettings settings;
+    // QString language = settings.value("general/language").toString();
+
+#if defined(Q_OS_UNIX)
+    QString directoryName = "/config/" + typeSearch; // + language;
+#elif defined(Q_OS_WIN)
+    QString directoryName = "/../config/" + typeSearch; // + language;
+#elif defined(Q_OS_MAC)
+    QString directoryName = "/config/" + typeSearch; // + language;
+#endif
+
     QStringList	pathsToSearch(QCoreApplication::applicationDirPath());
+
 #if defined(Q_OS_UNIX)
     pathsToSearch << "/usr/share/ceg";
 #elif defined(Q_OS_WIN)
