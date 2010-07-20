@@ -51,7 +51,11 @@ void	View::initialize()
     AbstractScene* as = this->_lm.getCurrentScene();
     this->setScene(as);
     this->setGeometry(as->getGeometry());
+
     this->setWindowFlags(Qt::CustomizeWindowHint | Qt::FramelessWindowHint); // Enleve la title bar
+
+    this->setWindowFlags(this->windowFlags() | Qt::WindowStaysOnTopHint);
+
     this->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     this->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     this->setWindowState(Qt::WindowFullScreen);
