@@ -54,7 +54,7 @@ void	View::initialize()
 
     this->setWindowFlags(Qt::CustomizeWindowHint | Qt::FramelessWindowHint); // Enleve la title bar
 
-    this->setWindowFlags(this->windowFlags() | Qt::WindowStaysOnTopHint);
+    //this->setWindowFlags(this->windowFlags() | Qt::WindowStaysOnTopHint);
 
     this->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     this->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);

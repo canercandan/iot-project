@@ -97,6 +97,8 @@ void ExecMenuAction::exec(MainController & mainC)
 	    qDebug() << "Apres le exec";
 
 	    //view.setWindowFlags(view.windowFlags() & Qt::WindowStaysOnTopHint);
+
+	    //view.raise();
 	}
     else
 	{

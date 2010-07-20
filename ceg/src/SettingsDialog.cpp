@@ -89,13 +89,13 @@ void SettingsDialog::on_buttonBox_accepted()
 {
     if (!this->customCheck->isChecked() && this->customXMLPathLine->text().isEmpty())
 	{
-	    QMessageBox::information(0, tr("Error"), tr("Please define the custom xml path !"));
+	    QMessageBox::critical(0, tr("Error"), tr("Please define the custom xml path !"));
 	    return;
 	}
     if (this->serverPasswordCheckBox->isChecked() &&
         this->serverPassword->text().isEmpty())
 	{
-	    QMessageBox::information(0, tr("Error"), tr("Please fill all proxy fields !"));
+	    QMessageBox::critical(0, tr("Error"), tr("Please fill all proxy fields !"));
 	    return;
 	}
 

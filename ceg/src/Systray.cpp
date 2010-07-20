@@ -64,6 +64,7 @@ Systray::Systray(QWidget *parent) :
     this->setWindowIcon(QIcon(":/images/systray-transparent-32x32.png"));
 
     this->_trayIcon->show();
+
 #ifdef _WIN32
     // FIXME: we are getting a display bug issue when the message appears on the screen
     // on Linux. It appears on the left but it must be on the right.
@@ -112,5 +113,5 @@ void Systray::on__settingAction_triggered()
 
 void Systray::on__aboutCegAction_triggered()
 {
-    QMessageBox::information(this ,tr("About CEG"), tr("Allows users to control machine by thinking."));
+    QMessageBox::about(this ,tr("About CEG"), tr("Allows users to control machine by thinking."));
 }
