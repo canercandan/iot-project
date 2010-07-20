@@ -127,10 +127,10 @@ void SettingsDialog::on_buttonBox_accepted()
 
     settings.beginGroup("color");
 
-    QString focusColor = this->colorFocusLabel->palette().color(QPalette::Background).name();
-    QString blurColor = this->colorBlurLabel->palette().color(QPalette::Background).name();
+    QString focusColor( this->colorFocusLabel->palette().color(QPalette::Background).name() );
+    QString blurColor( this->colorBlurLabel->palette().color(QPalette::Background).name() );
     double opacityValue = this->colorOpacitySlider->value() / 100.;
-    QString textColor = this->colorTextLabel->palette().color(QPalette::Background).name();
+    QString textColor( this->colorTextLabel->palette().color(QPalette::Background).name() );
 
     if (settings.value("focus").toString() != focusColor ||
 	settings.value("blur").toString() != blurColor ||
@@ -152,9 +152,25 @@ void SettingsDialog::on_buttonBox_accepted()
     settings.endGroup();
 
     settings.beginGroup("server");
-    settings.setValue("port", this->serverPort->text());
+
     settings.setValue("passwordCheckBox", this->serverPasswordCheckBox->isChecked());
-    settings.setValue("password", this->serverPassword->text());
+
+    QString port( this->serverPort->text() );
+    QString password( this->serverPassword->text() );
+
+    if (settings.value("port").toString() != port ||
+	settings.value("password").toString() != password)
+	{
+	    QMessageBox::information
+		(0,
+		 tr("Server changed"),
+		 tr("To apply server updates, you have to restart the program.")
+		 );
+
+	    settings.setValue("port", port);
+	    settings.setValue("password", password);
+	}
+
     settings.endGroup();
 
     this->accept();
