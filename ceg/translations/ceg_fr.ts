@@ -260,9 +260,8 @@
         <translation>Anglais</translation>
     </message>
     <message utf8="true">
-        <location filename="../forms/settingsDialog.ui" line="192"/>
         <source>Français</source>
-        <translation>French</translation>
+        <translation type="obsolete">French</translation>
     </message>
     <message>
         <location filename="../forms/settingsDialog.ui" line="202"/>
@@ -320,6 +319,11 @@
         <location filename="../forms/settingsDialog.ui" line="474"/>
         <source>Choose a color</source>
         <translation>Choisir une couleur</translation>
+    </message>
+    <message>
+        <location filename="../forms/settingsDialog.ui" line="192"/>
+        <source>French</source>
+        <translation>Français</translation>
     </message>
     <message>
         <location filename="../forms/settingsDialog.ui" line="625"/>

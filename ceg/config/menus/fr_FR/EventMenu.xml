@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE XmlBox>
 
 <menu id="Event">
@@ -13,7 +14,7 @@
     <action id="ExecMenu">
       <action id="Zoom" isZoom="0" />
     </action>
-    <style opacity="1" text="Réduire"/>
+    <style opacity="1" text="RÃ©duire"/>
   </box>
 
   <box type="2" x="750" y="202" height="100" width="300">

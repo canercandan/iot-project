@@ -10,7 +10,6 @@
     <style opacity="1" text="Accueil"/>
   </box>
 
-  <!-- ALT + TAB -->
   <box type="2" x="750" y="101" height="100" width="300">
     <action id="ExecMenu">
       <action id="Switch" />
@@ -18,19 +17,18 @@
     <style opacity="1" text="Changement de fenêtre"/>
   </box>
 
-  <!-- Quit -->
   <box type="2" x="750" y="202" height="100" width="300">
-    <action id="ExecMenu">
-      <action id="Quit" />
-    </action>
-    <style opacity="1" text="Quitter"/>
-  </box>
-
-  <box type="2" x="750" y="303" height="100" width="300">
     <action id="ExecMenu">
       <action id="Cancel"/>
     </action>
     <style opacity="1" text="Annuler"/>
+  </box>
+
+  <box type="2" x="750" y="303" height="100" width="300">
+    <action id="ExecMenu">
+      <action id="Quit" />
+    </action>
+    <style opacity="1" text="Quitter"/>
   </box>
 
 </menu>

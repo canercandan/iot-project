@@ -100,11 +100,6 @@
         <source>English</source>
         <translation></translation>
     </message>
-    <message utf8="true">
-        <location filename="../forms/settingsDialog.ui" line="192"/>
-        <source>Français</source>
-        <translation></translation>
-    </message>
     <message>
         <location filename="../forms/settingsDialog.ui" line="202"/>
         <source>Default Boxes</source>
@@ -160,6 +155,11 @@
         <location filename="../forms/settingsDialog.ui" line="425"/>
         <location filename="../forms/settingsDialog.ui" line="474"/>
         <source>Choose a color</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../forms/settingsDialog.ui" line="192"/>
+        <source>French</source>
         <translation></translation>
     </message>
     <message>

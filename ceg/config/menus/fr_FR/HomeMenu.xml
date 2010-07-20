@@ -12,33 +12,33 @@
 
   <box type="2" x="750" y="101" height="100" width="300">
     <action id="ExecMenu">
-      <action id="MultiMenu" />
+      <action id="PopMenu" MenuId="Multimedia"/>
     </action>
     <style opacity="1" text="Menu Multimedia"/>
   </box>
 
-  <box type="2" x="750" y="101" height="100" width="300">
+  <box type="2" x="750" y="202" height="100" width="300">
     <action id="ExecMenu">
-      <action id="AppListing" />
+      <action id="PopMenu" MenuId="Application"/>
     </action>
     <style opacity="1" text="Listing des application"/>
   </box>
 
-  <box type="2" x="750" y="101" height="100" width="300">
+  <box type="2" x="750" y="303" height="100" width="300">
     <action id="ExecMenu">
       <action id="AppSetting" />
     </action>
     <style opacity="1" text="Configurer une application"/>
   </box>
 
-  <box type="2" x="750" y="101" height="100" width="300">
+  <box type="2" x="750" y="404" height="100" width="300">
     <action id="ExecMenu">
       <action id="WSwitcher" />
     </action>
     <style opacity="1" text="Gestionnaire de fenêtre"/>
   </box>
 
-  <box type="2" x="750" y="101" height="100" width="300">
+  <box type="2" x="750" y="505" height="100" width="300">
     <action id="ExecMenu">
       <action id="Quit" />
     </action>
