@@ -62,7 +62,7 @@ void AbstractScene::clearScene()
 void AbstractScene::initialize(std::list<QGraphicsRectItem *> const & sceneItems)
 {
     QString msg("AbstractScene::initialize - ");
-    QVariant size = sceneItems.size();
+    QVariant size(static_cast< unsigned int >( sceneItems.size() ));
     msg += size.toString();
     msg.append("items a ajoute a la scene");
     Logger::getInstance()->Log(INFO, msg);
