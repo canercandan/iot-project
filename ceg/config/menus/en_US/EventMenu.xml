@@ -26,12 +26,19 @@
 
   <box type="2" x="750" y="303" height="100" width="300">
     <action id="ExecMenu">
+      <action id="Click" type="4"/>
+    </action>
+    <style opacity="1" text="Double click"/>
+  </box>
+
+  <box type="2" x="750" y="404" height="100" width="300">
+    <action id="ExecMenu">
       <action id="Read"/>
     </action>
     <style opacity="1" text="Read"/>
   </box>
 
-  <box type="2" x="750" y="404" height="100" width="300">
+  <box type="2" x="750" y="505" height="100" width="300">
     <action id="ExecMenu">
       <action id="Cancel"/>
     </action>

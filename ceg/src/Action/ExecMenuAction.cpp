@@ -32,14 +32,14 @@
 
 char const * ExecMenuAction::IDENTIFIER = "ExecMenu";
 
-ExecMenuAction::ExecMenuAction(IAction * actionToExec) :
-	_actionToExec(actionToExec)
+ExecMenuAction::ExecMenuAction(IAction * actionToExec)
 {
+    _actionsToExec.push_back(actionToExec);
+
     qDebug() << "ExecMenuAction::ExecMenuAction(IAction * actionToExec)";
 }
 
-ExecMenuAction::ExecMenuAction(const QDomElement & domElement) :
-	_actionToExec(0)
+ExecMenuAction::ExecMenuAction(const QDomElement & domElement)
 {
     qDebug() << "ExecMenuAction::ExecMenuAction(const QDomElement & domElement)";
     this->initializeFromXml(domElement);
@@ -47,19 +47,26 @@ ExecMenuAction::ExecMenuAction(const QDomElement & domElement) :
 
 ExecMenuAction::~ExecMenuAction()
 {
-    delete (this->_actionToExec);
+    for (std::vector< IAction * >::iterator
+	     it = _actionsToExec.begin(),
+	     end = _actionsToExec.end();
+	 it != end; ++it)
+	{
+	    delete *it;
+	}
 }
 
 void ExecMenuAction::initializeFromXml(const QDomElement & actionElement)
 {
     for (QDomNode domElement = actionElement.firstChild(); !domElement.isNull(); domElement = domElement.nextSibling())
-    {
-	QDomElement const & actionParam = domElement.toElement();
-	if (actionParam.isNull() == false && actionParam.tagName() == "action")
 	{
-	    this->_actionToExec = ActionFactory::create(actionParam);
+	    QDomElement const & actionParam = domElement.toElement();
+	    if (actionParam.isNull() == false && actionParam.tagName() == "action")
+		{
+		    qDebug() << "action added";
+		    this->_actionsToExec.push_back(ActionFactory::create(actionParam));
+		}
 	}
-    }
 }
 
 /************************************************* [ OTHERS ] *************************************************/
@@ -67,19 +74,29 @@ void ExecMenuAction::initializeFromXml(const QDomElement & actionElement)
 void ExecMenuAction::exec(MainController & mainC)
 {
     qDebug() << "ExecMenuAction::exec";
-    if (this->_actionToExec != 0)
-    {
-	// On ferme le menu
-	qDebug() << "Avant le pop";
-	mainC.popFrontScene();
-	// On execute l'action
-	qDebug() << "Avant le exec";
-	this->_actionToExec->exec(mainC);
-    }
+    if (this->_actionsToExec.size() > 0)
+	{
+	    // On ferme le menu
+	    qDebug() << "Avant le pop";
+	    mainC.popFrontScene();
+
+	    // On execute l'action
+	    qDebug() << "Avant le exec";
+
+	    for (std::vector< IAction * >::iterator
+		     it = _actionsToExec.begin(),
+		     end = _actionsToExec.end();
+		 it != end; ++it)
+		{
+		    (*it)->exec(mainC);
+		}
+
+	    qDebug() << "Apres le exec";
+	}
     else
-    {
-	qDebug() << "Action null, rien a executer";
-    }
+	{
+	    qDebug() << "Action null, rien a executer";
+	}
 }
 
 /************************************************* [ OTHERS ] *************************************************/

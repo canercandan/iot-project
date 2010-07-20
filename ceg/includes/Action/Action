@@ -1,0 +1,18 @@
+#ifndef _Action
+#define _Action
+
+#include "ActionFactory.h"
+#include "CancelAction.h"
+#include "ClickAction.h"
+#include "ExecMenuAction.h"
+#include "ExecProcessAction.h"
+#include "IAction.h"
+#include "MoveAction.h"
+#include "PopMenuAction.h"
+#include "QuitAction.h"
+#include "ReadAction.h"
+#include "ValidAction.h"
+#include "WriteAction.h"
+#include "ZoomAction.h"
+
+#endif // !_Action

@@ -31,17 +31,9 @@
 # include <log4cxx/xml/domconfigurator.h>
 #endif
 /*********************************/
+#include <Action>
+/*********************************/
 #include "Systray.h"
-#include "ActionFactory.h"
-#include "CancelAction.h"
-#include "ClickAction.h"
-#include "ExecMenuAction.h"
-#include "MoveAction.h"
-#include "QuitAction.h"
-#include "PopMenuAction.h"
-#include "ReadAction.h"
-#include "WriteAction.h"
-#include "ZoomAction.h"
 /*********************************/
 
 #ifndef Q_WS_WIN
@@ -165,6 +157,7 @@ int main(int ac, char** av)
     ActionFactory::registerInstantiator(CancelAction::IDENTIFIER, instanciateCancelAction);
     ActionFactory::registerInstantiator(ClickAction::IDENTIFIER, instanciateClickAction);
     ActionFactory::registerInstantiator(ExecMenuAction::IDENTIFIER, instanciateExecMenuAction);
+    ActionFactory::registerInstantiator(ExecProcessAction::IDENTIFIER, instanciateExecProcessAction);
     ActionFactory::registerInstantiator(MoveAction::IDENTIFIER, instanciateMoveAction);
     ActionFactory::registerInstantiator(PopMenuAction::IDENTIFIER, instanciatePopMenuAction);
     ActionFactory::registerInstantiator(QuitAction::IDENTIFIER, instanciateQuitAction);

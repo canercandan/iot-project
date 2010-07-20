@@ -41,7 +41,7 @@ public:
     static char const * IDENTIFIER;
 
 private:
-    IAction *	_actionToExec;
+    std::vector< IAction * > _actionsToExec;
 };
 
 IAction * instanciateExecMenuAction(QDomElement const &);
