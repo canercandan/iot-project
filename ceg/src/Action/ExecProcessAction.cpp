@@ -46,7 +46,26 @@ void ExecProcessAction::initializeFromXml(const QDomElement & domElement)
 	    this->_hideTime = domElement.attribute("time").toULong();
 	}
 
-    if (domElement.hasAttribute("path"))
+#if defined(Q_OS_UNIX)
+    if (domElement.hasAttribute("unix:path"))
+	{
+	    //this->_path = domElement.attribute("path");
+	    this->_path = domElement.attribute("unix:path");
+	}
+#elif defined(Q_OS_WIN)
+    if (domElement.hasAttribute("win:path"))
+	{
+	    //this->_path = domElement.attribute("path");
+	    this->_path = domElement.attribute("unix:path");
+	}
+#elif defined(Q_OS_MAC)
+    if (domElement.hasAttribute("mac:path"))
+	{
+	    //this->_path = domElement.attribute("path");
+	    this->_path = domElement.attribute("mac:path");
+	}
+#endif
+    else if (domElement.hasAttribute("path"))
 	{
 	    this->_path = domElement.attribute("path");
 	}
