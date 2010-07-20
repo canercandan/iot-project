@@ -32,7 +32,6 @@
 #include <QDir>
 #include <QSettings>
 #include <QLocale>
-
 /*********************************/
 #include "BoxController.h"
 /*********************************/
@@ -40,8 +39,9 @@
 #include "Window.h"
 #include "GraphicItemFactory.h"
 #include "Utils.h"
-/*********************************/
 #include "Logger.h"
+/*********************************/
+
 
 /************************************************* [ CTOR/DTOR ] *************************************************/
 
@@ -127,13 +127,13 @@ void    BoxController::getPattern(Ceg::Window const & aWindow, std::list<QGraphi
     Logger::getInstance()->Log(INFO, msg);
     if (itFind != this->_patterns.end())
     {
-        Logger::getInstance()->Log(INFO, "Configuration found, schema loading");
+	Logger::getInstance()->Log(INFO, "Configuration found, schema loading");
 	childrenBox = itFind->second;
     }
     else
     {
-        Logger::getInstance()->Log(WARNING,"No configuration found for this program, loading the default schema");
-        this->calcChildren(childrenBox, aWindow.getGeometry(), 0);
+	Logger::getInstance()->Log(WARNING,"No configuration found for this program, loading the default schema");
+	this->calcChildren(childrenBox, aWindow.getGeometry(), 0);
     }
     this->createGraphicItems(graphicItems, childrenBox);
 }
@@ -274,10 +274,10 @@ void BoxController::loadConfig(QString const & typeSearch)
 	}
 	else
 	{
-            QString msg(directory.absolutePath());
-            msg += " doesn't exist";
-            Logger::getInstance()->Log(WARNING, msg);
-        }
+	    QString msg(directory.absolutePath());
+	    msg += " doesn't exist";
+	    Logger::getInstance()->Log(WARNING, msg);
+	}
     }
 }
 
@@ -304,17 +304,17 @@ void    BoxController::initializeFromXml(QString const & fileName)
     int  errorLine = 0, errorColumn = 0;
     if (file.open(QIODevice::ReadOnly) == true  &&  doc.setContent(&file, &errorMsg, &errorLine, &errorColumn) == true)
     {
-        Logger::getInstance()->Log(INFO, "Loading succeeded");
+	Logger::getInstance()->Log(INFO, "Loading succeeded");
 	file.close();
 	QDomElement const & rootElement = doc.documentElement();
 	if (rootElement.tagName() == "boxes" || rootElement.tagName() == "menu")
 	{
-            QString msg(rootElement.tagName());
-            QString progId(rootElement.attribute("id"));
-            msg += " Id: "; msg += progId;
-            Logger::getInstance()->Log(INFO, msg);
+	    QString msg(rootElement.tagName());
+	    QString progId(rootElement.attribute("id"));
+	    msg += " Id: "; msg += progId;
+	    Logger::getInstance()->Log(INFO, msg);
 	    std::list<Box const *> boxes;
-            for (QDomNode boxNode = rootElement.firstChild(); !boxNode.isNull(); boxNode = boxNode.nextSibling())
+	    for (QDomNode boxNode = rootElement.firstChild(); !boxNode.isNull(); boxNode = boxNode.nextSibling())
 	    {
 		QDomElement const & boxElement = boxNode.toElement();
 		if (boxElement.isNull() == false && boxElement.tagName() == "box")
@@ -325,19 +325,19 @@ void    BoxController::initializeFromXml(QString const & fileName)
 	    if (boxes.empty() == false)
 	    {
 		if (rootElement.tagName() == "boxes")
-                    this->_patterns.insert(std::make_pair(progId.toStdString(), boxes));
+		    this->_patterns.insert(std::make_pair(progId.toStdString(), boxes));
 		else
-                    this->_menus.insert(std::make_pair(progId.toStdString(), boxes));
+		    this->_menus.insert(std::make_pair(progId.toStdString(), boxes));
 	    }
 	}
     }
     else
     {
 	QFileInfo fileInfo(fileName);
-        QString msg("Fail during file loading : ");
-        msg += fileInfo.absoluteFilePath();
-        msg += "\nCause "; msg += errorMsg;msg += " at line = "; msg += errorLine;
-        msg += " - column = "; msg += errorColumn;
-        Logger::getInstance()->Log(ERROR, msg);
+	QString msg("Fail during file loading : ");
+	msg += fileInfo.absoluteFilePath();
+	msg += "\nCause "; msg += errorMsg;msg += " at line = "; msg += errorLine;
+	msg += " - column = "; msg += errorColumn;
+	Logger::getInstance()->Log(ERROR, msg);
     }
 }

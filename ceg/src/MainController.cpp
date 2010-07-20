@@ -23,7 +23,6 @@
 /*********************************/
 #include <QApplication>
 #include <QDesktopWidget>
-
 /*********************************/
 #include "MainController.h"
 /*********************************/
@@ -34,7 +33,7 @@
 #include "Utils.h"
 #include "WindowSystem.h"
 #include "PopMenuAction.h"
-#include <Logger.h>
+#include "Logger.h"
 /*********************************/
 
 /************************************************* [ CTOR/DTOR ] *************************************************/

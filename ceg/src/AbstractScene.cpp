@@ -22,12 +22,12 @@
 #include <functional>
 #include <algorithm>
 /*********************************/
-/*********************************/
 #include "AbstractScene.h"
 /*********************************/
 #include "AbstractItem.h"
-/*********************************/
 #include "Logger.h"
+/*********************************/
+
 /************************************************* [ CTOR/DTOR ] *************************************************/
 
 AbstractScene::AbstractScene(QObject * parent /* = 0 */) :
@@ -62,15 +62,11 @@ void AbstractScene::clearScene()
 void AbstractScene::initialize(std::list<QGraphicsRectItem *> const & sceneItems)
 {
     QString msg("AbstractScene::initialize - ");
-    QVariant size(static_cast< unsigned int >( sceneItems.size() ));
+    QVariant size(static_cast<unsigned int>(sceneItems.size()));
     msg += size.toString();
     msg.append("items a ajoute a la scene");
     Logger::getInstance()->Log(INFO, msg);
     this->clearScene();
-#if (QT_VERSION < QT_VERSION_CHECK(4,6,0))
-    std::for_each(sceneItems.begin(), sceneItems.end(), std::bind1st(std::mem_fun(&QGraphicsScene::addItem), this));
-#else
     std::for_each(sceneItems.rbegin(), sceneItems.rend(), std::bind1st(std::mem_fun(&QGraphicsScene::addItem), this));
-#endif
     sceneItems.front()->setFocus();
 }

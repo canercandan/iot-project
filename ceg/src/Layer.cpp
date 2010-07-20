@@ -1,4 +1,3 @@
-
 // -*- mode: c++; c-indent-level: 4; c++-member-init-indent: 8; comment-column: 35; -*-
 
 /* IOT Copyleft (C) 2010 CEG development team
@@ -57,9 +56,9 @@ void	Layer::initialize(std::list<QGraphicsRectItem *> const & sceneItems)
     if (sceneItems.empty() == false)
     {
 	AbstractItem const * firstItem = static_cast<AbstractItem const *>(sceneItems.front());
-        if (firstItem->getBox()->getBoxType() == DEFAULT_BOX && this->_menuAction == 0)
+	if (firstItem->getBox()->getBoxType() == DEFAULT_BOX && this->_menuAction == 0)
 	{
-            this->_menuAction = new PopMenuAction("Navigation");
+	    this->_menuAction = new PopMenuAction("Navigation");
 	}
     }
     AbstractScene::initialize(sceneItems);

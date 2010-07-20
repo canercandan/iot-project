@@ -28,6 +28,7 @@
 
 std::map<std::string, ActionFactory::ActionInstantiator> ActionFactory::_instanciators;
 
+#warning "Changer les loggers"
 #ifndef Q_WS_WIN
 log4cxx::LoggerPtr ActionFactory::logger(log4cxx::Logger::getLogger("ceg.boxfactory"));
 #endif

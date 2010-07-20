@@ -34,7 +34,6 @@
 #include "ActionFactory.h"
 #include "Logger.h"
 /*********************************/
-#include <iostream>
 
 CegTcpServer::CegTcpServer(MainController& lm) :
 	_tcpServer(0), _client(0), _buffer()
@@ -61,17 +60,17 @@ void	CegTcpServer::launch(void)
     this->_tcpServer = new QTcpServer();
     if (!this->_tcpServer->listen(QHostAddress::Any, port.toInt()))
     {
-        msg = "Error: can't listen on port: ";
-        msg += port.toString();
-        msg += " ";
-        msg +=  this->_tcpServer->errorString();
-        Logger::getInstance()->Log(ERROR, msg);
+	msg = "Error: can't listen on port: ";
+	msg += port.toString();
+	msg += " ";
+	msg +=  this->_tcpServer->errorString();
+	Logger::getInstance()->Log(ERROR, msg);
     }
     else
     {
-        msg = "Listening on port: ";
-        msg += port.toString();
-        Logger::getInstance()->Log(INFO, msg);
+	msg = "Listening on port: ";
+	msg += port.toString();
+	Logger::getInstance()->Log(INFO, msg);
 	this->_tcpServer->setMaxPendingConnections(1);
 	QObject::connect(_tcpServer, SIGNAL(newConnection()), this, SLOT(_connect()));
     }

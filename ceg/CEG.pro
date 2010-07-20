@@ -51,7 +51,9 @@ HEADERS += AbstractItem.h \
     ValidAction.h \
     WriteAction.h \
     ZoomAction.h \
-    includes/Action/QuitAction.h
+    includes/Action/QuitAction.h \
+    includes/Action/Action \
+    includes/Action/ExecProcessAction.h
 SOURCES += AbstractItem.cpp \
     AbstractScene.cpp \
     BoxController.cpp \
@@ -82,13 +84,13 @@ SOURCES += AbstractItem.cpp \
     ValidAction.cpp \
     WriteAction.cpp \
     ZoomAction.cpp \
-    src/Action/QuitAction.cpp
+    src/Action/QuitAction.cpp \
+    src/Action/ExecProcessAction.cpp
 unix { 
     HEADERS += XWindowSystem.h
     SOURCES += XWindowSystem.cpp
     CONFIG += link_pkgconfig
-    PKGCONFIG += xmu \
-        liblog4cxx
+    PKGCONFIG += xmu
 }
 win32 { 
     HEADERS += Win32Adaptor.h \

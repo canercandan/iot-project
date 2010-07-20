@@ -48,25 +48,25 @@ ExecMenuAction::ExecMenuAction(const QDomElement & domElement)
 ExecMenuAction::~ExecMenuAction()
 {
     for (std::vector< IAction * >::iterator
-	     it = _actionsToExec.begin(),
-	     end = _actionsToExec.end();
-	 it != end; ++it)
-	{
-	    delete *it;
-	}
+	 it = _actionsToExec.begin(),
+	 end = _actionsToExec.end();
+    it != end; ++it)
+    {
+	delete *it;
+    }
 }
 
 void ExecMenuAction::initializeFromXml(const QDomElement & actionElement)
 {
     for (QDomNode domElement = actionElement.firstChild(); !domElement.isNull(); domElement = domElement.nextSibling())
+    {
+	QDomElement const & actionParam = domElement.toElement();
+	if (actionParam.isNull() == false && actionParam.tagName() == "action")
 	{
-	    QDomElement const & actionParam = domElement.toElement();
-	    if (actionParam.isNull() == false && actionParam.tagName() == "action")
-		{
-		    qDebug() << "action added";
-		    this->_actionsToExec.push_back(ActionFactory::create(actionParam));
-		}
+	    qDebug() << "action added";
+	    this->_actionsToExec.push_back(ActionFactory::create(actionParam));
 	}
+    }
 }
 
 /************************************************* [ OTHERS ] *************************************************/
@@ -74,27 +74,25 @@ void ExecMenuAction::initializeFromXml(const QDomElement & actionElement)
 void ExecMenuAction::exec(MainController & mainC)
 {
     qDebug() << "ExecMenuAction::exec";
-    if (this->_actionsToExec.size() > 0)
+    if (this->_actionsToExec.empty() == false)
+    {
+	// On ferme le menu
+	qDebug() << "Avant le pop";
+	//mainC.popFrontScene();
+
+	// On execute l'action
+	qDebug() << "Avant le exec";
+
+	for (std::vector< IAction * >::iterator it = this->_actionsToExec.begin(), end = this->_actionsToExec.end(); it != end; ++it)
 	{
-	    // On ferme le menu
-	    qDebug() << "Avant le pop";
-	    mainC.popFrontScene();
-
-	    // On execute l'action
-	    qDebug() << "Avant le exec";
-
-	    for (std::vector< IAction * >::iterator
-		     it = _actionsToExec.begin(),
-		     end = _actionsToExec.end();
-		 it != end; ++it)
-		{
-		    (*it)->exec(mainC);
-		}
+	    qDebug() << "Dans la boucle du exec";
+	    (*it)->exec(mainC);
 	}
+    }
     else
-	{
-	    qDebug() << "Action null, rien a executer";
-	}
+    {
+	qDebug() << "Action null, rien a executer";
+    }
 }
 
 /************************************************* [ OTHERS ] *************************************************/

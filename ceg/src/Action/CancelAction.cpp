@@ -45,10 +45,11 @@ void CancelAction::initializeFromXml(const QDomElement &)
 
 /************************************************* [ OTHERS ] *************************************************/
 
-void    CancelAction::exec(MainController &)
+void    CancelAction::exec(MainController & mainC)
 {
     // Le menu est deja cache, donc il n'y a rien a faire
     qDebug() << "CancelAction::exec";
+    mainC.popFrontScene();
 }
 
 /************************************************* [ OTHERS ] *************************************************/

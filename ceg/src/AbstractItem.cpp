@@ -26,8 +26,9 @@
 #include "Box.h"
 #include "ZoomAction.h"
 #include "ClickAction.h"
-/*********************************/
 #include "Logger.h"
+/*********************************/
+
 /************************************************* [ CTOR/DTOR ] *************************************************/
 
 AbstractItem::AbstractItem(Box const * box, QGraphicsItem * parent) :
@@ -74,27 +75,27 @@ void AbstractItem::paint(QPainter * painter, const QStyleOptionGraphicsItem *, Q
     QString const & text = style.getText();
     if (! text.isEmpty())
     {
-        QString const & textFont = style.getTextFont();
+	QString const & textFont = style.getTextFont();
 
-        if (textFont.isEmpty() == false)
+	if (textFont.isEmpty() == false)
 	{
-            painter->setFont(QFont(textFont, style.getTextFontSize()));
+	    painter->setFont(QFont(textFont, style.getTextFontSize()));
 	}
 
-        QString const & textColor = style.getTextColor();
+	QString const & textColor = style.getTextColor();
 
-        if (textColor.isEmpty() == false)
+	if (textColor.isEmpty() == false)
 	{
-            painter->setPen(textColor);
+	    painter->setPen(textColor);
 	}
 
-        painter->drawText(this->rect(), Qt::AlignCenter, text);
+	painter->drawText(this->rect(), Qt::AlignCenter, text);
     }
 
     QString const & imagePath  = style.getImagePath();
     if (imagePath.isEmpty() == false)
     {
-        QPixmap pixmap(imagePath);
+	QPixmap pixmap(imagePath);
 	QRectF dest(this->rect().x(), this->rect().y(), pixmap.rect().width(), pixmap.rect().height());
 	dest.moveCenter(this->rect().center());
 	painter->drawPixmap(dest, pixmap, pixmap.rect());

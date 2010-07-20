@@ -18,15 +18,17 @@
  * Authors: CEG <ceg@ionlythink.com>, http://www.ionlythink.com
  */
 
+/*********************************/
 #include <algorithm>
-
+/*********************************/
 #include <QFileDialog>
 #include <QSettings>
 #include <QMessageBox>
 #include <QColorDialog>
 #include <QPainter>
-
+/*********************************/
 #include "SettingsDialog.h"
+/*********************************/
 
 SettingsDialog::SettingsDialog(QWidget *parent) :
     QDialog(parent), _languages(2)
@@ -80,7 +82,7 @@ SettingsDialog::SettingsDialog(QWidget *parent) :
 void SettingsDialog::on_confList_currentItemChanged(QListWidgetItem* current, QListWidgetItem* previous)
 {
     if (!current)
-        current = previous;
+	current = previous;
 
     this->confStack->setCurrentIndex(this->confList->row(current));
 }
@@ -93,7 +95,7 @@ void SettingsDialog::on_buttonBox_accepted()
 	    return;
 	}
     if (this->serverPasswordCheckBox->isChecked() &&
-        this->serverPassword->text().isEmpty())
+	this->serverPassword->text().isEmpty())
 	{
 	    QMessageBox::critical(0, tr("Error"), tr("Please fill all proxy fields !"));
 	    return;
@@ -183,9 +185,9 @@ void SettingsDialog::on_buttonBox_rejected()
 void SettingsDialog::on_customXMLPathButton_clicked()
 {
     QString dir = QFileDialog::getExistingDirectory(this, tr("Open Directory"),
-                                                    "",
-                                                    QFileDialog::ShowDirsOnly
-                                                    | QFileDialog::DontResolveSymlinks);
+						    "",
+						    QFileDialog::ShowDirsOnly
+						    | QFileDialog::DontResolveSymlinks);
     if (!dir.isEmpty())
 	{
 	    this->customXMLPathLine->setText(dir);
@@ -196,7 +198,7 @@ void SettingsDialog::on_colorFocusButton_clicked()
 {
 	QColor color = QColorDialog::getColor(this->colorFocusLabel->palette().color(QPalette::Background), this);
     if (color.isValid()) {
-        this->colorFocusLabel->setPalette(QPalette(color));
+	this->colorFocusLabel->setPalette(QPalette(color));
     }
 }
 
@@ -204,7 +206,7 @@ void SettingsDialog::on_colorBlurButton_clicked()
 {
 	QColor color = QColorDialog::getColor(this->colorBlurLabel->palette().color(QPalette::Background), this);
     if (color.isValid()) {
-        this->colorBlurLabel->setPalette(QPalette(color));
+	this->colorBlurLabel->setPalette(QPalette(color));
     }
 }
 
@@ -222,6 +224,6 @@ void SettingsDialog::on_colorTextButton_clicked()
 {
 	QColor color = QColorDialog::getColor(this->colorTextLabel->palette().color(QPalette::Background), this);
     if (color.isValid()) {
-        this->colorTextLabel->setPalette(QPalette(color));
+	this->colorTextLabel->setPalette(QPalette(color));
     }
 }

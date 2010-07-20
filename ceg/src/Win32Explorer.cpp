@@ -22,12 +22,12 @@
 #include <windows.h>
 #include <iostream>
 /*********************************/
+#include <QDebug>
+/*********************************/
 #include "Win32Explorer.h"
 /*********************************/
 #include "Win32Adaptor.h"
 /*********************************/
-
-#include <QDebug>
 
 Win32Explorer::Win32Explorer()
 {

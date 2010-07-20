@@ -1,8 +1,0 @@
-A installer :
-liblog4cxx10 - ce paquet installe uniquement les libs
-liblog4cxx10-dev - installe les headers de la librairies
-
-Pour plus de details sur les paquets:
-http://packages.ubuntu.com/source/hardy/log4cxx
-
-De plus il faut copier le FindLog4Cxx.cmake dans le repertoire de module de cmake
