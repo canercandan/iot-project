@@ -6,7 +6,7 @@
   <box type="2" x="750" y="1" height="100" width="300">
     <action id="ExecMenu">
       <action id="ExecProcess" path="/usr/bin/firefox"/>
-      <action id="Read"/>
+      <action id="Read" time="3000"/>
     </action>
     <style opacity="1" text="Firefox"/>
   </box>
@@ -35,7 +35,7 @@
   <box type="2" x="750" y="404" height="100" width="300">
     <action id="ExecMenu">
       <action id="ExecProcess" path="/usr/bin/gnome-calculator"/>
-      <action id="Read"/>
+      <action id="Read" time="3000"/>
     </action>
     <style opacity="1" text="Calculator"/>
   </box>

@@ -40,7 +40,10 @@ ReadAction::ReadAction(const QDomElement & actionElement) : _hideTime(1000)
 
 void ReadAction::initializeFromXml(const QDomElement & domElement)
 {
-    this->_hideTime = domElement.attribute("time").toULong();
+    if (domElement.hasAttribute("time"))
+	{
+	    this->_hideTime = domElement.attribute("time").toULong();
+	}
 }
 
 /************************************************* [ OTHERS ] *************************************************/
@@ -54,6 +57,8 @@ void	ReadAction::exec(MainController & lm)
     SleeperThread::msleep(this->_hideTime);
 
     view.show();
+
+    qDebug() << "ReadAction: after execution";
 }
 
 /************************************************* [ OTHERS ] *************************************************/
