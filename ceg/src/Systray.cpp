@@ -113,5 +113,5 @@ void Systray::on__settingAction_triggered()
 
 void Systray::on__aboutCegAction_triggered()
 {
-    QMessageBox::about(this ,tr("About CEG"), tr("Allows users to control machine by thinking."));
+    QMessageBox::about(this, tr("About CEG"), tr("Allows users to control machine by thinking."));
 }
