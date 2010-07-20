@@ -56,7 +56,7 @@ void ExecProcessAction::initializeFromXml(const QDomElement & domElement)
     if (domElement.hasAttribute("win:path"))
 	{
 	    //this->_path = domElement.attribute("path");
-	    this->_path = domElement.attribute("unix:path");
+	    this->_path = domElement.attribute("win:path");
 	}
 #elif defined(Q_OS_MAC)
     if (domElement.hasAttribute("mac:path"))
