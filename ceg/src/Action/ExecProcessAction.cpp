@@ -51,18 +51,8 @@ void	ExecProcessAction::exec(MainController & lm)
     qDebug() << "ExecProcessAction::exec";
     qDebug() << "We are going to execute" << this->_path;
 
-    View& view = lm.getView();
-
-    view.hide();
-
-    //QProcess::execute( this->_path );
-
     QProcess* process = new QProcess( &lm );
     process->start( this->_path );
-
-    //SleeperThread::msleep(1000);
-
-    view.show();
 }
 
 /************************************************* [ OTHERS ] *************************************************/

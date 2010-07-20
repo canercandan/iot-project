@@ -52,14 +52,37 @@ void	View::initialize()
     this->setScene(as);
     this->setGeometry(as->getGeometry());
 
-    this->setWindowFlags(Qt::CustomizeWindowHint | Qt::FramelessWindowHint); // Enleve la title bar
+    //-----------------------------------------------------------------------------
+    // Remove the title bar
+    //-----------------------------------------------------------------------------
+
+    this->setWindowFlags(Qt::CustomizeWindowHint | Qt::FramelessWindowHint);
+
+    //-----------------------------------------------------------------------------
+
+
+    //-----------------------------------------------------------------------------
+    // The following line allows to keep scene view on top.
+    // At this time it is not needed, perhaps in the future!
+    //-----------------------------------------------------------------------------
 
     //this->setWindowFlags(this->windowFlags() | Qt::WindowStaysOnTopHint);
+
+    //-----------------------------------------------------------------------------
+
 
     this->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     this->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     this->setWindowState(Qt::WindowFullScreen);
-    this->setInteractive(false); // Desactive les interactions (clic) sur la vue
+
+
+    //-----------------------------------------------------------------------------
+    // Desactive les interactions (clic) sur la vue
+    //-----------------------------------------------------------------------------
+
+    this->setInteractive(false);
+
+    //-----------------------------------------------------------------------------
 }
 
 void	View::keyPressEvent(QKeyEvent* keyEvent)
