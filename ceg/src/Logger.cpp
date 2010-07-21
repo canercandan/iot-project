@@ -36,15 +36,10 @@ Logger::Logger()
 {
     this->_currentLogLevel = DEBUG_LOG;
     this->_logFile = new QFile("Ceg.log");
-    if (!this->_logFile->exists())
-        this->Log(WARNING_LOG, "Ceg.log does not exist");
-    else
-    {
-        if(!this->_logFile->open(QIODevice::WriteOnly | QIODevice::Append))
+    if(!this->_logFile->open(QIODevice::WriteOnly | QIODevice::Append))
           {
             this->Log(WARNING_LOG, "Failed to open Ceg.log");
           }
-    }
 }
 
 Logger::~Logger()
@@ -72,7 +67,6 @@ void    Logger::setLogLevel(loglevel newLogLevel)
 
 void    Logger::setLogFile(QString filename)
 {
-    //FIXME close le previous file si exist
 
     if (this->_logFile)
     {
@@ -80,17 +74,11 @@ void    Logger::setLogFile(QString filename)
         delete this->_logFile;
     }
     this->_logFile = new QFile(filename);
-    if (!this->_logFile->exists())
+    if(!this->_logFile->open(QIODevice::WriteOnly | QIODevice::Append))
     {
-        this->Log(WARNING_LOG, "This log File doest not exist");
+        this->Log(WARNING_LOG, "Failed to open log file");
     }
-    else
-    {
-        if(!this->_logFile->open(QIODevice::WriteOnly | QIODevice::Append))
-        {
-            this->Log(WARNING_LOG, "Failed to open log file");
-        }
-    }
+
 }
 
 
