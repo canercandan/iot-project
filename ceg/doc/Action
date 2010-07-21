@@ -13,6 +13,17 @@ Exemple:
   - une action
 
 - ExecProcess : permet d'executer un programme depuis une commande
+  - unix:path
+  - win:path
+  - mac:path
+  - path
+
+  - unix:pathfinder
+  - win:pathfinder
+  - mac:pathfinder
+  - pathfinder
+
+  - time
   - 
 
 - Move :  generer des mouvements sur la scene courante
