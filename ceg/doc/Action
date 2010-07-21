@@ -12,6 +12,9 @@ Exemple:
 - ExecMenu : permettant d'executer une action depuis un menu
   - une action
 
+- ExecProcess : permet d'executer un programme depuis une commande
+  - 
+
 - Move :  generer des mouvements sur la scene courante
  - key : valeur d'une touche clavier cf dans qt Qt::Key
 
@@ -27,5 +30,5 @@ Exemple:
  - buffer : ce qu'il y a ecrire
 
 - Zoom : permet de zoomer dans une zone
- - 2 valeurs: zoom out  0
-     	      zoom in   1
+ - isZoom : 2 valeurs: zoom out  0
+     	               zoom in   1

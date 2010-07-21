@@ -29,10 +29,9 @@ class QDomElement;
 class IDomFactory
 {
 public:
-  virtual ~IDomFactory(){}
+    virtual ~IDomFactory(){}
 
-private:
-  virtual void	initializeFromXml(QDomElement const &) = 0;
+    virtual void	initializeFromXml(QDomElement const &) = 0;
 };
 
 #endif // !IDOMFACTORY_H

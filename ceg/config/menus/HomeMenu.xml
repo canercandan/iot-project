@@ -19,19 +19,12 @@
 
   <box type="2" x="750" y="303" height="100" width="300">
     <action id="ExecMenu">
-      <action id="AppSetting" />
-    </action>
-    <style opacity="1" text="Configure an application" fr:text="Configurer une application"/>
-  </box>
-
-  <box type="2" x="750" y="404" height="100" width="300">
-    <action id="ExecMenu">
       <action id="WSwitcher" />
     </action>
     <style opacity="1" text="Windows Switcher" fr:text="Gestionnaire de fenêtres"/>
   </box>
 
-  <box type="2" x="750" y="505" height="100" width="300">
+  <box type="2" x="750" y="404" height="100" width="300">
     <action id="ExecMenu">
       <action id="Quit" />
     </action>

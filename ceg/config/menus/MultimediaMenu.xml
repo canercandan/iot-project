@@ -9,7 +9,7 @@
 	      unix:pathfinder="gconftool --get /desktop/gnome/applications/browser/exec"
 	      unix:path="firefox"
 	      win:path="C:\Program Files\Mozilla Firefox\firefox.exe"
-	      argument="http://www.ionlythink.com"
+	      arguments="http://www.ionlythink.com"
 	      />
     </action>
     <style opacity="1" text="Internet"/>
@@ -26,15 +26,13 @@
   </box>
 
   <box type="2" x="750" y="303" height="100" width="300">
-    <action id="ExecMenu">
-      <action id="FavApp" />
-    </action>
     <style opacity="1" text="Applications Bookmarks" fr:text="Applications Favorites"/>
   </box>
 
   <box type="2" x="750" y="404" height="100" width="300">
     <action id="ExecMenu">
-      <action id="TextEdit" />
+      <action id="ExecProcess" time="1000"
+	      unix:path="gedit"/>
     </action>
     <style opacity="1" text="Text Editor" fr:text="Editeur de Texte"/>
   </box>
