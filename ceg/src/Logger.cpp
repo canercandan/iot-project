@@ -21,11 +21,12 @@
 /*********************************/
 #include <QTime>
 #include <QTextStream>
+#include <stdio.h>  //FOR IO MACROS
 /*********************************/
-#include <Logger.h>
+#include "Logger.h"
 /*********************************/
 
-static const char* logLevelMsg[4] = {"INFO: ", "DEBUG: ", "WARNING: ", "ERROR: "};
+static const char* logLevelMsg[4] = {"DEBUG: ", "INFO: ", "WARNING: ", "ERROR: "};
 
 /************************************************* [ CTOR/DTOR ] *************************************************/
 
@@ -33,14 +34,26 @@ Logger* Logger::_instance = 0;
 
 Logger::Logger()
 {
-    this->_currentLogLevel = INFO_LOG;
-    this->_filename = "Ceg.log";
+    this->_currentLogLevel = DEBUG_LOG;
+    this->_logFile = new QFile("Ceg.log");
+    if (!this->_logFile->exists())
+        this->Log(WARNING_LOG, "Ceg.log does not exist");
+    else
+    {
+        if(!this->_logFile->open(QIODevice::WriteOnly | QIODevice::Append))
+          {
+            this->Log(WARNING_LOG, "Failed to open Ceg.log");
+          }
+    }
 }
 
 Logger::~Logger()
 {
-    //FIXME close le handle sur fichier
-    //delete this->_filename;
+    if (this->_logFile)
+    {
+        this->_logFile->close();
+       delete this->_logFile;
+    }
 }
 
 /************************************************* [ OTHERS ] *************************************************/
@@ -59,27 +72,53 @@ void    Logger::setLogLevel(loglevel newLogLevel)
 
 void    Logger::setLogFile(QString filename)
 {
-    this->_filename = filename;
+    //FIXME close le previous file si exist
+
+    if (this->_logFile)
+    {
+        this->_logFile->close();
+        delete this->_logFile;
+    }
+    this->_logFile = new QFile(filename);
+    if (!this->_logFile->exists())
+    {
+        this->Log(WARNING_LOG, "This log File doest not exist");
+    }
+    else
+    {
+        if(!this->_logFile->open(QIODevice::WriteOnly | QIODevice::Append))
+        {
+            this->Log(WARNING_LOG, "Failed to open log file");
+        }
+    }
 }
 
 
-QString&    Logger::getLogFile()
+QString const    Logger::getLogFile() const
 {
-    return (this->_filename);
+    return (this->_logFile->fileName());
 }
 
 void    Logger::Log(loglevel msgLogLevel,QString& msg)
 {
-    QTextStream out(stdout);
-    out << "[" << QTime::currentTime().toString().toAscii().data() << "] " << logLevelMsg[msgLogLevel]<< msg;
+    this->Log(msgLogLevel, msg.toStdString().c_str());
 }
 
-void    Logger::Log(loglevel msgLogLevel,const char *msg)
+void    Logger::Log(loglevel msgLogLevel, const char *msg)
 {
-
+    if (this->_currentLogLevel > msgLogLevel)
+        return;
     QTextStream out(stdout);
-    out << "[" << QTime::currentTime().toString().toAscii().data() << "] " << logLevelMsg[msgLogLevel]<< msg;
+
+    out << "[" << QTime::currentTime().toString().toAscii().data() << "] " << logLevelMsg[msgLogLevel]<< msg << "\r\n";
+    if (this->_logFile && this->_logFile->exists())
+    {
+     QTextStream filestream(this->_logFile);
+     filestream << "[" << QTime::currentTime().toString().toAscii().data() << "] " << logLevelMsg[msgLogLevel]<< msg;
+    }
+
 }
+
 Logger* Logger::getInstance()
 {
     if (!_instance)

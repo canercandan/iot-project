@@ -21,13 +21,13 @@
 #define LOGGER_H
 
 #include <QString>
-
+#include <QFile>
 
 
 enum loglevel
 {
-    INFO_LOG = 0,
-    DEBUG_LOG = 1,
+    DEBUG_LOG = 0,
+    INFO_LOG = 1,
     WARNING_LOG = 2,
     ERROR_LOG = 3,
 };
@@ -46,14 +46,14 @@ class Logger
    loglevel getLogLevel() const;
     void    setLogLevel(loglevel newLogLevel);
     void    setLogFile(QString filename);
-    QString& getLogFile();
+    QString const getLogFile() const;
     void    Log(loglevel msgLogLevel, QString& msg);
     void    Log(loglevel msgLogLevel, const char *msg);
 private:
     Logger();
     ~Logger();
     loglevel _currentLogLevel;
-    QString _filename;
+    QFile* _logFile;
     static Logger*  _instance;
 };
 
