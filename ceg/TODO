@@ -23,8 +23,3 @@
 
 -------------------------------------------------- Reminder Lamine -------------------------------------------------------------------------
 - Trouver comment récupérer les infos utiles (navigateur par défaut, client mail...)
-
-
--------------------------------------------------- BUG A FIXER -----------------------------------------------------
-
-- Dans le menu d'application le bouton Cancel segfault apres une fenetre vide. (rev. 538)
