@@ -5,36 +5,44 @@
 
   <box type="2" x="750" y="1" height="100" width="300">
     <action id="ExecMenu">
-      <action id="ExecProcess" name="Firefox" time="3000" path="default_path"
-	      unix:path="/usr/bin/firefox"
+      <action id="ExecProcess" name="Firefox"
+	      path="default_path"
+	      unix:path="firefox"
 	      win:path="C:\Program Files\Mozilla Firefox\firefox.exe"
-	      mac:path="unknown"/>
+	      mac:path="unknown"
+	      />
     </action>
     <style opacity="1" text="Firefox"/>
   </box>
 
   <box type="2" x="750" y="101" height="100" width="300">
     <action id="ExecMenu">
-      <action id="ExecProcess" path="C:\Program Files\Windows Media Player/wmplayer.exe"
-	      win:path="C:\Program Files\Windows Media Player/wmplayer.exe"/>
+      <action id="ExecProcess"
+	      path="C:\Program Files\Windows Media Player/wmplayer.exe"
+	      win:path="C:\Program Files\Windows Media Player/wmplayer.exe"
+	      />
     </action>
     <style opacity="1" text="Windows Media Player"/>
   </box>
 
   <box type="2" x="750" y="202" height="100" width="300">
     <action id="ExecMenu">
-      <action id="ExecProcess" path="C:\Program Files\Notepad++\notepad++.exe"
-	      win:path="C:\Program Files\Notepad++\notepad++.exe"/>
+      <action id="ExecProcess"
+	      path="C:\Program Files\Notepad++\notepad++.exe"
+	      win:path="C:\Program Files\Notepad++\notepad++.exe"
+	      />
     </action>
     <style opacity="1" text="Notepad++"/>
   </box>
 
   <box type="2" x="750" y="303" height="100" width="300">
     <action id="ExecMenu">
-      <action id="ExecProcess" path="/usr/bin/gnome-calculator" time="3000"
-	  win:path="C:\WINDOWS\system32\calc.exe"/>
+      <action id="ExecProcess"
+	      unix:path="gnome-calculator"
+	      win:path="C:\WINDOWS\system32\calc.exe"
+	      />
     </action>
-    <style opacity="1" text="Calculator"/>
+    <style opacity="1" text="Calculator" fr:text="Calculatrice"/>
   </box>
 
   <box type="2" x="750" y="404" height="100" width="300">

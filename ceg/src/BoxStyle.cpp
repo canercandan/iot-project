@@ -73,8 +73,7 @@ void BoxStyle::initializeFromXml(QDomElement const & styleElement)
         this->_imagePath = styleElement.attribute("imagePath");
 
     QString language = settings.value("general/language").toString();
-    QStringList langList = language.split("_");
-    language = langList[0];
+    language = language.split("_")[0];
 
     if (styleElement.hasAttribute(language + ":text"))
         this->_text = styleElement.attribute(language + ":text");

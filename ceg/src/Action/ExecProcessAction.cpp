@@ -33,7 +33,7 @@
 
 char const * ExecProcessAction::IDENTIFIER = "ExecProcess";
 
-ExecProcessAction::ExecProcessAction(const QDomElement & actionElement) : _path(""), _hideTime(1000)
+ExecProcessAction::ExecProcessAction(const QDomElement & actionElement) : _path(""), _pathFinder(""), _arguments(""), _hideTime(0)
 {
     qDebug() << "ExecProcessAction::ExecProcessAction(const QDomElement & actionElement)";
     this->initializeFromXml(actionElement);
@@ -47,32 +47,90 @@ void ExecProcessAction::initializeFromXml(const QDomElement & domElement)
 	}
 
 #if defined(Q_OS_UNIX)
+
     if (domElement.hasAttribute("unix:path"))
 	{
-	    //this->_path = domElement.attribute("path");
 	    this->_path = domElement.attribute("unix:path");
 	}
+
+    if (domElement.hasAttribute("unix:pathfinder"))
+	{
+	    this->_pathFinder = domElement.attribute("unix:pathfinder");
+	}
+
+    if (domElement.hasAttribute("unix:arguments"))
+	{
+	    this->_arguments = domElement.attribute("unix:arguments");
+	}
+
 #elif defined(Q_OS_WIN)
+
     if (domElement.hasAttribute("win:path"))
 	{
-	    //this->_path = domElement.attribute("path");
 	    this->_path = domElement.attribute("win:path");
 	}
+
+    if (domElement.hasAttribute("win:pathfinder"))
+	{
+	    this->_pathFinder = domElement.attribute("win:pathfinder");
+	}
+
+    if (domElement.hasAttribute("win:arguments"))
+	{
+	    this->_arguments = domElement.attribute("win:arguments");
+	}
+
 #elif defined(Q_OS_MAC)
+
     if (domElement.hasAttribute("mac:path"))
 	{
-	    //this->_path = domElement.attribute("path");
 	    this->_path = domElement.attribute("mac:path");
 	}
+
+    if (domElement.hasAttribute("mac:pathfinder"))
+	{
+	    this->_pathFinder = domElement.attribute("mac:pathfinder");
+	}
+
+    if (domElement.hasAttribute("mac:arguments"))
+	{
+	    this->_arguments = domElement.attribute("mac:arguments");
+	}
+
 #endif
-    else if (domElement.hasAttribute("path"))
+
+    if (this->_path.isEmpty() && domElement.hasAttribute("path"))
 	{
 	    this->_path = domElement.attribute("path");
 	}
 
+    if (this->_pathFinder.isEmpty() && domElement.hasAttribute("pathfinder"))
+	{
+	    this->_pathFinder = domElement.attribute("pathfinder");
+	}
+
+    if (this->_arguments.isEmpty() && domElement.hasAttribute("arguments"))
+	{
+	    this->_arguments = domElement.attribute("arguments");
+	}
+
 #if defined(Q_OS_WIN)
+
     if (!this->_path.isEmpty())
-	this->_path = "\"" + this->_path + "\"";
+	{
+	    this->_path = "\"" + this->_path + "\"";
+	}
+
+    if (!this->_pathFinder.isEmpty())
+	{
+	    this->_pathFinder = "\"" + this->_pathFinder + "\"";
+	}
+
+    if (!this->_arguments.isEmpty())
+	{
+	    this->_arguments = "\"" + this->_arguments + "\"";
+	}
+
 #endif
 }
 
@@ -82,20 +140,61 @@ void	ExecProcessAction::exec(MainController & lm)
 {
     qDebug() << "ExecProcessAction::exec";
 
+    if ( ! this->_pathFinder.isEmpty() )
+	{
+	    QProcess finder;
+	    finder.start( this->_pathFinder );
+
+	    if ( ! finder.waitForStarted() )
+		{
+		    qDebug() << "Finder command doesnot work.";
+		    return;
+		}
+
+	    if ( ! finder.waitForFinished() )
+		{
+		    qDebug() << "Finder command meets some issues to finish.";
+		    return;
+		}
+
+	    QString path = finder.readAll();
+	    path = path.trimmed();
+
+#if defined(Q_OS_UNIX)
+	    path = path.split(" ")[0];
+#endif
+
+	    if ( ! path.isEmpty() )
+		{
+		    this->_path = path;
+		}
+	}
+
     if (this->_path.isEmpty())
 	{
 	    qDebug() << "No path found";
 	    return;
 	}
+
     qDebug() << "We are going to execute" << this->_path;
 
     View & view = lm.getView();
+
     view.hide();
 
     QProcess* process = new QProcess( &lm );
-    process->start( this->_path );
+    process->start( this->_path + " " + this->_arguments );
 
-    SleeperThread::msleep(this->_hideTime);
+    if ( ! process->waitForStarted() )
+	{
+	    qDebug() << "Program command doesnot work.";
+	    return;
+	}
+
+    if (this->_hideTime > 0)
+	{
+	    SleeperThread::msleep(this->_hideTime);
+	}
 
     view.show();
 }

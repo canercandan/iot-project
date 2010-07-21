@@ -48,6 +48,8 @@ public:
 
 private:
     QString _path;
+    QString _pathFinder;
+    QString _arguments;
     unsigned long _hideTime;
 };
 

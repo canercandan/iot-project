@@ -51,6 +51,7 @@ void	View::initialize()
     AbstractScene* as = this->_lm.getCurrentScene();
     this->setScene(as);
     this->setGeometry(as->getGeometry());
+    this->setCacheMode(QGraphicsView::CacheNone);
 
     //-----------------------------------------------------------------------------
     // Remove the title bar

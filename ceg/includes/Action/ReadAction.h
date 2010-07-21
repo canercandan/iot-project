@@ -29,7 +29,7 @@ class QDomElement;
  * \brief This action allows ceg interface hidding during 5 seconds and shows it again.
  */
 
-/**  
+/**
  * Feature to forecast: Disable hidding with a signal
  */
 class ReadAction : public IAction

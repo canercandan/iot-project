@@ -51,10 +51,15 @@ void ReadAction::initializeFromXml(const QDomElement & domElement)
 void	ReadAction::exec(MainController & lm)
 {
     qDebug() << "ReadAction::exec";
+
     View & view = lm.getView();
+
     view.hide();
 
-    SleeperThread::msleep(this->_hideTime);
+    if (this->_hideTime > 0)
+	{
+	    SleeperThread::msleep(this->_hideTime);
+	}
 
     view.show();
 }
