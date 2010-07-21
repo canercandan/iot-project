@@ -64,7 +64,9 @@ void ExecMenuAction::initializeFromXml(const QDomElement & actionElement)
 	if (actionParam.isNull() == false && actionParam.tagName() == "action")
 	{
 	    qDebug() << "action added";
-	    this->_actionsToExec.push_back(ActionFactory::create(actionParam));
+	    IAction * anAction = ActionFactory::create(actionParam);
+	    if (anAction != 0)
+		this->_actionsToExec.push_back();
 	}
     }
 }
@@ -77,15 +79,11 @@ void ExecMenuAction::exec(MainController & mainC)
     if (this->_actionsToExec.empty() == false)
     {
 	// On ferme le menu
-	qDebug() << "Avant le pop";
 	//mainC.popFrontScene();
 
 	// On execute l'action
-	qDebug() << "Avant le exec";
-
 	for (std::vector< IAction * >::iterator it = this->_actionsToExec.begin(), end = this->_actionsToExec.end(); it != end; ++it)
 	{
-	    qDebug() << "Dans la boucle du exec";
 	    (*it)->exec(mainC);
 	}
     }
