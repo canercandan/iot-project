@@ -21,6 +21,7 @@
 /*********************************/
 #include <QDomElement>
 #include <QDebug>
+#include <QMessageBox>
 /*********************************/
 #include "ZoomAction.h"
 /*********************************/

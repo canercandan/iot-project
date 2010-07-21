@@ -78,7 +78,6 @@ View &	MainController::getView()
 
 void    MainController::on_action_emitted(IAction & anAction)
 {
-    Logger::getInstance()->Log(INFO_LOG,  "Execution de l'action suivante : .");
     anAction.exec(*this);
 }
 

@@ -194,7 +194,7 @@ void	ExecProcessAction::exec(MainController & mainC)
 	SleeperThread::msleep(this->_hideTime);
     }
 
-    Ceg::Window defaultWindow(0, QApplication::desktop()->geometry(), true, "fuck");
+    Ceg::Window defaultWindow(0, QApplication::desktop()->geometry(), true, "42");
     mainC.pushFrontScene(mainC.createScene(defaultWindow));
 }
 

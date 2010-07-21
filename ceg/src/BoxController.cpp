@@ -32,6 +32,7 @@
 #include <QDir>
 #include <QSettings>
 #include <QLocale>
+#include <QDebug>
 /*********************************/
 #include "BoxController.h"
 /*********************************/
@@ -86,7 +87,7 @@ void BoxController::getChildren(std::list<QGraphicsRectItem *> & graphicItems, B
     {
 	this->calcChildren(childrenBox, box->getGeometry(), box->getLevel() + 1);
     }
-    else // mode custom
+    else if(box->getBoxType() == CUSTOM_BOX) // mode custom
     {
 	childrenBox = box->getChilden();
     }
@@ -187,7 +188,7 @@ void BoxController::calcChildren(std::list<Box const *> & boxs, QRect const & ge
 	qreal x = geometry.x();
 	while (cols++ < this->_nbSquare)
 	{
-	    boxs.push_back(new Box(DEFAULT_BOX, level, QRect(x, y, tmpWidth, tmpHeight)));
+	    boxs.push_back(new Box(level, QRect(x, y, tmpWidth, tmpHeight)));
 	    x += tmpWidth;
 	}
 	y += tmpHeight;

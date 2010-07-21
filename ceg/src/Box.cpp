@@ -34,8 +34,8 @@
 
 /************************************************* [ CTOR/DTOR ] *************************************************/
 
-Box::Box(BoxType boxtype, int level, QRect const & geometry):
-	_type(boxtype), _geometry(geometry), _action(0), _graphicStyle(), _children()
+Box::Box(int level, QRect const & geometry):
+	_type(DEFAULT_BOX), _geometry(geometry), _action(0), _graphicStyle(), _children()
 {
     QDomDocument xmld;
     QDomElement actionElement = xmld.createElement("action");
