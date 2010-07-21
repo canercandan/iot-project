@@ -34,7 +34,7 @@ enum loglevel
 
 /**
  * \brief Classe de Log
- * Permet d'enregistrer du log
+ * Permet d'enregistrer des informations dans un fichier de log
  */
 class Logger
 {

@@ -31,7 +31,7 @@ class QMenu;
 class QAction;
 
 /**
- * \brief Classe de vue qui contient le systray.
+ * \brief Classe de vue qui contient le Systray.
  * Elle permet de stopper le Ceg
  */
 
