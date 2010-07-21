@@ -113,7 +113,7 @@ void AbstractItem::paint(QPainter * painter, const QStyleOptionGraphicsItem *, Q
     // /!\ But it is too heavy. We must find another way.
     //-----------------------------------------------------------------------------
 
-    this->scene()->update();
+    //this->scene()->update();
 
     //-----------------------------------------------------------------------------
 }

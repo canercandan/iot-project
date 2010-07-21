@@ -414,10 +414,9 @@ Backspace = unzoom
 Alt + F4 = Quit</source>
         <translation type="obsolete">Fleches Gauche | Droite = Mouvements horizontaux
 Fleches Haut | Bas = Mouvements verticaux
-Entrer = Zoom Avant
-Effacer = Zoom Arriere
-1 = Simple Clic
-Alt + F4 = Quitter</translation>
+Entrer = Valider
+Alt + F4 = Quitter
+</translation>
     </message>
     <message>
         <location filename="../src/Systray.cpp" line="92"/>
