@@ -21,6 +21,8 @@
 /*********************************/
 #include <QDomElement>
 #include <QSettings>
+#include <QStringList>
+#include <QDebug>
 /*********************************/
 #include "BoxStyle.h"
 /*********************************/
@@ -70,8 +72,14 @@ void BoxStyle::initializeFromXml(QDomElement const & styleElement)
     if (styleElement.hasAttribute("imagePath"))
         this->_imagePath = styleElement.attribute("imagePath");
 
-    if (styleElement.hasAttribute("text"))
-        this->_text = styleElement.attribute("text");
+    QString language = settings.value("general/language").toString();
+    QStringList langList = language.split("_");
+    language = langList[0];
+
+    if (styleElement.hasAttribute(language + ":text"))
+        this->_text = styleElement.attribute(language + ":text");
+    else if (styleElement.hasAttribute("text"))
+	this->_text = styleElement.attribute("text");
 
     if (styleElement.hasAttribute("font"))
         this->_textFont = styleElement.attribute("font");

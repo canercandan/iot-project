@@ -251,15 +251,16 @@ void BoxController::createGraphicItems(std::list<QGraphicsRectItem *> & graphicI
 
 void BoxController::loadConfig(QString const & typeSearch)
 {
-    QSettings settings;
-    QString language = settings.value("general/language").toString();
+    // QSettings settings;
+    // QString language = settings.value("general/language").toString();
 
 #if defined(Q_OS_UNIX)
-    QString directoryName = "/config/" + typeSearch + language;
+    QString directoryName = "/config/" + typeSearch; // + language;
 #elif defined(Q_OS_WIN)
-    QString directoryName = "/../config/" + typeSearch + language;
+    QString directoryName = "/../config/" + typeSearch; // + language;
 #elif defined(Q_OS_MAC)
-    QString directoryName = "/config/" + typeSearch + language;
+    // FIXME i don't know how do this on mac
+    QString directoryName = "/config/" + typeSearch; // + language;
 #endif
 
     QStringList	pathsToSearch(QCoreApplication::applicationDirPath());

@@ -5,30 +5,30 @@
 
   <box type="2" x="750" y="1" height="100" width="300">
     <action id="ExecMenu">
-      <action id="Home" />
+      <action id="PopMenu" MenuId="Home"/>
     </action>
-    <style opacity="1" text="Accueil"/>
+    <style opacity="1" text="Home" fr:text="Accueil"/>
   </box>
 
   <box type="2" x="750" y="101" height="100" width="300">
     <action id="ExecMenu">
       <action id="Switch" />
     </action>
-    <style opacity="1" text="Changement de fenêtre"/>
+    <style opacity="1" text="Switch" fr:text="Changement de fenêtre"/>
   </box>
 
   <box type="2" x="750" y="202" height="100" width="300">
     <action id="ExecMenu">
-      <action id="Cancel"/>
+      <action id="Cancel" />
     </action>
-    <style opacity="1" text="Annuler"/>
+    <style opacity="1" text="Cancel" fr:text="Annuler"/>
   </box>
 
   <box type="2" x="750" y="303" height="100" width="300">
     <action id="ExecMenu">
-      <action id="Quit" />
+      <action id="Quit"/>
     </action>
-    <style opacity="1" text="Quitter"/>
+    <style opacity="1" text="Quit" fr:text="Quitter"/>
   </box>
 
 </menu>

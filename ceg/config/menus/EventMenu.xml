@@ -1,48 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE XmlBox>
 
-<menu id="Home">
+<menu id="Event">
 
   <box type="2" x="750" y="1" height="100" width="300">
     <action id="ExecMenu">
-      <action id="FreeMode" />
+      <action id="Zoom" isZoom="1" />
     </action>
-    <style opacity="1" text="Mode Libre"/>
+    <style opacity="1" text="Zoom In" fr:text="Agrandir"/>
   </box>
 
   <box type="2" x="750" y="101" height="100" width="300">
     <action id="ExecMenu">
-      <action id="PopMenu" MenuId="Multimedia"/>
+      <action id="Zoom" isZoom="0" />
     </action>
-    <style opacity="1" text="Menu Multimedia"/>
+    <style opacity="1" text="Zoom Out" fr:text="Réduire"/>
   </box>
 
   <box type="2" x="750" y="202" height="100" width="300">
     <action id="ExecMenu">
-      <action id="PopMenu" MenuId="Application"/>
+      <action id="Click"/>
     </action>
-    <style opacity="1" text="Listing des application"/>
+    <style opacity="1" text="Click" fr:text="Cliquer"/>
   </box>
 
   <box type="2" x="750" y="303" height="100" width="300">
     <action id="ExecMenu">
-      <action id="AppSetting" />
+      <action id="Click" type="4"/>
     </action>
-    <style opacity="1" text="Configurer une application"/>
+    <style opacity="1" text="Double click" fr:text="Double cliquer"/>
   </box>
 
   <box type="2" x="750" y="404" height="100" width="300">
     <action id="ExecMenu">
-      <action id="WSwitcher" />
+      <action id="Read"/>
     </action>
-    <style opacity="1" text="Gestionnaire de fenêtre"/>
+    <style opacity="1" text="Read" fr:text="Lire"/>
   </box>
 
   <box type="2" x="750" y="505" height="100" width="300">
     <action id="ExecMenu">
-      <action id="Quit" />
+      <action id="Cancel"/>
     </action>
-    <style opacity="1" text="Quitter"/>
+    <style opacity="1" text="Cancel" fr:text="Annuler"/>
   </box>
 
 </menu>

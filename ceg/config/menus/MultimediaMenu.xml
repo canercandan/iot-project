@@ -21,35 +21,35 @@
     <action id="ExecMenu">
       <action id="FavApp" />
     </action>
-    <style opacity="1" text="Favourite Applications"/>
+    <style opacity="1" text="Favourite Applications" fr:text="Applications Favorites"/>
   </box>
 
   <box type="2" x="750" y="404" height="100" width="300">
     <action id="ExecMenu">
       <action id="TextEdit" />
     </action>
-    <style opacity="1" text="Text Editor"/>
+    <style opacity="1" text="Text Editor" fr:text="Editeur de Texte"/>
   </box>
 
   <box type="2" x="750" y="505" height="100" width="300">
     <action id="ExecMenu">
       <action id="Video" />
     </action>
-    <style opacity="1" text="Video"/>
+    <style opacity="1" text="Video" fr:text="Vidéo"/>
   </box>
 
   <box type="2" x="750" y="606" height="100" width="300">
     <action id="ExecMenu">
       <action id="Music" />
     </action>
-    <style opacity="1" text="Music"/>
+    <style opacity="1" text="Music" fr:text="Musique"/>
   </box>
 
   <box type="2" x="750" y="707" height="100" width="300">
     <action id="ExecMenu">
       <action id="Cancel"/>
     </action>
-    <style opacity="1" text="Cancel"/>
+    <style opacity="1" text="Cancel" fr:text="Annuler"/>
   </box>
 
 </menu>
