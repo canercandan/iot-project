@@ -69,6 +69,11 @@ void ExecProcessAction::initializeFromXml(const QDomElement & domElement)
 	{
 	    this->_path = domElement.attribute("path");
 	}
+	
+#if defined(Q_OS_WIN)
+		if (!this->_path.isEmpty())
+			this->_path = "\"" + this->_path + "\"";
+#endif
 }
 
 /************************************************* [ OTHERS ] *************************************************/
@@ -82,7 +87,6 @@ void	ExecProcessAction::exec(MainController & lm)
 	    qDebug() << "No path found";
 	    return;
 	}
-
     qDebug() << "We are going to execute" << this->_path;
 
     View & view = lm.getView();
