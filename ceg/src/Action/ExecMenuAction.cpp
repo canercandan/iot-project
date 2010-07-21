@@ -66,7 +66,7 @@ void ExecMenuAction::initializeFromXml(const QDomElement & actionElement)
 	    qDebug() << "action added";
 	    IAction * anAction = ActionFactory::create(actionParam);
 	    if (anAction != 0)
-		this->_actionsToExec.push_back();
+		this->_actionsToExec.push_back(anAction);
 	}
     }
 }
