@@ -22,6 +22,8 @@
 #include <QDebug>
 #include <QDomElement>
 #include <QProcess>
+#include <QApplication>
+ #include <QDesktopWidget>
 /*********************************/
 #include "ExecProcessAction.h"
 /*********************************/
@@ -136,7 +138,7 @@ void ExecProcessAction::initializeFromXml(const QDomElement & domElement)
 
 /************************************************* [ OTHERS ] *************************************************/
 
-void	ExecProcessAction::exec(MainController & lm)
+void	ExecProcessAction::exec(MainController & mainC)
 {
     qDebug() << "ExecProcessAction::exec";
 
@@ -178,16 +180,12 @@ void	ExecProcessAction::exec(MainController & lm)
 
     qDebug() << "We are going to execute" << this->_path;
 
-    View & view = lm.getView();
-
-    view.hide();
-
-    QProcess* process = new QProcess( &lm );
+    QProcess* process = new QProcess( &mainC );
     process->start( this->_path + " " + this->_arguments );
 
     if ( ! process->waitForStarted() )
     {
-	qDebug() << "Program command doesnot work.";
+	qDebug() << "Program command doesn't work.";
 	return;
     }
 
@@ -196,7 +194,8 @@ void	ExecProcessAction::exec(MainController & lm)
 	SleeperThread::msleep(this->_hideTime);
     }
 
-    view.show();
+    Ceg::Window defaultWindow(0, QApplication::desktop()->geometry(), true, "fuck");
+    mainC.pushFrontScene(mainC.createScene(defaultWindow));
 }
 
 /************************************************* [ OTHERS ] *************************************************/

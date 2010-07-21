@@ -82,17 +82,14 @@ void    MainController::on_action_emitted(IAction & anAction)
     anAction.exec(*this);
 }
 
-//void MainController::createScenes(std::list<Ceg::Window> const & windows)
-//{
-//    for (std::list<Ceg::Window>::const_iterator it = windows.begin(), itEnd = windows.end(); it != itEnd; ++it)
-//    {
-//	Layer * oneLayer = new Layer(*it);
-//	std::list<QGraphicsRectItem *> graphicItems;
-//	this->_boxController.getPattern(*it, graphicItems);
-//	oneLayer->initialize(graphicItems);
-//	this->_scenes.push_front(oneLayer);
-//    }
-//}
+AbstractScene * MainController::createScene(Ceg::Window const & window)
+{
+    Layer * oneLayer = new Layer(window);
+    std::list<QGraphicsRectItem *> graphicItems;
+    this->_boxController.getPattern(window, graphicItems);
+    oneLayer->initialize(graphicItems);
+    return (oneLayer);
+}
 
 void MainController::initialize()
 {
@@ -139,7 +136,7 @@ void MainController::popFrontScene()
 	this->_currentScene = this->_scenes.begin();
 	this->_view.hide();
 	this->_view.setScene(*(this->_currentScene));
-//	this->_view.setGeometry((*this->_currentScene)->getGeometry()); Provisoire a voire si ca fonctionne toujours quand on est en mode navigation
+	//	this->_view.setGeometry((*this->_currentScene)->getGeometry()); Provisoire a voire si ca fonctionne toujours quand on est en mode navigation
 	this->_view.show();
     }
     delete oldCurrentScene;

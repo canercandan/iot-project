@@ -54,6 +54,7 @@ public:
     AbstractScene*			getCurrentScene() const;
     View &				getView();
 
+    AbstractScene *			createScene(Ceg::Window const & window);
     void				pushFrontScene(AbstractScene * scene); // Rajoute la scnene au debut des scenes et rafraichi la vue
     void				popFrontScene(); // Supprime la scene du debut et rafraichi la vue
 
@@ -63,7 +64,6 @@ public slots:
     void				on_action_emitted(IAction &); // Attrape les actions a execute
 
 private:
-//    void				createScenes(std::list<Ceg::Window> const & windows); // Cree tout les layers pour les fenetres donnees
     void				initialize(); // Initialise tout les paremetres pour la navigation
 
 
