@@ -66,7 +66,7 @@ void    Logger::setLogLevel(loglevel newLogLevel)
 }
 
 
-
+//! set a File
 void    Logger::setLogFile(QString const & filename)
 {
     if (this->_logFile)

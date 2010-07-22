@@ -46,11 +46,11 @@ std::string typeToString(T const & input)
 }
 
 
-/**
- * Fonctor permettant de delete n'importe quel type de pointeurs
- */
 namespace Ceg
 {
+    /**
+     * \struct Fonctor permettant de delete n'importe quel type de pointeurs
+     */
     struct DeleteObject
     {
 	template<typename T>

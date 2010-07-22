@@ -25,6 +25,9 @@ class QString;
 class QTextStream;
 class QMutex;
 
+/**
+* \enum loglevel
+*/
 enum loglevel
 {
     DEBUG_LOG = 0,
@@ -44,8 +47,8 @@ public:
     static   void destroy();
 
     loglevel getLogLevel() const;
-    QString getLogFile() const;
     void    setLogLevel(loglevel newLogLevel);
+    QString getLogFile() const;
     void    setLogFile(QString const & filename);
 
     void    log(loglevel msgLogLevel, QString const & msg);
@@ -55,6 +58,8 @@ public:
 private:
     Logger();
     ~Logger();
+
+private:
     loglevel _currentLogLevel;
     QFile* _logFile;
     static Logger*  _instance;
