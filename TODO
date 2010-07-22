@@ -1,6 +1,5 @@
 -------------------------------------------------- ALL --------------------------------------------------------------------------
 - Doxygen (ALL)
-- Multi-langue des applis(ALL to discuss)
 - Utiliser le track pour les bugs
 
 -------------------------------------------------- WEB --------------------------------------------------------------------------
@@ -30,22 +29,15 @@
 - Faire des tests.
 - Fournir les sources du player.
 
--------------------------------------------------- Wizard ------------------------------------------------------------------------
-- Completer le wizard (CEG + BUILDER)
-- Decider de la licence utilisee pour chaque produit.
-- Charte graphique des wizards a discuter.
-- Les wizards sous Linux/BSD devront fournir des binaires statiques des produits.
-
 -------------------------------------------------- OpenEEG -----------------------------------------------------------------------
 - ...
 
 -------------------------------------------------- CEG --------------------------------------------------------------------------
-- /ceg/doc/TODO
+- trunk/ceg/TODO
 
 
 ---------------------------------------------------- DEPENDANCES-------------------------------------------------------------------
-- Qt
+- Qt minimum 4.6
 - Cmake
 - Microsoft SDK (pour le psapi.lib a voir)
 - libxmu6 libxmu-dev (Unix)
-- log4cxx http://logging.apache.org/log4cxx/download.html

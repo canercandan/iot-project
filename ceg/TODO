@@ -1,8 +1,10 @@
 ------------------------------------------------------ ? ----------------------------------------------------------------------
-- implementer le systeme pour demarrer des programmes
-- Creation du clavier virtuel faire des test de simulation de touches. (?)
+- Choix de mettre le menu vraiment opaque!
+- Creation du clavier virtuel +  faire des test de simulation de touches et trouver la meilleure methode a utiliser. (?)
+- Faire le mode switch
 
--------------------------------------------------- Reminder chris -------------------------------------------------------------------------- delete tous les qDebug()
+-------------------------------------------------- Reminder chris --------------------------------------------------------------------------
+- delete tous les qDebug()
 - Metre l'etat de la connexion dans le tray icone (disconnected || connected || error)
 - rajouter deux slots en public :  on_start_navigation et on_stop_navigation
 - renommer CEgTcpServer en NetworkServer et le nom de fichier aussi
@@ -10,15 +12,23 @@
 - module OpenViBe
 - parsing (rfb)
 -------------------------------------------------- Reminder Yann --------------------------------------------------------------------------
-- Terminer le communication avec le serveur Graphique sur Linux
+- Rajouter une methode toString pour IAction
+- Terminer le communication avec le serveur Graphique sur Linux - pas forcement utile a etudier
 - revoir le management des listes dans le boxcontroler (new les listes)
+- bien gerer les process
+- trouver les segfaults : windows(focusItem) + all(free de la memoire)
+- laisser la view au top level
+- revoir le management des menus pour eviter de newer a chaque fois
 
 -------------------------------------------------- Reminder Caner --------------------------------------------------------------------------
-- voir les xsd (avec yann) - QtValidator
+- faire les xsd - QtValidator
 - Rajout le code neccessaire pour gerer toutes les possibilite sur les box: rendre le code plus propre dans la methode paint de abstractitem
+- voir avec yavuz, si le nb de square ne gene pas pour le recalcule en mode par defaut
 
 -------------------------------------------------- Reminder Yavuz --------------------------------------------------------------------------
+- Finir de faire des menus propres ! rajouter des couleurs pour le fond par exemple
+- Eviter que lorsqu'il y ait seulement une box affichee en mode custom, on ne puisse pas faire apparaitre le menu Navigation
 - Terminer le communication avec le serveur Graphique sur Windows
 
 -------------------------------------------------- Reminder Lamine -------------------------------------------------------------------------
-- Trouver comment récupérer les infos utiles (navigateur par défaut, client mail...)
+
