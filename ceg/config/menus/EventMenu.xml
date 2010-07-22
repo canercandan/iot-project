@@ -7,35 +7,35 @@
     <action id="ExecMenu">
       <action id="Zoom" isZoom="1" />
     </action>
-    <style opacity="1" text="Zoom In" fr:text="Agrandir"/>
+    <style opacity="1" text="Zoom In" fr:text="Agrandir" imagePath=":images/action/zoomIn.png"/>
   </box>
 
   <box type="2" x="750" y="101" height="100" width="300">
     <action id="ExecMenu">
       <action id="Zoom" isZoom="0" />
     </action>
-    <style opacity="1" text="Zoom Out" fr:text="Réduire"/>
+    <style opacity="1" text="Zoom Out" fr:text="Réduire" imagePath=":images/action/zoomOut.png"/>
   </box>
 
   <box type="2" x="750" y="202" height="100" width="300">
     <action id="ExecMenu">
       <action id="Click"/>
     </action>
-    <style opacity="1" text="Click" fr:text="Cliquer"/>
+    <style opacity="1" text="Click" fr:text="Cliquer" imagePath=":images/action/simpleClick.png"/>
   </box>
 
   <box type="2" x="750" y="303" height="100" width="300">
     <action id="ExecMenu">
       <action id="Click" type="4"/>
     </action>
-    <style opacity="1" text="Double click" fr:text="Double cliquer"/>
+    <style opacity="1" text="Double click" fr:text="Double cliquer" imagePath=":images/action/doubleClick.png"/>
   </box>
 
   <box type="2" x="750" y="404" height="100" width="300">
     <action id="ExecMenu">
       <action id="Read"/>
     </action>
-    <style opacity="1" text="Read" fr:text="Lire"/>
+    <style opacity="1" text="Read" fr:text="Lire" imagePath=":images/action/read.png"/>
   </box>
 
   <box type="2" x="750" y="505" height="100" width="300">
