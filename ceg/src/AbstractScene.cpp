@@ -47,6 +47,7 @@ AbstractScene::~AbstractScene()
 AbstractItem const *	AbstractScene::getCurrentItem() const
 {
 #if defined(Q_OS_WIN)
+    qDebug() << "ici DDDDDDDDDDDDDDDDDDD = " << ;
     return (this->_focusItem);
 #else
     return (static_cast<AbstractItem *>(this->focusItem()));
@@ -85,11 +86,13 @@ void AbstractScene::initialize(std::list<QGraphicsRectItem *> const & sceneItems
     this->clearScene();
     std::for_each(sceneItems.rbegin(), sceneItems.rend(), std::bind1st(std::mem_fun(&QGraphicsScene::addItem), this));
     sceneItems.front()->setFocus();
+    this->saveFocusItem();
 }
 
 void AbstractScene::saveFocusItem()
 {
-    this->_focusItem = static_cast<AbstractItem *>(this->focusItem());
+    if (this->focusItem() != 0)
+        this->_focusItem = static_cast<AbstractItem *>(this->focusItem());
 }
 
 void AbstractScene::resetFocusItem()

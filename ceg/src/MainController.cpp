@@ -136,7 +136,7 @@ void MainController::on_stop_navigation()
 void MainController::pushFrontScene(AbstractScene *scene)
 {
     if (this->_scenes.empty() == false)
-    (*this->_currentScene)->saveFocusItem();
+        (*this->_currentScene)->saveFocusItem();
     this->_scenes.push_front(scene);
     this->_currentScene = this->_scenes.begin();
     this->_view.hide();
