@@ -54,8 +54,10 @@ void	CegTcpServer::launch(void)
 {
     QSettings settings;
     QVariant port = settings.value("server/port");
-    QString msg("TCP server launched on port ");
-    msg.append(port.toString());
+    QString msg;
+    QTextStream tmp(&msg);
+
+    tmp << "TCP server launched on port " << port.toString();
     Logger::getInstance()->log(INFO_LOG, msg);
     this->_tcpServer = new QTcpServer();
     if (!this->_tcpServer->listen(QHostAddress::Any, port.toInt()))

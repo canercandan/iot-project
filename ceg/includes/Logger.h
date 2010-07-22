@@ -22,6 +22,7 @@
 
 class QFile;
 class QString;
+class QTextStream;
 
 enum loglevel
 {
@@ -48,6 +49,7 @@ public:
 
     void    log(loglevel msgLogLevel, QString const & msg);
     void    log(loglevel msgLogLevel, const char *msg);
+    void    log(loglevel msgLogLevel, QTextStream const & msg);
 
 private:
     Logger();

@@ -105,6 +105,13 @@ void    Logger::log(loglevel msgLogLevel, const char *msg)
     }
 }
 
+void Logger::log(loglevel msgLogLevel, QTextStream const & msg)
+{
+    QString* tmp = msg.string();
+    this->log(msgLogLevel, *tmp);
+}
+
+
 Logger* Logger::getInstance()
 {
     if (!_instance)
