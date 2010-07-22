@@ -80,6 +80,8 @@ class BuilderWidget(QtGui.QMainWindow):
         box = Box()
         box.initRegularBox(topLeft, bottomRight)
         self.currentView.boxes.append(box)
+        if self.currentView != self.rootView:
+            self.currentView.parentView.currentBox.children.append(box)
 
     def createDomBox(self, domElement):
         box = Box()
@@ -171,7 +173,7 @@ class BuilderWidget(QtGui.QMainWindow):
 
     def saveFile(self):
         if not self.currentView.boxes and self.currentView == self.rootView:
-            QMessageBox.information(self, 'IotBuilder', 'Nothing to save :)')
+            QMessageBox.information(self, 'IotBuilder', 'Nothing to save')
             return
 
         filename = QFileDialog.getSaveFileName(None,

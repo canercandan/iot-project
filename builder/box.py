@@ -20,42 +20,12 @@ from PyQt4.QtCore import *
 
 from boxeditor import BoxEditor
 
-class Node:
-    def initializeFromXml(self, elem): pass
-    def createXMLNode(self, domDoc): pass
-
-class BoxStyle(Node, dict):
-    def __init__(self):
-        self['visible'] = True
-        self['opacity'] = 0.5
-        self['imagePath'] = ""
-        self['text'] = ""
-        self['font'] = "Arial"
-        self['fontSize'] = 20
-        self['textColor'] = "black"
-        self['focusColor'] = "yellow"
-        self['blurColor'] = "black"
-
-    def initializeFromXml(self, elem):
-        for key, value in self.iteritems():
-            if elem.hasAttribute(key):
-                self[key] = elem.attribute(key)
-
-    def createXMLNode(self, domDoc):
-        boxElem = domDoc.createElement('style')
-
-        # Setting box style attributes
-        for key, value in self.iteritems():
-            boxElem.setAttribute(key, value)
-
-        return boxElem
-
 class BoxType:
     DefaultBox = 0
     CustomBox = 1
     MenuBox = 2
 
-class Box(QRect, Node):
+class Box(QRect):
     def __init__(self):
         QRect.__init__(self)
         self.children = []                      # list of Boxes
@@ -63,7 +33,6 @@ class Box(QRect, Node):
         self.attributeBuffer = ''
         self.boxEditor = BoxEditor()            # QDialog
         self.boxType = BoxType.CustomBox        # int
-        self.graphicStyle = 0
 
     # Standard constructor
     def initRegularBox(self, topLeft, bottomRight):
@@ -106,18 +75,18 @@ class Box(QRect, Node):
                 if tag == 'action':
                     self.parseAction(childElem)
                 elif tag == 'style':
-                    self.graphicStyle = BoxStyle()
-                    self.graphicStyle.initializeFromXml( childElem )
-                    #self.parseStyle(childElem)
+                    self.parseStyle(childElem)
                 elif tag == 'children':
                     self.createChildren(childElem)
             domNode = domNode.nextSibling()
 
     def parseAction(self, childElem):
-        print 'id = ', childElem.attribute('id')
+        print ''
+        #print 'id = ', childElem.attribute('id')
 
     def parseStyle(self, childElem):
-        print 'style = '
+        print ''
+        #print 'style = '
 
     # QDomElement chilElem
     def createChildren(self, childElem):
@@ -149,12 +118,12 @@ class Box(QRect, Node):
             boxElem.setAttribute(k, v())
 
         # Adding action
-        # action = domDoc.createElement('action')
-        # boxElem.appendChild(action)
+        action = domDoc.createElement('action')
+        boxElem.appendChild(action)
 
         # Adding Style
-        #style = domDoc.createElement('style')
-        boxElem.appendChild( self.graphicStyle.createXMLNode( domDoc ) )
+        style = domDoc.createElement('style')
+        boxElem.appendChild(style)
 
         # Adding Children
         if self.children:
