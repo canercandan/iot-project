@@ -12,7 +12,7 @@
 	      mac:path="unknown"
 	      />
     </action>
-    <style opacity="1" text="Firefox"/>
+    <style opacity="1" text="Firefox" imagePath=":images/software/firefox.png"/>
   </box>
 
   <box type="2" x="750" y="101" height="100" width="300">
@@ -22,7 +22,7 @@
 	      win:path="C:\Program Files\Windows Media Player/wmplayer.exe"
 	      />
     </action>
-    <style opacity="1" text="Windows Media Player"/>
+    <style opacity="1" text="Windows Media Player" imagePath=":images/software/wmp.png"/>
   </box>
 
   <box type="2" x="750" y="202" height="100" width="300">
@@ -32,7 +32,7 @@
 	      win:path="C:\Program Files\Notepad++\notepad++.exe"
 	      />
     </action>
-    <style opacity="1" text="Notepad++"/>
+    <style opacity="1" text="Notepad++" imagePath=":images/software/notepad++.png"/>
   </box>
 
   <box type="2" x="750" y="303" height="100" width="300">
@@ -42,14 +42,14 @@
 	      win:path="C:\WINDOWS\system32\calc.exe"
 	      />
     </action>
-    <style opacity="1" text="Calculator" fr:text="Calculatrice"/>
+    <style opacity="1" text="Calculator" fr:text="Calculatrice" imagePath=":images/software/calc.png"/>
   </box>
 
   <box type="2" x="750" y="404" height="100" width="300">
     <action id="ExecMenu">
       <action id="Cancel"/>
     </action>
-    <style opacity="1" text="Cancel" fr:text="Annuler"/>
+    <style opacity="1" text="Cancel" fr:text="Annuler" imagePath=":images/menu/cancel.png"/>
   </box>
 
 </menu>

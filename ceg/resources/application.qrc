@@ -5,5 +5,17 @@
         <file>images/settings/network.png</file>
         <file>images/settings/parameter.png</file>
         <file>images/settings/program.png</file>
+        <file>images/menu/youtube.png</file>
+        <file>images/menu/internet.png</file>
+        <file>images/menu/text.png</file>
+        <file>images/menu/mail.png</file>
+        <file>images/menu/music.png</file>
+        <file>images/menu/video.png</file>
+        <file>images/menu/bookmark.png</file>
+        <file>images/menu/cancel.png</file>
+        <file>images/software/calc.png</file>
+        <file>images/software/firefox.png</file>
+        <file>images/software/notepad++.png</file>
+        <file>images/software/wmp.png</file>
     </qresource>
 </RCC>

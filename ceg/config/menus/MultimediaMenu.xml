@@ -12,7 +12,7 @@
 	      arguments="http://www.ionlythink.com"
 	      />
     </action>
-    <style opacity="1" text="Internet"/>
+    <style opacity="1" text="Internet" imagePath=":images/menu/internet.png"/>
   </box>
 
   <box type="2" x="750" y="202" height="100" width="300">
@@ -22,11 +22,11 @@
 	      win:path="C:\Program Files\Mozilla Firefox\Outlook.exe"
 	      />
     </action>
-    <style opacity="1" text="Mail" fr:text="Courrier"/>
+    <style opacity="1" text="Mail" fr:text="Courrier" imagePath=":images/menu/mail.png" />
   </box>
 
   <box type="2" x="750" y="303" height="100" width="300">
-    <style opacity="1" text="Applications Bookmarks" fr:text="Applications Favorites"/>
+    <style opacity="1" text="Applications Bookmarks" fr:text="Applications Favorites" imagePath=":images/menu/bookmark.png"/>
   </box>
 
   <box type="2" x="750" y="404" height="100" width="300">
@@ -34,7 +34,7 @@
       <action id="ExecProcess" time="1000"
 	      unix:path="gedit"/>
     </action>
-    <style opacity="1" text="Text Editor" fr:text="Editeur de Texte"/>
+    <style opacity="1" text="Text Editor" fr:text="Editeur de Texte" imagePath=":images/menu/text.png" />
   </box>
 
   <box type="2" x="750" y="505" height="100" width="300">
@@ -46,7 +46,7 @@
 	      arguments="http://www.youtube.com"
 	      />
     </action>
-    <style opacity="1" text="Youtube"/>
+    <style opacity="1" text="Youtube" imagePath=":images/menu/youtube.png" />
   </box>
 
   <box type="2" x="750" y="606" height="100" width="300">
@@ -56,7 +56,7 @@
 	      win:path="C:\Program Files\Windows Media Player/wmplayer.exe"
 	      />
     </action>
-    <style opacity="1" text="Video Player" fr:text="Lecteur Vidéo"/>
+    <style opacity="1" text="Video Player" fr:text="Lecteur Vidéo" imagePath=":images/menu/video.png" />
   </box>
 
   <box type="2" x="750" y="707" height="100" width="300">
@@ -67,14 +67,14 @@
 	      win:path="C:\Program Files\Windows Media Player/wmplayer.exe"
 	      />
     </action>
-    <style opacity="1" text="Music Player" fr:text="Lecteur Audio"/>
+    <style opacity="1" text="Music Player" fr:text="Lecteur Audio" imagePath=":images/menu/music.png" />
   </box>
 
   <box type="2" x="750" y="808" height="100" width="300">
     <action id="ExecMenu">
       <action id="Cancel"/>
     </action>
-    <style opacity="1" text="Cancel" fr:text="Annuler"/>
+    <style opacity="1" text="Cancel" fr:text="Annuler" imagePath=":images/menu/cancel.png"/>
   </box>
 
 </menu>

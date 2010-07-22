@@ -95,17 +95,21 @@ void AbstractItem::paint(QPainter * painter, const QStyleOptionGraphicsItem *, Q
 	    painter->setPen(textColor);
 	}
 
-	painter->drawText(this->rect(), Qt::AlignCenter, text);
-    }
-
     QString const & imagePath  = style.getImagePath();
     if (imagePath.isEmpty() == false)
     {
 	QPixmap pixmap(imagePath);
-	QRectF dest(this->rect().x(), this->rect().y(), pixmap.rect().width(), pixmap.rect().height());
+	QRectF dest(this->rect().x(), this->rect().y(), pixmap.width(), pixmap.height());
 	dest.moveCenter(this->rect().center());
 	painter->drawPixmap(dest, pixmap, pixmap.rect());
+	painter->drawText(this->rect(), Qt::AlignBottom|Qt::AlignCenter, text);
     }
+	else
+	{
+	painter->drawText(this->rect(), Qt::AlignCenter, text);
+	}
+    }
+
 
     //-----------------------------------------------------------------------------
     // The following line allows to refresh the scene and avoid display bugs
