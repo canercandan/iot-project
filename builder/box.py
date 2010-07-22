@@ -78,9 +78,7 @@ class Box(QRect, Node):
                 if tag == 'action':
                     self.parseAction(childElem)
                 elif tag == 'style':
-                    #self.graphicStyle = 
                     self.graphicStyle.initializeFromXml( childElem )
-                    #self.parseStyle(childElem)
                 elif tag == 'children':
                     self.createChildren(childElem)
             domNode = domNode.nextSibling()
@@ -88,10 +86,6 @@ class Box(QRect, Node):
     def parseAction(self, childElem):
         print ''
         #print 'id = ', childElem.attribute('id')
-
-    def parseStyle(self, childElem):
-        print ''
-        #print 'style = '
 
     # QDomElement chilElem
     def createChildren(self, childElem):
