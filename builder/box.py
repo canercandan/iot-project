@@ -28,20 +28,25 @@ class BoxType:
 class Box(QRect):
     def __init__(self):
         QRect.__init__(self)
-        self.son = None
-        self.focus = None
-        self.father = None
+        self.children = []                      # list of Boxes
         self.actionIdSet = 0
         self.attributeBuffer = ''
-        self.boxEditor = BoxEditor()
-        self.boxType = BoxType.CustomBox
+        self.boxEditor = BoxEditor()            # QDialog
+        self.boxType = BoxType.CustomBox        # int
 
+    # Standard constructor
     def initRegularBox(self, topLeft, bottomRight):
         self.setTopLeft(topLeft)
         self.setBottomRight(bottomRight)
 
-    def initDomBox(self, domElement, parentBox):
-        self.father = parentBox
+    # Copy constructor # TODO: finih copy constructor
+    def initFromRegularBox(self, box):
+        self.setTopLeft(box.topLeft())
+        self.setBottomRight(box.bottomRight())
+        #self.setActionId(box.getActionId())
+        #self.setAttribute(box.getAttribute())
+
+    def initDomBox(self, domElement):
         self.initializeFromXml(domElement)
 
     # QDomElement elem
@@ -87,13 +92,16 @@ class Box(QRect):
         while (not boxNode.isNull()):
             boxElem = boxNode.toElement()
             if boxElem and boxElem.tagName() == 'box':
-                self.son.append(Box(boxElem, self))
+                box = Box()
+                box.initDomBox(boxElem)
+                self.children.append(box)
             boxNode = boxNode.nextSibling()
 
     # Input: QDomDocument domDoc
     # Output: QDomElement
     def createXMLNode(self, domDoc):
-        domElem = domDoc.createElement('box')
+        # QDomElement
+        boxElem = domDoc.createElement('box')
 
         geometryFunctions = {
                 "x" : self.x,
@@ -102,14 +110,27 @@ class Box(QRect):
                 "height" : self.height
             }
 
+        # Setting box attributes
+        boxElem.setAttribute('type', self.boxType)
         for k, v in geometryFunctions.iteritems():
-            domElem.setAttribute(k, v())
+            boxElem.setAttribute(k, v())
 
-        if self.son:
-            for child in self.son:
-                domElem.appendChild(child.createXMLNode(domDoc))
+        # Adding action
+        action = domDoc.createElement('action')
+        boxElem.appendChild(action)
 
-        return domElem
+        # Adding Style
+        style = domDoc.createElement('style')
+        boxElem.appendChild(style)
+
+        # Adding Children
+        if self.children:
+            children = domDoc.createElement('children')
+            for child in self.children:
+                children.appendChild(child.createXMLNode(domDoc))
+            boxElem.appendChild(children)
+
+        return boxElem
 
     def getActionId(self):
         return self.boxEditor.ui.tabs.tabText(self.boxEditor.ui.tabs.currentIndex())

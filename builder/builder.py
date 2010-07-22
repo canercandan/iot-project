@@ -32,6 +32,16 @@ class Mode:
     box = 0
     selection = 1
 
+class View():
+    def __init__(self, parentView):
+        self.currentBox = None          # Box
+        self.clipboard = None           # Box
+        self.parentView = parentView    # View
+        if parentView and parentView.currentBox.children:
+            self.boxes = parentView.currentBox.children
+        else:
+            self.boxes = []             # list of Boxes
+
 class BuilderWidget(QtGui.QMainWindow):
     def __init__(self):
         QtGui.QMainWindow.__init__(self)
@@ -58,20 +68,29 @@ class BuilderWidget(QtGui.QMainWindow):
     def init(self):
         self.tolerance = 0
         self.curs = 0
-        self.focused = None
-        self.clipboard = None
-        self.father = None
         self.mode = Mode.selection
         self.leftButtonPressed = 0
         self.beginPos = QPoint()
         self.endPos = QPoint()
-        self.list = []
+        self.rootView = View(None)
+        self.currentView = self.rootView
+        self.views = [self.rootView]
+
+    def createRegularBox(self, topLeft, bottomRight):
+        box = Box()
+        box.initRegularBox(topLeft, bottomRight)
+        self.currentView.boxes.append(box)
+
+    def createDomBox(self, domElement):
+        box = Box()
+        box.initDomBox(domElement)
+        self.currentView.boxes.append(box)
 
     def createMenu(self):
         self.menu = QMainWindow.createPopupMenu(self)
 
     def newFile(self):
-        if not self.list and not self.father:
+        if not self.currentView.boxes and self.currentView == self.rootView:
             return
 
         r = QMessageBox.question(self, 'IotBuilder',
@@ -84,7 +103,7 @@ class BuilderWidget(QtGui.QMainWindow):
 
     def getFilenameFromFullPath(self, filename):
         result = QString(filename).section(QDir.separator(), -1)
-        result = QString(result).section('.', 0)
+        result = QString(result).section('.', 0, 0)
         return result
 
     def overwriteQuestion(self, filename):
@@ -96,9 +115,16 @@ class BuilderWidget(QtGui.QMainWindow):
                                             ).arg(shortFilename).arg(directory),
                                     QMessageBox.Ok, QMessageBox.Cancel)
 
-    # release : create a box
-    # zoom in create box child
     def loadFile(self):
+        if self.currentView.boxes or self.currentView != self.rootView:
+            r = QMessageBox.question(self, 'IotBuilder',
+                                    'You are going to lose all of your work... Are you sure ?',
+                                     QMessageBox.Ok, QMessageBox.Cancel)
+            if r == QMessageBox.Cancel:
+                return
+            else:
+                self.init()
+
         filename = QFileDialog.getOpenFileName(None,
                                                self.loadDialog,
                                                QDir.currentPath(),
@@ -131,6 +157,7 @@ class BuilderWidget(QtGui.QMainWindow):
                                 'Error.')
             return
 
+        # TODO: Do not forget to use programID
         programId = root.attribute("id")
 
         # QDomNode
@@ -138,14 +165,12 @@ class BuilderWidget(QtGui.QMainWindow):
         while (not boxNode.isNull()):
             boxElem = boxNode.toElement()
             if boxElem and boxElem.tagName() == 'box':
-                box = Box()
-                box.initDomBox(boxElem, None)
-                self.list.append(box)
+                self.createDomBox(boxElem)
             boxNode = boxNode.nextSibling()
         self.repaint()
 
     def saveFile(self):
-        if not self.list and not self.father:
+        if not self.currentView.boxes and self.currentView == self.rootView:
             QMessageBox.information(self, 'IotBuilder', 'Nothing to save :)')
             return
 
@@ -170,10 +195,11 @@ class BuilderWidget(QtGui.QMainWindow):
 
         doc = QDomDocument('XmlBox')
         root = doc.createElement("boxes")
+        root.setAttribute('id', self.getFilenameFromFullPath(filename))
         doc.appendChild(root)
 
-        for child in self.list:
-            root.appendChild(child.createXMLNode(doc))
+        for box in self.rootView.boxes:
+            root.appendChild(box.createXMLNode(doc))
 
         out = QTextStream(qfile)
         out << doc.toString()
@@ -186,98 +212,68 @@ class BuilderWidget(QtGui.QMainWindow):
         self.mode = Mode.box
 
     def selectBox(self, pos):
-        topBox = 0
-        for box in self.list:
+        topBox = None
+        for box in self.currentView.boxes:
             if box.normalized().contains(pos):
                 topBox = box
-            box.focus = 0
-        self.focused = topBox
-        if topBox:
-            topBox.focus = 1
+        self.currentView.currentBox = topBox
 
     def selectPreviousBox(self):
-        length = len(self.list)
-        if self.focused and length > 1:
-            index = self.list.index(self.focused)
+        length = len(self.currentView.boxes)
+        if self.currentView.currentBox and length > 1:
+            index = self.currentView.boxes.index(self.currentView.currentBox)
             if index == 0:
                 index = length - 1
             else:
                 index = index - 1
-            self.focused.focus = 0
-            self.focused = self.list[index]
-            self.focused.focus = 1
+            self.currentView.currentBox = self.currentView.boxes[index]
         elif length > 0:
-            self.focused = self.list[length - 1]
-            self.focused.focus = 1
+            self.currentView.currentBox = self.currentView.boxes[length - 1]
         self.repaint()
 
     def selectNextBox(self):
-        if self.focused and len(self.list) > 1:
-            index = self.list.index(self.focused)
-            self.focused.focus = 0
-            self.focused = self.list[(index + 1) % len(self.list)]
-            self.focused.focus = 1
-        elif len(self.list):
-            self.focused = self.list[0]
-            self.focused.focus = 1
+        if self.currentView.currentBox and len(self.currentView.boxes) > 1:
+            index = self.currentView.boxes.index(self.currentView.currentBox)
+            self.currentView.currentBox = self.currentView.boxes[(index + 1) % len(self.currentView.boxes)]
+        elif len(self.currentView.boxes):
+            self.currentView.currentBox = self.currentView.boxes[0]
         self.repaint()
 
     def editBox(self):
-        if self.focused:
-            self.focused.editBox()
+        if self.currentView.currentBox:
+            self.currentView.currentBox.editBox()
 
     def zoomIn(self):
-        if self.focused:
-            self.father = self.list
-            if self.focused.son:
-                self.list = self.focused.son
-            else:
-                self.list = []
-                self.focused.son = self.list
-            self.focused.focus = 0
-            self.focused = None
-            self.clipboard = None
+        if self.currentView.currentBox:
+            self.currentView = View(self.currentView)
             self.repaint()
         else:
             QMessageBox.information(self, 'IotBuilder',
                                     'You have not selected any box.')
 
     def zoomOut(self):
-        if self.father:
-            self.list = self.father
-            if self.focused:
-                self.focused.focus = 0
-            self.focused = None
-            self.clipboard = None
-            self.father = self.list[0].father
+        if self.currentView.parentView:
+            self.currentView = self.currentView.parentView
             self.repaint()
         else:
             QMessageBox.information(self, 'IotBuilder',
                                     'You are on the top level.')
 
     def copyBox(self):
-        if self.focused:
-            self.clipboard = Box()
-            self.clipboard.initRegularBox(self.focused.topLeft(), self.focused.bottomRight())
-            self.clipboard.setActionId(self.focused.getActionId())
-            self.clipboard.setAttribute(self.focused.getAttribute())
-            self.clipboard.father = self.focused.father
-
+        if self.currentView.currentBox:
+            self.currentView.clipboard = Box()
+            self.currentView.clipboard.initFromRegularBox(self.currentView.currentBox)
 
     def cutBox(self):
-        if self.focused:
+        if self.currentView.currentBox:
             self.copyBox()
-            self.deleteFocusedBox()
+            self.deleteCurrentBoxBox()
             self.repaint()
 
     def pasteBox(self):
-        if self.clipboard:
-            copy = Box()
-            copy.initRegularBox(self.clipboard.topLeft(), self.clipboard.bottomRight())
-            copy.setActionId(self.clipboard.getActionId())
-            copy.setAttribute(self.clipboard.getAttribute())
-            copy.father = self.clipboard.father
-            self.list.append(copy)
+        if self.currentView.clipboard:
+            self.createRegularBox(self.currentView.clipboard.topLeft(),
+                             self.currentView.clipboard.bottomRight())
             self.repaint()
 
     def builderHelp(self):
@@ -291,27 +287,25 @@ class BuilderWidget(QtGui.QMainWindow):
 
     def quitBuilder(self):
         self.deleteLater()
-        while self.list and self.list[0].father:
-            self.zoomOut()
         app.quit()
 
-    def deleteFocusedBox(self):
-        if self.focused:
-            self.list.remove(self.focused)
-            self.focused = None
+    def deleteCurrentBoxBox(self):
+        if self.currentView.currentBox:
+            self.currentView.boxes.remove(self.currentView.currentBox)
+            self.currentView.currentBox = None
 
     def keyPressEvent(self, keyEvent):
-        if self.focused:
+        if self.currentView.currentBox:
             if keyEvent.key() == QtCore.Qt.Key_Left:
-                self.focused.translate(-1, 0)
+                self.currentView.currentBox.translate(-1, 0)
             elif keyEvent.key() == QtCore.Qt.Key_Right:
-                self.focused.translate(1, 0)
+                self.currentView.currentBox.translate(1, 0)
             elif keyEvent.key() == QtCore.Qt.Key_Up:
-                self.focused.translate(0, -1)
+                self.currentView.currentBox.translate(0, -1)
             elif keyEvent.key() == QtCore.Qt.Key_Down:
-                self.focused.translate(0, 1)
+                self.currentView.currentBox.translate(0, 1)
             elif keyEvent.key() == QtCore.Qt.Key_Delete:
-                self.deleteFocusedBox()
+                self.deleteCurrentBoxBox()
             elif keyEvent.key() == QtCore.Qt.Key_Enter or \
                 keyEvent.key() == QtCore.Qt.Key_Return:
                 self.zoomIn()
@@ -376,15 +370,15 @@ class BuilderWidget(QtGui.QMainWindow):
 
     def mouseMoveEvent(self, mouseEvent):
         if self.leftButtonPressed:
-            if self.focused and self.mode == Mode.selection:
+            if self.currentView.currentBox and self.mode == Mode.selection:
                 offset_x = mouseEvent.pos().x() - self.beginPos.x()
                 offset_y = mouseEvent.pos().y() - self.beginPos.y()
                 if self.curs ==  0:                    # deplacer la box
-                    self.focused.translate(offset_x, offset_y)
+                    self.currentView.currentBox.translate(offset_x, offset_y)
                 else:
-                    topl = self.focused.topLeft()
-                    botr = self.focused.bottomRight()
-                    ind = self.list.index(self.focused)
+                    topl = self.currentView.currentBox.topLeft()
+                    botr = self.currentView.currentBox.bottomRight()
+                    ind = self.currentView.boxes.index(self.currentView.currentBox)
                     if self.curs == 2 or self.curs == 1 or self.curs == 3: #resize higher border
                         topl.setY(mouseEvent.pos().y())
                     if self.curs == 6 or self.curs == 7 or self.curs == 5: #resize bottom border
@@ -401,16 +395,16 @@ class BuilderWidget(QtGui.QMainWindow):
                         tmp = topl.y()
                         topl.setY(botr.y())
                         botr.setY(tmp)
-                    self.list[ind].setTopLeft(topl)
-                    self.list[ind].setBottomRight(botr)
-                    self.onEdge(mouseEvent.pos(), self.list[ind])
+                    self.currentView.boxes[ind].setTopLeft(topl)
+                    self.currentView.boxes[ind].setBottomRight(botr)
+                    self.onEdge(mouseEvent.pos(), self.currentView.boxes[ind])
 
                 self.beginPos = QPoint(mouseEvent.pos())
 
             self.endPos = QPoint(mouseEvent.pos())
             self.repaint()
         elif self.mode == Mode.selection:
-            for box in self.list:
+            for box in self.currentView.boxes:
                 if self.onEdge(mouseEvent.pos(), box) == 1:
                     return
                 QtGui.QMainWindow.setCursor(self, Qt.ArrowCursor)
@@ -437,13 +431,8 @@ class BuilderWidget(QtGui.QMainWindow):
                 self.endPos = mouseEvent.pos()
                 va1 = QPoint(min(self.beginPos.x(), mouseEvent.pos().x()), min(self.beginPos.y(), mouseEvent.pos().y()))
                 va2 = QPoint(max(self.beginPos.x(), mouseEvent.pos().x()), max(self.beginPos.y(), mouseEvent.pos().y()))
-                tmpBox = Box()
-                tmpBox.initRegularBox(va1, va2)
-                tmpBox.father = self.father
-                self.list.append(tmpBox)
+                self.createRegularBox(va1, va2)
                 self.repaint()
-        else:
-            QtGui.QMainWindow.mouseReleaseEvent(self, mouseEvent)
 
     def paintEvent(self, event):
         paint = QtGui.QPainter()
@@ -458,14 +447,14 @@ class BuilderWidget(QtGui.QMainWindow):
         if self.leftButtonPressed and self.mode == Mode.box:
             paint.drawRect(self.beginPos.x(), self.beginPos.y(), self.endPos.x() - self.beginPos.x(), self.endPos.y() - self.beginPos.y())
 
-        if self.list:
-            for x in self.list:
-                if x.focus == 1:
+        if self.currentView.boxes:
+            for box in self.currentView.boxes:
+                if box == self.currentView.currentBox:
                     paint.setBrush(QtGui.QColor(0, 255, 0, 80))              # RVB, opacity
-                    paint.drawRect(x)
+                    paint.drawRect(box)
                     paint.setBrush(QtGui.QColor(0, 0, 255, 80))              # RVB, opacity
                 else:
-                    paint.drawRect(x)
+                    paint.drawRect(box)
         paint.end()
 
 

@@ -82,6 +82,7 @@ class BoxEditor(QtGui.QDialog):
     def getZoomAttribute(self):
         return ['isZoom', QString.number(self.ui.zoomComboBox.currentIndex())]
 
+    # attribute is supposed to be a list !
     def setAttribute(self, attribute):
         for tabTitle in self.getDictionnary:
             if tabTitle == self.ui.tabs.tabText(self.ui.tabs.currentIndex()):
@@ -91,6 +92,7 @@ class BoxEditor(QtGui.QDialog):
     def setCancelAttribute(self, attribute):
         print ''
 
+    # attribute is now a list...
     def setClickAttribute(self, attribute):
         r = QString(attribute).toInt()
         if not r[1]:
@@ -110,6 +112,7 @@ class BoxEditor(QtGui.QDialog):
     def setPopMenuAttribute(self, attribute):
         print ''
 
+    # attribute is now a list...
     def setReadAttribute(self, attribute):
         r = QString(attribute).toFloat()
         if not r[1]:
@@ -120,9 +123,11 @@ class BoxEditor(QtGui.QDialog):
     def setValidAttribute(self, attribute):
         print ''
 
+    # attribute is now a list...
     def setWriteAttribute(self, attribute):
         self.ui.writeLineEdit.setText(attribute)
 
+    # attribute is now a list...
     def setZoomAttribute(self, attribute):
         r = QString(attribute).toInt()
         if not r[1]:
