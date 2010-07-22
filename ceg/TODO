@@ -2,14 +2,13 @@
 - implementer le systeme pour demarrer des programmes
 - Creation du clavier virtuel faire des test de simulation de touches. (?)
 
--------------------------------------------------- Reminder chris --------------------------------------------------------------------------
-- voir logs + redirection sur fichiers qFatal() qDebug() qInfo()
+-------------------------------------------------- Reminder chris -------------------------------------------------------------------------- delete tous les qDebug()
 - Metre l'etat de la connexion dans le tray icone (disconnected || connected || error)
 - rajouter deux slots en public :  on_start_navigation et on_stop_navigation
-- renommer CEgTcpServer  et le nom de fichier aussi
-- maj uml
+- renommer CEgTcpServer en NetworkServer et le nom de fichier aussi
 - maj Doxygen
-
+- module OpenViBe
+- parsing (rfb)
 -------------------------------------------------- Reminder Yann --------------------------------------------------------------------------
 - Terminer le communication avec le serveur Graphique sur Linux
 - revoir le management des listes dans le boxcontroler (new les listes)
