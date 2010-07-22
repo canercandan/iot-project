@@ -26,6 +26,7 @@
 /*********************************/
 #include <QRect>
 #include <QString>
+#include <QTextStream>
 #include <QVariant>
 /*********************************/
 #include "XWindowSystem.h"
@@ -92,19 +93,20 @@ bool XWindowSystem::getWindows(std::list<Ceg::Window> &)
 bool XWindowSystem::getFocusedWindow(Ceg::Window & /*newWindow*/)
 {
     bool statusOp = false;
-    if (this->_connection != 0)
+
+    QString msg;
+    QTextStream tmp(&msg);
+
+     if (this->_connection != 0)
     {
+
 	::Window focusWindow;
 	int focusState;
 	int status = ::XGetInputFocus(this->_connection, &focusWindow, &focusState);
 	if (status != BadValue && status != BadWindow && focusWindow != None)
 	{
-            //            QString msg("window Id: ");
-            //            QVariant fwin(focusWindow);
-            //            QVariant fstate(focusState);
-            //            msg += fwin.toString(); msg += " focus state:";
-            //            msg += fstate;
-            //            Logger::getInstance()->Log(INFO, msg);
+            tmp << "Window id: "<< &focusWindow<< "Focus state "<< &focusState;
+            Logger::getInstance()->log(INFO_LOG, msg);
             //            newWindow.setId(focusWindow);
             //            statusOp = this->refreshWindowInfo(newWindow);
 	    this->printWindow(focusWindow, 0);

@@ -21,6 +21,7 @@
 /*********************************/
 #include <QDomElement>
 #include <QVariant>
+#include <QTextStream>
 /*********************************/
 #include "ActionFactory.h"
 /*********************************/
@@ -34,8 +35,9 @@ std::map<std::string, ActionFactory::ActionInstantiator> ActionFactory::_instanc
 IAction *	ActionFactory::create(QDomElement const & actionElelement)
 {
     std::string const & id = actionElelement.attribute("id").toStdString();
-    QString msg("Demande d' instance de type ");
-    msg += id.c_str();
+    QString msg;
+    QTextStream tmp(&msg);
+    tmp << "Demande d' instance de type: " << id.c_str();
     Logger::getInstance()->log(INFO_LOG, msg);
 
     std::map<std::string, ActionInstantiator>::const_iterator itFind = ActionFactory::_instanciators.find(id);
@@ -46,11 +48,9 @@ IAction *	ActionFactory::create(QDomElement const & actionElelement)
 
 void ActionFactory::registerInstantiator(const std::string &actionId, ActionInstantiator function)
 {
-    //FIX ME Afficher le pointeur
-    QString msg("Action enregistree:");
-    //QVariant funcaddr = (void *)function;
-    msg += actionId.c_str(); msg += " Valeur du pointeur : ";
+    QString msg;
+    QTextStream tmp(&msg);
+    tmp << "Action enregistree: " << actionId.c_str() << "Valeur du pointeur : " << &function;
     Logger::getInstance()->log(INFO_LOG, msg);
-
-  ActionFactory::_instanciators.insert(std::make_pair(actionId, function));
+    ActionFactory::_instanciators.insert(std::make_pair(actionId, function));
 }
