@@ -261,11 +261,11 @@ void BoxController::loadConfig(QString const & typeSearch)
     pathsToSearch << "/usr/share/ceg/config";
     pathsToSearch << QCoreApplication::applicationDirPath() + "/config";
 #elif defined(Q_OS_WIN)
-    pathsToSearch << "../share/ceg/config";
+    pathsToSearch << QCoreApplication::applicationDirPath() + "/../share/ceg/config";
     pathsToSearch << QCoreApplication::applicationDirPath() + "/../config";
 #elif defined(Q_OS_MAC)
     // FIXME i don't know how do this on mac
-    pathsToSearch << "../share/ceg/config";
+    pathsToSearch << QCoreApplication::applicationDirPath() + "/../share/ceg/config";
     pathsToSearch << QCoreApplication::applicationDirPath() + "/../config";
 #endif
 
