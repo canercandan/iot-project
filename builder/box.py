@@ -26,8 +26,8 @@ class BoxType:
     MenuBox = 2
 
 class Box(QRect):
-    def __init__(self, topLeft, bottomRight):
-        QRect.__init__(self, topLeft, bottomRight)
+    def __init__(self):
+        QRect.__init__(self)
         self.son = None
         self.focus = None
         self.father = None
@@ -36,15 +36,12 @@ class Box(QRect):
         self.boxEditor = BoxEditor()
         self.boxType = BoxType.CustomBox
 
-    def __init__(self, domElement, parent):
-        QRect.__init__(self)
-        self.son = None
-        self.focus = None
-        self.father = parent
-        self.actionIdSet = 0
-        self.attributeBuffer = ''
-        self.boxEditor = BoxEditor()
-        self.boxType = BoxType.CustomBox
+    def initRegularBox(self, topLeft, bottomRight):
+        self.setTopLeft(topLeft)
+        self.setBottomRight(bottomRight)
+
+    def initDomBox(self, domElement, parentBox):
+        self.father = parentBox
         self.initializeFromXml(domElement)
 
     # QDomElement elem
@@ -64,9 +61,9 @@ class Box(QRect):
                 if attr[1]:
                     v(attr[0])
 
+        # QDomNode
         domNode = elem.firstChild()
-        while (domNode):
-            print 'child in init'
+        while (not domNode.isNull()):
             childElem = domNode.toElement()
             if childElem:
                 tag = childElem.tagName()
@@ -86,10 +83,8 @@ class Box(QRect):
 
     # QDomElement chilElem
     def createChildren(self, childElem):
-        print 'Creating children'
         boxNode = childElem.firstChild()
-        while (boxNode):
-            print 'one child'
+        while (not boxNode.isNull()):
             boxElem = boxNode.toElement()
             if boxElem and boxElem.tagName() == 'box':
                 self.son.append(Box(boxElem, self))
@@ -110,8 +105,9 @@ class Box(QRect):
         for k, v in geometryFunctions.iteritems():
             domElem.setAttribute(k, v())
 
-        for child in self.son:
-            domElem.appendChild(child.createXMLNode(domDoc))
+        if self.son:
+            for child in self.son:
+                domElem.appendChild(child.createXMLNode(domDoc))
 
         return domElem
 

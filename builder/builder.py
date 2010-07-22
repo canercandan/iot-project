@@ -22,9 +22,9 @@ from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 from PyQt4.QtXml import *
 
-from box import Box
-from toolbar import Toolbar
-from boxeditor import BoxEditor
+from box import *
+from toolbar import *
+from boxeditor import *
 
 import xml.parsers.expat
 
@@ -112,14 +112,14 @@ class BuilderWidget(QtGui.QMainWindow):
         flags = QIODevice.OpenMode(QIODevice.ReadOnly)
         flags.__and__(QIODevice.Text)
         if not qfile.open(flags):
-            QMessageBox.critical(self, 'IotBuilder',
-                              'Failed to load file.')
+            QMessageBox.warning(self, 'IotBuilder',
+                                'Failed to load file.')
             return
 
         if not doc.setContent(qfile):
             qfile.close()
-            QMessageBox.critical(self, 'IotBuilder',
-                              'Unable to setContent.')
+            QMessageBox.warning(self, 'IotBuilder',
+                                'Unable to setContent.')
             return
 
         qfile.close()
@@ -127,18 +127,22 @@ class BuilderWidget(QtGui.QMainWindow):
         # QDomElement
         root = doc.documentElement()
         if root.tagName() != 'boxes' and root.tagName() != 'menu':
-            QMessageBox.critical(self, 'IotBuilder',
-                              'Error.')
+            QMessageBox.warning(self, 'IotBuilder',
+                                'Error.')
             return
 
         programId = root.attribute("id")
 
+        # QDomNode
         boxNode = root.firstChild()
-        while (boxNode):
+        while (not boxNode.isNull()):
             boxElem = boxNode.toElement()
             if boxElem and boxElem.tagName() == 'box':
-                self.list.append(Box(boxElem, None))
+                box = Box()
+                box.initDomBox(boxElem, None)
+                self.list.append(box)
             boxNode = boxNode.nextSibling()
+        self.repaint()
 
     def saveFile(self):
         if not self.list and not self.father:
@@ -159,32 +163,21 @@ class BuilderWidget(QtGui.QMainWindow):
                     return
 
         qfile = QFile(filename)
-        if qfile.open(QIODevice.WriteOnly | QIODevice.Text):
-            out = QTextStream(qfile)
-            out << '<boxes id="' << self.getFilenameFromFullPath(filename) << '">' + "\n"
-            while self.list[0].father:
-                self.zoomOut()
-            out << self.xmlRec(self.list)
-            out << '</boxes>' + "\n"
-            qfile.close()
+        if not qfile.open(QIODevice.WriteOnly | QIODevice.Text):
+            QMessageBox.warning(self, 'IotBuilder',
+                                'Unable to open file.')
+            return
 
-    # TODO change <action id=' part
-    def xmlRec(self, li):
-        tmp = ''
-        for elem in li:
-            # attribute[0] <=> type
-            # attribute[1] <=> value
-            attribute = elem.Attribute()
-            tmp += '<box type="1" x="' + str(elem.topLeft().x()) + '" y="' + str(elem.topLeft().y()) + '" width="' + str(elem.bottomRight().x() - elem.topLeft().x()) + '" height="' + str(elem.bottomRight().y() - elem.topLeft().y()) + '">' + "\n"
-            tmp += '<style visible="1" opacity="0.5" focusColor="green" blurColor="blue" imagePath="" text="" fontSize="20" font="Arial" />' + "\n"
-            tmp += '<action id="' + str(elem.getActionId())
-            tmp += ' ' + str(attribute[0]) + '="' + str(attribute[1]) + '" />' + "\n"
-            if elem.son:
-                tmp += '<children>' + "\n"
-                tmp += self.xmlRec(elem.son)
-                tmp += '</children>' + "\n"
-            tmp += '</box>' + "\n"
-        return tmp
+        doc = QDomDocument('XmlBox')
+        root = doc.createElement("boxes")
+        doc.appendChild(root)
+
+        for child in self.list:
+            root.appendChild(child.createXMLNode(doc))
+
+        out = QTextStream(qfile)
+        out << doc.toString()
+        qfile.close()
 
     def selectionMode(self):
         self.mode = Mode.selection
@@ -264,8 +257,8 @@ class BuilderWidget(QtGui.QMainWindow):
 
     def copyBox(self):
         if self.focused:
-            self.clipboard = Box(self.focused.topLeft(),
-                                 self.focused.bottomRight())
+            self.clipboard = Box()
+            self.clipboard.initRegularBox(self.focused.topLeft(), self.focused.bottomRight())
             self.clipboard.setActionId(self.focused.getActionId())
             self.clipboard.setAttribute(self.focused.getAttribute())
             self.clipboard.father = self.focused.father
@@ -279,8 +272,8 @@ class BuilderWidget(QtGui.QMainWindow):
 
     def pasteBox(self):
         if self.clipboard:
-            copy = Box(self.clipboard.topLeft(),
-                       self.clipboard.bottomRight())
+            copy = Box()
+            copy.initRegularBox(self.clipboard.topLeft(), self.clipboard.bottomRight())
             copy.setActionId(self.clipboard.getActionId())
             copy.setAttribute(self.clipboard.getAttribute())
             copy.father = self.clipboard.father
@@ -444,7 +437,8 @@ class BuilderWidget(QtGui.QMainWindow):
                 self.endPos = mouseEvent.pos()
                 va1 = QPoint(min(self.beginPos.x(), mouseEvent.pos().x()), min(self.beginPos.y(), mouseEvent.pos().y()))
                 va2 = QPoint(max(self.beginPos.x(), mouseEvent.pos().x()), max(self.beginPos.y(), mouseEvent.pos().y()))
-                tmpBox = Box(va1, va2)
+                tmpBox = Box()
+                tmpBox.initRegularBox(va1, va2)
                 tmpBox.father = self.father
                 self.list.append(tmpBox)
                 self.repaint()
