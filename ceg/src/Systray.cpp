@@ -31,6 +31,8 @@
 /*********************************/
 #include "Systray.h"
 /*********************************/
+#include "Logger.h"
+/*********************************/
 
 Systray::Systray(QWidget *parent) :
 	QWidget(parent), _mainC(*this), _trayIcon(0), _trayIconMenu(0), _startAction(0), _settingAction(0), _aboutQtAction(0), _aboutCegAction(0), _quitAction(0)
@@ -80,6 +82,7 @@ Systray::~Systray()
     delete this->_startAction;
     delete this->_trayIconMenu;
     delete this->_trayIcon;
+    Logger::destroy();
 }
 
 void Systray::on__startAction_triggered()

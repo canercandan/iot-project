@@ -32,9 +32,9 @@ static const char* logLevelMsg[4] = {"DEBUG: ", "INFO: ", "WARNING: ", "ERROR: "
 
 Logger* Logger::_instance = 0;
 
-Logger::Logger()
+Logger::Logger() :
+        _currentLogLevel(DEBUG_LOG)
 {
-    this->_currentLogLevel = DEBUG_LOG;
     this->_logFile = new QFile("Ceg.log");
     if(!this->_logFile->open(QIODevice::WriteOnly | QIODevice::Append))
     {
@@ -44,7 +44,7 @@ Logger::Logger()
 
 Logger::~Logger()
 {
-    if (this->_logFile)
+    if (this->_logFile != 0)
     {
         this->_logFile->close();
         delete this->_logFile;
@@ -97,11 +97,11 @@ void    Logger::log(loglevel msgLogLevel, const char *msg)
         return;
     QTextStream out(stdout);
 
-    out << "[" << QTime::currentTime().toString().toAscii().data() << "] " << logLevelMsg[msgLogLevel]<< msg << "\r\n";
+    out << "[" << QTime::currentTime().toString().toAscii().data() << "] " << logLevelMsg[msgLogLevel]<< msg << endl;
     if (this->_logFile && this->_logFile->exists())
     {
         QTextStream filestream(this->_logFile);
-        filestream << "[" << QTime::currentTime().toString().toAscii().data() << "] " << logLevelMsg[msgLogLevel]<< msg;
+        filestream << "[" << QTime::currentTime().toString().toAscii().data() << "] " << logLevelMsg[msgLogLevel]<< msg << endl;
     }
 
 }

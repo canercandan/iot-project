@@ -29,10 +29,9 @@ IF (UNIX)
   INCLUDE(FindPkgConfig)
 
   PKG_CHECK_MODULES(XMU xmu REQUIRED)
-  PKG_CHECK_MODULES(LOG4CXX liblog4cxx REQUIRED) #chris : @caner do we need LOG4CXX anymore ?
 
-  INCLUDE_DIRECTORIES(${XMU_INCLUDE_DIR} ${LOG4CXX_INCLUDE_DIR})
-  LINK_DIRECTORIES(${XMU_LIBRARY_DIRS} ${LOG4CXX_LIBRARY_DIRS})
+  INCLUDE_DIRECTORIES(${XMU_INCLUDE_DIR})
+  LINK_DIRECTORIES(${XMU_LIBRARY_DIRS})
 ENDIF()
 
 ######################################################################################
@@ -58,7 +57,7 @@ IF(UNIX)
   # enable warnings
   ADD_DEFINITIONS( -Wall -W -Wextra )
   # ADD_DEFINITIONS( -Weffc++)
-  #ADD_DEFINITIONS( -g3 )
+  ADD_DEFINITIONS( -g3 )
 ENDIF()
 
 ######################################################################################
@@ -113,7 +112,7 @@ QT4_ADD_RESOURCES(SAMPLE_RC_SRCS ${SAMPLE_RCS})
 ### 8) Create executable, link libraries and prepare target
 ######################################################################################
 
-INCLUDE_DIRECTORIES(${CMAKE_CURRENT_BINARY_DIR} ${LOG4CXX_INCLUDE_DIR})
+INCLUDE_DIRECTORIES(${CMAKE_CURRENT_BINARY_DIR})
 LINK_DIRECTORIES(${CMAKE_CURRENT_BINARY_DIR}/lib)
 
 ADD_EXECUTABLE(
@@ -132,7 +131,6 @@ IF (UNIX)
     ${QT_LIBRARIES}
     ${XMU_LIBRARIES}
     ${X11_LIBRARIES}
-    ${LOG4CXX_LIBRARIES} # chris: Do we need this anymore ?
     ${CEG_LIBS}
     )
 ELSE()
