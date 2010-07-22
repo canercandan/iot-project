@@ -22,6 +22,7 @@
 #include <QFile>
 #include <QTime>
 #include <QTextStream>
+#include <QMutex>
 /*********************************/
 #include "Logger.h"
 /*********************************/
@@ -30,7 +31,8 @@ static const char* logLevelMsg[4] = {"DEBUG: ", "INFO: ", "WARNING: ", "ERROR: "
 
 /************************************************* [ CTOR/DTOR ] *************************************************/
 
-Logger* Logger::_instance = 0;
+Logger* Logger::_instance /*= 0-*/;
+QMutex Logger::_instanceMutex;
 
 Logger::Logger() :
         _currentLogLevel(DEBUG_LOG)
@@ -114,6 +116,7 @@ void Logger::log(loglevel msgLogLevel, QTextStream const & msg)
 
 Logger* Logger::getInstance()
 {
+    QMutexLocker instanceMutexLocker(&Logger::_instanceMutex);
     if (!_instance)
     {
 	Logger::_instance = new Logger();

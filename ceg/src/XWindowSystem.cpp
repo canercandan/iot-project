@@ -105,7 +105,7 @@ bool XWindowSystem::getFocusedWindow(Ceg::Window & /*newWindow*/)
 	int status = ::XGetInputFocus(this->_connection, &focusWindow, &focusState);
 	if (status != BadValue && status != BadWindow && focusWindow != None)
 	{
-            tmp << "Window id: "<< &focusWindow<< "Focus state "<< &focusState;
+            tmp << "Window id: "<< &focusWindow<< " Focus state: "<< &focusState;
             Logger::getInstance()->log(INFO_LOG, msg);
             //            newWindow.setId(focusWindow);
             //            statusOp = this->refreshWindowInfo(newWindow);

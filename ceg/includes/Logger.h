@@ -23,6 +23,7 @@
 class QFile;
 class QString;
 class QTextStream;
+class QMutex;
 
 enum loglevel
 {
@@ -57,6 +58,7 @@ private:
     loglevel _currentLogLevel;
     QFile* _logFile;
     static Logger*  _instance;
+    static QMutex   _instanceMutex;
 };
 
 #endif // LOGGER_H
