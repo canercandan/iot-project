@@ -27,7 +27,6 @@
 #include <QRect>
 #include <QString>
 #include <QTextStream>
-#include <QVariant>
 /*********************************/
 #include "XWindowSystem.h"
 /*********************************/
@@ -75,7 +74,7 @@ XWindowSystem::~XWindowSystem()
 	}
 	else
 	{
-            Logger::getInstance()->log(INFO_LOG,  "Connection to Graphical Server close with success.");
+	    Logger::getInstance()->log(ERROR_LOG,  "Connection to Graphical Server close with success.");
 	}
     }
 }
@@ -157,6 +156,8 @@ bool XWindowSystem::generateClickEvent(short int buttonID)
 {
     /* juste pour info il existe l'outil xdotool qui permet entre autre de generer des touches claviers et deplacer la souris tres facilement voir http://www.semicomplete.com/projects/xdotool/ */
 
+    /* set position avec QT */
+
     Display* display = this->_connection;
 
     if (display == 0)
@@ -208,31 +209,28 @@ void XWindowSystem::printRecurse(::Window currentWindow, unsigned int level) con
     ::Window * childrenReturn = 0;
     unsigned int nbChildrenReturn = 0;
     Status status = XQueryTree(this->_connection, currentWindow, &rootReturn, &parentReturn, &childrenReturn, &nbChildrenReturn);
+    QString msg;
+    QTextStream tmp(&msg);
     if (status != BadWindow)
     {
-	QString msg("Window ID : ");
-	QVariant lvl(this->printIndent(level));
-	//QVariant rootRet(&rootReturn);
-	//msg += currentWindow; msg += " Root:"; msg += rootRet.toString();
-	Logger::getInstance()->log(INFO_LOG, msg);
-	//lvl << "Parent : 0x" << std::hex << parentReturn << std::dec;
+        tmp << this->printIndent(level) << " Window ID :"  << &currentWindow << "Root: " << &rootReturn << "Parent: " << &parentReturn;
+        Logger::getInstance()->log(INFO_LOG, msg); msg = "";
 	pid_t pid = this->getPid(currentWindow);
-	//	qDebug() << lvl << "Pid of the window's creator : " << pid;
-	Logger::getInstance()->log(INFO_LOG, msg);
+        tmp << this->printIndent(level) << " Pid of the window's creator : " << pid;
+        Logger::getInstance()->log(INFO_LOG, msg);msg = "";
 	if (pid != 0)
 	{
-            //	  qDebug() << this->printIndent(level) << "Binaire utilise : " << this->getPathOfBinary(typeToString(pid)).c_str();
-            Logger::getInstance()->log(INFO_LOG, msg);
+            tmp << this->printIndent(level) << " Binaire utilise : " << this->getPathOfBinary(typeToString(pid)).c_str();
+            Logger::getInstance()->log(INFO_LOG, msg); msg = "";
 	}
 	this->printCommands(currentWindow, level);
 	this->printWindow(currentWindow, level);
-	//	qDebug() << this->printIndent(level) << "Nb child : " << nbChildrenReturn;
-	Logger::getInstance()->log(INFO_LOG, msg);
+        tmp << this->printIndent(level) << " Nb child : " << nbChildrenReturn;
+        Logger::getInstance()->log(INFO_LOG, msg); msg = "";
 	::Window muclient = ::XmuClientWindow(this->_connection, currentWindow);
 	(void)muclient;
-	//	qDebug() << this->printIndent(level) << "XmuClientWindow : 0x" << muclient << "\n" <<
-	msg = lvl.toString();
-	Logger::getInstance()->log(INFO_LOG, msg);
+        tmp << this->printIndent(level) << "XmuClientWindow : 0x" << &muclient;
+        Logger::getInstance()->log(INFO_LOG, msg); msg = "";
 	for (unsigned int i = 0; i < nbChildrenReturn; ++i)
 	{
 	    this->printRecurse(childrenReturn[i], level + 1);
@@ -298,14 +296,12 @@ char XWindowSystem::printIndent(unsigned int nbIndent) const
 void XWindowSystem::printWindow(::Window windowId, unsigned int level) const
 {
     QString msg;
+    QTextStream tmp(&msg);
     XTextProperty propWindowName;
     if (::XGetWMName(this->_connection, windowId, &propWindowName) != 0)
     {
-	QVariant lvl(this->printIndent(level));
-	msg = lvl.toString(); msg += "Window Name : ";
-	//QString value(propWindowName.value);
-	//msg += value;
-	Logger::getInstance()->log(INFO_LOG, msg);
+        tmp << this->printIndent(level) << "Window Name : " << propWindowName.value;
+        Logger::getInstance()->log(INFO_LOG, msg); msg = "";
 	::XFree(propWindowName.value);
     }
     else
@@ -318,7 +314,8 @@ void XWindowSystem::printWindow(::Window windowId, unsigned int level) const
     {
 	if (propIconName.value != 0)
 	{
-	    //qDebug() << this->printIndent(level) << "Icon Name : " << propIconName.value;
+            tmp << this->printIndent(level) << "Icon Name : " << propIconName.value;
+            Logger::getInstance()->log(INFO_LOG, msg); msg = "";
 	    ::XFree(propIconName.value);
 	}
     }
@@ -329,13 +326,15 @@ void XWindowSystem::printWindow(::Window windowId, unsigned int level) const
     {
 	if (classHintsReturn.res_name)
 	{
-	    //qDebug() << this->printIndent(level) << "Application Name : " << classHintsReturn.res_name;
+            tmp << this->printIndent(level) << "Application Name : " << classHintsReturn.res_name;
+            Logger::getInstance()->log(INFO_LOG, msg); msg = "";
 	    ::XFree(classHintsReturn.res_name);
 	}
 	if (classHintsReturn.res_class)
 	{
-	    //qDebug() << this->printIndent(level) << "Application Class : " << classHintsReturn.res_class;
-	    ::XFree(classHintsReturn.res_class);
+            tmp << this->printIndent(level) << "Application Class : " << classHintsReturn.res_class;
+            Logger::getInstance()->log(INFO_LOG, msg); msg = "";
+            ::XFree(classHintsReturn.res_class);
 	}
     }
     else
@@ -347,26 +346,12 @@ void XWindowSystem::printWindow(::Window windowId, unsigned int level) const
     status = ::XGetWindowAttributes(this->_connection, windowId, &windowInfos);
     if (status != BadDrawable && status != BadWindow)
     {
-	QString msg;
-	QVariant varX, varY, varW, varH, varLevel;
 
-	varLevel = this->printIndent(level);
-	varX = windowInfos.x;
-	varY = windowInfos.y;
-	varW = windowInfos.width;
-	varH = windowInfos.height;
-
-	msg = varLevel.toString(); msg += "x : "; msg += varX.toString();
-	Logger::getInstance()->log(INFO_LOG, msg);
-	msg = varLevel.toString(); msg += "Y : ";msg += varY.toString();
-	Logger::getInstance()->log(INFO_LOG, msg);
-	// cf function Display_Stats_Info for absolute window
-	msg = varLevel.toString(); msg += "heigth : ";msg += varH.toString();
-	Logger::getInstance()->log(INFO_LOG, msg);
-	msg = varLevel.toString(); msg += "width : ";msg += varW.toString();
-	Logger::getInstance()->log(INFO_LOG, msg);
-	msg = varLevel.toString(); msg += "Visible :"; msg += ((windowInfos.map_state == IsUnmapped) ? "IsUnmapped" : (windowInfos.map_state == IsUnviewable) ? "IsUnviewable" : "IsViewable");
-	Logger::getInstance()->log(INFO_LOG, msg);
+        // cf function Display_Stats_Info for absolute window
+        tmp <<  this->printIndent(level) << " X : " << windowInfos.x << " Y : " << windowInfos.y;
+        tmp << " Heigth : " << windowInfos.height << " Width : " << windowInfos.width;
+        tmp << " Visible :" << ((windowInfos.map_state == IsUnmapped) ? "IsUnmapped" : (windowInfos.map_state == IsUnviewable) ? "IsUnviewable" : "IsViewable");
+        Logger::getInstance()->log(INFO_LOG, msg);
     }
     else
     {
@@ -374,19 +359,22 @@ void XWindowSystem::printWindow(::Window windowId, unsigned int level) const
     }
 }
 
-void XWindowSystem::printCommands(::Window windowId, unsigned int /*level*/) const
+void XWindowSystem::printCommands(::Window windowId, unsigned int level) const
 {
     int argcReturn;
     char **argvReturn;
+    QString msg;
+    QTextStream tmp(&msg);
+
     Status status = ::XGetCommand(this->_connection, windowId, &argvReturn, &argcReturn);
     if (status != 0)
     {
-	//qDebug() << this->printIndent(level) << "argc : " << argcReturn;
-	//qDebug() << this->printIndent(level) << "argv :";
+        tmp << this->printIndent(level) << "argc : " << argcReturn << "argv :";
 	for (int i = 0; i < argcReturn; ++i)
 	{
-	    //qDebug() << ' ' << argvReturn[i];
+            tmp << ' ' << argvReturn[i];
 	}
+        Logger::getInstance()->log(INFO_LOG, msg);
 	::XFreeStringList(argvReturn);
     }
     else

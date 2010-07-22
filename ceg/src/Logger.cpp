@@ -31,12 +31,12 @@ static const char* logLevelMsg[4] = {"DEBUG: ", "INFO: ", "WARNING: ", "ERROR: "
 
 /************************************************* [ CTOR/DTOR ] *************************************************/
 
-Logger* Logger::_instance /*= 0-*/;
+Logger* Logger::_instance;
 QMutex Logger::_instanceMutex;
 
-Logger::Logger() :
-        _currentLogLevel(DEBUG_LOG)
+Logger::Logger()
 {
+    this->_currentLogLevel = DEBUG_LOG;
     this->_logFile = new QFile("Ceg.log");
     if(!this->_logFile->open(QIODevice::WriteOnly | QIODevice::Append))
     {
@@ -77,9 +77,11 @@ void    Logger::setLogFile(QString const & filename)
     this->_logFile = new QFile(filename);
     if(!this->_logFile->open(QIODevice::WriteOnly | QIODevice::Append))
     {
-        this->log(WARNING_LOG, "Failed to open log file");
+        QString msg;
+        QTextStream tmp(&msg);
+        tmp << "Failed to open log file: " << filename;
+        this->log(WARNING_LOG, msg);
     }
-
 }
 
 
@@ -98,7 +100,6 @@ void    Logger::log(loglevel msgLogLevel, const char *msg)
     if (this->_currentLogLevel > msgLogLevel)
         return;
     QTextStream out(stdout);
-
     out << "[" << QTime::currentTime().toString().toAscii().data() << "] " << logLevelMsg[msgLogLevel]<< msg << endl;
     if (this->_logFile && this->_logFile->exists())
     {

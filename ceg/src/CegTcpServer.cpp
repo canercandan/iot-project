@@ -58,21 +58,18 @@ void	CegTcpServer::launch(void)
     QString msg;
     QTextStream tmp(&msg);
 
-    tmp << "TCP server launched on port " << port.toString();
+    tmp << "Trying to launch TCP server on port " << port.toString();
     Logger::getInstance()->log(INFO_LOG, msg);
     this->_tcpServer = new QTcpServer();
+    msg = "";
     if (!this->_tcpServer->listen(QHostAddress::Any, port.toInt()))
     {
-	msg = "Error: can't listen on port: ";
-	msg += port.toString();
-	msg += " ";
-	msg +=  this->_tcpServer->errorString();
-	Logger::getInstance()->log(ERROR_LOG, msg);
+        tmp << "Error: can't listen on port: " << port.toString() << " " << this->_tcpServer->errorString();
+        Logger::getInstance()->log(ERROR_LOG, msg);
     }
     else
     {
-	msg = "Listening on port: ";
-	msg += port.toString();
+        tmp << "Ok Listening on port: " << port.toString();
 	Logger::getInstance()->log(INFO_LOG, msg);
 	this->_tcpServer->setMaxPendingConnections(1);
 	QObject::connect(_tcpServer, SIGNAL(newConnection()), this, SLOT(_connect()));
@@ -88,8 +85,7 @@ void	CegTcpServer::_connect()
 
 void	CegTcpServer::_disconnect()
 {
-    QString msg("Disconnected");
-     Logger::getInstance()->log(INFO_LOG, msg);
+    Logger::getInstance()->log(INFO_LOG, "CegTcpServer: Disconnected");
 }
 
 void	CegTcpServer::_readData()

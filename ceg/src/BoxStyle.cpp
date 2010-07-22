@@ -22,7 +22,6 @@
 #include <QDomElement>
 #include <QSettings>
 #include <QStringList>
-#include <QDebug>
 /*********************************/
 #include "BoxStyle.h"
 /*********************************/
