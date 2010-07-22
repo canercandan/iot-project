@@ -213,6 +213,7 @@ int main(int ac, char** av)
     // Instanciate the higher object of the program before starting the thread
     //-----------------------------------------------------------------------------
     Systray sytray;
+    //new Systray();
 
     //-----------------------------------------------------------------------------
 

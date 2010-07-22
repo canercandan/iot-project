@@ -47,7 +47,7 @@ MainController::MainController(Systray & systray) :
 
 MainController::~MainController()
 {
-    std::for_each(this->_scenes.begin(), this->_scenes.end(), Ceg::DeleteObject());
+    //std::for_each(this->_scenes.begin(), this->_scenes.end(), Ceg::DeleteObject());
     delete this->_comGs;
 }
 

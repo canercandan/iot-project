@@ -40,6 +40,7 @@ Layer::Layer(Ceg::Window const & hostWindow) :
 Layer::~Layer()
 {
     delete this->_menuAction;
+    this->_menuAction = NULL;
 }
 
 /************************************************* [ GETTERS ] *************************************************/
