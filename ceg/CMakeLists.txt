@@ -121,6 +121,7 @@ ADD_EXECUTABLE(
   ${SAMPLE_UIS_SRCS}
   ${SAMPLE_MOC_SRCS}
   ${SAMPLE_RC_SRCS}
+  ceg.rc
   )
 
 SET(CEG_LIBS action)
