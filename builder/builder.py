@@ -20,6 +20,7 @@ import sys
 from PyQt4 import QtGui, QtCore
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
+from PyQt4.QtXml import *
 
 from box import Box
 from toolbar import Toolbar
@@ -95,6 +96,50 @@ class BuilderWidget(QtGui.QMainWindow):
                                             ).arg(shortFilename).arg(directory),
                                     QMessageBox.Ok, QMessageBox.Cancel)
 
+    # release : create a box
+    # zoom in create box child
+    def loadFile(self):
+        filename = QFileDialog.getOpenFileName(None,
+                                               self.loadDialog,
+                                               QDir.currentPath(),
+                                               self.extensionDialog)
+        if filename == '':
+            return
+
+        qfile = QFile(filename)
+        doc = QDomDocument("XmlBox")
+
+        flags = QIODevice.OpenMode(QIODevice.ReadOnly)
+        flags.__and__(QIODevice.Text)
+        if not qfile.open(flags):
+            QMessageBox.critical(self, 'IotBuilder',
+                              'Failed to load file.')
+            return
+
+        if not doc.setContent(qfile):
+            qfile.close()
+            QMessageBox.critical(self, 'IotBuilder',
+                              'Unable to setContent.')
+            return
+
+        qfile.close()
+
+        # QDomElement
+        root = doc.documentElement()
+        if root.tagName() != 'boxes' and root.tagName() != 'menu':
+            QMessageBox.critical(self, 'IotBuilder',
+                              'Error.')
+            return
+
+        programId = root.attribute("id")
+
+        boxNode = root.firstChild()
+        while (boxNode):
+            boxElem = boxNode.toElement()
+            if boxElem and boxElem.tagName() == 'box':
+                self.list.append(Box(boxElem, None))
+            boxNode = boxNode.nextSibling()
+
     def saveFile(self):
         if not self.list and not self.father:
             QMessageBox.information(self, 'IotBuilder', 'Nothing to save :)')
@@ -127,75 +172,19 @@ class BuilderWidget(QtGui.QMainWindow):
     def xmlRec(self, li):
         tmp = ''
         for elem in li:
+            # attribute[0] <=> type
+            # attribute[1] <=> value
+            attribute = elem.Attribute()
             tmp += '<box type="1" x="' + str(elem.topLeft().x()) + '" y="' + str(elem.topLeft().y()) + '" width="' + str(elem.bottomRight().x() - elem.topLeft().x()) + '" height="' + str(elem.bottomRight().y() - elem.topLeft().y()) + '">' + "\n"
             tmp += '<style visible="1" opacity="0.5" focusColor="green" blurColor="blue" imagePath="" text="" fontSize="20" font="Arial" />' + "\n"
-            tmp += '<action id="' + str(elem.getActionId()) + '"/>' + "\n"
-            tmp += '<attribute id="' + str(elem.getAttribute()) + '"/>' + "\n"
+            tmp += '<action id="' + str(elem.getActionId())
+            tmp += ' ' + str(attribute[0]) + '="' + str(attribute[1]) + '" />' + "\n"
             if elem.son:
                 tmp += '<children>' + "\n"
                 tmp += self.xmlRec(elem.son)
                 tmp += '</children>' + "\n"
             tmp += '</box>' + "\n"
         return tmp
-
-    # release : create a box
-    # zoom in create box child
-    def loadFile(self):
-        filename = QFileDialog.getOpenFileName(None,
-                                               self.loadDialog,
-                                               QDir.currentPath(),
-                                               self.extensionDialog)
-        if filename == '':
-            return
-
-        self.parser = xml.parsers.expat.ParserCreate()
-        self.parserCurrentBox = None
-
-        def XMLstartElement(name, attrs):
-            if name == 'box':
-                x = QString(attrs['x']).toInt()
-                y = QString(attrs['y']).toInt()
-                width = QString(attrs['width']).toInt()
-                height = QString(attrs['height']).toInt()
-
-                if not x[1] or not y[1] or not width[1] or not height[1]:
-                    print 'Warning : XML Attributes Parse Error'
-
-                posStart = QPoint(x[0], y[0])
-                posEnd = QPoint(x[0] + width[0], y[0] + height[0])
-
-                tmpBox = Box(posStart, posEnd)
-                tmpBox.father = self.father
-
-                self.list.append(tmpBox)
-                self.parserCurrentBox = tmpBox
-
-            if name == 'action':
-                self.parserCurrentBox.setActionId(attrs['id'])
-                # example: call setAttribute(attrs['isZoom']) if attrs['id'] == "Zoom"
-                #self.parserCurrentBox.setAttribute(attrs['id'])
-
-            if name == 'children':
-                self.father = self.list
-                tmp = []
-                self.list = tmp
-                self.parserCurrentBox.son = tmp
-
-        def XMLendElement(name):
-            if name == 'children':
-                self.list = self.father
-                self.father = self.list[0].father
-
-        #def XMLcharData(data):
-            # print 'Character data:', repr(data)
-
-        self.parser.StartElementHandler = XMLstartElement
-        self.parser.EndElementHandler = XMLendElement
-        self.list = []
-        self.father = None
-        self.focus = None
-        self.parser.ParseFile(open(filename, "r"))
-        self.repaint()
 
     def selectionMode(self):
         self.mode = Mode.selection

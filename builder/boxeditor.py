@@ -56,31 +56,31 @@ class BoxEditor(QtGui.QDialog):
                 return self.getDictionnary[tabTitle]()
 
     def getCancelAttribute(self):
-        return ''
+        return ['', '']
 
     def getClickAttribute(self):
-        return QString.number(self.ui.clickComboBox.currentIndex())
+        return ['', QString.number(self.ui.clickComboBox.currentIndex())]
 
     def getExecMenuAttribute(self):
-        return ''
+        return ['', '']
 
     def getMoveAttribute(self):
-        return ''
+        return ['', '']
 
     def getPopMenuAttribute(self):
-        return ''
+        return ['', '']
 
     def getReadAttribute(self):
-        return QString.number(self.ui.readDoubleSpinBox.value())
+        return ['', QString.number(self.ui.readDoubleSpinBox.value())]
 
     def getValidAttribute(self):
-        return ''
+        return ['', '']
 
     def getWriteAttribute(self):
-        return self.ui.writeLineEdit.text()
+        return ['', self.ui.writeLineEdit.text()]
 
     def getZoomAttribute(self):
-        return QString.number(self.ui.zoomComboBox.currentIndex())
+        return ['isZoom', QString.number(self.ui.zoomComboBox.currentIndex())]
 
     def setAttribute(self, attribute):
         for tabTitle in self.getDictionnary:
