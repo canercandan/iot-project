@@ -22,5 +22,10 @@
         <file>images/home/listing.png</file>
         <file>images/home/multimedia.png</file>
         <file>images/home/switch.png</file>
+        <file>images/action/zoomOut.png</file>
+        <file>images/action/zoomIn.png</file>
+        <file>images/action/read.png</file>
+        <file>images/action/simpleClick.png</file>
+        <file>images/action/doubleClick.png</file>
     </qresource>
 </RCC>
