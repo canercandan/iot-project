@@ -24,11 +24,8 @@
 #include <list>
 
 #include <QGraphicsView>
-#include "CegTcpServer.h"
-#ifndef Q_WS_WIN
-#include <log4cxx/logger.h>
-#endif
 
+#include "CegTcpServer.h"
 #include "View.h"
 #include "Window.h"
 #include "BoxController.h"
@@ -74,11 +71,7 @@ private:
     std::list<AbstractScene *>::iterator    _currentScene; // La scene utilise
     BoxController			    _boxController;
     ICommunicationGraphicalServer *	    _comGs;
-    CegTcpServer				_tcpServer;
-
-#ifndef Q_WS_WIN
-    log4cxx::LoggerPtr			_logger;
-#endif
+    CegTcpServer                            _tcpServer;
 };
 
 #endif // MAINCONTROLLER_H

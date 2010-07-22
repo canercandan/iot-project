@@ -108,7 +108,7 @@ AbstractScene * MainController::createScene(Ceg::Window const & window)
 
 void MainController::initialize()
 {
-    Logger::getInstance()->Log(INFO_LOG, "Initialisation du MainController.");
+    Logger::getInstance()->log(INFO_LOG, "Initialisation du MainController.");
     PopMenuAction popAction("Home");
     this->on_action_emitted(popAction);
 }
@@ -116,7 +116,7 @@ void MainController::initialize()
 
 void MainController::on_start_navigation()
 {
-    Logger::getInstance()->Log(INFO_LOG,"Demarrage de la navigation.");
+    Logger::getInstance()->log(INFO_LOG,"Demarrage de la navigation.");
     static bool isInit = false;
     if (isInit == false || this->_scenes.empty() == true) // si c la premiere fois que l on lance la navigation ou qu'il n'y a plus de scene en cours d'utilisation
     {
@@ -129,7 +129,7 @@ void MainController::on_start_navigation()
 
 void MainController::on_stop_navigation()
 {
-    Logger::getInstance()->Log(INFO_LOG,"Stoppage de la navigation.");
+    Logger::getInstance()->log(INFO_LOG,"Stoppage de la navigation.");
     this->_view.hide();
 }
 

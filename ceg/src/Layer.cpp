@@ -55,6 +55,7 @@ void	Layer::initialize(std::list<QGraphicsRectItem *> const & sceneItems)
 {
     if (sceneItems.empty() == false)
     {
+        this->_type = static_cast<AbstractItem *>(sceneItems.front())->getBox()->getBoxType();
         if (this->_menuAction == 0)
 	{
 	    this->_menuAction = new PopMenuAction("Navigation");

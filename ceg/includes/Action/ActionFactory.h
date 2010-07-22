@@ -25,10 +25,6 @@
 #include <string>
 #include <map>
 
-#ifndef Q_WS_WIN
-#include <log4cxx/logger.h>
-#endif
-
 class QDomElement;
 class IAction;
 
@@ -46,10 +42,6 @@ public:
 
 private:
   static std::map<std::string, ActionInstantiator>	_instanciators; // Reference les ids des actions et leur constructeurs associes
-
-#ifndef Q_WS_WIN
-  static log4cxx::LoggerPtr logger;
-#endif
 };
 
 #endif // ACTIONFACTORY_H

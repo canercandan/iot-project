@@ -49,8 +49,8 @@
 BoxController::BoxController() :
 	_patterns(), _menus(), _nbSquare(3)
 {
-    Logger::getInstance()->Log(INFO_LOG, "Chargement des fichiers xml pour les programmes");
-    Logger::getInstance()->Log(INFO_LOG, "Chargement des fichiers xml pour les menus");
+    Logger::getInstance()->log(INFO_LOG, "Chargement des fichiers xml pour les programmes");
+    Logger::getInstance()->log(INFO_LOG, "Chargement des fichiers xml pour les menus");
     this->loadConfig("menus/");
     this->loadConfig("boxes/");
 
@@ -125,15 +125,15 @@ void    BoxController::getPattern(Ceg::Window const & aWindow, std::list<QGraphi
     QString msg("Schema for '");
     msg += aWindow.getProgramName().c_str();
     msg += "' asked";
-    Logger::getInstance()->Log(INFO_LOG, msg);
+    Logger::getInstance()->log(INFO_LOG, msg);
     if (itFind != this->_patterns.end())
     {
-	Logger::getInstance()->Log(INFO_LOG, "Configuration found, schema loading");
+	Logger::getInstance()->log(INFO_LOG, "Configuration found, schema loading");
 	childrenBox = itFind->second;
     }
     else
     {
-	Logger::getInstance()->Log(WARNING_LOG,"No configuration found for this program, loading the default schema");
+	Logger::getInstance()->log(WARNING_LOG,"No configuration found for this program, loading the default schema");
 	this->calcChildren(childrenBox, aWindow.getGeometry(), 0);
     }
     this->createGraphicItems(graphicItems, childrenBox);
@@ -157,7 +157,7 @@ void	BoxController::getMenu(std::string const & idMenu, std::list<QGraphicsRectI
     QString msg("Menu - id(");
     msg += idMenu.c_str();
     msg += ") asked";
-    Logger::getInstance()->Log(INFO_LOG, msg);
+    Logger::getInstance()->log(INFO_LOG, msg);
 
     std::map<std::string, std::list<Box const *> >::const_iterator  itFind = this->_menus.find(idMenu);
     if (itFind != this->_menus.end())
@@ -166,7 +166,7 @@ void	BoxController::getMenu(std::string const & idMenu, std::list<QGraphicsRectI
     }
     else
     {
-     Logger::getInstance()->Log(WARNING_LOG, "Unknown menu");
+     Logger::getInstance()->log(WARNING_LOG, "Unknown menu");
     }
 }
 
@@ -287,7 +287,7 @@ void BoxController::loadConfig(QString const & typeSearch)
 	{
 	    QString msg(directory.absolutePath());
 	    msg += " doesn't exist";
-	    Logger::getInstance()->Log(WARNING_LOG, msg);
+	    Logger::getInstance()->log(WARNING_LOG, msg);
 	}
     }
 }
@@ -307,7 +307,7 @@ void    BoxController::initializeFromXml(QString const & fileName)
 {
     QString msg("Trying to load file: ");
     msg += fileName;
-    Logger::getInstance()->Log(INFO_LOG, msg);
+    Logger::getInstance()->log(INFO_LOG, msg);
     QFile	file(fileName);
     QDomDocument doc(fileName);
 
@@ -315,7 +315,7 @@ void    BoxController::initializeFromXml(QString const & fileName)
     int  errorLine = 0, errorColumn = 0;
     if (file.open(QIODevice::ReadOnly) == true  &&  doc.setContent(&file, &errorMsg, &errorLine, &errorColumn) == true)
     {
-	Logger::getInstance()->Log(INFO_LOG, "Loading succeeded");
+	Logger::getInstance()->log(INFO_LOG, "Loading succeeded");
 	file.close();
 	QDomElement const & rootElement = doc.documentElement();
 	if (rootElement.tagName() == "boxes" || rootElement.tagName() == "menu")
@@ -323,7 +323,7 @@ void    BoxController::initializeFromXml(QString const & fileName)
 	    QString msg(rootElement.tagName());
 	    QString progId(rootElement.attribute("id"));
 	    msg += " Id: "; msg += progId;
-	    Logger::getInstance()->Log(INFO_LOG, msg);
+	    Logger::getInstance()->log(INFO_LOG, msg);
 	    std::list<Box const *> boxes;
 	    for (QDomNode boxNode = rootElement.firstChild(); !boxNode.isNull(); boxNode = boxNode.nextSibling())
 	    {
@@ -349,6 +349,6 @@ void    BoxController::initializeFromXml(QString const & fileName)
 	msg += fileInfo.absoluteFilePath();
 	msg += "\nCause "; msg += errorMsg;msg += " at line = "; msg += errorLine;
 	msg += " - column = "; msg += errorColumn;
-	Logger::getInstance()->Log(ERROR_LOG, msg);
+	Logger::getInstance()->log(ERROR_LOG, msg);
     }
 }

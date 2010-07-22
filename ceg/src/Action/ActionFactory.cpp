@@ -25,6 +25,8 @@
 #include "ActionFactory.h"
 /*********************************/
 #include "Logger.h"
+/*********************************/
+
 /************************************************* [ CTOR/DTOR ] *************************************************/
 
 std::map<std::string, ActionFactory::ActionInstantiator> ActionFactory::_instanciators;
@@ -34,7 +36,7 @@ IAction *	ActionFactory::create(QDomElement const & actionElelement)
     std::string const & id = actionElelement.attribute("id").toStdString();
     QString msg("Demande d' instance de type ");
     msg += id.c_str();
-    Logger::getInstance()->Log(INFO_LOG, msg);
+    Logger::getInstance()->log(INFO_LOG, msg);
 
     std::map<std::string, ActionInstantiator>::const_iterator itFind = ActionFactory::_instanciators.find(id);
     return (itFind != ActionFactory::_instanciators.end() ? (itFind->second)(actionElelement) : 0);
@@ -48,7 +50,7 @@ void ActionFactory::registerInstantiator(const std::string &actionId, ActionInst
     QString msg("Action enregistree:");
     //QVariant funcaddr = (void *)function;
     msg += actionId.c_str(); msg += " Valeur du pointeur : ";
-    Logger::getInstance()->Log(INFO_LOG, msg);
+    Logger::getInstance()->log(INFO_LOG, msg);
 
   ActionFactory::_instanciators.insert(std::make_pair(actionId, function));
 }

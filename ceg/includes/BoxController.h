@@ -25,10 +25,6 @@
 #include <list>
 #include <string>
 
-#ifndef Q_WS_WIN
-#include <log4cxx/logger.h>
-#endif
-
 class QGraphicsRectItem;
 class QDir;
 
@@ -71,10 +67,6 @@ private:
     std::map<std::string, std::list<Box const *> > _patterns; // Id du logiciel et son patron associe
     std::map<std::string, std::list<Box const *> > _menus; // Id du menu et son patron associe
     int                                             _nbSquare; // Nb de boxs utilisees pour le mode par defaut
-
-#ifndef Q_WS_WIN
-    log4cxx::LoggerPtr _logger;
-#endif
 };
 
 #endif // BOXCONTROLLER_H

@@ -37,8 +37,6 @@ AbstractItem::AbstractItem(Box const * box, QGraphicsItem * parent) :
 	_color(box->getGraphicStyle().getBlurColor()), _model(box)
 {
     this->setFlag(QGraphicsItem::ItemIsFocusable);
-
-    //this->setCacheMode(QGraphicsItem::NoCache);
 }
 
 /************************************************* [ GETTERS ] *************************************************/
@@ -77,7 +75,7 @@ void AbstractItem::paint(QPainter * painter, const QStyleOptionGraphicsItem *, Q
     painter->setOpacity(style.getOpacity());
     painter->setBrush(QBrush(QColor(this->_color)));
     painter->drawRect(this->rect());
-    //painter->drawRect(boundingRect());
+
     QString const & text = style.getText();
     if (! text.isEmpty())
     {
@@ -109,15 +107,4 @@ void AbstractItem::paint(QPainter * painter, const QStyleOptionGraphicsItem *, Q
 	painter->drawText(this->rect(), Qt::AlignCenter, text);
 	}
     }
-
-
-    //-----------------------------------------------------------------------------
-    // The following line allows to refresh the scene and avoid display bugs
-    // when we go back to a previous scene from the view.
-    // /!\ But it is too heavy. We must find another way.
-    //-----------------------------------------------------------------------------
-
-    //this->scene()->update();
-
-    //-----------------------------------------------------------------------------
 }

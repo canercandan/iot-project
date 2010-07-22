@@ -17,12 +17,11 @@
  *
  * Authors: CEG <ceg@ionlythink.com>, http://www.ionlythink.com
  */
- #ifndef LOGGER_H
+#ifndef LOGGER_H
 #define LOGGER_H
 
-#include <QString>
-#include <QFile>
-
+class QFile;
+class QString;
 
 enum loglevel
 {
@@ -38,17 +37,18 @@ enum loglevel
  */
 class Logger
 {
-    public:
+public:
+    static   Logger* getInstance();
+    static   void destroy();
 
-    //friend class Singleton<Logger>;
-   static   Logger* getInstance();
-   static   void destroy();
-   loglevel getLogLevel() const;
+    loglevel getLogLevel() const;
+    QString getLogFile() const;
     void    setLogLevel(loglevel newLogLevel);
-    void    setLogFile(QString filename);
-    QString const getLogFile() const;
-    void    Log(loglevel msgLogLevel, QString& msg);
-    void    Log(loglevel msgLogLevel, const char *msg);
+    void    setLogFile(QString const & filename);
+
+    void    log(loglevel msgLogLevel, QString const & msg);
+    void    log(loglevel msgLogLevel, const char *msg);
+
 private:
     Logger();
     ~Logger();

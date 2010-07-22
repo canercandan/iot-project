@@ -24,10 +24,6 @@
 #include <QObject>
 #include <QString>
 
-#ifndef Q_WS_WIN
-#include <log4cxx/logger.h>
-#endif
-
 class QTcpServer;
 class QTcpSocket;
 class MainController;
@@ -58,10 +54,6 @@ private:
     QTcpServer	*_tcpServer;
     QTcpSocket	*_client;
     QString	_buffer;
-
-#ifndef Q_WS_WIN
-    log4cxx::LoggerPtr _logger;
-#endif
 };
 
 #endif // CEGTCPSERVER_HPP

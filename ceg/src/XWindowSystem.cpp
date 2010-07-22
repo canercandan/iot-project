@@ -60,7 +60,7 @@ I also find a function : XmuClientWindow, but i don't understand it's goal.
 Thanks to help me.*/
 
 XWindowSystem::XWindowSystem() :
-_connection(::XOpenDisplay(0))
+        _connection(::XOpenDisplay(0))
 {
 }
 
@@ -70,11 +70,11 @@ XWindowSystem::~XWindowSystem()
     {
 	if (::XCloseDisplay(this->_connection) == BadGC)
 	{
-	    Logger::getInstance()->Log(ERROR_LOG, "Scope : XWindowSystem::~XWindowSystem\tFunction : XCloseDisplay fail");
+	    Logger::getInstance()->log(ERROR_LOG, "Scope : XWindowSystem::~XWindowSystem\tFunction : XCloseDisplay fail");
 	}
 	else
 	{
-	    Logger::getInstance()->Log(ERROR_LOG,  "Connection to Graphical Server close with success.");
+	    Logger::getInstance()->log(ERROR_LOG,  "Connection to Graphical Server close with success.");
 	}
     }
 }
@@ -99,14 +99,14 @@ bool XWindowSystem::getFocusedWindow(Ceg::Window & /*newWindow*/)
 	int status = ::XGetInputFocus(this->_connection, &focusWindow, &focusState);
 	if (status != BadValue && status != BadWindow && focusWindow != None)
 	{
-	//            QString msg("window Id: ");
-	//            QVariant fwin(focusWindow);
-	//            QVariant fstate(focusState);
-	//            msg += fwin.toString(); msg += " focus state:";
-	//            msg += fstate;
-	//            Logger::getInstance()->Log(INFO, msg);
-	//            newWindow.setId(focusWindow);
-	//            statusOp = this->refreshWindowInfo(newWindow);
+            //            QString msg("window Id: ");
+            //            QVariant fwin(focusWindow);
+            //            QVariant fstate(focusState);
+            //            msg += fwin.toString(); msg += " focus state:";
+            //            msg += fstate;
+            //            Logger::getInstance()->Log(INFO, msg);
+            //            newWindow.setId(focusWindow);
+            //            statusOp = this->refreshWindowInfo(newWindow);
 	    this->printWindow(focusWindow, 0);
 	}
     }
@@ -118,7 +118,7 @@ bool XWindowSystem::setFocusToWindow(Ceg::Window & , Ceg::Window & /*newFocusWin
     bool statusOp = false;
     if (this->_connection != 0)
     {
-    //int status = ::XSetInputFocus(this->_connection, newFocusWindow, revert_to, time);
+        //int status = ::XSetInputFocus(this->_connection, newFocusWindow, revert_to, time);
     }
     return (statusOp);
 }
@@ -141,65 +141,65 @@ bool XWindowSystem::refreshWindowInfo(Ceg::Window & targetWindow)
 
 void XWindowSystem::queryPointer(XEvent& event, Window& window, Window& subwindow)
 {
-  ::XQueryPointer(this->_connection, window,
-		  &event.xbutton.root,
-		  &subwindow,
-		  &event.xbutton.x_root,
-		  &event.xbutton.y_root,
-		  &event.xbutton.x,
-		  &event.xbutton.y,
-		  &event.xbutton.state);
+    ::XQueryPointer(this->_connection, window,
+                    &event.xbutton.root,
+                    &subwindow,
+                    &event.xbutton.x_root,
+                    &event.xbutton.y_root,
+                    &event.xbutton.x,
+                    &event.xbutton.y,
+                    &event.xbutton.state);
 }
 
 bool XWindowSystem::generateClickEvent(short int buttonID)
 {
-  /* juste pour info il existe l'outil xdotool qui permet entre autre de generer des touches claviers et deplacer la souris tres facilement voir http://www.semicomplete.com/projects/xdotool/ */
+    /* juste pour info il existe l'outil xdotool qui permet entre autre de generer des touches claviers et deplacer la souris tres facilement voir http://www.semicomplete.com/projects/xdotool/ */
 
-  /* set position avec QT */
+    /* set position avec QT */
 
-  Display* display = this->_connection;
+    Display* display = this->_connection;
 
-  if (display == 0)
-    return (false);
+    if (display == 0)
+        return (false);
 
-  XEvent event;
+    XEvent event;
 
-  ::memset(&event, 0x0, sizeof(event));
+    ::memset(&event, 0x0, sizeof(event));
 
-  event.type = ButtonPress;
-  event.xbutton.button = buttonID;
-  event.xbutton.same_screen = True;
+    event.type = ButtonPress;
+    event.xbutton.button = buttonID;
+    event.xbutton.same_screen = True;
 
-  this->queryPointer(event,
-		     RootWindow(display, DefaultScreen(display)),
-		     event.xbutton.window);
+    this->queryPointer(event,
+                       RootWindow(display, DefaultScreen(display)),
+                       event.xbutton.window);
 
-  event.xbutton.subwindow = event.xbutton.window;
+    event.xbutton.subwindow = event.xbutton.window;
 
-  while (event.xbutton.subwindow)
+    while (event.xbutton.subwindow)
     {
-      event.xbutton.window = event.xbutton.subwindow;
-      this->queryPointer(event,
-			 event.xbutton.window,
-			 event.xbutton.subwindow);
+        event.xbutton.window = event.xbutton.subwindow;
+        this->queryPointer(event,
+                           event.xbutton.window,
+                           event.xbutton.subwindow);
     }
 
-  if (::XSendEvent(display, PointerWindow, True, 0xfff, &event) == 0)
-    return (false);
+    if (::XSendEvent(display, PointerWindow, True, 0xfff, &event) == 0)
+        return (false);
 
-  ::XFlush(display);
+    ::XFlush(display);
 
-  ::usleep(100000);
+    ::usleep(100000);
 
-  event.type = ButtonRelease;
-  event.xbutton.state = 0x100;
+    event.type = ButtonRelease;
+    event.xbutton.state = 0x100;
 
-  if (::XSendEvent(display, PointerWindow, True, 0xfff, &event) == 0)
-    return (false);
+    if (::XSendEvent(display, PointerWindow, True, 0xfff, &event) == 0)
+        return (false);
 
-  ::XFlush(display);
+    ::XFlush(display);
 
-  return (true);
+    return (true);
 }
 
 void XWindowSystem::printRecurse(::Window currentWindow, unsigned int level) const
@@ -214,25 +214,25 @@ void XWindowSystem::printRecurse(::Window currentWindow, unsigned int level) con
 	QVariant lvl(this->printIndent(level));
 	//QVariant rootRet(&rootReturn);
 	//msg += currentWindow; msg += " Root:"; msg += rootRet.toString();
-	Logger::getInstance()->Log(INFO_LOG, msg);
+	Logger::getInstance()->log(INFO_LOG, msg);
 	//lvl << "Parent : 0x" << std::hex << parentReturn << std::dec;
 	pid_t pid = this->getPid(currentWindow);
 	//	qDebug() << lvl << "Pid of the window's creator : " << pid;
-	Logger::getInstance()->Log(INFO_LOG, msg);
+	Logger::getInstance()->log(INFO_LOG, msg);
 	if (pid != 0)
 	{
-	//	  qDebug() << this->printIndent(level) << "Binaire utilise : " << this->getPathOfBinary(typeToString(pid)).c_str();
-	Logger::getInstance()->Log(INFO_LOG, msg);
+            //	  qDebug() << this->printIndent(level) << "Binaire utilise : " << this->getPathOfBinary(typeToString(pid)).c_str();
+            Logger::getInstance()->log(INFO_LOG, msg);
 	}
 	this->printCommands(currentWindow, level);
 	this->printWindow(currentWindow, level);
 	//	qDebug() << this->printIndent(level) << "Nb child : " << nbChildrenReturn;
-	Logger::getInstance()->Log(INFO_LOG, msg);
+	Logger::getInstance()->log(INFO_LOG, msg);
 	::Window muclient = ::XmuClientWindow(this->_connection, currentWindow);
 	(void)muclient;
 	//	qDebug() << this->printIndent(level) << "XmuClientWindow : 0x" << muclient << "\n" <<
 	msg = lvl.toString();
-	Logger::getInstance()->Log(INFO_LOG, msg);
+	Logger::getInstance()->log(INFO_LOG, msg);
 	for (unsigned int i = 0; i < nbChildrenReturn; ++i)
 	{
 	    this->printRecurse(childrenReturn[i], level + 1);
@@ -241,7 +241,7 @@ void XWindowSystem::printRecurse(::Window currentWindow, unsigned int level) con
     }
     else
     {
-	Logger::getInstance()->Log(ERROR_LOG, "Scope : XWindowSystem::printRecurse\tFunction XQueryTree fail");
+	Logger::getInstance()->log(ERROR_LOG, "Scope : XWindowSystem::printRecurse\tFunction XQueryTree fail");
     }
 }
 
@@ -291,7 +291,7 @@ char XWindowSystem::printIndent(unsigned int nbIndent) const
 {
     if (nbIndent > 0)
 	for (unsigned int i = 0; i < (nbIndent - 1); ++i)
-	    Logger::getInstance()->Log(INFO_LOG, "*");
+	    Logger::getInstance()->log(INFO_LOG, "*");
     return (' ');
 }
 
@@ -305,12 +305,12 @@ void XWindowSystem::printWindow(::Window windowId, unsigned int level) const
 	msg = lvl.toString(); msg += "Window Name : ";
 	//QString value(propWindowName.value);
 	//msg += value;
-	Logger::getInstance()->Log(INFO_LOG, msg);
+	Logger::getInstance()->log(INFO_LOG, msg);
 	::XFree(propWindowName.value);
     }
     else
     {
-	Logger::getInstance()->Log(ERROR_LOG, "Scope : XWindowSystem::printWindow\tFunction XGetWMName fail");
+	Logger::getInstance()->log(ERROR_LOG, "Scope : XWindowSystem::printWindow\tFunction XGetWMName fail");
     }
 
     XTextProperty propIconName;
@@ -340,7 +340,7 @@ void XWindowSystem::printWindow(::Window windowId, unsigned int level) const
     }
     else
     {
-	Logger::getInstance()->Log(ERROR_LOG, "Scope : XWindowSystem::printWindow\tFunction XGetClassHint fail");
+	Logger::getInstance()->log(ERROR_LOG, "Scope : XWindowSystem::printWindow\tFunction XGetClassHint fail");
     }
 
     ::XWindowAttributes windowInfos;
@@ -357,20 +357,20 @@ void XWindowSystem::printWindow(::Window windowId, unsigned int level) const
 	varH = windowInfos.height;
 
 	msg = varLevel.toString(); msg += "x : "; msg += varX.toString();
-	Logger::getInstance()->Log(INFO_LOG, msg);
+	Logger::getInstance()->log(INFO_LOG, msg);
 	msg = varLevel.toString(); msg += "Y : ";msg += varY.toString();
-	Logger::getInstance()->Log(INFO_LOG, msg);
+	Logger::getInstance()->log(INFO_LOG, msg);
 	// cf function Display_Stats_Info for absolute window
 	msg = varLevel.toString(); msg += "heigth : ";msg += varH.toString();
-	Logger::getInstance()->Log(INFO_LOG, msg);
+	Logger::getInstance()->log(INFO_LOG, msg);
 	msg = varLevel.toString(); msg += "width : ";msg += varW.toString();
-	Logger::getInstance()->Log(INFO_LOG, msg);
+	Logger::getInstance()->log(INFO_LOG, msg);
 	msg = varLevel.toString(); msg += "Visible :"; msg += ((windowInfos.map_state == IsUnmapped) ? "IsUnmapped" : (windowInfos.map_state == IsUnviewable) ? "IsUnviewable" : "IsViewable");
-	Logger::getInstance()->Log(INFO_LOG, msg);
+	Logger::getInstance()->log(INFO_LOG, msg);
     }
     else
     {
-	Logger::getInstance()->Log(ERROR_LOG, "Scope : XWindowSystem::printWindow\tFunction XGetWindowAttributes fail");
+	Logger::getInstance()->log(ERROR_LOG, "Scope : XWindowSystem::printWindow\tFunction XGetWindowAttributes fail");
     }
 }
 
@@ -392,6 +392,6 @@ void XWindowSystem::printCommands(::Window windowId, unsigned int /*level*/) con
     }
     else
     {
-	Logger::getInstance()->Log(ERROR_LOG, "Scope : XWindowSystem::printCommands\tFunction XGetCommand fail");
+	Logger::getInstance()->log(ERROR_LOG, "Scope : XWindowSystem::printCommands\tFunction XGetCommand fail");
     }
 }

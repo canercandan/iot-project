@@ -29,6 +29,7 @@
 #include "AbstractScene.h"
 #include "MainController.h"
 #include "BoxController.h"
+#include "Box.h"
 /*********************************/
 
 /************************************************* [ CTOR/DTOR ] *************************************************/
@@ -52,7 +53,8 @@ void ZoomAction::initializeFromXml(const QDomElement & actionElement)
 void	ZoomAction::exec(MainController & mainC)
 {
     qDebug() << "ZoomAction::exec";
-    AbstractScene * scene = mainC.getSceneAt(static_cast<size_t>(2));
+    size_t position = (mainC.getCurrentScene()->getType() == CUSTOM_BOX) ? 1 : 2;
+    AbstractScene * scene = mainC.getSceneAt(position);
     AbstractItem const * currentItem = scene->getCurrentItem();
     Box const * box = currentItem->getBox();
     std::list<QGraphicsRectItem *> graphicItems;

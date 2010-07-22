@@ -31,6 +31,14 @@
 #include "Utils.h"
 /*********************************/
 
+#if defined(Q_OS_UNIX)
+static const std::string osName("unix");
+#elif defined(Q_OS_WIN)
+static const std::string osName("win");
+#elif defined(Q_OS_MAC)
+static const std::string osName("mac");
+#endif
+
 /************************************************* [ CTOR/DTOR ] *************************************************/
 
 char const * ExecProcessAction::IDENTIFIER = "ExecProcess";
@@ -48,58 +56,20 @@ void ExecProcessAction::initializeFromXml(const QDomElement & domElement)
 	this->_hideTime = domElement.attribute("time").toULong();
     }
 
-#if defined(Q_OS_UNIX)
-
-    if (domElement.hasAttribute("unix:path"))
+    if (domElement.hasAttribute((osName + "path").c_str()))
     {
-	this->_path = domElement.attribute("unix:path");
+        this->_path = domElement.attribute((osName + ":path").c_str());
     }
 
-    if (domElement.hasAttribute("unix:pathfinder"))
+    if (domElement.hasAttribute((osName + ":pathfinder").c_str()))
     {
-	this->_pathFinder = domElement.attribute("unix:pathfinder");
+        this->_pathFinder = domElement.attribute((osName + ":pathfinder").c_str());
     }
 
-    if (domElement.hasAttribute("unix:arguments"))
+    if (domElement.hasAttribute((osName + ":arguments").c_str()))
     {
-	this->_arguments = domElement.attribute("unix:arguments");
+        this->_arguments = domElement.attribute((osName + ":arguments").c_str());
     }
-
-#elif defined(Q_OS_WIN)
-
-    if (domElement.hasAttribute("win:path"))
-    {
-	this->_path = domElement.attribute("win:path");
-    }
-
-    if (domElement.hasAttribute("win:pathfinder"))
-    {
-	this->_pathFinder = domElement.attribute("win:pathfinder");
-    }
-
-    if (domElement.hasAttribute("win:arguments"))
-    {
-	this->_arguments = domElement.attribute("win:arguments");
-    }
-
-#elif defined(Q_OS_MAC)
-
-    if (domElement.hasAttribute("mac:path"))
-    {
-	this->_path = domElement.attribute("mac:path");
-    }
-
-    if (domElement.hasAttribute("mac:pathfinder"))
-    {
-	this->_pathFinder = domElement.attribute("mac:pathfinder");
-    }
-
-    if (domElement.hasAttribute("mac:arguments"))
-    {
-	this->_arguments = domElement.attribute("mac:arguments");
-    }
-
-#endif
 
     if (this->_path.isEmpty() && domElement.hasAttribute("path"))
     {

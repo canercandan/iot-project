@@ -31,7 +31,7 @@
 /************************************************* [ CTOR/DTOR ] *************************************************/
 
 AbstractScene::AbstractScene(QObject * parent /* = 0 */) :
-	QGraphicsScene(parent)
+        QGraphicsScene(parent), _type(DEFAULT_BOX)
 {
 }
 
@@ -40,6 +40,11 @@ AbstractScene::AbstractScene(QObject * parent /* = 0 */) :
 AbstractItem const *	AbstractScene::getCurrentItem() const
 {
     return (static_cast<AbstractItem *>(this->focusItem()));
+}
+
+BoxType AbstractScene::getType() const
+{
+    return (this->_type);
 }
 
 /************************************************* [ OTHERS ] *************************************************/
@@ -65,7 +70,7 @@ void AbstractScene::initialize(std::list<QGraphicsRectItem *> const & sceneItems
     QVariant size(static_cast<unsigned int>(sceneItems.size()));
     msg += size.toString();
     msg.append("items a ajoute a la scene");
-    Logger::getInstance()->Log(INFO_LOG, msg);
+    Logger::getInstance()->log(INFO_LOG, msg);
     this->clearScene();
     std::for_each(sceneItems.rbegin(), sceneItems.rend(), std::bind1st(std::mem_fun(&QGraphicsScene::addItem), this));
     sceneItems.front()->setFocus();

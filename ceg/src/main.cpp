@@ -33,7 +33,7 @@
 #include "Logger.h"
 /*********************************/
 
-void createSettingFile()
+static void createSettingFile()
 {
     QSettings settings;
 

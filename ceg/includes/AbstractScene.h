@@ -26,11 +26,13 @@
 #include <QGraphicsScene>
 #include <QRect>
 
+#include "Box.h"
+
 class QGraphicsRectItem;
 
 class IAction;
 class AbstractItem;
-#include "Logger.h"
+
 /**
  * \brief Classe abstraite implemente des methodes communes aux calques(custom | defaut), menu
  */
@@ -46,11 +48,15 @@ public:
 
     AbstractItem const *    getCurrentItem() const;
     virtual QRect	    getGeometry() const = 0;
+    BoxType                 getType() const;
 
     virtual IAction *	    keyPressEvent(int key) const = 0;
 
 private:
     void		    clearScene(); // Vide la scene et supprimer les elements
+
+protected:
+    BoxType     _type;
 };
 
 #endif // ABSTRACTSCENE_H

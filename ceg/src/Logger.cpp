@@ -19,9 +19,9 @@
  */
 
 /*********************************/
+#include <QFile>
 #include <QTime>
 #include <QTextStream>
-#include <stdio.h>  //FOR IO MACROS
 /*********************************/
 #include "Logger.h"
 /*********************************/
@@ -37,9 +37,9 @@ Logger::Logger()
     this->_currentLogLevel = DEBUG_LOG;
     this->_logFile = new QFile("Ceg.log");
     if(!this->_logFile->open(QIODevice::WriteOnly | QIODevice::Append))
-          {
-            this->Log(WARNING_LOG, "Failed to open Ceg.log");
-          }
+    {
+        this->log(WARNING_LOG, "Failed to open Ceg.log");
+    }
 }
 
 Logger::~Logger()
@@ -47,7 +47,7 @@ Logger::~Logger()
     if (this->_logFile)
     {
         this->_logFile->close();
-       delete this->_logFile;
+        delete this->_logFile;
     }
 }
 
@@ -65,9 +65,8 @@ void    Logger::setLogLevel(loglevel newLogLevel)
 
 
 
-void    Logger::setLogFile(QString filename)
+void    Logger::setLogFile(QString const & filename)
 {
-
     if (this->_logFile)
     {
         this->_logFile->close();
@@ -76,23 +75,23 @@ void    Logger::setLogFile(QString filename)
     this->_logFile = new QFile(filename);
     if(!this->_logFile->open(QIODevice::WriteOnly | QIODevice::Append))
     {
-        this->Log(WARNING_LOG, "Failed to open log file");
+        this->log(WARNING_LOG, "Failed to open log file");
     }
 
 }
 
 
-QString const    Logger::getLogFile() const
+QString    Logger::getLogFile() const
 {
     return (this->_logFile->fileName());
 }
 
-void    Logger::Log(loglevel msgLogLevel,QString& msg)
+void    Logger::log(loglevel msgLogLevel,QString const & msg)
 {
-    this->Log(msgLogLevel, msg.toStdString().c_str());
+    this->log(msgLogLevel, msg.toStdString().c_str());
 }
 
-void    Logger::Log(loglevel msgLogLevel, const char *msg)
+void    Logger::log(loglevel msgLogLevel, const char *msg)
 {
     if (this->_currentLogLevel > msgLogLevel)
         return;
@@ -101,8 +100,8 @@ void    Logger::Log(loglevel msgLogLevel, const char *msg)
     out << "[" << QTime::currentTime().toString().toAscii().data() << "] " << logLevelMsg[msgLogLevel]<< msg << "\r\n";
     if (this->_logFile && this->_logFile->exists())
     {
-     QTextStream filestream(this->_logFile);
-     filestream << "[" << QTime::currentTime().toString().toAscii().data() << "] " << logLevelMsg[msgLogLevel]<< msg;
+        QTextStream filestream(this->_logFile);
+        filestream << "[" << QTime::currentTime().toString().toAscii().data() << "] " << logLevelMsg[msgLogLevel]<< msg;
     }
 
 }
