@@ -69,6 +69,16 @@ AbstractScene *	MainController::getCurrentScene() const
     return (*this->_currentScene);
 }
 
+AbstractScene * MainController::getSceneAt(size_t position) const
+{
+    if (position < this->_scenes.size())
+    {
+        std::list<AbstractScene *>::const_iterator itSearch = this->_scenes.begin();
+        return (*(itSearch + position));
+    }
+    return (0);
+}
+
 View &	MainController::getView()
 {
     return (this->_view);

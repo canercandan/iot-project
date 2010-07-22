@@ -46,7 +46,7 @@ private:
 
 private:
     Ceg::Window _host; // la fenetre qui est calquee
-    IAction *	_menuAction; // Correspond a l'action retourne lorsque l'utilisateur sort du calque seulement dans le cas de la navigation par defaut
+    IAction *	_menuAction; // Correspond a l'action retourne lorsque l'utilisateur sort du calque
 };
 
 #endif // LAYER_H
