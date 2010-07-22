@@ -23,7 +23,7 @@
 #include <QDomElement>
 #include <QProcess>
 #include <QApplication>
- #include <QDesktopWidget>
+#include <QDesktopWidget>
 /*********************************/
 #include "ExecProcessAction.h"
 /*********************************/
@@ -32,11 +32,11 @@
 /*********************************/
 
 #if defined(Q_OS_UNIX)
-static const std::string osName("unix");
+static const QString osName("unix");
 #elif defined(Q_OS_WIN)
-static const std::string osName("win");
+static const QString osName("win");
 #elif defined(Q_OS_MAC)
-static const std::string osName("mac");
+static const QString osName("mac");
 #endif
 
 /************************************************* [ CTOR/DTOR ] *************************************************/
@@ -56,19 +56,19 @@ void ExecProcessAction::initializeFromXml(const QDomElement & domElement)
 	this->_hideTime = domElement.attribute("time").toULong();
     }
 
-    if (domElement.hasAttribute((osName + "path").c_str()))
+    if (domElement.hasAttribute(osName + ":path"))
     {
-        this->_path = domElement.attribute((osName + ":path").c_str());
+        this->_path = domElement.attribute(osName + ":path");
     }
 
-    if (domElement.hasAttribute((osName + ":pathfinder").c_str()))
+    if (domElement.hasAttribute((osName + ":pathfinder")))
     {
-        this->_pathFinder = domElement.attribute((osName + ":pathfinder").c_str());
+        this->_pathFinder = domElement.attribute(osName + ":pathfinder");
     }
 
-    if (domElement.hasAttribute((osName + ":arguments").c_str()))
+    if (domElement.hasAttribute(osName + ":arguments"))
     {
-        this->_arguments = domElement.attribute((osName + ":arguments").c_str());
+        this->_arguments = domElement.attribute(osName + ":arguments");
     }
 
     if (this->_path.isEmpty() && domElement.hasAttribute("path"))
