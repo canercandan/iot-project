@@ -67,7 +67,7 @@ IAction * Menu::keyPressEvent(int key)
     return (0);
 }
 
-void	Menu::moveVertically() const
+void	Menu::moveVertically()
 {
     QList<QGraphicsItem *> items =  this->items();
     int sizeList = items.size();
@@ -105,9 +105,10 @@ void	Menu::moveVertically() const
 	it += index;
 	(*it)->setFocus();
     }
+    this->saveFocusItem();
 }
 
-void	Menu::moveHorizontally() const
+void	Menu::moveHorizontally()
 {
     QList<QGraphicsItem *> items =  this->items();
     int index = items.indexOf(this->focusItem());
@@ -118,4 +119,5 @@ void	Menu::moveHorizontally() const
     }
     QList<QGraphicsItem *>::const_iterator it = items.begin() + index;
     (*it)->setFocus();
+    this->saveFocusItem();
 }

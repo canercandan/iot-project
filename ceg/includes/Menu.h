@@ -39,8 +39,8 @@ public:
     virtual IAction *	keyPressEvent(int key) ;
 
 private:
-    void	moveVertically() const;
-    void	moveHorizontally() const;
+    void	moveVertically();
+    void	moveHorizontally();
 };
 
 #endif // MENU_H

@@ -46,12 +46,12 @@ AbstractScene::~AbstractScene()
 
 AbstractItem const *	AbstractScene::getCurrentItem() const
 {
-#if defined(Q_OS_WIN)
+//#if defined(Q_OS_WIN)
     qDebug() << "ici DDDDDDDDDDDDDDDDDDD = ";
     return (this->_focusItem);
-#else
-    return (static_cast<AbstractItem *>(this->focusItem()));
-#endif
+//#else
+//    return (static_cast<AbstractItem *>(this->focusItem()));
+//#endif
 }
 
 BoxType AbstractScene::getType() const
