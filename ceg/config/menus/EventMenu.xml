@@ -42,7 +42,7 @@
     <action id="ExecMenu">
       <action id="Cancel"/>
     </action>
-    <style opacity="1" text="Cancel" fr:text="Annuler"/>
+    <style opacity="1" text="Cancel" fr:text="Annuler" imagePath=":images/menu/cancel.png"/>
   </box>
 
 </menu>

@@ -7,28 +7,28 @@
     <action id="ExecMenu">
       <action id="PopMenu" MenuId="Home"/>
     </action>
-    <style opacity="1" text="Home" fr:text="Accueil"/>
+    <style opacity="1" text="Home" fr:text="Accueil" imagePath=":images/home/home.png"/>
   </box>
 
   <box type="2" x="750" y="101" height="100" width="300">
     <action id="ExecMenu">
       <action id="Switch" />
     </action>
-    <style opacity="1" text="Switch" fr:text="Changement de fenêtre"/>
+    <style opacity="1" text="Switch" fr:text="Changement de fenêtre" imagePath=":images/home/switch.png"/>
   </box>
 
   <box type="2" x="750" y="202" height="100" width="300">
     <action id="ExecMenu">
       <action id="Cancel" />
     </action>
-    <style opacity="1" text="Cancel" fr:text="Annuler"/>
+    <style opacity="1" text="Cancel" fr:text="Annuler" imagePath=":images/menu/cancel.png"/>
   </box>
 
   <box type="2" x="750" y="303" height="100" width="300">
     <action id="ExecMenu">
       <action id="Quit"/>
     </action>
-    <style opacity="1" text="Quit" fr:text="Quitter"/>
+    <style opacity="1" text="Quit" fr:text="Quitter" imagePath=":images/menu/exit.png"/>
   </box>
 
 </menu>

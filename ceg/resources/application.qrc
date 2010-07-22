@@ -13,9 +13,14 @@
         <file>images/menu/video.png</file>
         <file>images/menu/bookmark.png</file>
         <file>images/menu/cancel.png</file>
+        <file>images/menu/exit.png</file>
         <file>images/software/calc.png</file>
         <file>images/software/firefox.png</file>
         <file>images/software/notepad++.png</file>
         <file>images/software/wmp.png</file>
+        <file>images/home/home.png</file>
+        <file>images/home/listing.png</file>
+        <file>images/home/multimedia.png</file>
+        <file>images/home/switch.png</file>
     </qresource>
 </RCC>
