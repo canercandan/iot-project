@@ -47,7 +47,7 @@ AbstractScene::~AbstractScene()
 AbstractItem const *	AbstractScene::getCurrentItem() const
 {
 #if defined(Q_OS_WIN)
-    qDebug() << "ici DDDDDDDDDDDDDDDDDDD = " << ;
+    qDebug() << "ici DDDDDDDDDDDDDDDDDDD = ";
     return (this->_focusItem);
 #else
     return (static_cast<AbstractItem *>(this->focusItem()));
@@ -97,5 +97,5 @@ void AbstractScene::saveFocusItem()
 
 void AbstractScene::resetFocusItem()
 {
-    this->setFocusItem(this->_focusItem);
+    this->_focusItem->setFocus();
 }

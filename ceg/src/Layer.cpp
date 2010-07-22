@@ -67,7 +67,7 @@ void	Layer::initialize(std::list<QGraphicsRectItem *> const & sceneItems)
     AbstractScene::initialize(sceneItems);
 }
 
-IAction * Layer::keyPressEvent(int key) const
+IAction * Layer::keyPressEvent(int key)
 {
     switch (key)
     {
@@ -77,7 +77,8 @@ IAction * Layer::keyPressEvent(int key) const
 	break;
     case Qt::Key_Up :
     case Qt::Key_Down :
-	return (this->moveVertically());
+        this->moveVertically();
+        this->saveFocusItem();
 	break;
     default:
 	break;
@@ -85,7 +86,7 @@ IAction * Layer::keyPressEvent(int key) const
     return (0);
 }
 
-IAction *	Layer::moveVertically() const
+void	Layer::moveVertically() const
 {
     QList<QGraphicsItem *> items =  this->items();
     int sizeList = items.size();
@@ -123,10 +124,9 @@ IAction *	Layer::moveVertically() const
 	it += index;
 	(*it)->setFocus();
     }
-    return (0);
 }
 
-IAction *	Layer::moveHorizontally() const
+IAction *	Layer::moveHorizontally()
 {
     QList<QGraphicsItem *> items =  this->items();
     QList<QGraphicsItem *>::const_iterator it = items.begin();
@@ -139,6 +139,7 @@ IAction *	Layer::moveHorizontally() const
     }
     it += index;
     (*it)->setFocus();
+    this->saveFocusItem();
     if (focusItem->boundingRect().x() > (*it)->boundingRect().x())
     {
 	return (this->_menuAction);

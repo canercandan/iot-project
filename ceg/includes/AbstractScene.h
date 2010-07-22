@@ -51,7 +51,7 @@ public:
     virtual QRect	    getGeometry() const = 0;
     BoxType                 getType() const;
 
-    virtual IAction *	    keyPressEvent(int key) const = 0;
+    virtual IAction *	    keyPressEvent(int key) = 0;
     void                    saveFocusItem(); // Du au bug de QT
     void                    resetFocusItem(); // Du au bug de QT
 

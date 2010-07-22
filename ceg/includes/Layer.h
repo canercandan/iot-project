@@ -37,12 +37,12 @@ public:
     ~Layer();
 
     virtual QRect	getGeometry() const;
-    virtual IAction *	keyPressEvent(int key) const;
+    virtual IAction *	keyPressEvent(int key) ;
     virtual void	initialize(std::list<QGraphicsRectItem *> const & sceneItems); // Ajout des items a la scene
 
 private:
-    IAction *		moveVertically() const; // Gere le mouvement vertical
-    IAction *		moveHorizontally() const; // Gere le mouvement horizontal
+    void		moveVertically() const; // Gere le mouvement vertical
+    IAction *		moveHorizontally(); // Gere le mouvement horizontal
 
 private:
     Ceg::Window _host; // la fenetre qui est calquee

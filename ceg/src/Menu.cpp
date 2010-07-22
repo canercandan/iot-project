@@ -43,7 +43,7 @@ QRect  Menu::getGeometry() const
 
 /************************************************* [ OTHERS ] *************************************************/
 
-IAction * Menu::keyPressEvent(int key) const
+IAction * Menu::keyPressEvent(int key)
 {
     switch (key)
     {

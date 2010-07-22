@@ -36,7 +36,7 @@ public:
 
     virtual QRect	getGeometry() const;
 
-    virtual IAction *	keyPressEvent(int key) const;
+    virtual IAction *	keyPressEvent(int key) ;
 
 private:
     void	moveVertically() const;
