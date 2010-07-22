@@ -135,6 +135,8 @@ void MainController::on_stop_navigation()
 
 void MainController::pushFrontScene(AbstractScene *scene)
 {
+    if (this->_scenes.empty() == false)
+    (*this->_currentScene)->saveFocusItem();
     this->_scenes.push_front(scene);
     this->_currentScene = this->_scenes.begin();
     this->_view.hide();
@@ -151,6 +153,7 @@ void MainController::popFrontScene()
 	this->_currentScene = this->_scenes.begin();
 	this->_view.hide();
 	this->_view.setScene(*(this->_currentScene));
+        (*this->_currentScene)->resetFocusItem();
         //this->_view.setGeometry((*this->_currentScene)->getGeometry()); //Provisoire a voire si ca fonctionne toujours quand on est en mode navigation
 	this->_view.show();
     }

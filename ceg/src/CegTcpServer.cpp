@@ -39,11 +39,12 @@ CegTcpServer::CegTcpServer(MainController& lm) :
 	_tcpServer(0), _client(0), _buffer()
 {
     QObject::connect(this, SIGNAL(actionEmitted(IAction &)),&lm, SLOT(on_action_emitted(IAction&)));
-    this->launch();
+    //this->launch();
 }
 
 CegTcpServer::~CegTcpServer()
 {
+    qDebug() << "CegTcpServer::~CegTcpServer()";
     QString msg("TCP server Killed");
 
     Logger::getInstance()->log(INFO_LOG, msg);

@@ -37,6 +37,7 @@ class AbstractItem : public QGraphicsRectItem
 {
 public:
     AbstractItem(Box const * box, QGraphicsItem * parent = 0);
+    ~AbstractItem();
 
     Box const *	getBox() const;
     IAction *		getEvent() const; // Donne l'action a effectue lorsque l'item est selectionne (Key = Enter)

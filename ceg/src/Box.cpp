@@ -23,6 +23,7 @@
 /*********************************/
 #include <QDomElement>
 #include <QDomDocument>
+#include <QDebug>
 /*********************************/
 #include "Box.h"
 /*********************************/
@@ -54,6 +55,7 @@ Box::Box(const QDomElement& domElement, Box const * parent) :
 
 Box::~Box()
 {
+    qDebug() << "Box::~Box()";
     std::for_each(this->_children.begin(), this->_children.end(), Ceg::DeleteObject());
     delete this->_action;
 }

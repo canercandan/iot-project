@@ -22,6 +22,8 @@
 #include <functional>
 #include <algorithm>
 /*********************************/
+#include <QDebug>
+/*********************************/
 #include "AbstractScene.h"
 /*********************************/
 #include "AbstractItem.h"
@@ -31,15 +33,24 @@
 /************************************************* [ CTOR/DTOR ] *************************************************/
 
 AbstractScene::AbstractScene(QObject * parent /* = 0 */) :
-        QGraphicsScene(parent), _type(DEFAULT_BOX)
+        QGraphicsScene(parent), _type(DEFAULT_BOX), _focusItem(0)
 {
+}
+
+AbstractScene::~AbstractScene()
+{
+    qDebug() << "AbstractScene::~AbstractScene()";
 }
 
 /************************************************* [ GETTERS ] *************************************************/
 
 AbstractItem const *	AbstractScene::getCurrentItem() const
 {
+#if defined(Q_OS_WIN)
+    return (this->_focusItem);
+#else
     return (static_cast<AbstractItem *>(this->focusItem()));
+#endif
 }
 
 BoxType AbstractScene::getType() const
@@ -74,4 +85,14 @@ void AbstractScene::initialize(std::list<QGraphicsRectItem *> const & sceneItems
     this->clearScene();
     std::for_each(sceneItems.rbegin(), sceneItems.rend(), std::bind1st(std::mem_fun(&QGraphicsScene::addItem), this));
     sceneItems.front()->setFocus();
+}
+
+void AbstractScene::saveFocusItem()
+{
+    this->_focusItem = static_cast<AbstractItem *>(this->focusItem());
+}
+
+void AbstractScene::resetFocusItem()
+{
+    this->setFocusItem(this->_focusItem);
 }

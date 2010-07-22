@@ -75,7 +75,7 @@ XWindowSystem::~XWindowSystem()
 	}
 	else
 	{
-	    Logger::getInstance()->log(ERROR_LOG,  "Connection to Graphical Server close with success.");
+            Logger::getInstance()->log(INFO_LOG,  "Connection to Graphical Server close with success.");
 	}
     }
 }
@@ -156,8 +156,6 @@ void XWindowSystem::queryPointer(XEvent& event, Window& window, Window& subwindo
 bool XWindowSystem::generateClickEvent(short int buttonID)
 {
     /* juste pour info il existe l'outil xdotool qui permet entre autre de generer des touches claviers et deplacer la souris tres facilement voir http://www.semicomplete.com/projects/xdotool/ */
-
-    /* set position avec QT */
 
     Display* display = this->_connection;
 
@@ -389,7 +387,6 @@ void XWindowSystem::printCommands(::Window windowId, unsigned int /*level*/) con
 	{
 	    //qDebug() << ' ' << argvReturn[i];
 	}
-	//qDebug();
 	::XFreeStringList(argvReturn);
     }
     else

@@ -21,6 +21,7 @@
 /*********************************/
 #include <QPainter>
 #include <QGraphicsScene>
+#include <QDebug>
 /*********************************/
 #include "AbstractItem.h"
 /*********************************/
@@ -37,6 +38,11 @@ AbstractItem::AbstractItem(Box const * box, QGraphicsItem * parent) :
 	_color(box->getGraphicStyle().getBlurColor()), _model(box)
 {
     this->setFlag(QGraphicsItem::ItemIsFocusable);
+}
+
+AbstractItem::~AbstractItem()
+{
+    qDebug() << "AbstractItem::~AbstractItem()";
 }
 
 /************************************************* [ GETTERS ] *************************************************/

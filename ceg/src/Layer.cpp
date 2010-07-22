@@ -39,7 +39,9 @@ Layer::Layer(Ceg::Window const & hostWindow) :
 
 Layer::~Layer()
 {
+    qDebug() << "Layer::~Layer()";
     delete this->_menuAction;
+    qDebug() << "Apres delete menuAction";
     this->_menuAction = NULL;
 }
 
