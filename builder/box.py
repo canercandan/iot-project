@@ -19,13 +19,15 @@ from PyQt4 import QtGui, QtCore
 from PyQt4.QtCore import *
 
 from boxeditor import BoxEditor
+from boxstyle import BoxStyle
+from node import Node
 
 class BoxType:
     DefaultBox = 0
     CustomBox = 1
     MenuBox = 2
 
-class Box(QRect):
+class Box(QRect, Node):
     def __init__(self):
         QRect.__init__(self)
         self.children = []                      # list of Boxes
@@ -33,13 +35,14 @@ class Box(QRect):
         self.attributeBuffer = ''
         self.boxEditor = BoxEditor()            # QDialog
         self.boxType = BoxType.CustomBox        # int
+        self.graphicStyle = None
 
     # Standard constructor
     def initRegularBox(self, topLeft, bottomRight):
         self.setTopLeft(topLeft)
         self.setBottomRight(bottomRight)
 
-    # Copy constructor # TODO: finih copy constructor
+    # Copy constructor # TODO: finish copy constructor
     def initFromRegularBox(self, box):
         self.setTopLeft(box.topLeft())
         self.setBottomRight(box.bottomRight())
@@ -75,7 +78,9 @@ class Box(QRect):
                 if tag == 'action':
                     self.parseAction(childElem)
                 elif tag == 'style':
-                    self.parseStyle(childElem)
+                    self.graphicStyle = BoxStyle()
+                    self.graphicStyle.initializeFromXml( childElem )
+                    #self.parseStyle(childElem)
                 elif tag == 'children':
                     self.createChildren(childElem)
             domNode = domNode.nextSibling()
@@ -118,12 +123,13 @@ class Box(QRect):
             boxElem.setAttribute(k, v())
 
         # Adding action
-        action = domDoc.createElement('action')
-        boxElem.appendChild(action)
+        #action = domDoc.createElement('action')
+        #boxElem.appendChild(action)
 
         # Adding Style
-        style = domDoc.createElement('style')
-        boxElem.appendChild(style)
+        #style = domDoc.createElement('style')
+        #boxElem.appendChild(style)
+        boxElem.appendChild( self.graphicStyle.createXMLNode( domDoc ) )
 
         # Adding Children
         if self.children:
