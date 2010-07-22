@@ -78,9 +78,6 @@ void ExecMenuAction::exec(MainController & mainC)
     qDebug() << "ExecMenuAction::exec";
     if (this->_actionsToExec.empty() == false)
     {
-	// On ferme le menu
-	//mainC.popFrontScene();
-
 	// On execute l'action
 	for (std::vector< IAction * >::iterator it = this->_actionsToExec.begin(), end = this->_actionsToExec.end(); it != end; ++it)
 	{

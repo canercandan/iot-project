@@ -49,14 +49,14 @@ void ZoomAction::initializeFromXml(const QDomElement & actionElement)
 
 /************************************************* [ OTHERS ] *************************************************/
 
-void	ZoomAction::exec(MainController & lm)
+void	ZoomAction::exec(MainController & mainC)
 {
     qDebug() << "ZoomAction::exec";
-    AbstractScene * scene = lm.getCurrentScene();
+    AbstractScene * scene = mainC.getSceneAt(static_cast<size_t>(2));
     AbstractItem const * currentItem = scene->getCurrentItem();
     Box const * box = currentItem->getBox();
     std::list<QGraphicsRectItem *> graphicItems;
-    BoxController const & boxManager = lm.getBoxController();
+    BoxController const & boxManager = mainC.getBoxController();
 
     if (this->_zoom == true)
     {
@@ -69,6 +69,7 @@ void	ZoomAction::exec(MainController & lm)
     if (graphicItems.empty() == false)
     {
 	scene->initialize(graphicItems);
+        mainC.pushFrontScene(scene);
     }
 }
 

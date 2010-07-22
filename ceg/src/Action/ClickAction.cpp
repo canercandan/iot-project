@@ -53,7 +53,7 @@ void ClickAction::initializeFromXml(const QDomElement & domElement)
 void	ClickAction::exec(MainController & lm)
 {
     qDebug() << "ClickAction::exec";
-    AbstractItem const * ai = lm.getCurrentScene()->getCurrentItem();
+    AbstractItem const * ai = lm.getSceneAt(static_cast<size_t>(2))->getCurrentItem();
     Box const *	ab = ai->getBox();
 
     if (ab == 0)

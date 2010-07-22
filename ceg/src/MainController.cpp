@@ -73,8 +73,14 @@ AbstractScene * MainController::getSceneAt(size_t position) const
 {
     if (position < this->_scenes.size())
     {
-        std::list<AbstractScene *>::const_iterator itSearch = this->_scenes.begin();
-        return (*(itSearch + position));
+        --position;
+        size_t i = 0;
+        for (std::list<AbstractScene *>::const_iterator itSearch = this->_scenes.begin(), itEnd = this->_scenes.end();
+        itSearch != itEnd; ++itSearch, ++i)
+        {
+            if (i == position)
+                return (*itSearch);
+        }
     }
     return (0);
 }
@@ -145,7 +151,7 @@ void MainController::popFrontScene()
 	this->_currentScene = this->_scenes.begin();
 	this->_view.hide();
 	this->_view.setScene(*(this->_currentScene));
-	//	this->_view.setGeometry((*this->_currentScene)->getGeometry()); Provisoire a voire si ca fonctionne toujours quand on est en mode navigation
+                //this->_view.setGeometry((*this->_currentScene)->getGeometry()); //Provisoire a voire si ca fonctionne toujours quand on est en mode navigation
 	this->_view.show();
     }
     delete oldCurrentScene;
