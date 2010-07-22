@@ -255,32 +255,23 @@ void BoxController::createGraphicItems(std::list<QGraphicsRectItem *> & graphicI
 
 void BoxController::loadConfig(QString const & typeSearch)
 {
-    // QSettings settings;
-    // QString language = settings.value("general/language").toString();
+    QStringList	pathsToSearch;
 
 #if defined(Q_OS_UNIX)
-    QString directoryName = "/config/" + typeSearch; // + language;
+    pathsToSearch << "/usr/share/ceg/config";
+    pathsToSearch << QCoreApplication::applicationDirPath() + "/config";
 #elif defined(Q_OS_WIN)
-    QString directoryName = "/../config/" + typeSearch; // + language;
+    pathsToSearch << "../share/ceg/config";
+    pathsToSearch << QCoreApplication::applicationDirPath() + "/../config";
 #elif defined(Q_OS_MAC)
     // FIXME i don't know how do this on mac
-    QString directoryName = "/config/" + typeSearch; // + language;
-#endif
-
-    QStringList	pathsToSearch(QCoreApplication::applicationDirPath());
-
-#if defined(Q_OS_UNIX)
-    pathsToSearch << "/usr/share/ceg";
-#elif defined(Q_OS_WIN)
-    pathsToSearch << "../share/ceg";
-#elif defined(Q_OS_MAC)
-    // FIXME i don't know how do this on mac
-    pathsToSearch << "../share/ceg";
+    pathsToSearch << "../share/ceg/config";
+    pathsToSearch << QCoreApplication::applicationDirPath() + "/../config";
 #endif
 
     for (QStringList::const_iterator it = pathsToSearch.constBegin(), itEnd = pathsToSearch.end(); it != itEnd; ++it)
     {
-	QDir    directory(*it + directoryName);
+	QDir    directory(*it + "/" + typeSearch);
 	if (directory.exists() == true)
 	{
 	    this->initializeFromConfig(directory);
