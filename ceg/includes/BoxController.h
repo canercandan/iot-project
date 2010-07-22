@@ -66,7 +66,7 @@ private:
     //! it is initialy filled out by loadConf method
     std::map<std::string, std::list<Box const *> > _patterns; // Id du logiciel et son patron associe
     std::map<std::string, std::list<Box const *> > _menus; // Id du menu et son patron associe
-    int                                             _nbSquare; // Nb de boxs utilisees pour le mode par defaut
+    //int                                             _nbSquare; // Nb de boxs utilisees pour le mode par defaut
 };
 
 #endif // BOXCONTROLLER_H

@@ -47,15 +47,12 @@
 /************************************************* [ CTOR/DTOR ] *************************************************/
 
 BoxController::BoxController() :
-	_patterns(), _menus(), _nbSquare(3)
+    _patterns(), _menus()
 {
     Logger::getInstance()->log(INFO_LOG, "Chargement des fichiers xml pour les programmes");
     Logger::getInstance()->log(INFO_LOG, "Chargement des fichiers xml pour les menus");
     this->loadConfig("menus/");
     this->loadConfig("boxes/");
-
-    QSettings settings;
-    this->_nbSquare = settings.value("general/squareNumber").toInt();
 }
 
 BoxController::~BoxController()
@@ -76,7 +73,9 @@ BoxController::~BoxController()
 
 bool BoxController::isZoomable(unsigned short level) const
 {
-    int value = 7 - this->_nbSquare;
+    QSettings settings;
+    int nbSquare = settings.value("general/squareNumber").toInt();
+    int value = 7 - nbSquare;
     return (level < ((value < 1) ? 1 : value));
 }
 
@@ -177,16 +176,18 @@ void	BoxController::getMenu(std::string const & idMenu, std::list<QGraphicsRectI
 //! grid areas in function of _nbGrid static value.
 void BoxController::calcChildren(std::list<Box const *> & boxs, QRect const & geometry, unsigned short level) const
 {
-    int tmpWidth = geometry.width() / this->_nbSquare;
-    int tmpHeight = geometry.height() / this->_nbSquare;
+    QSettings settings;
+    int nbSquare = settings.value("general/squareNumber").toInt();
+    int tmpWidth = geometry.width() / nbSquare;
+    int tmpHeight = geometry.height() / nbSquare;
     int rows = 0;
     int y = geometry.y();
 
-    while (rows++ < this->_nbSquare)
+    while (rows++ < nbSquare)
     {
 	int cols = 0;
 	qreal x = geometry.x();
-	while (cols++ < this->_nbSquare)
+	while (cols++ < nbSquare)
 	{
 	    boxs.push_back(new Box(level, QRect(x, y, tmpWidth, tmpHeight)));
 	    x += tmpWidth;
@@ -197,6 +198,8 @@ void BoxController::calcChildren(std::list<Box const *> & boxs, QRect const & ge
 
 void BoxController::calcParent(std::list<Box const *> & boxs, Box const * item) const
 {
+    QSettings settings;
+    int nbSquare = settings.value("general/squareNumber").toInt();
     QDesktopWidget *desktop = QApplication::desktop();
     int level = item->getLevel();
 
@@ -208,17 +211,17 @@ void BoxController::calcParent(std::list<Box const *> & boxs, Box const * item) 
     int width = desktop->width();
     for (int i = 0; i < level; ++i)
     {
-	width /= this->_nbSquare;
+	width /= nbSquare;
     }
     int height = desktop->height();
     for (int i = 0; i < level; ++i)
     {
-	height /= this->_nbSquare;
+	height /= nbSquare;
     }
 
     int posXtop = 0;
     int posYtop = 0;
-    int dynamicHeight = desktop->height() / this->_nbSquare;
+    int dynamicHeight = desktop->height() / nbSquare;
     int maxHeight = item->getGeometry().y() + item->getGeometry().height();
     for (int i = 0; i < level; ++i)
     {
@@ -226,10 +229,10 @@ void BoxController::calcParent(std::list<Box const *> & boxs, Box const * item) 
 	{
 	    posYtop += dynamicHeight;
 	}
-	dynamicHeight /= this->_nbSquare;
+	dynamicHeight /= nbSquare;
     }
 
-    int dynamicWidth = desktop->width() / this->_nbSquare;
+    int dynamicWidth = desktop->width() / nbSquare;
     int maxWidth = item->getGeometry().x() + item->getGeometry().width();
     for (int i = 0; i < level; ++i)
     {
@@ -237,7 +240,7 @@ void BoxController::calcParent(std::list<Box const *> & boxs, Box const * item) 
 	{
 	    posXtop += dynamicWidth;
 	}
-	dynamicWidth /= this->_nbSquare;
+	dynamicWidth /= nbSquare;
     }
     this->calcChildren(boxs, QRect(posXtop, posYtop, width, height), item->getLevel() - 1);
 }
@@ -300,7 +303,6 @@ void	BoxController::initializeFromConfig(QDir const & directory)
     {
 	this->initializeFromXml(it->absoluteFilePath());
     }
-
 }
 
 void    BoxController::initializeFromXml(QString const & fileName)
