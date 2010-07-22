@@ -103,7 +103,6 @@ void    Logger::log(loglevel msgLogLevel, const char *msg)
         QTextStream filestream(this->_logFile);
         filestream << "[" << QTime::currentTime().toString().toAscii().data() << "] " << logLevelMsg[msgLogLevel]<< msg << endl;
     }
-
 }
 
 Logger* Logger::getInstance()
