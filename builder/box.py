@@ -35,7 +35,7 @@ class Box(QRect, Node):
         self.attributeBuffer = ''
         self.boxEditor = BoxEditor()            # QDialog
         self.boxType = BoxType.CustomBox        # int
-        self.graphicStyle = None
+        self.graphicStyle = BoxStyle()
 
     # Standard constructor
     def initRegularBox(self, topLeft, bottomRight):
@@ -78,7 +78,7 @@ class Box(QRect, Node):
                 if tag == 'action':
                     self.parseAction(childElem)
                 elif tag == 'style':
-                    self.graphicStyle = BoxStyle()
+                    #self.graphicStyle = 
                     self.graphicStyle.initializeFromXml( childElem )
                     #self.parseStyle(childElem)
                 elif tag == 'children':
