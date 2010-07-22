@@ -39,19 +39,14 @@ AbstractScene::AbstractScene(QObject * parent /* = 0 */) :
 
 AbstractScene::~AbstractScene()
 {
-    qDebug() << "AbstractScene::~AbstractScene()";
 }
 
 /************************************************* [ GETTERS ] *************************************************/
 
 AbstractItem const *	AbstractScene::getCurrentItem() const
 {
-//#if defined(Q_OS_WIN)
-    qDebug() << "ici DDDDDDDDDDDDDDDDDDD = ";
     return (this->_focusItem);
-//#else
 //    return (static_cast<AbstractItem *>(this->focusItem()));
-//#endif
 }
 
 BoxType AbstractScene::getType() const
@@ -81,7 +76,7 @@ void AbstractScene::initialize(std::list<QGraphicsRectItem *> const & sceneItems
     QString msg("AbstractScene::initialize - ");
     QVariant size(static_cast<unsigned int>(sceneItems.size()));
     msg += size.toString();
-    msg.append("items a ajoute a la scene");
+    msg.append(" items a ajoute a la scene");
     Logger::getInstance()->log(INFO_LOG, msg);
     this->clearScene();
     std::for_each(sceneItems.rbegin(), sceneItems.rend(), std::bind1st(std::mem_fun(&QGraphicsScene::addItem), this));

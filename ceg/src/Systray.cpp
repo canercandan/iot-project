@@ -76,7 +76,6 @@ Systray::Systray(QWidget *parent) :
 
 Systray::~Systray()
 {
-    qDebug() << "Systray::~Systray";
     delete this->_quitAction;
     delete this->_aboutQtAction;
     delete this->_aboutCegAction;

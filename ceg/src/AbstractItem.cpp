@@ -42,7 +42,6 @@ AbstractItem::AbstractItem(Box const * box, QGraphicsItem * parent) :
 
 AbstractItem::~AbstractItem()
 {
-    qDebug() << "AbstractItem::~AbstractItem()";
 }
 
 /************************************************* [ GETTERS ] *************************************************/

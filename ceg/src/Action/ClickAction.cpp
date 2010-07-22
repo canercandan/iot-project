@@ -1,4 +1,4 @@
-// -*- mode: c++; c-indent-level: 4; c++-member-init-indent: 8; comment-column: 35; -*-
+    // -*- mode: c++; c-indent-level: 4; c++-member-init-indent: 8; comment-column: 35; -*-
 
 /* IOT Copyright (C) 2010 CEG development team
  *
@@ -37,7 +37,7 @@
 
 char const * ClickAction::IDENTIFIER = "Click";
 
-ClickAction::ClickAction(const QDomElement & actionElement) : _type(1)
+ClickAction::ClickAction(const QDomElement & actionElement) : _type(LeftClick)
 {
     qDebug() << "ClickAction::ClickAction";
     this->initializeFromXml(actionElement);
@@ -45,6 +45,7 @@ ClickAction::ClickAction(const QDomElement & actionElement) : _type(1)
 
 void ClickAction::initializeFromXml(const QDomElement & domElement)
 {
+    if (domElement.hasAttribute("type") == true)
     this->_type = domElement.attribute("type").toInt();
 }
 
