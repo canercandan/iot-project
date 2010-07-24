@@ -2,6 +2,7 @@
 - Choix de mettre le menu vraiment opaque!
 - Creation du clavier virtuel +  faire des test de simulation de touches et trouver la meilleure methode a utiliser. (?)
 - Faire le mode switch
+_ Faire des test sur kde et d'autres environement graphique
 
 -------------------------------------------------- Reminder chris --------------------------------------------------------------------------
 - delete tous les qDebug()
@@ -12,6 +13,7 @@
 - module OpenViBe
 - parsing (rfb)
 -------------------------------------------------- Reminder Yann --------------------------------------------------------------------------
+- remover les qdebug
 - Rajouter une methode toString pour IAction
 - Terminer le communication avec le serveur Graphique sur Linux - pas forcement utile a etudier
 - revoir le management des listes dans le boxcontroler (new les listes)

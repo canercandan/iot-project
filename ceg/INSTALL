@@ -59,6 +59,14 @@ http://www.siteduzero.com/tutoriel-3-36553-utiliser-qt-avec-visual-studio.html
 
 
 ################################################################################
+## on Mac OS X
+################################################################################
+installer les mac ports ( http://guide.macports.org/ )
+sudo port install cmake subversion qt4-mac xorg-libXmu 
+Possibilite de generer un projet pour xcode : cmake -G Xcode
+################################################################################
+
+################################################################################
 ## Packaging
 ################################################################################
 
