@@ -45,8 +45,8 @@ AbstractScene::~AbstractScene()
 
 AbstractItem const *	AbstractScene::getCurrentItem() const
 {
-    return (this->_focusItem);
-//    return (static_cast<AbstractItem *>(this->focusItem()));
+ //   return (this->_focusItem);
+   return (static_cast<AbstractItem *>(this->focusItem()));
 }
 
 BoxType AbstractScene::getType() const
@@ -80,7 +80,12 @@ void AbstractScene::initialize(std::list<QGraphicsRectItem *> const & sceneItems
     Logger::getInstance()->log(INFO_LOG, msg);
     this->clearScene();
     std::for_each(sceneItems.rbegin(), sceneItems.rend(), std::bind1st(std::mem_fun(&QGraphicsScene::addItem), this));
-    sceneItems.front()->setFocus();
+    //sceneItems.front()->setFocus();
+	QList<QGraphicsItem *> items = this->items();
+	qDebug() << "Avant : " << this->focusItem();
+    //items.front()->setFocus();
+	this->setFocusItem(items.front());
+	qDebug() << "Apres : " << this->focusItem();
     this->saveFocusItem();
 }
 

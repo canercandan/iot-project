@@ -60,9 +60,9 @@ void	Layer::initialize(std::list<QGraphicsRectItem *> const & sceneItems)
     {
         this->_type = static_cast<AbstractItem *>(sceneItems.front())->getBox()->getBoxType();
         if (this->_menuAction == 0)
-	{
-	    this->_menuAction = new PopMenuAction("Navigation");
-	}
+		{
+			this->_menuAction = new PopMenuAction("Navigation");
+		}
     }
     AbstractScene::initialize(sceneItems);
 }
@@ -128,6 +128,7 @@ void	Layer::moveVertically() const
 
 IAction *	Layer::moveHorizontally()
 {
+	bool printMenu = false;
     QList<QGraphicsItem *> items =  this->items();
     QList<QGraphicsItem *>::const_iterator it = items.begin();
     QGraphicsItem * focusItem = this->focusItem();
@@ -135,12 +136,13 @@ IAction *	Layer::moveHorizontally()
     index++;
     if (index >= items.size())
     {
-	index = 0;
+		printMenu = true;
+		index = 0;
     }
     it += index;
     (*it)->setFocus();
     this->saveFocusItem();
-    if (focusItem->boundingRect().x() > (*it)->boundingRect().x())
+    if (focusItem->boundingRect().x() > (*it)->boundingRect().x() || printMenu)
     {
 	return (this->_menuAction);
     }
