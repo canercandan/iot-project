@@ -53,7 +53,7 @@ void    CancelAction::exec(MainController & mainC)
 
 /************************************************* [ OTHERS ] *************************************************/
 
-IAction * instanciateCancelAction(QDomElement const & actionElement)
+IAction * instanciateCancelAction(QDomElement const &)
 {
-    return (new CancelAction(actionElement));
+    return (new CancelAction);
 }

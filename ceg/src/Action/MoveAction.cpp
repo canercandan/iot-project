@@ -35,13 +35,11 @@ char const * MoveAction::IDENTIFIER = "Move";
 MoveAction::MoveAction(int key) :
 	_key(key)
 {
-    qDebug() << "MoveAction::MoveAction(int key)--";
 }
 
 MoveAction::MoveAction(const QDomElement & actionElement) :
         _key(Qt::Key_Left)
 {
-    qDebug() << "MoveAction::MoveAction(const QDomElement & actionElement)";
     this->initializeFromXml(actionElement);
 }
 

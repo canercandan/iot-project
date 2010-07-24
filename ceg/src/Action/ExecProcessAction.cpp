@@ -45,7 +45,6 @@ char const * ExecProcessAction::IDENTIFIER = "ExecProcess";
 
 ExecProcessAction::ExecProcessAction(const QDomElement & actionElement) : _path(""), _pathFinder(""), _arguments(""), _hideTime(2000)
 {
-    qDebug() << "ExecProcessAction::ExecProcessAction(const QDomElement & actionElement)";
     this->initializeFromXml(actionElement);
 }
 

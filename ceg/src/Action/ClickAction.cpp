@@ -39,7 +39,6 @@ char const * ClickAction::IDENTIFIER = "Click";
 
 ClickAction::ClickAction(const QDomElement & actionElement) : _type(LeftClick)
 {
-    qDebug() << "ClickAction::ClickAction";
     this->initializeFromXml(actionElement);
 }
 

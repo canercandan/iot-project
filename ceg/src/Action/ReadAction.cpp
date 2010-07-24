@@ -34,7 +34,6 @@ char const * ReadAction::IDENTIFIER = "Read";
 
 ReadAction::ReadAction(const QDomElement & actionElement) : _hideTime(1000)
 {
-    qDebug() << "ReadAction::ReadAction(const QDomElement & actionElement)";
     this->initializeFromXml(actionElement);
 }
 

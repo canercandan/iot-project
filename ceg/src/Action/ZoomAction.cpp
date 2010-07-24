@@ -39,7 +39,6 @@ char const * ZoomAction::IDENTIFIER = "Zoom";
 ZoomAction::ZoomAction(const QDomElement & actionElement) :
 	_zoom(true)
 {
-    qDebug() << "ZoomAction::ZoomAction(const QDomElement & actionElement)";
     this->initializeFromXml(actionElement);
 }
 

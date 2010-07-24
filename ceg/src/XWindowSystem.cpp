@@ -74,7 +74,7 @@ XWindowSystem::~XWindowSystem()
 	}
 	else
 	{
-	    Logger::getInstance()->log(ERROR_LOG,  "Connection to Graphical Server close with success.");
+	    Logger::getInstance()->log(INFO_LOG,  "Connection to Graphical Server close with success.");
 	}
     }
 }

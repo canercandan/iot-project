@@ -35,7 +35,7 @@
 #include <psapi.h>		// NT only!
 //#pragma comment(lib, "psapi")	// NT only!
 
-#elif defined(Q_WS_X11)
+#elif defined(Q_WS_X11) || defined(Q_WS_MAC)
 
 #include <X11/Xlib.h>
 
@@ -53,7 +53,7 @@ namespace Ceg
     void*
 #elif defined(Q_WS_WIN)
     ::HWND
-#elif defined(Q_WS_X11)
+#elif defined(Q_WS_X11) || defined(Q_WS_MAC)
     ::Window
 #else
     void*

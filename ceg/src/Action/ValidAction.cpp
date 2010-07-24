@@ -34,12 +34,10 @@ char const * ValidAction::IDENTIFIER = "Valid";
 
 ValidAction::ValidAction()
 {
-    qDebug() << "ValidAction::ValidAction()";
 }
 
 ValidAction::ValidAction(const QDomElement &)
 {
-    qDebug() << "ValidAction::ValidAction(const QDomElement & actionElement)";
 }
 
 void ValidAction::initializeFromXml(const QDomElement &)
@@ -60,7 +58,7 @@ void	ValidAction::exec(MainController & mc)
 
 /************************************************* [ OTHERS ] *************************************************/
 
-IAction * instanciateValidAction(const QDomElement & actionElement)
+IAction * instanciateValidAction(const QDomElement &)
 {
-    return (new ValidAction(actionElement));
+    return (new ValidAction);
 }

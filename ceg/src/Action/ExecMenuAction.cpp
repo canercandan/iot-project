@@ -34,14 +34,11 @@ char const * ExecMenuAction::IDENTIFIER = "ExecMenu";
 
 ExecMenuAction::ExecMenuAction(IAction * actionToExec)
 {
-    _actionsToExec.push_back(actionToExec);
-
-    qDebug() << "ExecMenuAction::ExecMenuAction(IAction * actionToExec)";
+   this->_actionsToExec.push_back(actionToExec);
 }
 
 ExecMenuAction::ExecMenuAction(const QDomElement & domElement)
 {
-    qDebug() << "ExecMenuAction::ExecMenuAction(const QDomElement & domElement)";
     this->initializeFromXml(domElement);
 }
 

@@ -35,13 +35,11 @@ char const * PopMenuAction::IDENTIFIER = "PopMenu";
 PopMenuAction::PopMenuAction(std::string const & menuId) :
 	_menuId(menuId)
 {
-    qDebug() << "PopMenuAction::PopMenuAction(std::string const & menuId)";
 }
 
 PopMenuAction::PopMenuAction(QDomElement const & domElement) :
 	_menuId()
 {
-    qDebug() << "PopMenuAction::PopMenuAction(QDomElement const & domElement)";
     this->initializeFromXml(domElement);
 }
 

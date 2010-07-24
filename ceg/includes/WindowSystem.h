@@ -20,8 +20,6 @@
 
 #if defined(__MINGW32__)
 
-//#warning "MINGW32"
-
 #include "ICommunicationGraphicalServer.h"
 
 class WindowSystem : public ICommunicationGraphicalServer
@@ -54,7 +52,7 @@ public:
 
 typedef Win32Explorer	WindowSystem;
 
-#elif defined(Q_WS_X11)
+#elif defined(Q_WS_X11) || defined(Q_WS_MAC)
 
 #include "XWindowSystem.h"
 
