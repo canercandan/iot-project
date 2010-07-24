@@ -53,7 +53,8 @@ HEADERS += AbstractItem.h \
     ZoomAction.h \
     includes/Action/QuitAction.h \
     includes/Action/Action \
-    includes/Action/ExecProcessAction.h
+    includes/Action/ExecProcessAction.h \
+    includes/WindowSystem.h
 SOURCES += AbstractItem.cpp \
     AbstractScene.cpp \
     BoxController.cpp \

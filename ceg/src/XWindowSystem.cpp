@@ -156,8 +156,6 @@ bool XWindowSystem::generateClickEvent(short int buttonID)
 {
     /* juste pour info il existe l'outil xdotool qui permet entre autre de generer des touches claviers et deplacer la souris tres facilement voir http://www.semicomplete.com/projects/xdotool/ */
 
-    /* set position avec QT */
-
     Display* display = this->_connection;
 
     if (display == 0)
@@ -168,21 +166,19 @@ bool XWindowSystem::generateClickEvent(short int buttonID)
     ::memset(&event, 0x0, sizeof(event));
 
     event.type = ButtonPress;
+    // http://www.xfree86.org/current/XButtonEvent.3.html
+    // /usr/includes/X11/X.h ligne 259
     event.xbutton.button = buttonID;
     event.xbutton.same_screen = True;
 
-    this->queryPointer(event,
-                       RootWindow(display, DefaultScreen(display)),
-                       event.xbutton.window);
+    this->queryPointer(event, RootWindow(display, DefaultScreen(display)), event.xbutton.window);
 
     event.xbutton.subwindow = event.xbutton.window;
 
     while (event.xbutton.subwindow)
     {
         event.xbutton.window = event.xbutton.subwindow;
-        this->queryPointer(event,
-                           event.xbutton.window,
-                           event.xbutton.subwindow);
+        this->queryPointer(event, event.xbutton.window, event.xbutton.subwindow);
     }
 
     if (::XSendEvent(display, PointerWindow, True, 0xfff, &event) == 0)
