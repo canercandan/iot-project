@@ -25,7 +25,7 @@
 #include <QMessageBox>
 #include <QSystemTrayIcon>
 #include <QSettings>
-#include <QDebug>
+#include <QTextStream>
 /*********************************/
 #include <Action>
 /*********************************/
@@ -159,17 +159,22 @@ int main(int ac, char** av)
 
     QTranslator qt_trans;
     QString trans_name = "qt_" + language;
+    QString msg;
+    QTextStream tmp(&msg);
+
     bool loaded = qt_trans.load(trans_name, QLibraryInfo::location(QLibraryInfo::TranslationsPath));
 
     if (loaded)
     {
-	qDebug() << "Translation" << trans_name << "loaded";
+        tmp << "Translation" << trans_name << "loaded";
+        Logger::getInstance()->log(INFO_LOG, msg);
     }
     else
     {
-	qDebug() << "Failed to load translation" << trans_name;
+        tmp << "Failed to load translation" << trans_name;
+        Logger::getInstance()->log(WARNING_LOG, msg);
     }
-
+    msg = "";
     app.installTranslator(&qt_trans);
 
     QTranslator ceg_tr;
@@ -194,13 +199,14 @@ int main(int ac, char** av)
 
     if (loaded)
     {
-	qDebug() << "Translation" << trans_name << "loaded";
+        tmp << "Translation" << trans_name << "loaded";
+        Logger::getInstance()->log(INFO_LOG, msg);
     }
     else
     {
-	qDebug() << "Failed to load translation" << trans_name;
+        tmp << "Failed to load translation" << trans_name;
+        Logger::getInstance()->log(WARNING_LOG, msg);
     }
-
     app.installTranslator(&ceg_tr);
 
 

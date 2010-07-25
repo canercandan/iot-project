@@ -19,15 +19,15 @@
  */
 
 /*********************************/
-#include <QDebug>
 #include <QDomElement>
+#include <QTextStream>
 /*********************************/
 #include "MoveAction.h"
 /*********************************/
 #include "MainController.h"
 #include "AbstractScene.h"
 /*********************************/
-
+#include "Logger.h"
 /************************************************* [ CTOR/DTOR ] *************************************************/
 
 char const * MoveAction::IDENTIFIER = "Move";
@@ -35,11 +35,13 @@ char const * MoveAction::IDENTIFIER = "Move";
 MoveAction::MoveAction(int key) :
 	_key(key)
 {
+   Logger::getInstance()->log(DEBUG_LOG, "MoveAction::MoveAction(int key)--");
 }
 
 MoveAction::MoveAction(const QDomElement & actionElement) :
         _key(Qt::Key_Left)
 {
+   Logger::getInstance()->log(DEBUG_LOG, "MoveAction::MoveAction(const QDomElement & actionElement)");
     this->initializeFromXml(actionElement);
 }
 
@@ -52,7 +54,10 @@ void MoveAction::initializeFromXml(const QDomElement & domElement)
 
 void	MoveAction::exec(MainController & mainC)
 {
-    qDebug() << "MoveAction::exec " << this->_key;
+    QString msg;
+    QTextStream tmp(&msg);
+    tmp << "MoveAction::exec " << this->_key;
+    Logger::getInstance()->log(DEBUG_LOG, msg);
 
     IAction * action = mainC.getCurrentScene()->keyPressEvent(this->_key);
     if (action != 0)

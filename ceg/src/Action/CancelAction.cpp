@@ -19,7 +19,7 @@
  */
 
 /*********************************/
-#include <QDebug>
+#include "Logger.h"
 /*********************************/
 #include "CancelAction.h"
 /*********************************/
@@ -47,7 +47,7 @@ void CancelAction::initializeFromXml(const QDomElement &)
 
 void    CancelAction::exec(MainController & mainC)
 {
-    qDebug() << "CancelAction::exec";
+    Logger::getInstance()->log(DEBUG_LOG, "CancelAction::exec");
     mainC.popFrontScene();
 }
 

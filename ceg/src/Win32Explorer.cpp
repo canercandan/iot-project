@@ -18,17 +18,18 @@
  * Authors: CEG <ceg@ionlythink.com>, http://www.ionlythink.com
  */
 
+#include <QTextStream>
 /*********************************/
 #include <windows.h>
 #include <iostream>
 /*********************************/
-#include <QDebug>
 /*********************************/
 #include "Win32Explorer.h"
 /*********************************/
 #include "Win32Adaptor.h"
 #include "ClickAction.h"
 /*********************************/
+#include "Logger.h"
 
 Win32Explorer::Win32Explorer()
 {
@@ -45,7 +46,7 @@ bool	Win32Explorer::getWindows(std::list<Ceg::Window> & windowList)
     //boost::bind(&Win32Explorer::fillWindowList, this);
     //EnumWindows((&Win32Explorer::fillWindowList), NULL);
 
-    std::cout << GetForegroundWindow() << std::endl;
+    Logger::getInstance()->log(DEBUG_LOG, GetForegroundWindow();
 
     this->_windowList = &windowList;
 
@@ -57,6 +58,8 @@ bool	Win32Explorer::getWindows(std::list<Ceg::Window> & windowList)
 
 bool	Win32Explorer::getFocusedWindow(Ceg::Window & oneWindow)
 {
+    QString msg;
+    QTextStream tmp(&msg);
     DWORD dwThreadId, dwProcessId;
     char windowTitle[255];
     //char filenameBuffer[4000];
@@ -77,10 +80,10 @@ bool	Win32Explorer::getFocusedWindow(Ceg::Window & oneWindow)
     {
 	QRect loadInfo(winInfo.rcClient.left, winInfo.rcClient.top, winInfo.rcClient.right, winInfo.rcClient.bottom);
 	oneWindow.setGeometry(loadInfo);
-	std::cout << "Pos left: " << winInfo.rcClient.left << std::endl;
-	std::cout << "Pos TOP : " << winInfo.rcClient.top << std::endl;
-	std::cout << "Pos Bottom : " << winInfo.rcClient.bottom << std::endl;
-	std::cout << "Pos right : " << winInfo.rcClient.right << std::endl;
+        tmp << "Pos left: " << winInfo.rcClient.left << std::endl << "Pos TOP : " << winInfo.rcClient.top << std::endl;
+        tmp << "Pos Bottom : " << winInfo.rcClient.bottom << std::endl	<< "Pos right : " << winInfo.rcClient.right << std::endl;
+        Logger::getInstance()->log(DEBUG_LOG, msg);
+        msg = "";
     }
     dwThreadId = GetWindowThreadProcessId(hWnd, &dwProcessId);
     hProcess = OpenProcess(PROCESS_QUERY_INFORMATION|PROCESS_VM_READ, FALSE, dwProcessId);
@@ -91,8 +94,9 @@ bool	Win32Explorer::getFocusedWindow(Ceg::Window & oneWindow)
 	std::cout << "filenameBuffer: " << filenameBuffer << std::endl;
     }
     else*/
-    qDebug() << "MODULEFILENAME FAIL";
-    qDebug() << hWnd << ' ' << dwProcessId << '\t' << windowTitle << "\t\n\n\n";
+    Logger::getInstance()->log(DEBUG_LOG, "MODULEFILENAME FAIL");
+    tmp << hWnd << ' ' << dwProcessId << '\t' << windowTitle << "\t\n\n\n";
+    Logger::getInstance()->log(DEBUG_LOG, msg);
     CloseHandle(hProcess);
     return (true);
 }
@@ -109,15 +113,17 @@ bool	Win32Explorer::setFocusToWindow(Ceg::Window & oldFocusedWindow, Ceg::Window
 
 bool	Win32Explorer::refreshWindowInfo(Ceg::Window & window)
 {
+    QString msg;
+    QTextStream tmp(&msg);
+
     WINDOWINFO  winInfo;
-    if (GetWindowInfo(window.getId(), &winInfo))
+     if (GetWindowInfo(window.getId(), &winInfo))
     {
 	QRect refreshInfo(winInfo.rcClient.left, winInfo.rcClient.top, winInfo.rcClient.right, winInfo.rcClient.bottom);
 	window.setGeometry(refreshInfo);
-	qDebug() << "Pos left: " << winInfo.rcClient.left;
-	qDebug() << "Pos TOP : " << winInfo.rcClient.top;
-	qDebug() << "Pos Bottom : " << winInfo.rcClient.bottom;
-	qDebug() << "Pos right : " << winInfo.rcClient.right;
+        tmp << "Pos left: " << winInfo.rcClient.left << endl  << "Pos TOP : " << winInfo.rcClient.top;
+        tmp << "Pos Bottom : " << winInfo.rcClient.bottom << endl << "Pos right : " << winInfo.rcClient.right;
+        Logger::getInstance()->log(DEBUG_LOG, msg);
 	return (true);
     }
     return (false);
@@ -154,6 +160,9 @@ bool	Win32Explorer::generateClickEvent(short int buttonID)
 
 BOOL	Win32Explorer::fillWindowList(HWND hWnd)
 {
+    QString msg;
+    QTextStream tmp(&smg);
+
     DWORD dwThreadId, dwProcessId;
     char windowTitle[255];
     HANDLE hProcess;
@@ -164,19 +173,21 @@ BOOL	Win32Explorer::fillWindowList(HWND hWnd)
     if (!GetWindowText(hWnd, windowTitle, sizeof(windowTitle)))
 	return TRUE;		// No window title
     WINDOWINFO  winInfo;
-    qDebug() << "Valuer hWind1: " << hWnd;
+    tmp << "Valuer hWind1: " << hWnd;
+    Logger::getInstance()->log(DEBUG_LOG, msg);
+    msg ="";
     if (GetWindowInfo(hWnd, &winInfo))
     {
 	QRect loadInfo(winInfo.rcClient.left, winInfo.rcClient.top, winInfo.rcClient.right, winInfo.rcClient.bottom);
 	Ceg::Window newWindow(hWnd, loadInfo, true);
-	qDebug() << "Pos left: " << winInfo.rcClient.left;
-	qDebug() << "Pos TOP : " << winInfo.rcClient.top;
-	qDebug() << "Pos Bottom : " << winInfo.rcClient.bottom;
-	qDebug() << "Pos right : " << winInfo.rcClient.right;
+        tmp << "Pos left: " << winInfo.rcClient.left << endl << "Pos TOP : " << winInfo.rcClient.top;
+        tmp << "Pos Bottom : " << winInfo.rcClient.bottom << endl << "Pos right : " << winInfo.rcClient.right;
+        Logger::getInstance()->log(DEBUG_LOG, msg);
 	this->_windowList->push_back(newWindow);
+        msg = "";
     }
-
-    qDebug() << "Valuer hWind2: " << hWnd;
+    tmp << "Valuer hWind2: " << hWnd;
+    Logger::getInstance()->log(DEBUG_LOG, msg);
 
     dwThreadId = GetWindowThreadProcessId(hWnd, &dwProcessId);
     hProcess = OpenProcess(PROCESS_QUERY_INFORMATION|PROCESS_VM_READ, FALSE, dwProcessId);
@@ -188,8 +199,10 @@ BOOL	Win32Explorer::fillWindowList(HWND hWnd)
 	std::cout << "filenameBuffer: " << filenameBuffer << std::endl;
     }
     else*/
-    qDebug() << "MODULEFILENAME FAIL";
-    qDebug() << hWnd << " ProcessId: " << dwProcessId << "\tWinTitle: " << windowTitle << "\t\n\n\n";
+    Logger::getInstance()->log(ERROR_LOG, "MODULEFILENAME FAIL");
+    tmp << hWnd << " ProcessId: " << dwProcessId << "\tWinTitle: " << windowTitle << "\t\n\n\n";
+    Logger::getInstance()->log(DEBUG_LOG, msg);
+    msg = "";
     CloseHandle(hProcess);
     return TRUE;
 }

@@ -20,7 +20,6 @@
 
 /*********************************/
 #include <QDomElement>
-#include <QDebug>
 /*********************************/
 #include "ClickAction.h"
 /*********************************/
@@ -31,6 +30,7 @@
 #include "AbstractScene.h"
 #include "ICommunicationGraphicalServer.h"
 #include "Utils.h"
+#include "Logger.h"
 /*********************************/
 
 /************************************************* [ CTOR/DTOR ] *************************************************/
@@ -39,6 +39,7 @@ char const * ClickAction::IDENTIFIER = "Click";
 
 ClickAction::ClickAction(const QDomElement & actionElement) : _type(LeftClick)
 {
+    Logger::getInstance()->log(DEBUG_LOG, "ClickAction::ClickAction");
     this->initializeFromXml(actionElement);
 }
 
@@ -52,7 +53,7 @@ void ClickAction::initializeFromXml(const QDomElement & domElement)
 
 void	ClickAction::exec(MainController & lm)
 {
-    qDebug() << "ClickAction::exec";
+    Logger::getInstance()->log(DEBUG_LOG, "ClickAction::exec");
     AbstractItem const * ai = lm.getSceneAt(static_cast<size_t>(2))->getCurrentItem();
     Box const *	ab = ai->getBox();
 

@@ -18,15 +18,13 @@
  * Authors: CEG <ceg@ionlythink.com>, http://www.ionlythink.com
  */
 
-/*********************************/
-#include <QDebug>
-/*********************************/
 #include "ValidAction.h"
 /*********************************/
 #include "AbstractItem.h"
 #include "MainController.h"
 #include "AbstractScene.h"
 /*********************************/
+#include "Logger.h"
 
 /************************************************* [ CTOR/DTOR ] *************************************************/
 
@@ -34,10 +32,12 @@ char const * ValidAction::IDENTIFIER = "Valid";
 
 ValidAction::ValidAction()
 {
+    Logger::getInstance()->log(DEBUG_LOG, "ValidAction::ValidAction()");
 }
 
 ValidAction::ValidAction(const QDomElement &)
 {
+    Logger::getInstance()->log(DEBUG_LOG, "ValidAction::ValidAction(const QDomElement & actionElement)");
 }
 
 void ValidAction::initializeFromXml(const QDomElement &)
@@ -49,7 +49,7 @@ void ValidAction::initializeFromXml(const QDomElement &)
 
 void	ValidAction::exec(MainController & mc)
 {
-    qDebug() << "ValidAction::exec";
+    Logger::getInstance()->log(DEBUG_LOG, "ValidAction::exec");
     AbstractItem const * item = mc.getCurrentScene()->getCurrentItem();
     IAction * action = item->getEvent();
     if (action != 0)

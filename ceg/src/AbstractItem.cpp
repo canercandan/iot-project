@@ -21,7 +21,6 @@
 /*********************************/
 #include <QPainter>
 #include <QGraphicsScene>
-#include <QDebug>
 /*********************************/
 #include "AbstractItem.h"
 /*********************************/

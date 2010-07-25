@@ -22,8 +22,8 @@
 #include <functional>
 #include <algorithm>
 /*********************************/
-#include <QDebug>
-/*********************************/
+#include <QTextStream>
+
 #include "AbstractScene.h"
 /*********************************/
 #include "AbstractItem.h"
@@ -73,10 +73,10 @@ void AbstractScene::clearScene()
 // la liste de nos items etant deja triee.
 void AbstractScene::initialize(std::list<QGraphicsRectItem *> const & sceneItems)
 {
-    QString msg("AbstractScene::initialize - ");
-    QVariant size(static_cast<unsigned int>(sceneItems.size()));
-    msg += size.toString();
-    msg.append(" items a ajoute a la scene");
+    QString msg;
+    QTextStream tmp(&msg);
+
+    tmp << "AbstractScene::initialize - " << static_cast<unsigned int>(sceneItems.size()) << " items a ajoute a la scene";
     Logger::getInstance()->log(INFO_LOG, msg);
     this->clearScene();
     std::for_each(sceneItems.rbegin(), sceneItems.rend(), std::bind1st(std::mem_fun(&QGraphicsScene::addItem), this));

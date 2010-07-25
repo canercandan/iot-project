@@ -20,25 +20,26 @@
 
 /*********************************/
 #include <QDomNode>
-#include <QDebug>
 /*********************************/
 #include "ExecMenuAction.h"
 /*********************************/
 #include "MainController.h"
 #include "ActionFactory.h"
 /*********************************/
-
+#include "Logger.h"
 /************************************************* [ CTOR/DTOR ] *************************************************/
 
 char const * ExecMenuAction::IDENTIFIER = "ExecMenu";
 
 ExecMenuAction::ExecMenuAction(IAction * actionToExec)
 {
-   this->_actionsToExec.push_back(actionToExec);
+    _actionsToExec.push_back(actionToExec);
+    Logger::getInstance()->log(DEBUG_LOG, "ExecMenuAction::ExecMenuAction(IAction * actionToExec)");
 }
 
 ExecMenuAction::ExecMenuAction(const QDomElement & domElement)
 {
+    Logger::getInstance()->log(DEBUG_LOG, "ExecMenuAction::ExecMenuAction(const QDomElement & domElement)");
     this->initializeFromXml(domElement);
 }
 
@@ -60,7 +61,7 @@ void ExecMenuAction::initializeFromXml(const QDomElement & actionElement)
 	QDomElement const & actionParam = domElement.toElement();
 	if (actionParam.isNull() == false && actionParam.tagName() == "action")
 	{
-	    qDebug() << "action added";
+            Logger::getInstance()->log(DEBUG_LOG, "action added");
 	    IAction * anAction = ActionFactory::create(actionParam);
 	    if (anAction != 0)
 		this->_actionsToExec.push_back(anAction);
@@ -72,7 +73,7 @@ void ExecMenuAction::initializeFromXml(const QDomElement & actionElement)
 
 void ExecMenuAction::exec(MainController & mainC)
 {
-    qDebug() << "ExecMenuAction::exec";
+   Logger::getInstance()->log(DEBUG_LOG, "ExecMenuAction::exec");
     if (this->_actionsToExec.empty() == false)
     {
 	// On execute l'action
@@ -83,7 +84,7 @@ void ExecMenuAction::exec(MainController & mainC)
     }
     else
     {
-	qDebug() << "Action null, rien a executer";
+        Logger::getInstance()->log(DEBUG_LOG, "Action null, rien a executer");
     }
 }
 

@@ -21,7 +21,7 @@
 
 #ifndef EXECMENUACTION_H
 #define EXECMENUACTION_H
-
+#include <vector>
 #include "IAction.h"
 
 /**

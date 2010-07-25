@@ -19,7 +19,6 @@
  */
 
 /*********************************/
-#include <QDebug>
 #include <QMessageBox>
 /*********************************/
 #include "AbstractItem.h"
@@ -29,6 +28,7 @@
 #include "Box.h"
 #include "PopMenuAction.h"
 /*********************************/
+#include "Logger.h"
 
 /************************************************* [ CTOR/DTOR ] *************************************************/
 
@@ -39,9 +39,9 @@ Layer::Layer(Ceg::Window const & hostWindow) :
 
 Layer::~Layer()
 {
-    qDebug() << "Layer::~Layer()";
+    Logger::getInstance()->log(DEBUG_LOG, "Layer::~Layer()");
     delete this->_menuAction;
-    qDebug() << "Apres delete menuAction";
+    Logger::getInstance()->log(DEBUG_LOG, "Apres delete menuAction");
     this->_menuAction = NULL;
 }
 

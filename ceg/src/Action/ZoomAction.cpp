@@ -20,7 +20,6 @@
 
 /*********************************/
 #include <QDomElement>
-#include <QDebug>
 #include <QMessageBox>
 /*********************************/
 #include "ZoomAction.h"
@@ -31,6 +30,7 @@
 #include "BoxController.h"
 #include "Box.h"
 /*********************************/
+#include "Logger.h"
 
 /************************************************* [ CTOR/DTOR ] *************************************************/
 
@@ -39,6 +39,7 @@ char const * ZoomAction::IDENTIFIER = "Zoom";
 ZoomAction::ZoomAction(const QDomElement & actionElement) :
 	_zoom(true)
 {
+    Logger::getInstance()->log(DEBUG_LOG, "ZoomAction::ZoomAction(const QDomElement & actionElement)");
     this->initializeFromXml(actionElement);
 }
 
@@ -51,7 +52,7 @@ void ZoomAction::initializeFromXml(const QDomElement & actionElement)
 
 void	ZoomAction::exec(MainController & mainC)
 {
-    qDebug() << "ZoomAction::exec";
+    Logger::getInstance()->log(DEBUG_LOG, "ZoomAction::exec");
     size_t position = (mainC.getCurrentScene()->getType() == CUSTOM_BOX) ? 1 : 2;
     AbstractScene * scene = mainC.getSceneAt(position);
     AbstractItem const * currentItem = scene->getCurrentItem();

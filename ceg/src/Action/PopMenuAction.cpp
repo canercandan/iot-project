@@ -20,13 +20,14 @@
 
 /*********************************/
 #include <QDomElement>
-#include <QDebug>
+
 /*********************************/
 #include "PopMenuAction.h"
 /*********************************/
 #include "MainController.h"
 #include "Menu.h"
 /*********************************/
+#include "Logger.h"
 
 /************************************************* [ CTOR/DTOR ] *************************************************/
 
@@ -35,11 +36,13 @@ char const * PopMenuAction::IDENTIFIER = "PopMenu";
 PopMenuAction::PopMenuAction(std::string const & menuId) :
 	_menuId(menuId)
 {
+    Logger::getInstance()->log(DEBUG_LOG, "PopMenuAction::PopMenuAction(std::string const & menuId)");
 }
 
 PopMenuAction::PopMenuAction(QDomElement const & domElement) :
 	_menuId()
 {
+     Logger::getInstance()->log(DEBUG_LOG, "PopMenuAction::PopMenuAction(QDomElement const & domElement)");
     this->initializeFromXml(domElement);
 }
 
@@ -52,7 +55,7 @@ void	PopMenuAction::initializeFromXml(QDomElement const & domElement)
 
 void	PopMenuAction::exec(MainController & mainC)
 {
-    qDebug() << "PopMenuAction::exec";
+    Logger::getInstance()->log(DEBUG_LOG, "PopMenuAction::exec");
     // Recuperation des items du menu
     BoxController const & boxC = mainC.getBoxController();
     std::list<QGraphicsRectItem *> menuItems;

@@ -19,7 +19,6 @@
  */
 
 /*********************************/
-#include <QDebug>
 #include <QDomElement>
 /*********************************/
 #include "ReadAction.h"
@@ -27,6 +26,7 @@
 #include "MainController.h"
 #include "Utils.h"
 /*********************************/
+#include "Logger.h"
 
 /************************************************* [ CTOR/DTOR ] *************************************************/
 
@@ -34,6 +34,7 @@ char const * ReadAction::IDENTIFIER = "Read";
 
 ReadAction::ReadAction(const QDomElement & actionElement) : _hideTime(1000)
 {
+    Logger::getInstance()->log(DEBUG_LOG, "ReadAction::ReadAction(const QDomElement & actionElement)");
     this->initializeFromXml(actionElement);
 }
 
@@ -49,8 +50,7 @@ void ReadAction::initializeFromXml(const QDomElement & domElement)
 
 void	ReadAction::exec(MainController & lm)
 {
-    qDebug() << "ReadAction::exec";
-
+    Logger::getInstance()->log(DEBUG_LOG, "ReadAction::exec");
     View & view = lm.getView();
 
     view.hide();

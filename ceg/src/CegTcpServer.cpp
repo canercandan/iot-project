@@ -44,7 +44,6 @@ CegTcpServer::CegTcpServer(MainController& lm) :
 
 CegTcpServer::~CegTcpServer()
 {
-    qDebug() << "CegTcpServer::~CegTcpServer()";
     QString msg("TCP server Killed");
 
     Logger::getInstance()->log(INFO_LOG, msg);
