@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE XmlBox>
-<boxes id="Firefox">
+<boxes id="sample">
   <box type="1" x="5" y="5" height="100" width="100">
     <style focusColor="blue" visible="1" />
     <action id="Zoom" isZoom="1" />

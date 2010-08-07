@@ -19,7 +19,7 @@
  */
 
 /*********************************/
-#include <QMessageBox>
+#include <iostream>
 /*********************************/
 #include "AbstractItem.h"
 /*********************************/
@@ -39,10 +39,8 @@ Layer::Layer(Ceg::Window const & hostWindow) :
 
 Layer::~Layer()
 {
-    Logger::getInstance()->log(DEBUG_LOG, "Layer::~Layer()");
+    std::cerr << "Layer::~Layer()" << std::endl;
     delete this->_menuAction;
-    Logger::getInstance()->log(DEBUG_LOG, "Apres delete menuAction");
-    this->_menuAction = NULL;
 }
 
 /************************************************* [ GETTERS ] *************************************************/

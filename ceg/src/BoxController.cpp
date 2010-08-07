@@ -56,6 +56,7 @@ BoxController::BoxController() :
 
 BoxController::~BoxController()
 {
+    std::cerr << "BoxController::~BoxController()" << std::endl;
     for (std::map< std::string, std::list< Box const * > >::const_iterator it = this->_patterns.begin(), end = this->_patterns.end();
     it != end; ++it)
     {

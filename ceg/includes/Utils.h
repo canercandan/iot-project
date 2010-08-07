@@ -27,6 +27,7 @@
 
 #include <string>
 #include <sstream>
+#include <iostream>
 
 #include <QThread>
 
@@ -56,7 +57,9 @@ namespace Ceg
 	template<typename T>
 	void    operator()(T const * ptr) const
 	{
+	    std::cerr << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\nDeleteObject : Value du ptr = "<< ptr << std::endl;
 	    delete ptr;
+	    std::cerr << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
 	}
     };
 }

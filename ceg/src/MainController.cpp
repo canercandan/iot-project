@@ -20,9 +20,9 @@
 
 /*********************************/
 #include <algorithm>
+#include <iostream>
 /*********************************/
-#include <QApplication>
-#include <QDesktopWidget>
+#include <QMessageBox>
 /*********************************/
 #include "MainController.h"
 /*********************************/
@@ -47,7 +47,8 @@ MainController::MainController(Systray & systray) :
 
 MainController::~MainController()
 {
-    //std::for_each(this->_scenes.begin(), this->_scenes.end(), Ceg::DeleteObject());
+    std::cerr << "MainController::~MainController()\nNombre de scenes a delete = " << this->_scenes.size() << std::endl;
+    std::for_each(this->_scenes.begin(), this->_scenes.end(), Ceg::DeleteObject());
     delete this->_comGs;
 }
 
@@ -73,14 +74,14 @@ AbstractScene * MainController::getSceneAt(size_t position) const
 {
     if (position < this->_scenes.size())
     {
-        --position;
-        size_t i = 0;
-        for (std::list<AbstractScene *>::const_iterator itSearch = this->_scenes.begin(), itEnd = this->_scenes.end();
-        itSearch != itEnd; ++itSearch, ++i)
-        {
-            if (i == position)
-                return (*itSearch);
-        }
+	--position;
+	size_t i = 0;
+	for (std::list<AbstractScene *>::const_iterator itSearch = this->_scenes.begin(), itEnd = this->_scenes.end();
+	itSearch != itEnd; ++itSearch, ++i)
+	{
+	    if (i == position)
+		return (*itSearch);
+	}
     }
     return (0);
 }
@@ -135,27 +136,28 @@ void MainController::on_stop_navigation()
 
 void MainController::pushFrontScene(AbstractScene *scene)
 {
+    this->_scenes.remove(scene); // Lorsqu'on effectue un zoom, cela evite d'avoir a deplacer la scene, on remove et au insert au depart
     this->_scenes.push_front(scene);
     this->_currentScene = this->_scenes.begin();
-    this->_view.hide();
+    //this->_view.hide();
     this->_view.setScene(*(this->_currentScene));
-    this->_view.show();
-    this->_view.setFocus();;
+    //this->_view.show();
+    //this->_view.setFocus();
 }
 
 void MainController::popFrontScene()
 {
+    //QMessageBox::about(0, "title", "POP front scene"); // Debug
     AbstractScene const * oldCurrentScene = *(this->_currentScene);
     this->_scenes.pop_front();
     if (this->_scenes.empty() == false)
     {
 	this->_currentScene = this->_scenes.begin();
-        this->_view.hide();
+	//this->_view.hide();
 	this->_view.setScene(*(this->_currentScene));
-        (*this->_currentScene)->resetFocusItem();
-        //this->_view.setGeometry((*this->_currentScene)->getGeometry()); //Provisoire a voire si ca fonctionne toujours quand on est en mode navigation
-        this->_view.show();
-        this->_view.setFocus();;
+	(*this->_currentScene)->resetFocusItem();
+	//this->_view.show();
+	//this->_view.setFocus();
     }
     delete oldCurrentScene;
 }

@@ -19,6 +19,8 @@
  */
 
 /*********************************/
+#include <iostream>
+/*********************************/
 #include "CustomItem.h"
 /*********************************/
 
@@ -27,4 +29,9 @@
 CustomItem::CustomItem(Box const * box, QGraphicsItem * parent /* = 0 */) :
 	AbstractItem(box, parent)
 {
+}
+
+CustomItem::~CustomItem()
+{
+    std::cerr << "CustomItem::~CustomItem()" << std::endl;
 }

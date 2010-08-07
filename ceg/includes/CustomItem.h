@@ -32,6 +32,7 @@ class CustomItem : public AbstractItem
 {
 public:
     CustomItem(Box const * box, QGraphicsItem * parent = 0);
+    ~CustomItem();
 };
 
 #endif // CUSTOMITEM_H

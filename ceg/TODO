@@ -13,12 +13,10 @@ _ Faire des test sur kde et d'autres environement graphique
 - module OpenViBe
 - parsing (rfb)
 -------------------------------------------------- Reminder Yann --------------------------------------------------------------------------
-- remover les qdebug
-- Rajouter une methode toString pour IAction
 - Terminer le communication avec le serveur Graphique sur Linux - pas forcement utile a etudier
 - revoir le management des listes dans le boxcontroler (new les listes)
-- bien gerer les process
-- trouver les segfaults : windows(focusItem rajouter debug ds les item pour lost et win focus) + all(free de la memoire)
+- bien gerer les process, rajouter des slots en cas de fermeture, fermeture des process a la fin du programme
+- trouver les segfaults : windows(focusItem rajouter debug ds les item pour lost et win focus)
 - laisser la view au top level
 - revoir le management des menus pour eviter de newer a chaque fois
 

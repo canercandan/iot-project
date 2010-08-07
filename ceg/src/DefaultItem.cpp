@@ -19,6 +19,8 @@
  */
 
 /*********************************/
+#include <iostream>
+/*********************************/
 #include "DefaultItem.h"
 /*********************************/
 #include "Box.h"
@@ -34,5 +36,7 @@ DefaultItem::DefaultItem(Box const * box, QGraphicsItem * parent /* = 0 */) :
 
 DefaultItem::~DefaultItem()
 {
+    std::cerr << "DefaultItem::~DefaultItem()" << std::endl;
     delete this->_model;
+    std::cerr << "Fin DefaultItem::~DefaultItem()" << std::endl;
 }

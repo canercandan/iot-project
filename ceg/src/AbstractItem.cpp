@@ -19,6 +19,8 @@
  */
 
 /*********************************/
+#include <iostream>
+/*********************************/
 #include <QPainter>
 #include <QGraphicsScene>
 /*********************************/
@@ -41,6 +43,7 @@ AbstractItem::AbstractItem(Box const * box, QGraphicsItem * parent) :
 
 AbstractItem::~AbstractItem()
 {
+    std::cerr << "AbstractItem::~AbstractItem" << std::endl;
 }
 
 /************************************************* [ GETTERS ] *************************************************/

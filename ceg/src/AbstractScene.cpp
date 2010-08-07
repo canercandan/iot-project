@@ -21,6 +21,7 @@
 /*********************************/
 #include <functional>
 #include <algorithm>
+#include <iostream>
 /*********************************/
 #include <QTextStream>
 #include <QDebug>
@@ -40,6 +41,7 @@ AbstractScene::AbstractScene(QObject * parent /* = 0 */) :
 
 AbstractScene::~AbstractScene()
 {
+    std::cerr << "AbstractScene::~AbstractScene()\nNombre d'items dans la scene = " << this->items().size() << std::endl;
 }
 
 /************************************************* [ GETTERS ] *************************************************/

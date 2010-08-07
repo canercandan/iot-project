@@ -18,13 +18,14 @@
  * Authors: CEG <ceg@ionlythink.com>, http://www.ionlythink.com
  */
 
+/*********************************/
 #include "ValidAction.h"
 /*********************************/
 #include "AbstractItem.h"
 #include "MainController.h"
 #include "AbstractScene.h"
-/*********************************/
 #include "Logger.h"
+/*********************************/
 
 /************************************************* [ CTOR/DTOR ] *************************************************/
 
@@ -53,7 +54,7 @@ void	ValidAction::exec(MainController & mc)
     AbstractItem const * item = mc.getCurrentScene()->getCurrentItem();
     IAction * action = item->getEvent();
     if (action != 0)
-        action->exec(mc);
+	action->exec(mc);
 }
 
 /************************************************* [ OTHERS ] *************************************************/

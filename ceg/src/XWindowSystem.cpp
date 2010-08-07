@@ -60,7 +60,7 @@ I also find a function : XmuClientWindow, but i don't understand it's goal.
 Thanks to help me.*/
 
 XWindowSystem::XWindowSystem() :
-        _connection(::XOpenDisplay(0))
+	_connection(::XOpenDisplay(0))
 {
 }
 
@@ -104,10 +104,10 @@ bool XWindowSystem::getFocusedWindow(Ceg::Window & /*newWindow*/)
 	int status = ::XGetInputFocus(this->_connection, &focusWindow, &focusState);
 	if (status != BadValue && status != BadWindow && focusWindow != None)
 	{
-            tmp << "Window id: "<< &focusWindow<< " Focus state: "<< &focusState;
-            Logger::getInstance()->log(INFO_LOG, msg);
-            //            newWindow.setId(focusWindow);
-            //            statusOp = this->refreshWindowInfo(newWindow);
+	    tmp << "Window id: "<< &focusWindow<< " Focus state: "<< &focusState;
+	    Logger::getInstance()->log(INFO_LOG, msg);
+	    //            newWindow.setId(focusWindow);
+	    //            statusOp = this->refreshWindowInfo(newWindow);
 	    this->printWindow(focusWindow, 0);
 	}
     }
@@ -119,7 +119,7 @@ bool XWindowSystem::setFocusToWindow(Ceg::Window & , Ceg::Window & /*newFocusWin
     bool statusOp = false;
     if (this->_connection != 0)
     {
-        //int status = ::XSetInputFocus(this->_connection, newFocusWindow, revert_to, time);
+	//int status = ::XSetInputFocus(this->_connection, newFocusWindow, revert_to, time);
     }
     return (statusOp);
 }
@@ -143,13 +143,13 @@ bool XWindowSystem::refreshWindowInfo(Ceg::Window & targetWindow)
 void XWindowSystem::queryPointer(XEvent& event, Window& window, Window& subwindow)
 {
     ::XQueryPointer(this->_connection, window,
-                    &event.xbutton.root,
-                    &subwindow,
-                    &event.xbutton.x_root,
-                    &event.xbutton.y_root,
-                    &event.xbutton.x,
-                    &event.xbutton.y,
-                    &event.xbutton.state);
+		    &event.xbutton.root,
+		    &subwindow,
+		    &event.xbutton.x_root,
+		    &event.xbutton.y_root,
+		    &event.xbutton.x,
+		    &event.xbutton.y,
+		    &event.xbutton.state);
 }
 
 bool XWindowSystem::generateClickEvent(short int buttonID)
@@ -159,7 +159,7 @@ bool XWindowSystem::generateClickEvent(short int buttonID)
     Display* display = this->_connection;
 
     if (display == 0)
-        return (false);
+	return (false);
 
     XEvent event;
 
@@ -177,12 +177,12 @@ bool XWindowSystem::generateClickEvent(short int buttonID)
 
     while (event.xbutton.subwindow)
     {
-        event.xbutton.window = event.xbutton.subwindow;
-        this->queryPointer(event, event.xbutton.window, event.xbutton.subwindow);
+	event.xbutton.window = event.xbutton.subwindow;
+	this->queryPointer(event, event.xbutton.window, event.xbutton.subwindow);
     }
 
     if (::XSendEvent(display, PointerWindow, True, 0xfff, &event) == 0)
-        return (false);
+	return (false);
 
     ::XFlush(display);
 
@@ -192,7 +192,7 @@ bool XWindowSystem::generateClickEvent(short int buttonID)
     event.xbutton.state = 0x100;
 
     if (::XSendEvent(display, PointerWindow, True, 0xfff, &event) == 0)
-        return (false);
+	return (false);
 
     ::XFlush(display);
 
@@ -209,24 +209,24 @@ void XWindowSystem::printRecurse(::Window currentWindow, unsigned int level) con
     QTextStream tmp(&msg);
     if (status != BadWindow)
     {
-        tmp << this->printIndent(level) << " Window ID :"  << &currentWindow << "Root: " << &rootReturn << "Parent: " << &parentReturn;
-        Logger::getInstance()->log(INFO_LOG, msg); msg = "";
+	tmp << this->printIndent(level) << " Window ID :"  << &currentWindow << "Root: " << &rootReturn << "Parent: " << &parentReturn;
+	Logger::getInstance()->log(INFO_LOG, msg); msg = "";
 	pid_t pid = this->getPid(currentWindow);
-        tmp << this->printIndent(level) << " Pid of the window's creator : " << pid;
-        Logger::getInstance()->log(INFO_LOG, msg);msg = "";
+	tmp << this->printIndent(level) << " Pid of the window's creator : " << pid;
+	Logger::getInstance()->log(INFO_LOG, msg);msg = "";
 	if (pid != 0)
 	{
-            tmp << this->printIndent(level) << " Binaire utilise : " << this->getPathOfBinary(typeToString(pid)).c_str();
-            Logger::getInstance()->log(INFO_LOG, msg); msg = "";
+	    tmp << this->printIndent(level) << " Binaire utilise : " << this->getPathOfBinary(typeToString(pid)).c_str();
+	    Logger::getInstance()->log(INFO_LOG, msg); msg = "";
 	}
 	this->printCommands(currentWindow, level);
 	this->printWindow(currentWindow, level);
-        tmp << this->printIndent(level) << " Nb child : " << nbChildrenReturn;
-        Logger::getInstance()->log(INFO_LOG, msg); msg = "";
+	tmp << this->printIndent(level) << " Nb child : " << nbChildrenReturn;
+	Logger::getInstance()->log(INFO_LOG, msg); msg = "";
 	::Window muclient = ::XmuClientWindow(this->_connection, currentWindow);
 	(void)muclient;
-        tmp << this->printIndent(level) << "XmuClientWindow : 0x" << &muclient;
-        Logger::getInstance()->log(INFO_LOG, msg); msg = "";
+	tmp << this->printIndent(level) << "XmuClientWindow : 0x" << &muclient;
+	Logger::getInstance()->log(INFO_LOG, msg); msg = "";
 	for (unsigned int i = 0; i < nbChildrenReturn; ++i)
 	{
 	    this->printRecurse(childrenReturn[i], level + 1);
@@ -296,8 +296,8 @@ void XWindowSystem::printWindow(::Window windowId, unsigned int level) const
     XTextProperty propWindowName;
     if (::XGetWMName(this->_connection, windowId, &propWindowName) != 0)
     {
-        tmp << this->printIndent(level) << "Window Name : " << propWindowName.value;
-        Logger::getInstance()->log(INFO_LOG, msg); msg = "";
+	tmp << this->printIndent(level) << "Window Name : " << propWindowName.value;
+	Logger::getInstance()->log(INFO_LOG, msg); msg = "";
 	::XFree(propWindowName.value);
     }
     else
@@ -310,8 +310,8 @@ void XWindowSystem::printWindow(::Window windowId, unsigned int level) const
     {
 	if (propIconName.value != 0)
 	{
-            tmp << this->printIndent(level) << "Icon Name : " << propIconName.value;
-            Logger::getInstance()->log(INFO_LOG, msg); msg = "";
+	    tmp << this->printIndent(level) << "Icon Name : " << propIconName.value;
+	    Logger::getInstance()->log(INFO_LOG, msg); msg = "";
 	    ::XFree(propIconName.value);
 	}
     }
@@ -322,15 +322,15 @@ void XWindowSystem::printWindow(::Window windowId, unsigned int level) const
     {
 	if (classHintsReturn.res_name)
 	{
-            tmp << this->printIndent(level) << "Application Name : " << classHintsReturn.res_name;
-            Logger::getInstance()->log(INFO_LOG, msg); msg = "";
+	    tmp << this->printIndent(level) << "Application Name : " << classHintsReturn.res_name;
+	    Logger::getInstance()->log(INFO_LOG, msg); msg = "";
 	    ::XFree(classHintsReturn.res_name);
 	}
 	if (classHintsReturn.res_class)
 	{
-            tmp << this->printIndent(level) << "Application Class : " << classHintsReturn.res_class;
-            Logger::getInstance()->log(INFO_LOG, msg); msg = "";
-            ::XFree(classHintsReturn.res_class);
+	    tmp << this->printIndent(level) << "Application Class : " << classHintsReturn.res_class;
+	    Logger::getInstance()->log(INFO_LOG, msg); msg = "";
+	    ::XFree(classHintsReturn.res_class);
 	}
     }
     else
@@ -343,11 +343,11 @@ void XWindowSystem::printWindow(::Window windowId, unsigned int level) const
     if (status != BadDrawable && status != BadWindow)
     {
 
-        // cf function Display_Stats_Info for absolute window
-        tmp <<  this->printIndent(level) << " X : " << windowInfos.x << " Y : " << windowInfos.y;
-        tmp << " Heigth : " << windowInfos.height << " Width : " << windowInfos.width;
-        tmp << " Visible :" << ((windowInfos.map_state == IsUnmapped) ? "IsUnmapped" : (windowInfos.map_state == IsUnviewable) ? "IsUnviewable" : "IsViewable");
-        Logger::getInstance()->log(INFO_LOG, msg);
+	// cf function Display_Stats_Info for absolute window
+	tmp <<  this->printIndent(level) << " X : " << windowInfos.x << " Y : " << windowInfos.y;
+	tmp << " Heigth : " << windowInfos.height << " Width : " << windowInfos.width;
+	tmp << " Visible :" << ((windowInfos.map_state == IsUnmapped) ? "IsUnmapped" : (windowInfos.map_state == IsUnviewable) ? "IsUnviewable" : "IsViewable");
+	Logger::getInstance()->log(INFO_LOG, msg);
     }
     else
     {
@@ -365,12 +365,12 @@ void XWindowSystem::printCommands(::Window windowId, unsigned int level) const
     Status status = ::XGetCommand(this->_connection, windowId, &argvReturn, &argcReturn);
     if (status != 0)
     {
-        tmp << this->printIndent(level) << "argc : " << argcReturn << "argv :";
+	tmp << this->printIndent(level) << "argc : " << argcReturn << "argv :";
 	for (int i = 0; i < argcReturn; ++i)
 	{
-            tmp << ' ' << argvReturn[i];
+	    tmp << ' ' << argvReturn[i];
 	}
-        Logger::getInstance()->log(INFO_LOG, msg);
+	Logger::getInstance()->log(INFO_LOG, msg);
 	::XFreeStringList(argvReturn);
     }
     else

@@ -31,7 +31,7 @@ class Systray;
 /**
  * \brief Implementation de QGraphicsView, Widget Qt representant une scene
  */
- 
+
  /**
  * Sera supprimer plutard, utilise pour debuger avec le clavier
  * Une vue est associe  a une scene
@@ -42,6 +42,7 @@ class View : public QGraphicsView
     Q_OBJECT
 public:
     View(MainController &, Systray &);
+    ~View();
 
     void                initialize();
 

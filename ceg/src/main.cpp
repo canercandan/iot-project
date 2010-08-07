@@ -166,13 +166,13 @@ int main(int ac, char** av)
 
     if (loaded)
     {
-        tmp << "Translation" << trans_name << "loaded";
-        Logger::getInstance()->log(INFO_LOG, msg);
+	tmp << "Translation" << trans_name << "loaded";
+	Logger::getInstance()->log(INFO_LOG, msg);
     }
     else
     {
-        tmp << "Failed to load translation" << trans_name;
-        Logger::getInstance()->log(WARNING_LOG, msg);
+	tmp << "Failed to load translation" << trans_name;
+	Logger::getInstance()->log(WARNING_LOG, msg);
     }
     msg = "";
     app.installTranslator(&qt_trans);
@@ -199,13 +199,13 @@ int main(int ac, char** av)
 
     if (loaded)
     {
-        tmp << "Translation" << trans_name << "loaded";
-        Logger::getInstance()->log(INFO_LOG, msg);
+	tmp << "Translation" << trans_name << "loaded";
+	Logger::getInstance()->log(INFO_LOG, msg);
     }
     else
     {
-        tmp << "Failed to load translation" << trans_name;
-        Logger::getInstance()->log(WARNING_LOG, msg);
+	tmp << "Failed to load translation" << trans_name;
+	Logger::getInstance()->log(WARNING_LOG, msg);
     }
     app.installTranslator(&ceg_tr);
 
@@ -217,8 +217,6 @@ int main(int ac, char** av)
     // Instanciate the higher object of the program before starting the thread
     //-----------------------------------------------------------------------------
     Systray sytray;
-    //new Systray();
-
     //-----------------------------------------------------------------------------
 
 

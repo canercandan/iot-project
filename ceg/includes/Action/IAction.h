@@ -21,7 +21,10 @@
 #ifndef IACTION_H
 #define IACTION_H
 
+
 #include "IDomFactory.h"
+
+#include <iostream>
 
 class MainController;
 
@@ -31,7 +34,7 @@ class MainController;
 class IAction : public IDomFactory
 {
 public:
-    virtual ~IAction(){}
+    virtual ~IAction(){std::cerr << "~IAction::~IAction()"<< std::endl;}
 
     virtual void		exec(MainController &) = 0;
     virtual void		initializeFromXml(QDomElement const &) = 0;

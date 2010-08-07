@@ -33,6 +33,7 @@ class Menu : public AbstractScene
 {
 public:
     Menu();
+    ~Menu();
 
     virtual QRect	getGeometry() const;
 

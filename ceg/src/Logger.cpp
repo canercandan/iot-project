@@ -19,6 +19,8 @@
  */
 
 /*********************************/
+#include <iostream>
+/*********************************/
 #include <QFile>
 #include <QTime>
 #include <QTextStream>
@@ -40,16 +42,17 @@ Logger::Logger()
     this->_logFile = new QFile("Ceg.log");
     if(!this->_logFile->open(QIODevice::WriteOnly | QIODevice::Append))
     {
-        this->log(WARNING_LOG, "Failed to open Ceg.log");
+	this->log(WARNING_LOG, "Failed to open Ceg.log");
     }
 }
 
 Logger::~Logger()
 {
+    std::cerr << "Logger::~Logger()" << std::endl;
     if (this->_logFile != 0)
     {
-        this->_logFile->close();
-        delete this->_logFile;
+	this->_logFile->close();
+	delete this->_logFile;
     }
 }
 
@@ -71,16 +74,16 @@ void    Logger::setLogFile(QString const & filename)
 {
     if (this->_logFile)
     {
-        this->_logFile->close();
-        delete this->_logFile;
+	this->_logFile->close();
+	delete this->_logFile;
     }
     this->_logFile = new QFile(filename);
     if(!this->_logFile->open(QIODevice::WriteOnly | QIODevice::Append))
     {
-        QString msg;
-        QTextStream tmp(&msg);
-        tmp << "Failed to open log file: " << filename;
-        this->log(WARNING_LOG, msg);
+	QString msg;
+	QTextStream tmp(&msg);
+	tmp << "Failed to open log file: " << filename;
+	this->log(WARNING_LOG, msg);
     }
 }
 
@@ -98,13 +101,13 @@ void    Logger::log(loglevel msgLogLevel,QString const & msg)
 void    Logger::log(loglevel msgLogLevel, const char *msg)
 {
     if (this->_currentLogLevel > msgLogLevel)
-        return;
+	return;
     QTextStream out(stdout);
     out << "[" << QTime::currentTime().toString().toAscii().data() << "] " << logLevelMsg[msgLogLevel]<< msg << endl;
     if (this->_logFile && this->_logFile->exists())
     {
-        QTextStream filestream(this->_logFile);
-        filestream << "[" << QTime::currentTime().toString().toAscii().data() << "] " << logLevelMsg[msgLogLevel]<< msg << endl;
+	QTextStream filestream(this->_logFile);
+	filestream << "[" << QTime::currentTime().toString().toAscii().data() << "] " << logLevelMsg[msgLogLevel]<< msg << endl;
     }
 }
 
@@ -120,7 +123,7 @@ Logger* Logger::getInstance()
     QMutexLocker instanceMutexLocker(&Logger::_instanceMutex);
     if (!_instance)
     {
-	Logger::_instance = new Logger();
+	Logger::_instance = new Logger;
     }
     return Logger::_instance;
 }

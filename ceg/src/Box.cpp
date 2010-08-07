@@ -19,6 +19,7 @@
  */
 
 /*********************************/
+#include <iostream>
 #include <algorithm>
 /*********************************/
 #include <QDomElement>
@@ -30,8 +31,9 @@
 #include "Utils.h"
 #include "IAction.h"
 #include "PopMenuAction.h"
-/*********************************/
 #include "Logger.h"
+/*********************************/
+
 
 /************************************************* [ CTOR/DTOR ] *************************************************/
 
@@ -55,6 +57,7 @@ Box::Box(const QDomElement& domElement, Box const * parent) :
 
 Box::~Box()
 {
+    std::cerr << "Box::~Box()" << std::endl;
     std::for_each(this->_children.begin(), this->_children.end(), Ceg::DeleteObject());
     delete this->_action;
 }
