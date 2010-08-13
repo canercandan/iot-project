@@ -1,6 +1,6 @@
 // -*- mode: c++; c-indent-level: 4; c++-member-init-indent: 8; comment-column: 35; -*-
 
-/* IOT Copyleft (C) 2010 CEG development team
+/* IOT Copyright (C) 2010 CEG development team
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2
@@ -18,22 +18,31 @@
  * Authors: CEG <ceg@ionlythink.com>, http://www.ionlythink.com
  */
 
-#ifndef _Action
-#define _Action
+#ifndef KEYBOARDACTION_H_
+#define KEYBOARDACTION_H_
 
-#include "ActionFactory.h"
-#include "CancelAction.h"
-#include "ClickAction.h"
-#include "KeyboardAction.h"
-#include "ExecMenuAction.h"
-#include "ExecProcessAction.h"
 #include "IAction.h"
-#include "MoveAction.h"
-#include "PopMenuAction.h"
-#include "QuitAction.h"
-#include "ReadAction.h"
-#include "ValidAction.h"
-#include "WriteAction.h"
-#include "ZoomAction.h"
 
-#endif // !_Action
+class QDomElement;
+
+/**
+ * \brief Action pour generer les clics
+ */
+class KeyboardAction : public IAction
+{
+public:
+    KeyboardAction(QDomElement const &);
+
+    virtual void		exec(MainController &);
+    virtual void		initializeFromXml(QDomElement const &);
+
+public:
+    static char const * IDENTIFIER;
+
+private:
+    QString	_key;
+};
+
+IAction * instanciateKeyboardAction(QDomElement const &);
+
+#endif // !KEYBOARDACTION_H_

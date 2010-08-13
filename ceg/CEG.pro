@@ -43,6 +43,7 @@ HEADERS += AbstractItem.h \
     ActionFactory.h \
     CancelAction.h \
     ClickAction.h \
+    KeyboardAction.h \
     ExecMenuAction.h \
     IAction.h \
     MoveAction.h \
@@ -78,6 +79,7 @@ SOURCES += AbstractItem.cpp \
     ActionFactory.cpp \
     CancelAction.cpp \
     ClickAction.cpp \
+    KeyboardAction.cpp \
     ExecMenuAction.cpp \
     MoveAction.cpp \
     PopMenuAction.cpp \

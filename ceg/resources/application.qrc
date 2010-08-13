@@ -25,6 +25,7 @@
         <file>images/action/zoomOut.png</file>
         <file>images/action/zoomIn.png</file>
         <file>images/action/read.png</file>
+        <file>images/action/keyboard.png</file>
         <file>images/action/simpleClick.png</file>
         <file>images/action/doubleClick.png</file>
     </qresource>
