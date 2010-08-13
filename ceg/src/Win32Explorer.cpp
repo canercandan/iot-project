@@ -137,7 +137,6 @@ bool	Win32Explorer::generateClickEvent(short int buttonID)
 	case ClickAction::LeftClick:
 		mouse_event(MOUSEEVENTF_LEFTDOWN,0,0,0,0);
 		mouse_event(MOUSEEVENTF_LEFTUP,0,0,0,0);
-		this->generateKeybdEvent('J');
 		break;
 	case ClickAction::MiddleClick:
 		mouse_event(MOUSEEVENTF_MIDDLEDOWN,0,0,0,0);

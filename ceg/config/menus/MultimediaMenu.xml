@@ -35,7 +35,7 @@
 	      unix:path="gedit"
 	      win:path="C:\Program Files\Notepad++\notepad++.exe"/>
     </action>
-    <style opacity="1" text="Text Editor" fr:text="Editeur de Texte" imagePath=":images/menu/text.png" />
+    <style opacity="1" text="Text Editor" fr:text="Editeur de Texte" imagePath=":images/menu/text.png" rounded="true" />
   </box>
 
   <box type="2" x="750" y="505" height="100" width="300">
@@ -47,7 +47,7 @@
 	      arguments="http://www.youtube.com"
 	      />
     </action>
-    <style opacity="1" text="Youtube" imagePath=":images/menu/youtube.png" />
+    <style opacity="1" text="Youtube" imagePath=":images/menu/youtube.png" rounded="true" />
   </box>
 
   <box type="2" x="750" y="606" height="100" width="300">
@@ -57,7 +57,7 @@
 	      win:path="C:\Program Files\Windows Media Player/wmplayer.exe"
 	      />
     </action>
-    <style opacity="1" text="Video Player" fr:text="Lecteur Vidéo" imagePath=":images/menu/video.png" />
+    <style opacity="1" text="Video Player" fr:text="Lecteur Vidéo" imagePath=":images/menu/video.png" rounded="true" />
   </box>
 
   <box type="2" x="750" y="707" height="100" width="300">
@@ -68,14 +68,14 @@
 	      win:path="C:\Program Files\Windows Media Player/wmplayer.exe"
 	      />
     </action>
-    <style opacity="1" text="Music Player" fr:text="Lecteur Audio" imagePath=":images/menu/music.png" />
+    <style opacity="1" text="Music Player" fr:text="Lecteur Audio" imagePath=":images/menu/music.png" rounded="true" />
   </box>
 
   <box type="2" x="750" y="808" height="100" width="300">
     <action id="ExecMenu">
       <action id="Cancel"/>
     </action>
-    <style opacity="1" text="Cancel" fr:text="Annuler" imagePath=":images/menu/cancel.png"/>
+    <style opacity="1" text="Cancel" fr:text="Annuler" imagePath=":images/menu/cancel.png" rounded="true"/>
   </box>
 
 </menu>

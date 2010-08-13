@@ -32,6 +32,8 @@
  */
 /**
  * Herite de la IDomFactory, car il est possible de creer une box a partir d'un XML
+ *
+ * isRounded permet de definir des box a contour arrondies.
  */
 class BoxStyle : public IDomFactory
 {
@@ -47,6 +49,7 @@ public:
     QString             getTextColor() const;
     QString             getFocusColor() const;
     QString             getBlurColor() const;
+    bool		isRounded() const;
 
 private:
     virtual void	initializeFromXml(QDomElement const &);
@@ -61,6 +64,7 @@ private:
     QString _textColor;
     QString _focusColor;
     QString _blurColor;
+    bool	_isRounded;
 };
 
 #endif // BOXSTYLE_H

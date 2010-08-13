@@ -7,14 +7,14 @@
     <action id="ExecMenu">
       <action id="PopMenu" MenuId="Multimedia"/>
     </action>
-    <style opacity="1" text="Multimedia Menu" fr:text="Menu Multimedia" imagePath=":images/home/multimedia.png"/>
+    <style opacity="1" text="Multimedia Menu" fr:text="Menu Multimedia" imagePath=":images/home/multimedia.png" rounded="true"/>
   </box>
 
   <box type="2" x="750" y="202" height="100" width="300">
     <action id="ExecMenu">
       <action id="PopMenu" MenuId="Application"/>
     </action>
-    <style opacity="1" text="Application Listing" fr:text="Listing des application" imagePath=":images/home/listing.png"/>
+    <style opacity="1" text="Application Listing" fr:text="Listing des application" imagePath=":images/home/listing.png" rounded="true"/>
   </box>
 
   <!--
@@ -30,7 +30,7 @@
     <action id="ExecMenu">
       <action id="Quit" />
     </action>
-    <style opacity="1" text="Quit" fr:text="Quitter" imagePath=":images/menu/exit.png"/>
+    <style opacity="1" text="Quit" fr:text="Quitter" imagePath=":images/menu/exit.png" rounded="true"/>
   </box>
 
 </menu>

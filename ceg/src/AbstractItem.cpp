@@ -77,8 +77,11 @@ void AbstractItem::paint(QPainter * painter, const QStyleOptionGraphicsItem *, Q
     BoxStyle const & style = _model->getGraphicStyle();
     painter->setOpacity(style.getOpacity());
     painter->setBrush(QBrush(QColor(this->_color)));
-    painter->drawRect(this->rect());
-
+    //painter->drawRect(this->rect());
+	if (style.isRounded())
+		painter->drawRoundedRect(this->rect(), 15, 15);
+	else
+		painter->drawRect(this->rect());
     QString const & text = style.getText();
     if (! text.isEmpty())
     {

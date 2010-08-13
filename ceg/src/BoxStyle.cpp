@@ -29,16 +29,17 @@
 /************************************************* [ CTOR/DTOR ] *************************************************/
 
 BoxStyle::BoxStyle()
-    : _fromXML(false), _opacity(0.5), _imagePath(""), _text(""), _textFont("Arial"), _textFontSize(20), _textColor("black"),  _focusColor("yellow"), _blurColor("black")
+    : _fromXML(false), _opacity(0.5), _imagePath(""), _text(""), _textFont("Arial"), _textFontSize(20), _textColor("black"),  _focusColor("yellow"), _blurColor("black"), _isRounded(false)
 {
 }
 
 BoxStyle::BoxStyle(QDomElement const & styleElement)
-    : _fromXML(true), _opacity(0.5), _imagePath(""), _text(""), _textFont("Arial"), _textFontSize(20), _textColor("black"),  _focusColor("yellow"), _blurColor("black")
+    : _fromXML(true), _opacity(0.5), _imagePath(""), _text(""), _textFont("Arial"), _textFontSize(20), _textColor("black"),  _focusColor("yellow"), _blurColor("black"), _isRounded(false)
 {
     this->initializeFromXml(styleElement);
 }
 
+#include <QDebug>
 void BoxStyle::initializeFromXml(QDomElement const & styleElement)
 {
     //-----------------------------------------------------------------------------
@@ -90,6 +91,12 @@ void BoxStyle::initializeFromXml(QDomElement const & styleElement)
 
     if (styleElement.hasAttribute("blurColor"))
         this->_blurColor = styleElement.attribute("blurColor");
+	
+	if (styleElement.hasAttribute("rounded") &&
+		styleElement.attribute("rounded").compare("true", Qt::CaseInsensitive) == 0)
+	{
+		this->_isRounded = true;
+	}
 
     //-----------------------------------------------------------------------------
 }
@@ -158,4 +165,9 @@ QString BoxStyle::getBlurColor() const
     }
 
     return this->_blurColor;
+}
+
+bool BoxStyle::isRounded() const
+{
+    return (this->_isRounded);
 }
