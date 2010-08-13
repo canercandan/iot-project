@@ -96,9 +96,8 @@ bool XWindowSystem::getFocusedWindow(Ceg::Window & /*newWindow*/)
     QString msg;
     QTextStream tmp(&msg);
 
-     if (this->_connection != 0)
+    if (this->_connection != 0)
     {
-
 	::Window focusWindow;
 	int focusState;
 	int status = ::XGetInputFocus(this->_connection, &focusWindow, &focusState);
@@ -199,10 +198,10 @@ bool XWindowSystem::generateClickEvent(short int buttonID)
     return (true);
 }
 
-bool XWindowSystem::generateKeybdEvent(unsigned char key)
+bool XWindowSystem::generateKeybdEvent(unsigned char)
 {
-	// generer un bouton de clavier
-	return (true);
+    // generer un bouton de clavier
+    return (true);
 }
 
 void XWindowSystem::printRecurse(::Window currentWindow, unsigned int level) const

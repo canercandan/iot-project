@@ -75,10 +75,6 @@ void AbstractItem::focusOutEvent(QFocusEvent *)
 void AbstractItem::paint(QPainter * painter, const QStyleOptionGraphicsItem *, QWidget *)
 {
     BoxStyle const & style = _model->getGraphicStyle();
-
-    if (style.isVisible() == false)
-	return;
-
     painter->setOpacity(style.getOpacity());
     painter->setBrush(QBrush(QColor(this->_color)));
     painter->drawRect(this->rect());
@@ -94,24 +90,23 @@ void AbstractItem::paint(QPainter * painter, const QStyleOptionGraphicsItem *, Q
 	}
 
 	QString const & textColor = style.getTextColor();
-
 	if (textColor.isEmpty() == false)
 	{
 	    painter->setPen(textColor);
 	}
 
-    QString const & imagePath  = style.getImagePath();
-    if (imagePath.isEmpty() == false)
-    {
-	QPixmap pixmap(imagePath);
-	QRectF dest(this->rect().x(), this->rect().y(), pixmap.width(), pixmap.height());
-	dest.moveCenter(this->rect().center());
-	painter->drawPixmap(dest, pixmap, pixmap.rect());
-	painter->drawText(this->rect(), Qt::AlignBottom|Qt::AlignCenter, text);
-    }
+        QString const & imagePath  = style.getImagePath();
+        if (imagePath.isEmpty() == false)
+        {
+            QPixmap pixmap(imagePath);
+            QRectF dest(this->rect().x(), this->rect().y(), pixmap.width(), pixmap.height());
+            dest.moveCenter(this->rect().center());
+            painter->drawPixmap(dest, pixmap, pixmap.rect());
+            painter->drawText(this->rect(), Qt::AlignBottom|Qt::AlignCenter, text);
+        }
 	else
 	{
-	painter->drawText(this->rect(), Qt::AlignCenter, text);
+            painter->drawText(this->rect(), Qt::AlignCenter, text);
 	}
     }
 }

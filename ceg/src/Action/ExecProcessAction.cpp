@@ -24,10 +24,12 @@
 #include <QApplication>
 #include <QDesktopWidget>
 #include <QTextStream>
+#include <QFileInfo>
 /*********************************/
 #include "ExecProcessAction.h"
 /*********************************/
 #include "MainController.h"
+#include "Layer.h"
 #include "Utils.h"
 #include "Logger.h"
 /*********************************/
@@ -168,9 +170,11 @@ void	ExecProcessAction::exec(MainController & mainC)
     {
         SleeperThread::msleep(this->_hideTime);
     }
-
-    Ceg::Window defaultWindow(0, QApplication::desktop()->geometry(), true, "42");
-    mainC.pushFrontScene(mainC.createScene(defaultWindow), true);
+    QFileInfo   programFileInfo(this->_path);
+    Ceg::Window defaultWindow(0, QApplication::desktop()->geometry(), programFileInfo.baseName().toStdString());
+    Layer * scene = static_cast<Layer *>(mainC.createScene(defaultWindow));
+    scene->setProcess(process);
+    mainC.pushFrontScene(scene, true);
 }
 
 /************************************************* [ OTHERS ] *************************************************/

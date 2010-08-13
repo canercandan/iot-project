@@ -12,13 +12,16 @@ _ Faire des test sur kde et d'autres environement graphique
 - maj Doxygen
 - module OpenViBe
 - parsing (rfb)
+
 -------------------------------------------------- Reminder Yann --------------------------------------------------------------------------
 - Terminer le communication avec le serveur Graphique sur Linux - pas forcement utile a etudier
 - revoir le management des listes dans le boxcontroler (new les listes)
 - bien gerer les process, rajouter des slots en cas de fermeture, fermeture des process a la fin du programme
-- trouver les segfaults : windows(focusItem rajouter debug ds les item pour lost et win focus)
-- laisser la view au top level
 - revoir le management des menus pour eviter de newer a chaque fois
+
+Faire deux list dans le main controller une pour les menus et une pour les layers
+rajouter methode reset focus item pour les menus
+Rajouter la possibilite de quitter un programme
 
 -------------------------------------------------- Reminder Caner --------------------------------------------------------------------------
 - faire les xsd - QtValidator
@@ -27,8 +30,4 @@ _ Faire des test sur kde et d'autres environement graphique
 
 -------------------------------------------------- Reminder Yavuz --------------------------------------------------------------------------
 - Finir de faire des menus propres ! rajouter des couleurs pour le fond par exemple
-- Eviter que lorsqu'il y ait seulement une box affichee en mode custom, on ne puisse pas faire apparaitre le menu Navigation
 - Terminer le communication avec le serveur Graphique sur Windows
-
--------------------------------------------------- Reminder Lamine -------------------------------------------------------------------------
-

@@ -30,7 +30,7 @@
  * \brief Classe de modele
  * Contient toute les aspect relatif au graphisme d'une box
  */
- /**
+/**
  * Herite de la IDomFactory, car il est possible de creer une box a partir d'un XML
  */
 class BoxStyle : public IDomFactory
@@ -39,29 +39,27 @@ public:
     BoxStyle();
     BoxStyle(QDomElement const &);
 
-    bool		isVisible() const;
     float		getOpacity() const;
-    QString const & getImagePath() const;
-    QString const & getText() const;
-    QString const & getTextFont() const;
-    int	    getTextFontSize() const;
-    QString getTextColor() const;
-    QString getFocusColor() const;
-    QString getBlurColor() const;
+    QString const &     getImagePath() const;
+    QString const &     getText() const;
+    QString const &     getTextFont() const;
+    int                 getTextFontSize() const;
+    QString             getTextColor() const;
+    QString             getFocusColor() const;
+    QString             getBlurColor() const;
 
 private:
     virtual void	initializeFromXml(QDomElement const &);
 
 private:
-    bool _fromXML;
-    bool	_isVisible;
-    float	_opacity;
+    bool    _fromXML;
+    float   _opacity;
     QString _imagePath;
     QString _text;
     QString _textFont;
-    int		_textFontSize;
+    int     _textFontSize;
     QString _textColor;
-    QString	_focusColor;
+    QString _focusColor;
     QString _blurColor;
 };
 

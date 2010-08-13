@@ -21,6 +21,8 @@
 #ifndef LAYER_H
 #define LAYER_H
 
+#include <QProcess>
+
 #include "AbstractScene.h"
 #include "Window.h"
 
@@ -32,9 +34,12 @@ class IAction;
  */
 class Layer : public AbstractScene
 {
+    Q_OBJECT
 public:
     Layer(Ceg::Window const &);
     ~Layer();
+
+    void                setProcess(QProcess *);
 
     virtual QRect	getGeometry() const;
     virtual IAction *	keyPressEvent(int key) ;
@@ -44,9 +49,14 @@ private:
     void		moveVertically() const; // Gere le mouvement vertical
     IAction *		moveHorizontally(); // Gere le mouvement horizontal
 
+private slots:
+    void                on_processError(QProcess::ProcessError error);
+    void                on_processFinished( int exitCode, QProcess::ExitStatus exitStatus );
+
 private:
     Ceg::Window _host; // la fenetre qui est calquee
     IAction *	_menuAction; // Correspond a l'action retourne lorsque l'utilisateur sort du calque
+    QProcess *  _process; // Le process correspondant au programme lance
 };
 
 #endif // LAYER_H

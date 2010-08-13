@@ -29,12 +29,12 @@
 /************************************************* [ CTOR/DTOR ] *************************************************/
 
 BoxStyle::BoxStyle()
-    : _fromXML(false), _isVisible(true), _opacity(0.5), _imagePath(""), _text(""), _textFont("Arial"), _textFontSize(20), _textColor("black"),  _focusColor("yellow"), _blurColor("black")
+    : _fromXML(false), _opacity(0.5), _imagePath(""), _text(""), _textFont("Arial"), _textFontSize(20), _textColor("black"),  _focusColor("yellow"), _blurColor("black")
 {
 }
 
 BoxStyle::BoxStyle(QDomElement const & styleElement)
-    : _fromXML(true), _isVisible(true), _opacity(0.5), _imagePath(""), _text(""), _textFont("Arial"), _textFontSize(20), _textColor("black"),  _focusColor("yellow"), _blurColor("black")
+    : _fromXML(true), _opacity(0.5), _imagePath(""), _text(""), _textFont("Arial"), _textFontSize(20), _textColor("black"),  _focusColor("yellow"), _blurColor("black")
 {
     this->initializeFromXml(styleElement);
 }
@@ -61,9 +61,6 @@ void BoxStyle::initializeFromXml(QDomElement const & styleElement)
     //-----------------------------------------------------------------------------
     // Now we are overwritten the parameters with the values coming from XML.
     //-----------------------------------------------------------------------------
-
-    if (styleElement.hasAttribute("visible"))
-        this->_isVisible = styleElement.attribute("visible").toUInt();
 
     if (styleElement.hasAttribute("opacity"))
         this->_opacity = styleElement.attribute("opacity").toFloat();
@@ -99,18 +96,13 @@ void BoxStyle::initializeFromXml(QDomElement const & styleElement)
 
 /************************************************* [ GETTERS ] *************************************************/
 
-bool BoxStyle::isVisible() const
-{
-    return (this->_isVisible);
-}
-
 float BoxStyle::getOpacity() const
 {
     if ( ! this->_fromXML )
-	{
-	    QSettings settings;
-	    return settings.value("color/opacity").toFloat();
-	}
+    {
+        QSettings settings;
+        return settings.value("color/opacity").toFloat();
+    }
 
     return this->_opacity;
 }
@@ -138,10 +130,10 @@ int BoxStyle::getTextFontSize() const
 QString BoxStyle::getTextColor() const
 {
     if ( ! this->_fromXML )
-	{
-	    QSettings settings;
-	    return settings.value("color/text").toString();
-	}
+    {
+        QSettings settings;
+        return settings.value("color/text").toString();
+    }
 
     return this->_textColor;
 }
@@ -149,10 +141,10 @@ QString BoxStyle::getTextColor() const
 QString BoxStyle::getFocusColor() const
 {
     if ( ! this->_fromXML )
-	{
-	    QSettings settings;
-	    return settings.value("color/focus").toString();
-	}
+    {
+        QSettings settings;
+        return settings.value("color/focus").toString();
+    }
 
     return this->_focusColor;
 }
@@ -160,10 +152,10 @@ QString BoxStyle::getFocusColor() const
 QString BoxStyle::getBlurColor() const
 {
     if ( ! this->_fromXML )
-	{
-	    QSettings settings;
-	    return settings.value("color/blur").toString();
-	}
+    {
+        QSettings settings;
+        return settings.value("color/blur").toString();
+    }
 
     return this->_blurColor;
 }

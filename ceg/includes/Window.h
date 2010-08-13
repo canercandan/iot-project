@@ -65,7 +65,7 @@ namespace Ceg
     {
     public:
 	Window();
-	Window(WindowId, QRect const &, bool = false, std::string const & = "");
+        Window(WindowId, QRect const &, std::string const & = "");
 
 	QRect const &	    getGeometry() const;
 	WindowId	    getId() const;
@@ -78,7 +78,6 @@ namespace Ceg
 	std::string _programName; // le nom du programme de la fenetre espionnee
 	WindowId    _id;
 	QRect	    _geometry; // La taille de la fenetre
-	bool	    _isVisible; // La visibilite de la fenetre
     };
 }
 

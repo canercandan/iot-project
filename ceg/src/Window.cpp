@@ -27,13 +27,13 @@ namespace Ceg
     /************************************************* [ CTOR/DTOR ] *************************************************/
 
     Window::Window() :
-	    _programName(), _id(0), _geometry(), _isVisible(false)
+            _programName(), _id(0), _geometry()
     {
 
     }
 
-    Window::Window(WindowId windowId, QRect const & windoInfo, bool visibility, std::string const & programName) :
-	    _programName(programName), _id(windowId), _geometry(windoInfo), _isVisible(visibility)
+    Window::Window(WindowId windowId, QRect const & windoInfo, std::string const & programName) :
+            _programName(programName), _id(windowId), _geometry(windoInfo)
     {
     }
 

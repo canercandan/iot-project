@@ -21,19 +21,22 @@
 /*********************************/
 #include <iostream>
 /*********************************/
+#include <QDebug>
+/*********************************/
 #include "AbstractItem.h"
 /*********************************/
 #include "Layer.h"
-/*********************************/
+/****************** ***************/
 #include "Box.h"
 #include "PopMenuAction.h"
-/*********************************/
 #include "Logger.h"
+/*********************************/
+
 
 /************************************************* [ CTOR/DTOR ] *************************************************/
 
 Layer::Layer(Ceg::Window const & hostWindow) :
-	AbstractScene(0), _host(hostWindow), _menuAction(0)
+        AbstractScene(0), _host(hostWindow), _menuAction(0), _process(0)
 {
 }
 
@@ -41,6 +44,15 @@ Layer::~Layer()
 {
     std::cerr << "Layer::~Layer()" << std::endl;
     delete this->_menuAction;
+    if (this->_process != 0)
+    {
+        this->_process->terminate();
+        if (this->_process->waitForFinished() == false)
+        {
+            std::cerr << "Impossible de terminer le programme - Attention" << std::endl;
+        }
+        delete this->_process;
+    }
 }
 
 /************************************************* [ GETTERS ] *************************************************/
@@ -48,6 +60,23 @@ Layer::~Layer()
 QRect  Layer::getGeometry() const
 {
     return (this->_host.getGeometry());
+}
+
+void    Layer::setProcess(QProcess * process)
+{
+    this->_process = process;
+    QObject::connect(this->_process, SIGNAL(error(QProcess::ProcessError)), this, SLOT(on_processError(QProcess::ProcessError)));
+    QObject::connect(this->_process, SIGNAL(finished(int,QProcess::ExitStatus)), this, SLOT(on_processFinished(int,QProcess::ExitStatus)));
+}
+
+void    Layer::on_processError(QProcess::ProcessError error)
+{
+    qDebug() << "FUCK FUCK FUCK = " << error;
+}
+
+void    Layer::on_processFinished(int exitCode, QProcess::ExitStatus exitStatus)
+{
+    qDebug() << "Finish FUCK FUCK FUCK = " << exitCode;
 }
 
 /************************************************* [ OTHERS ] *************************************************/
