@@ -134,31 +134,28 @@ void MainController::on_stop_navigation()
     this->_view.hide();
 }
 
-void MainController::pushFrontScene(AbstractScene *scene)
+void MainController::pushFrontScene(AbstractScene *scene, bool hideAndShow /* = false */)
 {
     this->_scenes.remove(scene); // Lorsqu'on effectue un zoom, cela evite d'avoir a deplacer la scene, on remove et au insert au depart
     this->_scenes.push_front(scene);
     this->_currentScene = this->_scenes.begin();
-    //this->_view.hide();
+    if (hideAndShow == true)
+        this->_view.hide();
     this->_view.setScene(*(this->_currentScene));
-	this->_view.activateWindow();
-    //this->_view.show();
-    //this->_view.setFocus();
+    this->_view.activateWindow();
+    if (hideAndShow == true)
+        this->_view.show();
 }
 
 void MainController::popFrontScene()
 {
-    //QMessageBox::about(0, "title", "POP front scene"); // Debug
     AbstractScene const * oldCurrentScene = *(this->_currentScene);
     this->_scenes.pop_front();
     if (this->_scenes.empty() == false)
     {
 	this->_currentScene = this->_scenes.begin();
-	//this->_view.hide();
 	this->_view.setScene(*(this->_currentScene));
-	(*this->_currentScene)->resetFocusItem();
-	//this->_view.show();
-	//this->_view.setFocus();
+        //(*this->_currentScene)->resetFocusItem();
     }
     delete oldCurrentScene;
 }

@@ -53,7 +53,7 @@ public:
     View &				getView();
 
     AbstractScene *			createScene(Ceg::Window const & window);
-    void				pushFrontScene(AbstractScene * scene); // Rajoute la scnene au debut des scenes et rafraichi la vue
+    void				pushFrontScene(AbstractScene * scene, bool hideAndShow = false); // Rajoute la scnene au debut des scenes et rafraichi la vue
     void				popFrontScene(); // Supprime la scene du debut et rafraichi la vue
 
 public slots:

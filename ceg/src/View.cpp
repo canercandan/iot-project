@@ -60,21 +60,15 @@ void	View::initialize()
     this->setGeometry(as->getGeometry());
     this->setCacheMode(QGraphicsView::CacheNone);
 
-    //-----------------------------------------------------------------------------
-    // Remove the title bar
-    //-----------------------------------------------------------------------------
-
-	// FramelessWindowHint : retire les bordures de la widget
-    // CustomizeWindowHint :
+    // FramelessWindowHint : retire les bordures de la widget
     // WindowStaysOnTopHint : la fenetre reste au top niveau
-	this->setWindowFlags(Qt::CustomizeWindowHint | Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint);
-	//this->setAttribute(Qt::WA_TranslucentBackground);
+    this->setWindowFlags(Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint);
+    //this->setAttribute(Qt::WA_TranslucentBackground);
     //-----------------------------------------------------------------------------
 
     this->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     this->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     this->setWindowState(Qt::WindowFullScreen);
-
 
     //-----------------------------------------------------------------------------
     // Desactive les interactions (clic) sur la vue
@@ -82,8 +76,7 @@ void	View::initialize()
 
     this->setInteractive(false);
 
-	this->activateWindow();
-    //-----------------------------------------------------------------------------
+    this->activateWindow();
 }
 
 void	View::keyPressEvent(QKeyEvent* keyEvent)

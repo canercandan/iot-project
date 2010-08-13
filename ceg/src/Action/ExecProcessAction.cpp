@@ -29,8 +29,8 @@
 /*********************************/
 #include "MainController.h"
 #include "Utils.h"
-/*********************************/
 #include "Logger.h"
+/*********************************/
 
 #if defined(Q_OS_UNIX)
 static const QString osName("unix");
@@ -46,7 +46,7 @@ char const * ExecProcessAction::IDENTIFIER = "ExecProcess";
 
 ExecProcessAction::ExecProcessAction(const QDomElement & actionElement) : _path(""), _pathFinder(""), _arguments(""), _hideTime(2000)
 {
-   Logger::getInstance()->log(DEBUG_LOG, "ExecProcessAction::ExecProcessAction(const QDomElement & actionElement)");
+    Logger::getInstance()->log(DEBUG_LOG, "ExecProcessAction::ExecProcessAction(const QDomElement & actionElement)");
     this->initializeFromXml(actionElement);
 }
 
@@ -114,7 +114,7 @@ void	ExecProcessAction::exec(MainController & mainC)
     QString msg;
     QTextStream tmp(&msg);
 
-   Logger::getInstance()->log(DEBUG_LOG, "ExecProcessAction::exec");
+    Logger::getInstance()->log(DEBUG_LOG, "ExecProcessAction::exec");
 
     if ( ! this->_pathFinder.isEmpty() )
     {
@@ -129,7 +129,7 @@ void	ExecProcessAction::exec(MainController & mainC)
 
 	if ( ! finder.waitForFinished() )
 	{
-           Logger::getInstance()->log(DEBUG_LOG, "Finder command meets some issues to finish.");
+            Logger::getInstance()->log(DEBUG_LOG, "Finder command meets some issues to finish.");
 	    return;
 	}
 
@@ -153,12 +153,12 @@ void	ExecProcessAction::exec(MainController & mainC)
     }
 
     tmp << "We are going to execute" << this->_path;
-   Logger::getInstance()->log(DEBUG_LOG, msg);
+    Logger::getInstance()->log(DEBUG_LOG, msg);
 
     QProcess* process = new QProcess( &mainC );
     process->start( this->_path + " " + this->_arguments );
 
-    if ( ! process->waitForStarted() )
+    if (process->waitForStarted() == false)
     {
         Logger::getInstance()->log(DEBUG_LOG, "Program command doesn't work.");
 	return;
@@ -166,11 +166,11 @@ void	ExecProcessAction::exec(MainController & mainC)
 
     if (this->_hideTime > 0)
     {
-	 SleeperThread::msleep(this->_hideTime);
+        SleeperThread::msleep(this->_hideTime);
     }
 
     Ceg::Window defaultWindow(0, QApplication::desktop()->geometry(), true, "42");
-    mainC.pushFrontScene(mainC.createScene(defaultWindow));
+    mainC.pushFrontScene(mainC.createScene(defaultWindow), true);
 }
 
 /************************************************* [ OTHERS ] *************************************************/

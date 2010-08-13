@@ -51,10 +51,16 @@ void ClickAction::initializeFromXml(const QDomElement & domElement)
 
 /************************************************* [ OTHERS ] *************************************************/
 
-void	ClickAction::exec(MainController & lm)
+void	ClickAction::exec(MainController & mainC)
 {
     Logger::getInstance()->log(DEBUG_LOG, "ClickAction::exec");
-    AbstractItem const * ai = lm.getSceneAt(static_cast<size_t>(2))->getCurrentItem();
+    /*
+    Explication pour la position, quand on est mode custom, l'action est lancee depuis la scene courante, dans le cas du
+       mode par defaut, les actions sont lancees depuis les menus et ce sont les menus qui sont en scene courante
+       */
+    size_t position = (mainC.getCurrentScene()->getType() == CUSTOM_BOX) ? 1 : 2;
+    AbstractScene * scene = mainC.getSceneAt(position);
+    AbstractItem const * ai = scene->getCurrentItem();
     Box const *	ab = ai->getBox();
 
     if (ab == 0)
@@ -62,7 +68,7 @@ void	ClickAction::exec(MainController & lm)
 
     QCursor::setPos(ab->getGeometry().center());
 
-    lm.getView().hide();
+    mainC.getView().hide();
 
     switch (this->_type)
     {
@@ -70,7 +76,7 @@ void	ClickAction::exec(MainController & lm)
     case MiddleClick:
     case RightClick:
     case LeftDbClick:
-	lm.getComGs()->generateClickEvent(this->_type);
+        mainC.getComGs()->generateClickEvent(this->_type);
 	break;
 #ifndef _WIN32
 #warning "Attention code a modifier sur linux (dans la methode qui click: voir YANN)"
@@ -86,7 +92,7 @@ void	ClickAction::exec(MainController & lm)
 
     SleeperThread::msleep(1000);
 
-    lm.getView().show();
+    mainC.getView().show();
 }
 
 /************************************************* [ OTHERS ] *************************************************/
