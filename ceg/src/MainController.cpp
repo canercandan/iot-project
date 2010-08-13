@@ -139,12 +139,19 @@ void MainController::pushFrontScene(AbstractScene *scene, bool hideAndShow /* = 
     this->_scenes.remove(scene); // Lorsqu'on effectue un zoom, cela evite d'avoir a deplacer la scene, on remove et au insert au depart
     this->_scenes.push_front(scene);
     this->_currentScene = this->_scenes.begin();
+    /* Explication des conditions suivantes :
+       Lorsqu'on est sur Linux, mac, quand on demarre un programme, notre fenetre reste au top mais perd le focus, de faire le hide and show permet de le conserver
+       */
+#if defined(Q_WS_X11) || defined(Q_WS_MAC)
     if (hideAndShow == true)
         this->_view.hide();
+#endif
     this->_view.setScene(*(this->_currentScene));
     this->_view.activateWindow();
+#if defined(Q_WS_X11) || defined(Q_WS_MAC)
     if (hideAndShow == true)
         this->_view.show();
+#endif
 }
 
 void MainController::popFrontScene()
@@ -155,7 +162,6 @@ void MainController::popFrontScene()
     {
 	this->_currentScene = this->_scenes.begin();
 	this->_view.setScene(*(this->_currentScene));
-        //(*this->_currentScene)->resetFocusItem();
     }
     delete oldCurrentScene;
 }

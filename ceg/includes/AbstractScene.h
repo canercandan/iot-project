@@ -52,15 +52,12 @@ public:
     BoxType                 getType() const;
 
     virtual IAction *	    keyPressEvent(int key) = 0;
-    void                    saveFocusItem(); // Du au bug de QT
-    void                    resetFocusItem(); // Du au bug de QT
 
 private:
     void		    clearScene(); // Vide la scene et supprimer les elements
 
 protected:
     BoxType     _type;
-    AbstractItem *  _focusItem; // Du au bug de QT
 };
 
 #endif // ABSTRACTSCENE_H

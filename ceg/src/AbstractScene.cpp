@@ -35,7 +35,7 @@
 /************************************************* [ CTOR/DTOR ] *************************************************/
 
 AbstractScene::AbstractScene(QObject * parent /* = 0 */) :
-	QGraphicsScene(parent), _type(DEFAULT_BOX), _focusItem(0)
+        QGraphicsScene(parent), _type(DEFAULT_BOX)
 {
 }
 
@@ -48,7 +48,6 @@ AbstractScene::~AbstractScene()
 
 AbstractItem const *	AbstractScene::getCurrentItem() const
 {
-    //   return (this->_focusItem);
     return (static_cast<AbstractItem *>(this->focusItem()));
 }
 
@@ -83,21 +82,5 @@ void AbstractScene::initialize(std::list<QGraphicsRectItem *> const & sceneItems
     Logger::getInstance()->log(INFO_LOG, msg);
     this->clearScene();
     std::for_each(sceneItems.rbegin(), sceneItems.rend(), std::bind1st(std::mem_fun(&QGraphicsScene::addItem), this));
-    //sceneItems.front()->setFocus();
-    QList<QGraphicsItem *> items = this->items();
-    qDebug() << "Avant : " << this->focusItem();
-    this->setFocusItem(items.front());
-    qDebug() << "Apres : " << this->focusItem();
-    this->saveFocusItem();
-}
-
-void AbstractScene::saveFocusItem()
-{
-    if (this->focusItem() != 0)
-	this->_focusItem = static_cast<AbstractItem *>(this->focusItem());
-}
-
-void AbstractScene::resetFocusItem()
-{
-    this->_focusItem->setFocus();
+    this->setFocusItem(this->items().front());
 }

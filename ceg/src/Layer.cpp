@@ -76,7 +76,6 @@ IAction * Layer::keyPressEvent(int key)
     case Qt::Key_Up :
     case Qt::Key_Down :
 	this->moveVertically();
-	this->saveFocusItem();
 	break;
     default:
 	break;
@@ -139,7 +138,6 @@ IAction *	Layer::moveHorizontally()
     }
     it += index;
     (*it)->setFocus();
-    this->saveFocusItem();
     if (focusItem->boundingRect().x() > (*it)->boundingRect().x() || printMenu)
     {
 	return (this->_menuAction);

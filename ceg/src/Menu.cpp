@@ -112,7 +112,6 @@ void	Menu::moveVertically()
 	it += index;
 	(*it)->setFocus();
     }
-    this->saveFocusItem();
 }
 
 void	Menu::moveHorizontally()
@@ -126,5 +125,4 @@ void	Menu::moveHorizontally()
     }
     QList<QGraphicsItem *>::const_iterator it = items.begin() + index;
     (*it)->setFocus();
-    this->saveFocusItem();
 }
