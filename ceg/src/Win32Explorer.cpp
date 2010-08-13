@@ -186,9 +186,9 @@ BOOL	Win32Explorer::fillWindowList(HWND hWnd)
     if (GetWindowInfo(hWnd, &winInfo))
     {
 	QRect loadInfo(winInfo.rcClient.left, winInfo.rcClient.top, winInfo.rcClient.right, winInfo.rcClient.bottom);
-	Ceg::Window newWindow(hWnd, loadInfo, true);
-        tmp << "Pos left: " << winInfo.rcClient.left << endl << "Pos TOP : " << winInfo.rcClient.top;
-        tmp << "Pos Bottom : " << winInfo.rcClient.bottom << endl << "Pos right : " << winInfo.rcClient.right;
+	Ceg::Window newWindow(hWnd, loadInfo);
+//        tmp << "Pos left: " << winInfo.rcClient.left << endl << "Pos TOP : " << winInfo.rcClient.top;
+ //       tmp << "Pos Bottom : " << winInfo.rcClient.bottom << endl << "Pos right : " << winInfo.rcClient.right;
         Logger::getInstance()->log(DEBUG_LOG, msg);
 	this->_windowList->push_back(newWindow);
         msg = "";

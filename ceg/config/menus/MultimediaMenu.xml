@@ -12,7 +12,7 @@
 	      arguments="http://www.ionlythink.com"
 	      />
     </action>
-    <style opacity="1" text="Internet" imagePath=":images/menu/internet.png"/>
+    <style opacity="1" text="Internet" imagePath=":images/menu/internet.png" rounded="true"/>
   </box>
 
   <box type="2" x="750" y="202" height="100" width="300">
@@ -22,11 +22,11 @@
 	      win:path="C:\Program Files\Mozilla Firefox\Outlook.exe"
 	      />
     </action>
-    <style opacity="1" text="Mail" fr:text="Courrier" imagePath=":images/menu/mail.png" />
+    <style opacity="1" text="Mail" fr:text="Courrier" imagePath=":images/menu/mail.png" rounded="true" />
   </box>
 
   <box type="2" x="750" y="303" height="100" width="300">
-    <style opacity="1" text="Applications Bookmarks" fr:text="Applications Favorites" imagePath=":images/menu/bookmark.png"/>
+    <style opacity="1" text="Applications Bookmarks" fr:text="Applications Favorites" imagePath=":images/menu/bookmark.png" rounded="true"/>
   </box>
 
   <box type="2" x="750" y="404" height="100" width="300">
@@ -47,7 +47,7 @@
 	      arguments="http://www.youtube.com"
 	      />
     </action>
-    <style opacity="1" text="Youtube" imagePath=":images/menu/youtube.png" rounded="true" />
+    <style opacity="1" text="Youtube" imagePath=":images/menu/youtube.png" rounded="true" rounded="true" />
   </box>
 
   <box type="2" x="750" y="606" height="100" width="300">
