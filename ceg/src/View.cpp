@@ -64,20 +64,12 @@ void	View::initialize()
     // Remove the title bar
     //-----------------------------------------------------------------------------
 
-    this->setWindowFlags(Qt::CustomizeWindowHint | Qt::FramelessWindowHint);
-
+	// FramelessWindowHint : retire les bordures de la widget
+    // CustomizeWindowHint :
+    // WindowStaysOnTopHint : la fenetre reste au top niveau
+	this->setWindowFlags(Qt::CustomizeWindowHint | Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint);
+	//this->setAttribute(Qt::WA_TranslucentBackground);
     //-----------------------------------------------------------------------------
-
-
-    //-----------------------------------------------------------------------------
-    // The following line allows to keep scene view on top.
-    // At this time it is not needed, perhaps in the future!
-    //-----------------------------------------------------------------------------
-
-    //this->setWindowFlags(this->windowFlags() | Qt::WindowStaysOnTopHint);
-
-    //-----------------------------------------------------------------------------
-
 
     this->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     this->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
@@ -90,6 +82,7 @@ void	View::initialize()
 
     this->setInteractive(false);
 
+	this->activateWindow();
     //-----------------------------------------------------------------------------
 }
 

@@ -141,6 +141,7 @@ void MainController::pushFrontScene(AbstractScene *scene)
     this->_currentScene = this->_scenes.begin();
     //this->_view.hide();
     this->_view.setScene(*(this->_currentScene));
+	this->_view.activateWindow();
     //this->_view.show();
     //this->_view.setFocus();
 }

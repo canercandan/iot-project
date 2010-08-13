@@ -93,7 +93,7 @@ void Systray::on__startAction_triggered()
     QString content;
     if (this->_startAction->text() == tr("Start"))
     {
-	QMessageBox::information(this, tr("Commandes"), tr("Left | Right arrow = Horizontal Move\nUp | Down Arrow = Vertical move\nEnter = Validate\nAlt + F4 = Quit"));
+	//QMessageBox::information(this, tr("Commandes"), tr("Left | Right arrow = Horizontal Move\nUp | Down Arrow = Vertical move\nEnter = Validate\nAlt + F4 = Quit"));
 	emit navigationStarted();
 	content = tr("Stop");
     }

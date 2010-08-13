@@ -166,7 +166,7 @@ void	ExecProcessAction::exec(MainController & mainC)
 
     if (this->_hideTime > 0)
     {
-	SleeperThread::msleep(this->_hideTime);
+	 SleeperThread::msleep(this->_hideTime);
     }
 
     Ceg::Window defaultWindow(0, QApplication::desktop()->geometry(), true, "42");

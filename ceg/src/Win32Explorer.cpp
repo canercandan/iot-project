@@ -46,7 +46,7 @@ bool	Win32Explorer::getWindows(std::list<Ceg::Window> & windowList)
     //boost::bind(&Win32Explorer::fillWindowList, this);
     //EnumWindows((&Win32Explorer::fillWindowList), NULL);
 
-    Logger::getInstance()->log(DEBUG_LOG, GetForegroundWindow();
+    Logger::getInstance()->log(DEBUG_LOG, "GetForegroundWindow()");
 
     this->_windowList = &windowList;
 
@@ -80,8 +80,8 @@ bool	Win32Explorer::getFocusedWindow(Ceg::Window & oneWindow)
     {
 	QRect loadInfo(winInfo.rcClient.left, winInfo.rcClient.top, winInfo.rcClient.right, winInfo.rcClient.bottom);
 	oneWindow.setGeometry(loadInfo);
-        tmp << "Pos left: " << winInfo.rcClient.left << std::endl << "Pos TOP : " << winInfo.rcClient.top << std::endl;
-        tmp << "Pos Bottom : " << winInfo.rcClient.bottom << std::endl	<< "Pos right : " << winInfo.rcClient.right << std::endl;
+//        tmp << "Pos left: " << winInfo.rcClient.left << std::endl << "Pos TOP : " << winInfo.rcClient.top << std::endl;
+//        tmp << "Pos Bottom : " << winInfo.rcClient.bottom << std::endl	<< "Pos right : " << winInfo.rcClient.right << std::endl;
         Logger::getInstance()->log(DEBUG_LOG, msg);
         msg = "";
     }
@@ -161,7 +161,7 @@ bool	Win32Explorer::generateClickEvent(short int buttonID)
 BOOL	Win32Explorer::fillWindowList(HWND hWnd)
 {
     QString msg;
-    QTextStream tmp(&smg);
+    QTextStream tmp(&msg);
 
     DWORD dwThreadId, dwProcessId;
     char windowTitle[255];
