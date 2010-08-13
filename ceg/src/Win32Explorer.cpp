@@ -137,6 +137,7 @@ bool	Win32Explorer::generateClickEvent(short int buttonID)
 	case ClickAction::LeftClick:
 		mouse_event(MOUSEEVENTF_LEFTDOWN,0,0,0,0);
 		mouse_event(MOUSEEVENTF_LEFTUP,0,0,0,0);
+		this->generateKeybdEvent('J');
 		break;
 	case ClickAction::MiddleClick:
 		mouse_event(MOUSEEVENTF_MIDDLEDOWN,0,0,0,0);
@@ -156,6 +157,13 @@ bool	Win32Explorer::generateClickEvent(short int buttonID)
 		break;
 	}
     return (true);
+}
+
+bool Win32Explorer::generateKeybdEvent(unsigned char key)
+{
+	keybd_event(key, VkKeyScan(key), KEYEVENTF_EXTENDEDKEY | 0, 0);
+	keybd_event(key, VkKeyScan(key), KEYEVENTF_EXTENDEDKEY | KEYEVENTF_KEYUP, 0);
+	return (true);
 }
 
 BOOL	Win32Explorer::fillWindowList(HWND hWnd)

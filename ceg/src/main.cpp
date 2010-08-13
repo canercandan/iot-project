@@ -37,7 +37,7 @@ static void createSettingFile()
 {
     QSettings settings;
 
-    settings.beginGroup("general");
+	settings.beginGroup("general");
 
     if (settings.value("language").toString() == "")
 	settings.setValue("language", "en_US");

@@ -50,6 +50,7 @@ public:
     virtual bool    setFocusToWindow(Ceg::Window & oldFocusedWindow, Ceg::Window & newFocusedWindow);
     virtual bool    refreshWindowInfo(Ceg::Window &);
     virtual bool    generateClickEvent(short int buttonID);
+	virtual bool	generateKeybdEvent(unsigned char key);
 
 private:
     char	    printIndent(unsigned int) const;

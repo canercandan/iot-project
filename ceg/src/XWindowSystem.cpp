@@ -199,6 +199,12 @@ bool XWindowSystem::generateClickEvent(short int buttonID)
     return (true);
 }
 
+bool XWindowSystem::generateKeybdEvent(unsigned char key)
+{
+	// generer un bouton de clavier
+	return (true);
+}
+
 void XWindowSystem::printRecurse(::Window currentWindow, unsigned int level) const
 {
     ::Window rootReturn, parentReturn;
