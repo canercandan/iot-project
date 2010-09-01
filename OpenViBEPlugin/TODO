@@ -1,8 +1,7 @@
--------------------------------------------------- PLUGIN VNC --------------------------------------------------------------------------
+En cours par Yavuz et Yann
 
-- etudier le protocole RFB : si CHRIS  a fait le parser il pourra facilement contribuer sur cette partie
-- Communication Reseau
-- Creation des requetes RFB
-- Creation de l'UML et proposition a yann renard (YAVUZ + YANN)
-- Implementation de l'UML.
+Yavuz:
+Partie RFB - requete
 
+Yann:
+Integration dans openvibe + reseau

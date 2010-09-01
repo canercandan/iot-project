@@ -1,8 +1,7 @@
 ------------------------------------------------------ ? ----------------------------------------------------------------------
 - Choix de mettre le menu vraiment opaque!
-- Creation du clavier virtuel +  faire des test de simulation de touches et trouver la meilleure methode a utiliser. (?)
-- Faire le mode switch
-_ Faire des test sur kde et d'autres environement graphique
+- Faire le mode switch (voir si le set de focus sur une fenetre est possible)
+- Faire des test sur kde et d'autres environement graphique
 
 -------------------------------------------------- Reminder chris --------------------------------------------------------------------------
 - delete tous les qDebug()
@@ -10,24 +9,23 @@ _ Faire des test sur kde et d'autres environement graphique
 - rajouter deux slots en public :  on_start_navigation et on_stop_navigation
 - renommer CEgTcpServer en NetworkServer et le nom de fichier aussi
 - maj Doxygen
-- module OpenViBe
-- parsing (rfb)
 
 -------------------------------------------------- Reminder Yann --------------------------------------------------------------------------
-- Terminer le communication avec le serveur Graphique sur Linux - pas forcement utile a etudier
-- revoir le management des listes dans le boxcontroler (new les listes)
-- bien gerer les process, rajouter des slots en cas de fermeture, fermeture des process a la fin du programme
-- revoir le management des menus pour eviter de newer a chaque fois
 
-Faire deux list dans le main controller une pour les menus et une pour les layers
-rajouter methode reset focus item pour les menus
-Rajouter la possibilite de quitter un programme
+- Faire deux list dans le main controller une pour les menus et une pour les layers
+- rajouter methode reset focus item pour les menus
+- bien gerer les process, rajouter des slots en cas de fermeture, fermeture des process a la fin du programme + Rajouter la possibilite de quitter un programme
+- revoir le management des menus pour eviter de newer a chaque fois
+- revoir le management des listes dans le boxcontroler (new les listes)
 
 -------------------------------------------------- Reminder Caner --------------------------------------------------------------------------
 - faire les xsd - QtValidator
 - Rajout le code neccessaire pour gerer toutes les possibilite sur les box: rendre le code plus propre dans la methode paint de abstractitem
 - voir avec yavuz, si le nb de square ne gene pas pour le recalcule en mode par defaut
+- faire la gestion des inputs clavier sur linux
+- voir la gestion des focus sur les fenetres (demande a yann)
 
 -------------------------------------------------- Reminder Yavuz --------------------------------------------------------------------------
 - Finir de faire des menus propres ! rajouter des couleurs pour le fond par exemple
 - Terminer le communication avec le serveur Graphique sur Windows
+- Finir le menu clavier
