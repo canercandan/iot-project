@@ -38,7 +38,7 @@ OpenViBE::CString			CVncBoxDesc::getDetailedDescription(void) const
 
 OpenViBE::CString			CVncBoxDesc::getCategory(void) const
 {
-  return ("vnc");
+  return ("vnc"); // Cree ton une nouvelle categorie ?
 }
 
 OpenViBE::CString			CVncBoxDesc::getVersion(void) const
@@ -48,12 +48,12 @@ OpenViBE::CString			CVncBoxDesc::getVersion(void) const
 
 OpenViBE::CString			CVncBoxDesc::getStockItemName(void) const
 {
-  return ("");
+  return (""); // Ca correspond  a quoi ca?
 }
 
 OpenViBE::CIdentifier		CVncBoxDesc::getCreatedClass(void) const
 {
-  return (0);
+  return (0); // Qui choisis cet identifier
 }
 
 OpenViBE::Plugins::IPluginObject* CVncBoxDesc::create(void)
@@ -63,5 +63,15 @@ OpenViBE::Plugins::IPluginObject* CVncBoxDesc::create(void)
 
 OpenViBE::boolean			CVncBoxDesc::getBoxPrototype(OpenViBE::Kernel::IBoxProto& rBoxAlgorithmPrototype) const
 {
+  rBoxAlgorithmPrototype.addInput("Labels",  OV_TypeId_Stimulations); // C'est l'output provenant du Classifier processor
+
+  rBoxAlgorithmPrototype.addSetting("Host", OV_TypeId_String, "localhost");
+  rBoxAlgorithmPrototype.addSetting("Port", OV_TypeId_Integer, 5900); // Mettre un define pour ca
+  rBoxAlgorithmPrototype.addSetting("Active Secure Connection", OV_TypeId_Boolean,    false);
+  rBoxAlgorithmPrototype.addSetting("Username", OV_TypeId_String, "");
+  rBoxAlgorithmPrototype.addSetting("Password", OV_TypeId_String, "");
+  rBoxAlgorithmPrototype.addSetting("Mouse move distance", OV_TypeId_Integer, 1); // La distance pour faire bouger la souris
+  // Voir avec Yann renard si on fait le mouvement ds un fichier ou ds les settings direct
+  rBoxAlgorithmPrototype.addFlag(OpenViBE::Kernel::BoxFlag_IsUnstable);
   return (true);
 }
