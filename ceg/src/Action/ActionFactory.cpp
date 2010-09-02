@@ -32,16 +32,16 @@
 
 std::map<std::string, ActionFactory::ActionInstantiator> ActionFactory::_instanciators;
 
-IAction *	ActionFactory::create(QDomElement const & actionElelement)
+IAction *	ActionFactory::create(QDomElement const & actionElement)
 {
-    std::string const & id = actionElelement.attribute("id").toStdString();
+    std::string const & id = actionElement.attribute("id").toStdString();
     QString msg;
     QTextStream tmp(&msg);
     tmp << "Demande d' instance de type: " << id.c_str();
     Logger::getInstance()->log(INFO_LOG, msg);
 
     std::map<std::string, ActionInstantiator>::const_iterator itFind = ActionFactory::_instanciators.find(id);
-    return (itFind != ActionFactory::_instanciators.end() ? (itFind->second)(actionElelement) : 0);
+    return (itFind != ActionFactory::_instanciators.end() ? (itFind->second)(actionElement) : 0);
 }
 
 /************************************************* [ OTHERS ] *************************************************/
