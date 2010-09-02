@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Name=IOT Graphical Environment Control
+Comment=Control your machine in thinking
+Exec=ceg %U
+Icon=ceg
+Terminal=false
+Type=Application
+Categories=Education;Science;Development;
