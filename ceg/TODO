@@ -3,6 +3,7 @@
 - Faire le mode switch (voir si le set de focus sur une fenetre est possible)
 - Faire des test sur kde et d'autres environement graphique
 - Voir pour les zones Expendable & non Expendable ! (pour qu'ils soient ajuster a toutes resolutions)
+- traduction des xml pour les menus
 
 -------------------------------------------------- Reminder chris --------------------------------------------------------------------------
 - delete tous les qDebug()
