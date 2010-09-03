@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+
+<boxes >
+  <box width="150" opacity="1" x="0" y="0" image="" height="344" visible="0" type="CUSTOM|MENUITEM|DEFAULT" text="" colorOnFocus="" colorOnBlur="" textFont=""> <!-- parsing in Box -->
+    <action id="Click" type="1"> <!-- parsing in ClickAction -->
+      <param value="#FFFFFF" name="bgcolor" />
+      <param value="#000000" name="fgcolor" />
+    </action>
+    <children>
+      <box/>
+      <box/>
+    </children>
+  </box>
+  <box width="250" opacity="5" x="0" y="0" image="" height="300" actionid="DbClick" visible="1" type="0" text="" >
+    <param value="500" name="speed" />
+  </box>
+</boxes>
