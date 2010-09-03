@@ -2,6 +2,7 @@
 - Choix de mettre le menu vraiment opaque!
 - Faire le mode switch (voir si le set de focus sur une fenetre est possible)
 - Faire des test sur kde et d'autres environement graphique
+- Voir pour les zones Expendable & non Expendable ! (pour qu'ils soient ajuster a toutes resolutions)
 
 -------------------------------------------------- Reminder chris --------------------------------------------------------------------------
 - delete tous les qDebug()
@@ -29,3 +30,9 @@
 - Finir de faire des menus propres ! rajouter des couleurs pour le fond par exemple
 - Terminer le communication avec le serveur Graphique sur Windows
 - Finir le menu clavier
+
+
+
+-------------------------------------------------- Reminder BUG --------------------------------------------------------------------------
+
+- Les box CUSTOM sont centrer lorsqu'il ne sont pas repartit verticalement !!!!
