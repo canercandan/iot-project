@@ -166,6 +166,10 @@ IF(WIN32)
     )
 ENDIF()
 
+EXECUTE_PROCESS(COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_SOURCE_DIR}/share ${CMAKE_CURRENT_BINARY_DIR}/)
+
+INSTALL(DIRECTORY share DESTINATION . COMPONENT applications PATTERN ".svn" EXCLUDE)
+
 ######################################################################################
 
 

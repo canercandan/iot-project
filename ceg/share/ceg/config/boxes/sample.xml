@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE XmlBox>
+<boxes id="sample">
+  <box type="1" x="5" y="5" height="100" width="100">
+    <style focusColor="blue" visible="1" />
+    <action id="Zoom" isZoom="1" />
+    <children>
+      <box type="1" x="10" y="10" height="25" width="30">
+	<action id="Zoom" isZoom="0" />
+      </box>
+      <box type="1" x="60" y="60" height="10" width="10">
+	<action id="Zoom" isZoom="0" />
+      </box>
+    </children>
+  </box>
+  <box type="1" x="350" y="489" height="75" width="250">
+    <action id="Zoom" isZoom="1" />
+    <style visible="1" opacity="0.5" imagePath="logo.png" text="Un super texte" font="Arial Black" fontSize="20" textColor="blue" focusColor="red" blurColor="orange"/>
+    <children>
+      <box type="1" x="351" y="490" height="25" width="30">
+	<action id="Click" type="1"/>
+      </box>
+    </children>
+  </box>
+  <box type="1" x="1000" y="489" height="354" width="250">
+    <style focusColor="orange" text="Hello World TOTO Fdfsdg!" fontSize="20" font="Arial"/>
+    <action id="Zoom" isZoom="1" />
+  </box>
+  <box type="1" x="350" y="700" height="150" width="250">
+    <style focusColor="purple" text="Tata TOTOTTOFDFSD"/>
+    <action id="Zoom" isZoom="1" />
+  </box>
+</boxes>
