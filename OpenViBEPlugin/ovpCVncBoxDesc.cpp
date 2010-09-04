@@ -65,13 +65,16 @@ OpenViBE::boolean			CVncBoxDesc::getBoxPrototype(OpenViBE::Kernel::IBoxProto& rB
 {
   rBoxAlgorithmPrototype.addInput("Labels",  OV_TypeId_Stimulations); // C'est l'output provenant du Classifier processor
 
+
   rBoxAlgorithmPrototype.addSetting("Host", OV_TypeId_String, "localhost");
   rBoxAlgorithmPrototype.addSetting("Port", OV_TypeId_Integer, 5900); // Mettre un define pour ca
-  rBoxAlgorithmPrototype.addSetting("Active Secure Connection", OV_TypeId_Boolean,    false);
-  rBoxAlgorithmPrototype.addSetting("Username", OV_TypeId_String, "");
-  rBoxAlgorithmPrototype.addSetting("Password", OV_TypeId_String, "");
+
+  // rBoxAlgorithmPrototype.addSetting("Active Secure Connection", OV_TypeId_Boolean, false);
+  // rBoxAlgorithmPrototype.addSetting("Username", OV_TypeId_String, "");
+  // rBoxAlgorithmPrototype.addSetting("Password", OV_TypeId_String, "");
   rBoxAlgorithmPrototype.addSetting("Mouse move distance", OV_TypeId_Integer, 1); // La distance pour faire bouger la souris
   // Voir avec Yann renard si on fait le mouvement ds un fichier ou ds les settings direct
+
   rBoxAlgorithmPrototype.addFlag(OpenViBE::Kernel::BoxFlag_IsUnstable);
   return (true);
 }
