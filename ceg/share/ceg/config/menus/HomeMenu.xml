@@ -14,7 +14,7 @@
     <action id="ExecMenu">
       <action id="PopMenu" MenuId="Application"/>
     </action>
-    <style opacity="1" text="Application Listing" fr:text="Listing des application" imagePath=":images/home/listing.png" rounded="true"/>
+    <style opacity="1" text="Application Listing" fr:text="Liste des applications" imagePath=":images/home/listing.png" rounded="true"/>
   </box>
 
   <!--
