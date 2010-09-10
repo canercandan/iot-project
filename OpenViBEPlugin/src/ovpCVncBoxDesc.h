@@ -25,7 +25,7 @@ namespace OpenViBEPlugins
       virtual OpenViBE::Plugins::IPluginObject* create(void);
       virtual OpenViBE::boolean			getBoxPrototype(OpenViBE::Kernel::IBoxProto& rBoxAlgorithmPrototype) const;
 
-      //      _IsDerivedFromClass_Final_(OpenViBE::Plugins::IBoxAlgorithmDesc, OVP_ClassId_BoxAlgorithm_SignalProcessingBoxAlgorithmDesc);
+      _IsDerivedFromClass_Final_(OpenViBE::Plugins::IBoxAlgorithmDesc, OVP_ClassId_VncBoxDesc);
     };
   }
 }

@@ -5,3 +5,13 @@ Partie RFB - requete
 
 Yann:
 Integration dans openvibe + reseau
+
+Reception
+
+Check du recv
+
+
+
+Pour compiler:
+Rajouter le projet dans $OPENVIBE_HOME/openvibe-plugins
+Pour compiler il faut rajoute une ligne OpenViBE_plugin_vnc_branch= dans plateforme-init_env_command
