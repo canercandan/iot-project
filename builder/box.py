@@ -28,12 +28,12 @@ class BoxType:
     MenuBox = 2
 
 class Box(QRect, Node):
-    def __init__(self):
+    def __init__(self, builder):
         QRect.__init__(self)
         self.children = []                      # list of Boxes
         self.actionIdSet = 0
         self.attributeBuffer = ''
-        self.boxEditor = BoxEditor()            # QDialog
+        self.boxEditor = BoxEditor(builder)            # QDialog
         self.boxType = BoxType.CustomBox        # int
         self.graphicStyle = BoxStyle()
 
@@ -54,14 +54,14 @@ class Box(QRect, Node):
 
     # QDomElement elem
     def initializeFromXml(self, elem):
-        if elem.hasAttribute("type"):
-            self.boxtype = elem.attribute("type")
+        if elem.hasAttribute('type'):
+            self.boxtype = elem.attribute('type')
 
         geometryFunctions = {
-            "x" : self.setX,
-            "y" : self.setY,
-            "width" : self.setWidth,
-            "height" : self.setHeight }
+            'x' : self.setX,
+            'y' : self.setY,
+            'width' : self.setWidth,
+            'height' : self.setHeight }
 
         for k, v in geometryFunctions.iteritems():
             if elem.hasAttribute(k):
@@ -105,15 +105,16 @@ class Box(QRect, Node):
         boxElem = domDoc.createElement('box')
 
         geometryFunctions = {
-                "x" : self.x,
-                "y" : self.y,
-                "width" : self.width,
-                "height" : self.height
+                'x' : self.x,
+                'y' : self.y,
+                'width' : self.width,
+                'height' : self.height
             }
 
         # Setting box attributes
         boxElem.setAttribute('type', self.boxType)
         for k, v in geometryFunctions.iteritems():
+            print 'k =', k
             boxElem.setAttribute(k, v())
 
         # Adding action
@@ -123,7 +124,7 @@ class Box(QRect, Node):
         # Adding Style
         #style = domDoc.createElement('style')
         #boxElem.appendChild(style)
-        boxElem.appendChild( self.graphicStyle.createXMLNode( domDoc ) )
+        boxElem.appendChild(self.graphicStyle.createXMLNode(domDoc))
 
         # Adding Children
         if self.children:

@@ -23,32 +23,32 @@ from BoxEditor_ui import Ui_BoxEditor
 import box
 
 class BoxEditor(QtGui.QDialog):
-    def __init__(self):
-        QtGui.QDialog.__init__(self)
+    def __init__(self, builder):
+        QtGui.QDialog.__init__(self, builder)
         self.ui = Ui_BoxEditor()
         self.ui.setupUi(self)
 
         self.getDictionnary = {
-            QtGui.QApplication.translate("BoxEditor", 'Cancel')   :   self.getCancelAttribute,
-            QtGui.QApplication.translate("BoxEditor", 'Click')    :   self.getClickAttribute,
-            QtGui.QApplication.translate("BoxEditor", 'ExecMenu') :   self.getExecMenuAttribute,
-            QtGui.QApplication.translate("BoxEditor", 'Move')     :   self.getMoveAttribute,
-            QtGui.QApplication.translate("BoxEditor", 'PopMenu')  :   self.getPopMenuAttribute,
-            QtGui.QApplication.translate("BoxEditor", 'Read')     :   self.getReadAttribute,
-            QtGui.QApplication.translate("BoxEditor", 'Valid')    :   self.getValidAttribute,
-            QtGui.QApplication.translate("BoxEditor", 'Write')    :   self.getWriteAttribute,
-            QtGui.QApplication.translate("BoxEditor", 'Zoom')     :   self.getZoomAttribute }
+            QtGui.QApplication.translate('BoxEditor', 'Cancel')   :   self.getCancelAttribute,
+            QtGui.QApplication.translate('BoxEditor', 'Click')    :   self.getClickAttribute,
+            QtGui.QApplication.translate('BoxEditor', 'ExecMenu') :   self.getExecMenuAttribute,
+            QtGui.QApplication.translate('BoxEditor', 'Move')     :   self.getMoveAttribute,
+            QtGui.QApplication.translate('BoxEditor', 'PopMenu')  :   self.getPopMenuAttribute,
+            QtGui.QApplication.translate('BoxEditor', 'Read')     :   self.getReadAttribute,
+            QtGui.QApplication.translate('BoxEditor', 'Valid')    :   self.getValidAttribute,
+            QtGui.QApplication.translate('BoxEditor', 'Write')    :   self.getWriteAttribute,
+            QtGui.QApplication.translate('BoxEditor', 'Zoom')     :   self.getZoomAttribute }
 
         self.setDictionnary = {
-            QtGui.QApplication.translate("BoxEditor", 'Cancel')   :   self.setCancelAttribute,
-            QtGui.QApplication.translate("BoxEditor", 'Click')    :   self.setClickAttribute,
-            QtGui.QApplication.translate("BoxEditor", 'ExecMenu') :   self.setExecMenuAttribute,
-            QtGui.QApplication.translate("BoxEditor", 'Move')     :   self.setMoveAttribute,
-            QtGui.QApplication.translate("BoxEditor", 'PopMenu')  :   self.setPopMenuAttribute,
-            QtGui.QApplication.translate("BoxEditor", 'Read')     :   self.setReadAttribute,
-            QtGui.QApplication.translate("BoxEditor", 'Valid')    :   self.setValidAttribute,
-            QtGui.QApplication.translate("BoxEditor", 'Write')    :   self.setWriteAttribute,
-            QtGui.QApplication.translate("BoxEditor", 'Zoom')     :   self.setZoomAttribute }
+            QtGui.QApplication.translate('BoxEditor', 'Cancel')   :   self.setCancelAttribute,
+            QtGui.QApplication.translate('BoxEditor', 'Click')    :   self.setClickAttribute,
+            QtGui.QApplication.translate('BoxEditor', 'ExecMenu') :   self.setExecMenuAttribute,
+            QtGui.QApplication.translate('BoxEditor', 'Move')     :   self.setMoveAttribute,
+            QtGui.QApplication.translate('BoxEditor', 'PopMenu')  :   self.setPopMenuAttribute,
+            QtGui.QApplication.translate('BoxEditor', 'Read')     :   self.setReadAttribute,
+            QtGui.QApplication.translate('BoxEditor', 'Valid')    :   self.setValidAttribute,
+            QtGui.QApplication.translate('BoxEditor', 'Write')    :   self.setWriteAttribute,
+            QtGui.QApplication.translate('BoxEditor', 'Zoom')     :   self.setZoomAttribute }
 
     def getAttribute(self):
         for tabTitle in self.getDictionnary:

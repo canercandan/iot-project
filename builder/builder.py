@@ -45,7 +45,6 @@ class View():
 class BuilderWidget(QtGui.QMainWindow):
     def __init__(self):
         QtGui.QMainWindow.__init__(self)
-
         QtGui.QMainWindow.setAttribute(self, Qt.WA_AlwaysShowToolTips)
 
         try:
@@ -60,9 +59,9 @@ class BuilderWidget(QtGui.QMainWindow):
         self.setGeometry(200, 200, 700, 700)
         self.setWindowTitle('IotBuilder')
         self.setMouseTracking(1)
-        self.saveDialog = 'Save xml file'
-        self.loadDialog = 'Open xml file'
-        self.extensionDialog = 'Xml Files (*.xml)'
+        self.saveDialog = QObject.tr(self, 'Save xml file')
+        self.loadDialog = QObject.tr(self, 'Open xml file')
+        self.extensionDialog = QObject.tr(self, 'Xml Files') + ' (*.xml)'
         self.extension = '.xml'
 
     def init(self):
@@ -77,14 +76,14 @@ class BuilderWidget(QtGui.QMainWindow):
         self.views = [self.rootView]
 
     def createRegularBox(self, topLeft, bottomRight):
-        box = Box()
+        box = Box(self)
         box.initRegularBox(topLeft, bottomRight)
         self.currentView.boxes.append(box)
         if self.currentView != self.rootView:
             self.currentView.parentView.currentBox.children.append(box)
 
     def createDomBox(self, domElement):
-        box = Box()
+        box = Box(self)
         box.initDomBox(domElement)
         self.currentView.boxes.append(box)
 
@@ -94,9 +93,8 @@ class BuilderWidget(QtGui.QMainWindow):
     def newFile(self):
         if not self.currentView.boxes and self.currentView == self.rootView:
             return
-
         r = QMessageBox.question(self, 'IotBuilder',
-                                 'Are you sure to clean all boxes ?',
+                                 QObject.tr(self, 'Are you sure to clean all boxes ?'),
                                  QMessageBox.Ok, QMessageBox.Cancel)
         if r == QMessageBox.Cancel:
             return
@@ -112,15 +110,16 @@ class BuilderWidget(QtGui.QMainWindow):
         shortFilename = QString(filename).section(QDir.separator(), -1)
         directory = QString(filename).section(QDir.separator(), -2, -2)
         return QMessageBox.question(self, 'IotBuilder',
-                                    QString('<b>A file named "%1" already exists.<br />Do you want to replace it ?</b><br /><br />'
-                                            'The file already exists in "%2".<br />Replacing it will overwrite its contents.'
+                                    QString(
+                                        QObject.tr(self, '<b>A file named "%1" already exists.<br />Do you want to replace it ?</b><br /><br />'
+                                                   'The file already exists in "%2".<br />Replacing it will overwrite its contents.')
                                             ).arg(shortFilename).arg(directory),
                                     QMessageBox.Ok, QMessageBox.Cancel)
 
     def loadFile(self):
         if self.currentView.boxes or self.currentView != self.rootView:
             r = QMessageBox.question(self, 'IotBuilder',
-                                    'You are going to lose all of your work... Are you sure ?',
+                                     QObject.tr(self, 'You are going to lose all of your work... Are you sure ?'),
                                      QMessageBox.Ok, QMessageBox.Cancel)
             if r == QMessageBox.Cancel:
                 return
@@ -140,14 +139,12 @@ class BuilderWidget(QtGui.QMainWindow):
         flags = QIODevice.OpenMode(QIODevice.ReadOnly)
         flags.__and__(QIODevice.Text)
         if not qfile.open(flags):
-            QMessageBox.warning(self, 'IotBuilder',
-                                'Failed to load file.')
+            QMessageBox.warning(self, 'IotBuilder', QObject.tr(self, 'Failed to load file.'))
             return
 
         if not doc.setContent(qfile):
             qfile.close()
-            QMessageBox.warning(self, 'IotBuilder',
-                                'Unable to setContent.')
+            QMessageBox.warning(self, 'IotBuilder', QObject.tr(self, 'Unable to setContent.'))
             return
 
         qfile.close()
@@ -155,8 +152,7 @@ class BuilderWidget(QtGui.QMainWindow):
         # QDomElement
         root = doc.documentElement()
         if root.tagName() != 'boxes' and root.tagName() != 'menu':
-            QMessageBox.warning(self, 'IotBuilder',
-                                'Error.')
+            QMessageBox.warning(self, 'IotBuilder', QObject.tr(self, 'Error.'))
             return
 
         # TODO: Do not forget to use programID
@@ -173,7 +169,7 @@ class BuilderWidget(QtGui.QMainWindow):
 
     def saveFile(self):
         if not self.currentView.boxes and self.currentView == self.rootView:
-            QMessageBox.information(self, 'IotBuilder', 'Nothing to save')
+            QMessageBox.information(self, 'IotBuilder', QObject.tr(self, 'Nothing to save'))
             return
 
         filename = QFileDialog.getSaveFileName(None,
@@ -191,8 +187,7 @@ class BuilderWidget(QtGui.QMainWindow):
 
         qfile = QFile(filename)
         if not qfile.open(QIODevice.WriteOnly | QIODevice.Text):
-            QMessageBox.warning(self, 'IotBuilder',
-                                'Unable to open file.')
+            QMessageBox.warning(self, 'IotBuilder', QObject.tr(self, 'Unable to open file.'))
             return
 
         doc = QDomDocument('XmlBox')
@@ -244,26 +239,26 @@ class BuilderWidget(QtGui.QMainWindow):
     def editBox(self):
         if self.currentView.currentBox:
             self.currentView.currentBox.editBox()
+        else:
+            QMessageBox.information(self, 'IotBuilder', QObject.tr(self, 'You have not selected any box.'))
 
     def zoomIn(self):
         if self.currentView.currentBox:
             self.currentView = View(self.currentView)
             self.repaint()
         else:
-            QMessageBox.information(self, 'IotBuilder',
-                                    'You have not selected any box.')
+            QMessageBox.information(self, 'IotBuilder', QObject.tr(self, 'You have not selected any box.'))
 
     def zoomOut(self):
         if self.currentView.parentView:
             self.currentView = self.currentView.parentView
             self.repaint()
         else:
-            QMessageBox.information(self, 'IotBuilder',
-                                    'You are on the top level.')
+            QMessageBox.information(self, 'IotBuilder', QObject.tr(self, 'You are on the top level.'))
 
     def copyBox(self):
         if self.currentView.currentBox:
-            self.currentView.clipboard = Box()
+            self.currentView.clipboard = Box(self)
             self.currentView.clipboard.initFromRegularBox(self.currentView.currentBox)
 
     def cutBox(self):
@@ -289,6 +284,9 @@ class BuilderWidget(QtGui.QMainWindow):
 
     def quitBuilder(self):
         self.deleteLater()
+        self.toolbar.deleteLater()
+        for box in self.rootView.boxes:
+            box.boxEditor.deleteLater()
         app.quit()
 
     def deleteCurrentBoxBox(self):
@@ -308,8 +306,7 @@ class BuilderWidget(QtGui.QMainWindow):
                 self.currentView.currentBox.translate(0, 1)
             elif keyEvent.key() == QtCore.Qt.Key_Delete:
                 self.deleteCurrentBoxBox()
-            elif keyEvent.key() == QtCore.Qt.Key_Enter or \
-                keyEvent.key() == QtCore.Qt.Key_Return:
+            elif keyEvent.key() == QtCore.Qt.Key_Enter or keyEvent.key() == QtCore.Qt.Key_Return:
                 self.zoomIn()
         elif keyEvent.key() == QtCore.Qt.Key_Backspace:
             self.zoomOut()
@@ -462,8 +459,17 @@ class BuilderWidget(QtGui.QMainWindow):
 
 if __name__ == "__main__":
     app = QtGui.QApplication(sys.argv)
+
+    qtTranslator = QTranslator()
+    qtTranslator.load('qt_' + QLocale.system().name(), QLibraryInfo.location(QLibraryInfo.TranslationsPath))
+    app.installTranslator(qtTranslator)
+
+    iotTranslator = QTranslator();
+    iotTranslator.load('iot_' + QLocale.system().name())
+    app.installTranslator(iotTranslator)
+
     builder = BuilderWidget()
     builder.setWindowOpacity(0.4)
     builder.setWindowFlags(QtCore.Qt.FramelessWindowHint)
-    builder.show()
+    builder.showFullScreen()
     sys.exit(app.exec_())

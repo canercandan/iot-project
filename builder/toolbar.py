@@ -34,32 +34,31 @@ class s():
 class Toolbar(QtGui.QToolBar):
     def __init__(self, parent):
         QtGui.QToolBar.__init__(self, 'Display toolbar')
-
         QtGui.QWidget.setAttribute(self, Qt.WA_AlwaysShowToolTips)
 
         #self.shortcuts = Shortcuts(self)
         self.buttons = [
-            s(':/pix/new_file', 'New file', 'Ctrl+N', parent.newFile),
-            s(':/pix/load_file', 'Load file', 'Ctrl+L', parent.loadFile),
-            s(':/pix/save_file', 'Save file', 'Ctrl+S', parent.saveFile),
-            s('', '', '', None), \
-            s(':/pix/selection', 'Selection mode', 'S', parent.selectionMode), \
-            s(':/pix/box', 'Box mode', 'B', parent.boxMode), \
-            s('', '', '', None), \
-            s(':/pix/prev_box', 'Select previous box', 'Shift+Tab', parent.selectPreviousBox), \
-            s(':/pix/next_box', 'Select next box', 'Tab', parent.selectNextBox), \
-            s(':/pix/edit_box', 'Edit box type', 'E', parent.editBox), \
-            s(':/pix/zoom_in', 'Zoom in', '+', parent.zoomIn), \
-            s(':/pix/zoom_out', 'Zoom out', '-', parent.zoomOut), \
-            s('', '', '', None), \
-            s(':/pix/copy_box', 'Copy box', 'Ctrl+C', parent.copyBox), \
-            s(':/pix/cut_box', 'Cut box', 'Ctrl+X', parent.cutBox), \
-            s(':/pix/paste_box', 'Paste box', 'Ctrl+V', parent.pasteBox), \
-            s('', '', '', None), \
-            #s(':/pix/shortcuts', 'Shortcuts', 'F2', self.shortcuts.open), \
-            s(':/pix/help', 'Builder help', 'F1', parent.builderHelp), \
-            s(':/pix/about', 'About us', 'F3', parent.aboutUs), \
-            s(':/pix/quit', 'Quit', 'Ctrl+Q', parent.quitBuilder)]
+            s(':/pix/new_file', QObject.tr(self, 'New file'), 'Ctrl+N', parent.newFile),
+            s(':/pix/load_file', QObject.tr(self, 'Load file'), 'Ctrl+L', parent.loadFile),
+            s(':/pix/save_file', QObject.tr(self, 'Save file'), 'Ctrl+S', parent.saveFile),
+            s('', '', '', None),
+            s(':/pix/selection', QObject.tr(self, 'Selection mode'), 'S', parent.selectionMode),
+            s(':/pix/box', QObject.tr(self, 'Box mode'), 'B', parent.boxMode),
+            s('', '', '', None),
+            s(':/pix/prev_box', QObject.tr(self, 'Select previous box'), 'Shift+Tab', parent.selectPreviousBox),
+            s(':/pix/next_box', QObject.tr(self, 'Select next box'), 'Tab', parent.selectNextBox),
+            s(':/pix/edit_box', QObject.tr(self, 'Edit box type'), 'E', parent.editBox),
+            s(':/pix/zoom_in', QObject.tr(self, 'Zoom in'), '+', parent.zoomIn),
+            s(':/pix/zoom_out', QObject.tr(self, 'Zoom out'), '-', parent.zoomOut),
+            s('', '', '', None),
+            s(':/pix/copy_box', QObject.tr(self, 'Copy box'), 'Ctrl+C', parent.copyBox),
+            s(':/pix/cut_box', QObject.tr(self, 'Cut box'), 'Ctrl+X', parent.cutBox),
+            s(':/pix/paste_box', QObject.tr(self, 'Paste box'), 'Ctrl+V', parent.pasteBox),
+            s('', '', '', None),
+            #s(':/pix/shortcuts', QObject.tr(self, 'Shortcuts'), 'F2', self.shortcuts.open), \
+            s(':/pix/help', QObject.tr(self, 'Builder help'), 'F1', parent.builderHelp), \
+            s(':/pix/about', QObject.tr(self, 'About us'), 'F3', parent.aboutUs), \
+            s(':/pix/quit', QObject.tr(self, 'Quit'), 'Ctrl+Q', parent.quitBuilder)]
 
         actionsList = []
         for item in self.buttons:
