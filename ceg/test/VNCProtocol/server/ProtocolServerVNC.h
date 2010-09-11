@@ -20,6 +20,7 @@
 #ifndef PROTOCOLSERVERVNC_H
 #define PROTOCOLSERVERVNC_H
 
+#include <QDataStream>
 #include <QString>
 #include <QBool>
 #include <QMap>
@@ -37,11 +38,18 @@ enum vncServerStep
     VNC_MESSAGING};
 
 
+enum triBool
+{
+    TB_UNKNOWN,
+    TB_TRUE,
+    TB_FALSE
+};
+
 class ProtocolServerVNC
 {
 
 public:
-  typedef void (protocoleYAY::*funcExecPtr)(QString &);
+  typedef void (protocoleYAY::*funcExecPtr)(QDataStream &);
   typedef void (protocoleYAY::*funcParsePtr)(char *, QString &);
 
   ProtocolServerVNC();
@@ -51,12 +59,12 @@ public:
   QString	exec();
 
 private:
-  void		execVersion(QString &);
-  void		execSecuList(QString &);
-  void		execSecuResult(QString &);
-  void		execSecuReason(QString &);
-  void		execSand(QString &);
-  void		execServerInit(QString &);
+  void		execVersion(QDataStream &);
+  void		execSecuList(QDataStream &);
+  void		execSecuResult(QDataStream &);
+  void		execSecuReason(QDataStream &);
+  void		execSand(QDataStream &);
+  void		execServerInit(QDataStream &);
   void		parseVersion(char *, QString &);
   void		parseSecuList(char *, QString &);
   void		parseSecuFail(char *, QString &);
@@ -67,7 +75,7 @@ private:
   QMap<vncServerStep, funcExecPtr>	_execPtrMap;
   QMap<vncServerStep, funcParsePtr>	_parsePtrMap;
   vncServerStep				_vncStep;
-  QBool                                 _passOk;
+  triBool                               _passOk;
 };
 
 

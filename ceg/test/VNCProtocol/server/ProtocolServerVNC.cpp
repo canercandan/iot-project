@@ -21,7 +21,7 @@
 #include "ProtocolServerVNC.h"
 
 ProtocolServerVNC::ProtocolServerVNC():
-  _execPtrMap(), _parsePtrMap(), _vncStep(vncServerStep::VNC_VERSION)
+        _execPtrMap(), _parsePtrMap(), _vncStep(vncServerStep::VNC_VERSION), _passOk(triBool::TB_UNKNOWN)
 {
   _execPtrMap[vncServerStep::VNC_VERSION] = &ProtocolServerVNC::execVersion;
   _execPtrMap[vncServerStep::VNC_SECULIST] = &ProtocolServerVNC::execVSecuList;
@@ -46,24 +46,26 @@ void            ProtocolServerVNC::init()
     this->_vncStep = vncServerStep::VNC_VERSION;
 }
 
-void		ProtocolServerVNC::execVersion(QString &)
+void		ProtocolServerVNC::execVersion(QDataStream & stream)
 {
-
+    stream << "RFB 003.008\n";
 }
 
-void		ProtocolServerVNC::execSecuList(QString &)
+void		ProtocolServerVNC::execSecuList(QDataStream & stream)
 {
-
+    qint8 nbSecuType = 1;
+    qint8 secuTypes[0] = 1;
+    stream << nbSecuType << secuTypes;
 }
 
-void		ProtocolServerVNC::execSecuResult(QString &)
+void		ProtocolServerVNC::execSecuResult(QDataStream & stream)
 {
 
-    if (1)
+    if (this->_passOk == triBool::TB_FALSE)
     {
         this->_vncStep = vncServerStep::VNC_SECUREASON;
     }
-    else if (this->_passOk == false)
+    else if (this->_passOk == triBool::TB_UNKNOWN)
     {
         this->_vncStep = vncServerStep::VNC_PASSCHECK;
     }
@@ -73,12 +75,15 @@ void		ProtocolServerVNC::execSecuResult(QString &)
     }
 }
 
-void		ProtocolServerVNC::execSecuReason(QString &)
+void		ProtocolServerVNC::execSecuReason(QDataStream & stream)
 {
-
+    if (this->_passOk == triBool::TB_FALSE)
+    {
+        ""
+    }
 }
 
-void		ProtocolServerVNC::execSand(QString &)
+void		ProtocolServerVNC::execSand(QDataStream & stream)
 {
 
     if (0)
@@ -87,7 +92,7 @@ void		ProtocolServerVNC::execSand(QString &)
     }
 }
 
-void		ProtocolServerVNC::execServerInit(QString &)
+void		ProtocolServerVNC::execServerInit(QDataStream & stream)
 {
 
 }
