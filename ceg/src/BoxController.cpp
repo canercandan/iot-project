@@ -340,8 +340,12 @@ void    BoxController::initializeFromXml(QString const & fileName)
 	QFileInfo fileInfo(fileName);
 	QString msg("Fail during file loading : ");
 	msg += fileInfo.absoluteFilePath();
-	msg += "\nCause "; msg += errorMsg;msg += " at line = "; msg += errorLine;
-	msg += " - column = "; msg += errorColumn;
+        msg += "\nCause ";
+        msg += errorMsg;
+        msg += " at line = ";
+        msg += errorLine;
+        msg += " - column = ";
+        msg += errorColumn;
 	Logger::getInstance()->log(ERROR_LOG, msg);
     }
 }

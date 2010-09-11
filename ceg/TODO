@@ -13,7 +13,7 @@
 - maj Doxygen
 
 -------------------------------------------------- Reminder Yann --------------------------------------------------------------------------
-
+- changer les types en full QT
 - Faire deux list dans le main controller une pour les menus et une pour les layers
 - rajouter methode reset focus item pour les menus
 - bien gerer les process, rajouter des slots en cas de fermeture, fermeture des process a la fin du programme + Rajouter la possibilite de quitter un programme
@@ -24,8 +24,6 @@
 - faire les xsd - QtValidator
 - Rajout le code neccessaire pour gerer toutes les possibilite sur les box: rendre le code plus propre dans la methode paint de abstractitem
 - voir avec yavuz, si le nb de square ne gene pas pour le recalcule en mode par defaut
-- faire la gestion des inputs clavier sur linux
-- voir la gestion des focus sur les fenetres (demande a yann)
 
 -------------------------------------------------- Reminder Yavuz --------------------------------------------------------------------------
 - Finir de faire des menus propres ! rajouter des couleurs pour le fond par exemple
