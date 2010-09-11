@@ -36,7 +36,6 @@ class Toolbar(QtGui.QToolBar):
         QtGui.QToolBar.__init__(self, 'Display toolbar')
         QtGui.QWidget.setAttribute(self, Qt.WA_AlwaysShowToolTips)
 
-        #self.shortcuts = Shortcuts(self)
         self.buttons = [
             s(':/pix/new_file', QObject.tr(self, 'New file'), 'Ctrl+N', parent.newFile),
             s(':/pix/load_file', QObject.tr(self, 'Load file'), 'Ctrl+L', parent.loadFile),
@@ -55,9 +54,7 @@ class Toolbar(QtGui.QToolBar):
             s(':/pix/cut_box', QObject.tr(self, 'Cut box'), 'Ctrl+X', parent.cutBox),
             s(':/pix/paste_box', QObject.tr(self, 'Paste box'), 'Ctrl+V', parent.pasteBox),
             s('', '', '', None),
-            #s(':/pix/shortcuts', QObject.tr(self, 'Shortcuts'), 'F2', self.shortcuts.open), \
-            s(':/pix/help', QObject.tr(self, 'Builder help'), 'F1', parent.builderHelp), \
-            s(':/pix/about', QObject.tr(self, 'About us'), 'F3', parent.aboutUs), \
+            s(':/pix/help', QObject.tr(self, 'Builder help'), 'F1', parent.builderHelp),
             s(':/pix/quit', QObject.tr(self, 'Quit'), 'Ctrl+Q', parent.quitBuilder)]
 
         actionsList = []

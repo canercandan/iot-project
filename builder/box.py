@@ -118,8 +118,10 @@ class Box(QRect, Node):
             boxElem.setAttribute(k, v())
 
         # Adding action
-        #action = domDoc.createElement('action')
-        #boxElem.appendChild(action)
+        action = domDoc.createElement('action')
+        action.setAttribute('id', self.getActionId())
+        print self.getAttribute()
+        boxElem.appendChild(action)
 
         # Adding Style
         #style = domDoc.createElement('style')

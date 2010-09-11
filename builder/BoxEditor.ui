@@ -9,19 +9,19 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>590</width>
+    <width>670</width>
     <height>220</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>590</width>
+    <width>670</width>
     <height>220</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
-    <width>590</width>
+    <width>670</width>
     <height>220</height>
    </size>
   </property>
@@ -80,7 +80,7 @@
         <enum>QTabWidget::Rounded</enum>
        </property>
        <property name="currentIndex">
-        <number>0</number>
+        <number>1</number>
        </property>
        <widget class="QWidget" name="clickTab">
         <attribute name="title">
@@ -140,6 +140,31 @@ p, li { white-space: pre-wrap; }
           </layout>
          </item>
         </layout>
+       </widget>
+       <widget class="QWidget" name="validTab">
+        <attribute name="title">
+         <string>Valid</string>
+        </attribute>
+       </widget>
+       <widget class="QWidget" name="execMenuTab">
+        <attribute name="title">
+         <string>ExecMenu</string>
+        </attribute>
+       </widget>
+       <widget class="QWidget" name="execProcessTab">
+        <attribute name="title">
+         <string>ExecProcess</string>
+        </attribute>
+       </widget>
+       <widget class="QWidget" name="moveTab">
+        <attribute name="title">
+         <string>Move</string>
+        </attribute>
+       </widget>
+       <widget class="QWidget" name="popMenuTab">
+        <attribute name="title">
+         <string>PopMenu</string>
+        </attribute>
        </widget>
        <widget class="QWidget" name="readTab">
         <attribute name="title">

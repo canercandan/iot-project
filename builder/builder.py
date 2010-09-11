@@ -191,7 +191,7 @@ class BuilderWidget(QtGui.QMainWindow):
             return
 
         doc = QDomDocument('XmlBox')
-        root = doc.createElement("boxes")
+        root = doc.createElement('boxes')
         root.setAttribute('id', self.getFilenameFromFullPath(filename))
         doc.appendChild(root)
 
@@ -275,12 +275,6 @@ class BuilderWidget(QtGui.QMainWindow):
 
     def builderHelp(self):
         print 'builderHelp method'
-
-    def shortcuts(self):
-        print 'shortcuts method'
-
-    def aboutUs(self):
-        print 'aboutUs method'
 
     def quitBuilder(self):
         self.deleteLater()

@@ -56,22 +56,22 @@ class BoxEditor(QtGui.QDialog):
                 return self.getDictionnary[tabTitle]()
 
     def getCancelAttribute(self):
-        return ['', '']
+        return []
 
     def getClickAttribute(self):
-        return ['', QString.number(self.ui.clickComboBox.currentIndex())]
+        return ['type', QString.number(self.ui.clickComboBox.currentIndex())]
 
     def getExecMenuAttribute(self):
         return ['', '']
 
     def getMoveAttribute(self):
-        return ['', '']
+        return ['key', '']
 
     def getPopMenuAttribute(self):
         return ['', '']
 
     def getReadAttribute(self):
-        return ['', QString.number(self.ui.readDoubleSpinBox.value())]
+        return ['time', QString.number(self.ui.readDoubleSpinBox.value())]
 
     def getValidAttribute(self):
         return ['', '']
