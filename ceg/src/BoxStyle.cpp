@@ -22,6 +22,7 @@
 #include <QDomElement>
 #include <QSettings>
 #include <QStringList>
+#include <QDebug>
 /*********************************/
 #include "BoxStyle.h"
 /*********************************/
@@ -39,7 +40,6 @@ BoxStyle::BoxStyle(QDomElement const & styleElement)
     this->initializeFromXml(styleElement);
 }
 
-#include <QDebug>
 void BoxStyle::initializeFromXml(QDomElement const & styleElement)
 {
     //-----------------------------------------------------------------------------

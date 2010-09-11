@@ -39,7 +39,7 @@
 View::View(MainController & lm, Systray & systray)
     : _lm(lm)
 {
-    this->setWindowOpacity(0.5);
+    this->setWindowOpacity(1);
     this->setWindowIcon(QIcon(":/images/systray-transparent-32x32.png"));
 
     QObject::connect(this, SIGNAL(actionEmitted(IAction&)),&lm, SLOT(on_action_emitted(IAction&)));

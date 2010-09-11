@@ -37,7 +37,7 @@ static void createSettingFile()
 {
     QSettings settings;
 
-	settings.beginGroup("general");
+    settings.beginGroup("general");
 
     if (settings.value("language").toString() == "")
 	settings.setValue("language", "en_US");
@@ -167,12 +167,12 @@ int main(int ac, char** av)
 
     if (loaded)
     {
-	tmp << "Translation" << trans_name << "loaded";
+        tmp << "Translation " << trans_name << " loaded";
 	Logger::getInstance()->log(INFO_LOG, msg);
     }
     else
     {
-	tmp << "Failed to load translation" << trans_name;
+        tmp << "Failed to load translation " << trans_name;
 	Logger::getInstance()->log(WARNING_LOG, msg);
     }
     msg = "";
@@ -200,16 +200,15 @@ int main(int ac, char** av)
 
     if (loaded)
     {
-	tmp << "Translation" << trans_name << "loaded";
+        tmp << "Translation " << trans_name << " loaded";
 	Logger::getInstance()->log(INFO_LOG, msg);
     }
     else
     {
-	tmp << "Failed to load translation" << trans_name;
+        tmp << "Failed to load translation " << trans_name;
 	Logger::getInstance()->log(WARNING_LOG, msg);
     }
     app.installTranslator(&ceg_tr);
-
 
     //-----------------------------------------------------------------------------
 

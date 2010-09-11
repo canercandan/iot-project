@@ -48,9 +48,9 @@
 BoxController::BoxController() :
     _patterns(), _menus()
 {
-    Logger::getInstance()->log(INFO_LOG, "Chargement des fichiers xml pour les programmes");
-    Logger::getInstance()->log(INFO_LOG, "Chargement des fichiers xml pour les menus");
+    Logger::getInstance()->log(INFO_LOG, "Tentative de chargement des fichiers xml pour les menus");
     this->loadConfig("menus/");
+    Logger::getInstance()->log(INFO_LOG, "Tentative de chargement des fichiers xml pour les programmes");
     this->loadConfig("boxes/");
 }
 

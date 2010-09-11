@@ -69,12 +69,12 @@ void    Layer::setProcess(QProcess * process)
     QObject::connect(this->_process, SIGNAL(finished(int,QProcess::ExitStatus)), this, SLOT(on_processFinished(int,QProcess::ExitStatus)));
 }
 
-void    Layer::on_processError(QProcess::ProcessError error)
+void    Layer::on_processError(QProcess::ProcessError error) // Pour le debug. a supprimer
 {
     qDebug() << "FUCK FUCK FUCK = " << error;
 }
 
-void    Layer::on_processFinished(int exitCode, QProcess::ExitStatus exitStatus)
+void    Layer::on_processFinished(int exitCode, QProcess::ExitStatus) // Pour le debug. a supprimer
 {
     qDebug() << "Finish FUCK FUCK FUCK = " << exitCode;
 }

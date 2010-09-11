@@ -174,7 +174,18 @@ void	ExecProcessAction::exec(MainController & mainC)
     Ceg::Window defaultWindow(0, QApplication::desktop()->geometry(), programFileInfo.baseName().toStdString());
     Layer * scene = static_cast<Layer *>(mainC.createScene(defaultWindow));
     scene->setProcess(process);
-    mainC.pushFrontScene(scene, true);
+    /* Explication des conditions suivantes :
+       Lorsqu'on est sur Linux, mac, quand on demarre un programme, notre fenetre reste au top mais perd le focus, de faire le hide and show permet de le conserver
+       */
+    View &  view = mainC.getView();
+#if defined(Q_WS_X11) || defined(Q_WS_MAC)
+    view.hide();
+#endif
+    mainC.pushFrontScene(scene);
+    view.activateWindow();
+#if defined(Q_WS_X11) || defined(Q_WS_MAC)
+    view.show();
+#endif
 }
 
 /************************************************* [ OTHERS ] *************************************************/
