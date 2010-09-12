@@ -21,7 +21,7 @@
 /*********************************/
 #include <iostream>
 /*********************************/
-#include <QDebug>
+#include <QMessageBox>
 /*********************************/
 #include "AbstractItem.h"
 /*********************************/
@@ -36,7 +36,7 @@
 /************************************************* [ CTOR/DTOR ] *************************************************/
 
 Layer::Layer(Ceg::Window const & hostWindow) :
-        AbstractScene(0), _host(hostWindow), _menuAction(0), _process(0)
+        AbstractScene(hostWindow.getProgramName(), 0), _host(hostWindow), _menuAction(0), _process(0)
 {
 }
 
@@ -71,12 +71,13 @@ void    Layer::setProcess(QProcess * process)
 
 void    Layer::on_processError(QProcess::ProcessError error) // Pour le debug. a supprimer
 {
-    qDebug() << "FUCK FUCK FUCK = " << error;
+    QMessageBox::about(0, "Error process", "");
+
 }
 
 void    Layer::on_processFinished(int exitCode, QProcess::ExitStatus) // Pour le debug. a supprimer
 {
-    qDebug() << "Finish FUCK FUCK FUCK = " << exitCode;
+    QMessageBox::about(0, "Process finish","text");
 }
 
 /************************************************* [ OTHERS ] *************************************************/

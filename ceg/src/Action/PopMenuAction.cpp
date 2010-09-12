@@ -20,7 +20,6 @@
 
 /*********************************/
 #include <QDomElement>
-
 /*********************************/
 #include "PopMenuAction.h"
 /*********************************/
@@ -42,7 +41,7 @@ PopMenuAction::PopMenuAction(QString const & menuId) :
 PopMenuAction::PopMenuAction(QDomElement const & domElement) :
 	_menuId()
 {
-     Logger::getInstance()->log(DEBUG_LOG, "PopMenuAction::PopMenuAction(QDomElement const & domElement)");
+    Logger::getInstance()->log(DEBUG_LOG, "PopMenuAction::PopMenuAction(QDomElement const & domElement)");
     this->initializeFromXml(domElement);
 }
 
@@ -57,16 +56,25 @@ void	PopMenuAction::exec(MainController & mainC)
 {
     Logger::getInstance()->log(DEBUG_LOG, "PopMenuAction::exec");
     // Recuperation des items du menu
-    BoxController const & boxC = mainC.getBoxController();
-    QList<QGraphicsRectItem *> menuItems;
-    boxC.getMenu(this->_menuId, menuItems);
-    if (menuItems.empty() == false)
+    AbstractScene * menuFind = mainC.getScene(this->_menuId); // On regarde si le menu est deja creer
+    if (menuFind != 0 && menuFind->getType() == MENU_BOX)
     {
-	// Creation du Menu avec les items recuperes
-	Menu * menuScene = new Menu;
-	menuScene->initialize(menuItems);
-	// affichage du menu
-	mainC.pushFrontScene(menuScene);
+        menuFind->resetFocusItem();
+        mainC.pushFrontScene(menuFind);
+    }
+    else
+    {
+        BoxController const & boxC = mainC.getBoxController();
+        QList<QGraphicsRectItem *> menuItems;
+        boxC.getMenu(this->_menuId, menuItems);
+        if (menuItems.empty() == false)
+        {
+            // Creation du Menu avec les items recuperes
+            Menu * menuScene = new Menu(this->_menuId);
+            menuScene->initialize(menuItems);
+            // affichage du menu
+            mainC.pushFrontScene(menuScene);
+        }
     }
 }
 

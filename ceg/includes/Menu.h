@@ -32,7 +32,7 @@ class IAction;
 class Menu : public AbstractScene
 {
 public:
-    Menu();
+    Menu(QString const & id);
     ~Menu();
 
     virtual QRect	getGeometry() const;

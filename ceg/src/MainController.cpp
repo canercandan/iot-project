@@ -70,6 +70,18 @@ AbstractScene *	MainController::getCurrentScene() const
     return (*this->_currentScene);
 }
 
+AbstractScene * MainController::getScene(const QString &id) const
+{
+    for (QList<AbstractScene *>::const_iterator it = this->_scenes.begin(), itEnd = this->_scenes.end(); it != itEnd; ++it)
+    {
+        if (**it == id)
+        {
+            return (*it);
+        }
+    }
+    return (0);
+}
+
 AbstractScene * MainController::getSceneAt(int position) const
 {
     if (position < this->_scenes.size())

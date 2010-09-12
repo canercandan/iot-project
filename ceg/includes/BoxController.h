@@ -26,6 +26,7 @@
 
 class QGraphicsRectItem;
 class QDir;
+class QRect;
 
 namespace Ceg
 {

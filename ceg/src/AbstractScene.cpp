@@ -34,8 +34,8 @@
 
 /************************************************* [ CTOR/DTOR ] *************************************************/
 
-AbstractScene::AbstractScene(QObject * parent /* = 0 */) :
-        QGraphicsScene(parent), _type(DEFAULT_BOX)
+AbstractScene::AbstractScene(QString const & id, QObject * parent /* = 0 */) :
+        QGraphicsScene(parent), _type(DEFAULT_BOX), _id(id)
 {
 }
 
@@ -44,6 +44,11 @@ AbstractScene::~AbstractScene()
     std::cerr << "AbstractScene::~AbstractScene()\nNombre d'items dans la scene = " << this->items().size() << std::endl;
 }
 
+
+bool    AbstractScene::operator ==(QString const & id) const
+{
+    return (id == this->_id);
+}
 /************************************************* [ GETTERS ] *************************************************/
 
 AbstractItem const *	AbstractScene::getCurrentItem() const
@@ -58,6 +63,11 @@ BoxType AbstractScene::getType() const
 
 /************************************************* [ OTHERS ] *************************************************/
 
+void    AbstractScene::resetFocusItem()
+{
+    this->setFocusItem(this->items().front());
+}
+
 void AbstractScene::clearScene()
 {
     QList<QGraphicsItem *> items = this->items();
@@ -71,17 +81,16 @@ void AbstractScene::clearScene()
 }
 
 //! takes a scene (a list of Items) to draw graphical areas on the view
-// Sous les versions anterieures a 4.6, la methode addItem effectue un push_back et dans les versions superieures un push_front d'ou le rbegin et rend
-// la liste de nos items etant deja triee.
 void AbstractScene::initialize(QList<QGraphicsRectItem *> const & sceneItems)
 {
     QString msg;
     QTextStream tmp(&msg);
-
     tmp << "AbstractScene::initialize - " << static_cast<unsigned int>(sceneItems.size()) << " items a ajoute a la scene";
     Logger::getInstance()->log(INFO_LOG, msg);
+
     this->clearScene();
     QList<QGraphicsRectItem *>::const_iterator    it = sceneItems.end(), itEnd = sceneItems.begin();
+    // Sous les versions anterieures a 4.6, la methode addItem effectue un push_back et dans les versions superieures un push_front d'ou le parcours inverse de la liste
     while (it != itEnd)
     {
         --it;

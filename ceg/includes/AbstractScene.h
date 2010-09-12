@@ -41,8 +41,10 @@ class AbstractItem;
 class AbstractScene : public QGraphicsScene
 {
 public:
-    AbstractScene(QObject * parent = 0);
+    AbstractScene(QString const & id, QObject * parent = 0);
     ~AbstractScene();
+
+    bool    operator==(QString const &) const;
 
     virtual void	    initialize(QList<QGraphicsRectItem *> const & sceneItems); // Ajout des items a la scene
 
@@ -51,12 +53,14 @@ public:
     BoxType                 getType() const;
 
     virtual IAction *	    keyPressEvent(int key) = 0;
+    void                    resetFocusItem(); // Reset le focus sur le premier item de la liste
 
 private:
     void		    clearScene(); // Vide la scene et supprimer les elements
 
 protected:
     BoxType     _type;
+    QString     _id; // L'id de la scene, nom du menu ou du programme
 };
 
 #endif // ABSTRACTSCENE_H

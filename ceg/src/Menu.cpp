@@ -29,8 +29,8 @@
 
 /************************************************* [ CTOR/DTOR ] *************************************************/
 
-Menu::Menu()
-    : AbstractScene(0)
+Menu::Menu(QString const & id)
+    : AbstractScene(id, 0)
 {
     this->_type = MENU_BOX;
 }

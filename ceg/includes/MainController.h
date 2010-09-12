@@ -49,7 +49,8 @@ public:
     BoxController const &		getBoxController() const;
     ICommunicationGraphicalServer*	getComGs() const;
     AbstractScene*			getCurrentScene() const; // Renvoie la scene qui est en premier dans la liste
-    AbstractScene*			getSceneAt(int pos) const; // renvoie la scene a la pos
+    AbstractScene*			getSceneAt(int position) const; // renvoie la scene a la posistion
+    AbstractScene*			getScene(QString const & id) const; // renvoie la scene qui a l'id
     View &				getView();
 
     AbstractScene *			createScene(Ceg::Window const & window);

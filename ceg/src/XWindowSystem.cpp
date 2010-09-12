@@ -79,15 +79,6 @@ XWindowSystem::~XWindowSystem()
     }
 }
 
-/*bool XWindowSystem::getWindows(QList<Ceg::Window> &)
-{
-    if (this->_connection != 0)
-    {
-	::Window rootWindow = ::XDefaultRootWindow(this->_connection);
-	this->printRecurse(rootWindow, 0);
-    }
-    return (this->_connection);
-}*/
 
 bool XWindowSystem::getFocusedWindow(Ceg::Window & /*newWindow*/)
 {
@@ -119,22 +110,6 @@ bool XWindowSystem::setFocusToWindow(Ceg::Window & , Ceg::Window & /*newFocusWin
     if (this->_connection != 0)
     {
 	//int status = ::XSetInputFocus(this->_connection, newFocusWindow, revert_to, time);
-    }
-    return (statusOp);
-}
-
-bool XWindowSystem::refreshWindowInfo(Ceg::Window & targetWindow)
-{
-    bool statusOp = false;
-    if (this->_connection != 0)
-    {
-	::XWindowAttributes windowInfos;
-	Status status = ::XGetWindowAttributes(this->_connection, targetWindow.getId(), &windowInfos);
-	if (status != BadDrawable && status != BadWindow)
-	{
-	    targetWindow.setGeometry(QRect(windowInfos.x, windowInfos.y, windowInfos.width, windowInfos.height));
-	    statusOp = true;
-	}
     }
     return (statusOp);
 }
