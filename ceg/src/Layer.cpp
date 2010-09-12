@@ -30,6 +30,7 @@
 #include "Box.h"
 #include "PopMenuAction.h"
 #include "Logger.h"
+#include "CloseAction.h"
 /*********************************/
 
 
@@ -46,10 +47,13 @@ Layer::~Layer()
     delete this->_menuAction;
     if (this->_process != 0)
     {
-        this->_process->terminate();
-        if (this->_process->waitForFinished() == false)
+        if (this->_process->state() != QProcess::NotRunning)
         {
-            std::cerr << "Impossible de terminer le programme - Attention" << std::endl;
+            this->_process->terminate();
+            if (this->_process->waitForFinished() == false)
+            {
+                std::cerr << "Impossible de terminer le programme - Attention" << std::endl;
+            }
         }
         delete this->_process;
     }
@@ -69,15 +73,15 @@ void    Layer::setProcess(QProcess * process)
     QObject::connect(this->_process, SIGNAL(finished(int,QProcess::ExitStatus)), this, SLOT(on_processFinished(int,QProcess::ExitStatus)));
 }
 
-void    Layer::on_processError(QProcess::ProcessError error) // Pour le debug. a supprimer
+void    Layer::on_processError(QProcess::ProcessError) // Pour le debug. a supprimer
 {
-    QMessageBox::about(0, "Error process", "");
+    //IAction * action = new CloseAction(this);
 
 }
 
-void    Layer::on_processFinished(int exitCode, QProcess::ExitStatus) // Pour le debug. a supprimer
+void    Layer::on_processFinished(int , QProcess::ExitStatus) // Pour le debug. a supprimer
 {
-    QMessageBox::about(0, "Process finish","text");
+    //IAction * action = new CloseAction(this);
 }
 
 /************************************************* [ OTHERS ] *************************************************/

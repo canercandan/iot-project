@@ -12,7 +12,7 @@
 - maj Doxygen
 
 -------------------------------------------------- Reminder Yann --------------------------------------------------------------------------
-- bien gerer les process, rajouter des slots en cas de fermeture, fermeture des process a la fin du programme + Rajouter la possibilite de quitter un programme
+- finir la CloseAction
 
 -------------------------------------------------- Reminder Caner --------------------------------------------------------------------------
 - faire les xsd - QtValidator

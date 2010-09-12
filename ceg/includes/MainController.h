@@ -29,6 +29,7 @@
 #include "View.h"
 #include "Window.h"
 #include "BoxController.h"
+#include "Box.h"
 
 class AbstractScene;
 class ICommunicationGraphicalServer;
@@ -51,6 +52,8 @@ public:
     AbstractScene*			getCurrentScene() const; // Renvoie la scene qui est en premier dans la liste
     AbstractScene*			getSceneAt(int position) const; // renvoie la scene a la posistion
     AbstractScene*			getScene(QString const & id) const; // renvoie la scene qui a l'id
+    int                                 getIndexOfScene(AbstractScene * sceneSearch) const; // Retourne l'index dans la liste des scenes
+    int                                 getFirstOfType(BoxType type) const; // REtourne l'index du premier type chechez
     View &				getView();
 
     AbstractScene *			createScene(Ceg::Window const & window);
@@ -69,7 +72,7 @@ private:
 private:
     View				    _view; // La vue pour representer les scene (Une vue pour toutes les scenes)
     QList<AbstractScene *>		    _scenes; // L'ensemble des scenes, une scnene par fenetre systemes ouvertes + eventuellement un menu
-    QList<AbstractScene *>::iterator    _currentScene; // La scene utilise
+    QList<AbstractScene *>::iterator        _currentScene; // La scene utilise
     BoxController			    _boxController;
     ICommunicationGraphicalServer *	    _comGs;
     CegTcpServer                            _tcpServer;

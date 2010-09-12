@@ -22,8 +22,6 @@
 
 # define WIN32EXPLORER_H_
 
-#include <QList>
-
 #include "ICommunicationGraphicalServer.h"
 
 
@@ -35,7 +33,7 @@ public:
     virtual bool	getFocusedWindow(Ceg::Window &);
     virtual bool	setFocusToWindow(Ceg::Window & oldFocusedWindow, Ceg::Window & newFocusedWindow);
     virtual bool	generateClickEvent(short int buttonID);
-	virtual bool	generateKeybdEvent(unsigned char key);
+    virtual bool	generateKeybdEvent(unsigned char key);
 };
 
 

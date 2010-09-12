@@ -34,31 +34,6 @@
 #include "Utils.h"
 /*********************************/
 
-/* http://tronche.com/gui/x/xlib/ICC/client-to-window-manager/XGetTransientForHint.html
- * // confirm window is a client window
-    Window client = XmuClientWindow (displ
- * http://stackoverflow.com/questions/736345/handle-new-top-level-window-events-in-xlib-xt
- *
-Top level window on X Window System
-Hello,
-
-i want to print on the screen the informations about Top level windows under Linux.
-
-I use the xlib functions. I successfully recurse from the root window to print all the informations about all the element on display.
-
-But i need only the Top-Level window. I don't find any good way to filter.
-
-From wikipedia :
-
-> The top-level windows are exactly the
-> direct subwindows of the root window.
-
-With that definition , I have some windows like: gnome-session, seahorse-daemon,notify-osd or icons, on my list and i don't want them.
-
-I also find a function : XmuClientWindow, but i don't understand it's goal.
-
-Thanks to help me.*/
-
 XWindowSystem::XWindowSystem() :
 	_connection(::XOpenDisplay(0))
 {
@@ -80,6 +55,7 @@ XWindowSystem::~XWindowSystem()
 }
 
 
+// avoir la derniere fenetre qui poppe XGetInputFocus
 bool XWindowSystem::getFocusedWindow(Ceg::Window & /*newWindow*/)
 {
     bool statusOp = false;
@@ -179,6 +155,9 @@ bool XWindowSystem::generateKeybdEvent(unsigned char)
     return (true);
 }
 
+
+
+/************************************************************************************* Fonctions de debug *************************************************************************************/
 void XWindowSystem::printRecurse(::Window currentWindow, unsigned int level) const
 {
     ::Window rootReturn, parentReturn;

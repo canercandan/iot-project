@@ -82,6 +82,24 @@ AbstractScene * MainController::getScene(const QString &id) const
     return (0);
 }
 
+int MainController::getIndexOfScene(AbstractScene * sceneSearch) const
+{
+    return (this->_scenes.indexOf(sceneSearch));
+}
+
+int MainController::getFirstOfType(BoxType type) const
+{
+    int i = 0;
+    for (QList<AbstractScene *>::const_iterator it = this->_scenes.begin(), itEnd = this->_scenes.end(); it != itEnd; ++it, ++i)
+    {
+        if (**it == type)
+        {
+            return (i);
+        }
+    }
+    return (-1);
+}
+
 AbstractScene * MainController::getSceneAt(int position) const
 {
     if (position < this->_scenes.size())

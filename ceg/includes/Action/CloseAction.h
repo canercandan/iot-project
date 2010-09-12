@@ -1,6 +1,6 @@
 // -*- mode: c++; c-indent-level: 4; c++-member-init-indent: 8; comment-column: 35; -*-
 
-/* IOT Copyleft (C) 2010 CEG development team
+/* IOT Copyright (C) 2010 CEG development team
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2
@@ -18,23 +18,29 @@
  * Authors: CEG <ceg@ionlythink.com>, http://www.ionlythink.com
  */
 
-#ifndef _Action
-#define _Action
+#ifndef CLOSEACTION_H
+#define CLOSEACTION_H
 
-#include "ActionFactory.h"
-#include "CancelAction.h"
-#include "ClickAction.h"
-#include "CloseAction.h"
-#include "KeyboardAction.h"
-#include "ExecMenuAction.h"
-#include "ExecProcessAction.h"
 #include "IAction.h"
-#include "MoveAction.h"
-#include "PopMenuAction.h"
-#include "QuitAction.h"
-#include "ReadAction.h"
-#include "ValidAction.h"
-#include "WriteAction.h"
-#include "ZoomAction.h"
 
-#endif // !_Action
+class AbstractScene;
+
+class CloseAction : public IAction
+{
+public:
+    CloseAction(AbstractScene * sceneToClose);
+    CloseAction(QDomElement const &);
+
+    virtual void	exec(MainController&);
+    virtual void	initializeFromXml(QDomElement const &);
+
+public:
+    static char const * IDENTIFIER;
+
+private:
+    AbstractScene * _sceneToClose;
+};
+
+IAction * instanciateCloseAction(QDomElement const &);
+
+#endif // CLOSEACTION_H

@@ -21,8 +21,6 @@
 #ifndef ICOMMUNICATIONGRAPHICALSERVER_H_
 #define ICOMMUNICATIONGRAPHICALSERVER_H_
 
-#include <QList>
-
 #include "Window.h"
 
 /**

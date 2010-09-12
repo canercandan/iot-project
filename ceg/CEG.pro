@@ -55,7 +55,8 @@ HEADERS += AbstractItem.h \
     includes/Action/QuitAction.h \
     includes/Action/Action \
     includes/Action/ExecProcessAction.h \
-    includes/WindowSystem.h
+    includes/WindowSystem.h \
+    includes/Action/CloseAction.h
 SOURCES += AbstractItem.cpp \
     AbstractScene.cpp \
     BoxController.cpp \
@@ -88,7 +89,8 @@ SOURCES += AbstractItem.cpp \
     WriteAction.cpp \
     ZoomAction.cpp \
     src/Action/QuitAction.cpp \
-    src/Action/ExecProcessAction.cpp
+    src/Action/ExecProcessAction.cpp \
+    src/Action/CloseAction.cpp
 unix { 
     HEADERS += XWindowSystem.h
     SOURCES += XWindowSystem.cpp

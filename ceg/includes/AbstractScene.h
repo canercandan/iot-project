@@ -44,7 +44,8 @@ public:
     AbstractScene(QString const & id, QObject * parent = 0);
     ~AbstractScene();
 
-    bool    operator==(QString const &) const;
+    bool    operator==(QString const & id) const;
+    bool    operator==(BoxType const & type) const;
 
     virtual void	    initialize(QList<QGraphicsRectItem *> const & sceneItems); // Ajout des items a la scene
 

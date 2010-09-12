@@ -49,6 +49,12 @@ bool    AbstractScene::operator ==(QString const & id) const
 {
     return (id == this->_id);
 }
+
+bool    AbstractScene::operator ==(BoxType const & type) const
+{
+    return (type == this->_type);
+}
+
 /************************************************* [ GETTERS ] *************************************************/
 
 AbstractItem const *	AbstractScene::getCurrentItem() const

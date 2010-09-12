@@ -138,6 +138,7 @@ int main(int ac, char** av)
 
     ActionFactory::registerInstantiator(CancelAction::IDENTIFIER, instanciateCancelAction);
     ActionFactory::registerInstantiator(ClickAction::IDENTIFIER, instanciateClickAction);
+    ActionFactory::registerInstantiator(CloseAction::IDENTIFIER, instanciateCloseAction);
     ActionFactory::registerInstantiator(KeyboardAction::IDENTIFIER, instanciateKeyboardAction);
     ActionFactory::registerInstantiator(ExecMenuAction::IDENTIFIER, instanciateExecMenuAction);
     ActionFactory::registerInstantiator(ExecProcessAction::IDENTIFIER, instanciateExecProcessAction);

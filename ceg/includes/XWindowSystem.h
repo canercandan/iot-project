@@ -21,8 +21,6 @@
 #ifndef XWINDOWSYSTEM_H_
 #define XWINDOWSYSTEM_H_
 
-#include <QList>
-
 #include <X11/Xutil.h>
 #include <X11/Xatom.h>
 #include <X11/Xmu/WinUtil.h>
@@ -34,9 +32,6 @@
 /*
  * doc pour l'API http://tronche.com/gui/x/xlib/
  * ressource tres utile http://standards.freedesktop.org/wm-spec/1.3/ar01s05.html
- * pour recupere le PID du programme http://lists.samba.org/archive/linux/2008-July/020298.html  _NET_WM_PID
- * http://stackoverflow.com/questions/151407/how-to-get-an-x11-window-from-a-process-id
- * avoir la derniere fenetre qui poppe XGetInputFocus
  */
 
 class XWindowSystem : public ICommunicationGraphicalServer
@@ -57,7 +52,7 @@ private:
     void	    queryPointer(XEvent&, Window& window, Window& subwindow);
 
 private:
-    ::Display* _connection;
+    ::Display * _connection; // Connection avec le serveur graphique
 };
 
 #endif // XWINDOWSYSTEM_H_
