@@ -81,6 +81,7 @@ class BuilderWidget(QtGui.QMainWindow):
         self.currentView.boxes.append(box)
         if self.currentView != self.rootView:
             self.currentView.parentView.currentBox.children.append(box)
+        return box
 
     def createDomBox(self, domElement):
         box = Box(self)
@@ -193,6 +194,11 @@ class BuilderWidget(QtGui.QMainWindow):
         doc = QDomDocument('XmlBox')
         root = doc.createElement('boxes')
         root.setAttribute('id', self.getFilenameFromFullPath(filename))
+        scrGeo = QApplication.desktop().screenGeometry()
+        root.setAttribute('resolution-x', scrGeo.x())
+        root.setAttribute('resolution-y', scrGeo.y())
+        root.setAttribute('resolution-width', scrGeo.width())
+        root.setAttribute('resolution-height', scrGeo.height())
         doc.appendChild(root)
 
         for box in self.rootView.boxes:
@@ -269,8 +275,9 @@ class BuilderWidget(QtGui.QMainWindow):
 
     def pasteBox(self):
         if self.currentView.clipboard:
-            self.createRegularBox(self.currentView.clipboard.topLeft(),
-                             self.currentView.clipboard.bottomRight())
+            box = self.createRegularBox(self.currentView.clipboard.topLeft(),
+                                        self.currentView.clipboard.bottomRight())
+            box.initFromRegularBox(self.currentView.clipboard)
             self.repaint()
 
     def builderHelp(self):

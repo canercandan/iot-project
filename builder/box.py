@@ -33,9 +33,10 @@ class Box(QRect, Node):
         self.children = []                      # list of Boxes
         self.actionIdSet = 0
         self.attributeBuffer = ''
-        self.boxEditor = BoxEditor(builder)            # QDialog
+        self.boxEditor = BoxEditor(builder)     # QDialog
         self.boxType = BoxType.CustomBox        # int
         self.graphicStyle = BoxStyle()
+        self.bufferedAttributes = {}            # dictionnary
 
     # Standard constructor
     def initRegularBox(self, topLeft, bottomRight):
@@ -46,8 +47,8 @@ class Box(QRect, Node):
     def initFromRegularBox(self, box):
         self.setTopLeft(box.topLeft())
         self.setBottomRight(box.bottomRight())
-        #self.setActionId(box.getActionId())
-        #self.setAttribute(box.getAttribute())
+        self.setActionId(box.getActionId())
+        self.setAttributes(box.getAttributes())
 
     def initDomBox(self, domElement):
         self.initializeFromXml(domElement)
@@ -66,7 +67,7 @@ class Box(QRect, Node):
         for k, v in geometryFunctions.iteritems():
             if elem.hasAttribute(k):
                 attr = elem.attribute(k).toInt()
-                if attr[1]:
+                if attr[1]: # if conversion is OK
                     v(attr[0])
 
         # QDomNode
@@ -78,14 +79,22 @@ class Box(QRect, Node):
                 if tag == 'action':
                     self.parseAction(childElem)
                 elif tag == 'style':
-                    self.graphicStyle.initializeFromXml( childElem )
+                    self.graphicStyle.initializeFromXml(childElem)
                 elif tag == 'children':
                     self.createChildren(childElem)
             domNode = domNode.nextSibling()
 
     def parseAction(self, childElem):
-        print ''
-        #print 'id = ', childElem.attribute('id')
+        if childElem.hasAttribute('id'):
+            self.setActionId(childElem.attribute('id'))
+            childElem.removeAttribute('id')
+            # QDomNamedNodeMap attributes
+            attributes = childElem.attributes()
+            myDict = {}
+            for i in range(attributes.count()):
+                domNode = attributes.item(i)
+                myDict[domNode.nodeName()] = domNode.nodeValue()
+            self.setAttributes(myDict)
 
     # QDomElement chilElem
     def createChildren(self, childElem):
@@ -114,18 +123,17 @@ class Box(QRect, Node):
         # Setting box attributes
         boxElem.setAttribute('type', self.boxType)
         for k, v in geometryFunctions.iteritems():
-            print 'k =', k
             boxElem.setAttribute(k, v())
 
         # Adding action
         action = domDoc.createElement('action')
         action.setAttribute('id', self.getActionId())
-        print self.getAttribute()
+        attributes = self.getAttributes()
+        for key, value in attributes.iteritems():
+            action.setAttribute(key, value)
         boxElem.appendChild(action)
 
         # Adding Style
-        #style = domDoc.createElement('style')
-        #boxElem.appendChild(style)
         boxElem.appendChild(self.graphicStyle.createXMLNode(domDoc))
 
         # Adding Children
@@ -134,33 +142,38 @@ class Box(QRect, Node):
             for child in self.children:
                 children.appendChild(child.createXMLNode(domDoc))
             boxElem.appendChild(children)
-
         return boxElem
 
     def getActionId(self):
-        return self.boxEditor.ui.tabs.tabText(self.boxEditor.ui.tabs.currentIndex())
+        return self.boxEditor.ui.listWidget.currentItem().text()
 
     def getType(self):
         return self.boxEditor.getType()
 
-    def getAttribute(self):
-        return self.boxEditor.getAttribute()
+    def getAttributes(self):
+        return self.boxEditor.getAttributes()
 
     def setActionId(self, boxType):
-        for i in range(self.boxEditor.ui.tabs.count()):
-            if boxType == self.boxEditor.ui.tabs.tabText(i):
-                self.boxEditor.ui.tabs.setCurrentIndex(i)
-                if self.attributeBuffer != '':
-                    self.boxEditor.setAttribute(self.attributeBuffer)
+        for i in range(self.boxEditor.ui.listWidget.count()):
+            if boxType == self.boxEditor.ui.listWidget.item(i).text():
+                self.boxEditor.ui.listWidget.setCurrentRow(i)
+                if self.bufferedAttributes:
+                    self.setAttributes(self.bufferedAttributes)
                 self.actionIdSet = 1
                 return
         raise NameError('Action id "', boxType, '" not found.')
 
-    def setAttribute(self, attribute):
-        if self.actionIdSet == 1 and attribute != '':
-            self.boxEditor.setAttribute(attribute)
+    def setAttribute(self, key, value):
+        if self.actionIdSet == 1:
+            self.boxEditor.setAttribute(key, value)
         else:
-            self.attributeBuffer = attribute
+            # buffer attribute
+            self.bufferedAttributes[key] = value
+
+    # attributes is a dictionnary
+    def setAttributes(self, attributes):
+        for key, value in attributes.iteritems():
+            self.boxEditor.setAttribute(key, value)
 
     def editBox(self):
         self.boxEditor.open()

@@ -29,107 +29,89 @@ class BoxEditor(QtGui.QDialog):
         self.ui.setupUi(self)
 
         self.getDictionnary = {
-            QtGui.QApplication.translate('BoxEditor', 'Cancel')   :   self.getCancelAttribute,
-            QtGui.QApplication.translate('BoxEditor', 'Click')    :   self.getClickAttribute,
-            QtGui.QApplication.translate('BoxEditor', 'ExecMenu') :   self.getExecMenuAttribute,
-            QtGui.QApplication.translate('BoxEditor', 'Move')     :   self.getMoveAttribute,
-            QtGui.QApplication.translate('BoxEditor', 'PopMenu')  :   self.getPopMenuAttribute,
-            QtGui.QApplication.translate('BoxEditor', 'Read')     :   self.getReadAttribute,
-            QtGui.QApplication.translate('BoxEditor', 'Valid')    :   self.getValidAttribute,
-            QtGui.QApplication.translate('BoxEditor', 'Write')    :   self.getWriteAttribute,
-            QtGui.QApplication.translate('BoxEditor', 'Zoom')     :   self.getZoomAttribute }
+            QtGui.QApplication.translate('BoxEditor', 'Click')    :   self.getClickAttributes,
+            QtGui.QApplication.translate('BoxEditor', 'Zoom')     :   self.getZoomAttributes,
+            QtGui.QApplication.translate('BoxEditor', 'Read')     :   self.getReadAttributes,
+            QtGui.QApplication.translate('BoxEditor', 'Write')    :   self.getWriteAttributes,
+            QtGui.QApplication.translate('BoxEditor', 'PopMenu')  :   self.getPopMenuAttributes }
 
         self.setDictionnary = {
-            QtGui.QApplication.translate('BoxEditor', 'Cancel')   :   self.setCancelAttribute,
             QtGui.QApplication.translate('BoxEditor', 'Click')    :   self.setClickAttribute,
-            QtGui.QApplication.translate('BoxEditor', 'ExecMenu') :   self.setExecMenuAttribute,
-            QtGui.QApplication.translate('BoxEditor', 'Move')     :   self.setMoveAttribute,
-            QtGui.QApplication.translate('BoxEditor', 'PopMenu')  :   self.setPopMenuAttribute,
+            QtGui.QApplication.translate('BoxEditor', 'Zoom')     :   self.setZoomAttribute,
             QtGui.QApplication.translate('BoxEditor', 'Read')     :   self.setReadAttribute,
-            QtGui.QApplication.translate('BoxEditor', 'Valid')    :   self.setValidAttribute,
             QtGui.QApplication.translate('BoxEditor', 'Write')    :   self.setWriteAttribute,
-            QtGui.QApplication.translate('BoxEditor', 'Zoom')     :   self.setZoomAttribute }
+            QtGui.QApplication.translate('BoxEditor', 'PopMenu')  :   self.setPopMenuAttribute }
 
-    def getAttribute(self):
+    # One attribute for the moment but this is extensible
+    def getAttributes(self):
         for tabTitle in self.getDictionnary:
-            if tabTitle == self.ui.tabs.tabText(self.ui.tabs.currentIndex()):
+            if tabTitle == self.ui.listWidget.currentItem().text():
                 return self.getDictionnary[tabTitle]()
 
-    def getCancelAttribute(self):
-        return []
+    def getClickAttributes(self):
+        return {'type' : QString.number(self.ui.clickComboBox.currentIndex())}
 
-    def getClickAttribute(self):
-        return ['type', QString.number(self.ui.clickComboBox.currentIndex())]
+    def getPopMenuAttributes(self):
+        return {'MenuId' : QString.number(self.ui.popMenuComboBox.currentIndex())}
 
-    def getExecMenuAttribute(self):
-        return ['', '']
+    def getReadAttributes(self):
+        return {'time' : QString.number(self.ui.readDoubleSpinBox.value())}
 
-    def getMoveAttribute(self):
-        return ['key', '']
+    def getWriteAttributes(self):
+        return {'buffer' : self.ui.writeLineEdit.text()}
 
-    def getPopMenuAttribute(self):
-        return ['', '']
+    def getZoomAttributes(self):
+        return {'isZoom' : QString.number(self.ui.zoomComboBox.currentIndex())}
 
-    def getReadAttribute(self):
-        return ['time', QString.number(self.ui.readDoubleSpinBox.value())]
-
-    def getValidAttribute(self):
-        return ['', '']
-
-    def getWriteAttribute(self):
-        return ['', self.ui.writeLineEdit.text()]
-
-    def getZoomAttribute(self):
-        return ['isZoom', QString.number(self.ui.zoomComboBox.currentIndex())]
-
-    # attribute is supposed to be a list !
-    def setAttribute(self, attribute):
+    def setAttribute(self, key, value):
         for tabTitle in self.getDictionnary:
-            if tabTitle == self.ui.tabs.tabText(self.ui.tabs.currentIndex()):
-                self.setDictionnary[tabTitle](attribute)
+            if tabTitle == self.ui.listWidget.currentItem().text():
+                self.setDictionnary[tabTitle](key, value)
 
-    # TODO
-    def setCancelAttribute(self, attribute):
-        print ''
+    def setClickAttribute(self, key, value):
+        if key != 'type':
+            print 'Unknown key'
+            return
 
-    # attribute is now a list...
-    def setClickAttribute(self, attribute):
-        r = QString(attribute).toInt()
+        r = QString(value).toInt()
         if not r[1]:
             return
         if r[0] < self.ui.clickComboBox.count():
             self.ui.clickComboBox.setCurrentIndex(r[0])
 
-    # TODO
-    def setExecMenuAttribute(self, attribute):
-        print ''
+    def setPopMenuAttribute(self, key, value):
+        if key != 'MenuId':
+            print 'Unknown key'
+            return
 
-    # TODO
-    def setMoveAttribute(self, attribute):
-        print ''
+        r = QString(value).toInt()
+        if not r[1]:
+            return
+        if r[0] < self.ui.popMenuComboBox.count():
+            self.ui.popMenuComboBox.setCurrentIndex(r[0])
 
-    # TODO
-    def setPopMenuAttribute(self, attribute):
-        print ''
+    def setReadAttribute(self, key, value):
+        if key != 'time':
+            print 'Unknown key'
+            return
 
-    # attribute is now a list...
-    def setReadAttribute(self, attribute):
-        r = QString(attribute).toFloat()
+        r = QString(value).toFloat()
         if not r[1]:
             return
         self.ui.readDoubleSpinBox.setValue(r[0])
 
-    # TODO
-    def setValidAttribute(self, attribute):
-        print ''
+    def setWriteAttribute(self, key, value):
+        if key != 'buffer':
+            print 'Unknown key'
+            return
+        self.ui.writeLineEdit.setText(value)
 
-    # attribute is now a list...
-    def setWriteAttribute(self, attribute):
-        self.ui.writeLineEdit.setText(attribute)
+    def setZoomAttribute(self, key, value):
+        if key != 'isZoom':
+            print 'Unknown key'
+            return
 
-    # attribute is now a list...
-    def setZoomAttribute(self, attribute):
-        r = QString(attribute).toInt()
+        r = QString(value).toInt()
         if not r[1]:
             return
         if r[0] < self.ui.zoomComboBox.count():
