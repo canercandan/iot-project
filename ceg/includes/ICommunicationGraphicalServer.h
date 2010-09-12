@@ -46,7 +46,6 @@ public:
 
     virtual bool getFocusedWindow(Ceg::Window & focusedWindow) = 0;
     virtual bool setFocusToWindow(Ceg::Window & oldFocusedWindow, Ceg::Window & newFocusedWindow) = 0;
-    virtual bool refreshWindowInfo(Ceg::Window &) = 0;
     virtual bool generateClickEvent(short int buttonID) = 0;
     virtual bool generateKeybdEvent(unsigned char key) = 0;
 };

@@ -32,16 +32,10 @@ class Win32Explorer : public ICommunicationGraphicalServer
 public:
     Win32Explorer();
     ~Win32Explorer();
-    virtual bool	getWindows(QList<Ceg::Window> &);
     virtual bool	getFocusedWindow(Ceg::Window &);
     virtual bool	setFocusToWindow(Ceg::Window & oldFocusedWindow, Ceg::Window & newFocusedWindow);
-    virtual bool	refreshWindowInfo(Ceg::Window &);
     virtual bool	generateClickEvent(short int buttonID);
 	virtual bool	generateKeybdEvent(unsigned char key);
-    BOOL		fillWindowList(HWND hWnd);
-
-private:
-    QList<Ceg::Window>*	_windowList;
 };
 
 

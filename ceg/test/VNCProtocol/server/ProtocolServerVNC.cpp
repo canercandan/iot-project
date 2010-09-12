@@ -79,7 +79,7 @@ void		ProtocolServerVNC::execSecuReason(QDataStream & stream)
 {
     if (this->_passOk == triBool::TB_FALSE)
     {
-        ""
+        "";
     }
 }
 
