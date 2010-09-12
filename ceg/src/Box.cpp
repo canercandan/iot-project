@@ -122,7 +122,7 @@ BoxType	Box::getBoxType() const
     return (this->_type);
 }
 
-std::list<Box const *> const &    Box::getChilden() const
+QList<Box const *> const &    Box::getChilden() const
 {
     return (this->_children);
 }

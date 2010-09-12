@@ -79,7 +79,7 @@ XWindowSystem::~XWindowSystem()
     }
 }
 
-bool XWindowSystem::getWindows(std::list<Ceg::Window> &)
+/*bool XWindowSystem::getWindows(QList<Ceg::Window> &)
 {
     if (this->_connection != 0)
     {
@@ -87,7 +87,7 @@ bool XWindowSystem::getWindows(std::list<Ceg::Window> &)
 	this->printRecurse(rootWindow, 0);
     }
     return (this->_connection);
-}
+}*/
 
 bool XWindowSystem::getFocusedWindow(Ceg::Window & /*newWindow*/)
 {
@@ -216,15 +216,14 @@ void XWindowSystem::printRecurse(::Window currentWindow, unsigned int level) con
     {
 	tmp << this->printIndent(level) << " Window ID :"  << &currentWindow << "Root: " << &rootReturn << "Parent: " << &parentReturn;
 	Logger::getInstance()->log(INFO_LOG, msg); msg = "";
-	pid_t pid = this->getPid(currentWindow);
+        pid_t pid = 0;//this->getPid(currentWindow);
 	tmp << this->printIndent(level) << " Pid of the window's creator : " << pid;
 	Logger::getInstance()->log(INFO_LOG, msg);msg = "";
 	if (pid != 0)
 	{
-	    tmp << this->printIndent(level) << " Binaire utilise : " << this->getPathOfBinary(typeToString(pid)).c_str();
+            tmp << this->printIndent(level) << " Binaire utilise : " /*<< this->getPathOfBinary(typeToString(pid))*/;
 	    Logger::getInstance()->log(INFO_LOG, msg); msg = "";
 	}
-	this->printCommands(currentWindow, level);
 	this->printWindow(currentWindow, level);
 	tmp << this->printIndent(level) << " Nb child : " << nbChildrenReturn;
 	Logger::getInstance()->log(INFO_LOG, msg); msg = "";
@@ -244,47 +243,6 @@ void XWindowSystem::printRecurse(::Window currentWindow, unsigned int level) con
     }
 }
 
-pid_t XWindowSystem::getPid(::Window windowId) const
-{
-    // Un atom est un identifiant unique pour une propriete. d'une fenetre doc http://tronche.com/gui/x/xlib/window-information/properties-and-atoms.html
-    Atom atomPid = ::XInternAtom(this->_connection, "_NET_WM_PID", True);
-    pid_t pid = 0;
-    if (atomPid != BadAlloc && atomPid != BadValue && atomPid != None)
-    {
-	Atom type;
-	int format;
-	unsigned long nItems;
-	unsigned long bytesAfter;
-	unsigned char *propPID = 0;
-	if (::XGetWindowProperty(this->_connection, windowId, atomPid, 0, 1, False, XA_CARDINAL, &type, &format, &nItems, &bytesAfter, &propPID) == Success)
-	{
-	    if (propPID != 0)
-	    {
-		pid = *((pid_t *) propPID);
-		::XFree(propPID);
-	    }
-	}
-    }
-    return (pid);
-}
-
-//redhat /exe
-std::string XWindowSystem::getPathOfBinary(std::string const & pidStr) const
-{
-    std::string symbolicLink("/proc/" + pidStr + "/exe");
-    char buffer[PATH_MAX];
-    ssize_t size = readlink(symbolicLink.c_str(), buffer, PATH_MAX);
-    if (size == -1)
-    {
-	perror("readlink : ");
-    }
-    else
-    {
-	buffer[size] = '\0';
-	return (buffer);
-    }
-    return ("");
-}
 
 char XWindowSystem::printIndent(unsigned int nbIndent) const
 {
@@ -347,7 +305,6 @@ void XWindowSystem::printWindow(::Window windowId, unsigned int level) const
     status = ::XGetWindowAttributes(this->_connection, windowId, &windowInfos);
     if (status != BadDrawable && status != BadWindow)
     {
-
 	// cf function Display_Stats_Info for absolute window
 	tmp <<  this->printIndent(level) << " X : " << windowInfos.x << " Y : " << windowInfos.y;
 	tmp << " Heigth : " << windowInfos.height << " Width : " << windowInfos.width;
@@ -360,26 +317,3 @@ void XWindowSystem::printWindow(::Window windowId, unsigned int level) const
     }
 }
 
-void XWindowSystem::printCommands(::Window windowId, unsigned int level) const
-{
-    int argcReturn;
-    char **argvReturn;
-    QString msg;
-    QTextStream tmp(&msg);
-
-    Status status = ::XGetCommand(this->_connection, windowId, &argvReturn, &argcReturn);
-    if (status != 0)
-    {
-	tmp << this->printIndent(level) << "argc : " << argcReturn << "argv :";
-	for (int i = 0; i < argcReturn; ++i)
-	{
-	    tmp << ' ' << argvReturn[i];
-	}
-	Logger::getInstance()->log(INFO_LOG, msg);
-	::XFreeStringList(argvReturn);
-    }
-    else
-    {
-	Logger::getInstance()->log(ERROR_LOG, "Scope : XWindowSystem::printCommands\tFunction XGetCommand fail");
-    }
-}

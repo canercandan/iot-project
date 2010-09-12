@@ -68,7 +68,6 @@ void    Logger::setLogLevel(loglevel newLogLevel)
     this->_currentLogLevel = newLogLevel;
 }
 
-
 //! set a File
 void    Logger::setLogFile(QString const & filename)
 {
@@ -95,33 +94,21 @@ QString    Logger::getLogFile() const
 
 void    Logger::log(loglevel msgLogLevel,QString const & msg)
 {
-    this->log(msgLogLevel, msg.toStdString().c_str());
-}
-
-void    Logger::log(loglevel msgLogLevel, const char *msg)
-{
     if (this->_currentLogLevel > msgLogLevel)
-	return;
+        return;
     QTextStream out(stdout);
     out << "[" << QTime::currentTime().toString().toAscii().data() << "] " << logLevelMsg[msgLogLevel]<< msg << endl;
     if (this->_logFile && this->_logFile->exists())
     {
-	QTextStream filestream(this->_logFile);
-	filestream << "[" << QTime::currentTime().toString().toAscii().data() << "] " << logLevelMsg[msgLogLevel]<< msg << endl;
+        QTextStream filestream(this->_logFile);
+        filestream << "[" << QTime::currentTime().toString().toAscii().data() << "] " << logLevelMsg[msgLogLevel]<< msg << endl;
     }
 }
-
-void Logger::log(loglevel msgLogLevel, QTextStream const & msg)
-{
-    QString* tmp = msg.string();
-    this->log(msgLogLevel, *tmp);
-}
-
 
 Logger* Logger::getInstance()
 {
     QMutexLocker instanceMutexLocker(&Logger::_instanceMutex);
-    if (!_instance)
+    if (Logger::_instance == 0)
     {
 	Logger::_instance = new Logger;
     }
@@ -130,7 +117,7 @@ Logger* Logger::getInstance()
 
 void Logger::destroy()
 {
-    if (Logger::_instance)
+    if (Logger::_instance != 0)
     {
 	delete Logger::_instance;
 	Logger::_instance = 0;

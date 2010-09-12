@@ -29,7 +29,7 @@
 class PopMenuAction : public IAction
 {
 public:
-    PopMenuAction(std::string const & menuId);
+    PopMenuAction(QString const & menuId);
     PopMenuAction(QDomElement const & domElement);
 
     virtual void	exec(MainController&);
@@ -39,7 +39,7 @@ public:
     static char const * IDENTIFIER;
 
 private:
-    std::string	    _menuId;
+    QString	    _menuId;
 };
 
 IAction * instanciatePopMenuAction(QDomElement const &);

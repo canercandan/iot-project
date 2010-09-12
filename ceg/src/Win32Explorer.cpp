@@ -39,7 +39,7 @@ Win32Explorer::~Win32Explorer()
 {
 }
 
-bool	Win32Explorer::getWindows(std::list<Ceg::Window> & windowList)
+bool	Win32Explorer::getWindows(QList<Ceg::Window> & windowList)
 {
     //WNDENUMPROC lpEnumFunc = std::mem_fun(*this, &Win32Explorer::fillWindowList);
     //WNDENUMPROC lpEnumFunc;

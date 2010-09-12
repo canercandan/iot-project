@@ -26,7 +26,7 @@
 #include "AbstractItem.h"
 /*********************************/
 #include "Layer.h"
-/****************** ***************/
+/*********************************/
 #include "Box.h"
 #include "PopMenuAction.h"
 #include "Logger.h"
@@ -81,7 +81,7 @@ void    Layer::on_processFinished(int exitCode, QProcess::ExitStatus) // Pour le
 
 /************************************************* [ OTHERS ] *************************************************/
 
-void	Layer::initialize(std::list<QGraphicsRectItem *> const & sceneItems)
+void	Layer::initialize(QList<QGraphicsRectItem *> const & sceneItems)
 {
     if (sceneItems.empty() == false)
     {

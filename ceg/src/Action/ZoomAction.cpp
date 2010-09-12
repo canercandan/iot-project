@@ -61,7 +61,7 @@ void	ZoomAction::exec(MainController & mainC)
     AbstractScene * scene = mainC.getSceneAt(position);
     AbstractItem const * currentItem = scene->getCurrentItem();
     Box const * box = currentItem->getBox();
-    std::list<QGraphicsRectItem *> graphicItems;
+    QList<QGraphicsRectItem *> graphicItems;
     BoxController const & boxManager = mainC.getBoxController();
 
     if (this->_zoom == true)

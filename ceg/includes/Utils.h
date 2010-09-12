@@ -25,7 +25,7 @@
  * \brief Fichier de fonctions utiles
  */
 
-#include <string>
+#include <QString>
 #include <sstream>
 #include <iostream>
 
@@ -38,7 +38,7 @@ public:
 };
 
 template<typename T>
-std::string typeToString(T const & input)
+QString typeToString(T const & input)
 {
     std::ostringstream oss;
 

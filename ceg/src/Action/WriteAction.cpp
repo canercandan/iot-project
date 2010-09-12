@@ -33,7 +33,7 @@ WriteAction::WriteAction(QDomElement const & domElement) : _toWrite()
 
 void	WriteAction::initializeFromXml(QDomElement const & domElement)
 {
-    this->_toWrite = domElement.attribute("buffer").toStdString();
+    this->_toWrite = domElement.attribute("buffer");
 }
 
 /************************************************* [ OTHERS ] *************************************************/

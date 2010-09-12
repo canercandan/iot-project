@@ -22,7 +22,7 @@
 
 # define WIN32EXPLORER_H_
 
-#include <list>
+#include <QList>
 
 #include "ICommunicationGraphicalServer.h"
 
@@ -32,7 +32,7 @@ class Win32Explorer : public ICommunicationGraphicalServer
 public:
     Win32Explorer();
     ~Win32Explorer();
-    virtual bool	getWindows(std::list<Ceg::Window> &);
+    virtual bool	getWindows(QList<Ceg::Window> &);
     virtual bool	getFocusedWindow(Ceg::Window &);
     virtual bool	setFocusToWindow(Ceg::Window & oldFocusedWindow, Ceg::Window & newFocusedWindow);
     virtual bool	refreshWindowInfo(Ceg::Window &);
@@ -41,7 +41,7 @@ public:
     BOOL		fillWindowList(HWND hWnd);
 
 private:
-    std::list<Ceg::Window>*	_windowList;
+    QList<Ceg::Window>*	_windowList;
 };
 
 

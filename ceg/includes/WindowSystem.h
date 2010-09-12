@@ -28,9 +28,6 @@ public:
     WindowSystem()
     {}
 
-    virtual inline bool getWindows(std::list<Ceg::Window> & windows)
-    {return true;}
-
     virtual inline bool getFocusedWindow(Ceg::Window & focusedWindow)
     {return true;}
 
@@ -45,21 +42,9 @@ public:
 };
 
 #elif defined(Q_WS_WIN)
-
-//#warning "WINDOWS"
-
 #include "Win32Explorer.h"
-
 typedef Win32Explorer	WindowSystem;
-
 #elif defined(Q_WS_X11) || defined(Q_WS_MAC)
-
 #include "XWindowSystem.h"
-
 typedef XWindowSystem	WindowSystem;
-
-#else
-
-//#warning "Not yet implemented"
-
 #endif

@@ -21,7 +21,7 @@
 #ifndef XWINDOWSYSTEM_H_
 #define XWINDOWSYSTEM_H_
 
-#include <list>
+#include <QList>
 
 #include <X11/Xutil.h>
 #include <X11/Xatom.h>
@@ -45,20 +45,17 @@ public:
     XWindowSystem();
     ~XWindowSystem();
 
-    virtual bool    getWindows(std::list<Ceg::Window> &);
+    //virtual bool    getWindows(QList<Ceg::Window> &);
     virtual bool    getFocusedWindow(Ceg::Window & focusedWindow);
     virtual bool    setFocusToWindow(Ceg::Window & oldFocusedWindow, Ceg::Window & newFocusedWindow);
     virtual bool    refreshWindowInfo(Ceg::Window &);
     virtual bool    generateClickEvent(short int buttonID);
-	virtual bool	generateKeybdEvent(unsigned char key);
+    virtual bool    generateKeybdEvent(unsigned char key);
 
 private:
     char	    printIndent(unsigned int) const;
-    void	    printCommands(::Window, unsigned int) const;
     void	    printWindow(::Window, unsigned int) const;
     void	    printRecurse(::Window, unsigned int level) const;
-    pid_t	    getPid(::Window) const;
-    std::string	    getPathOfBinary(std::string const & pidStr) const;
     void	    queryPointer(XEvent&, Window& window, Window& subwindow);
 
 private:

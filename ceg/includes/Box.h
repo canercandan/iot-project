@@ -21,10 +21,9 @@
 #ifndef BOX_H_
 #define BOX_H_
 
-#include <list>
-#include <map>
-
 #include <QRect>
+#include <QList>
+#include <QMap>
 
 #include "IDomFactory.h"
 #include "BoxStyle.h"
@@ -51,7 +50,7 @@ public:
 
     IAction  *			    getAction() const;
     BoxType			    getBoxType() const;
-    std::list<Box const *> const &  getChilden() const;
+    QList<Box const *> const &  getChilden() const;
     QRect const &		    getGeometry() const;
     unsigned short		    getLevel() const;
     Box const *			    getParent() const;
@@ -71,7 +70,7 @@ private:
     QRect			    _geometry; // Les dimensions de la boite
     IAction  *		    _action; // L'action que la box entraine
     BoxStyle		    _graphicStyle; // Toutes les options graphiques d'une box
-    std::list<Box const *>   _children; // le sous patron
+    QList<Box const *>   _children; // le sous patron
 };
 
 #endif // BOX_H_

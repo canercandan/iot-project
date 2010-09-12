@@ -21,9 +21,8 @@
 #ifndef BOXCONTROLLER_H
 #define BOXCONTROLLER_H
 
-#include <map>
-#include <list>
-#include <string>
+#include <QList>
+#include <QMap>
 
 class QGraphicsRectItem;
 class QDir;
@@ -46,26 +45,26 @@ public:
     BoxController();
     ~BoxController();
 
-    void    getChildren(std::list<QGraphicsRectItem *> &, Box const *) const; // Retourne le sous patron de la box
-    void    getParent(std::list<QGraphicsRectItem *> &, Box const *) const; // Retourne la patron parent a la box
-    void    getPattern(Ceg::Window const &, std::list<QGraphicsRectItem *> & list) const; // Retourne la patron du niveau 0
-    void    getMenu(std::string const & idMenu, std::list<QGraphicsRectItem *> & menuItems) const; // Retourne les items du menu id
+    void    getChildren(QList<QGraphicsRectItem *> &, Box const *) const; // Retourne le sous patron de la box
+    void    getParent(QList<QGraphicsRectItem *> &, Box const *) const; // Retourne la patron parent a la box
+    void    getPattern(Ceg::Window const &, QList<QGraphicsRectItem *> & list) const; // Retourne la patron du niveau 0
+    void    getMenu(QString const & idMenu, QList<QGraphicsRectItem *> & menuItems) const; // Retourne les items du menu id
 
 private:
-    std::list<Box const *>  getPattern(Box const * boxSearch) const;
+    QList<Box const *>  getPattern(Box const * boxSearch) const;
     void    loadConfig(QString const &);
     void    initializeFromConfig(QDir const & directory); // Lit le repertoire de config pour instancier tout les patrons (custom ou menu)
     void    initializeFromXml(QString const & fileName); // Creer la patron present dans le fichier
-    void    calcChildren(std::list<Box const *> &, QRect const &, unsigned short) const;
-    void    calcParent(std::list<Box const *> &, Box const *) const;
-    void    createGraphicItems(std::list<QGraphicsRectItem *> &, std::list<Box const *> const & boxs) const; // Appel la GraphicItemFactory pour toutes les boxs
+    void    calcChildren(QList<Box const *> &, QRect const &, unsigned short) const;
+    void    calcParent(QList<Box const *> &, Box const *) const;
+    void    createGraphicItems(QList<QGraphicsRectItem *> &, QList<Box const *> const & boxs) const; // Appel la GraphicItemFactory pour toutes les boxs
     bool    isZoomable(unsigned short level) const; // Methode qui permet de limiter la profondeur de zoom en mode par defaut
 
 private:
     //! this map associates a list of boxes with a context name,
     //! it is initialy filled out by loadConf method
-    std::map<std::string, std::list<Box const *> > _patterns; // Id du logiciel et son patron associe
-    std::map<std::string, std::list<Box const *> > _menus; // Id du menu et son patron associe
+    QMap<QString, QList<Box const *> > _patterns; // Id du logiciel et son patron associe
+    QMap<QString, QList<Box const *> > _menus; // Id du menu et son patron associe
     //int                                             _nbSquare; // Nb de boxs utilisees pour le mode par defaut
 };
 

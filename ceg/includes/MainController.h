@@ -21,7 +21,7 @@
 #ifndef MAINCONTROLLER_H
 #define MAINCONTROLLER_H
 
-#include <list>
+#include <QList>
 
 #include <QGraphicsView>
 
@@ -49,7 +49,7 @@ public:
     BoxController const &		getBoxController() const;
     ICommunicationGraphicalServer*	getComGs() const;
     AbstractScene*			getCurrentScene() const; // Renvoie la scene qui est en premier dans la liste
-    AbstractScene*			getSceneAt(size_t pos) const; // renvoie la scene a la pos
+    AbstractScene*			getSceneAt(int pos) const; // renvoie la scene a la pos
     View &				getView();
 
     AbstractScene *			createScene(Ceg::Window const & window);
@@ -67,8 +67,8 @@ private:
 
 private:
     View				    _view; // La vue pour representer les scene (Une vue pour toutes les scenes)
-    std::list<AbstractScene *>		    _scenes; // L'ensemble des scenes, une scnene par fenetre systemes ouvertes + eventuellement un menu
-    std::list<AbstractScene *>::iterator    _currentScene; // La scene utilise
+    QList<AbstractScene *>		    _scenes; // L'ensemble des scenes, une scnene par fenetre systemes ouvertes + eventuellement un menu
+    QList<AbstractScene *>::iterator    _currentScene; // La scene utilise
     BoxController			    _boxController;
     ICommunicationGraphicalServer *	    _comGs;
     CegTcpServer                            _tcpServer;

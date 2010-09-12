@@ -39,7 +39,7 @@ static void createSettingFile()
 
     settings.beginGroup("general");
 
-    if (settings.value("language").toString() == "")
+    if (settings.value("language") == "")
 	settings.setValue("language", "en_US");
 
     if (settings.value("squareNumber").toString() == "")

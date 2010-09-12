@@ -33,10 +33,10 @@
 
 char const * PopMenuAction::IDENTIFIER = "PopMenu";
 
-PopMenuAction::PopMenuAction(std::string const & menuId) :
+PopMenuAction::PopMenuAction(QString const & menuId) :
 	_menuId(menuId)
 {
-    Logger::getInstance()->log(DEBUG_LOG, "PopMenuAction::PopMenuAction(std::string const & menuId)");
+    Logger::getInstance()->log(DEBUG_LOG, "PopMenuAction::PopMenuAction(QString const & menuId)");
 }
 
 PopMenuAction::PopMenuAction(QDomElement const & domElement) :
@@ -48,7 +48,7 @@ PopMenuAction::PopMenuAction(QDomElement const & domElement) :
 
 void	PopMenuAction::initializeFromXml(QDomElement const & domElement)
 {
-    this->_menuId = domElement.attribute("MenuId").toStdString();
+    this->_menuId = domElement.attribute("MenuId");
 }
 
 /************************************************* [ OTHERS ] *************************************************/
@@ -58,7 +58,7 @@ void	PopMenuAction::exec(MainController & mainC)
     Logger::getInstance()->log(DEBUG_LOG, "PopMenuAction::exec");
     // Recuperation des items du menu
     BoxController const & boxC = mainC.getBoxController();
-    std::list<QGraphicsRectItem *> menuItems;
+    QList<QGraphicsRectItem *> menuItems;
     boxC.getMenu(this->_menuId, menuItems);
     if (menuItems.empty() == false)
     {

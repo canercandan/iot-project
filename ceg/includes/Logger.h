@@ -52,8 +52,6 @@ public:
     void    setLogFile(QString const & filename);
 
     void    log(loglevel msgLogLevel, QString const & msg);
-    void    log(loglevel msgLogLevel, const char *msg);
-    void    log(loglevel msgLogLevel, QTextStream const & msg);
 
 private:
     Logger();

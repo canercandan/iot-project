@@ -22,8 +22,8 @@
 #ifndef ACTIONFACTORY_H
 #define ACTIONFACTORY_H
 
-#include <string>
-#include <map>
+#include <QString>
+#include <QMap>
 
 class QDomElement;
 class IAction;
@@ -38,10 +38,10 @@ public:
   typedef IAction * (*ActionInstantiator)(QDomElement const &);
 
   static IAction *	create(QDomElement const & domElement); // Retourne l'action demande
-  static void		registerInstantiator(std::string const & actionId, ActionInstantiator function); // Permet de referencer une action et son constructeur
+  static void		registerInstantiator(QString const & actionId, ActionInstantiator function); // Permet de referencer une action et son constructeur
 
 private:
-  static std::map<std::string, ActionInstantiator>	_instanciators; // Reference les ids des actions et leur constructeurs associes
+  static QMap<QString, ActionInstantiator>	_instanciators; // Reference les ids des actions et leur constructeurs associes
 };
 
 #endif // ACTIONFACTORY_H

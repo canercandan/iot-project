@@ -21,61 +21,49 @@
 #ifndef WINDOW_H_
 #define WINDOW_H_
 
-#include <string>
-
+#include <QString>
 #include <QRect>
 
 #if defined(__MINGW32__)
-
 // do stuff...
-
 #elif defined(Q_WS_WIN)
-
 #include <windows.h>
 #include <psapi.h>		// NT only!
 //#pragma comment(lib, "psapi")	// NT only!
-
 #elif defined(Q_WS_X11) || defined(Q_WS_MAC)
-
 #include <X11/Xlib.h>
-
-#else
-
-#warning "Not yet implemented"
-
 #endif
 
 namespace Ceg
 {
     typedef
-
 #if defined(__MINGW32__)
-    void*
+            void*
 #elif defined(Q_WS_WIN)
-    ::HWND
+            ::HWND
 #elif defined(Q_WS_X11) || defined(Q_WS_MAC)
-    ::Window
+            ::Window
 #else
-    void*
+            void*
 #endif
 
-    WindowId;
+            WindowId;
 
     class Window
     {
     public:
 	Window();
-        Window(WindowId, QRect const &, std::string const & = "");
+        Window(WindowId, QRect const &, QString const & = "");
 
 	QRect const &	    getGeometry() const;
 	WindowId	    getId() const;
-	std::string const & getProgramName() const;
+        QString const &     getProgramName() const;
 
 	void		    setGeometry(QRect const &);
 	void		    setId(WindowId);
 
     private:
-	std::string _programName; // le nom du programme de la fenetre espionnee
+        QString _programName; // le nom du programme de la fenetre espionnee
 	WindowId    _id;
 	QRect	    _geometry; // La taille de la fenetre
     };

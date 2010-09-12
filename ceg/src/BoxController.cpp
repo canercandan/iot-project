@@ -46,7 +46,7 @@
 /************************************************* [ CTOR/DTOR ] *************************************************/
 
 BoxController::BoxController() :
-    _patterns(), _menus()
+        _patterns(), _menus()
 {
     Logger::getInstance()->log(INFO_LOG, "Tentative de chargement des fichiers xml pour les menus");
     this->loadConfig("menus/");
@@ -57,15 +57,15 @@ BoxController::BoxController() :
 BoxController::~BoxController()
 {
     std::cerr << "BoxController::~BoxController()" << std::endl;
-    for (std::map< std::string, std::list< Box const * > >::const_iterator it = this->_patterns.begin(), end = this->_patterns.end();
+    for (QMap< QString, QList< Box const * > >::const_iterator it = this->_patterns.begin(), end = this->_patterns.end();
     it != end; ++it)
     {
-	std::for_each(it->second.begin(), it->second.end(), Ceg::DeleteObject());
+        std::for_each(it.value().begin(), it.value().end(), Ceg::DeleteObject());
     }
-    for (std::map< std::string, std::list< Box const * > >::const_iterator it = this->_menus.begin(), end = this->_menus.end();
+    for (QMap< QString, QList< Box const * > >::const_iterator it = this->_menus.begin(), end = this->_menus.end();
     it != end; ++it)
     {
-	std::for_each(it->second.begin(), it->second.end(), Ceg::DeleteObject());
+        std::for_each(it.value().begin(), it.value().end(), Ceg::DeleteObject());
     }
 }
 
@@ -79,9 +79,9 @@ bool BoxController::isZoomable(unsigned short level) const
     return (level < ((value < 1) ? 1 : value));
 }
 
-void BoxController::getChildren(std::list<QGraphicsRectItem *> & graphicItems, Box const * box) const
+void BoxController::getChildren(QList<QGraphicsRectItem *> & graphicItems, Box const * box) const
 {
-    std::list<Box const *> childrenBox;
+    QList<Box const *> childrenBox;
     if (box->getBoxType() == DEFAULT_BOX && this->isZoomable(box->getLevel()) == true) // mode par default
     {
 	this->calcChildren(childrenBox, box->getGeometry(), box->getLevel() + 1);
@@ -93,9 +93,9 @@ void BoxController::getChildren(std::list<QGraphicsRectItem *> & graphicItems, B
     this->createGraphicItems(graphicItems, childrenBox);
 }
 
-void BoxController::getParent(std::list<QGraphicsRectItem *> & graphicItems, Box const * box) const
+void BoxController::getParent(QList<QGraphicsRectItem *> & graphicItems, Box const * box) const
 {
-    std::list<Box const *> childrenBox;
+    QList<Box const *> childrenBox;
     if (box->getBoxType() == DEFAULT_BOX) // mode par default
     {
 	this->calcParent(childrenBox, box);
@@ -117,18 +117,18 @@ void BoxController::getParent(std::list<QGraphicsRectItem *> & graphicItems, Box
 
 //! This method uses window name to get all Box[es] (got initially from XML).
 //! The list of AbstractBox is used to generate Item objects which is an area of the view.
-void    BoxController::getPattern(Ceg::Window const & aWindow, std::list<QGraphicsRectItem *> & graphicItems) const
+void    BoxController::getPattern(Ceg::Window const & aWindow, QList<QGraphicsRectItem *> & graphicItems) const
 {
-    std::map<std::string, std::list<Box const *> >::const_iterator  itFind = this->_patterns.find(aWindow.getProgramName());
-    std::list<Box const *> childrenBox;
+    QMap<QString, QList<Box const *> >::const_iterator  itFind = this->_patterns.find(aWindow.getProgramName().toLower());
+    QList<Box const *> childrenBox;
     QString msg("Schema for '");
-    msg += aWindow.getProgramName().c_str();
+    msg += aWindow.getProgramName();
     msg += "' asked";
     Logger::getInstance()->log(INFO_LOG, msg);
     if (itFind != this->_patterns.end())
     {
 	Logger::getInstance()->log(INFO_LOG, "Configuration found, schema loading");
-	childrenBox = itFind->second;
+        childrenBox = itFind.value();
     }
     else
     {
@@ -138,34 +138,33 @@ void    BoxController::getPattern(Ceg::Window const & aWindow, std::list<QGraphi
     this->createGraphicItems(graphicItems, childrenBox);
 }
 
-std::list<Box const *>    BoxController::getPattern(Box const * boxSearch) const
+QList<Box const *>    BoxController::getPattern(Box const * boxSearch) const
 {
-    for (std::map< std::string, std::list< Box const * > >::const_iterator it = this->_patterns.begin(), end = this->_patterns.end();
+    for (QMap< QString, QList< Box const * > >::const_iterator it = this->_patterns.begin(), end = this->_patterns.end();
     it != end; ++it)
     {
-	std::list< Box const * >::const_iterator itFind= std::find(it->second.begin(), it->second.end(), boxSearch);
-	if (itFind != it->second.end())
-	    return (it->second);
-
+        QList< Box const * >::const_iterator itFind= std::find(it.value().begin(), it.value().end(), boxSearch);
+        if (itFind != it.value().end())
+            return (it.value());
     }
-    return (std::list<Box const *>());
+    return (QList<Box const *>());
 }
 
-void	BoxController::getMenu(std::string const & idMenu, std::list<QGraphicsRectItem *> & menuItems) const
+void	BoxController::getMenu(QString const & idMenu, QList<QGraphicsRectItem *> & menuItems) const
 {
     QString msg("Menu - id(");
-    msg += idMenu.c_str();
+    msg += idMenu;
     msg += ") asked";
     Logger::getInstance()->log(INFO_LOG, msg);
 
-    std::map<std::string, std::list<Box const *> >::const_iterator  itFind = this->_menus.find(idMenu);
+    QMap<QString, QList<Box const *> >::const_iterator  itFind = this->_menus.find(idMenu);
     if (itFind != this->_menus.end())
     {
-	this->createGraphicItems(menuItems, itFind->second);
+        this->createGraphicItems(menuItems, itFind.value());
     }
     else
     {
-     Logger::getInstance()->log(WARNING_LOG, "Unknown menu");
+        Logger::getInstance()->log(WARNING_LOG, "Unknown menu");
     }
 }
 
@@ -174,7 +173,7 @@ void	BoxController::getMenu(std::string const & idMenu, std::list<QGraphicsRectI
 //! This method is used in the case we are using a grid view,
 //! indeed it is going to calculate position and size of each
 //! grid areas in function of _nbGrid static value.
-void BoxController::calcChildren(std::list<Box const *> & boxs, QRect const & geometry, unsigned short level) const
+void BoxController::calcChildren(QList<Box const *> & boxs, QRect const & geometry, unsigned short level) const
 {
     QSettings settings;
     int nbSquare = settings.value("general/squareNumber").toInt();
@@ -196,7 +195,7 @@ void BoxController::calcChildren(std::list<Box const *> & boxs, QRect const & ge
     }
 }
 
-void BoxController::calcParent(std::list<Box const *> & boxs, Box const * item) const
+void BoxController::calcParent(QList<Box const *> & boxs, Box const * item) const
 {
     QSettings settings;
     int nbSquare = settings.value("general/squareNumber").toInt();
@@ -245,9 +244,9 @@ void BoxController::calcParent(std::list<Box const *> & boxs, Box const * item) 
     this->calcChildren(boxs, QRect(posXtop, posYtop, width, height), item->getLevel() - 1);
 }
 
-void BoxController::createGraphicItems(std::list<QGraphicsRectItem *> & graphicItems, std::list<Box const *> const & boxs) const
+void BoxController::createGraphicItems(QList<QGraphicsRectItem *> & graphicItems, QList<Box const *> const & boxs) const
 {
-    for (std::list<Box const *>::const_iterator it = boxs.begin(), itEnd = boxs.end(); it != itEnd; ++it)
+    for (QList<Box const *>::const_iterator it = boxs.begin(), itEnd = boxs.end(); it != itEnd; ++it)
     {
 	graphicItems.push_back(GraphicItemFactory::create(*it));
     }
@@ -317,7 +316,7 @@ void    BoxController::initializeFromXml(QString const & fileName)
 	    QString progId(rootElement.attribute("id"));
 	    msg += " Id: "; msg += progId;
 	    Logger::getInstance()->log(INFO_LOG, msg);
-	    std::list<Box const *> boxes;
+            QList<Box const *> boxes;
 	    for (QDomNode boxNode = rootElement.firstChild(); !boxNode.isNull(); boxNode = boxNode.nextSibling())
 	    {
 		QDomElement const & boxElement = boxNode.toElement();
@@ -329,9 +328,9 @@ void    BoxController::initializeFromXml(QString const & fileName)
 	    if (boxes.empty() == false)
 	    {
 		if (rootElement.tagName() == "boxes")
-		    this->_patterns.insert(std::make_pair(progId.toStdString(), boxes));
+                    this->_patterns.insert(progId, boxes);
 		else
-		    this->_menus.insert(std::make_pair(progId.toStdString(), boxes));
+                    this->_menus.insert(progId, boxes);
 	    }
 	}
     }

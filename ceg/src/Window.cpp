@@ -32,7 +32,7 @@ namespace Ceg
 
     }
 
-    Window::Window(WindowId windowId, QRect const & windoInfo, std::string const & programName) :
+    Window::Window(WindowId windowId, QRect const & windoInfo, QString const & programName) :
             _programName(programName), _id(windowId), _geometry(windoInfo)
     {
     }
@@ -49,7 +49,7 @@ namespace Ceg
 	return (this->_geometry);
     }
 
-    std::string const & Window::getProgramName() const
+    QString const & Window::getProgramName() const
     {
 	return (this->_programName);
     }

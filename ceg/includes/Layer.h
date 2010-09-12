@@ -43,7 +43,7 @@ public:
 
     virtual QRect	getGeometry() const;
     virtual IAction *	keyPressEvent(int key) ;
-    virtual void	initialize(std::list<QGraphicsRectItem *> const & sceneItems); // Ajout des items a la scene
+    virtual void	initialize(QList<QGraphicsRectItem *> const & sceneItems); // Ajout des items a la scene
 
 private:
     void		moveVertically() const; // Gere le mouvement vertical

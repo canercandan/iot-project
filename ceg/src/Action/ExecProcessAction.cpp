@@ -171,7 +171,7 @@ void	ExecProcessAction::exec(MainController & mainC)
         SleeperThread::msleep(this->_hideTime);
     }
     QFileInfo   programFileInfo(this->_path);
-    Ceg::Window defaultWindow(0, QApplication::desktop()->geometry(), programFileInfo.baseName().toStdString());
+    Ceg::Window defaultWindow(0, QApplication::desktop()->geometry(), programFileInfo.baseName());
     Layer * scene = static_cast<Layer *>(mainC.createScene(defaultWindow));
     scene->setProcess(process);
     /* Explication des conditions suivantes :

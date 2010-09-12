@@ -21,7 +21,7 @@
 #ifndef ZOOMACTION_H
 #define ZOOMACTION_H
 
-#include <list>
+#include <QList>
 
 #include "IAction.h"
 

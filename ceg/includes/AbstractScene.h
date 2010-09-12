@@ -21,10 +21,9 @@
 #ifndef ABSTRACTSCENE_H
 #define ABSTRACTSCENE_H
 
-#include <list>
-
 #include <QGraphicsScene>
 #include <QRect>
+#include <QList>
 
 #include "Box.h"
 
@@ -45,7 +44,7 @@ public:
     AbstractScene(QObject * parent = 0);
     ~AbstractScene();
 
-    virtual void	    initialize(std::list<QGraphicsRectItem *> const & sceneItems); // Ajout des items a la scene
+    virtual void	    initialize(QList<QGraphicsRectItem *> const & sceneItems); // Ajout des items a la scene
 
     AbstractItem const *    getCurrentItem() const;
     virtual QRect	    getGeometry() const = 0;

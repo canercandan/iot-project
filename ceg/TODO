@@ -2,7 +2,6 @@
 - Choix de mettre le menu vraiment opaque!
 - Faire le mode switch (voir si le set de focus sur une fenetre est possible)
 - Faire des test sur kde et d'autres environement graphique
-- Voir pour les zones Expendable & non Expendable ! (pour qu'ils soient ajuster a toutes resolutions)
 - traduction des xml pour les menus
 
 -------------------------------------------------- Reminder chris --------------------------------------------------------------------------
@@ -13,7 +12,6 @@
 - maj Doxygen
 
 -------------------------------------------------- Reminder Yann --------------------------------------------------------------------------
-- changer les types en full QT
 - Faire deux list dans le main controller une pour les menus et une pour les layers
 - rajouter methode reset focus item pour les menus
 - bien gerer les process, rajouter des slots en cas de fermeture, fermeture des process a la fin du programme + Rajouter la possibilite de quitter un programme
@@ -29,9 +27,3 @@
 - Finir de faire des menus propres ! rajouter des couleurs pour le fond par exemple
 - Terminer le communication avec le serveur Graphique sur Windows
 - Finir le menu clavier
-
-
-
--------------------------------------------------- Reminder BUG --------------------------------------------------------------------------
-
-- Les box CUSTOM sont centrer lorsqu'il ne sont pas repartit verticalement !!!!

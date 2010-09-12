@@ -70,18 +70,11 @@ AbstractScene *	MainController::getCurrentScene() const
     return (*this->_currentScene);
 }
 
-AbstractScene * MainController::getSceneAt(size_t position) const
+AbstractScene * MainController::getSceneAt(int position) const
 {
     if (position < this->_scenes.size())
     {
-	--position;
-	size_t i = 0;
-	for (std::list<AbstractScene *>::const_iterator itSearch = this->_scenes.begin(), itEnd = this->_scenes.end();
-	itSearch != itEnd; ++itSearch, ++i)
-	{
-	    if (i == position)
-		return (*itSearch);
-	}
+        return (this->_scenes.at(--position));
     }
     return (0);
 }
@@ -101,7 +94,7 @@ void    MainController::on_action_emitted(IAction & anAction)
 AbstractScene * MainController::createScene(Ceg::Window const & window)
 {
     Layer * oneLayer = new Layer(window);
-    std::list<QGraphicsRectItem *> graphicItems;
+    QList<QGraphicsRectItem *> graphicItems;
     this->_boxController.getPattern(window, graphicItems);
     oneLayer->initialize(graphicItems);
     return (oneLayer);
@@ -136,10 +129,11 @@ void MainController::on_stop_navigation()
 
 void MainController::pushFrontScene(AbstractScene *scene)
 {
-    this->_scenes.remove(scene); // Lorsqu'on effectue un zoom, cela evite d'avoir a deplacer la scene, on remove et au insert au depart
+    this->_scenes.removeOne(scene); // Lorsqu'on effectue un zoom, cela evite d'avoir a deplacer la scene, on remove et au insert au depart
     this->_scenes.push_front(scene);
     this->_currentScene = this->_scenes.begin();
     this->_view.setScene(*(this->_currentScene));
+    this->_view.setSceneRect((*this->_currentScene)->getGeometry());
 }
 
 void MainController::popFrontScene()
@@ -150,6 +144,7 @@ void MainController::popFrontScene()
     {
 	this->_currentScene = this->_scenes.begin();
 	this->_view.setScene(*(this->_currentScene));
+        this->_view.setSceneRect((*this->_currentScene)->getGeometry());
     }
     delete oldCurrentScene;
 }

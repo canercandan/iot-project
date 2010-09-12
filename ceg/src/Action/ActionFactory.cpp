@@ -30,27 +30,27 @@
 
 /************************************************* [ CTOR/DTOR ] *************************************************/
 
-std::map<std::string, ActionFactory::ActionInstantiator> ActionFactory::_instanciators;
+QMap<QString, ActionFactory::ActionInstantiator> ActionFactory::_instanciators;
 
 IAction *	ActionFactory::create(QDomElement const & actionElement)
 {
-    std::string const & id = actionElement.attribute("id").toStdString();
+    QString const & id = actionElement.attribute("id");
     QString msg;
     QTextStream tmp(&msg);
-    tmp << "Demande d' instance de type: " << id.c_str();
+    tmp << "Demande d' instance de type: " << id;
     Logger::getInstance()->log(INFO_LOG, msg);
 
-    std::map<std::string, ActionInstantiator>::const_iterator itFind = ActionFactory::_instanciators.find(id);
-    return (itFind != ActionFactory::_instanciators.end() ? (itFind->second)(actionElement) : 0);
+    QMap<QString, ActionInstantiator>::const_iterator itFind = ActionFactory::_instanciators.find(id);
+    return (itFind != ActionFactory::_instanciators.end() ? (itFind.value())(actionElement) : 0);
 }
 
 /************************************************* [ OTHERS ] *************************************************/
 
-void ActionFactory::registerInstantiator(const std::string &actionId, ActionInstantiator function)
+void ActionFactory::registerInstantiator(const QString & actionId, ActionInstantiator function)
 {
     QString msg;
     QTextStream tmp(&msg);
-    tmp << "Action enregistree: " << actionId.c_str() << "Valeur du pointeur : " << &function;
+    tmp << "Action enregistree: " << actionId << "Valeur du pointeur : " << &function;
     Logger::getInstance()->log(INFO_LOG, msg);
-    ActionFactory::_instanciators.insert(std::make_pair(actionId, function));
+    ActionFactory::_instanciators.insert(actionId, function);
 }
