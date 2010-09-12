@@ -25,8 +25,29 @@
 #include <QBool>
 #include <QMap>
 
+struct VNCPixelFormat {
+    quint8  bitsPerPixel;
+    quint8  depth;
+    quint8  bigEndianFlag;
+    quint8  trueColourFlag;
+    quint16 redMax;
+    quint16 greenMax;
+    quint16 blueMax;
+    quint8  redShift;
+    quint8  greenShift;
+    quint8  blueShift;
+    quint8  padding[3];
+};
 
-enum vncServerStep
+struct VNCDesktopInfo {
+    quint16         framebufferWidth;
+    quint16         framebufferHeight;
+    VNCPixelFormat  serverPixelFormat;
+    quint32         nameLength;
+    quint8*         nameString;
+};
+
+enum VNCServerStep
   {
     VNC_VERSION,
     VNC_SECULIST,
@@ -50,32 +71,39 @@ class ProtocolServerVNC
 
 public:
   typedef void (protocoleYAY::*funcExecPtr)(QDataStream &);
-  typedef void (protocoleYAY::*funcParsePtr)(char *, QString &);
+  typedef void (protocoleYAY::*funcParsePtr)(QDataStream &, QString &);
 
   ProtocolServerVNC();
   ~ProtocolServerVNC();
   void          init();
-  QString	parse(char *);
+  QString	parse(QDataStream & stream);
   QString	exec();
+  VNCServerStep getStep() const;
 
 private:
+  void          convertStringToUint8(QDataStream &, QString const &);
   void		execVersion(QDataStream &);
   void		execSecuList(QDataStream &);
   void		execSecuResult(QDataStream &);
   void		execSecuReason(QDataStream &);
   void		execSand(QDataStream &);
   void		execServerInit(QDataStream &);
-  void		parseVersion(char *, QString &);
-  void		parseSecuList(char *, QString &);
-  void		parseSecuFail(char *, QString &);
-  void		parsePassword(char *, QString &);
-  void		parseInitMessage(char *, QString &);
+  void		parseVersion(QDataStream &, QString &);
+  void		parseSecuList(QDataStream &, QString &);
+  void		parseSecuFail(QDataStream &, QString &);
+  void		parsePassword(QDataStream &, QString &);
+  void		parseInitMessage(QDataStream &, QString &);
+  void		parseMessage(QDataStream &, QString &);
 
 private:
-  QMap<vncServerStep, funcExecPtr>	_execPtrMap;
-  QMap<vncServerStep, funcParsePtr>	_parsePtrMap;
-  vncServerStep				_vncStep;
+  static QString const                  _VERSION;
+  QMap<VNCServerStep, funcExecPtr>	_execPtrMap;
+  QMap<VNCServerStep, funcParsePtr>	_parsePtrMap;
+  VNCServerStep				_vncStep;
   triBool                               _passOk;
+  QBool                                 _validSecurity;
+  QString                               _secuReason;
+  quint8                                _secuType;
 };
 
 
