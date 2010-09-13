@@ -26,12 +26,10 @@
 #include <QMap>
 
 #include "IDomFactory.h"
+#include "BoxType.h"
 #include "BoxStyle.h"
 
 class IAction;
-class BoxParameter;
-
-enum BoxType {DEFAULT_BOX, CUSTOM_BOX, MENU_BOX};
 
 /**
  * \brief Classe de Modele

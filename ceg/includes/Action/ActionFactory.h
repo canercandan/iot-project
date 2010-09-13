@@ -22,7 +22,6 @@
 #ifndef ACTIONFACTORY_H
 #define ACTIONFACTORY_H
 
-#include <QString>
 #include <QMap>
 
 class QDomElement;

@@ -78,14 +78,6 @@ void	ClickAction::exec(MainController & mainC)
     case LeftDbClick:
         mainC.getComGs()->generateClickEvent(this->_type);
 	break;
-#ifndef _WIN32
-#warning "Attention code a modifier sur linux (dans la methode qui click: voir YANN)"
-#endif
-	/*
-    case LeftDbClick:
-        lm.getComGs()->generateClickEvent(this->_type);
-        lm.getComGs()->generateClickEvent(this->_type);
-	break;*/
     default:
 	break;
     }

@@ -28,12 +28,11 @@ class QGraphicsRectItem;
 class QDir;
 class QRect;
 
+class Box;
 namespace Ceg
 {
     class Window;
 }
-
-class Box;
 
 /**
  * \brief Classe de controle

@@ -23,9 +23,6 @@
 
 #include "AbstractItem.h"
 
-class QGraphicsItem;
-class QKeyEvent;
-
 /**
  * \brief Classe de Vue
  * Vue d'un item(box) de menu

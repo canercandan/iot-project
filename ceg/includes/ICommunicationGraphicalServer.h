@@ -21,7 +21,10 @@
 #ifndef ICOMMUNICATIONGRAPHICALSERVER_H_
 #define ICOMMUNICATIONGRAPHICALSERVER_H_
 
-#include "Window.h"
+namespace Ceg
+{
+    class Window;
+}
 
 /**
  * \interface ICommunicationGraphicalServer

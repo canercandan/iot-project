@@ -56,7 +56,9 @@ HEADERS += AbstractItem.h \
     includes/Action/Action \
     includes/Action/ExecProcessAction.h \
     includes/WindowSystem.h \
-    includes/Action/CloseAction.h
+    includes/Action/CloseAction.h \
+    includes/BoxType.h \
+    includes/ClickType.h
 SOURCES += AbstractItem.cpp \
     AbstractScene.cpp \
     BoxController.cpp \

@@ -23,8 +23,6 @@
 
 #include "IAction.h"
 
-class QDomElement;
-
 /**
  * \brief This action allows ceg interface hidding during 5 seconds and shows it again.
  */

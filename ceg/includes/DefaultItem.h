@@ -21,8 +21,6 @@
 #ifndef DEFAULTITEM_H
 #define DEFAULTITEM_H
 
-class QGraphicsItem;
-
 #include "AbstractItem.h"
 
 /**

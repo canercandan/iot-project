@@ -22,7 +22,6 @@
 #define CEGTCPSERVER_HPP
 
 #include <QObject>
-#include <QString>
 
 class QTcpServer;
 class QTcpSocket;

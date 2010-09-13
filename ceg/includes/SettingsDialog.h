@@ -21,10 +21,8 @@
 #ifndef SETTINGSDIALOG_H
 #define SETTINGSDIALOG_H
 
-#include <vector>
-
 #include <QDialog>
-#include <QPaintEvent>
+#include <QVector>
 
 #include "ui_settingsDialog.h"
 
@@ -51,7 +49,7 @@ public slots:
     void on_colorTextButton_clicked();
 
 private:
-    typedef std::vector< QString > Languages;
+    typedef QVector<QString> Languages;
 
 private:
     Languages _languages;

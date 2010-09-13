@@ -22,10 +22,10 @@
 #include <iostream>
 /*********************************/
 #include "AbstractItem.h"
+#include "MainController.h"
 /*********************************/
 #include "Layer.h"
 /*********************************/
-#include "MainController.h"
 #include "Box.h"
 #include "CloseAction.h"
 #include "PopMenuAction.h"

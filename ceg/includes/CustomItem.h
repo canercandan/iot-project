@@ -18,7 +18,6 @@
  * Authors: CEG <ceg@ionlythink.com>, http://www.ionlythink.com
  */
 
-
 #ifndef CUSTOMITEM_H
 #define CUSTOMITEM_H
 

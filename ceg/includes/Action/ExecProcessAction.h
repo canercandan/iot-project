@@ -23,13 +23,8 @@
 
 #include "IAction.h"
 
-class QDomElement;
-
 /**
  * \brief This action allows ceg interface executing process from menus.
- */
-
-/**
  * Feature to forecast: Disable hidding with a signal
  */
 class ExecProcessAction : public IAction

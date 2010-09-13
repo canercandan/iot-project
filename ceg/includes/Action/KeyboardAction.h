@@ -23,8 +23,6 @@
 
 #include "IAction.h"
 
-class QDomElement;
-
 /**
  * \brief Action pour generer les clics
  */

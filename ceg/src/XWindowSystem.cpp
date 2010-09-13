@@ -32,6 +32,7 @@
 /*********************************/
 #include "Logger.h"
 #include "Utils.h"
+#include "ClickType.h"
 /*********************************/
 
 XWindowSystem::XWindowSystem() :
@@ -104,13 +105,28 @@ void XWindowSystem::queryPointer(XEvent& event, Window& window, Window& subwindo
 
 bool XWindowSystem::generateClickEvent(short int buttonID)
 {
-    /* juste pour info il existe l'outil xdotool qui permet entre autre de generer des touches claviers et deplacer la souris tres facilement voir http://www.semicomplete.com/projects/xdotool/ */
+    bool succeed = false;
+    if (this->_connection)
+    {
+        switch (buttonID)
+        {
+        case LeftClick:
+        case MiddleClick:
+        case RightClick:
+            succeed = this->generateClick(buttonID);
+        case LeftDbClick:
+            this->generateClick(buttonID);
+            succeed = this->generateClick(buttonID);
+            break;
+        default:
+            break;
+        }
+    }
+    return (succeed);
+}
 
-    Display* display = this->_connection;
-
-    if (display == 0)
-	return (false);
-
+bool    XWindowSystem::generateClick(short buttonID)
+{
     XEvent event;
 
     ::memset(&event, 0x0, sizeof(event));
@@ -121,36 +137,36 @@ bool XWindowSystem::generateClickEvent(short int buttonID)
     event.xbutton.button = buttonID;
     event.xbutton.same_screen = True;
 
-    this->queryPointer(event, RootWindow(display, DefaultScreen(display)), event.xbutton.window);
+    this->queryPointer(event, RootWindow(this->_connection, DefaultScreen(this->_connection)), event.xbutton.window);
 
     event.xbutton.subwindow = event.xbutton.window;
 
     while (event.xbutton.subwindow)
     {
-	event.xbutton.window = event.xbutton.subwindow;
-	this->queryPointer(event, event.xbutton.window, event.xbutton.subwindow);
+        event.xbutton.window = event.xbutton.subwindow;
+        this->queryPointer(event, event.xbutton.window, event.xbutton.subwindow);
     }
 
-    if (::XSendEvent(display, PointerWindow, True, 0xfff, &event) == 0)
-	return (false);
+    if (::XSendEvent(this->_connection, PointerWindow, True, 0xfff, &event) == 0)
+        return false;
 
-    ::XFlush(display);
+    ::XFlush(this->_connection);
 
     ::usleep(100000);
 
     event.type = ButtonRelease;
     event.xbutton.state = 0x100;
 
-    if (::XSendEvent(display, PointerWindow, True, 0xfff, &event) == 0)
-	return (false);
+    if (::XSendEvent(this->_connection, PointerWindow, True, 0xfff, &event) == 0)
+        return false;
 
-    ::XFlush(display);
-
+    ::XFlush(this->_connection);
     return (true);
 }
 
 bool XWindowSystem::generateKeybdEvent(unsigned char)
 {
+    /* juste pour info il existe l'outil xdotool qui permet entre autre de generer des touches claviers et deplacer la souris tres facilement voir http://www.semicomplete.com/projects/xdotool/ */
     // generer un bouton de clavier
     return (true);
 }
@@ -169,15 +185,7 @@ void XWindowSystem::printRecurse(::Window currentWindow, unsigned int level) con
     if (status != BadWindow)
     {
 	tmp << this->printIndent(level) << " Window ID :"  << &currentWindow << "Root: " << &rootReturn << "Parent: " << &parentReturn;
-	Logger::getInstance()->log(INFO_LOG, msg); msg = "";
-        pid_t pid = 0;//this->getPid(currentWindow);
-	tmp << this->printIndent(level) << " Pid of the window's creator : " << pid;
-	Logger::getInstance()->log(INFO_LOG, msg);msg = "";
-	if (pid != 0)
-	{
-            tmp << this->printIndent(level) << " Binaire utilise : " /*<< this->getPathOfBinary(typeToString(pid))*/;
-	    Logger::getInstance()->log(INFO_LOG, msg); msg = "";
-	}
+        Logger::getInstance()->log(INFO_LOG, msg);
 	this->printWindow(currentWindow, level);
 	tmp << this->printIndent(level) << " Nb child : " << nbChildrenReturn;
 	Logger::getInstance()->log(INFO_LOG, msg); msg = "";

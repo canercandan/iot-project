@@ -25,7 +25,7 @@
 #include <QRect>
 #include <QList>
 
-#include "Box.h"
+#include "BoxType.h"
 
 class QGraphicsRectItem;
 

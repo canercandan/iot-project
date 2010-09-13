@@ -25,9 +25,7 @@
  * \brief Fichier de fonctions utiles
  */
 
-#include <QString>
 #include <sstream>
-#include <iostream>
 
 #include <QThread>
 
@@ -36,16 +34,6 @@ class SleeperThread : public QThread
 public:
     static void msleep(unsigned long msecs); // Methode portable pour faire un sleep
 };
-
-template<typename T>
-QString typeToString(T const & input)
-{
-    std::ostringstream oss;
-
-    oss << input;
-    return (oss.str());
-}
-
 
 namespace Ceg
 {
@@ -57,9 +45,7 @@ namespace Ceg
 	template<typename T>
 	void    operator()(T const * ptr) const
 	{
-	    std::cerr << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\nDeleteObject : Value du ptr = "<< ptr << std::endl;
 	    delete ptr;
-	    std::cerr << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
 	}
     };
 }

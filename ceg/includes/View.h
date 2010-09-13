@@ -23,7 +23,6 @@
 
 #include <QGraphicsView>
 
-class QKeyEvent;
 class MainController;
 class IAction;
 class Systray;

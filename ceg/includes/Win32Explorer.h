@@ -19,11 +19,9 @@
  */
 
 #ifndef WIN32EXPLORER_H_
-
 # define WIN32EXPLORER_H_
 
 #include "ICommunicationGraphicalServer.h"
-
 
 class Win32Explorer : public ICommunicationGraphicalServer
 {
@@ -35,6 +33,5 @@ public:
     virtual bool	generateClickEvent(short int buttonID);
     virtual bool	generateKeybdEvent(unsigned char key);
 };
-
 
 #endif //! WIN32EXPLORER_H_

@@ -31,13 +31,13 @@
 /*********************************/
 
 SettingsDialog::SettingsDialog(QWidget *parent) :
-    QDialog(parent), _languages(2)
+        QDialog(parent), _languages(2)
 {
     this->setupUi(this);
     this->on_colorOpacitySlider_valueChanged(this->colorOpacitySlider->value());
 
-    _languages[0] = "en_US";
-    _languages[1] = "fr_FR";
+    this->_languages[0] = "en_US";
+    this->_languages[1] = "fr_FR";
 
     // LOAD
 
@@ -48,9 +48,9 @@ SettingsDialog::SettingsDialog(QWidget *parent) :
     Languages::iterator it = std::find(_languages.begin(), _languages.end(), settings.value("language").toString());
 
     if (it != _languages.end())
-	{
-	    this->languageComboBox->setCurrentIndex(it - _languages.begin());
-	}
+    {
+        this->languageComboBox->setCurrentIndex(it - _languages.begin());
+    }
 
     this->squareNumberBox->setValue(settings.value("squareNumber").toInt());
     this->customCheck->setChecked(settings.value("customCheck").toBool());
@@ -90,36 +90,35 @@ void SettingsDialog::on_confList_currentItemChanged(QListWidgetItem* current, QL
 void SettingsDialog::on_buttonBox_accepted()
 {
     if (!this->customCheck->isChecked() && this->customXMLPathLine->text().isEmpty())
-	{
-	    QMessageBox::critical(0, tr("Error"), tr("Please define the custom xml path !"));
-	    return;
-	}
-    if (this->serverPasswordCheckBox->isChecked() &&
-	this->serverPassword->text().isEmpty())
-	{
-	    QMessageBox::critical(0, tr("Error"), tr("Please fill all proxy fields !"));
-	    return;
-	}
+    {
+        QMessageBox::critical(0, tr("Error"), tr("Please define the custom xml path !"));
+        return;
+    }
+    if (this->serverPasswordCheckBox->isChecked() && this->serverPassword->text().isEmpty())
+    {
+        QMessageBox::critical(0, tr("Error"), tr("Please fill all proxy fields !"));
+        return;
+    }
 
     QSettings settings;
 
     settings.beginGroup("general");
 
-    if ( (unsigned int)this->languageComboBox->currentIndex() < _languages.size() )
-	{
-	    QString language = _languages[ this->languageComboBox->currentIndex() ];
+    if (this->languageComboBox->currentIndex() < _languages.size() )
+    {
+        QString language = _languages[ this->languageComboBox->currentIndex() ];
 
-	    if (settings.value("language").toString() != language)
-		{
-		    QMessageBox::information
-			(0,
-			 tr("Language changed"),
-			 tr("The language has been changed. To apply this modification you have to restart the program.")
-			 );
+        if (settings.value("language").toString() != language)
+        {
+            QMessageBox::information
+                    (0,
+                     tr("Language changed"),
+                     tr("The language has been changed. To apply this modification you have to restart the program.")
+                     );
 
-		    settings.setValue("language", language);
-		}
-	}
+            settings.setValue("language", language);
+        }
+    }
 
     settings.setValue("squareNumber", this->squareNumberBox->text());
     settings.setValue("customCheck", this->customCheck->isChecked());
@@ -137,18 +136,18 @@ void SettingsDialog::on_buttonBox_accepted()
 	settings.value("blur").toString() != blurColor ||
 	settings.value("opacity").toDouble() != opacityValue ||
 	settings.value("text").toString() != textColor)
-	{
-	    QMessageBox::information
+    {
+        QMessageBox::information
 		(0,
 		 tr("Color changed"),
 		 tr("To apply correctly colors updates, we recommand you to restart the program.")
 		 );
 
-	    settings.setValue("focus", focusColor);
-	    settings.setValue("blur", blurColor);
-	    settings.setValue("opacity", opacityValue);
-	    settings.setValue("text", textColor);
-	}
+        settings.setValue("focus", focusColor);
+        settings.setValue("blur", blurColor);
+        settings.setValue("opacity", opacityValue);
+        settings.setValue("text", textColor);
+    }
 
     settings.endGroup();
 
@@ -161,16 +160,16 @@ void SettingsDialog::on_buttonBox_accepted()
 
     if (settings.value("port").toString() != port ||
 	settings.value("password").toString() != password)
-	{
-	    QMessageBox::information
+    {
+        QMessageBox::information
 		(0,
 		 tr("Server changed"),
 		 tr("To apply server updates, you have to restart the program.")
 		 );
 
-	    settings.setValue("port", port);
-	    settings.setValue("password", password);
-	}
+        settings.setValue("port", port);
+        settings.setValue("password", password);
+    }
 
     settings.endGroup();
 
@@ -189,14 +188,14 @@ void SettingsDialog::on_customXMLPathButton_clicked()
 						    QFileDialog::ShowDirsOnly
 						    | QFileDialog::DontResolveSymlinks);
     if (!dir.isEmpty())
-	{
-	    this->customXMLPathLine->setText(dir);
-	}
+    {
+        this->customXMLPathLine->setText(dir);
+    }
 }
 
 void SettingsDialog::on_colorFocusButton_clicked()
 {
-	QColor color = QColorDialog::getColor(this->colorFocusLabel->palette().color(QPalette::Background), this);
+    QColor color = QColorDialog::getColor(this->colorFocusLabel->palette().color(QPalette::Background), this);
     if (color.isValid()) {
 	this->colorFocusLabel->setPalette(QPalette(color));
     }
@@ -204,7 +203,7 @@ void SettingsDialog::on_colorFocusButton_clicked()
 
 void SettingsDialog::on_colorBlurButton_clicked()
 {
-	QColor color = QColorDialog::getColor(this->colorBlurLabel->palette().color(QPalette::Background), this);
+    QColor color = QColorDialog::getColor(this->colorBlurLabel->palette().color(QPalette::Background), this);
     if (color.isValid()) {
 	this->colorBlurLabel->setPalette(QPalette(color));
     }
@@ -222,7 +221,7 @@ void SettingsDialog::on_colorOpacitySlider_valueChanged(int value)
 
 void SettingsDialog::on_colorTextButton_clicked()
 {
-	QColor color = QColorDialog::getColor(this->colorTextLabel->palette().color(QPalette::Background), this);
+    QColor color = QColorDialog::getColor(this->colorTextLabel->palette().color(QPalette::Background), this);
     if (color.isValid()) {
 	this->colorTextLabel->setPalette(QPalette(color));
     }

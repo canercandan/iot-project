@@ -18,28 +18,9 @@
  * Authors: CEG <ceg@ionlythink.com>, http://www.ionlythink.com
  */
 
-#ifndef CANCELACTION_H
-#define CANCELACTION_H
+#ifndef CLICKTYPE_H
+#define CLICKTYPE_H
 
-#include "IAction.h"
+enum ClickType{LeftClick = 1, MiddleClick, RightClick, LeftDbClick};
 
-/**
- * \brief Action qui sert a sortir d'un menu
- */
-
-class CancelAction : public IAction
-{
-public:
-    CancelAction();
-    CancelAction(QDomElement const &);
-
-    virtual void		exec(MainController &);
-    virtual void		initializeFromXml(QDomElement const &);
-
-public:
-    static char const * IDENTIFIER;
-};
-
-IAction * instanciateCancelAction(QDomElement const &);
-
-#endif // CANCELACTION_H
+#endif // CLICKTYPE_H

@@ -25,14 +25,17 @@
 
 #include "CegTcpServer.h"
 #include "View.h"
-#include "Window.h"
 #include "BoxController.h"
-#include "Box.h"
+#include "BoxType.h"
 
 class AbstractScene;
 class ICommunicationGraphicalServer;
 class IAction;
 class Systray;
+namespace Ceg
+{
+    class Window;
+}
 
 /**
  * \brief Classe de Controle
@@ -71,7 +74,6 @@ private:
 private:
     View				    _view; // La vue pour representer les scene (Une vue pour toutes les scenes)
     QList<AbstractScene *>		    _scenes; // L'ensemble des scenes, une scnene par fenetre systemes ouvertes + eventuellement un menu
-    QList<AbstractScene *>::iterator        _currentScene; // La scene utilise
     BoxController			    _boxController;
     ICommunicationGraphicalServer *	    _comGs;
     CegTcpServer                            _tcpServer;

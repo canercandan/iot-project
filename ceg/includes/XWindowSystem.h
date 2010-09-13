@@ -27,8 +27,6 @@
 
 #include "ICommunicationGraphicalServer.h"
 
-#include "Window.h"
-
 /*
  * doc pour l'API http://tronche.com/gui/x/xlib/
  * ressource tres utile http://standards.freedesktop.org/wm-spec/1.3/ar01s05.html
@@ -46,6 +44,7 @@ public:
     virtual bool    generateKeybdEvent(unsigned char key);
 
 private:
+    bool            generateClick(short int buttonID);
     char	    printIndent(unsigned int) const;
     void	    printWindow(::Window, unsigned int) const;
     void	    printRecurse(::Window, unsigned int level) const;

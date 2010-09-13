@@ -22,7 +22,8 @@
 #ifndef EXECMENUACTION_H
 #define EXECMENUACTION_H
 
-#include <vector>
+#include <QVector>
+
 #include "IAction.h"
 
 /**
@@ -42,7 +43,7 @@ public:
     static char const * IDENTIFIER;
 
 private:
-    std::vector< IAction * > _actionsToExec;
+    QVector<IAction *> _actionsToExec;
 };
 
 IAction * instanciateExecMenuAction(QDomElement const &);

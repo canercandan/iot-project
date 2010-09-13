@@ -21,16 +21,7 @@
 #ifndef ZOOMACTION_H
 #define ZOOMACTION_H
 
-#include <QList>
-
 #include "IAction.h"
-
-class QGraphicsRectItem;
-class QDomElement;
-
-class BoxController;
-class MainController;
-class Box;
 
 /**
  * \brief Classe d'action permettant de rentrer plus en profondeur dans un patron.

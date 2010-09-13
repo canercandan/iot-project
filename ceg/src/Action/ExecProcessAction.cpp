@@ -29,6 +29,7 @@
 #include "ExecProcessAction.h"
 /*********************************/
 #include "MainController.h"
+#include "Window.h"
 #include "Layer.h"
 #include "Utils.h"
 #include "Logger.h"

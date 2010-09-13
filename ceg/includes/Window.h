@@ -21,8 +21,8 @@
 #ifndef WINDOW_H_
 #define WINDOW_H_
 
-#include <QString>
 #include <QRect>
+#include <QString>
 
 #if defined(__MINGW32__)
 // do stuff...

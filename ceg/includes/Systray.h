@@ -18,7 +18,6 @@
  * Authors: CEG <ceg@ionlythink.com>, http://www.ionlythink.com
  */
 
-
 #ifndef SYSTRAY_H
 #define SYSTRAY_H
 
@@ -33,9 +32,6 @@ class QAction;
 /**
  * \brief Classe de vue qui contient le Systray.
  * Elle permet de stopper le Ceg
- */
-
-/**
  * Permet d'activer/desactiver la navigation
  * Permet d'acceder au menu de preferences et autres reglages
  */

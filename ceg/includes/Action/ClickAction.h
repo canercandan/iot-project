@@ -22,8 +22,7 @@
 #define CLICKACTION_H
 
 #include "IAction.h"
-
-class QDomElement;
+#include "ClickType.h"
 
 /**
  * \brief Action pour generer les clics
@@ -31,8 +30,6 @@ class QDomElement;
 class ClickAction : public IAction
 {
 public:
-    enum ClickType{LeftClick = 1, MiddleClick, RightClick, LeftDbClick};
-
     ClickAction(QDomElement const &);
 
     virtual void		exec(MainController &);

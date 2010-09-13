@@ -18,7 +18,6 @@
  * Authors: CEG <ceg@ionlythink.com>, http://www.ionlythink.com
  */
 
-
 #ifndef BOXSTYLE_H
 #define BOXSTYLE_H
 

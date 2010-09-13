@@ -39,7 +39,7 @@
 /************************************************* [ CTOR/DTOR ] *************************************************/
 
 MainController::MainController(Systray & systray) :
-	_view(*this, systray), _scenes(),_currentScene(), _boxController(),
+        _view(*this, systray), _scenes(), _boxController(),
 	_comGs(new WindowSystem), _tcpServer(*this)
 {
 
@@ -67,7 +67,7 @@ ICommunicationGraphicalServer *	MainController::getComGs() const
 
 AbstractScene *	MainController::getCurrentScene() const
 {
-    return (*this->_currentScene);
+    return (this->_scenes.front());
 }
 
 AbstractScene * MainController::getScene(const QString &id) const
@@ -161,20 +161,18 @@ void MainController::pushFrontScene(AbstractScene *scene)
 {
     this->_scenes.removeOne(scene); // Lorsqu'on effectue un zoom, cela evite d'avoir a deplacer la scene, on remove et au insert au depart
     this->_scenes.push_front(scene);
-    this->_currentScene = this->_scenes.begin();
-    this->_view.setScene(*(this->_currentScene));
-    this->_view.setSceneRect((*this->_currentScene)->getGeometry());
+    this->_view.setScene(this->_scenes.front());
+    this->_view.setSceneRect(this->_scenes.front()->getGeometry());
 }
 
 void MainController::popFrontScene()
 {
-    AbstractScene const * oldCurrentScene = *(this->_currentScene);
+    AbstractScene const * oldCurrentScene = this->_scenes.front();
     this->_scenes.pop_front();
     if (this->_scenes.empty() == false)
     {
-	this->_currentScene = this->_scenes.begin();
-	this->_view.setScene(*(this->_currentScene));
-        this->_view.setSceneRect((*this->_currentScene)->getGeometry());
+        this->_view.setScene(this->_scenes.front());
+        this->_view.setSceneRect(this->_scenes.front()->getGeometry());
     }
     delete oldCurrentScene;
 }

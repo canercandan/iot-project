@@ -18,17 +18,17 @@
  * Authors: CEG <ceg@ionlythink.com>, http://www.ionlythink.com
  */
 
+/*********************************/
 #include <QTextStream>
 /*********************************/
 #include <windows.h>
 #include <iostream>
 /*********************************/
-/*********************************/
 #include "Win32Explorer.h"
 /*********************************/
-#include "ClickAction.h"
-/*********************************/
+#include "ClickType.h"
 #include "Logger.h"
+/*********************************/
 
 Win32Explorer::Win32Explorer()
 {
@@ -62,8 +62,8 @@ bool	Win32Explorer::getFocusedWindow(Ceg::Window & oneWindow)
     {
 	QRect loadInfo(winInfo.rcClient.left, winInfo.rcClient.top, winInfo.rcClient.right, winInfo.rcClient.bottom);
 	oneWindow.setGeometry(loadInfo);
-//        tmp << "Pos left: " << winInfo.rcClient.left << std::endl << "Pos TOP : " << winInfo.rcClient.top << std::endl;
-//        tmp << "Pos Bottom : " << winInfo.rcClient.bottom << std::endl	<< "Pos right : " << winInfo.rcClient.right << std::endl;
+        //        tmp << "Pos left: " << winInfo.rcClient.left << std::endl << "Pos TOP : " << winInfo.rcClient.top << std::endl;
+        //        tmp << "Pos Bottom : " << winInfo.rcClient.bottom << std::endl	<< "Pos right : " << winInfo.rcClient.right << std::endl;
         Logger::getInstance()->log(DEBUG_LOG, msg);
         msg = "";
     }
@@ -94,36 +94,36 @@ bool	Win32Explorer::setFocusToWindow(Ceg::Window & oldFocusedWindow, Ceg::Window
 
 bool	Win32Explorer::generateClickEvent(short int buttonID)
 {
-//     mouse_event(MOUSEEVENTF_ABSOLUTE|MOUSEEVENTF_MOVE|MOUSEEVENTF_LEFTDOWN,x,y,0,0);
-	switch (buttonID)
-	{
-	case ClickAction::LeftClick:
-		mouse_event(MOUSEEVENTF_LEFTDOWN,0,0,0,0);
-		mouse_event(MOUSEEVENTF_LEFTUP,0,0,0,0);
-		break;
-	case ClickAction::MiddleClick:
-		mouse_event(MOUSEEVENTF_MIDDLEDOWN,0,0,0,0);
-		mouse_event(MOUSEEVENTF_MIDDLEUP,0,0,0,0);
-		break;
-	case ClickAction::RightClick:
-		mouse_event(MOUSEEVENTF_RIGHTDOWN,0,0,0,0);
-		mouse_event(MOUSEEVENTF_RIGHTUP,0,0,0,0);
-		break;
-	case ClickAction::LeftDbClick:
-		mouse_event(MOUSEEVENTF_LEFTDOWN,0,0,0,0);
-		mouse_event(MOUSEEVENTF_LEFTUP,0,0,0,0);
-		mouse_event(MOUSEEVENTF_LEFTDOWN,0,0,0,0);
-		mouse_event(MOUSEEVENTF_LEFTUP,0,0,0,0);
-		break;
-	default:
-		break;
-	}
+    //     mouse_event(MOUSEEVENTF_ABSOLUTE|MOUSEEVENTF_MOVE|MOUSEEVENTF_LEFTDOWN,x,y,0,0);
+    switch (buttonID)
+    {
+    case ClickAction::LeftClick:
+        mouse_event(MOUSEEVENTF_LEFTDOWN,0,0,0,0);
+        mouse_event(MOUSEEVENTF_LEFTUP,0,0,0,0);
+        break;
+    case ClickAction::MiddleClick:
+        mouse_event(MOUSEEVENTF_MIDDLEDOWN,0,0,0,0);
+        mouse_event(MOUSEEVENTF_MIDDLEUP,0,0,0,0);
+        break;
+    case ClickAction::RightClick:
+        mouse_event(MOUSEEVENTF_RIGHTDOWN,0,0,0,0);
+        mouse_event(MOUSEEVENTF_RIGHTUP,0,0,0,0);
+        break;
+    case ClickAction::LeftDbClick:
+        mouse_event(MOUSEEVENTF_LEFTDOWN,0,0,0,0);
+        mouse_event(MOUSEEVENTF_LEFTUP,0,0,0,0);
+        mouse_event(MOUSEEVENTF_LEFTDOWN,0,0,0,0);
+        mouse_event(MOUSEEVENTF_LEFTUP,0,0,0,0);
+        break;
+    default:
+        break;
+    }
     return (true);
 }
 
 bool Win32Explorer::generateKeybdEvent(unsigned char key)
 {
-	keybd_event(key, VkKeyScan(key), KEYEVENTF_EXTENDEDKEY | 0, 0);
-	keybd_event(key, VkKeyScan(key), KEYEVENTF_EXTENDEDKEY | KEYEVENTF_KEYUP, 0);
-	return (true);
+    keybd_event(key, VkKeyScan(key), KEYEVENTF_EXTENDEDKEY | 0, 0);
+    keybd_event(key, VkKeyScan(key), KEYEVENTF_EXTENDEDKEY | KEYEVENTF_KEYUP, 0);
+    return (true);
 }

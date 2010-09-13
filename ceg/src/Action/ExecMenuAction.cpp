@@ -25,8 +25,9 @@
 /*********************************/
 #include "MainController.h"
 #include "ActionFactory.h"
-/*********************************/
 #include "Logger.h"
+/*********************************/
+
 /************************************************* [ CTOR/DTOR ] *************************************************/
 
 char const * ExecMenuAction::IDENTIFIER = "ExecMenu";
@@ -45,10 +46,7 @@ ExecMenuAction::ExecMenuAction(const QDomElement & domElement)
 
 ExecMenuAction::~ExecMenuAction()
 {
-    for (std::vector< IAction * >::iterator
-	 it = _actionsToExec.begin(),
-	 end = _actionsToExec.end();
-    it != end; ++it)
+    for (QVector<IAction *>::iterator it = this->_actionsToExec.begin(), end = this->_actionsToExec.end(); it != end; ++it)
     {
 	delete *it;
     }
@@ -77,7 +75,7 @@ void ExecMenuAction::exec(MainController & mainC)
     if (this->_actionsToExec.empty() == false)
     {
 	// On execute l'action
-	for (std::vector< IAction * >::iterator it = this->_actionsToExec.begin(), end = this->_actionsToExec.end(); it != end; ++it)
+        for (QVector<IAction *>::iterator it = this->_actionsToExec.begin(), end = this->_actionsToExec.end(); it != end; ++it)
 	{
 	    (*it)->exec(mainC);
 	}
