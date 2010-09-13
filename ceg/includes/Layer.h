@@ -26,6 +26,7 @@
 #include "AbstractScene.h"
 #include "Window.h"
 
+class MainController;
 class IAction;
 
 /**
@@ -36,7 +37,7 @@ class Layer : public AbstractScene
 {
     Q_OBJECT
 public:
-    Layer(Ceg::Window const &);
+    Layer(Ceg::Window const &, MainController &);
     ~Layer();
 
     void                setProcess(QProcess *);
@@ -53,10 +54,14 @@ private slots:
     void                on_processError(QProcess::ProcessError error);
     void                on_processFinished( int exitCode, QProcess::ExitStatus exitStatus );
 
+signals:
+    void                actionEmitted(IAction &); //signal d'action
+
 private:
     Ceg::Window _host; // la fenetre qui est calquee
     IAction *	_menuAction; // Correspond a l'action retourne lorsque l'utilisateur sort du calque
     QProcess *  _process; // Le process correspondant au programme lance
+    MainController & _mainC;
 };
 
 #endif // LAYER_H

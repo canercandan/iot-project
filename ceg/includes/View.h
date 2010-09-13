@@ -55,7 +55,7 @@ signals:
     void triggered();
 
 private:
-    MainController & _lm;
+    MainController & _mainC;
 };
 
 #endif // !VIEW_H

@@ -21,24 +21,24 @@
 /*********************************/
 #include <iostream>
 /*********************************/
-#include <QMessageBox>
-/*********************************/
 #include "AbstractItem.h"
 /*********************************/
 #include "Layer.h"
 /*********************************/
+#include "MainController.h"
 #include "Box.h"
+#include "CloseAction.h"
 #include "PopMenuAction.h"
 #include "Logger.h"
-#include "CloseAction.h"
 /*********************************/
 
 
 /************************************************* [ CTOR/DTOR ] *************************************************/
 
-Layer::Layer(Ceg::Window const & hostWindow) :
-        AbstractScene(hostWindow.getProgramName(), 0), _host(hostWindow), _menuAction(0), _process(0)
+Layer::Layer(Ceg::Window const & hostWindow, MainController & mainC) :
+        AbstractScene(hostWindow.getProgramName(), 0), _host(hostWindow), _menuAction(0), _process(0), _mainC(mainC)
 {
+    QObject::connect(this, SIGNAL(actionEmitted(IAction&)),&this->_mainC, SLOT(on_action_emitted(IAction&)));
 }
 
 Layer::~Layer()
@@ -49,6 +49,8 @@ Layer::~Layer()
     {
         if (this->_process->state() != QProcess::NotRunning)
         {
+            QObject::disconnect(this->_process, SIGNAL(error(QProcess::ProcessError)), this, SLOT(on_processError(QProcess::ProcessError)));
+            QObject::disconnect(this->_process, SIGNAL(finished(int,QProcess::ExitStatus)), this, SLOT(on_processFinished(int,QProcess::ExitStatus)));
             this->_process->terminate();
             if (this->_process->waitForFinished() == false)
             {
@@ -73,15 +75,16 @@ void    Layer::setProcess(QProcess * process)
     QObject::connect(this->_process, SIGNAL(finished(int,QProcess::ExitStatus)), this, SLOT(on_processFinished(int,QProcess::ExitStatus)));
 }
 
-void    Layer::on_processError(QProcess::ProcessError) // Pour le debug. a supprimer
+void    Layer::on_processError(QProcess::ProcessError)
 {
-    //IAction * action = new CloseAction(this);
-
+    CloseAction action(this);
+    emit actionEmitted(action);
 }
 
-void    Layer::on_processFinished(int , QProcess::ExitStatus) // Pour le debug. a supprimer
+void    Layer::on_processFinished(int , QProcess::ExitStatus)
 {
-    //IAction * action = new CloseAction(this);
+    CloseAction action(this);
+    emit actionEmitted(action);
 }
 
 /************************************************* [ OTHERS ] *************************************************/

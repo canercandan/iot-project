@@ -118,18 +118,18 @@ void	ExecProcessAction::exec(MainController & mainC)
 
     Logger::getInstance()->log(DEBUG_LOG, "ExecProcessAction::exec");
 
-    if ( ! this->_pathFinder.isEmpty() )
+    if (!this->_pathFinder.isEmpty())
     {
 	QProcess finder;
-	finder.start( this->_pathFinder );
+        finder.start(this->_pathFinder);
 
-	if ( ! finder.waitForStarted() )
+        if (!finder.waitForStarted())
 	{
             Logger::getInstance()->log(DEBUG_LOG, "Finder command doesnot work.");
 	    return;
 	}
 
-	if ( ! finder.waitForFinished() )
+        if (! finder.waitForFinished())
 	{
             Logger::getInstance()->log(DEBUG_LOG, "Finder command meets some issues to finish.");
 	    return;
@@ -157,8 +157,8 @@ void	ExecProcessAction::exec(MainController & mainC)
     tmp << "We are going to execute" << this->_path;
     Logger::getInstance()->log(DEBUG_LOG, msg);
 
-    QProcess* process = new QProcess( &mainC );
-    process->start( this->_path + " " + this->_arguments );
+    QProcess* process = new QProcess(&mainC);
+    process->start(this->_path + " " + this->_arguments);
 
     if (process->waitForStarted() == false)
     {

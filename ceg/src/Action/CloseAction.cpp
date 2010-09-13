@@ -58,9 +58,7 @@ void	CloseAction::exec(MainController& mainC)
     }
     if (index != -1)
     {
-        // remove de la liste + pop du menu home
-
-        // pour le custom
+        mainC.removeSceneAt(index);
     }
 }
 

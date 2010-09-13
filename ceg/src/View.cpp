@@ -37,7 +37,7 @@
 /************************************************* [ CTOR/DTOR ] *************************************************/
 
 View::View(MainController & lm, Systray & systray)
-    : _lm(lm)
+    : _mainC(lm)
 {
     this->setWindowOpacity(0.5);
     this->setWindowIcon(QIcon(":/images/systray-transparent-32x32.png"));
@@ -55,7 +55,7 @@ View::~View()
 
 void	View::initialize()
 {
-    AbstractScene* as = this->_lm.getCurrentScene();
+    AbstractScene* as = this->_mainC.getCurrentScene();
     this->setScene(as);
     this->setGeometry(as->getGeometry());
     this->setCacheMode(QGraphicsView::CacheNone);

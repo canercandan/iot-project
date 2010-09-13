@@ -123,7 +123,7 @@ void    MainController::on_action_emitted(IAction & anAction)
 
 AbstractScene * MainController::createScene(Ceg::Window const & window)
 {
-    Layer * oneLayer = new Layer(window);
+    Layer * oneLayer = new Layer(window, *this);
     QList<QGraphicsRectItem *> graphicItems;
     this->_boxController.getPattern(window, graphicItems);
     oneLayer->initialize(graphicItems);
@@ -177,4 +177,12 @@ void MainController::popFrontScene()
         this->_view.setSceneRect((*this->_currentScene)->getGeometry());
     }
     delete oldCurrentScene;
+}
+
+void MainController::removeSceneAt(int index)
+{
+    AbstractScene const * deletedScene = this->_scenes.at(index);
+    this->_scenes.removeAt(index);
+    delete deletedScene;
+    this->pushFrontScene(this->getScene("Home"));
 }

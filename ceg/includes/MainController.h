@@ -23,8 +23,6 @@
 
 #include <QList>
 
-#include <QGraphicsView>
-
 #include "CegTcpServer.h"
 #include "View.h"
 #include "Window.h"
@@ -59,6 +57,7 @@ public:
     AbstractScene *			createScene(Ceg::Window const & window);
     void				pushFrontScene(AbstractScene * scene); // Rajoute la scnene au debut des scenes et rafraichi la vue
     void				popFrontScene(); // Supprime la scene du debut et rafraichi la vue
+    void                                removeSceneAt(int index); // Supprime la scene qui est a l'index et affiche le menu home
 
 public slots:
     void				on_start_navigation(); // Active la navigation
