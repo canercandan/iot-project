@@ -20,6 +20,8 @@
 #ifndef PROTOCOLSERVERVNC_H
 #define PROTOCOLSERVERVNC_H
 
+#include <iostream>
+
 #include <QDataStream>
 #include <QString>
 #include <QBool>
@@ -51,12 +53,13 @@ enum VNCServerStep
   {
     VNC_VERSION,
     VNC_SECULIST,
-    VNC_SECUFAIL,
     VNC_SECURESULT,
     VNC_SECUREASON,
     VNC_PASSCHECK,
     VNC_INITMESSAGE,
-    VNC_MESSAGING};
+    VNC_MESSAGING,
+    VNC_KEYMSG,
+    VNC_PTRMSG};
 
 
 enum triBool
@@ -70,15 +73,16 @@ class ProtocolServerVNC
 {
 
 public:
-  typedef void (protocoleYAY::*funcExecPtr)(QDataStream &);
-  typedef void (protocoleYAY::*funcParsePtr)(QDataStream &, QString &);
+  typedef void (ProtocolServerVNC::*funcExecPtr)(QDataStream &);
+  typedef void (ProtocolServerVNC::*funcParsePtr)(QDataStream &);
 
   ProtocolServerVNC();
   ~ProtocolServerVNC();
   void          init();
-  QString	parse(QDataStream & stream);
-  QString	exec();
+  void	parse(QDataStream & stream);
+  void	exec(QDataStream & stream);
   VNCServerStep getStep() const;
+  int           getWaitedSize() const;
 
 private:
   void          convertStringToUint8(QDataStream &, QString const &);
@@ -88,12 +92,11 @@ private:
   void		execSecuReason(QDataStream &);
   void		execSand(QDataStream &);
   void		execServerInit(QDataStream &);
-  void		parseVersion(QDataStream &, QString &);
-  void		parseSecuList(QDataStream &, QString &);
-  void		parseSecuFail(QDataStream &, QString &);
-  void		parsePassword(QDataStream &, QString &);
-  void		parseInitMessage(QDataStream &, QString &);
-  void		parseMessage(QDataStream &, QString &);
+  void		parseVersion(QDataStream &);
+  void		parseSecuList(QDataStream &);
+  void		parsePassword(QDataStream &);
+  void		parseInitMessage(QDataStream &);
+  void		parseMessage(QDataStream &);
 
 private:
   static QString const                  _VERSION;
@@ -101,9 +104,10 @@ private:
   QMap<VNCServerStep, funcParsePtr>	_parsePtrMap;
   VNCServerStep				_vncStep;
   triBool                               _passOk;
-  QBool                                 _validSecurity;
+  bool                                 _validSecurity;
   QString                               _secuReason;
   quint8                                _secuType;
+  bool                                 _validVersion;
 };
 
 

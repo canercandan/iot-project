@@ -20,25 +20,26 @@
 
 #include "ProtocolServerVNC.h"
 
+#include <QApplication>
+#include <QDesktopWidget>
 
 QString const ProtocolServerVNC::_VERSION = "RFB 003.008\n";
 
 ProtocolServerVNC::ProtocolServerVNC():
-        _execPtrMap(), _parsePtrMap(), _vncStep(VNCServerStep::VNC_VERSION), _passOk(triBool::TB_UNKNOWN), _validSecurity(true), _secuReason()
+        _execPtrMap(), _parsePtrMap(), _vncStep(VNC_VERSION), _passOk(TB_UNKNOWN), _validSecurity(true), _secuReason(), _validVersion(false)
 {
-    _execPtrMap[VNCServerStep::VNC_VERSION] = &ProtocolServerVNC::execVersion;
-    _execPtrMap[VNCServerStep::VNC_SECULIST] = &ProtocolServerVNC::execVSecuList;
-    _execPtrMap[VNCServerStep::VNC_SECURESULT] = &ProtocolServerVNC::execSecuResult;
-    _execPtrMap[VNCServerStep::VNC_SECUREASON] = &ProtocolServerVNC::execSecuReason;
-    _execPtrMap[VNCServerStep::VNC_PASSCHECK] = &ProtocolServerVNC::execSand;
-    _execPtrMap[VNCServerStep::VNC_INITMESSAGE] = &ProtocolServerVNC::execServerInit;
+    _execPtrMap[VNC_VERSION] = &ProtocolServerVNC::execVersion;
+    _execPtrMap[VNC_SECULIST] = &ProtocolServerVNC::execSecuList;
+    _execPtrMap[VNC_SECURESULT] = &ProtocolServerVNC::execSecuResult;
+    _execPtrMap[VNC_SECUREASON] = &ProtocolServerVNC::execSecuReason;
+    _execPtrMap[VNC_PASSCHECK] = &ProtocolServerVNC::execSand;
+    _execPtrMap[VNC_INITMESSAGE] = &ProtocolServerVNC::execServerInit;
 
-    _parsePtrMap[VNCServerStep::VNC_VERSION] = &ProtocolServerVNC::parseVersion;
-    _parsePtrMap[VNCServerStep::VNC_SECULIST] = &ProtocolServerVNC::parseSecuList;
-    _parsePtrMap[VNCServerStep::VNC_SECUFAIL] = &ProtocolServerVNC::parseSecuFail;
-    _parsePtrMap[VNCServerStep::VNC_PASSCHECK] = &ProtocolServerVNC::parsePassword;
-    _parsePtrMap[VNCServerStep::VNC_INITMESSAGE] = &ProtocolServerVNC::parseInitMessage;
-    _parsePtrMap[VNCServerStep::VNC_MESSAGING] = &ProtocolServerVNC::parseMessage;
+    _parsePtrMap[VNC_VERSION] = &ProtocolServerVNC::parseVersion;
+    _parsePtrMap[VNC_SECULIST] = &ProtocolServerVNC::parseSecuList;
+    _parsePtrMap[VNC_PASSCHECK] = &ProtocolServerVNC::parsePassword;
+    _parsePtrMap[VNC_INITMESSAGE] = &ProtocolServerVNC::parseInitMessage;
+    _parsePtrMap[VNC_MESSAGING] = &ProtocolServerVNC::parseMessage;
     this->init();
 }
 
@@ -50,13 +51,13 @@ void          ProtocolServerVNC::convertStringToUint8(QDataStream & src, QString
 {
     for (int i = 0; i < data.size(); ++i)
     {
-        src << static_cast<quint8>(data[i]);
+        src << static_cast<quint8>(data[i].toAscii());
     }
 }
 
 void            ProtocolServerVNC::init()
 {
-    this->_vncStep = VNCServerStep::VNC_VERSION;
+    this->_vncStep = VNC_VERSION;
 }
 
 void		ProtocolServerVNC::execVersion(QDataStream & stream)
@@ -66,9 +67,20 @@ void		ProtocolServerVNC::execVersion(QDataStream & stream)
 
 void		ProtocolServerVNC::execSecuList(QDataStream & stream)
 {
-    quint8 nbSecuType = 1;
-    quint8 secuTypes[0] = 1;
-    stream << nbSecuType << secuTypes;
+
+    if (this->_validVersion)
+    {
+        quint8 nbSecuType = 1;
+        quint8 secuTypes = 1;
+        stream << nbSecuType << secuTypes;
+    }
+    else
+    {
+        quint8 nbSecuType = 0;
+        stream << nbSecuType;
+        this->_secuReason = "The server cannot support the desired protocol version";
+        this->_vncStep = VNC_SECUREASON;
+    }
 }
 
 void		ProtocolServerVNC::execSecuResult(QDataStream & stream)
@@ -78,7 +90,7 @@ void		ProtocolServerVNC::execSecuResult(QDataStream & stream)
 
     if (response == 1)
     {
-        if (this->_passOk == triBool::TB_FALSE)
+        if (this->_passOk == TB_FALSE)
         {
             this->_secuReason = "Password is not valid !";
         }
@@ -86,15 +98,15 @@ void		ProtocolServerVNC::execSecuResult(QDataStream & stream)
         {
             this->_secuReason = "Desired security type does not exist !";
         }
-        this->_vncStep = VNCServerStep::VNC_SECUREASON;
+        this->_vncStep = VNC_SECUREASON;
     }
-    else if (this->_passOk == triBool::TB_UNKNOWN)
+    else if (this->_passOk == TB_UNKNOWN)
     {
-        this->_vncStep = VNCServerStep::VNC_PASSCHECK;
+        this->_vncStep = VNC_PASSCHECK;
     }
     else
     {
-        this->_vncStep = VNCServerStep::VNC_INITMESSAGE;
+        this->_vncStep = VNC_INITMESSAGE;
     }
 }
 
@@ -109,88 +121,151 @@ void		ProtocolServerVNC::execSand(QDataStream & stream)
     // if the secuType is none, then we pass to the result step
     if (this->_secuType == 1)
     {
-        this->_vncStep = VNCServerStep::VNC_SECURESULT;
+        this->_vncStep = VNC_SECURESULT;
         this->execSecuResult(stream);
     }
 }
 
 void		ProtocolServerVNC::execServerInit(QDataStream & stream)
 {
+    QDesktopWidget *desktop = QApplication::desktop();
+    VNCDesktopInfo desktopInfo;
+    desktopInfo.framebufferHeight = static_cast<qint16>(desktop->height());
+    desktopInfo.framebufferWidth = static_cast<qint16>(desktop->width());
+    desktopInfo.nameLength = static_cast<qint32>(0);
+    desktopInfo.nameString = static_cast<qint8>(0);
+    desktopInfo.serverPixelFormat.bitsPerPixel = static_cast<qint8>(32);
+    desktopInfo.serverPixelFormat.depth = static_cast<qint8>(32);
+    desktopInfo.serverPixelFormat.bigEndianFlag = static_cast<qint8>(0);
+    desktopInfo.serverPixelFormat.trueColourFlag = static_cast<qint8>(0);
 
-    this->_vncStep = VNCServerStep::VNC_MESSAGING;
+    stream << desktopInfo.framebufferWidth << desktopInfo.framebufferHeight << desktopInfo.serverPixelFormat.bitsPerPixel;
+    stream << desktopInfo.serverPixelFormat.depth << desktopInfo.serverPixelFormat.bigEndianFlag;
+    stream << desktopInfo.serverPixelFormat.trueColourFlag << desktopInfo.serverPixelFormat.redMax;
+    stream << desktopInfo.serverPixelFormat.greenMax << desktopInfo.serverPixelFormat.blueMax;
+    stream << desktopInfo.serverPixelFormat.redShift << desktopInfo.serverPixelFormat.greenShift;
+    stream << desktopInfo.serverPixelFormat.blueShift << desktopInfo.serverPixelFormat.padding;
+    stream << desktopInfo.nameLength << desktopInfo.nameString;
+
+    this->_vncStep = VNC_MESSAGING;
 }
 
 
-QString	ProtocolServerVNC::exec()
+void	ProtocolServerVNC::exec(QDataStream & stream)
 {
-}
-
-
-void		ProtocolServerVNC::parseVersion(QDataStream & data, QString &)
-{
-
-    if (1)
+    std::cout << "exec" << std::endl;
+    funcExecPtr f = 0;
+    if (this->_execPtrMap.contains(this->_vncStep))
     {
-        this->_vncStep = VNCServerStep::VNC_SECULIST;
+        f = this->_execPtrMap.value(this->_vncStep);
+            (this->*f)(stream);
     }
 }
 
-void		ProtocolServerVNC::parseSecuList(QDataStream & data, QString &)
+
+void		ProtocolServerVNC::parseVersion(QDataStream & data)
+{
+    QString version;
+    std::cout << "parseVersion" << std::endl;
+    for (int i = 0; i < 12; ++i)
+    {
+        quint8 tmp;
+        data >> tmp;
+        version +=  tmp;
+    }
+    if (version.compare(this->_VERSION) == 0)
+    {
+        this->_validVersion = true;
+    }
+    this->_vncStep = VNC_SECULIST;
+}
+
+void		ProtocolServerVNC::parseSecuList(QDataStream & data)
 {
     this->_validSecurity = true;
-    this->_secuType = 1;
-    if (this->_secuType != 1)
-    {
-        this->_vncStep = VNCServerStep::VNC_SECUFAIL;
-    }
-    else
-    {
-        this->_vncStep = VNCServerStep::VNC_SECURESULT;
-    }
+    data >> this->_secuType;
+
+    this->_validSecurity = (this->_secuType == 1 ? true : false);
+    this->_vncStep = VNC_SECURESULT;
 }
 
-void		ProtocolServerVNC::parseSecuFail(QDataStream & data, QString &)
+void		ProtocolServerVNC::parsePassword(QDataStream & data)
 {
-
-}
-
-void		ProtocolServerVNC::parsePassword(QDataStream & data, QString &)
-{
-
-    //password not valid message
-    if (0)
-    {
-        this->_passOk = triBool::TB_FALSE;
-        this->_validSecurity = false;
-    }
-    else
-    {
-        this->_passOk = triBool::TB_TRUE;
-    }
-
     // there is no password, then we pass to the next step
     if (1)
     {
-        this->_vncStep = VNCServerStep::VNC_SECURESULT;
+        this->_validSecurity = true;
+        this->_passOk = TB_TRUE;
+    }
+    else //password not valid message
+    {
+        this->_validSecurity = false;
+        this->_passOk = TB_FALSE;
+    }
+    this->_vncStep = VNC_SECURESULT;
+}
+
+void		ProtocolServerVNC::parseInitMessage(QDataStream & data)
+{
+    quint8 sharedFlag;
+    data >> sharedFlag;
+}
+
+void		ProtocolServerVNC::parseMessage(QDataStream & data)
+{
+    quint8  messageType;
+    data >> messageType;
+    if (messageType == 4)
+    {
+        this->_vncStep = VNC_KEYMSG;
+    }
+    else if (messageType == 5)
+    {
+        this->_vncStep = VNC_PTRMSG;
+    }
+    else
+    {
+        // CLOSE CONNECTION
+        this->_validSecurity = false;
+        this->_secuReason = "Server cannot identify the message type !";
+        this->_vncStep = VNC_SECUREASON;
     }
 }
 
-void		ProtocolServerVNC::parseInitMessage(QDataStream & data, QString &)
+void	ProtocolServerVNC::parse(QDataStream & data)
 {
-
-}
-
-void		ProtocolServerVNC::parseMessage(QDataStream & data, QString &)
-{
-
-}
-
-QString	ProtocolServerVNC::parse(QDataStream & data)
-{
+    std::cout << "parse" << std::endl;
+    funcExecPtr f = 0;
+    if (this->_parsePtrMap.contains(this->_vncStep))
+    {
+        f = this->_parsePtrMap.value(this->_vncStep);
+            (this->*f)(data);
+    }
 }
 
 
 VNCServerStep ProtocolServerVNC::getStep() const
 {
     return (this->_vncStep);
+}
+
+int ProtocolServerVNC::getWaitedSize() const
+{
+    if (this->_vncStep == VNC_VERSION)
+    {
+        return (12);
+    }
+    else if (this->_vncStep == VNC_KEYMSG)
+    {
+        return (8);
+    }
+    else if (this->_vncStep == VNC_PTRMSG)
+    {
+        return (6);
+    }
+    else if (this->_vncStep == VNC_PASSCHECK)
+    {
+        return (0);
+    }
+    return (1);
 }

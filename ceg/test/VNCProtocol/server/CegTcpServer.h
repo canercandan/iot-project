@@ -27,6 +27,8 @@
 
 #include <QtNetwork>
 
+#include "ProtocolServerVNC.h"
+
 class CegTcpServer : public QWidget
 {
     Q_OBJECT
@@ -39,7 +41,7 @@ private:
     void	launch();
     void	parseLines(void);
     void	interpretLine(QString &line);
-  void		send(const QString &message);
+    void	send();
 
   //signals:
   //void actionEmitted(); //signal d'action
@@ -48,16 +50,17 @@ private slots:
     void	_connect();
     void	_disconnect();
     void	_readData();
-  void		sendMsg();
+    void	sendMsg();
 
 private:
-  QLabel *etatServeur;
-  QPushButton *boutonQuitter;
-  QPushButton *boutonMsg;
+    QLabel *etatServeur;
+    QPushButton *boutonQuitter;
+    QPushButton *boutonMsg;
     QTcpServer	*_tcpServer;
     QTcpSocket	*_client;
     QString	_buffer;
-  int tailleMessage;
+    int tailleMessage;
+    ProtocolServerVNC _vncProtocol;
 };
 
 #endif // CEGTCPSERVER_HPP
