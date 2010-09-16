@@ -57,17 +57,19 @@ void          ProtocolServerVNC::convertStringToUint8(QDataStream & src, QString
 
 void            ProtocolServerVNC::init()
 {
+    std::cout << "init" << std::endl;
     this->_vncStep = VNC_VERSION;
 }
 
 void		ProtocolServerVNC::execVersion(QDataStream & stream)
 {
+    std::cout << "execVersion" << std::endl;
     this->convertStringToUint8(stream, ProtocolServerVNC::_VERSION);
 }
 
 void		ProtocolServerVNC::execSecuList(QDataStream & stream)
 {
-
+    std::cout << "execSecuList" << std::endl;
     if (this->_validVersion)
     {
         quint8 nbSecuType = 1;
@@ -85,6 +87,7 @@ void		ProtocolServerVNC::execSecuList(QDataStream & stream)
 
 void		ProtocolServerVNC::execSecuResult(QDataStream & stream)
 {
+    std::cout << "execSecuResult" << std::endl;
     quint32 response = (this->_validSecurity ? 0 : 1);
     stream << response;
 
@@ -112,12 +115,14 @@ void		ProtocolServerVNC::execSecuResult(QDataStream & stream)
 
 void		ProtocolServerVNC::execSecuReason(QDataStream & stream)
 {
+    std::cout << "execSecuReason" << std::endl;
     stream << static_cast<quint8>(this->_secuReason.size());
     this->convertStringToUint8(stream, this->_secuReason);
 }
 
 void		ProtocolServerVNC::execSand(QDataStream & stream)
 {
+    std::cout << "execSand" << std::endl;
     // if the secuType is none, then we pass to the result step
     if (this->_secuType == 1)
     {
@@ -128,6 +133,7 @@ void		ProtocolServerVNC::execSand(QDataStream & stream)
 
 void		ProtocolServerVNC::execServerInit(QDataStream & stream)
 {
+    std::cout << "execServerInit" << std::endl;
     QDesktopWidget *desktop = QApplication::desktop();
     VNCDesktopInfo desktopInfo;
     desktopInfo.framebufferHeight = static_cast<qint16>(desktop->height());
@@ -165,23 +171,31 @@ void	ProtocolServerVNC::exec(QDataStream & stream)
 
 void		ProtocolServerVNC::parseVersion(QDataStream & data)
 {
-    QString version;
-    std::cout << "parseVersion" << std::endl;
-    for (int i = 0; i < 12; ++i)
+  QString version;
+  std::cout << "parseVersion" << std::endl;
+  for (int i = 0; i < 12; ++i)
     {
-        quint8 tmp;
-        data >> tmp;
-        version +=  tmp;
+      quint8 tmp;
+      data >> tmp;
+      std::cout << (int)tmp << std::endl;
+      version +=  tmp;
     }
-    if (version.compare(this->_VERSION) == 0)
+  if (this->_VERSION.compare(version) == 0)
     {
-        this->_validVersion = true;
+      std::cout << "ValidVersion" << std::endl;
+      this->_validVersion = true;
     }
-    this->_vncStep = VNC_SECULIST;
+  else
+    std::cout << "NotValidVersion" << std::endl;
+      this->_validVersion = true;
+  std::cout << version.toStdString() << " " << version.size() << std::endl;
+  std::cout << this->_VERSION.toStdString() << " " << this->_VERSION.size() << std::endl;
+  this->_vncStep = VNC_SECULIST;
 }
 
 void		ProtocolServerVNC::parseSecuList(QDataStream & data)
 {
+    std::cout << "parseSecuList" << std::endl;
     this->_validSecurity = true;
     data >> this->_secuType;
 
@@ -191,6 +205,7 @@ void		ProtocolServerVNC::parseSecuList(QDataStream & data)
 
 void		ProtocolServerVNC::parsePassword(QDataStream & data)
 {
+    std::cout << "parsePassword" << std::endl;
     // there is no password, then we pass to the next step
     if (1)
     {
@@ -207,12 +222,14 @@ void		ProtocolServerVNC::parsePassword(QDataStream & data)
 
 void		ProtocolServerVNC::parseInitMessage(QDataStream & data)
 {
+    std::cout << "parseInitMessage" << std::endl;
     quint8 sharedFlag;
     data >> sharedFlag;
 }
 
 void		ProtocolServerVNC::parseMessage(QDataStream & data)
 {
+    std::cout << "parseMessage" << std::endl;
     quint8  messageType;
     data >> messageType;
     if (messageType == 4)
@@ -246,11 +263,13 @@ void	ProtocolServerVNC::parse(QDataStream & data)
 
 VNCServerStep ProtocolServerVNC::getStep() const
 {
+    std::cout << "getStep" << std::endl;
     return (this->_vncStep);
 }
 
 int ProtocolServerVNC::getWaitedSize() const
 {
+    std::cout << "getWaitedSize" << std::endl;
     if (this->_vncStep == VNC_VERSION)
     {
         return (12);

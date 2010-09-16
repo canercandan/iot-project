@@ -97,9 +97,10 @@ void	CegTcpServer::_readData()
     QDataStream		in(this->_client);
 
     //in.setVersion(QDataStream::Qt_4_5);
-    if (this->_client->bytesAvailable() < this->_vncProtocol.getWaitedSize())
+    if (this->_client->bytesAvailable() >= this->_vncProtocol.getWaitedSize())
     {
-        this->_vncProtocol.parse(in);
+      std::cout << (int)this->_client->bytesAvailable() << std::endl;
+      this->_vncProtocol.parse(in);
     }
 }
 
