@@ -74,6 +74,33 @@ class BuilderWidget(QtGui.QMainWindow):
         self.rootView = View(None)
         self.currentView = self.rootView
         self.views = [self.rootView]
+        #self.keyboardTest()
+
+    def keyboardTest(self, topLeft, bottomRight):
+        my_keymap = "AZERTYUIOPQSDFGHJKLMWXCVBN "
+        nb_col = 10
+        nb_line = 3
+        #sizex = 80
+        #sizey = 80
+        sizex = bottomRight.x() - topLeft.x()
+        sizey = bottomRight.y() - topLeft.y()
+        caseSizex = sizex // nb_col
+        caseSizey = sizey // nb_line
+        col = 0
+        line = 0
+        for c in my_keymap:
+            if col >= nb_col:
+                col = 0
+                line += 1
+            if line >= nb_line:
+                print "keymap too big"
+                return
+
+            tmpx = QPoint(topLeft.x() + col * sizex, topLeft.y() + line * sizey)
+            tmpy = QPoint(bottomRight.x() + (col + 1) * sizex, topLeft.y() + (line + 1) * sizey)
+            
+
+            print "key is " + c
 
     def createRegularBox(self, topLeft, bottomRight):
         box = Box(self)
