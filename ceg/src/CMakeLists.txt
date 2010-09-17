@@ -31,7 +31,6 @@ ELSEIF(WIN32)
   IF (NOT MINGW)
     SET(SOURCES ${SOURCES}
       ${CMAKE_CURRENT_SOURCE_DIR}/Win32Explorer.cpp
-      ${CMAKE_CURRENT_SOURCE_DIR}/Win32Adaptor.cpp
       )
   ELSE()
     #SET(SOURCES ${SOURCES})
