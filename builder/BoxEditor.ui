@@ -6,9 +6,21 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>598</width>
-    <height>425</height>
+    <width>661</width>
+    <height>455</height>
    </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>661</width>
+    <height>455</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>661</width>
+    <height>455</height>
+   </size>
   </property>
   <property name="windowTitle">
    <string>BoxEditor</string>
@@ -16,356 +28,586 @@
   <layout class="QGridLayout" name="gridLayout_2">
    <item row="0" column="0">
     <layout class="QGridLayout" name="gridLayout">
-     <item row="0" column="0" rowspan="2">
-      <widget class="QListWidget" name="listWidget">
+     <item row="0" column="0" colspan="3">
+      <widget class="QTabWidget" name="tabWidget">
        <property name="minimumSize">
         <size>
-         <width>141</width>
+         <width>641</width>
          <height>401</height>
-        </size>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>141</width>
-         <height>16777215</height>
-        </size>
-       </property>
-       <item>
-        <property name="text">
-         <string>Click</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Zoom</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Read</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Write</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>PopMenu</string>
-        </property>
-       </item>
-      </widget>
-     </item>
-     <item row="0" column="1" colspan="3">
-      <widget class="QStackedWidget" name="stackedWidget">
-       <property name="minimumSize">
-        <size>
-         <width>431</width>
-         <height>371</height>
         </size>
        </property>
        <property name="currentIndex">
         <number>0</number>
        </property>
-       <widget class="QWidget" name="clickPage">
-        <widget class="QLabel" name="clickDesc">
+       <widget class="QWidget" name="typeTab">
+        <attribute name="title">
+         <string>Type</string>
+        </attribute>
+        <widget class="QStackedWidget" name="stackedWidget">
          <property name="geometry">
           <rect>
-           <x>10</x>
-           <y>10</y>
-           <width>411</width>
-           <height>21</height>
+           <x>150</x>
+           <y>20</y>
+           <width>482</width>
+           <height>300</height>
           </rect>
          </property>
-         <property name="text">
-          <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+         <property name="minimumSize">
+          <size>
+           <width>431</width>
+           <height>300</height>
+          </size>
+         </property>
+         <property name="currentIndex">
+          <number>0</number>
+         </property>
+         <widget class="QWidget" name="clickPage">
+          <widget class="QLabel" name="clickDesc">
+           <property name="geometry">
+            <rect>
+             <x>10</x>
+             <y>10</y>
+             <width>411</width>
+             <height>21</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Sans'; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Description: this box generates a &lt;span style=&quot; font-weight:600;&quot;&gt;Click&lt;/span&gt; or a double click&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-         </property>
-        </widget>
-        <widget class="QComboBox" name="clickComboBox">
-         <property name="geometry">
-          <rect>
-           <x>280</x>
-           <y>130</y>
-           <width>142</width>
-           <height>31</height>
-          </rect>
-         </property>
-         <item>
-          <property name="text">
-           <string>Left click</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Middle click</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Right click</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Left double click</string>
-          </property>
-         </item>
-        </widget>
-        <widget class="QLabel" name="clickQuestion">
-         <property name="geometry">
-          <rect>
-           <x>15</x>
-           <y>99</y>
-           <width>411</width>
-           <height>17</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>Which click do you want to generate ?</string>
-         </property>
-        </widget>
-       </widget>
-       <widget class="QWidget" name="zoomPage">
-        <widget class="QLabel" name="zoomDesc">
-         <property name="geometry">
-          <rect>
-           <x>10</x>
-           <y>10</y>
-           <width>411</width>
-           <height>21</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+           </property>
+          </widget>
+          <widget class="QComboBox" name="clickComboBox">
+           <property name="geometry">
+            <rect>
+             <x>280</x>
+             <y>130</y>
+             <width>142</width>
+             <height>31</height>
+            </rect>
+           </property>
+           <item>
+            <property name="text">
+             <string>Left click</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Middle click</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Right click</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Left double click</string>
+            </property>
+           </item>
+          </widget>
+          <widget class="QLabel" name="clickQuestion">
+           <property name="geometry">
+            <rect>
+             <x>15</x>
+             <y>99</y>
+             <width>411</width>
+             <height>17</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>Which click do you want to generate ?</string>
+           </property>
+          </widget>
+         </widget>
+         <widget class="QWidget" name="zoomPage">
+          <widget class="QLabel" name="zoomDesc">
+           <property name="geometry">
+            <rect>
+             <x>10</x>
+             <y>10</y>
+             <width>411</width>
+             <height>21</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Sans'; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Description: this box enables &lt;span style=&quot; font-weight:600;&quot;&gt;Zoom&lt;/span&gt; action&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-         </property>
-        </widget>
-        <widget class="QComboBox" name="zoomComboBox">
-         <property name="geometry">
-          <rect>
-           <x>320</x>
-           <y>120</y>
-           <width>99</width>
-           <height>31</height>
-          </rect>
-         </property>
-         <item>
-          <property name="text">
-           <string>Zoom out</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Zoom in</string>
-          </property>
-         </item>
-        </widget>
-        <widget class="QLabel" name="zoomQuestion">
-         <property name="geometry">
-          <rect>
-           <x>10</x>
-           <y>90</y>
-           <width>411</width>
-           <height>17</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>Which action do you want to execute ?</string>
-         </property>
-        </widget>
-       </widget>
-       <widget class="QWidget" name="readPage">
-        <widget class="QLabel" name="readDesc">
-         <property name="geometry">
-          <rect>
-           <x>10</x>
-           <y>10</y>
-           <width>411</width>
-           <height>21</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+           </property>
+          </widget>
+          <widget class="QComboBox" name="zoomComboBox">
+           <property name="geometry">
+            <rect>
+             <x>320</x>
+             <y>120</y>
+             <width>99</width>
+             <height>31</height>
+            </rect>
+           </property>
+           <item>
+            <property name="text">
+             <string>Zoom out</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Zoom in</string>
+            </property>
+           </item>
+          </widget>
+          <widget class="QLabel" name="zoomQuestion">
+           <property name="geometry">
+            <rect>
+             <x>10</x>
+             <y>90</y>
+             <width>411</width>
+             <height>17</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>Which action do you want to execute ?</string>
+           </property>
+          </widget>
+         </widget>
+         <widget class="QWidget" name="readPage">
+          <widget class="QLabel" name="readDesc">
+           <property name="geometry">
+            <rect>
+             <x>10</x>
+             <y>10</y>
+             <width>411</width>
+             <height>21</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Sans'; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Description: Hide the box in order to &lt;span style=&quot; font-weight:600;&quot;&gt;Read&lt;/span&gt; below&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-         </property>
-        </widget>
-        <widget class="QDoubleSpinBox" name="readDoubleSpinBox">
-         <property name="geometry">
-          <rect>
-           <x>350</x>
-           <y>120</y>
-           <width>63</width>
-           <height>27</height>
-          </rect>
-         </property>
-         <property name="prefix">
-          <string/>
-         </property>
-         <property name="suffix">
-          <string/>
-         </property>
-         <property name="minimum">
-          <double>1.000000000000000</double>
-         </property>
-         <property name="maximum">
-          <double>60.000000000000000</double>
-         </property>
-        </widget>
-        <widget class="QLabel" name="readQuestion">
-         <property name="geometry">
-          <rect>
-           <x>10</x>
-           <y>90</y>
-           <width>411</width>
-           <height>17</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>How many seconds do you want to hide the box ?</string>
-         </property>
-        </widget>
-       </widget>
-       <widget class="QWidget" name="writePage">
-        <widget class="QLabel" name="writeDesc">
-         <property name="geometry">
-          <rect>
-           <x>10</x>
-           <y>10</y>
-           <width>411</width>
-           <height>21</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+           </property>
+          </widget>
+          <widget class="QDoubleSpinBox" name="readDoubleSpinBox">
+           <property name="geometry">
+            <rect>
+             <x>350</x>
+             <y>120</y>
+             <width>63</width>
+             <height>27</height>
+            </rect>
+           </property>
+           <property name="prefix">
+            <string/>
+           </property>
+           <property name="suffix">
+            <string/>
+           </property>
+           <property name="minimum">
+            <double>1.000000000000000</double>
+           </property>
+           <property name="maximum">
+            <double>60.000000000000000</double>
+           </property>
+          </widget>
+          <widget class="QLabel" name="readQuestion">
+           <property name="geometry">
+            <rect>
+             <x>10</x>
+             <y>90</y>
+             <width>411</width>
+             <height>17</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>How many seconds do you want to hide the box ?</string>
+           </property>
+          </widget>
+         </widget>
+         <widget class="QWidget" name="writePage">
+          <widget class="QLabel" name="writeDesc">
+           <property name="geometry">
+            <rect>
+             <x>10</x>
+             <y>10</y>
+             <width>411</width>
+             <height>21</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Sans'; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Description: &lt;span style=&quot; font-weight:600;&quot;&gt;Write&lt;/span&gt; some text over the box&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-         </property>
+           </property>
+          </widget>
+          <widget class="QLineEdit" name="writeLineEdit">
+           <property name="geometry">
+            <rect>
+             <x>10</x>
+             <y>100</y>
+             <width>411</width>
+             <height>27</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+           <property name="maxLength">
+            <number>100</number>
+           </property>
+          </widget>
+         </widget>
+         <widget class="QWidget" name="popMenuPage">
+          <widget class="QLabel" name="popMenuDesc">
+           <property name="geometry">
+            <rect>
+             <x>10</x>
+             <y>10</y>
+             <width>411</width>
+             <height>21</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Sans'; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Description: this box &lt;span style=&quot; font-weight:600;&quot;&gt;pop&lt;/span&gt;s up a &lt;span style=&quot; font-weight:600;&quot;&gt;menu&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
+          </widget>
+          <widget class="QLabel" name="popMenuQuestion">
+           <property name="geometry">
+            <rect>
+             <x>10</x>
+             <y>90</y>
+             <width>411</width>
+             <height>17</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>Which menu do you want to display ?</string>
+           </property>
+          </widget>
+          <widget class="QComboBox" name="popMenuComboBox">
+           <property name="geometry">
+            <rect>
+             <x>190</x>
+             <y>120</y>
+             <width>231</width>
+             <height>31</height>
+            </rect>
+           </property>
+           <item>
+            <property name="text">
+             <string>Application</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Event</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Home</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Keyboard</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Multimedia</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Navigation</string>
+            </property>
+           </item>
+          </widget>
+         </widget>
         </widget>
-        <widget class="QLineEdit" name="writeLineEdit">
+        <widget class="QListWidget" name="listWidget">
          <property name="geometry">
           <rect>
-           <x>10</x>
-           <y>100</y>
-           <width>411</width>
-           <height>27</height>
+           <x>3</x>
+           <y>20</y>
+           <width>141</width>
+           <height>334</height>
+          </rect>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>141</width>
+           <height>300</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>141</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <item>
+          <property name="text">
+           <string>Click</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Zoom</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Read</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Write</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>PopMenu</string>
+          </property>
+         </item>
+        </widget>
+       </widget>
+       <widget class="QWidget" name="styleTab">
+        <attribute name="title">
+         <string>Style</string>
+        </attribute>
+        <widget class="QLabel" name="focusedLabel">
+         <property name="geometry">
+          <rect>
+           <x>210</x>
+           <y>110</y>
+           <width>111</width>
+           <height>28</height>
+          </rect>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>80</width>
+           <height>28</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>focused color</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="unfocusedLabel">
+         <property name="geometry">
+          <rect>
+           <x>210</x>
+           <y>70</y>
+           <width>111</width>
+           <height>28</height>
+          </rect>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>80</width>
+           <height>28</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>unfocused color</string>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="unfocusedButton">
+         <property name="geometry">
+          <rect>
+           <x>22</x>
+           <y>71</y>
+           <width>175</width>
+           <height>28</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>&amp;Change unfocused color</string>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="focusedButton">
+         <property name="geometry">
+          <rect>
+           <x>20</x>
+           <y>110</y>
+           <width>175</width>
+           <height>28</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>&amp;Change focused color</string>
+         </property>
+        </widget>
+        <widget class="QCheckBox" name="roundedCheckBox">
+         <property name="geometry">
+          <rect>
+           <x>20</x>
+           <y>30</y>
+           <width>111</width>
+           <height>23</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Rounded box</string>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="textLineEdit">
+         <property name="geometry">
+          <rect>
+           <x>170</x>
+           <y>230</y>
+           <width>371</width>
+           <height>26</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QLabel" name="textLabel">
+         <property name="geometry">
+          <rect>
+           <x>20</x>
+           <y>230</y>
+           <width>141</width>
+           <height>21</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Text displayed:</string>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="textColorButton">
+         <property name="geometry">
+          <rect>
+           <x>20</x>
+           <y>150</y>
+           <width>175</width>
+           <height>28</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>&amp;Change text color</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="textColorLabel">
+         <property name="geometry">
+          <rect>
+           <x>210</x>
+           <y>150</y>
+           <width>111</width>
+           <height>28</height>
+          </rect>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>80</width>
+           <height>28</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>text color</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label">
+         <property name="geometry">
+          <rect>
+           <x>20</x>
+           <y>190</y>
+           <width>151</width>
+           <height>18</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Opacity:</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="colorOpacityLabel">
+         <property name="geometry">
+          <rect>
+           <x>340</x>
+           <y>179</y>
+           <width>51</width>
+           <height>41</height>
           </rect>
          </property>
          <property name="text">
           <string/>
          </property>
-         <property name="maxLength">
+        </widget>
+        <widget class="QSlider" name="colorOpacitySlider">
+         <property name="geometry">
+          <rect>
+           <x>180</x>
+           <y>190</y>
+           <width>211</width>
+           <height>24</height>
+          </rect>
+         </property>
+         <property name="minimum">
+          <number>10</number>
+         </property>
+         <property name="maximum">
           <number>100</number>
          </property>
-        </widget>
-       </widget>
-       <widget class="QWidget" name="popMenuPage">
-        <widget class="QLabel" name="popMenuDesc">
-         <property name="geometry">
-          <rect>
-           <x>10</x>
-           <y>10</y>
-           <width>411</width>
-           <height>21</height>
-          </rect>
+         <property name="value">
+          <number>50</number>
          </property>
-         <property name="text">
-          <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Sans'; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Description: this box &lt;span style=&quot; font-weight:600;&quot;&gt;pop&lt;/span&gt;s up a &lt;span style=&quot; font-weight:600;&quot;&gt;menu&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         <property name="sliderPosition">
+          <number>50</number>
          </property>
-        </widget>
-        <widget class="QLabel" name="popMenuQuestion">
-         <property name="geometry">
-          <rect>
-           <x>10</x>
-           <y>90</y>
-           <width>411</width>
-           <height>17</height>
-          </rect>
+         <property name="tracking">
+          <bool>true</bool>
          </property>
-         <property name="text">
-          <string>Which menu do you want to display ?</string>
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
          </property>
-        </widget>
-        <widget class="QComboBox" name="popMenuComboBox">
-         <property name="geometry">
-          <rect>
-           <x>190</x>
-           <y>120</y>
-           <width>231</width>
-           <height>31</height>
-          </rect>
+         <property name="invertedAppearance">
+          <bool>false</bool>
          </property>
-         <item>
-          <property name="text">
-           <string>ApplicationMenu</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>EventMenu</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>HomeMenu</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>KeyboardMenu</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>MultimediaMenu</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>NavigationMenu</string>
-          </property>
-         </item>
+         <property name="invertedControls">
+          <bool>false</bool>
+         </property>
+         <property name="tickPosition">
+          <enum>QSlider::TicksBelow</enum>
+         </property>
         </widget>
        </widget>
       </widget>
      </item>
-     <item row="1" column="1">
+     <item row="1" column="0">
       <spacer name="horizontalSpacer">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
        <property name="sizeHint" stdset="0">
         <size>
-         <width>248</width>
+         <width>438</width>
          <height>28</height>
         </size>
        </property>
       </spacer>
      </item>
-     <item row="1" column="2">
+     <item row="1" column="1">
       <widget class="QPushButton" name="okPushButton">
        <property name="text">
         <string>&amp;Ok</string>
        </property>
       </widget>
      </item>
-     <item row="1" column="3">
+     <item row="1" column="2">
       <widget class="QPushButton" name="cancelPushButton">
        <property name="text">
         <string>&amp;Cancel</string>
