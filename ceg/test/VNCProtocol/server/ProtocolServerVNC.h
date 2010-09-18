@@ -42,11 +42,11 @@ struct VNCPixelFormat {
 };
 
 struct VNCDesktopInfo {
-    quint16         framebufferWidth;
-    quint16         framebufferHeight;
-    VNCPixelFormat  serverPixelFormat;
-    quint32         nameLength;
-    quint8*         nameString;
+  quint16		framebufferWidth;
+  quint16		framebufferHeight;
+  VNCPixelFormat	serverPixelFormat;
+  quint32		nameLength;
+  quint8		nameString[4];
 };
 
 enum VNCServerStep
@@ -59,7 +59,8 @@ enum VNCServerStep
     VNC_INITMESSAGE,
     VNC_MESSAGING,
     VNC_KEYMSG,
-    VNC_PTRMSG};
+    VNC_PTRMSG
+};
 
 
 enum triBool

@@ -80,6 +80,7 @@ void	CegTcpServer::launch(void)
 
 void	CegTcpServer::_connect()
 {
+  this->_vncProtocol.init(); 
   this->etatServeur->setText("Connection d'un client !!!");
   this->_client = this->_tcpServer->nextPendingConnection();
   this->connect(this->_client, SIGNAL(readyRead()), SLOT(_readData()));
@@ -100,6 +101,7 @@ void	CegTcpServer::_readData()
     if (this->_client->bytesAvailable() >= this->_vncProtocol.getWaitedSize())
     {
       std::cout << (int)this->_client->bytesAvailable() << std::endl;
+      std::cout << (int)this->_vncProtocol.getWaitedSize() << std::endl;
       this->_vncProtocol.parse(in);
     }
 }

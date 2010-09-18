@@ -105,7 +105,8 @@ void		ProtocolServerVNC::execSecuResult(QDataStream & stream)
     }
     else if (this->_passOk == TB_UNKNOWN)
     {
-        this->_vncStep = VNC_PASSCHECK;
+        this->_vncStep = VNC_INITMESSAGE;
+	//        this->_vncStep = VNC_PASSCHECK;
     }
     else
     {
@@ -126,8 +127,9 @@ void		ProtocolServerVNC::execSand(QDataStream & stream)
     // if the secuType is none, then we pass to the result step
     if (this->_secuType == 1)
     {
-        this->_vncStep = VNC_SECURESULT;
-        this->execSecuResult(stream);
+      this->_passOk = TB_TRUE;
+      this->_vncStep = VNC_SECURESULT;
+      this->execSecuResult(stream);
     }
 }
 
@@ -136,28 +138,39 @@ void		ProtocolServerVNC::execServerInit(QDataStream & stream)
     std::cout << "execServerInit" << std::endl;
     QDesktopWidget *desktop = QApplication::desktop();
     VNCDesktopInfo desktopInfo;
+
     desktopInfo.framebufferHeight = static_cast<qint16>(desktop->height());
     desktopInfo.framebufferWidth = static_cast<qint16>(desktop->width());
-    desktopInfo.nameLength = static_cast<qint32>(0);
-    desktopInfo.nameString = static_cast<qint8>(0);
+    desktopInfo.nameLength = static_cast<qint32>(4);
+    desktopInfo.nameString[0] = static_cast<qint8>('I');
+    desktopInfo.nameString[1] = static_cast<qint8>('O');
+    desktopInfo.nameString[2] = static_cast<qint8>('T');
+    desktopInfo.nameString[2] = static_cast<qint8>('.');
     desktopInfo.serverPixelFormat.bitsPerPixel = static_cast<qint8>(32);
     desktopInfo.serverPixelFormat.depth = static_cast<qint8>(32);
-    desktopInfo.serverPixelFormat.bigEndianFlag = static_cast<qint8>(0);
+    desktopInfo.serverPixelFormat.bigEndianFlag = static_cast<qint8>(1);
     desktopInfo.serverPixelFormat.trueColourFlag = static_cast<qint8>(0);
-    desktopInfo.serverPixelFormat.redMax = static_cast<qint8>(0);
+    desktopInfo.serverPixelFormat.redMax = static_cast<qint16>(0);
+    desktopInfo.serverPixelFormat.greenMax = static_cast<qint16>(0);
+    desktopInfo.serverPixelFormat.blueMax = static_cast<qint16>(0);
+    desktopInfo.serverPixelFormat.redShift = static_cast<qint8>(0);
+    desktopInfo.serverPixelFormat.greenShift = static_cast<qint8>(0);
+    desktopInfo.serverPixelFormat.blueShift = static_cast<qint8>(0);
 
     std::cout << "DesktopInfo size : " << sizeof(desktopInfo) << std::endl;
     std::cout << "serverPixelFormat size : " << sizeof(desktopInfo.serverPixelFormat) << std::endl;
 
-    stream.writeBytes(&desktopInfo, sizeof(desktopInfo));
-    /*stream << desktopInfo.framebufferWidth << desktopInfo.framebufferHeight << desktopInfo.serverPixelFormat.bitsPerPixel;
+    std::cout << "Name size : " << sizeof(desktopInfo.nameString) << std::endl;
+
+    //    stream.writeBytes((char *)&desktopInfo, sizeof(desktopInfo));
+    stream << desktopInfo.framebufferWidth << desktopInfo.framebufferHeight << desktopInfo.serverPixelFormat.bitsPerPixel;
     stream << desktopInfo.serverPixelFormat.depth << desktopInfo.serverPixelFormat.bigEndianFlag;
     stream << desktopInfo.serverPixelFormat.trueColourFlag << desktopInfo.serverPixelFormat.redMax;
     stream << desktopInfo.serverPixelFormat.greenMax << desktopInfo.serverPixelFormat.blueMax;
     stream << desktopInfo.serverPixelFormat.redShift << desktopInfo.serverPixelFormat.greenShift;
     stream << desktopInfo.serverPixelFormat.blueShift << desktopInfo.serverPixelFormat.padding;
     stream << desktopInfo.nameLength << desktopInfo.nameString;
-*/
+
     this->_vncStep = VNC_MESSAGING;
 }
 
@@ -185,6 +198,7 @@ void		ProtocolServerVNC::parseVersion(QDataStream & data)
       std::cout << (int)tmp << std::endl;
       version +=  tmp;
     }
+
   if (this->_VERSION.compare(version) == 0)
     {
       std::cout << "ValidVersion" << std::endl;
@@ -203,7 +217,7 @@ void		ProtocolServerVNC::parseSecuList(QDataStream & data)
     std::cout << "parseSecuList" << std::endl;
     this->_validSecurity = true;
     data >> this->_secuType;
-
+    std::cout << "SecurityType: " << (int)this->_secuType << std::endl;
     this->_validSecurity = (this->_secuType == 1 ? true : false);
     this->_vncStep = VNC_SECURESULT;
 }
