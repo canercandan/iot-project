@@ -74,7 +74,7 @@ class BuilderWidget(QtGui.QMainWindow):
         self.rootView = View(None)
         self.currentView = self.rootView
         self.views = [self.rootView]
-        self.keyboardTest(QPoint(0, 0), QPoint(400, 400))
+        self.keyboardTest(QPoint(0, 0), QPoint(400, 100))
 
     def keyboardTest(self, topLeft, bottomRight):
         my_keymap = "AZERTYUIOPQSDFGHJKLMWXCVBN 0123456789"
@@ -84,8 +84,6 @@ class BuilderWidget(QtGui.QMainWindow):
         sizey = bottomRight.y() - topLeft.y()
         caseSizex = sizex // nb_col
         caseSizey = sizey // nb_line
-        print "case size x: ", caseSizex
-        print "case size y: ", caseSizey
         col = 0
         line = 0
         for c in my_keymap:
@@ -98,7 +96,7 @@ class BuilderWidget(QtGui.QMainWindow):
 
             tmpx = QPoint(topLeft.x() + col * caseSizex, topLeft.y() + line * caseSizey)
             tmpy = QPoint(topLeft.x() + (col + 1) * caseSizex, topLeft.y() + (line + 1) * caseSizey)
-            self.createRegularBox(tmpx, tmpy)
+            tmpBox = self.createRegularBox(tmpx, tmpy)
             col += 1
             self.repaint()
 
