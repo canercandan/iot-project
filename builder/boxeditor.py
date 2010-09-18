@@ -28,14 +28,6 @@ class BoxEditor(QtGui.QDialog):
         self.ui = Ui_BoxEditor()
         self.ui.setupUi(self)
 
-        self['rounded'] = False
-        self['focusColor'] = 'yellow'
-        self['blurColor'] = 'black'
-        self['textColor'] = 'black'
-        self['opacity'] = 0.5
-        self['text'] = ''
-        self['imagePath'] = ''
-
         self.getDictionnary = {
             QtGui.QApplication.translate('BoxEditor', 'Click')    :   self.getClickAttributes,
             QtGui.QApplication.translate('BoxEditor', 'Zoom')     :   self.getZoomAttributes,

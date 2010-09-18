@@ -22,16 +22,14 @@ from node import Node
 
 class BoxStyle(Node, dict):
     def __init__(self):
-        self['visible'] = True
-        self['opacity'] = 0.5
-        self['imagePath'] = ''
-        self['text'] = ''
-        self['font'] = 'Arial'
-        self['fontSize'] = 20
-        self['textColor'] = 'black'
+        self['rounded'] = False
         self['focusColor'] = 'yellow'
-        self['blurColor'] = 'black
-'
+        self['blurColor'] = 'black'
+        self['textColor'] = 'black'
+        self['opacity'] = 0.5
+        self['text'] = ''
+        self['imagePath'] = ''
+
     def initializeFromXml(self, elem):
         for key, value in self.iteritems():
             if elem.hasAttribute(key):
@@ -39,9 +37,7 @@ class BoxStyle(Node, dict):
 
     def createXMLNode(self, domDoc):
         boxElem = domDoc.createElement('style')
-
         # Setting box style attributes
         for key, value in self.iteritems():
             boxElem.setAttribute(key, value)
-
         return boxElem
