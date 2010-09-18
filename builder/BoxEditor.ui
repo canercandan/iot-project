@@ -469,7 +469,7 @@ p, li { white-space: pre-wrap; }
         <widget class="QLineEdit" name="textLineEdit">
          <property name="geometry">
           <rect>
-           <x>170</x>
+           <x>210</x>
            <y>230</y>
            <width>371</width>
            <height>26</height>
@@ -521,7 +521,7 @@ p, li { white-space: pre-wrap; }
           <string>text color</string>
          </property>
         </widget>
-        <widget class="QLabel" name="label">
+        <widget class="QLabel" name="opacityLabel">
          <property name="geometry">
           <rect>
            <x>20</x>
@@ -547,10 +547,10 @@ p, li { white-space: pre-wrap; }
           <string/>
          </property>
         </widget>
-        <widget class="QSlider" name="colorOpacitySlider">
+        <widget class="QSlider" name="opacitySlider">
          <property name="geometry">
           <rect>
-           <x>180</x>
+           <x>210</x>
            <y>190</y>
            <width>211</width>
            <height>24</height>
@@ -582,6 +582,29 @@ p, li { white-space: pre-wrap; }
          </property>
          <property name="tickPosition">
           <enum>QSlider::TicksBelow</enum>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="pixLineEdit">
+         <property name="geometry">
+          <rect>
+           <x>210</x>
+           <y>270</y>
+           <width>371</width>
+           <height>26</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QLabel" name="pixLabel">
+         <property name="geometry">
+          <rect>
+           <x>20</x>
+           <y>270</y>
+           <width>141</width>
+           <height>21</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Image path:</string>
          </property>
         </widget>
        </widget>

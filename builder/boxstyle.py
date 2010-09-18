@@ -24,14 +24,14 @@ class BoxStyle(Node, dict):
     def __init__(self):
         self['visible'] = True
         self['opacity'] = 0.5
-        self['imagePath'] = ""
-        self['text'] = ""
-        self['font'] = "Arial"
+        self['imagePath'] = ''
+        self['text'] = ''
+        self['font'] = 'Arial'
         self['fontSize'] = 20
-        self['textColor'] = "black"
-        self['focusColor'] = "yellow"
-        self['blurColor'] = "black"
-
+        self['textColor'] = 'black'
+        self['focusColor'] = 'yellow'
+        self['blurColor'] = 'black
+'
     def initializeFromXml(self, elem):
         for key, value in self.iteritems():
             if elem.hasAttribute(key):
