@@ -1,2 +1,0 @@
-#ADD_SUBDIRECTORY(boxes)
-#ADD_SUBDIRECTORY(menus)
