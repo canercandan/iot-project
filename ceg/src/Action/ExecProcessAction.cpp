@@ -60,19 +60,19 @@ void ExecProcessAction::initializeFromXml(const QDomElement & domElement)
 	this->_hideTime = domElement.attribute("time").toULong();
     }
 
-    if (domElement.hasAttribute(osName + ":path"))
+    if (domElement.hasAttribute(osName + "-path"))
     {
-        this->_path = domElement.attribute(osName + ":path");
+        this->_path = domElement.attribute(osName + "-path");
     }
 
-    if (domElement.hasAttribute((osName + ":pathfinder")))
+    if (domElement.hasAttribute((osName + "-pathfinder")))
     {
-        this->_pathFinder = domElement.attribute(osName + ":pathfinder");
+        this->_pathFinder = domElement.attribute(osName + "-pathfinder");
     }
 
-    if (domElement.hasAttribute(osName + ":arguments"))
+    if (domElement.hasAttribute(osName + "-arguments"))
     {
-        this->_arguments = domElement.attribute(osName + ":arguments");
+        this->_arguments = domElement.attribute(osName + "-arguments");
     }
 
     if (this->_path.isEmpty() && domElement.hasAttribute("path"))

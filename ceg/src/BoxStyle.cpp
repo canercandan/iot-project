@@ -72,8 +72,8 @@ void BoxStyle::initializeFromXml(QDomElement const & styleElement)
     QString language = settings.value("general/language").toString();
     language = language.split("_")[0];
 
-    if (styleElement.hasAttribute(language + ":text"))
-        this->_text = styleElement.attribute(language + ":text");
+    if (styleElement.hasAttribute(language + "-text"))
+        this->_text = styleElement.attribute(language + "-text");
     else if (styleElement.hasAttribute("text"))
 	this->_text = styleElement.attribute("text");
 
