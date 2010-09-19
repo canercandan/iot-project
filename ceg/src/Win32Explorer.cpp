@@ -28,6 +28,8 @@
 /*********************************/
 #include "ClickType.h"
 #include "Logger.h"
+#include "Window.h"
+#include "ClickType.h"
 /*********************************/
 
 Win32Explorer::Win32Explorer()
@@ -97,19 +99,19 @@ bool	Win32Explorer::generateClickEvent(short int buttonID)
     //     mouse_event(MOUSEEVENTF_ABSOLUTE|MOUSEEVENTF_MOVE|MOUSEEVENTF_LEFTDOWN,x,y,0,0);
     switch (buttonID)
     {
-    case ClickAction::LeftClick:
+    case LeftClick:
         mouse_event(MOUSEEVENTF_LEFTDOWN,0,0,0,0);
         mouse_event(MOUSEEVENTF_LEFTUP,0,0,0,0);
         break;
-    case ClickAction::MiddleClick:
+    case MiddleClick:
         mouse_event(MOUSEEVENTF_MIDDLEDOWN,0,0,0,0);
         mouse_event(MOUSEEVENTF_MIDDLEUP,0,0,0,0);
         break;
-    case ClickAction::RightClick:
+    case RightClick:
         mouse_event(MOUSEEVENTF_RIGHTDOWN,0,0,0,0);
         mouse_event(MOUSEEVENTF_RIGHTUP,0,0,0,0);
         break;
-    case ClickAction::LeftDbClick:
+    case LeftDbClick:
         mouse_event(MOUSEEVENTF_LEFTDOWN,0,0,0,0);
         mouse_event(MOUSEEVENTF_LEFTUP,0,0,0,0);
         mouse_event(MOUSEEVENTF_LEFTDOWN,0,0,0,0);
