@@ -1,0 +1,187 @@
+<menu id="Keyboard">
+	<box type="2" x="0" y="0" height="25" width="40">
+		<action id="ExecMenu">
+			<action id="Keyboard" press="A" />
+		</action>
+	</box>
+	<box type="2" x="40" y="0" height="25" width="40">
+		<action id="ExecMenu">
+			<action id="Keyboard" press="Z" />
+		</action>
+	</box>
+	<box type="2" x="80" y="0" height="25" width="40">
+		<action id="ExecMenu">
+			<action id="Keyboard" press="E" />
+		</action>
+	</box>
+	<box type="2" x="120" y="0" height="25" width="40">
+		<action id="ExecMenu">
+			<action id="Keyboard" press="R" />
+		</action>
+	</box>
+	<box type="2" x="160" y="0" height="25" width="40">
+		<action id="ExecMenu">
+			<action id="Keyboard" press="T" />
+		</action>
+	</box>
+	<box type="2" x="200" y="0" height="25" width="40">
+		<action id="ExecMenu">
+			<action id="Keyboard" press="Y" />
+		</action>
+	</box>
+	<box type="2" x="240" y="0" height="25" width="40">
+		<action id="ExecMenu">
+			<action id="Keyboard" press="U" />
+		</action>
+	</box>
+	<box type="2" x="280" y="0" height="25" width="40">
+		<action id="ExecMenu">
+			<action id="Keyboard" press="I" />
+		</action>
+	</box>
+	<box type="2" x="320" y="0" height="25" width="40">
+		<action id="ExecMenu">
+			<action id="Keyboard" press="O" />
+		</action>
+	</box>
+	<box type="2" x="360" y="0" height="25" width="40">
+		<action id="ExecMenu">
+			<action id="Keyboard" press="P" />
+		</action>
+	</box>
+	<box type="2" x="0" y="25" height="25" width="40">
+		<action id="ExecMenu">
+			<action id="Keyboard" press="Q" />
+		</action>
+	</box>
+	<box type="2" x="40" y="25" height="25" width="40">
+		<action id="ExecMenu">
+			<action id="Keyboard" press="S" />
+		</action>
+	</box>
+	<box type="2" x="80" y="25" height="25" width="40">
+		<action id="ExecMenu">
+			<action id="Keyboard" press="D" />
+		</action>
+	</box>
+	<box type="2" x="120" y="25" height="25" width="40">
+		<action id="ExecMenu">
+			<action id="Keyboard" press="F" />
+		</action>
+	</box>
+	<box type="2" x="160" y="25" height="25" width="40">
+		<action id="ExecMenu">
+			<action id="Keyboard" press="G" />
+		</action>
+	</box>
+	<box type="2" x="200" y="25" height="25" width="40">
+		<action id="ExecMenu">
+			<action id="Keyboard" press="H" />
+		</action>
+	</box>
+	<box type="2" x="240" y="25" height="25" width="40">
+		<action id="ExecMenu">
+			<action id="Keyboard" press="J" />
+		</action>
+	</box>
+	<box type="2" x="280" y="25" height="25" width="40">
+		<action id="ExecMenu">
+			<action id="Keyboard" press="K" />
+		</action>
+	</box>
+	<box type="2" x="320" y="25" height="25" width="40">
+		<action id="ExecMenu">
+			<action id="Keyboard" press="L" />
+		</action>
+	</box>
+	<box type="2" x="360" y="25" height="25" width="40">
+		<action id="ExecMenu">
+			<action id="Keyboard" press="M" />
+		</action>
+	</box>
+	<box type="2" x="0" y="50" height="25" width="40">
+		<action id="ExecMenu">
+			<action id="Keyboard" press="W" />
+		</action>
+	</box>
+	<box type="2" x="40" y="50" height="25" width="40">
+		<action id="ExecMenu">
+			<action id="Keyboard" press="X" />
+		</action>
+	</box>
+	<box type="2" x="80" y="50" height="25" width="40">
+		<action id="ExecMenu">
+			<action id="Keyboard" press="C" />
+		</action>
+	</box>
+	<box type="2" x="120" y="50" height="25" width="40">
+		<action id="ExecMenu">
+			<action id="Keyboard" press="V" />
+		</action>
+	</box>
+	<box type="2" x="160" y="50" height="25" width="40">
+		<action id="ExecMenu">
+			<action id="Keyboard" press="B" />
+		</action>
+	</box>
+	<box type="2" x="200" y="50" height="25" width="40">
+		<action id="ExecMenu">
+			<action id="Keyboard" press="N" />
+		</action>
+	</box>
+	<box type="2" x="240" y="50" height="25" width="40">
+		<action id="ExecMenu">
+			<action id="Keyboard" press=" " />
+		</action>
+	</box>
+	<box type="2" x="280" y="50" height="25" width="40">
+		<action id="ExecMenu">
+			<action id="Keyboard" press="0" />
+		</action>
+	</box>
+	<box type="2" x="320" y="50" height="25" width="40">
+		<action id="ExecMenu">
+			<action id="Keyboard" press="1" />
+		</action>
+	</box>
+	<box type="2" x="360" y="50" height="25" width="40">
+		<action id="ExecMenu">
+			<action id="Keyboard" press="2" />
+		</action>
+	</box>
+	<box type="2" x="0" y="75" height="25" width="40">
+		<action id="ExecMenu">
+			<action id="Keyboard" press="3" />
+		</action>
+	</box>
+	<box type="2" x="40" y="75" height="25" width="40">
+		<action id="ExecMenu">
+			<action id="Keyboard" press="4" />
+		</action>
+	</box>
+	<box type="2" x="80" y="75" height="25" width="40">
+		<action id="ExecMenu">
+			<action id="Keyboard" press="5" />
+		</action>
+	</box>
+	<box type="2" x="120" y="75" height="25" width="40">
+		<action id="ExecMenu">
+			<action id="Keyboard" press="6" />
+		</action>
+	</box>
+	<box type="2" x="160" y="75" height="25" width="40">
+		<action id="ExecMenu">
+			<action id="Keyboard" press="7" />
+		</action>
+	</box>
+	<box type="2" x="200" y="75" height="25" width="40">
+		<action id="ExecMenu">
+			<action id="Keyboard" press="8" />
+		</action>
+	</box>
+	<box type="2" x="240" y="75" height="25" width="40">
+		<action id="ExecMenu">
+			<action id="Keyboard" press="9" />
+		</action>
+	</box>
+</menu>
