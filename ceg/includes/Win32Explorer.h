@@ -31,7 +31,7 @@ public:
     virtual bool	getFocusedWindow(Ceg::Window &);
     virtual bool	setFocusToWindow(Ceg::Window & oldFocusedWindow, Ceg::Window & newFocusedWindow);
     virtual bool	generateClickEvent(short int buttonID);
-    virtual bool	generateKeybdEvent(unsigned char key);
+    virtual bool	generateKeybdEvent(quint32 key);
 };
 
 #endif //! WIN32EXPLORER_H_
