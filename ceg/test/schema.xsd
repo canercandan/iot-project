@@ -9,60 +9,85 @@
 
   <!-- definition of attributes -->
 
-  <xs:group name="geometry">
+  <xs:element name="style">
     <xs:complexType>
-      <xs:attribute name="width" type="xs:nonNegativeInteger"/>
-      <xs:attribute name="height" type="xs:nonNegativeInteger"/>
-      <xs:attribute name="x" type="xs:nonNegativeInteger"/>
-      <xs:attribute name="y" type="xs:nonNegativeInteger"/>
+      <xs:attribute name="visible" type="xs:boolean" default="true"/>
+      <xs:attribute name="opacity" type="xs:nonNegativeInteger" default="0"/>
+      <xs:attribute name="imagePath" type="xs:anyURI"/>
+      <xs:attribute name="text" type="xs:string"/>
+      <xs:attribute name="textFont" type="xs:string"/>
+      <xs:attribute name="colorOnFocus" type="xs:string"/>
+      <xs:attribute name="colorOnBlur" type="xs:string"/>
     </xs:complexType>
-  </xs:group>
+  </xs:element>
 
-  <xs:group name="style">
-    <xs:attribute name="visible" type="xs:boolean" default="true"/>
-    <xs:attribute name="opacity" type="xs:nonNegativeInteger" maxLength="100" default="0"/>
-    <xs:attribute name="imagePath" type="xs:anyURI"/>
-    <xs:attribute name="text" type="xs:string"/>
-    <xs:attribute name="textFont" type="xs:string"/>
-    <xs:attribute name="colorOnFocus" type="xs:string"/>
-    <xs:attribute name="colorOnBlur" type="xs:string"/>
-  </xs:group>
+  <xs:simpleType name="boxType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="custom"/>
+      <xs:enumeration value="default"/>
+      <xs:enumeration value="menuitem"/>
+    </xs:restriction>
+  </xs:simpleType>
 
-  <xs:attribute name="type" type="xs:string">
-    <xs:simpleType>
-      <xs:restriction base="xs:string">
-	<xs:enumeration value="custom"/>
-	<xs:enumeration value="default"/>
-	<xs:enumeration value="menuitem"/>
-      </xs:restriction>
-    </xs:simpleType>
-  </xs:attribute>
-
-  <xs:group name="boxattributes">
-    <xs:group ref="geometry"/>
-    <xs:group ref="style"/>
-    <xs:attribute ref="type"/>
-  </xs:group>
+  <xs:simpleType name="idType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Cancel"/>
+      <xs:enumeration value="Click"/>
+      <xs:enumeration value="Close"/>
+      <xs:enumeration value="ExecMenu"/>
+      <xs:enumeration value="ExecProcess"/>
+      <xs:enumeration value="Keyboard"/>
+      <xs:enumeration value="MoveAction"/>
+      <xs:enumeration value="PopMenu"/>
+      <xs:enumeration value="Quit"/>
+      <xs:enumeration value="Read"/>
+      <xs:enumeration value="Valid"/>
+      <xs:enumeration value="Write"/>
+      <xs:enumeration value="Zoom"/>
+    </xs:restriction>
+  </xs:simpleType>
 
   <!-- definition of complex elements -->
 
-  <xs:element name="children">
+  <!-- <xs:element name="children"> -->
+  <!--   <xs:complexType> -->
+  <!--     <xs:element ref="box" maxOccurs="unbounded"/> -->
+  <!--     <xs:any minOccurs="0" maxOccurs="unbounded"/> -->
+  <!--   </xs:complexType> -->
+  <!-- </xs:element> -->
+
+  <xs:element name="action">
     <xs:complexType>
-      <xs:element ref="box" maxOccurs="unbounded"/>
-      <!-- <xs:any minOccurs="0" maxOccurs="unbounded"/> -->
+      <xs:attribute name="id" type="idType"/>
+      <xs:attribute name="name" type="xs:string" use="optional"/>
+
+      <!-- <xs:attribute name="unix:path" type="xs:string" use="optional"/> -->
+      <!-- <xs:attribute name="win:path" type="xs:string" use="optional"/> -->
+      <!-- <xs:attribute name="mac:path" type="xs:string" use="optional"/> -->
+      <xs:attribute name="path" type="xs:string" use="optional"/>
+      <xs:attribute name="unix-path" type="xs:string" use="optional"/>
+      <xs:attribute name="win-path" type="xs:string" use="optional"/>
+      <xs:attribute name="mac-path" type="xs:string" use="optional"/>
+
     </xs:complexType>
   </xs:element>
 
   <xs:element name="box">
     <xs:complexType>
-      <xs:group ref="boxattributes"/>
-      <xs:element ref="children"/>
+      <xs:attribute name="width" type="xs:nonNegativeInteger"/>
+      <xs:attribute name="height" type="xs:nonNegativeInteger"/>
+      <xs:attribute name="x" type="xs:nonNegativeInteger"/>
+      <xs:attribute name="y" type="xs:nonNegativeInteger"/>
+
+      <!-- <xs:element ref="children"/> -->
     </xs:complexType>
   </xs:element>
 
   <xs:element name="boxes">
     <xs:complexType>
-      <xs:element ref="box" maxOccurs="unbounded"/>
+      <xs:sequence>
+	<xs:element ref="box" maxOccurs="unbounded"/>
+      </xs:sequence>
     </xs:complexType>
   </xs:element>
 
