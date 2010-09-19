@@ -27,6 +27,7 @@ class BoxEditor(QtGui.QDialog):
         QtGui.QDialog.__init__(self, builder)
         self.ui = Ui_BoxEditor()
         self.ui.setupUi(self)
+        self.ui.listWidget.setCurrentRow(0)
 
         self.getDictionnary = {
             QtGui.QApplication.translate('BoxEditor', 'Click')    :   self.getClickAttributes,
