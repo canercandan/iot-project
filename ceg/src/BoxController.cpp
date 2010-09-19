@@ -19,7 +19,6 @@
  */
 
 /*********************************/
-#include <iostream>
 #include <algorithm>
 /*********************************/
 #include <QDesktopWidget>
@@ -56,7 +55,6 @@ BoxController::BoxController() :
 
 BoxController::~BoxController()
 {
-    std::cerr << "BoxController::~BoxController()" << std::endl;
     for (QMap< QString, QList< Box const * > >::const_iterator it = this->_patterns.begin(), end = this->_patterns.end();
     it != end; ++it)
     {

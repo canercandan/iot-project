@@ -19,8 +19,6 @@
  */
 
 /*********************************/
-#include <iostream>
-/*********************************/
 #include <QSystemTrayIcon>
 #include <QMenu>
 #include <QAction>
@@ -77,7 +75,6 @@ Systray::Systray(QWidget *parent) :
 
 Systray::~Systray()
 {
-    std::cerr << "Systray::~Systray()" << std::endl;
     delete this->_quitAction;
     delete this->_aboutQtAction;
     delete this->_aboutCegAction;

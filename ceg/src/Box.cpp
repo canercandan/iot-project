@@ -19,7 +19,6 @@
  */
 
 /*********************************/
-#include <iostream>
 #include <algorithm>
 /*********************************/
 #include <QDomElement>
@@ -57,7 +56,6 @@ Box::Box(const QDomElement& domElement, Box const * parent) :
 
 Box::~Box()
 {
-    std::cerr << "Box::~Box()" << std::endl;
     std::for_each(this->_children.begin(), this->_children.end(), Ceg::DeleteObject());
     delete this->_action;
 }

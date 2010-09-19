@@ -19,8 +19,6 @@
  */
 
 /*********************************/
-#include <iostream>
-/*********************************/
 #include "MenuItem.h"
 /*********************************/
 #include "Box.h"
@@ -30,9 +28,3 @@
 MenuItem::MenuItem(Box const * box, QGraphicsItem * parent /* = 0 */)
   : AbstractItem(box, parent)
 {}
-
-MenuItem::~MenuItem()
-{
-    std::cerr << "MenuItem::~MenuItem()" << std::endl;
-}
-

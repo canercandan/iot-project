@@ -19,8 +19,6 @@
  */
 
 /*********************************/
-#include <iostream>
-/*********************************/
 #include "AbstractItem.h"
 #include "MainController.h"
 /*********************************/
@@ -43,7 +41,6 @@ Layer::Layer(Ceg::Window const & hostWindow, MainController & mainC) :
 
 Layer::~Layer()
 {
-    std::cerr << "Layer::~Layer()" << std::endl;
     delete this->_menuAction;
     if (this->_process != 0)
     {
@@ -52,10 +49,7 @@ Layer::~Layer()
             QObject::disconnect(this->_process, SIGNAL(error(QProcess::ProcessError)), this, SLOT(on_processError(QProcess::ProcessError)));
             QObject::disconnect(this->_process, SIGNAL(finished(int,QProcess::ExitStatus)), this, SLOT(on_processFinished(int,QProcess::ExitStatus)));
             this->_process->terminate();
-            if (this->_process->waitForFinished() == false)
-            {
-                std::cerr << "Impossible de terminer le programme - Attention" << std::endl;
-            }
+            this->_process->waitForFinished();
         }
         delete this->_process;
     }
@@ -81,7 +75,7 @@ void    Layer::on_processError(QProcess::ProcessError)
     emit actionEmitted(action);
 }
 
-void    Layer::on_processFinished(int , QProcess::ExitStatus)
+void    Layer::on_processFinished(int, QProcess::ExitStatus)
 {
     CloseAction action(this);
     emit actionEmitted(action);

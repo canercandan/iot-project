@@ -19,8 +19,6 @@
  */
 
 /*********************************/
-#include <iostream>
-/*********************************/
 #include "Menu.h"
 /*********************************/
 #include "AbstractItem.h"
@@ -33,11 +31,6 @@ Menu::Menu(QString const & id)
     : AbstractScene(id, 0)
 {
     this->_type = MENU_BOX;
-}
-
-Menu::~Menu()
-{
-    std::cerr << "Menu::~Menu()" << std::endl;
 }
 
 /************************************************* [ GETTERS ] *************************************************/

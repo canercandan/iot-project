@@ -19,12 +19,7 @@
  */
 
 /*********************************/
-#include <functional>
-#include <algorithm>
-#include <iostream>
-/*********************************/
 #include <QTextStream>
-#include <QDebug>
 /*********************************/
 #include "AbstractScene.h"
 /*********************************/
@@ -38,12 +33,6 @@ AbstractScene::AbstractScene(QString const & id, QObject * parent /* = 0 */) :
         QGraphicsScene(parent), _type(DEFAULT_BOX), _id(id)
 {
 }
-
-AbstractScene::~AbstractScene()
-{
-    std::cerr << "AbstractScene::~AbstractScene()\nNombre d'items dans la scene = " << this->items().size() << std::endl;
-}
-
 
 bool    AbstractScene::operator ==(QString const & id) const
 {
@@ -91,7 +80,7 @@ void AbstractScene::initialize(QList<QGraphicsRectItem *> const & sceneItems)
 {
     QString msg;
     QTextStream tmp(&msg);
-    tmp << "AbstractScene::initialize - " << static_cast<unsigned int>(sceneItems.size()) << " items a ajoute a la scene";
+    tmp << "AbstractScene::initialize - " << sceneItems.size() << " items a ajoute a la scene";
     Logger::getInstance()->log(INFO_LOG, msg);
 
     this->clearScene();

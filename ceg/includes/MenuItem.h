@@ -32,7 +32,6 @@ class MenuItem : public AbstractItem
 {
 public:
     MenuItem(Box const * box, QGraphicsItem * parent = 0);
-    ~MenuItem();
 };
 
 #endif // MENUITEM_H

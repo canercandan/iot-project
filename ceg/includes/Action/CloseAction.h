@@ -25,6 +25,10 @@
 
 class AbstractScene;
 
+/*
+  * Action permettant de quitter un programme
+  */
+
 class CloseAction : public IAction
 {
 public:

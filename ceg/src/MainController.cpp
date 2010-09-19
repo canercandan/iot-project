@@ -20,7 +20,6 @@
 
 /*********************************/
 #include <algorithm>
-#include <iostream>
 /*********************************/
 #include <QMessageBox>
 /*********************************/
@@ -47,7 +46,6 @@ MainController::MainController(Systray & systray) :
 
 MainController::~MainController()
 {
-    std::cerr << "MainController::~MainController()\nNombre de scenes a delete = " << this->_scenes.size() << std::endl;
     std::for_each(this->_scenes.begin(), this->_scenes.end(), Ceg::DeleteObject());
     delete this->_comGs;
 }

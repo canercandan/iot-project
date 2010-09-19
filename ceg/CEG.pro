@@ -50,7 +50,6 @@ HEADERS += AbstractItem.h \
     PopMenuAction.h \
     ReadAction.h \
     ValidAction.h \
-    WriteAction.h \
     ZoomAction.h \
     includes/Action/QuitAction.h \
     includes/Action/Action \
@@ -88,7 +87,6 @@ SOURCES += AbstractItem.cpp \
     PopMenuAction.cpp \
     ReadAction.cpp \
     ValidAction.cpp \
-    WriteAction.cpp \
     ZoomAction.cpp \
     src/Action/QuitAction.cpp \
     src/Action/ExecProcessAction.cpp \

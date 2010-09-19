@@ -19,8 +19,6 @@
  */
 
 /*********************************/
-#include <iostream>
-/*********************************/
 #include "CustomItem.h"
 /*********************************/
 
@@ -31,7 +29,3 @@ CustomItem::CustomItem(Box const * box, QGraphicsItem * parent /* = 0 */) :
 {
 }
 
-CustomItem::~CustomItem()
-{
-    std::cerr << "CustomItem::~CustomItem()" << std::endl;
-}

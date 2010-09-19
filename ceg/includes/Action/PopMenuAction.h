@@ -24,7 +24,7 @@
 #include "IAction.h"
 
 /**
- * \brief Action faisant poper un menu a partir de son Id
+ * \brief Action faisant popper un menu a partir de son Id
  */
 class PopMenuAction : public IAction
 {

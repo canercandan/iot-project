@@ -42,7 +42,6 @@ class AbstractScene : public QGraphicsScene
 {
 public:
     AbstractScene(QString const & id, QObject * parent = 0);
-    ~AbstractScene();
 
     bool    operator==(QString const & id) const;
     bool    operator==(BoxType const & type) const;

@@ -24,7 +24,7 @@
 #include "IAction.h"
 
 /**
- * \brief Action pour generer les clics
+ * \brief Action pour generer des evenements clavier
  */
 class KeyboardAction : public IAction
 {

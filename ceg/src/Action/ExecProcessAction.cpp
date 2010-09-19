@@ -174,7 +174,6 @@ void	ExecProcessAction::exec(MainController & mainC)
     QFileInfo   programFileInfo(this->_path);
     Ceg::Window defaultWindow(0, QApplication::desktop()->geometry(), programFileInfo.baseName());
     Layer * scene = static_cast<Layer *>(mainC.createScene(defaultWindow));
-    scene->setProcess(process);
     /* Explication des conditions suivantes :
        Lorsqu'on est sur Linux, mac, quand on demarre un programme, notre fenetre reste au top mais perd le focus, de faire le hide and show permet de le conserver
        */
@@ -187,6 +186,7 @@ void	ExecProcessAction::exec(MainController & mainC)
 #if defined(Q_WS_X11) || defined(Q_WS_MAC)
     view.show();
 #endif
+    scene->setProcess(process);
 }
 
 /************************************************* [ OTHERS ] *************************************************/

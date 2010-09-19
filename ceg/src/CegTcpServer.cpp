@@ -19,8 +19,6 @@
  */
 
 /*********************************/
-#include <iostream>
-/*********************************/
 #include <QTcpServer>
 #include <QTcpSocket>
 #include <QSettings>
@@ -73,6 +71,7 @@ void	CegTcpServer::launch(void)
 	this->_tcpServer->setMaxPendingConnections(1);
 	QObject::connect(_tcpServer, SIGNAL(newConnection()), this, SLOT(_connect()));
     }
+
 }
 
 void	CegTcpServer::_connect()

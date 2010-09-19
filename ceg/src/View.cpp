@@ -19,8 +19,6 @@
  */
 
 /*********************************/
-#include <iostream>
-/*********************************/
 #include <QKeyEvent>
 #include <QIcon>
 /*********************************/
@@ -44,11 +42,6 @@ View::View(MainController & lm, Systray & systray)
 
     QObject::connect(this, SIGNAL(actionEmitted(IAction&)),&lm, SLOT(on_action_emitted(IAction&)));
     QObject::connect(this, SIGNAL(triggered()),&systray, SLOT(on__startAction_triggered()));
-}
-
-View::~View()
-{
-    std::cerr << "View::~View()" << std::endl;
 }
 
 /************************************************* [ OTHERS ] *************************************************/

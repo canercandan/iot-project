@@ -19,10 +19,7 @@
  */
 
 /*********************************/
-#include <iostream>
-/*********************************/
 #include <QPainter>
-#include <QGraphicsScene>
 /*********************************/
 #include "AbstractItem.h"
 /*********************************/
@@ -39,11 +36,6 @@ AbstractItem::AbstractItem(Box const * box, QGraphicsItem * parent) :
 	_color(box->getGraphicStyle().getBlurColor()), _model(box)
 {
     this->setFlag(QGraphicsItem::ItemIsFocusable);
-}
-
-AbstractItem::~AbstractItem()
-{
-    std::cerr << "AbstractItem::~AbstractItem" << std::endl;
 }
 
 /************************************************* [ GETTERS ] *************************************************/
@@ -78,12 +70,12 @@ void AbstractItem::paint(QPainter * painter, const QStyleOptionGraphicsItem *, Q
     painter->setOpacity(style.getOpacity());
     painter->setBrush(QBrush(QColor(this->_color)));
     //painter->drawRect(this->rect());
-	if (style.isRounded())
-		painter->drawRoundedRect(this->rect(), 15, 15);
-	else
-		painter->drawRect(this->rect());
+    if (style.isRounded())
+        painter->drawRoundedRect(this->rect(), 15, 15);
+    else
+        painter->drawRect(this->rect());
     QString const & text = style.getText();
-    if (! text.isEmpty())
+    if (! text.isEmpty()) // ici
     {
 	QString const & textFont = style.getTextFont();
 

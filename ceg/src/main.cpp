@@ -146,7 +146,6 @@ int main(int ac, char** av)
     ActionFactory::registerInstantiator(PopMenuAction::IDENTIFIER, instanciatePopMenuAction);
     ActionFactory::registerInstantiator(QuitAction::IDENTIFIER, instanciateQuitAction);
     ActionFactory::registerInstantiator(ReadAction::IDENTIFIER, instanciateReadAction);
-    ActionFactory::registerInstantiator(WriteAction::IDENTIFIER, instanciateWriteAction);
     ActionFactory::registerInstantiator(ZoomAction::IDENTIFIER, instanciateZoomAction);
 
     //-----------------------------------------------------------------------------

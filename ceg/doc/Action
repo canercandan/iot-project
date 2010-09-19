@@ -37,9 +37,6 @@ Exemple:
 
 - Valid : valide son choix
 
-- Write : permet d ecrire
- - buffer : ce qu'il y a ecrire
-
 - Zoom : permet de zoomer dans une zone
  - isZoom : 2 valeurs: zoom out  0
      	               zoom in   1

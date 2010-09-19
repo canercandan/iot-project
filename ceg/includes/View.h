@@ -41,7 +41,6 @@ class View : public QGraphicsView
     Q_OBJECT
 public:
     View(MainController &, Systray &);
-    ~View();
 
     void                initialize();
 
