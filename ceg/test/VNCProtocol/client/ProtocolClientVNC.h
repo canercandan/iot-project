@@ -22,31 +22,31 @@
 
 #include <iostream>
 
-#include <QDataStream>
-#include <QString>
-#include <QBool>
-#include <QMap>
+//#include <QDataStream>
+//#include <QString>
+//#include <QBool>
+#include <Map>
 
 struct VNCPixelFormat {
-    quint8  bitsPerPixel;
-    quint8  depth;
-    quint8  bigEndianFlag;
-    quint8  trueColourFlag;
-    quint16 redMax;
-    quint16 greenMax;
-    quint16 blueMax;
-    quint8  redShift;
-    quint8  greenShift;
-    quint8  blueShift;
-    quint8  padding[3];
+    unsigned char  bitsPerPixel;
+    unsigned char  depth;
+    unsigned char  bigEndianFlag;
+    unsigned char  trueColourFlag;
+    unsigned short redMax;
+    unsigned short greenMax;
+    unsigned short blueMax;
+    unsigned char  redShift;
+    unsigned char  greenShift;
+    unsigned char  blueShift;
+    unsigned char  padding[3];
 };
 
 struct VNCDesktopInfo {
-  quint16		framebufferWidth;
-  quint16		framebufferHeight;
+  unsigned short	framebufferWidth;
+  unsigned short	framebufferHeight;
   VNCPixelFormat	serverPixelFormat;
-  quint32		nameLength;
-  quint8		nameString[4];
+  unsigned int		nameLength;
+  unsigned char		nameString[4];
 };
 
 enum VNCServerStep
@@ -74,41 +74,41 @@ class ProtocolServerVNC
 {
 
 public:
-  typedef void (ProtocolServerVNC::*funcExecPtr)(QDataStream &);
-  typedef void (ProtocolServerVNC::*funcParsePtr)(QDataStream &);
+  typedef void (ProtocolServerVNC::*funcExecPtr)(void *);
+  typedef void (ProtocolServerVNC::*funcParsePtr)(void *);
 
   ProtocolServerVNC();
   ~ProtocolServerVNC();
   void          init();
-  void	parse(QDataStream & stream);
-  void	exec(QDataStream & stream);
+  void		parse(void * stream);
+  void		exec(void * stream);
   VNCServerStep getStep() const;
   int           getWaitedSize() const;
 
 private:
-  void          convertStringToUint8(QDataStream &, QString const &);
-  void		execVersion(QDataStream &);
-  void		execSecuList(QDataStream &);
-  void		execSecuResult(QDataStream &);
-  void		execSecuReason(QDataStream &);
-  void		execSand(QDataStream &);
-  void		execServerInit(QDataStream &);
-  void		parseVersion(QDataStream &);
-  void		parseSecuList(QDataStream &);
-  void		parsePassword(QDataStream &);
-  void		parseInitMessage(QDataStream &);
-  void		parseMessage(QDataStream &);
+  void          convertStringToUint8(void *, std::string const &);
+  void		execVersion(void *);
+  void		execSecuList(void *);
+  void		execSecuResult(void *);
+  void		execSecuReason(void *);
+  void		execSand(void *);
+  void		execServerInit(void *);
+  void		parseVersion(void *);
+  void		parseSecuList(void *);
+  void		parsePassword(void *);
+  void		parseInitMessage(void *);
+  void		parseMessage(void *);
 
 private:
-  static QString const                  _VERSION;
+  static std::string const			_VERSION;
   QMap<VNCServerStep, funcExecPtr>	_execPtrMap;
   QMap<VNCServerStep, funcParsePtr>	_parsePtrMap;
   VNCServerStep				_vncStep;
   triBool                               _passOk;
-  bool                                 _validSecurity;
-  QString                               _secuReason;
-  quint8                                _secuType;
-  bool                                 _validVersion;
+  bool					_validSecurity;
+  std::string				_secuReason;
+  unsigned char				_secuType;
+  bool					_validVersion;
 };
 
 
