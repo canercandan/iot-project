@@ -37,7 +37,7 @@
         </size>
        </property>
        <property name="currentIndex">
-        <number>0</number>
+        <number>1</number>
        </property>
        <widget class="QWidget" name="typeTab">
         <attribute name="title">
@@ -405,7 +405,7 @@ p, li { white-space: pre-wrap; }
           </size>
          </property>
          <property name="text">
-          <string>focused color</string>
+          <string/>
          </property>
         </widget>
         <widget class="QLabel" name="unfocusedLabel">
@@ -424,7 +424,10 @@ p, li { white-space: pre-wrap; }
           </size>
          </property>
          <property name="text">
-          <string>unfocused color</string>
+          <string/>
+         </property>
+         <property name="scaledContents">
+          <bool>true</bool>
          </property>
         </widget>
         <widget class="QPushButton" name="unfocusedButton">
@@ -518,7 +521,7 @@ p, li { white-space: pre-wrap; }
           </size>
          </property>
          <property name="text">
-          <string>text color</string>
+          <string/>
          </property>
         </widget>
         <widget class="QLabel" name="opacityLabel">
@@ -666,8 +669,8 @@ p, li { white-space: pre-wrap; }
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>454</x>
-     <y>395</y>
+     <x>559</x>
+     <y>443</y>
     </hint>
     <hint type="destinationlabel">
      <x>211</x>
@@ -682,8 +685,8 @@ p, li { white-space: pre-wrap; }
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>541</x>
-     <y>402</y>
+     <x>650</x>
+     <y>443</y>
     </hint>
     <hint type="destinationlabel">
      <x>289</x>

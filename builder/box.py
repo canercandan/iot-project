@@ -35,7 +35,6 @@ class Box(QRect, Node):
         self.attributeBuffer = ''
         self.boxEditor = BoxEditor(builder)     # QDialog
         self.boxType = BoxType.CustomBox        # int
-        self.graphicStyle = BoxStyle()
         self.bufferedAttributes = {}            # dictionnary
 
     # Standard constructor
@@ -79,7 +78,7 @@ class Box(QRect, Node):
                 if tag == 'action':
                     self.parseAction(childElem)
                 elif tag == 'style':
-                    self.graphicStyle.initializeFromXml(childElem)
+                    self.parseStyle(childElem)
                 elif tag == 'children':
                     self.createChildren(childElem)
             domNode = domNode.nextSibling()
@@ -95,6 +94,11 @@ class Box(QRect, Node):
                 domNode = attributes.item(i)
                 myDict[domNode.nodeName()] = domNode.nodeValue()
             self.setAttributes(myDict)
+
+    def parseStyle(self, childElem):
+        boxstyle = BoxStyle()
+        boxstyle.initializeFromXml(childElem)
+        self.boxEditor.setStyle(boxstyle)
 
     # QDomElement chilElem
     def createChildren(self, childElem):
@@ -134,7 +138,8 @@ class Box(QRect, Node):
         boxElem.appendChild(action)
 
         # Adding Style
-        boxElem.appendChild(self.graphicStyle.createXMLNode(domDoc))
+        boxstyle = self.boxEditor.getStyle()
+        boxElem.appendChild(boxstyle.createXMLNode(domDoc))
 
         # Adding Children
         if self.children:
