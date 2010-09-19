@@ -10,14 +10,14 @@
     <style opacity="1" text="Multimedia Menu" fr-text="Menu Multimedia" imagePath=":images/home/multimedia.png" rounded="true"/>
   </box>
 
-  <box type="2" x="750" y="202" height="100" width="300">
+  <box type="2" x="750" y="252" height="100" width="300">
     <action id="ExecMenu">
       <action id="PopMenu" MenuId="Application"/>
     </action>
     <style opacity="1" text="Application Listing" fr-text="Liste des applications" imagePath=":images/home/listing.png" rounded="true"/>
   </box>
   
-  <box type="2" x="750" y="303" height="100" width="300">
+  <box type="2" x="750" y="403" height="100" width="300">
     <action id="ExecMenu">
       <action id="Quit" />
     </action>
