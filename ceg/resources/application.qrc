@@ -14,6 +14,7 @@
         <file>images/menu/bookmark.png</file>
         <file>images/menu/cancel.png</file>
         <file>images/menu/exit.png</file>
+		<file>images/menu/quit.png</file>
         <file>images/software/calc.png</file>
         <file>images/software/firefox.png</file>
         <file>images/software/notepad++.png</file>
@@ -28,5 +29,5 @@
         <file>images/action/keyboard.png</file>
         <file>images/action/simpleClick.png</file>
         <file>images/action/doubleClick.png</file>
-    </qresource>
+	</qresource>
 </RCC>
