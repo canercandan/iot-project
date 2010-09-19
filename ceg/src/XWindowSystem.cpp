@@ -27,6 +27,15 @@
 #include <QString>
 #include <QTextStream>
 /*********************************/
+#include <X11/extensions/XTest.h>
+#define XK_LATIN1
+#define XK_MISCELLANY
+#define XK_XKB_KEYS
+#include <X11/keysymdef.h>
+#include <X11/Xlib.h>
+#include <stdio.h>
+#include <stdlib.h>
+/*********************************/
 #include "XWindowSystem.h"
 /*********************************/
 #include "Logger.h"
@@ -158,15 +167,27 @@ bool    XWindowSystem::generateClick(short buttonID)
 
     if (::XSendEvent(this->_connection, PointerWindow, True, 0xfff, &event) == 0)
         return false;
-
+/*
+    XTestFakeButtonEvent(this->_connection, buttonID, ButtonPress, CurrentTime);
     ::XFlush(this->_connection);
+    XTestFakeButtonEvent(this->_connection, buttonID, ButtonRelease, CurrentTime);
+    ::XFlush(this->_connection);*/
+
     return (true);
 }
 
-bool XWindowSystem::generateKeybdEvent(unsigned char)
+bool XWindowSystem::generateKeybdEvent(quint32 key)
 {
-    /* juste pour info il existe l'outil xdotool qui permet entre autre de generer des touches claviers et deplacer la souris tres facilement voir http://www.semicomplete.com/projects/xdotool/ */
-    // generer un bouton de clavier
+    this->generateClick(LeftClick);
+
+    if( this->_connection == NULL )
+        return false;
+
+    ::XTestFakeKeyEvent (this->_connection, XKeysymToKeycode( this->_connection, key), True, CurrentTime);
+    ::XFlush(this->_connection);
+    ::XTestFakeKeyEvent (this->_connection, XKeysymToKeycode( this->_connection, key), False, CurrentTime);
+    ::XFlush(this->_connection);
+
     return (true);
 }
 

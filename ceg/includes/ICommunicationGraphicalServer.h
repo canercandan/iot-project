@@ -21,6 +21,8 @@
 #ifndef ICOMMUNICATIONGRAPHICALSERVER_H_
 #define ICOMMUNICATIONGRAPHICALSERVER_H_
 
+#include <QtGlobal>
+
 namespace Ceg
 {
     class Window;
@@ -48,7 +50,7 @@ public:
     virtual bool getFocusedWindow(Ceg::Window & focusedWindow) = 0;
     virtual bool setFocusToWindow(Ceg::Window & oldFocusedWindow, Ceg::Window & newFocusedWindow) = 0;
     virtual bool generateClickEvent(short int buttonID) = 0;
-    virtual bool generateKeybdEvent(unsigned char key) = 0;
+    virtual bool generateKeybdEvent(quint32 key) = 0;
 };
 
 #endif // ICOMMUNICATIONGRAPHICALSERVER_H_

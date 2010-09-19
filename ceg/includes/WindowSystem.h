@@ -40,7 +40,7 @@ public:
     virtual inline bool refreshWindowInfo(Ceg::Window &)
     {return true;}
 
-    virtual inline bool generateClickEvent(short int buttonID)
+    virtual inline bool generateClickEvent(quint32 buttonID)
     {return true;}
 };
 

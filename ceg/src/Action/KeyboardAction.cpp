@@ -73,11 +73,12 @@ void	KeyboardAction::exec(MainController & mainC)
 
 
     mainC.getComGs()->generateKeybdEvent(this->_key[0].toAscii());
-	
 
-    SleeperThread::msleep(1000);
+
+   //SleeperThread::msleep(1000);
 
     mainC.getView().show();
+    //mainC.getComGs()->generateClickEvent(1);
 }
 
 /************************************************* [ OTHERS ] *************************************************/
