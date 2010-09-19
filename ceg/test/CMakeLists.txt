@@ -3,11 +3,15 @@
 SET(TEST_LIST
   qtxml
   sax
+  validator
 )
 
 SET(RESOURCE_LIST
   xmlBox.xml
   xmlMenu.xml
+  schema.xsd
+  boxes.xml
+  menu.xml
   )
 
 FOREACH(current ${TEST_LIST})

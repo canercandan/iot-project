@@ -22,7 +22,7 @@ SET(PROJECT_VERSION "${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT
 INCLUDE(FindDoxygen)
 
 # see http://cmake.org/cmake/help/cmake2.6docs.html#module:FindQt4 for a complete list
-FIND_PACKAGE(Qt4 COMPONENTS QtCore QtGui QtNetwork QtXml REQUIRED)
+FIND_PACKAGE(Qt4 COMPONENTS QtCore QtGui QtNetwork QtXml QtXmlPatterns REQUIRED)
 INCLUDE(${QT_USE_FILE})
 
 IF (UNIX)
@@ -84,7 +84,7 @@ ADD_SUBDIRECTORY(translations)
 ADD_SUBDIRECTORY(forms)
 ADD_SUBDIRECTORY(includes)
 ADD_SUBDIRECTORY(src)
-ADD_SUBDIRECTORY(config)
+#ADD_SUBDIRECTORY(config)
 ADD_SUBDIRECTORY(test)
 ADD_SUBDIRECTORY(doc)
 

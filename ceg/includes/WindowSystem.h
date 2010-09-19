@@ -18,6 +18,9 @@
  * Authors: CEG <ceg@ionlythink.com>, http://www.ionlythink.com
  */
 
+#ifndef WINDOWSYSTEM_H
+#define WINDOWSYSTEM_H
+
 #if defined(__MINGW32__)
 
 #include "ICommunicationGraphicalServer.h"
@@ -48,3 +51,5 @@ typedef Win32Explorer	WindowSystem;
 #include "XWindowSystem.h"
 typedef XWindowSystem	WindowSystem;
 #endif
+
+#endif // !WINDOWSYSTEM_H
