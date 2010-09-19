@@ -167,7 +167,7 @@ bool    XWindowSystem::generateClick(short buttonID)
 
     if (::XSendEvent(this->_connection, PointerWindow, True, 0xfff, &event) == 0)
         return false;
-/*
+    /*
     XTestFakeButtonEvent(this->_connection, buttonID, ButtonPress, CurrentTime);
     ::XFlush(this->_connection);
     XTestFakeButtonEvent(this->_connection, buttonID, ButtonRelease, CurrentTime);
@@ -178,8 +178,6 @@ bool    XWindowSystem::generateClick(short buttonID)
 
 bool XWindowSystem::generateKeybdEvent(quint32 key)
 {
-    this->generateClick(LeftClick);
-
     if( this->_connection == NULL )
         return false;
 

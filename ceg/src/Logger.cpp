@@ -19,8 +19,6 @@
  */
 
 /*********************************/
-#include <iostream>
-/*********************************/
 #include <QFile>
 #include <QTime>
 #include <QTextStream>
@@ -48,7 +46,6 @@ Logger::Logger()
 
 Logger::~Logger()
 {
-    std::cerr << "Logger::~Logger()" << std::endl;
     if (this->_logFile != 0)
     {
 	this->_logFile->close();

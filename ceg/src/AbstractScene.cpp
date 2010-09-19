@@ -56,6 +56,11 @@ BoxType AbstractScene::getType() const
     return (this->_type);
 }
 
+QString const & AbstractScene::getId() const
+{
+    return (this->_id);
+}
+
 /************************************************* [ OTHERS ] *************************************************/
 
 void    AbstractScene::resetFocusItem()

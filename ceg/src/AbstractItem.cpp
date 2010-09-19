@@ -63,7 +63,7 @@ void AbstractItem::focusOutEvent(QFocusEvent *)
     this->_color = this->_model->getGraphicStyle().getBlurColor();
     this->update();
 }
-
+#include <QDebug>
 void AbstractItem::paint(QPainter * painter, const QStyleOptionGraphicsItem *, QWidget *)
 {
     BoxStyle const & style = _model->getGraphicStyle();
@@ -74,6 +74,7 @@ void AbstractItem::paint(QPainter * painter, const QStyleOptionGraphicsItem *, Q
         painter->drawRoundedRect(this->rect(), 15, 15);
     else
         painter->drawRect(this->rect());
+    qDebug() << "Draw rect = " << this->rect() << " - " << this->_model->getGeometry();
     QString const & text = style.getText();
     if (! text.isEmpty()) // ici
     {

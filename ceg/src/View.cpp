@@ -70,6 +70,7 @@ void	View::initialize()
     this->setInteractive(false);
 
     this->activateWindow();
+    this->setAlignment(Qt::AlignLeft | Qt::AlignTop);
 }
 
 void	View::keyPressEvent(QKeyEvent* keyEvent)

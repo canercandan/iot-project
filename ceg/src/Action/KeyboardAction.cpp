@@ -1,4 +1,4 @@
-    // -*- mode: c++; c-indent-level: 4; c++-member-init-indent: 8; comment-column: 35; -*-
+// -*- mode: c++; c-indent-level: 4; c++-member-init-indent: 8; comment-column: 35; -*-
 
 /* IOT Copyright (C) 2010 CEG development team
  *
@@ -32,13 +32,14 @@
 #include "ICommunicationGraphicalServer.h"
 #include "Utils.h"
 #include "Logger.h"
+#include "ClickType.h"
 /*********************************/
 
 /************************************************* [ CTOR/DTOR ] *************************************************/
 
 char const * KeyboardAction::IDENTIFIER = "Keyboard";
 
-KeyboardAction::KeyboardAction(const QDomElement & actionElement) : _key("")
+KeyboardAction::KeyboardAction(const QDomElement & actionElement) : _keys("")
 {
     Logger::getInstance()->log(DEBUG_LOG, "KeyboardAction::KeyboardAction");
     this->initializeFromXml(actionElement);
@@ -47,11 +48,11 @@ KeyboardAction::KeyboardAction(const QDomElement & actionElement) : _key("")
 void KeyboardAction::initializeFromXml(const QDomElement & domElement)
 {
     if (domElement.hasAttribute("press") == true)
-    this->_key = domElement.attribute("press");
+        this->_keys = domElement.attribute("press");
 }
 
 /************************************************* [ OTHERS ] *************************************************/
-
+#include <QDebug>
 void	KeyboardAction::exec(MainController & mainC)
 {
     Logger::getInstance()->log(DEBUG_LOG, "KeyboardAction::exec");
@@ -68,17 +69,21 @@ void	KeyboardAction::exec(MainController & mainC)
         return ;
 
     QCursor::setPos(ab->getGeometry().center());
+    qDebug() << "Geometry en " << ab->getGeometry().center();
 
-    mainC.getView().hide();
-
-
-    mainC.getComGs()->generateKeybdEvent(this->_key[0].toAscii());
-
-
-   //SleeperThread::msleep(1000);
-
-    mainC.getView().show();
-    //mainC.getComGs()->generateClickEvent(1);
+    mainC.getView().hide(); // On cache la vue pour cliquer sur le programme et non pas notre application
+    ICommunicationGraphicalServer * comGs = mainC.getComGs();
+    comGs->generateClickEvent(LeftClick); // On genere un click pour donner le focus a la zone dans laquelle on souhaite ecrire
+    for (int i = 0, sizeString = this->_keys.size(); i < sizeString; ++i) // On genere toutes les touches clavier
+    {
+        comGs->generateKeybdEvent(this->_keys.at(i).toAscii());
+    }
+    mainC.getView().show(); // On reaffiche le ceg
+    QRect const & geometry = mainC.getCurrentScene()->getCurrentItem()->getBox()->getGeometry();
+    QCursor::setPos(geometry.center());
+    qDebug() << "Click generer " << geometry.center() << "- Nom de la scene courante = " << mainC.getCurrentScene()->getId();
+    qDebug() << "ATTEENNTION : " << "pos = " << mainC.getCurrentScene()->getCurrentItem()->pos() << " scene pos" << mainC.getCurrentScene()->getCurrentItem()->scenePos()<< " bounding scene pos" << mainC.getCurrentScene()->getCurrentItem()->sceneBoundingRect();
+    comGs->generateClickEvent(LeftClick); // On genere un click pour etre sure de redonner le focus au ceg, car il arrive de temps que l'on perde le focus lorsqu'on tape une touche
 }
 
 /************************************************* [ OTHERS ] *************************************************/

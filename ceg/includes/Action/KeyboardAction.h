@@ -38,7 +38,7 @@ public:
     static char const * IDENTIFIER;
 
 private:
-    QString	_key;
+    QString	_keys;
 };
 
 IAction * instanciateKeyboardAction(QDomElement const &);

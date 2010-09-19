@@ -51,6 +51,7 @@ public:
     AbstractItem const *    getCurrentItem() const;
     virtual QRect	    getGeometry() const = 0;
     BoxType                 getType() const;
+    QString const &         getId() const;
 
     virtual IAction *	    keyPressEvent(int key) = 0;
     void                    resetFocusItem(); // Reset le focus sur le premier item de la liste
