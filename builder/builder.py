@@ -97,6 +97,7 @@ class BuilderWidget(QtGui.QMainWindow):
             tmpx = QPoint(topLeft.x() + col * caseSizex, topLeft.y() + line * caseSizey)
             tmpy = QPoint(topLeft.x() + (col + 1) * caseSizex, topLeft.y() + (line + 1) * caseSizey)
             tmpBox = self.createRegularBox(tmpx, tmpy)
+            
             col += 1
             self.repaint()
 
