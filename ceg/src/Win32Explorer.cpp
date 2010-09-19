@@ -123,7 +123,7 @@ bool	Win32Explorer::generateClickEvent(short int buttonID)
     return (true);
 }
 
-bool Win32Explorer::generateKeybdEvent(unsigned char key)
+bool Win32Explorer::generateKeybdEvent(quint32 key)
 {
     keybd_event(key, VkKeyScan(key), KEYEVENTF_EXTENDEDKEY | 0, 0);
     keybd_event(key, VkKeyScan(key), KEYEVENTF_EXTENDEDKEY | KEYEVENTF_KEYUP, 0);
