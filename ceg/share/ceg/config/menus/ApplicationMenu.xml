@@ -7,9 +7,9 @@
     <action id="ExecMenu">
       <action id="ExecProcess" name="Firefox" time="5000"
 	      path="default_path"
-	      unix:path="/tmp/a.out"
-	      win:path="C:\Program Files\Mozilla Firefox\firefox.exe"
-	      mac:path="unknown"
+	      unix-path="/tmp/a.out"
+	      win-path="C:\Program Files\Mozilla Firefox\firefox.exe"
+	      mac-path="unknown"
 	      />
     </action>
     <style opacity="1" text="Firefox" imagePath=":images/software/firefox.png" rounded="true"/>
@@ -19,7 +19,7 @@
     <action id="ExecMenu">
       <action id="ExecProcess" time="5000"
 	      path="C:\Program Files\Windows Media Player/wmplayer.exe"
-	      win:path="C:\Program Files\Windows Media Player/wmplayer.exe"
+	      win-path="C:\Program Files\Windows Media Player/wmplayer.exe"
 	      />
     </action>
     <style opacity="1" text="Windows Media Player" imagePath=":images/software/wmp.png" rounded="true"/>
@@ -29,7 +29,7 @@
     <action id="ExecMenu">
       <action id="ExecProcess" time="3000"
 	      path="C:\Program Files\Notepad++\notepad++.exe"
-	      win:path="C:\Program Files\Notepad++\notepad++.exe"
+	      win-path="C:\Program Files\Notepad++\notepad++.exe"
 	      />
     </action>
     <style opacity="1" text="Notepad++" imagePath=":images/software/notepad++.png" rounded="true"/>
@@ -38,18 +38,18 @@
   <box type="2" x="750" y="303" height="100" width="300">
     <action id="ExecMenu">
       <action id="ExecProcess" time="1000"
-	      unix:path="gnome-calculator"
-	      win:path="C:\WINDOWS\system32\calc.exe"
+	      unix-path="gnome-calculator"
+	      win-path="C:\WINDOWS\system32\calc.exe"
 	      />
     </action>
-    <style opacity="1" text="Calculator" fr:text="Calculatrice" imagePath=":images/software/calc.png" rounded="true"/>
+    <style opacity="1" text="Calculator" fr-text="Calculatrice" imagePath=":images/software/calc.png" rounded="true"/>
   </box>
 
   <box type="2" x="750" y="404" height="100" width="300">
     <action id="ExecMenu">
       <action id="Cancel"/>
     </action>
-    <style opacity="1" text="Back" fr:text="Retour" imagePath=":images/menu/cancel.png" rounded="true"/>
+    <style opacity="1" text="Back" fr-text="Retour" imagePath=":images/menu/cancel.png" rounded="true"/>
   </box>
 
 </menu>

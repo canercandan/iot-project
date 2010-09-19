@@ -6,9 +6,9 @@
   <box type="2" x="750" y="101" height="100" width="300">
     <action id="ExecMenu">
       <action id="ExecProcess" time="5000"
-	      unix:pathfinder="gconftool --get /desktop/gnome/applications/browser/exec"
-	      unix:path="firefox"
-	      win:path="C:\Program Files\Mozilla Firefox\firefox.exe"
+	      unix-pathfinder="gconftool --get /desktop/gnome/applications/browser/exec"
+	      unix-path="firefox"
+	      win-path="C:\Program Files\Mozilla Firefox\firefox.exe"
 	      arguments="http://www.ionlythink.com"
 	      />
     </action>
@@ -18,32 +18,32 @@
   <box type="2" x="750" y="202" height="100" width="300">
     <action id="ExecMenu">
       <action id="ExecProcess" time="5000"
-	      unix:pathfinder="gconftool --get /desktop/gnome/url-handlers/mailto/command"
-	      win:path="C:\Program Files\Mozilla Firefox\Outlook.exe"
+	      unix-pathfinder="gconftool --get /desktop/gnome/url-handlers/mailto/command"
+	      win-path="C:\Program Files\Mozilla Firefox\Outlook.exe"
 	      />
     </action>
-    <style opacity="1" text="Mail" fr:text="Courrier" imagePath=":images/menu/mail.png" rounded="true" />
+    <style opacity="1" text="Mail" fr-text="Courrier" imagePath=":images/menu/mail.png" rounded="true" />
   </box>
 
   <box type="2" x="750" y="303" height="100" width="300">
-    <style opacity="1" text="Applications Bookmarks" fr:text="Applications Favorites" imagePath=":images/menu/bookmark.png" rounded="true"/>
+    <style opacity="1" text="Applications Bookmarks" fr-text="Applications Favorites" imagePath=":images/menu/bookmark.png" rounded="true"/>
   </box>
 
   <box type="2" x="750" y="404" height="100" width="300">
     <action id="ExecMenu">
       <action id="ExecProcess" time="3000"
-	      unix:path="gedit"
-	      win:path="C:\Program Files\Notepad++\notepad++.exe"/>
+	      unix-path="gedit"
+	      win-path="C:\Program Files\Notepad++\notepad++.exe"/>
     </action>
-    <style opacity="1" text="Text Editor" fr:text="Editeur de Texte" imagePath=":images/menu/text.png" rounded="true" />
+    <style opacity="1" text="Text Editor" fr-text="Editeur de Texte" imagePath=":images/menu/text.png" rounded="true" />
   </box>
 
   <box type="2" x="750" y="505" height="100" width="300">
     <action id="ExecMenu">
       <action id="ExecProcess" time="5000"
-	      unix:pathfinder="gconftool --get /desktop/gnome/applications/browser/exec"
-	      unix:path="firefox"
-	      win:path="C:\Program Files\Mozilla Firefox\firefox.exe"
+	      unix-pathfinder="gconftool --get /desktop/gnome/applications/browser/exec"
+	      unix-path="firefox"
+	      win-path="C:\Program Files\Mozilla Firefox\firefox.exe"
 	      arguments="http://www.youtube.com"
 	      />
     </action>
@@ -53,29 +53,29 @@
   <box type="2" x="750" y="606" height="100" width="300">
     <action id="ExecMenu">
       <action id="ExecProcess" time="5000"
-	      unix:path="totem"
-	      win:path="C:\Program Files\Windows Media Player/wmplayer.exe"
+	      unix-path="totem"
+	      win-path="C:\Program Files\Windows Media Player/wmplayer.exe"
 	      />
     </action>
-    <style opacity="1" text="Video Player" fr:text="Lecteur Vidéo" imagePath=":images/menu/video.png" rounded="true" />
+    <style opacity="1" text="Video Player" fr-text="Lecteur Vidéo" imagePath=":images/menu/video.png" rounded="true" />
   </box>
 
   <box type="2" x="750" y="707" height="100" width="300">
     <action id="ExecMenu">
       <action id="ExecProcess" time="5000"
-	      unix:pathfinder="gconftool --get /desktop/gnome/applications/media/exec"
-	      unix:path="rhythmbox"
-	      win:path="C:\Program Files\Windows Media Player/wmplayer.exe"
+	      unix-pathfinder="gconftool --get /desktop/gnome/applications/media/exec"
+	      unix-path="rhythmbox"
+	      win-path="C:\Program Files\Windows Media Player/wmplayer.exe"
 	      />
     </action>
-    <style opacity="1" text="Music Player" fr:text="Lecteur Audio" imagePath=":images/menu/music.png" rounded="true" />
+    <style opacity="1" text="Music Player" fr-text="Lecteur Audio" imagePath=":images/menu/music.png" rounded="true" />
   </box>
 
   <box type="2" x="750" y="808" height="100" width="300">
     <action id="ExecMenu">
       <action id="Cancel"/>
     </action>
-    <style opacity="1" text="Back" fr:text="Retour" imagePath=":images/menu/cancel.png" rounded="true"/>
+    <style opacity="1" text="Back" fr-text="Retour" imagePath=":images/menu/cancel.png" rounded="true"/>
   </box>
 
 </menu>
