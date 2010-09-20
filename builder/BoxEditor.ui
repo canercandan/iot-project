@@ -37,7 +37,7 @@
         </size>
        </property>
        <property name="currentIndex">
-        <number>1</number>
+        <number>0</number>
        </property>
        <widget class="QWidget" name="typeTab">
         <attribute name="title">
@@ -389,7 +389,7 @@ p, li { white-space: pre-wrap; }
         <attribute name="title">
          <string>Style</string>
         </attribute>
-        <widget class="QLabel" name="focusedLabel">
+        <widget class="QLabel" name="focusLabel">
          <property name="geometry">
           <rect>
            <x>210</x>
@@ -408,11 +408,11 @@ p, li { white-space: pre-wrap; }
           <string/>
          </property>
         </widget>
-        <widget class="QLabel" name="unfocusedLabel">
+        <widget class="QLabel" name="blurLabel">
          <property name="geometry">
           <rect>
-           <x>210</x>
-           <y>70</y>
+           <x>208</x>
+           <y>149</y>
            <width>111</width>
            <height>28</height>
           </rect>
@@ -430,11 +430,11 @@ p, li { white-space: pre-wrap; }
           <bool>true</bool>
          </property>
         </widget>
-        <widget class="QPushButton" name="unfocusedButton">
+        <widget class="QPushButton" name="blurButton">
          <property name="geometry">
           <rect>
-           <x>22</x>
-           <y>71</y>
+           <x>20</x>
+           <y>150</y>
            <width>175</width>
            <height>28</height>
           </rect>
@@ -443,7 +443,7 @@ p, li { white-space: pre-wrap; }
           <string>&amp;Change unfocused color</string>
          </property>
         </widget>
-        <widget class="QPushButton" name="focusedButton">
+        <widget class="QPushButton" name="focusButton">
          <property name="geometry">
           <rect>
            <x>20</x>
@@ -496,7 +496,7 @@ p, li { white-space: pre-wrap; }
          <property name="geometry">
           <rect>
            <x>20</x>
-           <y>150</y>
+           <y>70</y>
            <width>175</width>
            <height>28</height>
           </rect>
@@ -509,7 +509,7 @@ p, li { white-space: pre-wrap; }
          <property name="geometry">
           <rect>
            <x>210</x>
-           <y>150</y>
+           <y>70</y>
            <width>111</width>
            <height>28</height>
           </rect>

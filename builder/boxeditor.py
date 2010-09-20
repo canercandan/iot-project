@@ -22,6 +22,7 @@ from BoxEditor_ui import Ui_BoxEditor
 
 import box
 from boxstyle import BoxStyle
+from builder import DefaultColors # const values
 
 class BoxEditor(QtGui.QDialog):
     def __init__(self, builder):
@@ -29,9 +30,10 @@ class BoxEditor(QtGui.QDialog):
         self.ui = Ui_BoxEditor()
         self.ui.setupUi(self)
         self.ui.listWidget.setCurrentRow(0)
-        QObject.connect(self.ui.unfocusedButton, SIGNAL("clicked()"), self.changeUnfocusedColor)
-        QObject.connect(self.ui.focusedButton, SIGNAL("clicked()"), self.changeFocusedColor)
+        QObject.connect(self.ui.blurButton, SIGNAL("clicked()"), self.changeBlurColor)
+        QObject.connect(self.ui.focusButton, SIGNAL("clicked()"), self.changeFocusColor)
         QObject.connect(self.ui.textColorButton, SIGNAL("clicked()"), self.changeTextColor)
+        self.initPreviewLabels()
 
         self.getDictionnary = {
             QtGui.QApplication.translate('BoxEditor', 'Click')    :   self.getClickAttributes,
@@ -47,34 +49,51 @@ class BoxEditor(QtGui.QDialog):
             QtGui.QApplication.translate('BoxEditor', 'Write')    :   self.setWriteAttribute,
             QtGui.QApplication.translate('BoxEditor', 'PopMenu')  :   self.setPopMenuAttribute }
 
-    def changeUnfocusedColor(self):
-        color = QColorDialog.getColor()
-        geo = self.ui.unfocusedLabel.geometry()
-        pix = QPixmap(geo.width(), geo.height())
-        pix.fill(color);
-        self.ui.unfocusedLabel.setPixmap(pix)
+    def initPreviewLabels(self):
+        self.textColor = DefaultColors.text
+        self.blurColor = DefaultColors.blur
+        self.focusColor = DefaultColors.focus
+        self.fillLabel(self.ui.focusLabel, QColor(self.focusColor))
+        self.fillLabel(self.ui.blurLabel, QColor(self.blurColor))
+        self.fillLabel(self.ui.textColorLabel, QColor(self.textColor))
 
-    def changeFocusedColor(self):
+    def changeBlurColor(self):
         color = QColorDialog.getColor()
-        geo = self.ui.focusedLabel.geometry()
-        pix = QPixmap(geo.width(), geo.height())
-        pix.fill(color);
-        self.ui.focusedLabel.setPixmap(pix)
+        self.fillLabel(self.ui.blurLabel, color)
+        self.blurColor = color.name()
+
+    def changeFocusColor(self):
+        color = QColorDialog.getColor()
+        self.fillLabel(self.ui.focusLabel, color)
+        self.focusColor = color.name()
 
     def changeTextColor(self):
         color = QColorDialog.getColor()
-        geo = self.ui.textColorLabel.geometry()
+        self.fillLabel(self.ui.textColorLabel, color)
+        self.textColor = color.name()
+
+    # TODO: connect the right signal on this slot
+    def changePixPath(self):
+        path = QFileDialog.getOpenFileName(self)
+        if not path.isEmpty():
+            self.ui.pixLineEdit.setText(path)
+
+    # Generic function
+    # QLabel label
+    # QColor color
+    def fillLabel(self, label, color):
+        geo = label.geometry()
         pix = QPixmap(geo.width(), geo.height())
         pix.fill(color);
-        self.ui.textColorLabel.setPixmap(pix)
+        label.setPixmap(pix)
 
     def getStyle(self):
         boxstyle = BoxStyle()
         boxstyle['rounded'] = self.ui.roundedCheckBox.isChecked()
-        boxstyle['focusColor'] = self.ui.focusedLabel.text()
-        boxstyle['blurColor'] = self.ui.unfocusedLabel.text()
-        boxstyle['textColor'] = self.ui.textColorLabel.text()
-        boxstyle['opacity'] = float(self.ui.opacitySlider.value() / 100.0)
+        boxstyle['focusColor'] = self.focusColor
+        boxstyle['blurColor'] = self.blurColor
+        boxstyle['textColor'] = self.textColor
+        boxstyle['opacity'] = float(self.ui.opacitySlider.value() / 100.)
         boxstyle['text'] = self.ui.textLineEdit.text()
         boxstyle['imagePath'] = self.ui.pixLineEdit.text()
         return boxstyle
@@ -84,12 +103,15 @@ class BoxEditor(QtGui.QDialog):
             self.ui.roundedCheckBox.setChecked(True)
         else:
             self.ui.roundedCheckBox.setChecked(False)
-        self.ui.focusedLabel.setText(boxstyle['focusColor'])
-        self.ui.unfocusedLabel.setText(boxstyle['blurColor'])
-        self.ui.textColorLabel.setText(boxstyle['textColor'])
+        self.focusColor = boxstyle['focusColor']
+        self.blurColor = boxstyle['blurColor']
+        self.textColor = boxstyle['textColor']
+        self.fillLabel(self.ui.focusLabel, QColor(boxstyle['focusColor']))
+        self.fillLabel(self.ui.blurLabel, QColor(boxstyle['blurColor']))
+        self.fillLabel(self.ui.textColorLabel, QColor(boxstyle['textColor']))
         r = QString(boxstyle['opacity']).toInt()
         if r[1] == True:
-            self.ui.opacitySlider.setValue(r[0] * 100)
+            self.ui.opacitySlider.setValue(r[0] * 100.)
         self.ui.textLineEdit.setText(boxstyle['text'])
         self.ui.pixLineEdit.setText(boxstyle['imagePath'])
 

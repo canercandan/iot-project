@@ -3,6 +3,19 @@
 icons='icons_rc.py'
 boxEditorUiPy='BoxEditor_ui.py'
 
+config()
+{
+    # All icons (.png) become one file (.py)
+    echo 'Compiling resources...'
+    pyrcc4 resources.qrc -o $icons
+    echo $icons 'has been generated.'
+
+    # Xml file (.ui) becomes a python class
+    echo 'Compiling ui files...'
+    pyuic4 BoxEditor.ui -o $boxEditorUiPy
+    echo $boxEditorUiPy 'has been generated.'
+}
+
 build()
 {
     output=`pwd`'/build/dist'
@@ -11,18 +24,12 @@ build()
     echo '  Building IotBuilder static binary'
     echo 'o------------------------------------o'
 
+    config
+
     if [ ! -d build ]
     then
 	mkdir build
     fi
-
-    # All icons (.png) become one file (.py)
-    echo 'Compiling resources...'
-    pyrcc4 resources.qrc -o $icons
-
-    # Xml file (.ui) becomes a python class
-    echo 'Compiling ui files...'
-    pyuic4 BoxEditor.ui -o $boxEditorUiPy
 
     cd build
 
@@ -38,7 +45,7 @@ debpack()
 {
     if [ ! -d build ]
     then
-	echo 'Build first then pack.'
+	echo 'Build first then debpack.'
 	exit 0
     fi
 
@@ -55,8 +62,9 @@ clean()
 }
 
 case $1 in
+    config) config;;
     build) build;;
     clean) clean;;
     debpack) debpack;;
-    *) echo 'usage: static build | clean | debpack';;
+    *) echo 'usage: static config | build | clean | debpack';;
 esac

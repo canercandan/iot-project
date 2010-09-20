@@ -18,9 +18,9 @@
 from PyQt4 import QtGui, QtCore
 from PyQt4.QtCore import *
 
+from node import Node
 from boxeditor import BoxEditor
 from boxstyle import BoxStyle
-from node import Node
 
 class BoxType:
     DefaultBox = 0
@@ -48,6 +48,7 @@ class Box(QRect, Node):
         self.setBottomRight(box.bottomRight())
         self.setActionId(box.getActionId())
         self.setAttributes(box.getAttributes())
+        self.boxEditor.setStyle(box.boxEditor.getStyle())
 
     def initDomBox(self, domElement):
         self.initializeFromXml(domElement)

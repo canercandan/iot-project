@@ -26,11 +26,14 @@ from box import *
 from toolbar import *
 from boxeditor import *
 
-import xml.parsers.expat
-
 class Mode:
     box = 0
     selection = 1
+
+class DefaultColors:
+    text  = 'black'
+    blur  = 'yellow'
+    focus = 'orange'
 
 class View():
     def __init__(self, parentView):
@@ -49,7 +52,7 @@ class BuilderWidget(QtGui.QMainWindow):
 
         try:
             self.toolbar = Toolbar(self)
-            self.addToolBar(self.toolbar)
+            self.addToolBar(Qt.LeftToolBarArea, self.toolbar)
         except:
             print "Unexpected error:", sys.exc_info()[0]
             raise
@@ -63,6 +66,11 @@ class BuilderWidget(QtGui.QMainWindow):
         self.loadDialog = QObject.tr(self, 'Open xml file')
         self.extensionDialog = QObject.tr(self, 'Xml Files') + ' (*.xml)'
         self.extension = '.xml'
+        self.defaultTextColor = QColor(DefaultColors.text)
+        self.defaultBlurColor = QColor(DefaultColors.blur)
+        self.defaultFocusColor = QColor(DefaultColors.focus)
+        self.defaultBlurColor.setAlpha(80)
+        self.defaultFocusColor.setAlpha(80)
 
     def init(self):
         self.tolerance = 0
@@ -447,7 +455,8 @@ class BuilderWidget(QtGui.QMainWindow):
                 self.repaint()
 
     def mouseDoubleClickEvent(self, mouseEvent):
-        self.editBox()
+        if self.mode == Mode.selection:
+            self.editBox()
 
     def mouseReleaseEvent(self, mouseEvent):
         if mouseEvent.button() == QtCore.Qt.LeftButton:
@@ -459,28 +468,52 @@ class BuilderWidget(QtGui.QMainWindow):
                 self.createRegularBox(va1, va2)
                 self.repaint()
 
+    # TODO: set alpha channel from boxEditor
+    def configurePainterForBox(self, painter, boxEditor, focus):
+        # Setting brush
+        if focus == True:
+            if QColor(boxEditor.focusColor).isValid():
+                customFocusColor = QColor(boxEditor.focusColor)
+                customFocusColor.setAlpha(80)
+                painter.setBrush(QColor(customFocusColor))
+            else:
+                painter.setBrush(self.defaultFocusColor)
+        else:
+            if QColor(boxEditor.blurColor).isValid():
+                customBlurColor = QColor(boxEditor.blurColor)
+                customBlurColor.setAlpha(80)
+                painter.setBrush(QColor(customBlurColor))
+            else:
+                painter.setBrush(self.defaultBlurColor)
+
+        # Setting pen
+        if QColor(boxEditor.textColor).isValid():
+            customTextColor = QColor(boxEditor.textColor)
+            customTextColor.setAlpha(80)
+            painter.setPen(QColor(customTextColor))
+        else:
+            painter.setPen(self.defaultTextColor)
+
     def paintEvent(self, event):
-        paint = QtGui.QPainter()
-        paint.begin(self)
+        painter = QtGui.QPainter()
+        painter.begin(self)
 
-        color = QtGui.QColor('#d4d4d4')
-        colorFocus = QtGui.QColor('#aaaaaa')
-        paint.setPen(color)
-
-        paint.setBrush(QtGui.QColor(0, 0, 255, 80))              # RVB, opacity
+        painter.setPen(self.defaultTextColor)
+        painter.setBrush(self.defaultBlurColor)
 
         if self.leftButtonPressed and self.mode == Mode.box:
-            paint.drawRect(self.beginPos.x(), self.beginPos.y(), self.endPos.x() - self.beginPos.x(), self.endPos.y() - self.beginPos.y())
+            painter.drawRect(self.beginPos.x(), self.beginPos.y(), self.endPos.x() - self.beginPos.x(), self.endPos.y() - self.beginPos.y())
 
         if self.currentView.boxes:
             for box in self.currentView.boxes:
-                if box == self.currentView.currentBox:
-                    paint.setBrush(QtGui.QColor(0, 255, 0, 80))              # RVB, opacity
-                    paint.drawRect(box)
-                    paint.setBrush(QtGui.QColor(0, 0, 255, 80))              # RVB, opacity
+                self.configurePainterForBox(painter, box.boxEditor, (box == self.currentView.currentBox))
+                if box.boxEditor.ui.roundedCheckBox.isChecked():
+                    painter.drawRoundRect(box)
                 else:
-                    paint.drawRect(box)
-        paint.end()
+                    painter.drawRect(box)
+                if not box.boxEditor.ui.textLineEdit.text().isEmpty():
+                    painter.drawText(box, Qt.AlignCenter, box.boxEditor.ui.textLineEdit.text())
+        painter.end()
 
 
 if __name__ == "__main__":
