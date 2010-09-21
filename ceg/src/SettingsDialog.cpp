@@ -77,6 +77,15 @@ SettingsDialog::SettingsDialog(QWidget *parent) :
     this->serverPassword->setText(settings.value("password").toString());
     this->serverPassword->setEnabled(this->serverPasswordCheckBox->isChecked());
     settings.endGroup();
+	
+	/*
+	 *
+	 * Menu caché pour la soutenance !
+	 *
+	 */
+	this->customGroupBox->hide();
+	this->customCheck->hide();
+	this->confList->item(this->confList->count() - 1)->setHidden(true);
 }
 
 void SettingsDialog::on_confList_currentItemChanged(QListWidgetItem* current, QListWidgetItem* previous)
