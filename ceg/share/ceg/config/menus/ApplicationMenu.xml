@@ -15,7 +15,7 @@
     <style opacity="1" text="Firefox" imagePath=":images/software/firefox.png" rounded="true"/>
   </box>
 
-  <box type="2" x="750" y="101" height="100" width="300">
+  <box type="2" x="750" y="121" height="100" width="300">
     <action id="ExecMenu">
       <action id="ExecProcess" time="5000"
 	      path="C:\Program Files\Windows Media Player/wmplayer.exe"
@@ -25,7 +25,7 @@
     <style opacity="1" text="Windows Media Player" imagePath=":images/software/wmp.png" rounded="true"/>
   </box>
 
-  <box type="2" x="750" y="202" height="100" width="300">
+  <box type="2" x="750" y="241" height="100" width="300">
     <action id="ExecMenu">
       <action id="ExecProcess" time="3000"
 	      path="C:\Program Files\Notepad++\notepad++.exe"
@@ -35,7 +35,7 @@
     <style opacity="1" text="Notepad++" imagePath=":images/software/notepad++.png" rounded="true"/>
   </box>
 
-  <box type="2" x="750" y="303" height="100" width="300">
+  <box type="2" x="750" y="361" height="100" width="300">
     <action id="ExecMenu">
       <action id="ExecProcess" time="1000"
 	      unix-path="gnome-calculator"
@@ -45,7 +45,7 @@
     <style opacity="1" text="Calculator" fr-text="Calculatrice" imagePath=":images/software/calc.png" rounded="true"/>
   </box>
 
-  <box type="2" x="750" y="404" height="100" width="300">
+  <box type="2" x="750" y="481" height="100" width="300">
     <action id="ExecMenu">
       <action id="Cancel"/>
     </action>
