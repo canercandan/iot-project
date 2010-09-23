@@ -32,8 +32,8 @@ class Mode:
 
 class DefaultColors:
     text  = 'black'
-    blur  = 'yellow'
-    focus = 'orange'
+    blur  = 'blue'
+    focus = 'red'
 
 class View():
     def __init__(self, parentView):
@@ -99,7 +99,7 @@ class BuilderWidget(QtGui.QMainWindow):
                 col = 0
                 line += 1
             if line >= nb_line:
-                print "keymap too big"
+                print 'keymap too big'
                 return
 
             tmpx = QPoint(topLeft.x() + col * caseSizex, topLeft.y() + line * caseSizey)
@@ -202,7 +202,7 @@ class BuilderWidget(QtGui.QMainWindow):
         self.repaint()
 
     def saveFile(self):
-        if not self.currentView.boxes and self.currentView == self.rootView:
+        if not self.cur0rentView.boxes and self.currentView == self.rootView:
             QMessageBox.information(self, 'IotBuilder', QObject.tr(self, 'Nothing to save'))
             return
 
@@ -314,7 +314,7 @@ class BuilderWidget(QtGui.QMainWindow):
             self.repaint()
 
     def builderHelp(self):
-        print 'builderHelp method'
+        print 'Help'
 
     def quitBuilder(self):
         self.deleteLater()
@@ -468,7 +468,7 @@ class BuilderWidget(QtGui.QMainWindow):
                 self.createRegularBox(va1, va2)
                 self.repaint()
 
-    # TODO: set alpha channel from boxEditor
+    # TODO: set alpha channel (opacity) from boxEditor
     def configurePainterForBox(self, painter, boxEditor, focus):
         # Setting brush
         if focus == True:
