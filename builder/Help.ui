@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Help</class>
+ <widget class="QWidget" name="Help">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>660</width>
+    <height>422</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>10</y>
+     <width>651</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Sans'; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;IOT Builder&lt;/span&gt;&lt;/p&gt;
+&lt;p align=&quot;center&quot; style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-weight:600;&quot;&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-weight:600;&quot;&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+  </widget>
+  <widget class="QTextBrowser" name="textBrowser">
+   <property name="geometry">
+    <rect>
+     <x>5</x>
+     <y>30</y>
+     <width>651</width>
+     <height>381</height>
+    </rect>
+   </property>
+   <property name="html">
+    <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Sans'; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Arial'; font-size:medium; font-weight:600;&quot;&gt;Files&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Arial';&quot;&gt; &lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Arial'; font-size:medium;&quot;&gt;Click on &lt;/span&gt;&lt;img src=&quot;:/pix/new_file.png&quot; /&gt;&lt;span style=&quot; font-family:'Arial'; font-size:medium;&quot;&gt; (Ctrl + n) to create a new custom interface file, will destroy unsaved work.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Arial'; font-size:medium;&quot;&gt;Click on &lt;/span&gt;&lt;img src=&quot;:/pix/load_file.png&quot; /&gt;&lt;span style=&quot; font-family:'Arial'; font-size:medium;&quot;&gt; (Ctrl + l) to load a custom interface file, update, edit your customs interfaces.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Arial'; font-size:medium;&quot;&gt;Click on &lt;/span&gt;&lt;img src=&quot;:/pix/save_file.png&quot; /&gt;&lt;span style=&quot; font-family:'Arial'; font-size:medium;&quot;&gt; (Ctrl + s) to save your current work in XML format&lt;/span&gt;&lt;span style=&quot; font-family:'Arial';&quot;&gt;&lt;br /&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Arial'; font-size:medium; font-weight:600;&quot;&gt;Work modes&lt;/span&gt;&lt;span style=&quot; font-family:'Arial'; font-size:medium;&quot;&gt;&lt;br /&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Arial'; font-size:medium; font-style:italic;&quot;&gt;Selection&lt;/span&gt;&lt;span style=&quot; font-family:'Arial'; font-size:medium;&quot;&gt; :&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Arial'; font-size:medium;&quot;&gt;Click on &lt;/span&gt;&lt;img src=&quot;:/pix/selection.png&quot; /&gt;&lt;span style=&quot; font-family:'Arial'; font-size:medium;&quot;&gt; or press 'S' to switch to box mode, by default you are in selection mode.&lt;br /&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Arial'; font-size:medium;&quot;&gt;Actions : click on a box and drag it or use the arrows keys to move a box to a new location.&lt;br /&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Arial'; font-size:medium;&quot;&gt;You can also zoom in by using &lt;/span&gt;&lt;img src=&quot;:/pix/zoom_in.png&quot; /&gt;&lt;span style=&quot; font-family:'Arial'; font-size:medium;&quot;&gt; (+) and zoom out by using &lt;/span&gt;&lt;img src=&quot;:/pix/zoom_out.png&quot; /&gt;&lt;span style=&quot; font-family:'Arial'; font-size:medium;&quot;&gt; (-)&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Arial';&quot;&gt;By double clicking on a box or pressing (Enter) or pressing &lt;/span&gt;&lt;img src=&quot;:/pix/edit_box.png&quot; /&gt;&lt;span style=&quot; font-family:'Arial';&quot;&gt; you will be able to set the box options.&lt;br /&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Arial'; font-size:medium; font-style:italic;&quot;&gt;Box&lt;/span&gt;&lt;span style=&quot; font-family:'Arial'; font-size:medium;&quot;&gt; :&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Arial'; font-size:medium;&quot;&gt;Click on &lt;/span&gt;&lt;img src=&quot;:/pix/box.png&quot; /&gt;&lt;span style=&quot; font-family:'Arial';&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Arial'; font-size:medium;&quot;&gt;or press 'B' to switch to box mode.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Arial'; font-size:medium;&quot;&gt;In this mode, you can draw your customs box by left click and drag &amp;amp; drop.&lt;br /&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Arial';&quot;&gt;Actions : By double clicking or pressing Enter key you will zoom in the box and draw boxes into this box.&lt;br /&gt;&lt;br /&gt;&lt;/span&gt;&lt;span style=&quot; font-family:'Arial'; font-weight:600;&quot;&gt;Switch from a box to another&lt;/span&gt;&lt;span style=&quot; font-family:'Arial';&quot;&gt; :&lt;br /&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Arial';&quot;&gt;Click on &lt;/span&gt;&lt;img src=&quot;:/pix/next_box.png&quot; /&gt;&lt;span style=&quot; font-family:'Arial';&quot;&gt;  or press (Tab) key to select the next box.&lt;br /&gt;Click on &lt;/span&gt;&lt;img src=&quot;:/pix/prev_box.png&quot; /&gt;&lt;span style=&quot; font-family:'Arial';&quot;&gt; or press (Shift + Tab) to select previous box.&lt;br /&gt;Boxes are sorted by creation order.&lt;br /&gt;&lt;br /&gt;&lt;/span&gt;&lt;span style=&quot; font-family:'Arial'; font-weight:600;&quot;&gt;Copy, cut, paste boxes&lt;/span&gt;&lt;span style=&quot; font-family:'Arial';&quot;&gt; :&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Arial';&quot;&gt;&lt;br /&gt;Click on &lt;/span&gt;&lt;img src=&quot;:/pix/copy_box.png&quot; /&gt;&lt;span style=&quot; font-family:'Arial';&quot;&gt; or press (Ctrl + c) to copy the selected box&lt;br /&gt;Click on &lt;/span&gt;&lt;img src=&quot;:/pix/cut_box.png&quot; /&gt;&lt;span style=&quot; font-family:'Arial';&quot;&gt; or press(Ctrl + x) to cut the selected box&lt;br /&gt;Click on &lt;/span&gt;&lt;img src=&quot;:/pix/paste_box.png&quot; /&gt;&lt;span style=&quot; font-family:'Arial';&quot;&gt; or press (Ctrl + v) to paste the box&lt;br /&gt;&lt;br /&gt;Click on &lt;/span&gt;&lt;img src=&quot;:/pix/quit.png&quot; /&gt;&lt;span style=&quot; font-family:'Arial';&quot;&gt; to leave the IOT Builder.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+  </widget>
+ </widget>
+ <resources>
+  <include location="resources.qrc"/>
+ </resources>
+ <connections/>
+</ui>
