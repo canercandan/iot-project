@@ -25,11 +25,11 @@
     <style fontSize="12" opacity="1" text="Mail" fr-text="Courrier" imagePath=":images/menu/mail.png" rounded="true" />
   </box>
 
-  <box type="2" x="750" y="201" height="80" width="240">
+  <!--box type="2" x="750" y="201" height="80" width="240">
     <style fontSize="12" opacity="1" text="Applications Bookmarks" fr-text="Applications Favorites" imagePath=":images/menu/bookmark.png" rounded="true"/>
-  </box>
+  </box-->
 
-  <box type="2" x="750" y="301" height="80" width="240">
+  <box type="2" x="750" y="201" height="80" width="240">
     <action id="ExecMenu">
       <action id="ExecProcess" time="3000"
 	      unix-path="gedit"
@@ -38,7 +38,7 @@
     <style fontSize="12" opacity="1" text="Text Editor" fr-text="Editeur de Texte" imagePath=":images/menu/text.png" rounded="true" />
   </box>
 
-  <box type="2" x="750" y="401" height="80" width="240">
+  <box type="2" x="750" y="301" height="80" width="240">
     <action id="ExecMenu">
       <action id="ExecProcess" time="5000"
 	      unix-pathfinder="gconftool --get /desktop/gnome/applications/browser/exec"
@@ -50,7 +50,7 @@
     <style fontSize="12" opacity="1" text="Youtube" imagePath=":images/menu/youtube.png" rounded="true" rounded="true" />
   </box>
 
-  <box type="2" x="750" y="501" height="80" width="240">
+  <box type="2" x="750" y="401" height="80" width="240">
     <action id="ExecMenu">
       <action id="ExecProcess" time="5000"
 	      unix-path="totem"
@@ -60,7 +60,7 @@
     <style fontSize="12" opacity="1" text="Video Player" fr-text="Lecteur Vidéo" imagePath=":images/menu/video.png" rounded="true" />
   </box>
 
-  <box type="2" x="750" y="601" height="80" width="240">
+  <box type="2" x="750" y="501" height="80" width="240">
     <action id="ExecMenu">
       <action id="ExecProcess" time="5000"
 	      unix-pathfinder="gconftool --get /desktop/gnome/applications/media/exec"
@@ -71,7 +71,7 @@
     <style fontSize="12" opacity="1" text="Music Player" fr-text="Lecteur Audio" imagePath=":images/menu/music.png" rounded="true" />
   </box>
 
-  <box type="2" x="750" y="701" height="80" width="240">
+  <box type="2" x="750" y="601" height="80" width="240">
     <action id="ExecMenu">
       <action id="Cancel"/>
     </action>
