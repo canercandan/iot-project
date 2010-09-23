@@ -67,7 +67,7 @@ void AbstractItem::focusOutEvent(QFocusEvent *)
 void AbstractItem::paint(QPainter * painter, const QStyleOptionGraphicsItem *, QWidget *)
 {
     BoxStyle const & style = _model->getGraphicStyle();
-    painter->setOpacity(style.getOpacity());
+	painter->setOpacity(style.getOpacity());
     painter->setBrush(QBrush(QColor(this->_color)));
     //painter->drawRect(this->rect());
     if (style.isRounded())
@@ -104,5 +104,5 @@ void AbstractItem::paint(QPainter * painter, const QStyleOptionGraphicsItem *, Q
 	{
             painter->drawText(this->rect(), Qt::AlignCenter, text);
 	}
-    }
+  }
 }

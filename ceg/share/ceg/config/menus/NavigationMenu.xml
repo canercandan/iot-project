@@ -3,18 +3,18 @@
 
 <menu id="Navigation">
 
-  <box type="2" x="750" y="1" height="100" width="300">
+  <box type="2" x="750" y="1" height="80" width="240">
     <action id="ExecMenu">
       <action id="Cancel" />
     </action>
-    <style opacity="1" text="Back" fr-text="Retour" imagePath=":images/menu/cancel.png" rounded="true"/>
+    <style fontSize="12" opacity="1" text="Back" fr-text="Retour" imagePath=":images/menu/cancel.png" rounded="true"/>
   </box>
   
-  <box type="2" x="750" y="121" height="100" width="300">
+  <box type="2" x="750" y="101" height="80" width="240">
     <action id="ExecMenu">
       <action id="PopMenu" MenuId="Home"/>
     </action>
-    <style opacity="1" text="Home" fr-text="Accueil" imagePath=":images/home/home.png" rounded="true"/>
+    <style fontSize="12" opacity="1" text="Home" fr-text="Accueil" imagePath=":images/home/home.png" rounded="true"/>
   </box>
 
   <!--
@@ -22,22 +22,22 @@
     <action id="ExecMenu">
       <action id="Switch" />
     </action>
-    <style opacity="1" text="Switch" fr-text="Changement de fenêtre" imagePath=":images/home/switch.png"/>
+    <style fontSize="12" opacity="1" text="Switch" fr-text="Changement de fenêtre" imagePath=":images/home/switch.png"/>
   </box>
   -->
 
-  <box type="2" x="750" y="241" height="100" width="300">
+  <box type="2" x="750" y="201" height="80" width="240">
     <action id="ExecMenu">
       <action id="Close"/>
     </action>
-    <style opacity="1" text="Close Current Program" fr-text="Fermer le programme" imagePath=":images/menu/quit.png" rounded="true"/>
+    <style fontSize="12" opacity="1" text="Close Current Program" fr-text="Fermer le programme" imagePath=":images/menu/quit.png" rounded="true"/>
   </box>
 
-  <box type="2" x="750" y="361" height="100" width="300">
+  <box type="2" x="750" y="301" height="80" width="240">
     <action id="ExecMenu">
       <action id="Quit"/>
     </action>
-    <style opacity="1" text="Quit" fr-text="Quitter" imagePath=":images/menu/exit.png" rounded="true"/>
+    <style fontSize="12" opacity="1" text="Quit" fr-text="Quitter" imagePath=":images/menu/exit.png" rounded="true"/>
   </box>
 
 </menu>

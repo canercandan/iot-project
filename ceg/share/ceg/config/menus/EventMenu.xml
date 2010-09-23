@@ -3,53 +3,53 @@
 
 <menu id="Event">
 
-  <box type="2" x="750" y="1" height="100" width="300">
+  <box type="2" x="750" y="1" height="80" width="240">
     <action id="ExecMenu">
       <action id="Zoom" isZoom="1" />
     </action>
-    <style opacity="1" text="Zoom In" fr-text="Agrandir" imagePath=":images/action/zoomIn.png" rounded="true"/>
+    <style fontSize="12" opacity="1" text="Zoom In" fr-text="Agrandir" imagePath=":images/action/zoomIn.png" rounded="true"/>
   </box>
 
-  <box type="2" x="750" y="121" height="100" width="300">
+  <box type="2" x="750" y="101" height="80" width="240">
     <action id="ExecMenu">
       <action id="Zoom" isZoom="0" />
     </action>
-    <style opacity="1" text="Zoom Out" fr-text="Réduire" imagePath=":images/action/zoomOut.png" rounded="true"/>
+    <style fontSize="12" opacity="1" text="Zoom Out" fr-text="Réduire" imagePath=":images/action/zoomOut.png" rounded="true"/>
   </box>
 
-  <box type="2" x="750" y="241" height="100" width="300">
+  <box type="2" x="750" y="201" height="80" width="240">
     <action id="ExecMenu">
       <action id="Click" type="1"/>
     </action>
-    <style opacity="1" text="Click" fr-text="Cliquer" imagePath=":images/action/simpleClick.png" rounded="true"/>
+    <style fontSize="12" opacity="1" text="Click" fr-text="Cliquer" imagePath=":images/action/simpleClick.png" rounded="true"/>
   </box>
 
-  <box type="2" x="750" y="361" height="100" width="300">
+  <box type="2" x="750" y="301" height="80" width="240">
     <action id="ExecMenu">
       <action id="Click" type="4"/>
     </action>
-    <style opacity="1" text="Double click" fr-text="Double cliquer" imagePath=":images/action/doubleClick.png" rounded="true"/>
+    <style fontSize="12" opacity="1" text="Double click" fr-text="Double cliquer" imagePath=":images/action/doubleClick.png" rounded="true"/>
   </box>
   
-  <box type="2" x="750" y="481" height="100" width="300">
+  <box type="2" x="750" y="401" height="80" width="240">
     <action id="ExecMenu">
       <action id="PopMenu" MenuId="Keyboard"/>
     </action>
-    <style opacity="1" text="Keyboard" fr-text="Clavier" imagePath=":images/action/keyboard.png" rounded="true"/>
+    <style fontSize="12" opacity="1" text="Keyboard" fr-text="Clavier" imagePath=":images/action/keyboard.png" rounded="true"/>
   </box>
 
-  <box type="2" x="750" y="601" height="100" width="300">
+  <box type="2" x="750" y="501" height="80" width="240">
     <action id="ExecMenu">
       <action id="Read"/>
     </action>
-    <style opacity="1" text="Read" fr-text="Lire" imagePath=":images/action/read.png" rounded="true"/>
+    <style fontSize="12" opacity="1" text="Read" fr-text="Lire" imagePath=":images/action/read.png" rounded="true"/>
   </box>
 
-  <box type="2" x="750" y="721" height="100" width="300">
+  <box type="2" x="750" y="601" height="80" width="240">
     <action id="ExecMenu">
       <action id="Cancel"/>
     </action>
-    <style opacity="1" text="Back" fr-text="Retour" imagePath=":images/menu/cancel.png" rounded="true"/>
+    <style fontSize="12" opacity="1" text="Back" fr-text="Retour" imagePath=":images/menu/cancel.png" rounded="true"/>
   </box>
 
 
