@@ -7,7 +7,7 @@
     <action id="ExecMenu">
       <action id="ExecProcess" name="Firefox" time="5000"
 	      path="default_path"
-	      unix-path="/tmp/a.out"
+	      unix-path="firefox"
 	      win-path="C:\Program Files\Mozilla Firefox\firefox.exe"
 	      mac-path="unknown"
 	      />
