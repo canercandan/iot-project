@@ -19,14 +19,15 @@ from PyQt4 import QtGui, QtCore
 from PyQt4.QtCore import *
 
 from node import Node
+from builder import DefaultColors # const values
 
 class BoxStyle(Node, dict):
     def __init__(self):
         self['rounded'] = False
-        self['focusColor'] = 'yellow'
-        self['blurColor'] = 'black'
-        self['textColor'] = 'black'
-        self['opacity'] = 0.5
+        self['focusColor'] = DefaultColors.focus
+        self['blurColor'] = DefaultColors.blur
+        self['textColor'] = DefaultColors.text
+        self['opacity'] = str(0.5)
         self['text'] = ''
         self['imagePath'] = ''
 

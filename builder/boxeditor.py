@@ -93,7 +93,7 @@ class BoxEditor(QtGui.QDialog):
         boxstyle['focusColor'] = self.focusColor
         boxstyle['blurColor'] = self.blurColor
         boxstyle['textColor'] = self.textColor
-        boxstyle['opacity'] = float(self.ui.opacitySlider.value() / 100.)
+        boxstyle['opacity'] = str(self.ui.opacitySlider.value() / 100.)
         boxstyle['text'] = self.ui.textLineEdit.text()
         boxstyle['imagePath'] = self.ui.pixLineEdit.text()
         return boxstyle
