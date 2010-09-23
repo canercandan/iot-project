@@ -5,7 +5,10 @@ from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 from PyQt4.QtXml import *
 
-def generate_keyboard(topLeft_x, topLeft_y, bottomRight_x, bottomRight_y, filename = "keyboard.xml", nb_col = 10, nb_line = 5, my_keymap = "AZERTYUIOPQSDFGHJKLMWXCVBN .?!0123456789@()[]{}:;,", decal = 8):
+#KEYMAP = "AZERTYUIOPQSDFGHJKLMWXCVBN .?!0123456789@()[]{}:;,"
+KEYMAP = "AZERTYUIOPQSDFGHJKLMWXCVBN 0123456789"
+
+def generate_keyboard(topLeft_x, topLeft_y, bottomRight_x, bottomRight_y, filename = "keyboard.xml", nb_col = 10, nb_line = 5, my_keymap = KEYMAP, decal = 8):
     """i generate keyboards with a lot of options !"""
     print """
     ***************
