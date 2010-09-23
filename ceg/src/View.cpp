@@ -37,7 +37,7 @@
 View::View(MainController & lm, Systray & systray)
     : _mainC(lm)
 {
-    this->setWindowOpacity(0.5);
+    //this->setWindowOpacity(0.5);
     this->setWindowIcon(QIcon(":/images/systray-transparent-32x32.png"));
 
     QObject::connect(this, SIGNAL(actionEmitted(IAction&)),&lm, SLOT(on_action_emitted(IAction&)));
@@ -52,11 +52,12 @@ void	View::initialize()
     this->setScene(as);
     this->setGeometry(as->getGeometry());
     this->setCacheMode(QGraphicsView::CacheNone);
+	this->setStyleSheet("background: transparent");
 
     // FramelessWindowHint : retire les bordures de la widget
     // WindowStaysOnTopHint : la fenetre reste au top niveau
     this->setWindowFlags(Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint);
-    //this->setAttribute(Qt::WA_TranslucentBackground);
+    this->setAttribute(Qt::WA_TranslucentBackground);
     //-----------------------------------------------------------------------------
 
     this->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
@@ -70,7 +71,7 @@ void	View::initialize()
     this->setInteractive(false);
 
     this->activateWindow();
-    this->setAlignment(Qt::AlignLeft | Qt::AlignTop);
+    //this->setAlignment(Qt::AlignLeft | Qt::AlignTop);
 }
 
 void	View::keyPressEvent(QKeyEvent* keyEvent)

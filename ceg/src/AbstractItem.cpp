@@ -35,7 +35,7 @@ AbstractItem::AbstractItem(Box const * box, QGraphicsItem * parent) :
 	QGraphicsRectItem(box->getGeometry().x(), box->getGeometry().y(), box->getGeometry().width(), box->getGeometry().height(), parent),
 	_color(box->getGraphicStyle().getBlurColor()), _model(box)
 {
-    this->setFlag(QGraphicsItem::ItemIsFocusable);
+    this->setFlags(QGraphicsItem::ItemIsFocusable);
 }
 
 /************************************************* [ GETTERS ] *************************************************/
