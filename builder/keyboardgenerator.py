@@ -41,10 +41,10 @@ def generate_keyboard(topLeft_x, topLeft_y, bottomRight_x, bottomRight_y, filena
         my_file.write("\t" + '</box>' + "\n")
         col += 1
 
-    x = topLeft_x + col * caseSizex
-    y = topLeft_y + line * caseSizey
     col = nb_col // 2
     line += 1
+    x = topLeft_x + col * caseSizex
+    y = topLeft_y + line * caseSizey
 
     my_file.write("\t" + '<box type="2" x="' + str(x) + '" y="' + str(y) + '" height="' + str(caseSizey - decal) + '" width="' + str(caseSizex - decal) + '">' + "\n")
     my_file.write("\t" + "\t" + '<action id="ExecMenu">' + "\n")

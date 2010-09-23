@@ -247,7 +247,7 @@
 		</action>
 	<style opacity="1" rounded="true" text="9"/>
 	</box>
-	<box type="2" x="64" y="252" height="55" width="56">
+	<box type="2" x="320" y="315" height="55" width="56">
 		<action id="ExecMenu">
 			<action id="Cancel"/>
 		</action>
