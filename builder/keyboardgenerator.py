@@ -21,8 +21,8 @@ def generate_keyboard(topLeft_x, topLeft_y, bottomRight_x, bottomRight_y, filena
     caseSizey = sizey // nb_line
     col = 0
     line = 0
-    x = topLeft_x + col * caseSizex
-    y = topLeft_y + line * caseSizey
+    x = 0
+    y = 0
     for c in my_keymap:
         if col >= nb_col:
             col = 0
@@ -30,6 +30,8 @@ def generate_keyboard(topLeft_x, topLeft_y, bottomRight_x, bottomRight_y, filena
         if line >= nb_line:
             print "keymap too big"
             return
+        x = topLeft_x + col * caseSizex
+        y = topLeft_y + line * caseSizey
 
         my_file.write("\t" + '<box type="2" x="' + str(x) + '" y="' + str(y) + '" height="' + str(caseSizey) + '" width="' + str(caseSizex) + '">' + "\n")
         my_file.write("\t" + "\t" + '<action id="ExecMenu">' + "\n")
