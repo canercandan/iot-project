@@ -165,68 +165,86 @@
 	</box>
 	<box type="2" x="448" y="126" height="55" width="56">
 		<action id="ExecMenu">
+			<action id="Keyboard" press="." />
+		</action>
+	<style opacity="1" rounded="true" text="."/>
+	</box>
+	<box type="2" x="512" y="126" height="55" width="56">
+		<action id="ExecMenu">
+			<action id="Keyboard" press="," />
+		</action>
+	<style opacity="1" rounded="true" text=","/>
+	</box>
+	<box type="2" x="576" y="126" height="55" width="56">
+		<action id="ExecMenu">
+			<action id="Keyboard" press="@" />
+		</action>
+	<style opacity="1" rounded="true" text="@"/>
+	</box>
+	<box type="2" x="0" y="189" height="55" width="56">
+		<action id="ExecMenu">
 			<action id="Keyboard" press="0" />
 		</action>
 	<style opacity="1" rounded="true" text="0"/>
 	</box>
-	<box type="2" x="512" y="126" height="55" width="56">
+	<box type="2" x="64" y="189" height="55" width="56">
 		<action id="ExecMenu">
 			<action id="Keyboard" press="1" />
 		</action>
 	<style opacity="1" rounded="true" text="1"/>
 	</box>
-	<box type="2" x="576" y="126" height="55" width="56">
+	<box type="2" x="128" y="189" height="55" width="56">
 		<action id="ExecMenu">
 			<action id="Keyboard" press="2" />
 		</action>
 	<style opacity="1" rounded="true" text="2"/>
 	</box>
-	<box type="2" x="0" y="189" height="55" width="56">
+	<box type="2" x="192" y="189" height="55" width="56">
 		<action id="ExecMenu">
 			<action id="Keyboard" press="3" />
 		</action>
 	<style opacity="1" rounded="true" text="3"/>
 	</box>
-	<box type="2" x="64" y="189" height="55" width="56">
+	<box type="2" x="256" y="189" height="55" width="56">
 		<action id="ExecMenu">
 			<action id="Keyboard" press="4" />
 		</action>
 	<style opacity="1" rounded="true" text="4"/>
 	</box>
-	<box type="2" x="128" y="189" height="55" width="56">
+	<box type="2" x="320" y="189" height="55" width="56">
 		<action id="ExecMenu">
 			<action id="Keyboard" press="5" />
 		</action>
 	<style opacity="1" rounded="true" text="5"/>
 	</box>
-	<box type="2" x="192" y="189" height="55" width="56">
+	<box type="2" x="384" y="189" height="55" width="56">
 		<action id="ExecMenu">
 			<action id="Keyboard" press="6" />
 		</action>
 	<style opacity="1" rounded="true" text="6"/>
 	</box>
-	<box type="2" x="256" y="189" height="55" width="56">
+	<box type="2" x="448" y="189" height="55" width="56">
 		<action id="ExecMenu">
 			<action id="Keyboard" press="7" />
 		</action>
 	<style opacity="1" rounded="true" text="7"/>
 	</box>
-	<box type="2" x="320" y="189" height="55" width="56">
+	<box type="2" x="512" y="189" height="55" width="56">
 		<action id="ExecMenu">
 			<action id="Keyboard" press="8" />
 		</action>
 	<style opacity="1" rounded="true" text="8"/>
 	</box>
-	<box type="2" x="384" y="189" height="55" width="56">
+	<box type="2" x="576" y="189" height="55" width="56">
 		<action id="ExecMenu">
 			<action id="Keyboard" press="9" />
 		</action>
 	<style opacity="1" rounded="true" text="9"/>
 	</box>
-	<box type="2" x="320" y="252" height="55" width="56">
+	<box type="2" x="200" y="252" height="80" width="250">
 		<action id="ExecMenu">
 			<action id="Cancel"/>
 		</action>
-	<style opacity="1" text=" " fr-text=" " imagePath=":images/menu/cancel.png" rounded="true"/>
+		<style opacity="1" text="Back" fr-text="Retour" imagePath=":images/menu/cancel.png" rounded="true"/>
 	</box>
 </menu>
