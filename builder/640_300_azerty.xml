@@ -295,6 +295,12 @@
 		</action>
 	<style opacity="1" rounded="true" text=";"/>
 	</box>
+	<box type="2" x="576" y="252" height="55" width="56">
+		<action id="ExecMenu">
+			<action id="Keyboard" press="," />
+		</action>
+	<style opacity="1" rounded="true" text=","/>
+	</box>
 	<box type="2" x="320" y="315" height="55" width="56">
 		<action id="ExecMenu">
 			<action id="Cancel"/>
