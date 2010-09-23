@@ -82,31 +82,6 @@ class BuilderWidget(QtGui.QMainWindow):
         self.rootView = View(None)
         self.currentView = self.rootView
         self.views = [self.rootView]
-        #self.keyboardTest(QPoint(0, 0), QPoint(400, 100))
-
-    def keyboardTest(self, topLeft, bottomRight):
-        my_keymap = "AZERTYUIOPQSDFGHJKLMWXCVBN 0123456789"
-        nb_col = 10
-        nb_line = 4
-        sizex = bottomRight.x() - topLeft.x()
-        sizey = bottomRight.y() - topLeft.y()
-        caseSizex = sizex // nb_col
-        caseSizey = sizey // nb_line
-        col = 0
-        line = 0
-        for c in my_keymap:
-            if col >= nb_col:
-                col = 0
-                line += 1
-            if line >= nb_line:
-                print 'keymap too big'
-                return
-
-            tmpx = QPoint(topLeft.x() + col * caseSizex, topLeft.y() + line * caseSizey)
-            tmpy = QPoint(topLeft.x() + (col + 1) * caseSizex, topLeft.y() + (line + 1) * caseSizey)
-            tmpBox = self.createRegularBox(tmpx, tmpy)
-            col += 1
-            self.repaint()
 
     def createRegularBox(self, topLeft, bottomRight):
         box = Box(self)
@@ -202,7 +177,7 @@ class BuilderWidget(QtGui.QMainWindow):
         self.repaint()
 
     def saveFile(self):
-        if not self.cur0rentView.boxes and self.currentView == self.rootView:
+        if not self.currentView.boxes and self.currentView == self.rootView:
             QMessageBox.information(self, 'IotBuilder', QObject.tr(self, 'Nothing to save'))
             return
 
@@ -341,7 +316,10 @@ class BuilderWidget(QtGui.QMainWindow):
             elif keyEvent.key() == QtCore.Qt.Key_Delete:
                 self.deleteCurrentBoxBox()
             elif keyEvent.key() == QtCore.Qt.Key_Enter or keyEvent.key() == QtCore.Qt.Key_Return:
-                self.zoomIn()
+                if self.mode == Mode.selection:
+                    self.editBox()
+                else:
+                    self.zoomIn()
         elif keyEvent.key() == QtCore.Qt.Key_Backspace:
             self.zoomOut()
         self.repaint()
@@ -457,6 +435,8 @@ class BuilderWidget(QtGui.QMainWindow):
     def mouseDoubleClickEvent(self, mouseEvent):
         if self.mode == Mode.selection:
             self.editBox()
+        else:
+            self.zoomIn()
 
     def mouseReleaseEvent(self, mouseEvent):
         if mouseEvent.button() == QtCore.Qt.LeftButton:
