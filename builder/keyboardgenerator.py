@@ -41,6 +41,8 @@ def generate_keyboard(topLeft_x, topLeft_y, bottomRight_x, bottomRight_y, filena
         my_file.write("\t" + '</box>' + "\n")
         col += 1
 
+    x = topLeft_x + col * caseSizex
+    y = topLeft_y + line * caseSizey
     if col >= nb_col:
         col = 0
         line += 1
