@@ -5,7 +5,7 @@ from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 from PyQt4.QtXml import *
 
-def generate_keyboard(topLeft_x, topLeft_y, bottomRight_x, bottomRight_y, filename = "keyboard.xml", nb_col = 10, nb_line = 4, my_keymap = "AZERTYUIOPQSDFGHJKLMWXCVBN 0123456789"):
+def generate_keyboard(topLeft_x, topLeft_y, bottomRight_x, bottomRight_y, filename = "keyboard.xml", nb_col = 10, nb_line = 4, my_keymap = "AZERTYUIOPQSDFGHJKLMWXCVBN 0123456789", decal = 5):
     """i generate keyboards with a lot of options !"""
     print """
     ***************
@@ -33,7 +33,7 @@ def generate_keyboard(topLeft_x, topLeft_y, bottomRight_x, bottomRight_y, filena
         x = topLeft_x + col * caseSizex
         y = topLeft_y + line * caseSizey
 
-        my_file.write("\t" + '<box type="2" x="' + str(x) + '" y="' + str(y) + '" height="' + str(caseSizey - 1) + '" width="' + str(caseSizex - 1) + '">' + "\n")
+        my_file.write("\t" + '<box type="2" x="' + str(x) + '" y="' + str(y) + '" height="' + str(caseSizey - decal) + '" width="' + str(caseSizex - decal) + '">' + "\n")
         my_file.write("\t" + "\t" + '<action id="ExecMenu">' + "\n")
         my_file.write("\t" + "\t" + "\t" + '<action id="Keyboard" press="' + c + '" />' + "\n")
         my_file.write("\t" + "\t" + '</action>' + "\n")
@@ -49,7 +49,7 @@ def generate_keyboard(topLeft_x, topLeft_y, bottomRight_x, bottomRight_y, filena
     if line >= nb_line:
         print "keymap too big"
         return
-    my_file.write("\t" + '<box type="2" x="' + str(x) + '" y="' + str(y) + '" height="' + str(caseSizey - 1) + '" width="' + str(caseSizex - 1) + '">' + "\n")
+    my_file.write("\t" + '<box type="2" x="' + str(x) + '" y="' + str(y) + '" height="' + str(caseSizey - decal) + '" width="' + str(caseSizex - decal) + '">' + "\n")
     my_file.write("\t" + "\t" + '<action id="ExecMenu">' + "\n")
     my_file.write("\t" + "\t" + "\t" + '<action id="Cancel"/>' + "\n")
     my_file.write("\t" + "\t" + '</action>' + "\n")
