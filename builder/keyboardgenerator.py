@@ -34,6 +34,7 @@ def generate_keyboard(topLeft_x, topLeft_y, bottomRight_x, bottomRight_y, filena
         my_file.write("\t" + "\t" + '<action id="ExecMenu">' + "\n")
         my_file.write("\t" + "\t" + "\t" + '<action id="Keyboard" press="' + c + '" />' + "\n")
         my_file.write("\t" + "\t" + '</action>' + "\n")
+        my_file.write("\t" + '<style opacity="1" text="' + c + '"/>"')
         my_file.write("\t" + '</box>' + "\n")
         col += 1
 
@@ -41,4 +42,4 @@ def generate_keyboard(topLeft_x, topLeft_y, bottomRight_x, bottomRight_y, filena
     my_file.close()
 
 
-generate_keyboard(0, 0, 400, 100)
+generate_keyboard(0, 0, 640, 300, "640_300_azerty.xml")
