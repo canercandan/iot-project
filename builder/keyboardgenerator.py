@@ -53,7 +53,7 @@ def generate_keyboard(topLeft_x, topLeft_y, bottomRight_x, bottomRight_y, filena
     my_file.write("\t" + "\t" + '<action id="ExecMenu">' + "\n")
     my_file.write("\t" + "\t" + "\t" + '<action id="Cancel"/>' + "\n")
     my_file.write("\t" + "\t" + '</action>' + "\n")
-    my_file.write("\t" + '<style opacity="1" text="Back" fr-text="Retour" imagePath=":images/menu/cancel.png" rounded="true"/>' + "\n" + "\t" + '</box>' + "\n")
+    my_file.write("\t" + '<style opacity="1" text="Back" fr-text="" imagePath=":images/menu/cancel.png" rounded="false"/>' + "\n" + "\t" + '</box>' + "\n")
 
     my_file.write('</menu>' + "\n")
     my_file.close()
