@@ -13,6 +13,7 @@ def generate_keyboard(topLeft_x, topLeft_y, bottomRight_x, bottomRight_y, filena
     ***************
     """
     my_file = open(filename, 'w+')
+    my_file.write('<?xml version="1.0" encoding="utf-8"?>' + "\n" + '<!DOCTYPE XmlBox>' + "\n")
     my_file.write('<menu id="Keyboard">' + "\n")
     sizex = bottomRight_x - topLeft_x
     sizey = bottomRight_y - topLeft_y
@@ -34,7 +35,7 @@ def generate_keyboard(topLeft_x, topLeft_y, bottomRight_x, bottomRight_y, filena
         my_file.write("\t" + "\t" + '<action id="ExecMenu">' + "\n")
         my_file.write("\t" + "\t" + "\t" + '<action id="Keyboard" press="' + c + '" />' + "\n")
         my_file.write("\t" + "\t" + '</action>' + "\n")
-        my_file.write("\t" + '<style opacity="1" text="' + c + '"/>"')
+        my_file.write("\t" + '<style opacity="1" text="' + c + '"/>"' + "\n")
         my_file.write("\t" + '</box>' + "\n")
         col += 1
 
