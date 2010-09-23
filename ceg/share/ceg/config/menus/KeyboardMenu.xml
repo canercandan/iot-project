@@ -301,7 +301,7 @@
 		</action>
 	<style opacity="1" rounded="true" text=","/>
 	</box>
-
+zerrtyn6789
 	<box type="2" x="200" y="315" height="80" width="250">
 		<action id="ExecMenu">
 			<action id="Cancel"/>
