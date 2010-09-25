@@ -17,7 +17,6 @@
   </xs:group>
 
   <xs:group name="style">
-    <xs:attribute name="visible" type="xs:boolean" default="true"/>
     <xs:attribute name="opacity" type="xs:nonNegativeInteger" maxLength="100" default="0"/>
     <xs:attribute name="imagePath" type="xs:anyURI"/>
     <xs:attribute name="text" type="xs:string"/>

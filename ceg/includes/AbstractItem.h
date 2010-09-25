@@ -24,6 +24,7 @@
 #include <QGraphicsRectItem>
 
 class Box;
+class BoxStyle;
 class IAction;
 
 /**
@@ -45,6 +46,8 @@ protected:
     virtual void	focusInEvent(QFocusEvent * event);
     virtual void	focusOutEvent(QFocusEvent * event);
     virtual void	paint(QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget = 0);
+    void                paintText(QPainter * painter, BoxStyle const & style);
+    void                paintImage(QPainter * painter, BoxStyle const & style);
 
 protected:
     QString _color;

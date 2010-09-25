@@ -1,25 +1,32 @@
 ------------------------------------------------------ ? ----------------------------------------------------------------------
-- Choix de mettre le menu vraiment opaque!
-- Faire le mode switch (voir si le set de focus sur une fenetre est possible)
 - Faire des test sur kde et d'autres environement graphique
-- traduction des xml pour les menus
 
 -------------------------------------------------- Reminder chris --------------------------------------------------------------------------
-- delete tous les qDebug()
 - Metre l'etat de la connexion dans le tray icone (disconnected || connected || error)
 - rajouter deux slots en public :  on_start_navigation et on_stop_navigation
 - renommer CEgTcpServer en NetworkServer et le nom de fichier aussi
 - maj Doxygen
 
--------------------------------------------------- Reminder Yann --------------------------------------------------------------------------
-- check des includes dans les cpp
-
 -------------------------------------------------- Reminder Caner --------------------------------------------------------------------------
 - faire les xsd - QtValidator
-- rendre le code plus propre dans la methode paint de abstractitem
+- rajouter un controle sur la resolution et charge uniquement les bons fichiers
 - voir avec yavuz, si le nb de square ne gene pas pour le recalcule en mode par defaut
 
 -------------------------------------------------- Reminder Yavuz --------------------------------------------------------------------------
 - Finir de faire des menus propres ! rajouter des couleurs pour le fond par exemple
 - Terminer le communication avec le serveur Graphique sur Windows
 - Finir le menu clavier
+
+-------------------------------------------------- Reminder Tug --------------------------------------------------------------------------
+- Pouvoir donner le focus sur a une fenetre
+
+-------------------------------------------------- Reminder Yann --------------------------------------------------------------------------
+- Rajouter ce qu'il faut pour le mode switch, une fois que tug aura reussi a donner le focus a notre fenetre
+
+
+
+
+
+BUGS:
+
+lorsqu'on effectue un evenement clavier sur linux, il arrive de perdre le focus

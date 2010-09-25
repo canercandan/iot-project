@@ -19,22 +19,16 @@
  */
 
 /*********************************/
+#include <QTextStream> // Mis en premier a cause des problemes de includes sur Linux
+/*********************************/
 #include <climits>
-#include <cstdio> /* pour le debug seulement */
-#include <cstring> /* used for memset in generateEventClick */
+#include <cstring>
+#include <X11/keysymdef.h>
+#include <X11/Xlib.h>
+#include <X11/extensions/XTest.h>
 /*********************************/
 #include <QRect>
 #include <QString>
-#include <QTextStream>
-/*********************************/
-#include <X11/extensions/XTest.h>
-#define XK_LATIN1
-#define XK_MISCELLANY
-#define XK_XKB_KEYS
-#include <X11/keysymdef.h>
-#include <X11/Xlib.h>
-#include <stdio.h>
-#include <stdlib.h>
 /*********************************/
 #include "XWindowSystem.h"
 /*********************************/

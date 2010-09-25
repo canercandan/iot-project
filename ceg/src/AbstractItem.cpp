@@ -63,46 +63,62 @@ void AbstractItem::focusOutEvent(QFocusEvent *)
     this->_color = this->_model->getGraphicStyle().getBlurColor();
     this->update();
 }
-#include <QDebug>
+
 void AbstractItem::paint(QPainter * painter, const QStyleOptionGraphicsItem *, QWidget *)
 {
-    BoxStyle const & style = _model->getGraphicStyle();
-	painter->setOpacity(style.getOpacity());
+    BoxStyle const & style = this->_model->getGraphicStyle();
+    painter->setOpacity(style.getOpacity());
     painter->setBrush(QBrush(QColor(this->_color)));
-    //painter->drawRect(this->rect());
+
     if (style.isRounded())
-        painter->drawRoundedRect(this->rect(), 15, 15);
-    else
-        painter->drawRect(this->rect());
-    qDebug() << "Draw rect = " << this->rect() << " - " << this->_model->getGeometry();
-    QString const & text = style.getText();
-    if (! text.isEmpty()) // ici
     {
-	QString const & textFont = style.getTextFont();
+        painter->drawRoundedRect(this->rect(), 15, 15);
+    }
+    else
+    {
+        painter->drawRect(this->rect());
+    }
 
-	if (textFont.isEmpty() == false)
-	{
-	    painter->setFont(QFont(textFont, style.getTextFontSize()));
-	}
 
-	QString const & textColor = style.getTextColor();
-	if (textColor.isEmpty() == false)
-	{
-	    painter->setPen(textColor);
-	}
+    if (style.getImagePath().isEmpty() == false)
+    {
+        this->paintImage(painter, style);
+    }
+    if (style.getText().isEmpty() == false)
+    {
+        this->paintText(painter, style);
+    }
+}
 
-        QString const & imagePath  = style.getImagePath();
-        if (imagePath.isEmpty() == false)
-        {
-            QPixmap pixmap(imagePath);
-            QRectF dest(this->rect().x(), this->rect().y(), pixmap.width(), pixmap.height());
-            dest.moveCenter(this->rect().center());
-            painter->drawPixmap(dest, pixmap, pixmap.rect());
-            painter->drawText(this->rect(), Qt::AlignBottom|Qt::AlignCenter, text);
-        }
-	else
-	{
-            painter->drawText(this->rect(), Qt::AlignCenter, text);
-	}
-  }
+void AbstractItem::paintText(QPainter *painter, BoxStyle const & style)
+{
+    QString const & textFont = style.getTextFont();
+    if (textFont.isEmpty() == false)
+    {
+        painter->setFont(QFont(textFont, style.getTextFontSize()));
+    }
+
+    QString const & textColor = style.getTextColor();
+    if (textColor.isEmpty() == false)
+    {
+        painter->setPen(textColor);
+    }
+
+    QString const & text = style.getText();
+    if (style.getImagePath().isEmpty() == false) // Dans le cas ou il y a une image on ecrit le texte au milieu en dessous de l'image
+    {
+        painter->drawText(this->rect(), Qt::AlignBottom|Qt::AlignCenter, text);
+    }
+    else // Sinon au centre du carre
+    {
+        painter->drawText(this->rect(), Qt::AlignCenter, text);
+    }
+}
+
+void AbstractItem::paintImage(QPainter *painter, BoxStyle const & style)
+{
+    QPixmap pixmap(style.getImagePath());
+    QRectF dest(this->rect().x(), this->rect().y(), pixmap.width(), pixmap.height());
+    dest.moveCenter(this->rect().center());
+    painter->drawPixmap(dest, pixmap, pixmap.rect());
 }

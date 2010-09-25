@@ -73,17 +73,17 @@ void	KeyboardAction::exec(MainController & mainC)
 
     mainC.getView().hide(); // On cache la vue pour cliquer sur le programme et non pas notre application
     ICommunicationGraphicalServer * comGs = mainC.getComGs();
-    //comGs->generateClickEvent(LeftClick); // On genere un click pour donner le focus a la zone dans laquelle on souhaite ecrire
+    comGs->generateClickEvent(LeftClick); // On genere un click pour donner le focus a la zone dans laquelle on souhaite ecrire
     for (int i = 0, sizeString = this->_keys.size(); i < sizeString; ++i) // On genere toutes les touches clavier
     {
         comGs->generateKeybdEvent(this->_keys.at(i).toAscii());
     }
     mainC.getView().show(); // On reaffiche le ceg
     QRect const & geometry = mainC.getCurrentScene()->getCurrentItem()->getBox()->getGeometry();
- //   QCursor::setPos(geometry.center());
+    QCursor::setPos(geometry.center());
     qDebug() << "Click generer " << geometry.center() << "- Nom de la scene courante = " << mainC.getCurrentScene()->getId();
     qDebug() << "ATTEENNTION : " << "pos = " << mainC.getCurrentScene()->getCurrentItem()->pos() << " scene pos" << mainC.getCurrentScene()->getCurrentItem()->scenePos()<< " bounding scene pos" << mainC.getCurrentScene()->getCurrentItem()->sceneBoundingRect();
-  //  comGs->generateClickEvent(LeftClick); // On genere un click pour etre sure de redonner le focus au ceg, car il arrive de temps que l'on perde le focus lorsqu'on tape une touche
+    //  comGs->generateClickEvent(LeftClick); // On genere un click pour etre sure de redonner le focus au ceg, car il arrive de temps que l'on perde le focus lorsqu'on tape une touche
 }
 
 /************************************************* [ OTHERS ] *************************************************/
