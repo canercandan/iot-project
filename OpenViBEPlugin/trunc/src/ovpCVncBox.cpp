@@ -9,24 +9,24 @@ using namespace OpenViBEToolkit;
 
 void	CVncBox::release(void)
 {
-  this->_socket->release();
+  //  this->_socket->release();
   delete this;
 }
 
 OpenViBE::boolean CVncBox::initialize(void)
 {
-  IBox& l_rStaticBoxContext=this->getStaticBoxContext();
+  // IBox& l_rStaticBoxContext=this->getStaticBoxContext();
 
 
 
-  this->_socket = Socket::createConnectionClient();
-  this->_socket->connect(this->_hostName, this->_port);
+  // this->_socket = Socket::createConnectionClient();
+  // this->_socket->connect(this->_hostName, this->_port);
   return (true);
 }
 
 OpenViBE::boolean CVncBox::uninitialize(void)
 {
-  this->_socket->close();
+  // this->_socket->close();
   return (true);
 }
 

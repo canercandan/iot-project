@@ -1,4 +1,5 @@
 #include "ovpCVncBoxDesc.h"
+#include "ovpCVncBox.h"
 
 using namespace OpenViBE;
 using namespace OpenViBE::Plugins;
@@ -58,7 +59,7 @@ OpenViBE::CIdentifier		CVncBoxDesc::getCreatedClass(void) const
 
 OpenViBE::Plugins::IPluginObject* CVncBoxDesc::create(void)
 {
-  return (new OpenViBE::Plugins::VNC::CVncBox);
+  return (new VNC::CVncBox);
 }
 
 OpenViBE::boolean			CVncBoxDesc::getBoxPrototype(OpenViBE::Kernel::IBoxProto& rBoxAlgorithmPrototype) const
@@ -67,21 +68,21 @@ OpenViBE::boolean			CVncBoxDesc::getBoxPrototype(OpenViBE::Kernel::IBoxProto& rB
 
 
   rBoxAlgorithmPrototype.addSetting("Host", OV_TypeId_String, "localhost");
-  rBoxAlgorithmPrototype.addSetting("Port", OV_TypeId_Integer, 5900); // Mettre un define pour ca
+  rBoxAlgorithmPrototype.addSetting("Port", OV_TypeId_Integer, "5900"); // Mettre un define pour ca
 
   // rBoxAlgorithmPrototype.addSetting("Active Secure Connection", OV_TypeId_Boolean, false);
   // rBoxAlgorithmPrototype.addSetting("Username", OV_TypeId_String, "");
   // rBoxAlgorithmPrototype.addSetting("Password", OV_TypeId_String, "");
-  rBoxAlgorithmPrototype.addSetting("Mouse move distance", OV_TypeId_Integer, 1); // La distance pour faire bouger la souris
+  rBoxAlgorithmPrototype.addSetting("Mouse move distance", OV_TypeId_Integer, "1"); // La distance pour faire bouger la souris
   // si on fait le mouvement ds un fichier ou ds les settings direct
-  rBoxAlgorithmPrototype.addSetting("Move left mouse", OV_TypeId_Stimulations, 1);
-  rBoxAlgorithmPrototype.addSetting("Move right mouse", OV_TypeId_Stimulations, 1);
-  rBoxAlgorithmPrototype.addSetting("Move up mouse", OV_TypeId_Stimulations, 1);
-  rBoxAlgorithmPrototype.addSetting("Move down mouse", OV_TypeId_Stimulations, 1);
+  rBoxAlgorithmPrototype.addSetting("Move left mouse", OV_TypeId_Stimulations, "");
+  rBoxAlgorithmPrototype.addSetting("Move right mouse", OV_TypeId_Stimulations, "");
+  rBoxAlgorithmPrototype.addSetting("Move up mouse", OV_TypeId_Stimulations, "");
+  rBoxAlgorithmPrototype.addSetting("Move down mouse", OV_TypeId_Stimulations, "");
 
-  rBoxAlgorithmPrototype.addSetting("Left Button Mouse", OV_TypeId_Stimulations, 1);
-  rBoxAlgorithmPrototype.addSetting("Middle Button Mouse", OV_TypeId_Stimulations, 1);
-  rBoxAlgorithmPrototype.addSetting("Right Button Mouse", OV_TypeId_Stimulations, 1);
+  rBoxAlgorithmPrototype.addSetting("Left Button Mouse", OV_TypeId_Stimulations, "");
+  rBoxAlgorithmPrototype.addSetting("Middle Button Mouse", OV_TypeId_Stimulations, "");
+  rBoxAlgorithmPrototype.addSetting("Right Button Mouse", OV_TypeId_Stimulations, "");
 
   rBoxAlgorithmPrototype.addFlag(OpenViBE::Kernel::BoxFlag_IsUnstable);
   return (true);

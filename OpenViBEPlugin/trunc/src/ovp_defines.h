@@ -7,8 +7,8 @@
 //___________________________________________________________________//
 //                                                                   //
 
-#define OV_ClassId_VncBoxDesc                                        OpenViBE::CIdentifier(0x805B3D94, 0x8B8A8093)
-#define OV_ClassId_VncBox                                        OpenViBE::CIdentifier(0x19DA3A75, 0x266562CC)
+#define OVP_ClassId_VncBoxDesc                                        OpenViBE::CIdentifier(0x805B3D94, 0x8B8A8093)
+#define OVP_ClassId_VncBox                                        OpenViBE::CIdentifier(0x19DA3A75, 0x266562CC)
 
 //___________________________________________________________________//
 //                                                                   //
