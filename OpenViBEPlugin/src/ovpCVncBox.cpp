@@ -14,6 +14,11 @@ void	CVncBox::release(void)
 
 OpenViBE::boolean CVncBox::initialize(void)
 {
+IBox& l_rStaticBoxContext=this->getStaticBoxContext();
+
+        CString l_sActive;
+        l_rStaticBoxContext.getSettingValue(0, l_sActive);
+        m_bActive=this->getConfigurationManager().expandAsBoolean(l_sActive);
   return (true);
 }
 
