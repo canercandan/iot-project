@@ -7,9 +7,14 @@ using namespace OpenViBEPlugins;
 using namespace OpenViBEPlugins::VNC;
 using namespace OpenViBEToolkit;
 
+
+/*
+  Exemple pour le reseau ovpCGenericNetworkAcquisition.h
+  Exemple pour l output regarde le clavier virtuel
+*/
 void	CVncBox::release(void)
 {
-  //  this->_socket->release();
+  this->_socket->release(); // effectue le close
   delete this;
 }
 
@@ -19,14 +24,13 @@ OpenViBE::boolean CVncBox::initialize(void)
 
 
 
-  // this->_socket = Socket::createConnectionClient();
-  // this->_socket->connect(this->_hostName, this->_port);
+  this->_socket = Socket::createConnectionClient();
+  this->_socket->connect(this->_hostName, this->_port);
   return (true);
 }
 
 OpenViBE::boolean CVncBox::uninitialize(void)
 {
-  // this->_socket->close();
   return (true);
 }
 
@@ -37,5 +41,7 @@ OpenViBE::boolean CVncBox::processInput(OpenViBE::uint32 ui32InputIndex)
 
 OpenViBE::boolean CVncBox::process(void)
 {
+  if (this->_socket->isConnected() == false)
+    return (false);
   return (true);
 }

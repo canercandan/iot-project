@@ -4,6 +4,7 @@
 #include "ovp_defines.h"
 #include <openvibe/ov_all.h>
 #include <openvibe-toolkit/ovtk_all.h>
+#include <socket/IConnectionClient.h>
 
 namespace OpenViBEPlugins
 {
@@ -33,15 +34,15 @@ namespace OpenViBEPlugins
 
       private:
 	// Pour la box
-	/* OpenViBE::Kernel::TParameterHandler<OpenViBE::IMemoryBuffer*> ip_pMemoryBufferToDecode; */
+	OpenViBE::Kernel::TParameterHandler<OpenViBE::IMemoryBuffer*> ip_pMemoryBufferToDecode;
 
-	/* // Pour VNC */
-	/* // Reseau */
-	/* Socket::IConnectionClient * _socket; */
-	/* CString _hostName; */
-	/* Socket::uint32 _port; */
+	// Pour VNC
+	// Reseau
+	Socket::IConnectionClient * _socket;
+	OpenViBE::CString _hostName;
+	Socket::uint32 _port;
 
-	/* std::map<Action, OpenViBE::uint64> _actions; */
+	//std::map<Action, OpenViBE::uint64> _actions;
       };
   }
 }

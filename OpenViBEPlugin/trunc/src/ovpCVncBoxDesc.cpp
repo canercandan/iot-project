@@ -49,7 +49,7 @@ OpenViBE::CString			CVncBoxDesc::getVersion(void) const
 
 OpenViBE::CString			CVncBoxDesc::getStockItemName(void) const
 {
-  return (""); // http://library.gnome.org/devel/gtk/2.13/gtk-Stock-Items.html
+  return ("gtk-network"); // http://library.gnome.org/devel/gtk/2.13/gtk-Stock-Items.html
 }
 
 OpenViBE::CIdentifier		CVncBoxDesc::getCreatedClass(void) const
