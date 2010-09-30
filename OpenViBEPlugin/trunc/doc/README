@@ -1,0 +1,13 @@
+Template de base pour les plugins dispo dans $OPENVIBE_HOME/scripts/new-project-template.tar.bz2
+
+Merci de lire le fichier INSTALL pour savoir comment compiler et installer le plugin vnc
+
+Un scenario pour tester rapidement la box VNC est fourni dans share:
+
+Les regles de contributions pour les developpeurs sont cites sur cette page :
+http://openvibe.inria.fr/documentation/unstable/Doc_Install.html#Doc_ContributionRules
+
+Liste des stimulations :
+http://openvibe.inria.fr/documentation/unstable/Doc_Stimulations.html
+
+Enjoy
