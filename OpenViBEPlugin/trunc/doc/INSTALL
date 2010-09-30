@@ -1,0 +1,12 @@
+Rajouter le projet dans $OPENVIBE_HOME/openvibe-plugins
+Pour compiler il faut rajoute une ligne dans la partie #PLUGINS dans le fichier $OPENVIBE_HOME/scripts/plateforme-init_env_command
+OpenViBE_plugin_vnc_branch=
+
+Creer un fichier ~/.openviberc
+Rajouter la ligne suivante dedans : Designer_ShowUnstable=True
+
+Compilation :
+sh $OPENVIBE_HOME/scripts/plateforme-build
+
+Lancement :
+sh $OPENVIBE_HOME/scripts/linux-test

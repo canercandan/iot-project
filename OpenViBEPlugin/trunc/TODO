@@ -5,6 +5,3 @@ Yann:
 Integration dans openvibe + reseau
 
 Pour compiler:
-Rajouter le projet dans $OPENVIBE_HOME/openvibe-plugins
-Pour compiler il faut rajoute une ligne dans la partie #PLUGINS dans le fichier $OPENVIBE_HOME/scripts/plateforme-init_env_command
-OpenViBE_plugin_vnc_branch=
