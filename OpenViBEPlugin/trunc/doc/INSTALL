@@ -1,11 +1,52 @@
+apt-get install tsocks
+--------------- emacs etc/tsocks.conf:
+server = 10.40.42.61
+# Server type defaults to 4 so we need to specify it as 5 for this one
+
+server_type = 5
+# The port defaults to 1080 but I've stated it here for clarity
+
+server_port = 1080
+default_user = login_l
+default_pass = pass
+----------------------------------
+
+tsocks svn checkout svn://scm.gforge.inria.fr/svn/openvibe/trunk OpenViBE
+apt-get install automake libtool libxaw7-dev cmake libitpp-dev doxygen
+
+Entrez dans le dossier $OPENVIBE_HOME/scripts/linux-install_dependencies
+(A LA FIN DU FICHIER)
+Decommentez:
+ov_install_package "readline"
+ov_install_package "ncurses"
+ov_install_package "lua"
+ov_install_package "swig"
+ov_install_package "vrpn"
+ov_install_package "obt"
+Commentez:
+#ov_install_package "cmake"
+#ov_install_package "pkgconfig"
+
+Toujours dans le dossier $OPENVIBE_HOME/scripts/:
+cp linux-init_env_command-skeleton linux-init_env_command
+
+
 Rajouter le projet dans $OPENVIBE_HOME/openvibe-plugins
+cp -r $IOT_HOME/trunk/OpenViBEPlugin $OPENVIBE_HOME/openvibe-plugins/vnc
+
 Pour compiler il faut rajoute une ligne dans la partie #PLUGINS dans le fichier $OPENVIBE_HOME/scripts/plateforme-init_env_command
 OpenViBE_plugin_vnc_branch=
+et
+ajouter dans "export OpenViBE_build_order"
+au dessus des plugins la ligne suivante:
+$OpenViBE_plugin_vnc
+
 
 Creer un fichier ~/.openviberc
 Rajouter la ligne suivante dedans : Designer_ShowUnstable=True
 
 Compilation :
+sh $OPENVIBE_HOME/scripts/plateforme-init_env_command
 sh $OPENVIBE_HOME/scripts/plateforme-build
 
 Lancement :
