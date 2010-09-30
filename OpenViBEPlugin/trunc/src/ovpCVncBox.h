@@ -6,6 +6,12 @@
 #include <openvibe-toolkit/ovtk_all.h>
 #include <socket/IConnectionClient.h>
 
+/*
+  Rajouter la boucle ds process
+  Rajouter la map Action, Label
+  Rajouter la methode String to Type
+*/
+
 namespace OpenViBEPlugins
 {
   namespace VNC
@@ -33,9 +39,6 @@ namespace OpenViBEPlugins
 	_IsDerivedFromClass_Final_(OpenViBEToolkit::TBoxAlgorithm < OpenViBE::Plugins::IBoxAlgorithm >, OVP_ClassId_VncBox);
 
       private:
-	// Pour la box
-	OpenViBE::Kernel::TParameterHandler<OpenViBE::IMemoryBuffer*> ip_pMemoryBufferToDecode;
-
 	// Pour VNC
 	Socket::IConnectionClient * _socket;
       };

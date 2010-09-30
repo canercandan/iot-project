@@ -1,3 +1,5 @@
+#include <cstdlib>
+
 #include "ovpCVncBox.h"
 
 using namespace OpenViBE;
@@ -23,8 +25,8 @@ OpenViBE::boolean CVncBox::initialize(void)
   const IBox* l_pStaticBoxContext = this->getBoxAlgorithmContext()->getStaticBoxContext();
 
   CString l_sServerHostPort, l_sServerHostName;
-  this->l_pStaticBoxContext->getSettingValue(0, l_sServerHostName);
-  this->l_pStaticBoxContext->getSettingValue(1, l_sServerHostPort);
+  l_pStaticBoxContext->getSettingValue(0, l_sServerHostName);
+  l_pStaticBoxContext->getSettingValue(1, l_sServerHostPort);
   this->_socket = Socket::createConnectionClient();
   this->_socket->connect(l_sServerHostName, atoi(l_sServerHostPort));
   return (this->_socket->isConnected());
@@ -37,7 +39,6 @@ OpenViBE::boolean CVncBox::uninitialize(void)
 
 OpenViBE::boolean CVncBox::processInput(OpenViBE::uint32 ui32InputIndex)
 {
-  std::cerr << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
   return (true);
 }
 
