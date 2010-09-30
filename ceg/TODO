@@ -22,7 +22,7 @@
 
 -------------------------------------------------- Reminder Yann --------------------------------------------------------------------------
 - Rajouter ce qu'il faut pour le mode switch, une fois que tug aura reussi a donner le focus a notre fenetre
-
+- Rajouter une methode getNavigationScene qui retourne la scene de navigation et l'utilise pour les menus
 
 
 
@@ -30,3 +30,4 @@
 BUGS:
 
 lorsqu'on effectue un evenement clavier sur linux, il arrive de perdre le focus
+-

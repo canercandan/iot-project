@@ -37,12 +37,7 @@ namespace OpenViBEPlugins
 	OpenViBE::Kernel::TParameterHandler<OpenViBE::IMemoryBuffer*> ip_pMemoryBufferToDecode;
 
 	// Pour VNC
-	// Reseau
 	Socket::IConnectionClient * _socket;
-	OpenViBE::CString _hostName;
-	Socket::uint32 _port;
-
-	//std::map<Action, OpenViBE::uint64> _actions;
       };
   }
 }

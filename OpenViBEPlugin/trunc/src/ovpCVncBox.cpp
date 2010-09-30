@@ -20,13 +20,14 @@ void	CVncBox::release(void)
 
 OpenViBE::boolean CVncBox::initialize(void)
 {
-  // IBox& l_rStaticBoxContext=this->getStaticBoxContext();
+  const IBox* l_pStaticBoxContext = this->getBoxAlgorithmContext()->getStaticBoxContext();
 
-
-
+  CString l_sServerHostPort, l_sServerHostName;
+  this->l_pStaticBoxContext->getSettingValue(0, l_sServerHostName);
+  this->l_pStaticBoxContext->getSettingValue(1, l_sServerHostPort);
   this->_socket = Socket::createConnectionClient();
-  this->_socket->connect(this->_hostName, this->_port);
-  return (true);
+  this->_socket->connect(l_sServerHostName, atoi(l_sServerHostPort));
+  return (this->_socket->isConnected());
 }
 
 OpenViBE::boolean CVncBox::uninitialize(void)
@@ -36,6 +37,7 @@ OpenViBE::boolean CVncBox::uninitialize(void)
 
 OpenViBE::boolean CVncBox::processInput(OpenViBE::uint32 ui32InputIndex)
 {
+  std::cerr << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
   return (true);
 }
 
