@@ -271,7 +271,7 @@ void		ProtocolServerVNC::parseMessage(QDataStream & data)
 void	ProtocolServerVNC::parse(QDataStream & data)
 {
     std::cout << "parse" << std::endl;
-    funcExecPtr f = 0;
+    funcParsePtr f = 0;
     if (this->_parsePtrMap.contains(this->_vncStep))
     {
         f = this->_parsePtrMap.value(this->_vncStep);
