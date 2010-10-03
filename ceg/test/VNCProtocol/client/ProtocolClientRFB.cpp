@@ -20,7 +20,7 @@
 
 #include "ProtocolClientRFB.h"
 
-std::string const ProtocolClientRFB::_VERSION = "RFB 003.008\n";
+char * const ProtocolClientRFB::_VERSION = "RFB 003.008\n";
 
 ProtocolClientRFB::ProtocolClientRFB():
         _execPtrMap(), _parsePtrMap(), _rfbStep(RFB_VERSION), _secuReason(),
@@ -61,7 +61,7 @@ void            ProtocolClientRFB::init()
 void		ProtocolClientRFB::execVersion()
 {
     std::cout << "execVersion" << std::endl;
-    this->_messageToSend = this->_VERSION.c_str();
+    this->_messageToSend = this->_VERSION;
     this->_rfbStep = RFB_SECULIST;
 }
 
@@ -89,9 +89,9 @@ void	ProtocolClientRFB::exec()
 {
     std::cout << "exec" << std::endl;
     funcExecPtr f = 0;
-    if (this->_execPtrMap.contains(this->_rfbStep))
+    if (this->_execPtrMap.find(this->_rfbStep) != this->_execPtrMap.end())
     {
-        f = this->_execPtrMap.value(this->_rfbStep);
+        f = this->_execPtrMap[this->_rfbStep];
             (this->*f)();
     }
 }
@@ -155,9 +155,9 @@ void	ProtocolClientRFB::parse(void * data)
 {
     std::cout << "parse" << std::endl;
     funcParsePtr f = 0;
-    if (this->_parsePtrMap.contains(this->_rfbStep))
+    if (this->_parsePtrMap.find(this->_rfbStep) != this->_parsePtrMap.end())
     {
-        f = this->_parsePtrMap.value(this->_rfbStep);
+        f = this->_parsePtrMap[this->_rfbStep];
             (this->*f)(data);
     }
 }

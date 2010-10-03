@@ -124,7 +124,7 @@ private:
   void		execMessage();
 
 private:
-  static std::string const		_VERSION;
+  static char * const           	_VERSION;
   std::map<RFBServerStep, funcExecPtr>	_execPtrMap;
   std::map<RFBServerStep, funcParsePtr>	_parsePtrMap;
   RFBServerStep				_rfbStep;
