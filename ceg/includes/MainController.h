@@ -54,7 +54,8 @@ public:
     AbstractScene*			getSceneAt(int position) const; // renvoie la scene a la posistion
     AbstractScene*			getScene(QString const & id) const; // renvoie la scene qui a l'id
     int                                 getIndexOfScene(AbstractScene * sceneSearch) const; // Retourne l'index dans la liste des scenes
-    int                                 getFirstOfType(BoxType type) const; // REtourne l'index du premier type chechez
+    int                                 getFirstOfType(BoxType type) const; // Retourne l'index du premier type chechez
+    AbstractScene*                      getFirstNavigationScene() const; // Retourne  la premiere scene de navigation : Custom ou default
     View &				getView();
 
     AbstractScene *			createScene(Ceg::Window const & window);

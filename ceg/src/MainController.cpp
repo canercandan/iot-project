@@ -105,6 +105,18 @@ AbstractScene * MainController::getSceneAt(int position) const
     return (0);
 }
 
+AbstractScene * MainController::getFirstNavigationScene() const
+{
+    for (QList<AbstractScene *>::const_iterator it = this->_scenes.begin(), itEnd = this->_scenes.end(); it != itEnd; ++it)
+    {
+        if (**it == DEFAULT_BOX || **it == CUSTOM_BOX)
+        {
+            return (*it);
+        }
+    }
+    return (0);
+}
+
 View &	MainController::getView()
 {
     return (this->_view);

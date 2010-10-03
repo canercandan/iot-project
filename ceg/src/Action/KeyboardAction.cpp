@@ -56,12 +56,8 @@ void KeyboardAction::initializeFromXml(const QDomElement & domElement)
 void	KeyboardAction::exec(MainController & mainC)
 {
   Logger::getInstance()->log(DEBUG_LOG, "KeyboardAction::exec");
-  /*
-    Explication pour la position, quand on est mode custom, l'action est lancee depuis la scene courante, dans le cas du
-    mode par defaut, les actions sont lancees depuis les menus et ce sont les menus qui sont en scene courante
-  */
-  size_t position = (mainC.getCurrentScene()->getType() == CUSTOM_BOX) ? 1 : 2;
-  AbstractScene * scene = mainC.getSceneAt(position);
+
+  AbstractScene * scene = mainC.getFirstNavigationScene();
   AbstractItem const * ai = scene->getCurrentItem();
   Box const *	ab = ai->getBox();
 
@@ -69,7 +65,6 @@ void	KeyboardAction::exec(MainController & mainC)
     return ;
 
   QCursor::setPos(ab->getGeometry().center());
-  qDebug() << "Geometry en " << ab->getGeometry().center();
 
   mainC.getView().hide(); // On cache la vue pour cliquer sur le programme et non pas notre application
   ICommunicationGraphicalServer * comGs = mainC.getComGs();
