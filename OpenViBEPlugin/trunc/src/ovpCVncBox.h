@@ -15,7 +15,7 @@ namespace OpenViBEPlugins
   {
     enum Action
     {
-      ACTION_MOUSEL, // Mouse Move Left
+      ACTION_MOUSEL = 0, // Mouse Move Left
       ACTION_MOUSER, // Mouse Move Right
       ACTION_MOUSEU, // Mouse Move Up
       ACTION_MOUSED, // Mouse Move Down
@@ -41,9 +41,13 @@ namespace OpenViBEPlugins
 	_IsDerivedFromClass_Final_(OpenViBEToolkit::TBoxAlgorithm<OpenViBE::Plugins::IBoxAlgorithm>, OVP_ClassId_VncBox);
 
       private:
-	Socket::IConnectionClient *	_socket;
-	std::map<Action, int>		_actionsMapping; // Mapping entre les labels recus et les actions a effectue
-	int				_mouveMoveDistance;
+	OpenViBE::Kernel::IAlgorithmProxy*					m_pStimulationDecoder; // Algorithme permettant de decoder le buffer input de la box
+	OpenViBE::Kernel::TParameterHandler<const OpenViBE::IMemoryBuffer*>	ip_pMemoryBuffer; // Buffer input
+	OpenViBE::Kernel::TParameterHandler<OpenViBE::IStimulationSet*>		op_pStimulationSet; // Output --> Buffer decoder par l'algorithme
+
+	Socket::IConnectionClient *			_socket;
+	std::map<Action, OpenViBE::uint64>		_actionsMapping; // Mapping entre les labels recus et les actions a effectue
+	int						_mouveMoveDistance;
       };
   }
 }

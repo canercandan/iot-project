@@ -75,15 +75,15 @@ OpenViBE::boolean			CVncBoxDesc::getBoxPrototype(OpenViBE::Kernel::IBoxProto& rB
   // rBoxAlgorithmPrototype.addSetting("Password", OV_TypeId_String, "");
   rBoxAlgorithmPrototype.addSetting("Mouse move distance", OV_TypeId_Integer, "1"); // La distance pour faire bouger la souris
 
-  rBoxAlgorithmPrototype.addSetting("Move left mouse", OV_TypeId_Stimulations, "769");
-  rBoxAlgorithmPrototype.addSetting("Move right mouse", OV_TypeId_Stimulations, "770");
-  rBoxAlgorithmPrototype.addSetting("Move up mouse", OV_TypeId_Stimulations, "771");
-  rBoxAlgorithmPrototype.addSetting("Move down mouse", OV_TypeId_Stimulations, "772");
-
-  rBoxAlgorithmPrototype.addSetting("Left Button Mouse", OV_TypeId_Stimulations, "773");
-  rBoxAlgorithmPrototype.addSetting("Middle Button Mouse", OV_TypeId_Stimulations, "774");
-  rBoxAlgorithmPrototype.addSetting("Right Button Mouse", OV_TypeId_Stimulations, "775");
-
+  rBoxAlgorithmPrototype.addSetting("Move left mouse", OV_TypeId_Stimulation, "OVTK_GDF_Left");
+  rBoxAlgorithmPrototype.addSetting("Move right mouse", OV_TypeId_Stimulation, "OVTK_GDF_Right");
+  rBoxAlgorithmPrototype.addSetting("Move up mouse", OV_TypeId_Stimulation, "OVTK_GDF_Up");
+  rBoxAlgorithmPrototype.addSetting("Move down mouse", OV_TypeId_Stimulation, "OVTK_GDF_Down");
+  rBoxAlgorithmPrototype.addSetting("Left Button Mouse", OV_TypeId_Stimulation, "OVTK_GDF_Foot");
+  rBoxAlgorithmPrototype.addSetting("Middle Button Mouse", OV_TypeId_Stimulation, "OVTK_GDF_Tongue");
+  rBoxAlgorithmPrototype.addSetting("Right Button Mouse", OV_TypeId_Stimulation, "OVTK_GDF_Flashing_Light");
+  rBoxAlgorithmPrototype.addSetting("Key 1", OV_TypeId_Stimulation, "OVTK_GDF_Eyes_Left");
+  rBoxAlgorithmPrototype.addSetting("Key 2", OV_TypeId_Stimulation, "OVTK_GDF_Eyes_Right");
   rBoxAlgorithmPrototype.addFlag(OpenViBE::Kernel::BoxFlag_IsUnstable);
   return (true);
 }

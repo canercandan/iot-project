@@ -50,4 +50,8 @@ sh $OPENVIBE_HOME/scripts/plateforme-init_env_command
 sh $OPENVIBE_HOME/scripts/plateforme-build
 
 Lancement :
+Commenter toutes les lignes dans $OPENVIBE_HOME/scripts/linux-test sauf
+./ov-designer.sh $*
+
+puis executer :
 sh $OPENVIBE_HOME/scripts/linux-test

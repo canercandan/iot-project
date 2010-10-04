@@ -24,45 +24,48 @@ OpenViBE::boolean CVncBox::initialize(void)
 {
   const IBox* l_pStaticBoxContext = this->getBoxAlgorithmContext()->getStaticBoxContext();
 
-  CString l_sDistance, l_sMouseL, l_sMouseR, l_sMouseU, l_sMouseD, l_sKey1, l_sKey2;
-  l_pStaticBoxContext->getSettingValue(2, l_sDistance);
-  l_pStaticBoxContext->getSettingValue(3, l_sMouseL);
-  l_pStaticBoxContext->getSettingValue(4, l_sMouseR);
-  l_pStaticBoxContext->getSettingValue(5, l_sMouseU);
-  l_pStaticBoxContext->getSettingValue(6, l_sMouseD);
-  l_pStaticBoxContext->getSettingValue(7, l_sKey1);
-  l_pStaticBoxContext->getSettingValue(8, l_sKey2);
-  this->_mouveMoveDistance = atoi(l_sDistance);
-  this->_actionsMapping.insert(std::pair<Action, int>(ACTION_MOUSEL, atoi(l_sMouseL)));
-  this->_actionsMapping.insert(std::pair<Action, int>(ACTION_MOUSER, atoi(l_sMouseR)));
-  this->_actionsMapping.insert(std::pair<Action, int>(ACTION_MOUSEU, atoi(l_sMouseU)));
-  this->_actionsMapping.insert(std::pair<Action, int>(ACTION_MOUSED, atoi(l_sMouseD)));
-  this->_actionsMapping.insert(std::pair<Action, int>(ACTION_KEY1, atoi(l_sKey1)));
-  this->_actionsMapping.insert(std::pair<Action, int>(ACTION_KEY2, atoi(l_sKey2)));
+  this->_mouveMoveDistance = FSettingValueAutoCast(*this->getBoxAlgorithmContext(), 2);
+
+  for (unsigned int actionId = ACTION_MOUSEL,
+	 settingIndex = 3; // Le premier setting qui nous interesse est "Move left mouse" son index est 3
+       settingIndex < l_pStaticBoxContext->getSettingCount(); ++actionId, ++settingIndex)
+    {
+      this->_actionsMapping.insert(std::pair<Action, OpenViBE::uint64>(static_cast<Action>(actionId), FSettingValueAutoCast(*this->getBoxAlgorithmContext(), settingIndex)));
+    }
+  
   // debug, faire une boucle pour la partie du dessus pour eviter la repetition de code
-  for (std::map<Action, int>::const_iterator it = this->_actionsMapping.begin(), itEnd = this->_actionsMapping.end(); it != itEnd; ++it)
+  for (std::map<Action, OpenViBE::uint64>::const_iterator it = this->_actionsMapping.begin(), itEnd = this->_actionsMapping.end(); it != itEnd; ++it)
     {
       std::cerr << it->first << " --> " << it->second << std::endl;
     }
 
-  CString l_sServerHostPort, l_sServerHostName;
-  l_pStaticBoxContext->getSettingValue(0, l_sServerHostName);
-  l_pStaticBoxContext->getSettingValue(1, l_sServerHostPort);
   this->_socket = Socket::createConnectionClient();
-  std::cerr << "Trying to connect at : " << l_sServerHostName << "(" << l_sServerHostPort << ")" << std::endl;
-  this->_socket->connect(l_sServerHostName, atoi(l_sServerHostPort));
-  std::cerr << "Connected ? " << std::boolalpha << this->_socket->isConnected() << std::endl;
+  CString l_sHostname, l_sPort;
+  l_pStaticBoxContext->getSettingValue(0, l_sHostname);
+  l_pStaticBoxContext->getSettingValue(1, l_sPort);
+  this->_socket->connect(l_sHostname, atoi(l_sPort));
+
+  m_pStimulationDecoder= &this->getAlgorithmManager().getAlgorithm(this->getAlgorithmManager().createAlgorithm(OVP_GD_ClassId_Algorithm_StimulationStreamDecoder)); // On recupere une instance de l'algorithme
+  m_pStimulationDecoder->initialize();
+
+  ip_pMemoryBuffer.initialize(m_pStimulationDecoder->getInputParameter(OVP_GD_Algorithm_StimulationStreamDecoder_InputParameterId_MemoryBufferToDecode)); // On map l'input de la box sur l'input de l'algorithme
+  op_pStimulationSet.initialize(m_pStimulationDecoder->getOutputParameter(OVP_GD_Algorithm_StimulationStreamDecoder_OutputParameterId_StimulationSet)); // On map l'ouput de l'algorithme sur un attribut de la box
+
   return (this->_socket->isConnected());
 }
 
 OpenViBE::boolean CVncBox::uninitialize(void)
 {
+  op_pStimulationSet.uninitialize();
+  ip_pMemoryBuffer.uninitialize();
+  m_pStimulationDecoder->uninitialize();
+  this->getAlgorithmManager().releaseAlgorithm(*m_pStimulationDecoder);
   return (true);
 }
 
 OpenViBE::boolean CVncBox::processInput(OpenViBE::uint32 ui32InputIndex)
 {
-  std::cerr << "~~~~~~~~~~~~~~~~~~~~~~~~~~CVncBox::processInput~~~~~~~~~~~~~~~~~~~~~~~~~~ = " << ui32InputIndex << std::endl;
+  std::cerr << "~~~~~~~~~~~~~~~~~~~~~~~~~~CVncBox::processInput~~~~~~~~~~~~~~~~~~~~~~~~~~ = " << std::endl;
   if (this->_socket->isConnected() == false)
     return (false);
   // En fait tant que la phase initiale de connexion/securite n'est pas finie tu ne rentres pas dans le if
@@ -81,18 +84,32 @@ OpenViBE::boolean CVncBox::process(void)
   // On parcours les chunks tant que l'on peut ecrire sur le reseau
   for(uint32 i = 0; i < l_rDynamicBoxContext.getInputChunkCount(0) && this->_socket->isReadyToSend(); ++i)
     {
-      std::cerr << "Item[" << i << "] = " << l_rDynamicBoxContext.getInputChunk(0, i) << " - Size du chunk = " << l_rDynamicBoxContext.getInputChunk(0, i)->getSize() << std::endl;
-      /*
-	Faire des locate pour trouver les fichiers !
-	Exemple pour le reseau dans ovpCGenericNetworkAcquisition.h
-	Pour connaitre les methodes disponibles a _socket voir le fichier IConnection.h
-      */
-      /* Pour le moment pour faire tes test utilise en int en dure ! */
-      /* 
-	 La ligne suivante sera apelle uniquement lorsqu'on aura reussi a envoyer le packet en entier - packet relatif au chunk en cours :)
-	 Donc il faudra faire un check si le sendBuffer retourne bien la meme valeur que la taille du packet qu'on a voulu envoyer
-      */
-      l_rDynamicBoxContext.markInputAsDeprecated(0, i);
+      this->ip_pMemoryBuffer = l_rDynamicBoxContext.getInputChunk(0, i);
+      this->m_pStimulationDecoder->process();
+      std::cerr << "Buffer en cours decodage" << std::endl;
+      if(this->m_pStimulationDecoder->isOutputTriggerActive(OVP_GD_Algorithm_StimulationStreamDecoder_OutputTriggerId_ReceivedBuffer))
+        {
+	  // Un buffer peut contenir plusieurs Stimulation
+	  std::cerr << "Buffer decode" << std::endl << "getStimulationCount = " << op_pStimulationSet->getStimulationCount() << std::endl;
+	  for(uint64 s = 0; s < this->op_pStimulationSet->getStimulationCount(); s++)
+            {
+	      std::cerr << "Stimulation["<< s<< "] - Id = " << op_pStimulationSet->getStimulationIdentifier(s) << std::endl
+			<< "Date = "<< op_pStimulationSet->getStimulationDate(s) << std::endl
+			<< "Duration = " << op_pStimulationSet->getStimulationDuration(s) << std::endl << std::endl;
+	      /*
+		Faire des locate pour trouver les fichiers !
+		Exemple pour le reseau dans ovpCGenericNetworkAcquisition.h
+		Pour connaitre les methodes disponibles a _socket voir le fichier IConnection.h
+	      */
+	      // La valeur a utilisee est donc op_pStimulationSet->getStimulationIdentifier(s) <-------------------------------------------
+	      /* 
+		 La ligne suivante sera apelle uniquement lorsqu'on aura reussi a envoyer le packet en entier - packet relatif au chunk en cours :)
+		 Donc il faudra faire un check si le sendBuffer retourne bien la meme valeur que la taille du packet qu'on a voulu envoyer
+	      */
+
+	    }
+	  l_rDynamicBoxContext.markInputAsDeprecated(0, i);
+	}
     }
   return (true);
 }

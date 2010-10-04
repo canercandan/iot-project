@@ -2,7 +2,7 @@ Template de base pour les plugins dispo dans $OPENVIBE_HOME/scripts/new-project-
 
 Merci de lire le fichier INSTALL pour savoir comment compiler et installer le plugin vnc
 
-Un scenario pour tester rapidement la box VNC est fourni dans share:
+Un scenario pour tester rapidement la box VNC est fourni dans share, un fichier pour le Stimulator Keyboard est egalement fourni.
 
 Les regles de contributions pour les developpeurs sont cites sur cette page :
 http://openvibe.inria.fr/documentation/unstable/Doc_Install.html#Doc_ContributionRules

@@ -1,7 +1,7 @@
 <OpenViBE-Scenario>
 	<Boxes>
 		<Box>
-			<Identifier>(0x17a1b582, 0x4df72e4f)</Identifier>
+			<Identifier>(0x0bffae18, 0x0e3e47a9)</Identifier>
 			<Name>Keyboard stimulator</Name>
 			<AlgorithmClassIdentifier>(0x00d317b9, 0x6324c3ff)</AlgorithmClassIdentifier>
 			<Outputs>
@@ -21,7 +21,7 @@
 			<Attributes>
 				<Attribute>
 					<Identifier>(0x1fa7a38f, 0x54edbe0b)</Identifier>
-					<Value>128</Value>
+					<Value>256</Value>
 				</Attribute>
 				<Attribute>
 					<Identifier>(0x1fa963f5, 0x1a638cd4)</Identifier>
@@ -29,7 +29,7 @@
 				</Attribute>
 				<Attribute>
 					<Identifier>(0x207c9054, 0x3c841b63)</Identifier>
-					<Value>288</Value>
+					<Value>256</Value>
 				</Attribute>
 				<Attribute>
 					<Identifier>(0x4e7b798a, 0x183beafb)</Identifier>
@@ -50,7 +50,7 @@
 			</Attributes>
 		</Box>
 		<Box>
-			<Identifier>(0x5092ca79, 0x1d545c4e)</Identifier>
+			<Identifier>(0x5d888a08, 0x2a082c71)</Identifier>
 			<Name>VNC</Name>
 			<AlgorithmClassIdentifier>(0x19da3a75, 0x266562cc)</AlgorithmClassIdentifier>
 			<Inputs>
@@ -79,52 +79,64 @@
 					<Value>1</Value>
 				</Setting>
 				<Setting>
-					<TypeIdentifier>(0x6f752dd0, 0x082a321e)</TypeIdentifier>
+					<TypeIdentifier>(0x2c132d6e, 0x44ab0d97)</TypeIdentifier>
 					<Name>Move left mouse</Name>
-					<DefaultValue>769</DefaultValue>
-					<Value>769</Value>
+					<DefaultValue>OVTK_GDF_Left</DefaultValue>
+					<Value>OVTK_GDF_Left</Value>
 				</Setting>
 				<Setting>
-					<TypeIdentifier>(0x6f752dd0, 0x082a321e)</TypeIdentifier>
+					<TypeIdentifier>(0x2c132d6e, 0x44ab0d97)</TypeIdentifier>
 					<Name>Move right mouse</Name>
-					<DefaultValue>770</DefaultValue>
-					<Value>770</Value>
+					<DefaultValue>OVTK_GDF_Right</DefaultValue>
+					<Value>OVTK_GDF_Right</Value>
 				</Setting>
 				<Setting>
-					<TypeIdentifier>(0x6f752dd0, 0x082a321e)</TypeIdentifier>
+					<TypeIdentifier>(0x2c132d6e, 0x44ab0d97)</TypeIdentifier>
 					<Name>Move up mouse</Name>
-					<DefaultValue>771</DefaultValue>
-					<Value>771</Value>
+					<DefaultValue>OVTK_GDF_Up</DefaultValue>
+					<Value>OVTK_GDF_Up</Value>
 				</Setting>
 				<Setting>
-					<TypeIdentifier>(0x6f752dd0, 0x082a321e)</TypeIdentifier>
+					<TypeIdentifier>(0x2c132d6e, 0x44ab0d97)</TypeIdentifier>
 					<Name>Move down mouse</Name>
-					<DefaultValue>772</DefaultValue>
-					<Value>772</Value>
+					<DefaultValue>OVTK_GDF_Down</DefaultValue>
+					<Value>OVTK_GDF_Down</Value>
 				</Setting>
 				<Setting>
-					<TypeIdentifier>(0x6f752dd0, 0x082a321e)</TypeIdentifier>
+					<TypeIdentifier>(0x2c132d6e, 0x44ab0d97)</TypeIdentifier>
 					<Name>Left Button Mouse</Name>
-					<DefaultValue>773</DefaultValue>
-					<Value>773</Value>
+					<DefaultValue>OVTK_GDF_Foot</DefaultValue>
+					<Value>OVTK_GDF_Foot</Value>
 				</Setting>
 				<Setting>
-					<TypeIdentifier>(0x6f752dd0, 0x082a321e)</TypeIdentifier>
+					<TypeIdentifier>(0x2c132d6e, 0x44ab0d97)</TypeIdentifier>
 					<Name>Middle Button Mouse</Name>
-					<DefaultValue>774</DefaultValue>
-					<Value>774</Value>
+					<DefaultValue>OVTK_GDF_Tongue</DefaultValue>
+					<Value>OVTK_GDF_Tongue</Value>
 				</Setting>
 				<Setting>
-					<TypeIdentifier>(0x6f752dd0, 0x082a321e)</TypeIdentifier>
+					<TypeIdentifier>(0x2c132d6e, 0x44ab0d97)</TypeIdentifier>
 					<Name>Right Button Mouse</Name>
-					<DefaultValue>775</DefaultValue>
-					<Value>775</Value>
+					<DefaultValue>OVTK_GDF_Flashing_Light</DefaultValue>
+					<Value>OVTK_GDF_Flashing_Light</Value>
+				</Setting>
+				<Setting>
+					<TypeIdentifier>(0x2c132d6e, 0x44ab0d97)</TypeIdentifier>
+					<Name>Key 1</Name>
+					<DefaultValue>OVTK_GDF_Eyes_Left</DefaultValue>
+					<Value>OVTK_GDF_Eyes_Left</Value>
+				</Setting>
+				<Setting>
+					<TypeIdentifier>(0x2c132d6e, 0x44ab0d97)</TypeIdentifier>
+					<Name>Key 2</Name>
+					<DefaultValue>OVTK_GDF_Eyes_Right</DefaultValue>
+					<Value>OVTK_GDF_Eyes_Right</Value>
 				</Setting>
 			</Settings>
 			<Attributes>
 				<Attribute>
 					<Identifier>(0x1fa7a38f, 0x54edbe0b)</Identifier>
-					<Value>224</Value>
+					<Value>368</Value>
 				</Attribute>
 				<Attribute>
 					<Identifier>(0x1fa963f5, 0x1a638cd4)</Identifier>
@@ -132,11 +144,11 @@
 				</Attribute>
 				<Attribute>
 					<Identifier>(0x207c9054, 0x3c841b63)</Identifier>
-					<Value>288</Value>
+					<Value>256</Value>
 				</Attribute>
 				<Attribute>
 					<Identifier>(0x4e7b798a, 0x183beafb)</Identifier>
-					<Value>(0x215621f1, 0x0da51dc2)</Value>
+					<Value>(0x1e3021c3, 0x6b24e556)</Value>
 				</Attribute>
 				<Attribute>
 					<Identifier>(0xad100179, 0xa3c984ab)</Identifier>
@@ -144,7 +156,7 @@
 				</Attribute>
 				<Attribute>
 					<Identifier>(0xce18836a, 0x9c0eb403)</Identifier>
-					<Value>10</Value>
+					<Value>12</Value>
 				</Attribute>
 				<Attribute>
 					<Identifier>(0xcfad85b0, 0x7c6d841c)</Identifier>
@@ -155,31 +167,31 @@
 	</Boxes>
 	<Links>
 		<Link>
-			<Identifier>(0x57a61a29, 0x5399c655)</Identifier>
+			<Identifier>(0x78b5e776, 0x75486e48)</Identifier>
 			<Source>
-				<BoxIdentifier>(0x17a1b582, 0x4df72e4f)</BoxIdentifier>
+				<BoxIdentifier>(0x0bffae18, 0x0e3e47a9)</BoxIdentifier>
 				<BoxOutputIndex>0</BoxOutputIndex>
 			</Source>
 			<Target>
-				<BoxIdentifier>(0x5092ca79, 0x1d545c4e)</BoxIdentifier>
+				<BoxIdentifier>(0x5d888a08, 0x2a082c71)</BoxIdentifier>
 				<BoxInputIndex>0</BoxInputIndex>
 			</Target>
 			<Attributes>
 				<Attribute>
 					<Identifier>(0x1b32c44c, 0x1905e0e9)</Identifier>
-					<Value>148</Value>
+					<Value>276</Value>
 				</Attribute>
 				<Attribute>
 					<Identifier>(0x358ae8b5, 0x0f8bacd1)</Identifier>
-					<Value>288</Value>
+					<Value>256</Value>
 				</Attribute>
 				<Attribute>
 					<Identifier>(0x3f0a3b27, 0x570913d2)</Identifier>
-					<Value>199</Value>
+					<Value>343</Value>
 				</Attribute>
 				<Attribute>
 					<Identifier>(0x6267b5c5, 0x676e3e42)</Identifier>
-					<Value>288</Value>
+					<Value>256</Value>
 				</Attribute>
 			</Attributes>
 		</Link>
@@ -187,14 +199,14 @@
 	<Comments></Comments>
 	<VisualisationTree>
 		<VisualisationWidget>
-			<Identifier>(0x5046b5a9, 0x5d888a08)</Identifier>
+			<Identifier>(0x2e48f044, 0x49d0feac)</Identifier>
 			<Type>3</Type>
 			<ParentIdentifier>(0xffffffff, 0xffffffff)</ParentIdentifier>
-			<BoxIdentifier>(0x17a1b582, 0x4df72e4f)</BoxIdentifier>
+			<BoxIdentifier>(0x0bffae18, 0x0e3e47a9)</BoxIdentifier>
 			<NumChildren>0</NumChildren>
 		</VisualisationWidget>
 		<VisualisationWidget>
-			<Identifier>(0x555c55b5, 0x3fa62aca)</Identifier>
+			<Identifier>(0x5ec6afd4, 0x19e21bb2)</Identifier>
 			<Name>Default window</Name>
 			<Type>1</Type>
 			<ParentIdentifier>(0xffffffff, 0xffffffff)</ParentIdentifier>
@@ -212,19 +224,19 @@
 			</Attributes>
 		</VisualisationWidget>
 		<VisualisationWidget>
-			<Identifier>(0x14fce74e, 0x6a3dd3e8)</Identifier>
+			<Identifier>(0x75e0858a, 0x57a61a29)</Identifier>
 			<Name>Default tab</Name>
 			<Type>2</Type>
-			<ParentIdentifier>(0x555c55b5, 0x3fa62aca)</ParentIdentifier>
+			<ParentIdentifier>(0x5ec6afd4, 0x19e21bb2)</ParentIdentifier>
 			<Index>0</Index>
 			<BoxIdentifier>(0xffffffff, 0xffffffff)</BoxIdentifier>
 			<NumChildren>1</NumChildren>
 		</VisualisationWidget>
 		<VisualisationWidget>
-			<Identifier>(0x71c91298, 0x09daf632)</Identifier>
+			<Identifier>(0x5399c654, 0x20ee1348)</Identifier>
 			<Name>Empty</Name>
 			<Type>0</Type>
-			<ParentIdentifier>(0x14fce74e, 0x6a3dd3e8)</ParentIdentifier>
+			<ParentIdentifier>(0x75e0858a, 0x57a61a29)</ParentIdentifier>
 			<Index>0</Index>
 			<BoxIdentifier>(0xffffffff, 0xffffffff)</BoxIdentifier>
 			<NumChildren>0</NumChildren>
@@ -237,11 +249,11 @@
 		</Attribute>
 		<Attribute>
 			<Identifier>(0x8c1fc55b, 0x7b433dc2)</Identifier>
-			<Value>1</Value>
+			<Value></Value>
 		</Attribute>
 		<Attribute>
 			<Identifier>(0x9f5c4075, 0x4a0d3666)</Identifier>
-			<Value>VncTestScenario</Value>
+			<Value>VncBoxTest</Value>
 		</Attribute>
 		<Attribute>
 			<Identifier>(0xf36a1567, 0xd13c53da)</Identifier>
@@ -249,7 +261,7 @@
 		</Attribute>
 		<Attribute>
 			<Identifier>(0xf6b2e3fa, 0x7bd43926)</Identifier>
-			<Value></Value>
+			<Value>vnc</Value>
 		</Attribute>
 		<Attribute>
 			<Identifier>(0xf8034a49, 0x8b3f37cc)</Identifier>
