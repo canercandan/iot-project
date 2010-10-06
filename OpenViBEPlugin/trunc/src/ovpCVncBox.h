@@ -48,6 +48,7 @@ namespace OpenViBEPlugins
 	Socket::IConnectionClient *			_socket;
 	std::map<Action, OpenViBE::uint64>		_actionsMapping; // Mapping entre les labels recus et les actions a effectue
 	int						_mouveMoveDistance;
+	ProtocolClientRFB*				_protocolClientRFB;
       };
   }
 }

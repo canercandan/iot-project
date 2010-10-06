@@ -1,7 +1,11 @@
 #include <iostream>
 #include <cstdlib>
+#include <boost/circular_buffer.hpp>
+
 
 #include "ovpCVncBox.h"
+
+#include "ProtocolClientRFB.h"
 
 using namespace OpenViBE;
 using namespace OpenViBE::Plugins;
@@ -10,7 +14,7 @@ using namespace OpenViBEPlugins;
 using namespace OpenViBEPlugins::VNC;
 using namespace OpenViBEToolkit;
 
-CVncBox::CVncBox() : _socket(0), _actionsMapping(), _mouveMoveDistance(0)
+CVncBox::CVncBox() : _socket(0), _actionsMapping(), _mouveMoveDistance(0), _protocolClientRFB(0)
 {
 }
 
@@ -50,7 +54,7 @@ OpenViBE::boolean CVncBox::initialize(void)
 
   ip_pMemoryBuffer.initialize(m_pStimulationDecoder->getInputParameter(OVP_GD_Algorithm_StimulationStreamDecoder_InputParameterId_MemoryBufferToDecode)); // On map l'input de la box sur l'input de l'algorithme
   op_pStimulationSet.initialize(m_pStimulationDecoder->getOutputParameter(OVP_GD_Algorithm_StimulationStreamDecoder_OutputParameterId_StimulationSet)); // On map l'ouput de l'algorithme sur un attribut de la box
-
+  this->_protocolClientRFB = new ProtocolClientRFB();
   return (this->_socket->isConnected());
 }
 
@@ -68,6 +72,20 @@ OpenViBE::boolean CVncBox::processInput(OpenViBE::uint32 ui32InputIndex)
   std::cerr << "~~~~~~~~~~~~~~~~~~~~~~~~~~CVncBox::processInput~~~~~~~~~~~~~~~~~~~~~~~~~~ = " << std::endl;
   if (this->_socket->isConnected() == false)
     return (false);
+
+
+  //si j'ai reçu quelque chose: (a implémenter recv...)
+  char networkBuffer[1024];
+  Socket::uint32 bytesReceived = this->_socket->receiveBuffer(networkBuffer, 1024);
+  if (bytesReceived != 0)
+    {
+      boost::circular_buffer<char>  saveBuffer(2048);
+      saveBuffer.insert(saveBuffer.end(), networkBuffer, networkBuffer + bytesReceived);
+
+      this->_protocolClientRFB->parse(buffer);
+
+      std::cerr << "ok";
+    }
   // En fait tant que la phase initiale de connexion/securite n'est pas finie tu ne rentres pas dans le if
   if (true)
     {
