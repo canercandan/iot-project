@@ -21,6 +21,7 @@ INCLUDE("FindOpenViBEPluginsGlobalDefines")
 INCLUDE("FindThirdPartyGTK")
 INCLUDE("FindThirdPartyLua")
 INCLUDE("FindThirdPartyBoost_Thread")
+INCLUDE("FindThirdPartyBoost")
 
 # ---------------------------------
 # Target macros
