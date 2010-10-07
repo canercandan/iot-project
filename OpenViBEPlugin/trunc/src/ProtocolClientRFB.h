@@ -79,20 +79,20 @@ enum triBool
 
 class ProtocolClientRFB
 {
-
-public:
+ public:
   typedef void (ProtocolClientRFB::*funcExecPtr)();
   typedef void (ProtocolClientRFB::*funcParsePtr)(void *);
+  typedef std::pair<char *, int> VncResult;
 
   ProtocolClientRFB();
-  ~ProtocolClientRFB();
+
   void          init();
   void		parse(void * stream);
   void		exec();
   RFBServerStep getStep() const;
   int           getWaitedSize() const;
 
-private:
+ private:
   void          convertUint8ToString(unsigned char *, int, std::string &);
   void		parseVersion(void *);
   void		parseSecuList(void *);
@@ -104,7 +104,7 @@ private:
   void		execInitMessage();
   void		execMessage();
 
-private:
+ private:
   static char * const           	_VERSION;
   std::map<RFBServerStep, funcExecPtr>	_execPtrMap;
   std::map<RFBServerStep, funcParsePtr>	_parsePtrMap;

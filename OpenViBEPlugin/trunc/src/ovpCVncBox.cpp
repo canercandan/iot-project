@@ -1,4 +1,4 @@
-#include <iostream>
+//#include <iostream>
 #include <cstdlib>
 
 #include "ovpCVncBox.h"
@@ -10,7 +10,7 @@ using namespace OpenViBEPlugins;
 using namespace OpenViBEPlugins::VNC;
 using namespace OpenViBEToolkit;
 
-CVncBox::CVncBox() : _socket(0), _actionsMapping(), _mouveMoveDistance(0), _protocolClientRFB(), _bufferIn(2048), _bufferOut(2048)
+CVncBox::CVncBox() : _socket(0), _bufferIn(2048), _bufferOut(2048), _actionsMapping(), _protocolClientRFB()
 {
 }
 
@@ -24,17 +24,17 @@ OpenViBE::boolean CVncBox::initialize(void)
 {
   const IBox* l_pStaticBoxContext = this->getBoxAlgorithmContext()->getStaticBoxContext();
 
-  this->_mouveMoveDistance = FSettingValueAutoCast(*this->getBoxAlgorithmContext(), 2);
+  //this->_protocolClientRFB.initialize(FSettingValueAutoCast(*this->getBoxAlgorithmContext(), 2));
 
   for (unsigned int actionId = ACTION_MOUSEL,
 	 settingIndex = 3; // Le premier setting qui nous interesse est "Move left mouse" son index est 3
        settingIndex < l_pStaticBoxContext->getSettingCount(); ++actionId, ++settingIndex)
     {
-      this->_actionsMapping.insert(std::pair<Action, OpenViBE::uint64>(static_cast<Action>(actionId), FSettingValueAutoCast(*this->getBoxAlgorithmContext(), settingIndex)));
+      this->_actionsMapping.insert(std::pair<OpenViBE::uint64, Action>(FSettingValueAutoCast(*this->getBoxAlgorithmContext(), settingIndex), static_cast<Action>(actionId)));
     }
   
   // debug, faire une boucle pour la partie du dessus pour eviter la repetition de code
-  for (std::map<Action, OpenViBE::uint64>::const_iterator it = this->_actionsMapping.begin(), itEnd = this->_actionsMapping.end(); it != itEnd; ++it)
+  for (std::map<OpenViBE::uint64, Action>::const_iterator it = this->_actionsMapping.begin(), itEnd = this->_actionsMapping.end(); it != itEnd; ++it)
     {
       std::cerr << it->first << " --> " << it->second << std::endl;
     }
@@ -53,34 +53,24 @@ OpenViBE::boolean CVncBox::initialize(void)
   return (this->_socket->isConnected());
 }
 
-OpenViBE::boolean CVncBox::uninitialize(void)
-{
-  op_pStimulationSet.uninitialize();
-  ip_pMemoryBuffer.uninitialize();
-  m_pStimulationDecoder->uninitialize();
-  this->getAlgorithmManager().releaseAlgorithm(*m_pStimulationDecoder);
-  return (true);
-}
+  OpenViBE::boolean CVncBox::uninitialize(void)
+  {
+    op_pStimulationSet.uninitialize();
+    ip_pMemoryBuffer.uninitialize();
+    m_pStimulationDecoder->uninitialize();
+    this->getAlgorithmManager().releaseAlgorithm(*m_pStimulationDecoder);
+    return (true);
+  }
 
 OpenViBE::boolean CVncBox::processInput(OpenViBE::uint32 ui32InputIndex)
 {
   std::cerr << "~~~~~~~~~~~~~~~~~~~~~~~~~~CVncBox::processInput~~~~~~~~~~~~~~~~~~~~~~~~~~ = " << std::endl;
-  if (this->_socket->isConnected() == false)
-    return (false);
-
-  //si j'ai reçu quelque chose: (a implémenter recv...)
-  char networkBuffer[1024];
-  Socket::uint32 bytesReceived = this->_socket->receiveBuffer(networkBuffer, 1024);
-  if (bytesReceived != 0)
-    {
-      this->_bufferIn.insert(this->_bufferIn.end(), networkBuffer, networkBuffer + bytesReceived);
-      this->_protocolClientRFB.parse();
-    }
-  // En fait tant que la phase initiale de connexion/securite n'est pas finie tu ne rentres pas dans le if
-  // IsInitProcessFinish()
+  /*this->receiveBuffer();
+    ProtocolClientRFB::VncResult result = this->_protocolClientRFB.parse();
+    this->sendBuffer(result);
+    if (this->_protocolClientRFB.isInitProcessFinish())*/
   if (true)
     {
-      // seulement une fois que tu apelles la methode de la ligne du dessous que la methode CVncBox::process sera apelle
       this->getBoxAlgorithmContext()->markAlgorithmAsReadyToProcess();
     }
   return (true);
@@ -88,7 +78,7 @@ OpenViBE::boolean CVncBox::processInput(OpenViBE::uint32 ui32InputIndex)
 
 OpenViBE::boolean CVncBox::process(void)
 {
-  std::cerr << "~~~~~~~~~~~~~~~~~~~~~~~~~~CVncBox::process~~~~~~~~~~~~~~~~~~~~~~~~~~ = " << std::endl;
+  std::cerr << "~~~~~~~~~~~~~~~~~~~~~~~~~~ [CVncBox::process] ~~~~~~~~~~~~~~~~~~~~~~~~~~ = " << std::endl;
   IBoxIO& l_rDynamicBoxContext = this->getDynamicBoxContext();
   // On parcours les chunks tant que l'on peut ecrire sur le reseau
   for(uint32 i = 0; i < l_rDynamicBoxContext.getInputChunkCount(0) && this->_socket->isReadyToSend(); ++i)
@@ -97,14 +87,14 @@ OpenViBE::boolean CVncBox::process(void)
       this->m_pStimulationDecoder->process();
       std::cerr << "Buffer en cours decodage" << std::endl;
       if(this->m_pStimulationDecoder->isOutputTriggerActive(OVP_GD_Algorithm_StimulationStreamDecoder_OutputTriggerId_ReceivedBuffer))
-        {
+	{
 	  // Un buffer peut contenir plusieurs Stimulation
 	  std::cerr << "Buffer decode" << std::endl << "getStimulationCount = " << op_pStimulationSet->getStimulationCount() << std::endl;
 	  for(uint64 s = 0; s < this->op_pStimulationSet->getStimulationCount(); s++)
-            {
-	      std::cerr << "Stimulation["<< s<< "] - Id = " << op_pStimulationSet->getStimulationIdentifier(s) << std::endl
-			<< "Date = "<< op_pStimulationSet->getStimulationDate(s) << std::endl
-			<< "Duration = " << op_pStimulationSet->getStimulationDuration(s) << std::endl << std::endl;
+	    {
+	      std::cerr << "Stimulation["<< s<< "] - Id = " << op_pStimulationSet->getStimulationIdentifier(s) << std::endl;
+	      // ProtocolClientRFB::VncResult result = this->_protocolClientRFB.execute(this->_actionsMapping.find(op_pStimulationSet->getStimulationIdentifier(s)));
+	      // this->sendBuffer(result);
 	    }
 	  l_rDynamicBoxContext.markInputAsDeprecated(0, i);
 	}
@@ -112,10 +102,44 @@ OpenViBE::boolean CVncBox::process(void)
   return (true);
 }
 
+void CVncBox::receiveBuffer()
+{
+  std::cerr << "~~~~~~~~~~~~~~~~~~~~~~~~~~ [CVncBox::receiveBuffer] ~~~~~~~~~~~~~~~~~~~~~~~~~~ = " << std::endl;
+  if (this->_socket->isReadyToReceive())
+    {
+      char networkBuffer[1024];
+      Socket::uint32 bytesReceived = this->_socket->receiveBuffer(networkBuffer, 1024);
+      std::cerr << "Lecture de " << bytesReceived << " octets sur la socket."<< std::endl;
+      if (bytesReceived != 0)
+	{
+	  std::cerr << "Taille du buffer d'entre avant remplissage : " << this->_bufferIn.size() << " octets." << std::endl;
+	  this->_bufferIn.insert(this->_bufferIn.end(), networkBuffer, networkBuffer + bytesReceived);
+	  std::cerr << "Taille du buffer d'entre apres remplissage : "<< this->_bufferIn.size() << " octets." << std::endl;
+	}
+    }
+}
+
+void CVncBox::sendBuffer(ProtocolClientRFB::VncResult const & bufferToSend)
+{
+  std::cerr << "~~~~~~~~~~~~~~~~~~~~~~~~~~ [CVncBox::VncResult] ~~~~~~~~~~~~~~~~~~~~~~~~~~ = " << std::endl;
+  if (bufferToSend.second != 0)
+    {
+      std::cerr << "sendBuffer\tAjout au buffer de sortie de "<< bufferToSend.second << " octets."<< std::endl;
+      this->_bufferOut.insert(this->_bufferIn.end(), bufferToSend.first, bufferToSend.first + bufferToSend.second);
+      if (!this->_bufferOut.empty() && this->_socket->isReadyToSend())
+	{
+	  std::cerr << "Tentative d'envoie de " << this->_bufferOut.size()<< " octets."<< std::endl;
+	  Socket::uint32 bytesSend = this->_socket->sendBuffer(this->_bufferOut.linearize(), this->_bufferOut.size());
+	  std::cerr << "Nombre d'octets envoyes : " << bytesSend << std::endl;
+	  this->_bufferOut.erase_begin(bytesSend);
+	  std::cerr << "Taille du buffer de sortie apres nettoyage :"<< this->_bufferOut.size() << " octets." << std::endl;
+	}
+    }
+}
+
 /* TODO
- * Faire une methode initialize qui prend en parametre la distance de mouvement pour la souris
- * Faire la methode exec qui Prend en parametre une VNC::Action et retourne une paire<void *, int>
- * Faire une methode parse qui prend un circular buffer ou pointer et retourne une paire<void *, int>
- * Faire une methode IsInitProcessFinish() retournant un bool
- * Remove l'attribut pour la distance
- */
+   * Faire une methode initialize qui prend en parametre la distance de mouvement pour la souris
+   * Faire la methode exec qui Prend en parametre une VNC::Action et retourne une paire<void *, int>
+   * Faire une methode parse qui prend un circular buffer ou pointer et retourne une paire<void *, int>
+   * Faire une methode IsInitProcessFinish() retournant un bool
+   */
