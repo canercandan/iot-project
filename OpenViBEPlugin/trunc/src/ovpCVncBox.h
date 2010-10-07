@@ -7,7 +7,10 @@
 #include <openvibe-toolkit/ovtk_all.h>
 #include <socket/IConnectionClient.h>
 
+#include <boost/circular_buffer.hpp>
+
 #include "ovp_defines.h"
+#include "ProtocolClientRFB.h"
 
 namespace OpenViBEPlugins
 {
@@ -48,7 +51,9 @@ namespace OpenViBEPlugins
 	Socket::IConnectionClient *			_socket;
 	std::map<Action, OpenViBE::uint64>		_actionsMapping; // Mapping entre les labels recus et les actions a effectue
 	int						_mouveMoveDistance;
-	ProtocolClientRFB*				_protocolClientRFB;
+	ProtocolClientRFB				_protocolClientRFB;
+	boost::circular_buffer<char>			_bufferIn;
+	boost::circular_buffer<char>			_bufferOut;
       };
   }
 }

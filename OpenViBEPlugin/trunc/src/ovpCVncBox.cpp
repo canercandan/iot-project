@@ -1,11 +1,7 @@
 #include <iostream>
 #include <cstdlib>
-#include <boost/circular_buffer.hpp>
-
 
 #include "ovpCVncBox.h"
-
-#include "ProtocolClientRFB.h"
 
 using namespace OpenViBE;
 using namespace OpenViBE::Plugins;
@@ -14,7 +10,7 @@ using namespace OpenViBEPlugins;
 using namespace OpenViBEPlugins::VNC;
 using namespace OpenViBEToolkit;
 
-CVncBox::CVncBox() : _socket(0), _actionsMapping(), _mouveMoveDistance(0), _protocolClientRFB(0)
+CVncBox::CVncBox() : _socket(0), _actionsMapping(), _mouveMoveDistance(0), _protocolClientRFB(), _bufferIn(2048), _bufferOut(2048)
 {
 }
 
@@ -54,7 +50,6 @@ OpenViBE::boolean CVncBox::initialize(void)
 
   ip_pMemoryBuffer.initialize(m_pStimulationDecoder->getInputParameter(OVP_GD_Algorithm_StimulationStreamDecoder_InputParameterId_MemoryBufferToDecode)); // On map l'input de la box sur l'input de l'algorithme
   op_pStimulationSet.initialize(m_pStimulationDecoder->getOutputParameter(OVP_GD_Algorithm_StimulationStreamDecoder_OutputParameterId_StimulationSet)); // On map l'ouput de l'algorithme sur un attribut de la box
-  this->_protocolClientRFB = new ProtocolClientRFB();
   return (this->_socket->isConnected());
 }
 
@@ -73,20 +68,16 @@ OpenViBE::boolean CVncBox::processInput(OpenViBE::uint32 ui32InputIndex)
   if (this->_socket->isConnected() == false)
     return (false);
 
-
   //si j'ai reçu quelque chose: (a implémenter recv...)
   char networkBuffer[1024];
   Socket::uint32 bytesReceived = this->_socket->receiveBuffer(networkBuffer, 1024);
   if (bytesReceived != 0)
     {
-      boost::circular_buffer<char>  saveBuffer(2048);
-      saveBuffer.insert(saveBuffer.end(), networkBuffer, networkBuffer + bytesReceived);
-
-      this->_protocolClientRFB->parse(buffer);
-
-      std::cerr << "ok";
+      this->_bufferIn.insert(this->_bufferIn.end(), networkBuffer, networkBuffer + bytesReceived);
+      this->_protocolClientRFB.parse();
     }
   // En fait tant que la phase initiale de connexion/securite n'est pas finie tu ne rentres pas dans le if
+  // IsInitProcessFinish()
   if (true)
     {
       // seulement une fois que tu apelles la methode de la ligne du dessous que la methode CVncBox::process sera apelle
@@ -114,20 +105,17 @@ OpenViBE::boolean CVncBox::process(void)
 	      std::cerr << "Stimulation["<< s<< "] - Id = " << op_pStimulationSet->getStimulationIdentifier(s) << std::endl
 			<< "Date = "<< op_pStimulationSet->getStimulationDate(s) << std::endl
 			<< "Duration = " << op_pStimulationSet->getStimulationDuration(s) << std::endl << std::endl;
-	      /*
-		Faire des locate pour trouver les fichiers !
-		Exemple pour le reseau dans ovpCGenericNetworkAcquisition.h
-		Pour connaitre les methodes disponibles a _socket voir le fichier IConnection.h
-	      */
-	      // La valeur a utilisee est donc op_pStimulationSet->getStimulationIdentifier(s) <-------------------------------------------
-	      /* 
-		 La ligne suivante sera apelle uniquement lorsqu'on aura reussi a envoyer le packet en entier - packet relatif au chunk en cours :)
-		 Donc il faudra faire un check si le sendBuffer retourne bien la meme valeur que la taille du packet qu'on a voulu envoyer
-	      */
-
 	    }
 	  l_rDynamicBoxContext.markInputAsDeprecated(0, i);
 	}
     }
   return (true);
 }
+
+/* TODO
+ * Faire une methode initialize qui prend en parametre la distance de mouvement pour la souris
+ * Faire la methode exec qui Prend en parametre une VNC::Action et retourne une paire<void *, int>
+ * Faire une methode parse qui prend un circular buffer ou pointer et retourne une paire<void *, int>
+ * Faire une methode IsInitProcessFinish() retournant un bool
+ * Remove l'attribut pour la distance
+ */
