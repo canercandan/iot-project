@@ -16,19 +16,6 @@ namespace OpenViBEPlugins
 {
   namespace VNC
   {
-    enum Action //Rajouter ce enum dans le futur .h
-    {
-      ACTION_MOUSEL = 0, // Mouse Move Left
-      ACTION_MOUSER, // Mouse Move Right
-      ACTION_MOUSEU, // Mouse Move Up
-      ACTION_MOUSED, // Mouse Move Down
-      ACTION_MOUSE1, // Mouse Button 1
-      ACTION_MOUSE2, // Mouse Button 2
-      ACTION_MOUSE3, // Mouse Button 3
-      ACTION_KEY1,  // First key
-      ACTION_KEY2  // Second key
-    };
-
     class CVncBox : public OpenViBEToolkit::TBoxAlgorithm<OpenViBE::Plugins::IBoxAlgorithm>
       {
       public:
