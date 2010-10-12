@@ -32,7 +32,7 @@ namespace OpenViBEPlugins
 
       private:
 	void				receiveBuffer(); // Essaye de lire sur la socket
-	void				sendBuffer(ProtocolClientRFB::VncResult const & bufferToSend); // Remplis le buffer de sortie et essaye d'ecrire sur la socket
+	void				sendBuffer(VncResult const & bufferToSend); // Remplis le buffer de sortie et essaye d'ecrire sur la socket
 
       private:
 	OpenViBE::Kernel::IAlgorithmProxy*					m_pStimulationDecoder; // Algorithme permettant de decoder le buffer input de la box

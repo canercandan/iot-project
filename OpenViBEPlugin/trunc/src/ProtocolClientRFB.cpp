@@ -2,11 +2,11 @@
 
 using namespace OpenViBEPlugins::VNC;
 
-char * const ProtocolClientRFB::_VERSION = "RFB 003.008\n";
+char const * ProtocolClientRFB::_VERSION = "RFB 003.008\n";
 
 ProtocolClientRFB::ProtocolClientRFB():
         _parsePtrMap(), _rfbStep(RFB_VERSION), _secuReason(),
-        _secuType(0), _sharedFlag(0), _desktopInfo(0), _messageToSend(0),
+        _secuType(0), _sharedFlag(0), _desktopInfo(0), 
         _mouseXPosition(0), _mouseYPosition(0), _mouseMoveDistance(5)
 {
     _parsePtrMap[RFB_VERSION] = &ProtocolClientRFB::parseVersion;
@@ -17,12 +17,12 @@ ProtocolClientRFB::ProtocolClientRFB():
     this->_rfbStep = RFB_VERSION;
 }
 
-void		ProtocolClientRFB::initialize(unsigned short mouseMoveDistance)
+void		ProtocolClientRFB::initialize(int mouseMoveDistance)
 {
   this->_mouseMoveDistance = mouseMoveDistance;
 }
 
-bool		ProtocolClientRFB::IsInitProcessFinish()
+bool		ProtocolClientRFB::isInitProcessFinish() const
 {
   return (RFB_MESSAGING == this->_rfbStep);
 }
@@ -48,7 +48,7 @@ VncResult	ProtocolClientRFB::execVersion()
   std::cout << "execVersion" << std::endl;
   this->bufcpy(this->_VERSION, 12);
   this->_rfbStep = RFB_SECULIST;
-  return (make_pair(this->_messageToSend, 12));
+  return (std::make_pair(this->_messageToSend, 12));
 }
 
 VncResult		ProtocolClientRFB::execSecuList()
@@ -56,7 +56,7 @@ VncResult		ProtocolClientRFB::execSecuList()
   std::cout << "execSecuList" << std::endl;
   this->bufcpy(this->_secuType, 1);
   this->_rfbStep = RFB_SECURESULT;
-  return (make_pair(this->_messageToSend, 1));
+  return (std::make_pair(this->_messageToSend, 1));
 }
 
 VncResult		ProtocolClientRFB::execInitMessage()
@@ -64,7 +64,7 @@ VncResult		ProtocolClientRFB::execInitMessage()
   std::cout << "execInitMessage" << std::endl;
   this->bufcpy(this->_sharedFlag, 1);
   this->_rfbStep = RFB_MESSAGING;
-  return (make_pair(this->_messageToSend, 1));
+  return (std::make_pair(this->_messageToSend, 1));
 }
 
 VncResult		ProtocolClientRFB::execKeyMsg(Action action)
@@ -74,28 +74,28 @@ VncResult		ProtocolClientRFB::execKeyMsg(Action action)
   keyEvent.downFlag = 1;
   keyEvent.key = (action == ACTION_KEY1 ? 0xff54 : 0xff53);
   
-  this.bufcpy(&keyEvent, 8);
+  this->bufcpy(&keyEvent, 8);
   keyEvent.downFlag = 0;
-  this.bufcpy(&keyEvent, 8);
-  return (make_pair(this->_messageToSend, 16));
+  this->bufcpy(&keyEvent, 8);
+  return (std::make_pair(this->_messageToSend, 16));
 }
 
 VncResult		ProtocolClientRFB::execMouseMsg(Action)
 {
-  return (make_pair(0, 0));
+  return (std::make_pair(0, 0));
 }
 
 
-VncResult	ProtocolClientRFB::exec(Action action)
+VncResult	ProtocolClientRFB::execute(Action action)
 {
     std::cout << "exec" << std::endl;
     if (action == ACTION_KEY1 && action == ACTION_KEY2)
       {
-	return (this.execKeyMsg(action));
+	return (this->execKeyMsg(action));
       }
     else
       {
-	return (this.execMouseMsg(action));
+	return (this->execMouseMsg(action));
       }
 }
 
@@ -158,14 +158,20 @@ VncResult		ProtocolClientRFB::parseServerInit(void * data)
     return (std::make_pair(0, 0));
 }
 
-VncResult	ProtocolClientRFB::parse(void * data)
+VncResult	ProtocolClientRFB::parse(boost::circular_buffer<char> & bufferToParse)
 {
+  #warning "Voila j ai change la signature de ta fonction, je te donne le buffer directement lis le commentatire dessous"
+  /*
+    Il y a un acces sequentiel ou par iterateur dans le buffer
+    Par contre une fois que tu as lu ce que tu voulais tu dois le consommer en utilisant la methode:
+    boost::circular_buffer::erase_begin(Nombre de bytes a consommer);
+   */
     std::cout << "parse" << std::endl;
     funcParsePtr f = 0;
     if (this->_parsePtrMap.find(this->_rfbStep) != this->_parsePtrMap.end())
     {
         f = this->_parsePtrMap[this->_rfbStep];
-	return ((this->*f)(data));
+	//return ((this->*f)(data));
     }
     return (std::make_pair(0, 0));
 }

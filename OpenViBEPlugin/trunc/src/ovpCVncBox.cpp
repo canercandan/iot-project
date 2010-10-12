@@ -24,7 +24,7 @@ OpenViBE::boolean CVncBox::initialize(void)
 {
   const IBox* l_pStaticBoxContext = this->getBoxAlgorithmContext()->getStaticBoxContext();
 
-  //this->_protocolClientRFB.initialize(FSettingValueAutoCast(*this->getBoxAlgorithmContext(), 2));
+  this->_protocolClientRFB.initialize(FSettingValueAutoCast(*this->getBoxAlgorithmContext(), 2));
 
   for (unsigned int actionId = ACTION_MOUSEL,
 	 settingIndex = 3; // Le premier setting qui nous interesse est "Move left mouse" son index est 3
@@ -65,11 +65,10 @@ OpenViBE::boolean CVncBox::initialize(void)
 OpenViBE::boolean CVncBox::processInput(OpenViBE::uint32 ui32InputIndex)
 {
   std::cerr << "~~~~~~~~~~~~~~~~~~~~~~~~~~CVncBox::processInput~~~~~~~~~~~~~~~~~~~~~~~~~~ = " << std::endl;
-  /*this->receiveBuffer();
-    ProtocolClientRFB::VncResult result = this->_protocolClientRFB.parse();
-    this->sendBuffer(result);
-    if (this->_protocolClientRFB.isInitProcessFinish())*/
-  if (true)
+  this->receiveBuffer();
+  VncResult result = this->_protocolClientRFB.parse(this->_bufferIn);
+  this->sendBuffer(result);
+  if (this->_protocolClientRFB.isInitProcessFinish())
     {
       this->getBoxAlgorithmContext()->markAlgorithmAsReadyToProcess();
     }
@@ -93,8 +92,12 @@ OpenViBE::boolean CVncBox::process(void)
 	  for(uint64 s = 0; s < this->op_pStimulationSet->getStimulationCount(); s++)
 	    {
 	      std::cerr << "Stimulation["<< s<< "] - Id = " << op_pStimulationSet->getStimulationIdentifier(s) << std::endl;
-	      // ProtocolClientRFB::VncResult result = this->_protocolClientRFB.execute(this->_actionsMapping.find(op_pStimulationSet->getStimulationIdentifier(s)));
-	      // this->sendBuffer(result);
+	      std::map<OpenViBE::uint64, Action>::const_iterator itSearch = this->_actionsMapping.find(op_pStimulationSet->getStimulationIdentifier(s));
+	      if (itSearch != this->_actionsMapping.end())
+		{
+		  VncResult result = this->_protocolClientRFB.execute(itSearch->second);
+		  this->sendBuffer(result);
+		}
 	    }
 	  l_rDynamicBoxContext.markInputAsDeprecated(0, i);
 	}
@@ -119,7 +122,7 @@ void CVncBox::receiveBuffer()
     }
 }
 
-void CVncBox::sendBuffer(ProtocolClientRFB::VncResult const & bufferToSend)
+void CVncBox::sendBuffer(VncResult const & bufferToSend)
 {
   std::cerr << "~~~~~~~~~~~~~~~~~~~~~~~~~~ [CVncBox::VncResult] ~~~~~~~~~~~~~~~~~~~~~~~~~~ = " << std::endl;
   if (bufferToSend.second != 0)
@@ -136,10 +139,3 @@ void CVncBox::sendBuffer(ProtocolClientRFB::VncResult const & bufferToSend)
 	}
     }
 }
-
-/* TODO
-   * Faire une methode initialize qui prend en parametre la distance de mouvement pour la souris
-   * Faire la methode exec qui Prend en parametre une VNC::Action et retourne une paire<void *, int>
-   * Faire une methode parse qui prend un circular buffer ou pointer et retourne une paire<void *, int>
-   * Faire une methode IsInitProcessFinish() retournant un bool
-   */
