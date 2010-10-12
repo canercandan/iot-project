@@ -24,14 +24,14 @@ namespace OpenViBEPlugins
       bool		isInitProcessFinish() const;
 
     private:
-      void		bufcpy(void*, void*, int);
+      void		bufcpy(const unsigned char*, int);
       RFBServerStep	getStep() const;
       void		convertUint8ToString(unsigned char *, int, std::string &);
-      VncResult		parseVersion(void *);
-      VncResult		parseSecuList(void *);
-      VncResult		parseSecuResult(void *);
-      VncResult		parseSecuReason(void *);
-      VncResult		parseServerInit(void *);
+      VncResult		parseVersion(boost::circular_buffer<char> &);
+      VncResult		parseSecuList(boost::circular_buffer<char> &);
+      VncResult		parseSecuResult(boost::circular_buffer<char> &);
+      VncResult		parseSecuReason(boost::circular_buffer<char> &);
+      VncResult		parseServerInit(boost::circular_buffer<char> &);
       VncResult		execVersion();
       VncResult		execSecuList();
       VncResult		execInitMessage();
@@ -39,9 +39,9 @@ namespace OpenViBEPlugins
       VncResult		execMouseMsg(Action);
 
     private:
-      typedef std::pair<char*, int> (ProtocolClientRFB::*funcParsePtr)(void *);
+      typedef std::pair<char*, int> (ProtocolClientRFB::*funcParsePtr)(boost::circular_buffer<char> &);
 
-      static char const * 			_VERSION;
+      static char const *			_VERSION;
       std::map<RFBServerStep, funcParsePtr>	_parsePtrMap;
       RFBServerStep				_rfbStep;
       std::string				_secuReason;

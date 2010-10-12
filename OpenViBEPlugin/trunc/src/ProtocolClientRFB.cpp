@@ -27,7 +27,7 @@ bool		ProtocolClientRFB::isInitProcessFinish() const
   return (RFB_MESSAGING == this->_rfbStep);
 }
 
-void	ProtocolClientRFB::bufcpy(char* source, int length)
+void	ProtocolClientRFB::bufcpy(const unsigned char* source, int length)
 {
   for (int i = 0; i < length; ++i)
     {
@@ -46,7 +46,7 @@ void	ProtocolClientRFB::convertUint8ToString(unsigned char * data, int size, std
 VncResult	ProtocolClientRFB::execVersion()
 {
   std::cout << "execVersion" << std::endl;
-  this->bufcpy(this->_VERSION, 12);
+  this->bufcpy((const unsigned char*)this->_VERSION, 12);
   this->_rfbStep = RFB_SECULIST;
   return (std::make_pair(this->_messageToSend, 12));
 }
@@ -54,7 +54,7 @@ VncResult	ProtocolClientRFB::execVersion()
 VncResult		ProtocolClientRFB::execSecuList()
 {
   std::cout << "execSecuList" << std::endl;
-  this->bufcpy(this->_secuType, 1);
+  this->bufcpy(&this->_secuType, 1);
   this->_rfbStep = RFB_SECURESULT;
   return (std::make_pair(this->_messageToSend, 1));
 }
@@ -62,7 +62,7 @@ VncResult		ProtocolClientRFB::execSecuList()
 VncResult		ProtocolClientRFB::execInitMessage()
 {
   std::cout << "execInitMessage" << std::endl;
-  this->bufcpy(this->_sharedFlag, 1);
+  this->bufcpy(&this->_sharedFlag, 1);
   this->_rfbStep = RFB_MESSAGING;
   return (std::make_pair(this->_messageToSend, 1));
 }
@@ -74,15 +74,15 @@ VncResult		ProtocolClientRFB::execKeyMsg(Action action)
   keyEvent.downFlag = 1;
   keyEvent.key = (action == ACTION_KEY1 ? 0xff54 : 0xff53);
   
-  this->bufcpy(&keyEvent, 8);
+  this->bufcpy((unsigned char*)&keyEvent, 8);
   keyEvent.downFlag = 0;
-  this->bufcpy(&keyEvent, 8);
+  this->bufcpy((unsigned char*)&keyEvent, 8);
   return (std::make_pair(this->_messageToSend, 16));
 }
 
 VncResult		ProtocolClientRFB::execMouseMsg(Action)
 {
-  return (std::make_pair(0, 0));
+  return (std::make_pair(static_cast<char*>(0), 0));
 }
 
 
@@ -99,63 +99,91 @@ VncResult	ProtocolClientRFB::execute(Action action)
       }
 }
 
-VncResult		ProtocolClientRFB::parseVersion(void * data)
+VncResult		ProtocolClientRFB::parseVersion(boost::circular_buffer<char> & bufferToParse)
 {
-  return (this->execVersion());
+    if (bufferToParse.size() >= 13)
+      {
+	char* data = bufferToParse.linearize();
+	bufferToParse.erase_begin(13);
+	return (this->execVersion());
+      }
+    return (std::make_pair(static_cast<char*>(0), 0));
 }
 
-VncResult		ProtocolClientRFB::parseSecuList(void * data)
+VncResult		ProtocolClientRFB::parseSecuList(boost::circular_buffer<char> & bufferToParse)
 {
-    unsigned char* nbOfSecuTypes = static_cast<unsigned char*>(data);
+  if (bufferToParse.size() >= 2)
+    {
+      void* data = bufferToParse.linearize();
+      unsigned char* nbOfSecuTypes = static_cast<unsigned char*>(data);
 
-    if (nbOfSecuTypes > 0)
-    {
-        this->_secuType = 1;
-        return (this->execSecuList());
+      if (*nbOfSecuTypes > 0)
+	{
+	  this->_secuType = 1;
+	  return (this->execSecuList());
+	}
+      else
+	{
+	  this->_rfbStep = RFB_SECUREASON;
+	}
+      bufferToParse.erase_begin(*nbOfSecuTypes + 1);
     }
-    else
-    {
-        this->_rfbStep = RFB_SECUREASON;
-    }
-    return (std::make_pair(0, 0));
+  return (std::make_pair(static_cast<char*>(0), 0));
 }
 
-VncResult		ProtocolClientRFB::parseSecuResult(void * data)
+VncResult		ProtocolClientRFB::parseSecuResult(boost::circular_buffer<char> & bufferToParse)
 {
-    std::cout << "parseSecuResult" << std::endl;
-    unsigned int* response = static_cast<unsigned int*>(data);
+  std::cout << "parseSecuResult" << std::endl;
 
-    if (*response == 1)
+  if (bufferToParse.size() >= 4)
     {
-      this->_rfbStep = RFB_SECUREASON;
+      void* data = bufferToParse.linearize();
+
+      unsigned int* response = static_cast<unsigned int*>(data);
+
+      if (*response == 1)
+	{
+	  this->_rfbStep = RFB_SECUREASON;
+	}
+      else
+	{
+	  this->_rfbStep = RFB_INITMESSAGE;
+	  return (this->execInitMessage());
+	}
+      bufferToParse.erase_begin(4);
     }
-    else
-    {
-      this->_rfbStep = RFB_INITMESSAGE;
-      return (this->execInitMessage());
-    }
-    return (std::make_pair(0,0));
+  return (std::make_pair(static_cast<char*>(0),0));
 }
 
-VncResult		ProtocolClientRFB::parseSecuReason(void * data)
+VncResult		ProtocolClientRFB::parseSecuReason(boost::circular_buffer<char> & bufferToParse)
 {
-    unsigned int* reasonLength = static_cast<unsigned int*>(data);
-    data += sizeof(unsigned int);
-    unsigned char* reason = static_cast<unsigned char*>(data);
-
-    this->convertUint8ToString(reason, *reasonLength, this->_secuReason);
-    this->_rfbStep = RFB_DISCONNECT;
-    return (std::make_pair(0, 0));
+    if (bufferToParse.size() >= 4)
+      {
+	void* data = bufferToParse.linearize();
+	unsigned int* reasonLength = static_cast<unsigned int*>(data);
+	data += sizeof(unsigned int);
+	unsigned char* reason = static_cast<unsigned char*>(data);
+	
+	this->convertUint8ToString(reason, *reasonLength, this->_secuReason);
+	this->_rfbStep = RFB_DISCONNECT;
+	bufferToParse.erase_begin(*reasonLength + 4);
+      }
+    return (std::make_pair(static_cast<char*>(0), 0));
 }
 
-VncResult		ProtocolClientRFB::parseServerInit(void * data)
+VncResult		ProtocolClientRFB::parseServerInit(boost::circular_buffer<char> & bufferToParse)
 {
     std::cout << "parseServerInit" << std::endl;
-    this->_desktopInfo = static_cast<RFBDesktopInfo*>(data);
+    if (bufferToParse.size() >= 28)
+      {
+	void* data = bufferToParse.linearize();
+	this->_desktopInfo = static_cast<RFBDesktopInfo*>(data);
+	
 
-
-    this->_rfbStep = RFB_MESSAGING;
-    return (std::make_pair(0, 0));
+	this->_rfbStep = RFB_MESSAGING;
+	bufferToParse.erase_begin(28);
+      }
+    return (std::make_pair(static_cast<char*>(0), 0));
 }
 
 VncResult	ProtocolClientRFB::parse(boost::circular_buffer<char> & bufferToParse)
@@ -173,7 +201,7 @@ VncResult	ProtocolClientRFB::parse(boost::circular_buffer<char> & bufferToParse)
         f = this->_parsePtrMap[this->_rfbStep];
 	//return ((this->*f)(data));
     }
-    return (std::make_pair(0, 0));
+    return (std::make_pair(static_cast<char*>(0), 0));
 }
 
 
