@@ -4,11 +4,11 @@
 
 int main(int argc, char* argv[])
 {
-  QApplication app(argc, argv);
+    QApplication app(argc, argv);
 
-  CegTcpServer * server = new CegTcpServer();
+    CegTcpServer * server = new CegTcpServer();
 
-  server->show();
+    server->show();
 
-  return app.exec();
+    return app.exec();
 }

@@ -25,23 +25,23 @@
 /*********************************/
 
 CegTcpServer::CegTcpServer() :
-  _tcpServer(0), _client(0), _buffer(), tailleMessage(0), _vncProtocol()
+        _tcpServer(0), _client(0), _buffer(), tailleMessage(0), _vncProtocol()
 {
-  //    QObject::connect(this, SIGNAL(actionEmitted(IAction &)),&lm, SLOT(on_action_emitted(IAction&)));
-  // Création et disposition des widgets de la fenêtre
-  etatServeur = new QLabel();
-  boutonQuitter = new QPushButton(tr("Quitter"));
-  boutonMsg = new QPushButton(tr("msg"));
-  connect(boutonQuitter, SIGNAL(clicked()), qApp, SLOT(quit()));
-  this->connect(boutonMsg, SIGNAL(clicked()), SLOT(sendMsg()));
+    // Création et disposition des widgets de la fenêtre
+    etatServeur = new QLabel("test");
+    boutonQuitter = new QPushButton(tr("Quitter"));
+    boutonMsg = new QPushButton(tr("msg"));
+    connect(boutonQuitter, SIGNAL(clicked()), qApp, SLOT(quit()));
+    this->connect(boutonMsg, SIGNAL(clicked()), SLOT(sendMsg()));
 
-  QVBoxLayout *layout = new QVBoxLayout;
-  layout->addWidget(etatServeur);
-  layout->addWidget(boutonQuitter);
-  layout->addWidget(boutonMsg);
-  setLayout(layout);
-  setWindowTitle(tr("ZeroChat - Serveur"));
-  this->launch();
+    QVBoxLayout *layout = new QVBoxLayout;
+
+    layout->addWidget(boutonQuitter);
+    layout->addWidget(boutonMsg);
+    layout->addWidget(etatServeur);
+    setLayout(layout);
+    setWindowTitle(tr("Test VNC Server"));
+    this->launch();
 }
 
 CegTcpServer::~CegTcpServer()
@@ -55,54 +55,47 @@ CegTcpServer::~CegTcpServer()
 
 void	CegTcpServer::launch(void)
 {
-  //    QSettings settings;
-  //    QVariant port = settings.value("server/port");
-  QString msg;
-  QTextStream tmp(&msg);
-
-  tmp << "Trying to launch TCP server on port " << 5900;
-  std::cout << (msg.toStdString());
-  this->_tcpServer = new QTcpServer();
-  msg = "";
-  if (!this->_tcpServer->listen(QHostAddress::Any, 5900))
+    std::cerr << "Trying to launch TCP server on port 5900" << std::endl;;
+    this->_tcpServer = new QTcpServer();
+    if (!this->_tcpServer->listen(QHostAddress::Any, 5900))
     {
-      tmp << "Error: can't listen on port: " << 5900 << " " << this->_tcpServer->errorString();
-      this->etatServeur->setText(msg);
+        std::cerr << "Error: can't listen on port: 5900 " << this->_tcpServer->errorString().toStdString() << std::endl;
     }
-  else
+    else
     {
-      tmp << "Ok Listening on port: " << 5900;
-      this->etatServeur->setText(msg);
-      this->_tcpServer->setMaxPendingConnections(1);
-      QObject::connect(_tcpServer, SIGNAL(newConnection()), this, SLOT(_connect()));
+        std::cerr << "Ok Listening on port:  5900" << std::endl;;
+        this->_tcpServer->setMaxPendingConnections(1);
+        QObject::connect(_tcpServer, SIGNAL(newConnection()), this, SLOT(_connect()));
     }
 }
 
 void	CegTcpServer::_connect()
 {
-  this->_vncProtocol.init(); 
-  this->etatServeur->setText("Connection d'un client !!!");
-  this->_client = this->_tcpServer->nextPendingConnection();
-  this->connect(this->_client, SIGNAL(readyRead()), SLOT(_readData()));
-  this->connect(this->_client, SIGNAL(disconnected()), SLOT(_disconnect()));
+    this->_vncProtocol.init();
+    std::cerr << "Connexion d'un client" << std::endl;
+    this->etatServeur->setText("Connection d'un client !!!");
+    this->_client = this->_tcpServer->nextPendingConnection();
+    this->connect(this->_client, SIGNAL(readyRead()), SLOT(_readData()));
+    this->connect(this->_client, SIGNAL(disconnected()), SLOT(_disconnect()));
 }
 
 void	CegTcpServer::_disconnect()
 {
-  //  this->etatServeur->setText("CegTcpServer: Disconnected");
+    //  this->etatServeur->setText("CegTcpServer: Disconnected");
 }
 
 void	CegTcpServer::_readData()
 {
+    std::cerr << "Something to read" << std::endl;
     // Si tout va bien, on continue : on récupère le message
     QDataStream		in(this->_client);
 
     //in.setVersion(QDataStream::Qt_4_5);
     if (this->_client->bytesAvailable() >= this->_vncProtocol.getWaitedSize())
     {
-      std::cout << (int)this->_client->bytesAvailable() << std::endl;
-      std::cout << (int)this->_vncProtocol.getWaitedSize() << std::endl;
-      this->_vncProtocol.parse(in);
+        std::cout << "Nombre de bytes recus : " << (int)this->_client->bytesAvailable() << std::endl;
+        std::cout << "Nombre de bytes attendus par le parseur" << (int)this->_vncProtocol.getWaitedSize() << std::endl;
+        this->_vncProtocol.parse(in);
     }
 }
 
@@ -111,6 +104,7 @@ void CegTcpServer::send()
     QByteArray paquet;
     QDataStream out(&paquet, QIODevice::WriteOnly);
     this->_vncProtocol.exec(out);
+    std::cout << "Envoie de " << paquet.size();
     this->_client->write(paquet);
 }
 
@@ -119,5 +113,6 @@ void CegTcpServer::sendMsg()
     QByteArray paquet;
     QDataStream out(&paquet, QIODevice::WriteOnly);
     this->_vncProtocol.exec(out);
+    std::cout << "Envoie de " << paquet.size();
     this->_client->write(paquet);
 }

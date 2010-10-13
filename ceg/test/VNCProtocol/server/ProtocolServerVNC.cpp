@@ -127,9 +127,9 @@ void		ProtocolServerVNC::execSand(QDataStream & stream)
     // if the secuType is none, then we pass to the result step
     if (this->_secuType == 1)
     {
-      this->_passOk = TB_TRUE;
-      this->_vncStep = VNC_SECURESULT;
-      this->execSecuResult(stream);
+        this->_passOk = TB_TRUE;
+        this->_vncStep = VNC_SECURESULT;
+        this->execSecuResult(stream);
     }
 }
 
@@ -182,34 +182,34 @@ void	ProtocolServerVNC::exec(QDataStream & stream)
     if (this->_execPtrMap.contains(this->_vncStep))
     {
         f = this->_execPtrMap.value(this->_vncStep);
-            (this->*f)(stream);
+        (this->*f)(stream);
     }
 }
 
 
 void		ProtocolServerVNC::parseVersion(QDataStream & data)
 {
-  QString version;
-  std::cout << "parseVersion" << std::endl;
-  for (int i = 0; i < 12; ++i)
+    QString version;
+    std::cout << "parseVersion" << std::endl;
+    for (int i = 0; i < 12; ++i)
     {
-      quint8 tmp;
-      data >> tmp;
-      std::cout << (int)tmp << std::endl;
-      version +=  tmp;
+        quint8 tmp;
+        data >> tmp;
+        std::cout << (int)tmp << std::endl;
+        version +=  tmp;
     }
 
-  if (this->_VERSION.compare(version) == 0)
+    if (this->_VERSION.compare(version) == 0)
     {
-      std::cout << "ValidVersion" << std::endl;
-      this->_validVersion = true;
+        std::cout << "ValidVersion" << std::endl;
+        this->_validVersion = true;
     }
-  else
-    std::cout << "NotValidVersion" << std::endl;
-      this->_validVersion = true;
-  std::cout << version.toStdString() << " " << version.size() << std::endl;
-  std::cout << this->_VERSION.toStdString() << " " << this->_VERSION.size() << std::endl;
-  this->_vncStep = VNC_SECULIST;
+    else
+        std::cout << "NotValidVersion" << std::endl;
+    this->_validVersion = true;
+    std::cout << version.toStdString() << " " << version.size() << std::endl;
+    std::cout << this->_VERSION.toStdString() << " " << this->_VERSION.size() << std::endl;
+    this->_vncStep = VNC_SECULIST;
 }
 
 void		ProtocolServerVNC::parseSecuList(QDataStream & data)
@@ -275,7 +275,7 @@ void	ProtocolServerVNC::parse(QDataStream & data)
     if (this->_parsePtrMap.contains(this->_vncStep))
     {
         f = this->_parsePtrMap.value(this->_vncStep);
-            (this->*f)(data);
+        (this->*f)(data);
     }
 }
 
