@@ -1,4 +1,4 @@
-//#include <iostream>
+#include <iostream>
 #include <cstdlib>
 
 #include "ovpCVncBox.h"
@@ -45,26 +45,26 @@ OpenViBE::boolean CVncBox::initialize(void)
   l_pStaticBoxContext->getSettingValue(1, l_sPort);
   this->_socket->connect(l_sHostname, atoi(l_sPort));
 
-  m_pStimulationDecoder= &this->getAlgorithmManager().getAlgorithm(this->getAlgorithmManager().createAlgorithm(OVP_GD_ClassId_Algorithm_StimulationStreamDecoder)); // On recupere une instance de l'algorithme
-  m_pStimulationDecoder->initialize();
+  this->m_pStimulationDecoder= &this->getAlgorithmManager().getAlgorithm(this->getAlgorithmManager().createAlgorithm(OVP_GD_ClassId_Algorithm_StimulationStreamDecoder)); // On recupere une instance de l'algorithme
+  this->m_pStimulationDecoder->initialize();
 
-  ip_pMemoryBuffer.initialize(m_pStimulationDecoder->getInputParameter(OVP_GD_Algorithm_StimulationStreamDecoder_InputParameterId_MemoryBufferToDecode)); // On map l'input de la box sur l'input de l'algorithme
-  op_pStimulationSet.initialize(m_pStimulationDecoder->getOutputParameter(OVP_GD_Algorithm_StimulationStreamDecoder_OutputParameterId_StimulationSet)); // On map l'ouput de l'algorithme sur un attribut de la box
+  this->ip_pMemoryBuffer.initialize(m_pStimulationDecoder->getInputParameter(OVP_GD_Algorithm_StimulationStreamDecoder_InputParameterId_MemoryBufferToDecode)); // On map l'input de la box sur l'input de l'algorithme
+  this->op_pStimulationSet.initialize(m_pStimulationDecoder->getOutputParameter(OVP_GD_Algorithm_StimulationStreamDecoder_OutputParameterId_StimulationSet)); // On map l'ouput de l'algorithme sur un attribut de la box
   return (this->_socket->isConnected());
 }
 
-  OpenViBE::boolean CVncBox::uninitialize(void)
-  {
-    op_pStimulationSet.uninitialize();
-    ip_pMemoryBuffer.uninitialize();
-    m_pStimulationDecoder->uninitialize();
-    this->getAlgorithmManager().releaseAlgorithm(*m_pStimulationDecoder);
-    return (true);
-  }
+OpenViBE::boolean CVncBox::uninitialize(void)
+{
+  this->op_pStimulationSet.uninitialize();
+  this->ip_pMemoryBuffer.uninitialize();
+  this->m_pStimulationDecoder->uninitialize();
+  this->getAlgorithmManager().releaseAlgorithm(*(this->m_pStimulationDecoder));
+  return (true);
+}
 
 OpenViBE::boolean CVncBox::processInput(OpenViBE::uint32 ui32InputIndex)
 {
-  std::cerr << "~~~~~~~~~~~~~~~~~~~~~~~~~~CVncBox::processInput~~~~~~~~~~~~~~~~~~~~~~~~~~ = " << std::endl;
+  std::cerr << "~~~~~~~~~~~~~~~~~~~~~~~~~~CVncBox::processInput~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
   this->receiveBuffer();
   VncResult result = this->_protocolClientRFB.parse(this->_bufferIn);
   this->sendBuffer(result);
@@ -77,7 +77,7 @@ OpenViBE::boolean CVncBox::processInput(OpenViBE::uint32 ui32InputIndex)
 
 OpenViBE::boolean CVncBox::process(void)
 {
-  std::cerr << "~~~~~~~~~~~~~~~~~~~~~~~~~~ [CVncBox::process] ~~~~~~~~~~~~~~~~~~~~~~~~~~ = " << std::endl;
+  std::cerr << "~~~~~~~~~~~~~~~~~~~~~~~~~~ [CVncBox::process] ~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
   IBoxIO& l_rDynamicBoxContext = this->getDynamicBoxContext();
   // On parcours les chunks tant que l'on peut ecrire sur le reseau
   for(uint32 i = 0; i < l_rDynamicBoxContext.getInputChunkCount(0) && this->_socket->isReadyToSend(); ++i)
@@ -107,7 +107,8 @@ OpenViBE::boolean CVncBox::process(void)
 
 void CVncBox::receiveBuffer()
 {
-  std::cerr << "~~~~~~~~~~~~~~~~~~~~~~~~~~ [CVncBox::receiveBuffer] ~~~~~~~~~~~~~~~~~~~~~~~~~~ = " << std::endl;
+  std::cerr << "~~~~~~~~~~~~~~~~~~~~~~~~~~ [CVncBox::receiveBuffer] ~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
+  std::cerr << "Socket ready to read ?" << std::boolalpha << this->_socket->isReadyToReceive() << std::endl;
   if (this->_socket->isReadyToReceive())
     {
       char networkBuffer[1024];
@@ -124,7 +125,7 @@ void CVncBox::receiveBuffer()
 
 void CVncBox::sendBuffer(VncResult const & bufferToSend)
 {
-  std::cerr << "~~~~~~~~~~~~~~~~~~~~~~~~~~ [CVncBox::VncResult] ~~~~~~~~~~~~~~~~~~~~~~~~~~ = " << std::endl;
+  std::cerr << "~~~~~~~~~~~~~~~~~~~~~~~~~~ [CVncBox::VncResult] ~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
   if (bufferToSend.second != 0)
     {
       std::cerr << "sendBuffer\tAjout au buffer de sortie de "<< bufferToSend.second << " octets."<< std::endl;

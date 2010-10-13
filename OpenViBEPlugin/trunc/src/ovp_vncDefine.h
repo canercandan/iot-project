@@ -5,7 +5,7 @@ namespace OpenViBEPlugins
 {
   namespace VNC
   {
-        enum Action //Rajouter ce enum dans le futur .h
+    enum Action //Rajouter ce enum dans le futur .h
     {
       ACTION_MOUSEL = 0, // Mouse Move Left
       ACTION_MOUSER, // Mouse Move Right
@@ -18,7 +18,8 @@ namespace OpenViBEPlugins
       ACTION_KEY2  // Second key 
     };
 
-    struct RFBPixelFormat {
+    struct RFBPixelFormat
+    {
       unsigned char  bitsPerPixel;
       unsigned char  depth;
       unsigned char  bigEndianFlag;

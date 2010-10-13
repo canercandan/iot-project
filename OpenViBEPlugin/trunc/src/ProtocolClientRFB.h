@@ -1,9 +1,7 @@
 #ifndef PROTOCOLCLIENTRFB_H
 #define PROTOCOLCLIENTRFB_H
 
-#include <iostream>
 #include <map>
-#include <utility>
 
 #include <boost/circular_buffer.hpp>
 
@@ -24,9 +22,8 @@ namespace OpenViBEPlugins
       bool		isInitProcessFinish() const;
 
     private:
-      void		bufcpy(const unsigned char*, int);
-      RFBServerStep	getStep() const;
-      void		convertUint8ToString(unsigned char *, int, std::string &);
+      void		bufcpy(const unsigned char*, unsigned int);
+      void		convertUint8ToString(unsigned char const *, unsigned int, std::string &);
       VncResult		parseVersion(boost::circular_buffer<char> &);
       VncResult		parseSecuList(boost::circular_buffer<char> &);
       VncResult		parseSecuResult(boost::circular_buffer<char> &);
