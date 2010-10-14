@@ -8,7 +8,7 @@ std::string const ProtocolClientRFB::_VERSION = std::string("RFB 003.008\n");
 
 ProtocolClientRFB::ProtocolClientRFB():
   _parsePtrMap(), _rfbStep(RFB_VERSION), _secuReason(),
-  _secuType(0), _sharedFlag(0), _firstSecuResult(0),
+  _secuType(0), _sharedFlag(0), _firstSecuResult(1),
   _mouseXPosition(0), _mouseYPosition(0), _mouseMoveDistance(5)
 {
   this->_parsePtrMap[RFB_VERSION] = &ProtocolClientRFB::parseVersion;
@@ -175,7 +175,7 @@ VncResult		ProtocolClientRFB::parseSecuList(boost::circular_buffer<char> & buffe
 {
   std::cerr << "~~~~~~~~~~~~~~~~~~~~~~~~~~ [ProtocolClientRFB::parseSecuList] ~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
 
-  if (bufferToParse.size() >= 2)
+  if (bufferToParse.size() >= sizeof(unsigned char))
     {
       void* data = bufferToParse.linearize();
       unsigned char* nbOfSecuTypes = static_cast<unsigned char*>(data);
@@ -189,7 +189,7 @@ VncResult		ProtocolClientRFB::parseSecuList(boost::circular_buffer<char> & buffe
 	{
 	  this->_rfbStep = RFB_SECUREASON;
 	}
-      bufferToParse.erase_begin(*nbOfSecuTypes + 1);
+      bufferToParse.erase_begin(*nbOfSecuTypes + sizeof(unsigned char));
     }
   return (std::make_pair(static_cast<char*>(0), 0));
 }
@@ -198,7 +198,7 @@ VncResult		ProtocolClientRFB::parseSecuResult(boost::circular_buffer<char> & buf
 {
   std::cerr << "~~~~~~~~~~~~~~~~~~~~~~~~~~ [ProtocolClientRFB::parseSecuResult] ~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
 
-  if (bufferToParse.size() >= 4) // Ne pas mettre des chiffres, utilises de sizeof ou des defines
+  if (bufferToParse.size() >= sizeof(EBML::uint32)) // Ne pas mettre des chiffres, utilises de sizeof ou des defines
     {
       void* data = bufferToParse.linearize();
 
@@ -223,7 +223,7 @@ VncResult		ProtocolClientRFB::parseSecuResult(boost::circular_buffer<char> & buf
 	      return (this->execInitMessage());
 	    }
 	}
-      bufferToParse.erase_begin(4);
+      bufferToParse.erase_begin(sizeof(EBML::uint32));
     }
   return (std::make_pair(static_cast<char*>(0),0));
 }
@@ -232,7 +232,7 @@ VncResult		ProtocolClientRFB::parseSecuReason(boost::circular_buffer<char> & buf
 {
   std::cerr << "~~~~~~~~~~~~~~~~~~~~~~~~~~ [ProtocolClientRFB::parseSecuReason] ~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
 
-  if (bufferToParse.size() >= 4)
+  if (bufferToParse.size() >= sizeof(EBML::uint32))
     {
       void* data = bufferToParse.linearize();
       EBML::uint32* reasonLength = static_cast<EBML::uint32*>(data);
@@ -242,7 +242,7 @@ VncResult		ProtocolClientRFB::parseSecuReason(boost::circular_buffer<char> & buf
 	
       this->convertUint8ToString(reason, *reasonLength, this->_secuReason);
       this->_rfbStep = RFB_DISCONNECT;
-      bufferToParse.erase_begin(*reasonLength + 4);
+      bufferToParse.erase_begin(*reasonLength + sizeof(EBML::uint32));
     }
   return (std::make_pair(static_cast<char*>(0), 0));
 }
