@@ -19,7 +19,7 @@ ProtocolClientRFB::ProtocolClientRFB():
   this->_rfbStep = RFB_VERSION;
 }
 
-void		ProtocolClientRFB::initialize(int mouseMoveDistance)
+void		ProtocolClientRFB::initialize(EBML::int32 mouseMoveDistance)
 {
   this->_mouseMoveDistance = mouseMoveDistance;
 }
@@ -29,12 +29,12 @@ bool		ProtocolClientRFB::isInitProcessFinish() const
   return (RFB_MESSAGING == this->_rfbStep);
 }
 
-void	ProtocolClientRFB::bufcpy(const char * source, unsigned int length)
+void	ProtocolClientRFB::bufcpy(const char * source, EBML::uint32 length)
 {
   std::copy(source, source + length, this->_messageToSend);
 }
 
-void	ProtocolClientRFB::convertUint8ToString(unsigned char const * data, unsigned int size, std::string & src)
+void	ProtocolClientRFB::convertUint8ToString(unsigned char const * data, EBML::uint32 size, std::string & src)
 {
   std::copy(data, data + size, src.begin());
 }
@@ -202,7 +202,7 @@ VncResult		ProtocolClientRFB::parseSecuResult(boost::circular_buffer<char> & buf
     {
       void* data = bufferToParse.linearize();
 
-      unsigned int* response = static_cast<unsigned int*>(data);
+      EBML::uint32* response = static_cast<EBML::uint32*>(data);
 
       if (*response == 1)
 	{
@@ -235,9 +235,9 @@ VncResult		ProtocolClientRFB::parseSecuReason(boost::circular_buffer<char> & buf
   if (bufferToParse.size() >= 4)
     {
       void* data = bufferToParse.linearize();
-      unsigned int* reasonLength = static_cast<unsigned int*>(data);
-      unsigned int ptr = (unsigned int)data;
-      data = (void*)(ptr + sizeof(unsigned int)); 
+      EBML::uint32* reasonLength = static_cast<EBML::uint32*>(data);
+      EBML::uint32 ptr = (EBML::uint32)data;
+      data = (void*)(ptr + sizeof(EBML::uint32)); 
       unsigned char* reason = static_cast<unsigned char*>(data);
 	
       this->convertUint8ToString(reason, *reasonLength, this->_secuReason);

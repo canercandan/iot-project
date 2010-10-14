@@ -5,6 +5,8 @@
 
 #include <boost/circular_buffer.hpp>
 
+#include <openvibe-toolkit/ovtk_all.h>
+
 #include "ovp_vncDefine.h"
 
 namespace OpenViBEPlugins
@@ -16,14 +18,14 @@ namespace OpenViBEPlugins
     public:
       ProtocolClientRFB();
 
-      void		initialize(int mouseMoveDistance);
+      void		initialize(EBML::int32 mouseMoveDistance);
       VncResult		parse(boost::circular_buffer<char> & bufferToParse);
       VncResult		execute(Action);
       bool		isInitProcessFinish() const;
 
     private:
-      void		bufcpy(const char *, unsigned int);
-      void		convertUint8ToString(unsigned char const *, unsigned int, std::string &);
+      void		bufcpy(const char *, EBML::uint32);
+      void		convertUint8ToString(unsigned char const *, EBML::uint32, std::string &);
       VncResult		parseVersion(boost::circular_buffer<char> &);
       VncResult		parseSecuList(boost::circular_buffer<char> &);
       VncResult		parseSecuResult(boost::circular_buffer<char> &);
@@ -36,7 +38,7 @@ namespace OpenViBEPlugins
       VncResult		execMouseMsg(Action);
 
     private:
-      typedef std::pair<char*, int> (ProtocolClientRFB::*funcParsePtr)(boost::circular_buffer<char> &);
+      typedef std::pair<char*, EBML::int32> (ProtocolClientRFB::*funcParsePtr)(boost::circular_buffer<char> &);
 
       static std::string const 			_VERSION;
       std::map<RFBServerStep, funcParsePtr>	_parsePtrMap;

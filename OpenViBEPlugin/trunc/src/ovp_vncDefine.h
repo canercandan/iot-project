@@ -24,9 +24,9 @@ namespace OpenViBEPlugins
       unsigned char  depth;
       unsigned char  bigEndianFlag;
       unsigned char  trueColourFlag;
-      unsigned short redMax;
-      unsigned short greenMax;
-      unsigned short blueMax;
+      EBML::uint16 redMax;
+      EBML::uint16 greenMax;
+      EBML::uint16 blueMax;
       unsigned char  redShift;
       unsigned char  greenShift;
       unsigned char  blueShift;
@@ -35,10 +35,10 @@ namespace OpenViBEPlugins
 
     struct RFBDesktopInfo
     {
-      unsigned short	framebufferWidth;
-      unsigned short	framebufferHeight;
+      EBML::uint16	framebufferWidth;
+      EBML::uint16	framebufferHeight;
       RFBPixelFormat	serverPixelFormat;
-      unsigned int		nameLength;
+      EBML::uint32		nameLength;
       unsigned char		nameString[4];
     };
 
@@ -47,15 +47,15 @@ namespace OpenViBEPlugins
       unsigned char   messageType;
       unsigned char   downFlag;
       unsigned char   padding[2];
-      unsigned int    key;
+      EBML::uint32    key;
     };
 
     struct RFBPointerEvent
     {
       unsigned char   messageType;
       unsigned char   buttonMask;
-      unsigned short  xPosition;
-      unsigned short  yPosition;
+      EBML::uint16  xPosition;
+      EBML::uint16  yPosition;
     };
 
 
