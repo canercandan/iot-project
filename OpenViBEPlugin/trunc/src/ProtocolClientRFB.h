@@ -45,7 +45,7 @@ namespace OpenViBEPlugins
       unsigned char				_secuType;
       unsigned char				_sharedFlag;
       unsigned char				_firstSecuResult;
-      RFBDesktopInfo*				_desktopInfo;
+      RFBDesktopInfo				_desktopInfo;
       char					_messageToSend[255];
       unsigned short				_mouseXPosition;
       unsigned short				_mouseYPosition;

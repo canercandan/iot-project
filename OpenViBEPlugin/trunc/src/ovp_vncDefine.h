@@ -53,7 +53,7 @@ namespace OpenViBEPlugins
     struct RFBPointerEvent
     {
       unsigned char   messageType;
-      unsigned char   bouttonMask;
+      unsigned char   buttonMask;
       unsigned short  xPosition;
       unsigned short  yPosition;
     };
