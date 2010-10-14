@@ -213,6 +213,7 @@ VncResult		ProtocolClientRFB::parseSecuResult(boost::circular_buffer<char> & buf
 	{
 	  if (this->_firstSecuResult == 0)
 	    {
+	  std::cerr << "~~~~~~~~~~~~~~~~~~~~~~~~~~ [ProtocolClientRFB::ffffffffffffff] ~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
 	      this->_firstSecuResult = 1;
 	    }
 	  else
@@ -235,7 +236,8 @@ VncResult		ProtocolClientRFB::parseSecuReason(boost::circular_buffer<char> & buf
     {
       void* data = bufferToParse.linearize();
       unsigned int* reasonLength = static_cast<unsigned int*>(data);
-      data += sizeof(unsigned int);
+      unsigned int ptr = (unsigned int)data;
+      data = (void*)(ptr + sizeof(unsigned int)); 
       unsigned char* reason = static_cast<unsigned char*>(data);
 	
       this->convertUint8ToString(reason, *reasonLength, this->_secuReason);
