@@ -161,7 +161,6 @@ VncResult	ProtocolClientRFB::execute(Action action)
 VncResult		ProtocolClientRFB::parseVersion(boost::circular_buffer<char> & bufferToParse)
 {
   std::cerr << "~~~~~~~~~~~~~~~~~~~~~~~~~~ [ProtocolClientRFB::parseVersion] ~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
-  std::cerr << "TTTTTTTTTTTTTTTaille du buffer pour la version : " << bufferToParse.size() << std::endl;
 
   if (bufferToParse.size() >= ProtocolClientRFB::_VERSION.size())
     {
@@ -198,7 +197,7 @@ VncResult		ProtocolClientRFB::parseSecuResult(boost::circular_buffer<char> & buf
 {
   std::cerr << "~~~~~~~~~~~~~~~~~~~~~~~~~~ [ProtocolClientRFB::parseSecuResult] ~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
 
-  if (bufferToParse.size() >= sizeof(EBML::uint32)) // Ne pas mettre des chiffres, utilises de sizeof ou des defines
+  if (bufferToParse.size() >= sizeof(EBML::uint32))
     {
       void* data = bufferToParse.linearize();
 
@@ -213,7 +212,7 @@ VncResult		ProtocolClientRFB::parseSecuResult(boost::circular_buffer<char> & buf
 	{
 	  if (this->_firstSecuResult == 0)
 	    {
-	  std::cerr << "~~~~~~~~~~~~~~~~~~~~~~~~~~ [ProtocolClientRFB::ffffffffffffff] ~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
+	      std::cerr << "~~~~~~~~~~~~~~~~~~~~~~~~~~ [ProtocolClientRFB::ffffffffffffff] ~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
 	      this->_firstSecuResult = 1;
 	    }
 	  else

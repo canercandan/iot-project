@@ -65,9 +65,12 @@ OpenViBE::boolean CVncBox::uninitialize(void)
 OpenViBE::boolean CVncBox::processInput(OpenViBE::uint32 ui32InputIndex)
 {
   std::cerr << "~~~~~~~~~~~~~~~~~~~~~~~~~~CVncBox::processInput~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
-  this->receiveBuffer();
-  VncResult result = this->_protocolClientRFB.parse(this->_bufferIn);
-  this->sendBuffer(result);
+  if (!this->_protocolClientRFB.isInitProcessFinish())
+    {
+      this->receiveBuffer();
+      VncResult result = this->_protocolClientRFB.parse(this->_bufferIn);
+      this->sendBuffer(result);
+    }
   if (this->_protocolClientRFB.isInitProcessFinish())
     {
       this->getBoxAlgorithmContext()->markAlgorithmAsReadyToProcess();
