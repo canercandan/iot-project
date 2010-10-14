@@ -195,7 +195,7 @@ VncResult		ProtocolClientRFB::parseSecuList(boost::circular_buffer<char> & buffe
 
 VncResult		ProtocolClientRFB::parseSecuResult(boost::circular_buffer<char> & bufferToParse)
 {
-  std::cerr << "~~~~~~~~~~~~~~~~~~~~~~~~~~ [ProtocolClientRFB::parseSecuResult] ~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
+  std::cerr << "~~~~~~~~~~~~~~~~~~~~~~~~~~ [ProtocolClientRFB::parseSecuResult] ~~~~~~~~~~~~~~~~~~~~~~~~~~" << bufferToParse.size() << std::endl;
 
   if (bufferToParse.size() >= sizeof(EBML::uint32))
     {
@@ -235,11 +235,13 @@ VncResult		ProtocolClientRFB::parseSecuReason(boost::circular_buffer<char> & buf
     {
       void* data = bufferToParse.linearize();
       EBML::uint32* reasonLength = static_cast<EBML::uint32*>(data);
-      EBML::uint32 ptr = (EBML::uint32)data;
-      data = (void*)(ptr + sizeof(EBML::uint32)); 
-      unsigned char* reason = static_cast<unsigned char*>(data);
-	
-      this->convertUint8ToString(reason, *reasonLength, this->_secuReason);
+      if (*reasonLength > 0)
+	{
+	  EBML::uint32* tmp = reasonLength;
+	  unsigned char* reason = static_cast<unsigned char*>((void *)(++tmp));
+	  
+	  this->convertUint8ToString(reason, *reasonLength, this->_secuReason);
+	}
       this->_rfbStep = RFB_DISCONNECT;
       bufferToParse.erase_begin(*reasonLength + sizeof(EBML::uint32));
     }
