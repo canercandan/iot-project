@@ -28,23 +28,19 @@ QString const ProtocolServerVNC::_VERSION = "RFB 003.008\n";
 ProtocolServerVNC::ProtocolServerVNC():
         _execPtrMap(), _parsePtrMap(), _vncStep(VNC_VERSION), _passOk(TB_UNKNOWN), _validSecurity(true), _secuReason(), _validVersion(false)
 {
-    _execPtrMap[VNC_VERSION] = &ProtocolServerVNC::execVersion;
-    _execPtrMap[VNC_SECULIST] = &ProtocolServerVNC::execSecuList;
-    _execPtrMap[VNC_SECURESULT] = &ProtocolServerVNC::execSecuResult;
-    _execPtrMap[VNC_SECUREASON] = &ProtocolServerVNC::execSecuReason;
-    _execPtrMap[VNC_PASSCHECK] = &ProtocolServerVNC::execSand;
-    _execPtrMap[VNC_INITMESSAGE] = &ProtocolServerVNC::execServerInit;
+    this->_execPtrMap[VNC_VERSION] = &ProtocolServerVNC::execVersion;
+    this->_execPtrMap[VNC_SECULIST] = &ProtocolServerVNC::execSecuList;
+    this->_execPtrMap[VNC_SECURESULT] = &ProtocolServerVNC::execSecuResult;
+    this->_execPtrMap[VNC_SECUREASON] = &ProtocolServerVNC::execSecuReason;
+    this->_execPtrMap[VNC_PASSCHECK] = &ProtocolServerVNC::execSand;
+    this->_execPtrMap[VNC_INITMESSAGE] = &ProtocolServerVNC::execServerInit;
 
-    _parsePtrMap[VNC_VERSION] = &ProtocolServerVNC::parseVersion;
-    _parsePtrMap[VNC_SECULIST] = &ProtocolServerVNC::parseSecuList;
-    _parsePtrMap[VNC_PASSCHECK] = &ProtocolServerVNC::parsePassword;
-    _parsePtrMap[VNC_INITMESSAGE] = &ProtocolServerVNC::parseInitMessage;
-    _parsePtrMap[VNC_MESSAGING] = &ProtocolServerVNC::parseMessage;
+    this->_parsePtrMap[VNC_VERSION] = &ProtocolServerVNC::parseVersion;
+    this->_parsePtrMap[VNC_SECULIST] = &ProtocolServerVNC::parseSecuList;
+    this->_parsePtrMap[VNC_PASSCHECK] = &ProtocolServerVNC::parsePassword;
+    this->_parsePtrMap[VNC_INITMESSAGE] = &ProtocolServerVNC::parseInitMessage;
+    this->_parsePtrMap[VNC_MESSAGING] = &ProtocolServerVNC::parseMessage;
     this->init();
-}
-
-ProtocolServerVNC::~ProtocolServerVNC()
-{
 }
 
 void          ProtocolServerVNC::convertStringToUint8(QDataStream & src, QString const & data)
@@ -162,14 +158,14 @@ void		ProtocolServerVNC::execServerInit(QDataStream & stream)
 
     std::cout << "Name size : " << sizeof(desktopInfo.nameString) << std::endl;
 
-    //    stream.writeBytes((char *)&desktopInfo, sizeof(desktopInfo));
-    stream << desktopInfo.framebufferWidth << desktopInfo.framebufferHeight << desktopInfo.serverPixelFormat.bitsPerPixel;
-    stream << desktopInfo.serverPixelFormat.depth << desktopInfo.serverPixelFormat.bigEndianFlag;
-    stream << desktopInfo.serverPixelFormat.trueColourFlag << desktopInfo.serverPixelFormat.redMax;
-    stream << desktopInfo.serverPixelFormat.greenMax << desktopInfo.serverPixelFormat.blueMax;
-    stream << desktopInfo.serverPixelFormat.redShift << desktopInfo.serverPixelFormat.greenShift;
-    stream << desktopInfo.serverPixelFormat.blueShift << desktopInfo.serverPixelFormat.padding;
-    stream << desktopInfo.nameLength << desktopInfo.nameString;
+    stream.writeBytes((char *)&desktopInfo, sizeof(desktopInfo));
+    // stream << desktopInfo.framebufferWidth << desktopInfo.framebufferHeight << desktopInfo.serverPixelFormat.bitsPerPixel;
+    // stream << desktopInfo.serverPixelFormat.depth << desktopInfo.serverPixelFormat.bigEndianFlag;
+    // stream << desktopInfo.serverPixelFormat.trueColourFlag << desktopInfo.serverPixelFormat.redMax;
+    // stream << desktopInfo.serverPixelFormat.greenMax << desktopInfo.serverPixelFormat.blueMax;
+    // stream << desktopInfo.serverPixelFormat.redShift << desktopInfo.serverPixelFormat.greenShift;
+    // stream << desktopInfo.serverPixelFormat.blueShift << desktopInfo.serverPixelFormat.padding;
+    // stream << desktopInfo.nameLength << desktopInfo.nameString;
 
     this->_vncStep = VNC_MESSAGING;
 }
@@ -222,7 +218,7 @@ void		ProtocolServerVNC::parseSecuList(QDataStream & data)
     this->_vncStep = VNC_SECURESULT;
 }
 
-void		ProtocolServerVNC::parsePassword(QDataStream & data)
+void		ProtocolServerVNC::parsePassword(QDataStream & )
 {
     std::cout << "parsePassword" << std::endl;
     // there is no password, then we pass to the next step

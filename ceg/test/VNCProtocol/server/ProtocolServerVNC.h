@@ -42,15 +42,15 @@ struct VNCPixelFormat {
 };
 
 struct VNCDesktopInfo {
-  quint16		framebufferWidth;
-  quint16		framebufferHeight;
-  VNCPixelFormat	serverPixelFormat;
-  quint32		nameLength;
-  quint8		nameString[4];
+    quint16		framebufferWidth;
+    quint16		framebufferHeight;
+    VNCPixelFormat	serverPixelFormat;
+    quint32		nameLength;
+    quint8		nameString[4];
 };
 
 enum VNCServerStep
-  {
+{
     VNC_VERSION,
     VNC_SECULIST,
     VNC_SECURESULT,
@@ -74,41 +74,41 @@ class ProtocolServerVNC
 {
 
 public:
-  typedef void (ProtocolServerVNC::*funcExecPtr)(QDataStream &);
-  typedef void (ProtocolServerVNC::*funcParsePtr)(QDataStream &);
+    typedef void (ProtocolServerVNC::*funcExecPtr)(QDataStream &);
+    typedef void (ProtocolServerVNC::*funcParsePtr)(QDataStream &);
 
-  ProtocolServerVNC();
-  ~ProtocolServerVNC();
-  void          init();
-  void	parse(QDataStream & stream);
-  void	exec(QDataStream & stream);
-  VNCServerStep getStep() const;
-  int           getWaitedSize() const;
+    ProtocolServerVNC();
 
-private:
-  void          convertStringToUint8(QDataStream &, QString const &);
-  void		execVersion(QDataStream &);
-  void		execSecuList(QDataStream &);
-  void		execSecuResult(QDataStream &);
-  void		execSecuReason(QDataStream &);
-  void		execSand(QDataStream &);
-  void		execServerInit(QDataStream &);
-  void		parseVersion(QDataStream &);
-  void		parseSecuList(QDataStream &);
-  void		parsePassword(QDataStream &);
-  void		parseInitMessage(QDataStream &);
-  void		parseMessage(QDataStream &);
+    void          init();
+    void	parse(QDataStream & stream);
+    void	exec(QDataStream & stream);
+    VNCServerStep getStep() const;
+    int           getWaitedSize() const;
 
 private:
-  static QString const                  _VERSION;
-  QMap<VNCServerStep, funcExecPtr>	_execPtrMap;
-  QMap<VNCServerStep, funcParsePtr>	_parsePtrMap;
-  VNCServerStep				_vncStep;
-  triBool                               _passOk;
-  bool                                 _validSecurity;
-  QString                               _secuReason;
-  quint8                                _secuType;
-  bool                                 _validVersion;
+    void          convertStringToUint8(QDataStream &, QString const &);
+    void		execVersion(QDataStream &);
+    void		execSecuList(QDataStream &);
+    void		execSecuResult(QDataStream &);
+    void		execSecuReason(QDataStream &);
+    void		execSand(QDataStream &);
+    void		execServerInit(QDataStream &);
+    void		parseVersion(QDataStream &);
+    void		parseSecuList(QDataStream &);
+    void		parsePassword(QDataStream &);
+    void		parseInitMessage(QDataStream &);
+    void		parseMessage(QDataStream &);
+
+private:
+    static QString const                  _VERSION;
+    QMap<VNCServerStep, funcExecPtr>	_execPtrMap;
+    QMap<VNCServerStep, funcParsePtr>	_parsePtrMap;
+    VNCServerStep				_vncStep;
+    triBool                               _passOk;
+    bool                                 _validSecurity;
+    QString                               _secuReason;
+    quint8                                _secuType;
+    bool                                 _validVersion;
 };
 
 

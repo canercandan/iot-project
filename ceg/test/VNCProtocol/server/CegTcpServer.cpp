@@ -55,7 +55,7 @@ CegTcpServer::~CegTcpServer()
 
 void	CegTcpServer::launch(void)
 {
-    std::cerr << "Trying to launch TCP server on port 5900" << std::endl;;
+    std::cerr << "Trying to launch TCP server on port 5900" << std::endl;
     this->_tcpServer = new QTcpServer();
     if (!this->_tcpServer->listen(QHostAddress::Any, 5900))
     {
@@ -63,7 +63,7 @@ void	CegTcpServer::launch(void)
     }
     else
     {
-        std::cerr << "Ok Listening on port:  5900" << std::endl;;
+        std::cerr << "Ok Listening on port:  5900" << std::endl;
         this->_tcpServer->setMaxPendingConnections(1);
         QObject::connect(_tcpServer, SIGNAL(newConnection()), this, SLOT(_connect()));
     }
@@ -104,7 +104,7 @@ void CegTcpServer::send()
     QByteArray paquet;
     QDataStream out(&paquet, QIODevice::WriteOnly);
     this->_vncProtocol.exec(out);
-    std::cout << "Envoie de " << paquet.size();
+    std::cout << "CegTcpServer::send()" << std::endl << "Envoie de " << paquet.size() << " octets." << std::endl;
     this->_client->write(paquet);
 }
 
@@ -113,6 +113,6 @@ void CegTcpServer::sendMsg()
     QByteArray paquet;
     QDataStream out(&paquet, QIODevice::WriteOnly);
     this->_vncProtocol.exec(out);
-    std::cout << "Envoie de " << paquet.size();
+    std::cout << "CegTcpServer::sendMsg()" << std::endl << "Envoie de " << paquet.size()<< " octets." << std::endl;
     this->_client->write(paquet);
 }
