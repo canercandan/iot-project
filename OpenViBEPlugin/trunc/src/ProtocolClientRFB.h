@@ -22,7 +22,7 @@ namespace OpenViBEPlugins
       bool		isInitProcessFinish() const;
 
     private:
-      void		bufcpy(const unsigned char*, unsigned int);
+      void		bufcpy(const char *, unsigned int);
       void		convertUint8ToString(unsigned char const *, unsigned int, std::string &);
       VncResult		parseVersion(boost::circular_buffer<char> &);
       VncResult		parseSecuList(boost::circular_buffer<char> &);
@@ -38,12 +38,12 @@ namespace OpenViBEPlugins
     private:
       typedef std::pair<char*, int> (ProtocolClientRFB::*funcParsePtr)(boost::circular_buffer<char> &);
 
-      static char const *			_VERSION;
+      static std::string const 			_VERSION;
       std::map<RFBServerStep, funcParsePtr>	_parsePtrMap;
       RFBServerStep				_rfbStep;
       std::string				_secuReason;
-      unsigned char				_secuType;
-      unsigned char				_sharedFlag;
+      char					_secuType;
+      char					_sharedFlag;
       unsigned char				_firstSecuResult;
       RFBDesktopInfo				_desktopInfo;
       char					_messageToSend[255];

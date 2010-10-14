@@ -4,7 +4,7 @@
 
 using namespace OpenViBEPlugins::VNC;
 
-char const * ProtocolClientRFB::_VERSION = "RFB 003.008\n";
+std::string const ProtocolClientRFB::_VERSION = std::string("RFB 003.008\n");
 
 ProtocolClientRFB::ProtocolClientRFB():
   _parsePtrMap(), _rfbStep(RFB_VERSION), _secuReason(),
@@ -29,7 +29,7 @@ bool		ProtocolClientRFB::isInitProcessFinish() const
   return (RFB_MESSAGING == this->_rfbStep);
 }
 
-void	ProtocolClientRFB::bufcpy(const unsigned char* source, unsigned int length)
+void	ProtocolClientRFB::bufcpy(const char * source, unsigned int length)
 {
   std::copy(source, source + length, this->_messageToSend);
 }
@@ -43,9 +43,9 @@ VncResult	ProtocolClientRFB::execVersion()
 {
   std::cerr << "~~~~~~~~~~~~~~~~~~~~~~~~~~ [ProtocolClientRFB::execVersion] ~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
 
-  this->bufcpy((const unsigned char*)this->_VERSION, 12);
+  this->bufcpy(ProtocolClientRFB::_VERSION.c_str(), ProtocolClientRFB::_VERSION.size());
   this->_rfbStep = RFB_SECULIST;
-  return (std::make_pair(this->_messageToSend, 12));
+  return (std::make_pair(this->_messageToSend, ProtocolClientRFB::_VERSION.size()));
 }
 
 VncResult		ProtocolClientRFB::execSecuList()
@@ -73,9 +73,9 @@ VncResult		ProtocolClientRFB::execKeyMsg(Action action)
   keyEvent.downFlag = 1;
   keyEvent.key = (action == ACTION_KEY1 ? 0xff54 : 0xff53);
   
-  this->bufcpy((unsigned char*)&keyEvent, sizeof(RFBKeyEvent));
+  this->bufcpy((char*)&keyEvent, sizeof(RFBKeyEvent));
   keyEvent.downFlag = 0;
-  this->bufcpy((unsigned char*)&keyEvent, sizeof(RFBKeyEvent));
+  this->bufcpy((char*)&keyEvent, sizeof(RFBKeyEvent));
   return (std::make_pair(this->_messageToSend, sizeof(RFBKeyEvent) * 2));
 }
 
@@ -138,9 +138,9 @@ VncResult		ProtocolClientRFB::execMouseMsg(Action action)
     }
   pointerEvent.xPosition = this->_mouseXPosition;
   pointerEvent.yPosition = this->_mouseYPosition;
-  this->bufcpy((unsigned char*)&pointerEvent, sizeof(RFBPointerEvent));
+  this->bufcpy((char*)&pointerEvent, sizeof(RFBPointerEvent));
   pointerEvent.buttonMask = 0;
-  this->bufcpy((unsigned char*)&pointerEvent, sizeof(RFBPointerEvent));
+  this->bufcpy((char*)&pointerEvent, sizeof(RFBPointerEvent));
   return (std::make_pair(this->_messageToSend, sizeof(RFBPointerEvent) * 2));
 }
 
@@ -163,10 +163,9 @@ VncResult		ProtocolClientRFB::parseVersion(boost::circular_buffer<char> & buffer
   std::cerr << "~~~~~~~~~~~~~~~~~~~~~~~~~~ [ProtocolClientRFB::parseVersion] ~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
   std::cerr << "TTTTTTTTTTTTTTTaille du buffer pour la version : " << bufferToParse.size() << std::endl;
 
-  std::string rfbVersion(ProtocolClientRFB::_VERSION);
-  if (bufferToParse.size() >= rfbVersion.size())
+  if (bufferToParse.size() >= ProtocolClientRFB::_VERSION.size())
     {
-      bufferToParse.erase_begin(rfbVersion.size());
+      bufferToParse.erase_begin(ProtocolClientRFB::_VERSION.size());
       return (this->execVersion());
     }
   return (std::make_pair(static_cast<char*>(0), 0));
