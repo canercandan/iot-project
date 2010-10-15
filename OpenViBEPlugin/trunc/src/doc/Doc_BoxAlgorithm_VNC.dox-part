@@ -1,0 +1,90 @@
+/**
+ * \page BoxAlgorithm_VNC VNC
+__________________________________________________________________
+
+Detailed description
+__________________________________________________________________
+
+ * |OVP_DocBegin_BoxAlgorithm_VNC_Description|
+ * Cette box permet de communiquer avec un serveur VNC (distant ou local) par le biais du protocole RFB (Remote Frame Buffer).
+ * La box agit donc comme un client.
+ * Il n'est pas possible d'utiliser la box avec un serveur VNC utilisant un mode securise (Login - password).
+ * L'interet principal ce situe dans l'emission des actions de type mouvement de souris, clic et touche clavier. La restitution visuel du serveur n'est pas le but.
+ * Les differentes actions possibles sont associees a des stimulations. Lorsque la box recevra une stimulation elle enverra l'action correspondante au serveur VNC.
+ * |OVP_DocEnd_BoxAlgorithm_VNC_Description|
+__________________________________________________________________
+
+Inputs description
+__________________________________________________________________
+
+ * |OVP_DocBegin_BoxAlgorithm_VNC_Inputs|
+ * Un flux de stimulations a traite.
+ * |OVP_DocEnd_BoxAlgorithm_VNC_Inputs|
+
+__________________________________________________________________
+
+Settings description
+__________________________________________________________________
+
+ * |OVP_DocBegin_BoxAlgorithm_VNC_Settings|
+ * L'adresse du serveur VNC
+ * |OVP_DocEnd_BoxAlgorithm_VNC_Settings|
+
+ * |OVP_DocBegin_BoxAlgorithm_VNC_Setting1|
+ * Le port de connection au serveur
+ * |OVP_DocEnd_BoxAlgorithm_VNC_Setting1|
+
+ * |OVP_DocBegin_BoxAlgorithm_VNC_Setting2|
+ * La distance en pixel a utiliser lors des mouvements de souris
+ * |OVP_DocEnd_BoxAlgorithm_VNC_Setting2|
+
+ * |OVP_DocBegin_BoxAlgorithm_VNC_Setting3|
+ * La stimulation a utilise pour bouger la souris vers la gauche
+ * |OVP_DocEnd_BoxAlgorithm_VNC_Setting3|
+
+ * |OVP_DocBegin_BoxAlgorithm_VNC_Setting4|
+ * La stimulation a utilise pour bouger la souris vers la droite
+ * |OVP_DocEnd_BoxAlgorithm_VNC_Setting4|
+
+ * |OVP_DocBegin_BoxAlgorithm_VNC_Setting5|
+ * La stimulation a utilise pour bouger la souris vers le haut
+ * |OVP_DocEnd_BoxAlgorithm_VNC_Setting5|
+
+ * |OVP_DocBegin_BoxAlgorithm_VNC_Setting6|
+ * La stimulation a utilise pour bouger la souris vers le bas
+ * |OVP_DocEnd_BoxAlgorithm_VNC_Setting6|
+
+ * |OVP_DocBegin_BoxAlgorithm_VNC_Setting7|
+ * La stimulation a utilise pour effectuer un clic gauche de la souris
+ * |OVP_DocEnd_BoxAlgorithm_VNC_Setting7|
+
+ * |OVP_DocBegin_BoxAlgorithm_VNC_Setting8|
+ * La stimulation a utilise pour effectuer un clic centrale de la souris
+ * |OVP_DocEnd_BoxAlgorithm_VNC_Setting8|
+
+ * |OVP_DocBegin_BoxAlgorithm_VNC_Setting9|
+ * La stimulation a utilise pour effectuer un clic droit de la souris
+ * |OVP_DocEnd_BoxAlgorithm_VNC_Setting9|
+
+ * |OVP_DocBegin_BoxAlgorithm_VNC_Setting10|
+ * La stimulation a utilise pour envoyer une touche clavier (Correspond a la touche ?)
+ * |OVP_DocEnd_BoxAlgorithm_VNC_Setting10|
+
+ * |OVP_DocBegin_BoxAlgorithm_VNC_Setting11|
+ * La stimulation a utilise pour envoyer une touche clavier (Correspond a la touche ?)
+ * |OVP_DocEnd_BoxAlgorithm_VNC_Setting11|
+__________________________________________________________________
+
+Examples description
+__________________________________________________________________
+
+ * |OVP_DocBegin_BoxAlgorithm_VNC_Examples|
+ * |OVP_DocEnd_BoxAlgorithm_VNC_Examples|
+__________________________________________________________________
+
+Miscellaneous description
+__________________________________________________________________
+
+ * |OVP_DocBegin_BoxAlgorithm_VNC_Miscellaneous|
+ * |OVP_DocEnd_BoxAlgorithm_VNC_Miscellaneous|
+ */
