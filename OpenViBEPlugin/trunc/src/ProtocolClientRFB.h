@@ -19,26 +19,26 @@ namespace OpenViBEPlugins
       ProtocolClientRFB();
 
       void		initialize(EBML::int32 mouseMoveDistance);
-      VncResult		parse(boost::circular_buffer<char> & bufferToParse);
-      VncResult		execute(Action);
+      boost::circular_buffer<char> &		parse(boost::circular_buffer<char> & bufferToParse);
+      boost::circular_buffer<char> &		execute(Action);
       bool		isInitProcessFinish() const;
 
     private:
       void		bufcpy(const char *, EBML::uint32);
       void		convertUint8ToString(unsigned char const *, EBML::uint32, std::string &);
-      VncResult		parseVersion(boost::circular_buffer<char> &);
-      VncResult		parseSecuList(boost::circular_buffer<char> &);
-      VncResult		parseSecuResult(boost::circular_buffer<char> &);
-      VncResult		parseSecuReason(boost::circular_buffer<char> &);
-      VncResult		parseServerInit(boost::circular_buffer<char> &);
-      VncResult		execVersion();
-      VncResult		execSecuList();
-      VncResult		execInitMessage();
-      VncResult		execKeyMsg(Action);
-      VncResult		execMouseMsg(Action);
+      void		parseVersion(boost::circular_buffer<char> &);
+      void		parseSecuList(boost::circular_buffer<char> &);
+      void		parseSecuResult(boost::circular_buffer<char> &);
+      void		parseSecuReason(boost::circular_buffer<char> &);
+      void		parseServerInit(boost::circular_buffer<char> &);
+      void		execVersion();
+      void		execSecuList();
+      void		execInitMessage();
+      void		execKeyMsg(Action);
+      void		execMouseMsg(Action);
 
     private:
-      typedef std::pair<char*, EBML::int32> (ProtocolClientRFB::*funcParsePtr)(boost::circular_buffer<char> &);
+      typedef void (ProtocolClientRFB::*funcParsePtr)(boost::circular_buffer<char> &);
 
       static std::string const 			_VERSION;
       std::map<RFBServerStep, funcParsePtr>	_parsePtrMap;
@@ -48,7 +48,7 @@ namespace OpenViBEPlugins
       char					_sharedFlag;
       unsigned char				_firstSecuResult;
       RFBDesktopInfo				_desktopInfo;
-      char					_messageToSend[255];
+      boost::circular_buffer<char>		_messageToSend;
       unsigned short				_mouseXPosition;
       unsigned short				_mouseYPosition;
       unsigned short				_mouseMoveDistance;

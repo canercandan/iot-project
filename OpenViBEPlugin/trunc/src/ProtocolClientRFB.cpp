@@ -8,7 +8,7 @@ std::string const ProtocolClientRFB::_VERSION = std::string("RFB 003.008\n");
 
 ProtocolClientRFB::ProtocolClientRFB():
   _parsePtrMap(), _rfbStep(RFB_VERSION), _secuReason(),
-  _secuType(0), _sharedFlag(0), _firstSecuResult(1),
+  _secuType(0), _sharedFlag(0), _firstSecuResult(1), _messageToSend(256),
   _mouseXPosition(0), _mouseYPosition(0), _mouseMoveDistance(5)
 {
   this->_parsePtrMap[RFB_VERSION] = &ProtocolClientRFB::parseVersion;
@@ -31,7 +31,8 @@ bool		ProtocolClientRFB::isInitProcessFinish() const
 
 void	ProtocolClientRFB::bufcpy(const char * source, EBML::uint32 length)
 {
-  std::copy(source, source + length, this->_messageToSend);
+  this->_messageToSend.insert(this->_messageToSend.end(), source, source + length);
+    //  std::copy(source, source + length, this->_messageToSend);
 }
 
 void	ProtocolClientRFB::convertUint8ToString(unsigned char const * data, EBML::uint32 size, std::string & src)
@@ -39,33 +40,30 @@ void	ProtocolClientRFB::convertUint8ToString(unsigned char const * data, EBML::u
   std::copy(data, data + size, src.begin());
 }
 
-VncResult	ProtocolClientRFB::execVersion()
+void	ProtocolClientRFB::execVersion()
 {
   std::cerr << "~~~~~~~~~~~~~~~~~~~~~~~~~~ [ProtocolClientRFB::execVersion] ~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
 
   this->bufcpy(ProtocolClientRFB::_VERSION.c_str(), ProtocolClientRFB::_VERSION.size());
   this->_rfbStep = RFB_SECULIST;
-  return (std::make_pair(this->_messageToSend, ProtocolClientRFB::_VERSION.size()));
 }
 
-VncResult		ProtocolClientRFB::execSecuList()
+void		ProtocolClientRFB::execSecuList()
 {
 std::cerr << "~~~~~~~~~~~~~~~~~~~~~~~~~~ [ProtocolClientRFB::execSecuList] ~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
 
   this->bufcpy(&this->_secuType, 1);
   this->_rfbStep = RFB_SECURESULT;
-  return (std::make_pair(this->_messageToSend, 1));
 }
 
-VncResult		ProtocolClientRFB::execInitMessage()
+void		ProtocolClientRFB::execInitMessage()
 {
   std::cerr << "~~~~~~~~~~~~~~~~~~~~~~~~~~ [ProtocolClientRFB::execInitMessage] ~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
 
   this->bufcpy(&this->_sharedFlag, 1);
-  return (std::make_pair(this->_messageToSend, 1));
 }
 
-VncResult		ProtocolClientRFB::execKeyMsg(Action action)
+void		ProtocolClientRFB::execKeyMsg(Action action)
 {
   RFBKeyEvent	keyEvent;
   keyEvent.messageType = 4;
@@ -75,10 +73,9 @@ VncResult		ProtocolClientRFB::execKeyMsg(Action action)
   this->bufcpy((char*)&keyEvent, sizeof(RFBKeyEvent));
   keyEvent.downFlag = 0;
   this->bufcpy((char*)&keyEvent, sizeof(RFBKeyEvent));
-  return (std::make_pair(this->_messageToSend, sizeof(RFBKeyEvent) * 2));
 }
 
-VncResult		ProtocolClientRFB::execMouseMsg(Action action)
+void		ProtocolClientRFB::execMouseMsg(Action action)
 {
   RFBPointerEvent	pointerEvent;
   pointerEvent.messageType = 5;
@@ -140,36 +137,35 @@ VncResult		ProtocolClientRFB::execMouseMsg(Action action)
   this->bufcpy((char*)&pointerEvent, sizeof(RFBPointerEvent));
   pointerEvent.buttonMask = 0;
   this->bufcpy((char*)&pointerEvent, sizeof(RFBPointerEvent));
-  return (std::make_pair(this->_messageToSend, sizeof(RFBPointerEvent) * 2));
 }
 
-VncResult	ProtocolClientRFB::execute(Action action)
+boost::circular_buffer<char>&	ProtocolClientRFB::execute(Action action)
 {
   std::cerr << "~~~~~~~~~~~~~~~~~~~~~~~~~~ [ProtocolClientRFB::execute] ~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
 
   if (action >= ACTION_KEY1)
     {
-      return (this->execKeyMsg(action));
+      this->execKeyMsg(action);
     }
   else
     {
-      return (this->execMouseMsg(action));
+      this->execMouseMsg(action);
     }
+  return (this->_messageToSend);
 }
 
-VncResult		ProtocolClientRFB::parseVersion(boost::circular_buffer<char> & bufferToParse)
+void		ProtocolClientRFB::parseVersion(boost::circular_buffer<char> & bufferToParse)
 {
   std::cerr << "~~~~~~~~~~~~~~~~~~~~~~~~~~ [ProtocolClientRFB::parseVersion] ~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
 
   if (bufferToParse.size() >= ProtocolClientRFB::_VERSION.size())
     {
       bufferToParse.erase_begin(ProtocolClientRFB::_VERSION.size());
-      return (this->execVersion());
+      this->execVersion();
     }
-  return (std::make_pair(static_cast<char*>(0), 0));
 }
 
-VncResult		ProtocolClientRFB::parseSecuList(boost::circular_buffer<char> & bufferToParse)
+void		ProtocolClientRFB::parseSecuList(boost::circular_buffer<char> & bufferToParse)
 {
   std::cerr << "~~~~~~~~~~~~~~~~~~~~~~~~~~ [ProtocolClientRFB::parseSecuList] ~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
 
@@ -181,7 +177,7 @@ VncResult		ProtocolClientRFB::parseSecuList(boost::circular_buffer<char> & buffe
       if (*nbOfSecuTypes > 0)
 	{
 	  this->_secuType = 1;
-	  return (this->execSecuList());
+	  this->execSecuList();
 	}
       else
 	{
@@ -189,10 +185,9 @@ VncResult		ProtocolClientRFB::parseSecuList(boost::circular_buffer<char> & buffe
 	}
       bufferToParse.erase_begin(*nbOfSecuTypes + sizeof(unsigned char));
     }
-  return (std::make_pair(static_cast<char*>(0), 0));
 }
 
-VncResult		ProtocolClientRFB::parseSecuResult(boost::circular_buffer<char> & bufferToParse)
+void		ProtocolClientRFB::parseSecuResult(boost::circular_buffer<char> & bufferToParse)
 {
   std::cerr << "~~~~~~~~~~~~~~~~~~~~~~~~~~ [ProtocolClientRFB::parseSecuResult] ~~~~~~~~~~~~~~~~~~~~~~~~~~" << bufferToParse.size() << std::endl;
 
@@ -218,15 +213,14 @@ VncResult		ProtocolClientRFB::parseSecuResult(boost::circular_buffer<char> & buf
 	    {
 	      std::cerr << "~~~~~~~~~~~~~~~~~~~~~~~~~~ [ProtocolClientRFB::zzziiiiiniii] ~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
 	      this->_rfbStep = RFB_INITMESSAGE;
-	      return (this->execInitMessage());
+	      this->execInitMessage();
 	    }
 	}
       bufferToParse.erase_begin(sizeof(EBML::uint32));
     }
-  return (std::make_pair(static_cast<char*>(0),0));
 }
 
-VncResult		ProtocolClientRFB::parseSecuReason(boost::circular_buffer<char> & bufferToParse)
+void		ProtocolClientRFB::parseSecuReason(boost::circular_buffer<char> & bufferToParse)
 {
   std::cerr << "~~~~~~~~~~~~~~~~~~~~~~~~~~ [ProtocolClientRFB::parseSecuReason] ~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
 
@@ -244,10 +238,9 @@ VncResult		ProtocolClientRFB::parseSecuReason(boost::circular_buffer<char> & buf
       this->_rfbStep = RFB_DISCONNECT;
       bufferToParse.erase_begin(*reasonLength + sizeof(EBML::uint32));
     }
-  return (std::make_pair(static_cast<char*>(0), 0));
 }
 
-VncResult		ProtocolClientRFB::parseServerInit(boost::circular_buffer<char> & bufferToParse)
+void		ProtocolClientRFB::parseServerInit(boost::circular_buffer<char> & bufferToParse)
 {
   std::cerr << "~~~~~~~~~~~~~~~~~~~~~~~~~~ [ProtocolClientRFB::parseServerInit] ~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
 
@@ -259,17 +252,16 @@ VncResult		ProtocolClientRFB::parseServerInit(boost::circular_buffer<char> & buf
       this->_rfbStep = RFB_MESSAGING;
       bufferToParse.erase_begin(sizeof(this->_desktopInfo));
     }
-  return (std::make_pair(static_cast<char*>(0), 0));
 }
 
-VncResult	ProtocolClientRFB::parse(boost::circular_buffer<char> & bufferToParse)
+boost::circular_buffer<char>&	ProtocolClientRFB::parse(boost::circular_buffer<char> & bufferToParse)
 {
   std::cerr << "~~~~~~~~~~~~~~~~~~~~~~~~~~ [ProtocolClientRFB::parse] ~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
 
   if (this->_parsePtrMap.find(this->_rfbStep) != this->_parsePtrMap.end())
     {
       funcParsePtr f = this->_parsePtrMap[this->_rfbStep];
-      return ((this->*f)(bufferToParse));
+      (this->*f)(bufferToParse);
     }
-  return (std::make_pair(static_cast<char*>(0), 0));
+  return (this->_messageToSend);
 }

@@ -10,7 +10,7 @@ using namespace OpenViBEPlugins;
 using namespace OpenViBEPlugins::VNC;
 using namespace OpenViBEToolkit;
 
-CVncBox::CVncBox() : _socket(0), _bufferIn(2048), _bufferOut(2048), _actionsMapping(), _protocolClientRFB()
+CVncBox::CVncBox() : _socket(0), _bufferIn(2048), _actionsMapping(), _protocolClientRFB()
 {
 }
 
@@ -68,7 +68,7 @@ OpenViBE::boolean CVncBox::processInput(OpenViBE::uint32 ui32InputIndex)
   if (!this->_protocolClientRFB.isInitProcessFinish())
     {
       this->receiveBuffer();
-      VncResult result = this->_protocolClientRFB.parse(this->_bufferIn);
+      boost::circular_buffer<char>& result = this->_protocolClientRFB.parse(this->_bufferIn);
       this->sendBuffer(result);
     }
   if (this->_protocolClientRFB.isInitProcessFinish())
@@ -96,9 +96,10 @@ OpenViBE::boolean CVncBox::process(void)
 	    {
 	      std::cerr << "Stimulation["<< s<< "] - Id = " << op_pStimulationSet->getStimulationIdentifier(s) << std::endl;
 	      std::map<OpenViBE::uint64, Action>::const_iterator itSearch = this->_actionsMapping.find(op_pStimulationSet->getStimulationIdentifier(s));
+#warning Ne rentre jamais dans ce IF A CHECK
 	      if (itSearch != this->_actionsMapping.end())
 		{
-		  VncResult result = this->_protocolClientRFB.execute(itSearch->second);
+		  boost::circular_buffer<char>& result = this->_protocolClientRFB.execute(itSearch->second);
 		  this->sendBuffer(result);
 		}
 	    }
@@ -126,20 +127,20 @@ void CVncBox::receiveBuffer()
     }
 }
 
-void CVncBox::sendBuffer(VncResult const & bufferToSend)
+void CVncBox::sendBuffer(boost::circular_buffer<char> &  bufferToSend)
 {
   std::cerr << "~~~~~~~~~~~~~~~~~~~~~~~~~~ [CVncBox::VncResult] ~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
-  if (bufferToSend.second != 0)
+  if (bufferToSend.size() != 0)
     {
-      std::cerr << "sendBuffer\tAjout au buffer de sortie de "<< bufferToSend.second << " octets."<< std::endl;
-      this->_bufferOut.insert(this->_bufferIn.end(), bufferToSend.first, bufferToSend.first + bufferToSend.second);
-      if (!this->_bufferOut.empty() && this->_socket->isReadyToSend())
+      std::cerr << "sendBuffer\tAjout au buffer de sortie de "<< bufferToSend.size() << " octets."<< std::endl;
+      //      this->_bufferOut.insert(this->_bufferIn.end(), bufferToSend.first, bufferToSend.first + bufferToSend.second);
+      if (!bufferToSend.empty() && this->_socket->isReadyToSend())
 	{
-	  std::cerr << "Tentative d'envoie de " << this->_bufferOut.size()<< " octets."<< std::endl;
-	  Socket::uint32 bytesSend = this->_socket->sendBuffer(this->_bufferOut.linearize(), this->_bufferOut.size());
+	  std::cerr << "Tentative d'envoie de " << bufferToSend.size()<< " octets."<< std::endl;
+	  Socket::uint32 bytesSend = this->_socket->sendBuffer(bufferToSend.linearize(), bufferToSend.size());
 	  std::cerr << "Nombre d'octets envoyes : " << bytesSend << std::endl;
-	  this->_bufferOut.erase_begin(bytesSend);
-	  std::cerr << "Taille du buffer de sortie apres nettoyage :"<< this->_bufferOut.size() << " octets." << std::endl;
+	  bufferToSend.erase_begin(bytesSend);
+	  std::cerr << "Taille du buffer de sortie apres nettoyage :"<< bufferToSend.size() << " octets." << std::endl;
 	}
     }
 }
