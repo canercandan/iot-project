@@ -3,54 +3,49 @@
 
 #include "ovpCVncBox.h"
 
-using namespace OpenViBE;
-using namespace OpenViBE::Plugins;
-using namespace OpenViBE::Kernel;
-using namespace OpenViBEPlugins;
 using namespace OpenViBEPlugins::VNC;
-using namespace OpenViBEToolkit;
 
-CVncBox::CVncBox() : _socket(0), _bufferIn(2048), _bufferOut(2048), _actionsMapping(), _protocolClientRFB()
+CVncBox::CVncBox() : m_pSocket(0), m_oBufferIn(2048), m_oBufferOut(2048), m_oActionsMapping(), m_oRfbActor()
 {
 }
 
 void	CVncBox::release(void)
 {
-  this->_socket->release(); // effectue le close de la socket
+  this->m_pSocket->release();
   delete this;
 }
 
 OpenViBE::boolean CVncBox::initialize(void)
 {
-  const IBox* l_pStaticBoxContext = this->getBoxAlgorithmContext()->getStaticBoxContext();
+  OpenViBE::Kernel::IBox const * l_pStaticBoxContext = this->getBoxAlgorithmContext()->getStaticBoxContext();
 
-  this->_protocolClientRFB.initialize(FSettingValueAutoCast(*this->getBoxAlgorithmContext(), 2));
+  this->m_oRfbActor.initialize(FSettingValueAutoCast(*this->getBoxAlgorithmContext(), 2), &(this->getLogManager()));
 
-  for (unsigned int actionId = ACTION_MOUSEL,
-	 settingIndex = 3; // Le premier setting qui nous interesse est "Move left mouse" son index est 3
-       settingIndex < l_pStaticBoxContext->getSettingCount(); ++actionId, ++settingIndex)
+  for (unsigned int l_uint32ActionId = ACTION_MOUSEL,
+	 l_uint32SettingIndex = 3; // Le premier setting qui nous interesse est "Move left mouse" son index est 3
+       l_uint32SettingIndex < l_pStaticBoxContext->getSettingCount(); ++l_uint32ActionId, ++l_uint32SettingIndex)
     {
-      this->_actionsMapping.insert(std::pair<OpenViBE::uint64, Action>(FSettingValueAutoCast(*this->getBoxAlgorithmContext(), settingIndex), static_cast<Action>(actionId)));
+      this->m_oActionsMapping.insert(std::pair<OpenViBE::uint64, EAction>(FSettingValueAutoCast(*this->getBoxAlgorithmContext(), l_uint32SettingIndex), static_cast<EAction>(l_uint32ActionId)));
     }
-  
-  // debug, faire une boucle pour la partie du dessus pour eviter la repetition de code
-  for (std::map<OpenViBE::uint64, Action>::const_iterator it = this->_actionsMapping.begin(), itEnd = this->_actionsMapping.end(); it != itEnd; ++it)
+
+  // Boucle de debug a supprimer
+  for (std::map<OpenViBE::uint64, EAction>::const_iterator it = this->m_oActionsMapping.begin(), itEnd = this->m_oActionsMapping.end(); it != itEnd; ++it)
     {
       std::cerr << this->getTypeManager().getEnumerationEntryNameFromValue(OV_TypeId_Stimulation, it->first) << " --> " << it->second << std::endl;
     }
 
-  this->_socket = Socket::createConnectionClient();
-  CString l_sHostname, l_sPort;
+  this->m_pSocket = Socket::createConnectionClient();
+  OpenViBE::CString l_sHostname, l_sPort;
   l_pStaticBoxContext->getSettingValue(0, l_sHostname);
   l_pStaticBoxContext->getSettingValue(1, l_sPort);
-  this->_socket->connect(l_sHostname, atoi(l_sPort));
+  this->m_pSocket->connect(l_sHostname, atoi(l_sPort));
 
-  this->m_pStimulationDecoder= &this->getAlgorithmManager().getAlgorithm(this->getAlgorithmManager().createAlgorithm(OVP_GD_ClassId_Algorithm_StimulationStreamDecoder)); // On recupere une instance de l'algorithme
+  this->m_pStimulationDecoder= &this->getAlgorithmManager().getAlgorithm(this->getAlgorithmManager().createAlgorithm(OVP_GD_ClassId_Algorithm_StimulationStreamDecoder));
   this->m_pStimulationDecoder->initialize();
 
-  this->ip_pMemoryBuffer.initialize(m_pStimulationDecoder->getInputParameter(OVP_GD_Algorithm_StimulationStreamDecoder_InputParameterId_MemoryBufferToDecode)); // On map l'input de la box sur l'input de l'algorithme
-  this->op_pStimulationSet.initialize(m_pStimulationDecoder->getOutputParameter(OVP_GD_Algorithm_StimulationStreamDecoder_OutputParameterId_StimulationSet)); // On map l'ouput de l'algorithme sur un attribut de la box
-  return (this->_socket->isConnected());
+  this->ip_pMemoryBuffer.initialize(m_pStimulationDecoder->getInputParameter(OVP_GD_Algorithm_StimulationStreamDecoder_InputParameterId_MemoryBufferToDecode));
+  this->op_pStimulationSet.initialize(m_pStimulationDecoder->getOutputParameter(OVP_GD_Algorithm_StimulationStreamDecoder_OutputParameterId_StimulationSet));
+  return (this->m_pSocket->isConnected());
 }
 
 OpenViBE::boolean CVncBox::uninitialize(void)
@@ -65,15 +60,16 @@ OpenViBE::boolean CVncBox::uninitialize(void)
 OpenViBE::boolean CVncBox::processInput(OpenViBE::uint32 ui32InputIndex)
 {
   std::cerr << "~~~~~~~~~~~~~~~~~~~~~~~~~~CVncBox::processInput~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
-  if (!this->_protocolClientRFB.isInitProcessFinish())
+
+  if (!this->m_oRfbActor.isInitProcessFinish())
     {
       this->receiveBuffer();
-      boost::circular_buffer<char> const & result = this->_protocolClientRFB.parse(this->_bufferIn);
-      this->sendBuffer(result);
-    }
-  if (this->_protocolClientRFB.isInitProcessFinish())
-    {
-      this->getBoxAlgorithmContext()->markAlgorithmAsReadyToProcess();
+      boost::circular_buffer<char> const & l_rParseResult = this->m_oRfbActor.parse(this->m_oBufferIn);
+      this->sendBuffer(l_rParseResult);
+      if (this->m_oRfbActor.isInitProcessFinish())
+	{
+	  this->getBoxAlgorithmContext()->markAlgorithmAsReadyToProcess();
+	}
     }
   return (true);
 }
@@ -81,35 +77,26 @@ OpenViBE::boolean CVncBox::processInput(OpenViBE::uint32 ui32InputIndex)
 OpenViBE::boolean CVncBox::process(void)
 {
   std::cerr << "~~~~~~~~~~~~~~~~~~~~~~~~~~ [CVncBox::process] ~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
-  IBoxIO& l_rDynamicBoxContext = this->getDynamicBoxContext();
-  // On parcours les chunks tant que l'on peut ecrire sur le reseau
-  for(uint32 i = 0; i < l_rDynamicBoxContext.getInputChunkCount(0) && this->_socket->isReadyToSend(); ++i)
+
+  OpenViBE::Kernel::IBoxIO & l_rDynamicBoxContext = this->getDynamicBoxContext();
+
+  for(OpenViBE::uint32 l_uint32I = 0; l_uint32I < l_rDynamicBoxContext.getInputChunkCount(0) && this->m_pSocket->isReadyToSend(); ++l_uint32I)
     {
-      this->ip_pMemoryBuffer = l_rDynamicBoxContext.getInputChunk(0, i);
+      this->ip_pMemoryBuffer = l_rDynamicBoxContext.getInputChunk(0, l_uint32I);
       this->m_pStimulationDecoder->process();
       if(this->m_pStimulationDecoder->isOutputTriggerActive(OVP_GD_Algorithm_StimulationStreamDecoder_OutputTriggerId_ReceivedBuffer))
 	{
-	  // Un buffer peut contenir plusieurs Stimulation
-	  for(uint64 s = 0; s < this->op_pStimulationSet->getStimulationCount(); s++)
+	  for(OpenViBE::uint64 l_uint64K = 0; l_uint64K < this->op_pStimulationSet->getStimulationCount(); l_uint64K++)
 	    {
-	      std::cerr << "Stimulation["<< s<< "] - Id = " << op_pStimulationSet->getStimulationIdentifier(s) << " = " << this->getTypeManager().getEnumerationEntryNameFromValue(OV_TypeId_Stimulation, op_pStimulationSet->getStimulationIdentifier(s)) << std::endl;
-	      std::map<OpenViBE::uint64, Action>::const_iterator itSearch = this->_actionsMapping.find(op_pStimulationSet->getStimulationIdentifier(s));
-	      if (itSearch != this->_actionsMapping.end())
+	      std::cerr << "Stimulation["<< l_uint64K<< "] - Id = " << op_pStimulationSet->getStimulationIdentifier(l_uint64K) << " = " << this->getTypeManager().getEnumerationEntryNameFromValue(OV_TypeId_Stimulation, op_pStimulationSet->getStimulationIdentifier(l_uint64K)) << std::endl;
+	      std::map<OpenViBE::uint64, EAction>::const_iterator l_oItSearch = this->m_oActionsMapping.find(op_pStimulationSet->getStimulationIdentifier(l_uint64K));
+	      if (l_oItSearch != this->m_oActionsMapping.end())
 		{
-		  boost::circular_buffer<char> const & result = this->_protocolClientRFB.execute(itSearch->second);
-		  this->sendBuffer(result);
-		}
-	      else
-		{
-		  std::cerr << "Impossible de trouver la stimulation = " << this->getTypeManager().getEnumerationEntryNameFromValue(OV_TypeId_Stimulation, op_pStimulationSet->getStimulationIdentifier(s)) << std::endl << "Disponible :" << std::endl;
-		  for (std::map<OpenViBE::uint64, Action>::const_iterator it = this->_actionsMapping.begin(), itEnd = this->_actionsMapping.end(); it != itEnd; ++it)
-		    {
-		      std::cerr << this->getTypeManager().getEnumerationEntryNameFromValue(OV_TypeId_Stimulation, it->first) << std::endl;
-		    }
-		    
+		  boost::circular_buffer<char> const & l_rExecResult = this->m_oRfbActor.execute(l_oItSearch->second);
+		  this->sendBuffer(l_rExecResult);
 		}
 	    }
-	  l_rDynamicBoxContext.markInputAsDeprecated(0, i);
+	  l_rDynamicBoxContext.markInputAsDeprecated(0, l_uint32I);
 	}
     }
   return (true);
@@ -118,35 +105,38 @@ OpenViBE::boolean CVncBox::process(void)
 void CVncBox::receiveBuffer()
 {
   std::cerr << "~~~~~~~~~~~~~~~~~~~~~~~~~~ [CVncBox::receiveBuffer] ~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
-  std::cerr << "Socket ready to read ? " << std::boolalpha << this->_socket->isReadyToReceive() << std::endl;
-  if (this->_socket->isReadyToReceive())
+
+  if (this->m_pSocket->isReadyToReceive())
     {
-      char networkBuffer[1024];
-      Socket::uint32 bytesReceived = this->_socket->receiveBuffer(networkBuffer, 1024);
-      std::cerr << "Lecture de " << bytesReceived << " octets sur la socket."<< std::endl;
-      if (bytesReceived != 0)
+      char l_pBuffer[1024];
+      Socket::uint32 l_uint32BytesReceived = this->m_pSocket->receiveBuffer(l_pBuffer, 1024);
+      std::cerr << "Lecture de " << l_uint32BytesReceived << " octets sur la socket."<< std::endl;
+      if (l_uint32BytesReceived != 0)
 	{
-	  std::cerr << "Taille du buffer d'entre avant remplissage : " << this->_bufferIn.size() << " octets." << std::endl;
-	  this->_bufferIn.insert(this->_bufferIn.end(), networkBuffer, networkBuffer + bytesReceived);
-	  std::cerr << "Taille du buffer d'entre apres remplissage : "<< this->_bufferIn.size() << " octets." << std::endl;
+	  this->getLogManager() << OpenViBE::Kernel::LogLevel_Info << l_uint32BytesReceived << "bytes received\n";
+	  std::cerr << "Taille du buffer d'entre avant remplissage : " << this->m_oBufferIn.size() << " octets." << std::endl;
+	  this->m_oBufferIn.insert(this->m_oBufferIn.end(), l_pBuffer, l_pBuffer + l_uint32BytesReceived);
+	  std::cerr << "Taille du buffer d'entre apres remplissage : "<< this->m_oBufferIn.size() << " octets." << std::endl;
 	}
     }
 }
 
-void CVncBox::sendBuffer(boost::circular_buffer<char> const &  bufferToSend)
+void CVncBox::sendBuffer(boost::circular_buffer<char> const & rInputBuffer)
 {
   std::cerr << "~~~~~~~~~~~~~~~~~~~~~~~~~~ [CVncBox::sendBuffer] ~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
-  if (!bufferToSend.empty())
+
+  if (!rInputBuffer.empty())
     {
-      std::cerr << "Ajout au buffer de sortie de "<< bufferToSend.size() << " octets."<< std::endl;
-      this->_bufferOut.insert(this->_bufferIn.end(), bufferToSend.begin(), bufferToSend.end());
-      if (!this->_bufferOut.empty() && this->_socket->isReadyToSend())
+      std::cerr << "Ajout au buffer de sortie de "<< rInputBuffer.size() << " octets."<< std::endl;
+      this->m_oBufferOut.insert(this->m_oBufferIn.end(), rInputBuffer.begin(), rInputBuffer.end());
+      if (!this->m_oBufferOut.empty() && this->m_pSocket->isReadyToSend())
 	{
-	  std::cerr << "Tentative d'envoie de " << this->_bufferOut.size()<< " octets."<< std::endl;
-	  Socket::uint32 bytesSend = this->_socket->sendBuffer(this->_bufferOut.linearize(), this->_bufferOut.size());
-	  std::cerr << "Nombre d'octets envoyes : " << bytesSend << std::endl;
-	  this->_bufferOut.erase_begin(bytesSend);
-	  std::cerr << "Taille du buffer de sortie apres nettoyage :"<< this->_bufferOut.size() << " octets." << std::endl;
+	  std::cerr << "Tentative d'envoie de " << this->m_oBufferOut.size()<< " octets."<< std::endl;
+	  Socket::uint32 l_uint32BytesSend = this->m_pSocket->sendBuffer(this->m_oBufferOut.linearize(), this->m_oBufferOut.size());
+	  this->getLogManager() << OpenViBE::Kernel::LogLevel_Info << l_uint32BytesSend << "bytes send of" << static_cast<Socket::uint32>(this->m_oBufferOut.size()) << "expected\n";
+	  std::cerr << "Nombre d'octets envoyes : " << l_uint32BytesSend << std::endl;
+	  this->m_oBufferOut.erase_begin(l_uint32BytesSend);
+	  std::cerr << "Taille du buffer de sortie apres nettoyage :"<< this->m_oBufferOut.size() << " octets." << std::endl;
 	}
     }
 }

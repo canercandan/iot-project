@@ -1,7 +1,6 @@
 #ifndef OVPCVNCBOXDESC_H_
 # define OVPCVNCBOXDESC_H_
 
-#include <openvibe/ov_all.h>
 #include <openvibe-toolkit/ovtk_all.h>
 
 #include "ovp_defines.h"

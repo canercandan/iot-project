@@ -1,7 +1,3 @@
-#include <openvibe/ov_all.h>
-#include <openvibe-toolkit/ovtk_all.h>
-
-#include "ovp_defines.h"
 #include "ovpCVncBoxDesc.h"
 
 OVP_Declare_Begin();

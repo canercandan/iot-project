@@ -1,12 +1,7 @@
 #include "ovpCVncBoxDesc.h"
 #include "ovpCVncBox.h"
 
-using namespace OpenViBE;
-using namespace OpenViBE::Plugins;
-using namespace OpenViBE::Kernel;
-using namespace OpenViBEPlugins;
 using namespace OpenViBEPlugins::VNC;
-using namespace OpenViBEToolkit;
 
 void				CVncBoxDesc::release(void)
 {
@@ -29,12 +24,12 @@ OpenViBE::CString			CVncBoxDesc::getAuthorCompanyName(void) const
 
 OpenViBE::CString			CVncBoxDesc::getShortDescription(void) const
 {
-  return ("Boite permettant d'interargir avec un serveur VNC (distant ou local) et donc de controller l'ordinateur par la pensee.");
+  return ("Boite permettant d'interagir avec un serveur VNC (distant ou local) et donc de controller l'ordinateur par la pensee.");
 }
 
 OpenViBE::CString			CVncBoxDesc::getDetailedDescription(void) const
 {
-  return ("Il est possible d'envoyer des evenements souris mais aussi clavier. Le protocole VNC : RFB (Remote Frame Buffer) est utilisee.");
+  return ("Le protocole VNC : RFB (Remote Frame Buffer) est utilisee. Il est possible d'envoyer des evenements souris mais aussi clavier. Il n'est pas possible d'utiliser le mode securise de RFB.");
 }
 
 OpenViBE::CString			CVncBoxDesc::getCategory(void) const
@@ -49,7 +44,7 @@ OpenViBE::CString			CVncBoxDesc::getVersion(void) const
 
 OpenViBE::CString			CVncBoxDesc::getStockItemName(void) const
 {
-  return ("gtk-network"); // http://library.gnome.org/devel/gtk/2.13/gtk-Stock-Items.html
+  return ("gtk-network");
 }
 
 OpenViBE::CIdentifier		CVncBoxDesc::getCreatedClass(void) const
@@ -64,16 +59,12 @@ OpenViBE::Plugins::IPluginObject* CVncBoxDesc::create(void)
 
 OpenViBE::boolean			CVncBoxDesc::getBoxPrototype(OpenViBE::Kernel::IBoxProto& rBoxAlgorithmPrototype) const
 {
-  rBoxAlgorithmPrototype.addInput("Labels",  OV_TypeId_Stimulations); // C'est l'output provenant du Classifier processor
-
+  rBoxAlgorithmPrototype.addInput("Labels",  OV_TypeId_Stimulations);
 
   rBoxAlgorithmPrototype.addSetting("Host", OV_TypeId_String, "localhost");
-  rBoxAlgorithmPrototype.addSetting("Port", OV_TypeId_Integer, "5900"); // Mettre un define pour ca
+  rBoxAlgorithmPrototype.addSetting("Port", OV_TypeId_Integer, "5900");
 
-  // rBoxAlgorithmPrototype.addSetting("Active Secure Connection", OV_TypeId_Boolean, false);
-  // rBoxAlgorithmPrototype.addSetting("Username", OV_TypeId_String, "");
-  // rBoxAlgorithmPrototype.addSetting("Password", OV_TypeId_String, "");
-  rBoxAlgorithmPrototype.addSetting("Mouse move distance", OV_TypeId_Integer, "1"); // La distance pour faire bouger la souris
+  rBoxAlgorithmPrototype.addSetting("Mouse move distance", OV_TypeId_Integer, "1");
 
   rBoxAlgorithmPrototype.addSetting("Move left mouse", OV_TypeId_Stimulation, "OVTK_GDF_Left");
   rBoxAlgorithmPrototype.addSetting("Move right mouse", OV_TypeId_Stimulation, "OVTK_GDF_Right");
@@ -84,6 +75,6 @@ OpenViBE::boolean			CVncBoxDesc::getBoxPrototype(OpenViBE::Kernel::IBoxProto& rB
   rBoxAlgorithmPrototype.addSetting("Right Button Mouse", OV_TypeId_Stimulation, "OVTK_GDF_Flashing_Light");
   rBoxAlgorithmPrototype.addSetting("Key 1", OV_TypeId_Stimulation, "OVTK_GDF_Eyes_Left");
   rBoxAlgorithmPrototype.addSetting("Key 2", OV_TypeId_Stimulation, "OVTK_GDF_Eyes_Right");
-  rBoxAlgorithmPrototype.addFlag(OpenViBE::Kernel::BoxFlag_IsUnstable);
+
   return (true);
 }

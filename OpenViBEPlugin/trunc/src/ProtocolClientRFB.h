@@ -18,24 +18,24 @@ namespace OpenViBEPlugins
     public:
       ProtocolClientRFB();
 
-      void		initialize(EBML::int32 mouseMoveDistance);
+      void						initialize(OpenViBE::int32 int32InputMouseMoveDistance, OpenViBE::Kernel::ILogManager * pInputLogger);
       boost::circular_buffer<char> const &		parse(boost::circular_buffer<char> & bufferToParse);
-      boost::circular_buffer<char> const &		execute(Action);
-      bool		isInitProcessFinish() const;
+      boost::circular_buffer<char> const &		execute(EAction);
+      bool						isInitProcessFinish() const;
 
     private:
-      void		bufcpy(const char *, EBML::uint32);
-      void		convertUint8ToString(unsigned char const *, EBML::uint32, std::string &);
-      void		parseVersion(boost::circular_buffer<char> &);
-      void		parseSecuList(boost::circular_buffer<char> &);
-      void		parseSecuResult(boost::circular_buffer<char> &);
-      void		parseSecuReason(boost::circular_buffer<char> &);
-      void		parseServerInit(boost::circular_buffer<char> &);
-      void		execVersion();
-      void		execSecuList();
-      void		execInitMessage();
-      void		execKeyMsg(Action);
-      void		execMouseMsg(Action);
+      void						bufcpy(const char *, OpenViBE::uint32);
+      void						convertUint8ToString(unsigned char const *, OpenViBE::uint32, std::string &);
+      void						parseVersion(boost::circular_buffer<char> &);
+      void						parseSecuList(boost::circular_buffer<char> &);
+      void						parseSecuResult(boost::circular_buffer<char> &);
+      void						parseSecuReason(boost::circular_buffer<char> &);
+      void						parseServerInit(boost::circular_buffer<char> &);
+      void						execVersion();
+      void						execSecuList();
+      void						execInitMessage();
+      void						execKeyMsg(EAction);
+      void						execMouseMsg(EAction);
 
     private:
       typedef void (ProtocolClientRFB::*funcParsePtr)(boost::circular_buffer<char> &);
@@ -51,6 +51,7 @@ namespace OpenViBEPlugins
       unsigned short				_mouseXPosition;
       unsigned short				_mouseYPosition;
       unsigned short				_mouseMoveDistance;
+      OpenViBE::Kernel::ILogManager *		m_pLogger;
     };
   }
 }

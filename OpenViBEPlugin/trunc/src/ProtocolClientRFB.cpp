@@ -9,7 +9,7 @@ std::string const ProtocolClientRFB::_VERSION = std::string("RFB 003.008\n");
 ProtocolClientRFB::ProtocolClientRFB():
   _parsePtrMap(), _rfbStep(RFB_VERSION),
   _secuType(0), _sharedFlag(0), _firstSecuResult(1), _messageToSend(256),
-  _mouseXPosition(0), _mouseYPosition(0), _mouseMoveDistance(5)
+  _mouseXPosition(0), _mouseYPosition(0), _mouseMoveDistance(5), m_pLogger(0)
 {
   this->_parsePtrMap[RFB_VERSION] = &ProtocolClientRFB::parseVersion;
   this->_parsePtrMap[RFB_SECULIST] = &ProtocolClientRFB::parseSecuList;
@@ -19,9 +19,10 @@ ProtocolClientRFB::ProtocolClientRFB():
   this->_rfbStep = RFB_VERSION;
 }
 
-void		ProtocolClientRFB::initialize(EBML::int32 mouseMoveDistance)
+void		ProtocolClientRFB::initialize(OpenViBE::int32 int32InputMouseMoveDistance, OpenViBE::Kernel::ILogManager * pInputLogger)
 {
-  this->_mouseMoveDistance = mouseMoveDistance;
+  this->_mouseMoveDistance = int32InputMouseMoveDistance;
+  this->m_pLogger = pInputLogger;
 }
 
 bool		ProtocolClientRFB::isInitProcessFinish() const
@@ -29,12 +30,12 @@ bool		ProtocolClientRFB::isInitProcessFinish() const
   return (RFB_MESSAGING == this->_rfbStep);
 }
 
-void	ProtocolClientRFB::bufcpy(const char * source, EBML::uint32 length)
+void	ProtocolClientRFB::bufcpy(const char * source, OpenViBE::uint32 length)
 {
   this->_messageToSend.insert(this->_messageToSend.end(), source, source + length);
 }
 
-void	ProtocolClientRFB::convertUint8ToString(unsigned char const * data, EBML::uint32 size, std::string & src)
+void	ProtocolClientRFB::convertUint8ToString(unsigned char const * data, OpenViBE::uint32 size, std::string & src)
 {
   std::copy(data, data + size, src.begin());
 }
@@ -62,20 +63,20 @@ void		ProtocolClientRFB::execInitMessage()
   this->bufcpy(&this->_sharedFlag, 1);
 }
 
-void		ProtocolClientRFB::execKeyMsg(Action action)
+void		ProtocolClientRFB::execKeyMsg(EAction action)
 {
   std::cerr << "~~~~~~~~~~~~~~~~~~~~~~~~~~ [ProtocolClientRFB::execKeyMsg] ~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
   RFBKeyEvent	keyEvent;
   keyEvent.messageType = 4;
   keyEvent.downFlag = 1;
   keyEvent.key = (action == ACTION_KEY1 ? 0xff54 : 0xff53);
-  
+
   this->bufcpy((char*)&keyEvent, sizeof(RFBKeyEvent));
   keyEvent.downFlag = 0;
   this->bufcpy((char*)&keyEvent, sizeof(RFBKeyEvent));
 }
 
-void		ProtocolClientRFB::execMouseMsg(Action action)
+void		ProtocolClientRFB::execMouseMsg(EAction action)
 {
   std::cerr << "~~~~~~~~~~~~~~~~~~~~~~~~~~ [ProtocolClientRFB::execMouseMsg] ~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
   RFBPointerEvent	pointerEvent;
@@ -140,7 +141,7 @@ void		ProtocolClientRFB::execMouseMsg(Action action)
   this->bufcpy((char*)&pointerEvent, sizeof(RFBPointerEvent));
 }
 
-boost::circular_buffer<char> const &	ProtocolClientRFB::execute(Action action)
+boost::circular_buffer<char> const &	ProtocolClientRFB::execute(EAction action)
 {
   this->_messageToSend.clear();
   std::cerr << "~~~~~~~~~~~~~~~~~~~~~~~~~~ [ProtocolClientRFB::execute] ~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
@@ -193,11 +194,11 @@ void		ProtocolClientRFB::parseSecuResult(boost::circular_buffer<char> & bufferTo
 {
   std::cerr << "~~~~~~~~~~~~~~~~~~~~~~~~~~ [ProtocolClientRFB::parseSecuResult] ~~~~~~~~~~~~~~~~~~~~~~~~~~" << bufferToParse.size() << std::endl;
 
-  if (bufferToParse.size() >= sizeof(EBML::uint32))
+  if (bufferToParse.size() >= sizeof(OpenViBE::uint32))
     {
       void* data = bufferToParse.linearize();
 
-      EBML::uint32* response = static_cast<EBML::uint32*>(data);
+      OpenViBE::uint32* response = static_cast<OpenViBE::uint32*>(data);
 
       if (*response == 1)
 	{
@@ -218,7 +219,7 @@ void		ProtocolClientRFB::parseSecuResult(boost::circular_buffer<char> & bufferTo
 	      this->execInitMessage();
 	    }
 	}
-      bufferToParse.erase_begin(sizeof(EBML::uint32));
+      bufferToParse.erase_begin(sizeof(OpenViBE::uint32));
     }
 }
 
@@ -226,27 +227,27 @@ void		ProtocolClientRFB::parseSecuReason(boost::circular_buffer<char> & bufferTo
 {
   std::cerr << "~~~~~~~~~~~~~~~~~~~~~~~~~~ [ProtocolClientRFB::parseSecuReason] ~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
 
-  if (bufferToParse.size() >= sizeof(EBML::uint32))
+  if (bufferToParse.size() >= sizeof(OpenViBE::uint32))
     {
       void* data = bufferToParse.linearize();
-      EBML::uint32* reasonLength = static_cast<EBML::uint32*>(data);
+      OpenViBE::uint32* reasonLength = static_cast<OpenViBE::uint32*>(data);
       if (*reasonLength > 0)
 	{
-	  if (bufferToParse.size() == (*reasonLength + sizeof(EBML::uint32)))
+	  if (bufferToParse.size() == (*reasonLength + sizeof(OpenViBE::uint32)))
 	    {
-	      EBML::uint32* tmp = reasonLength;
+	      OpenViBE::uint32* tmp = reasonLength;
 	      unsigned char* reason = static_cast<unsigned char*>((void *)(++tmp));
 	      std::string l_sCloseReason;
 	      this->convertUint8ToString(reason, *reasonLength, l_sCloseReason);
 	      std::cerr << "[ERROR] - Le serveur a ferme la connection car : " << l_sCloseReason << std::endl;
 	      this->_rfbStep = RFB_DISCONNECT;
-	      bufferToParse.erase_begin(*reasonLength + sizeof(EBML::uint32));
+	      bufferToParse.erase_begin(*reasonLength + sizeof(OpenViBE::uint32));
 	    }
 	}
       else
 	{
 	  this->_rfbStep = RFB_DISCONNECT;
-	  bufferToParse.erase_begin(sizeof(EBML::uint32));
+	  bufferToParse.erase_begin(sizeof(OpenViBE::uint32));
 	}
     }
 }

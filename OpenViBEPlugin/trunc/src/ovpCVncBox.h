@@ -3,11 +3,9 @@
 
 #include <map>
 
-#include <openvibe/ov_all.h>
-#include <openvibe-toolkit/ovtk_all.h>
-#include <socket/IConnectionClient.h>
-
 #include <boost/circular_buffer.hpp>
+
+#include <socket/IConnectionClient.h>
 
 #include "ovp_defines.h"
 #include "ProtocolClientRFB.h"
@@ -21,7 +19,6 @@ namespace OpenViBEPlugins
       public:
 	CVncBox();
 
-	// Methodes heritees
 	virtual void			release(void);
 	virtual OpenViBE::boolean	initialize(void);
 	virtual OpenViBE::boolean	uninitialize(void);
@@ -31,21 +28,28 @@ namespace OpenViBEPlugins
 	_IsDerivedFromClass_Final_(OpenViBEToolkit::TBoxAlgorithm<OpenViBE::Plugins::IBoxAlgorithm>, OVP_ClassId_VncBox);
 
       private:
-	void				receiveBuffer(); // Essaye de lire sur la socket
-	void				sendBuffer(boost::circular_buffer<char> const & bufferToSend); // Remplis le buffer de sortie et essaye d'ecrire sur la socket
+	/**
+	 * \brief Read the socket and save the buffer
+	 */
+	void				receiveBuffer();
+
+	/**
+	 * \brief Add the param buffer in the output buffer and try to write on the socket the output buffer
+	 * \param rInputBuffer [in] : A buffer to add in the output buffer
+	 */
+	void				sendBuffer(boost::circular_buffer<char> const & rInputBuffer);
+
       private:
-	OpenViBE::Kernel::IAlgorithmProxy*					m_pStimulationDecoder; // Algorithme permettant de decoder le buffer input de la box
-	OpenViBE::Kernel::TParameterHandler<const OpenViBE::IMemoryBuffer*>	ip_pMemoryBuffer; // 1st Input of the box
-	OpenViBE::Kernel::TParameterHandler<OpenViBE::IStimulationSet*>		op_pStimulationSet; // Output --> Buffer decoder par l'algorithme
+	OpenViBE::Kernel::IAlgorithmProxy*					m_pStimulationDecoder; /** Algorithm who decode the box's input */
+	OpenViBE::Kernel::TParameterHandler<const OpenViBE::IMemoryBuffer*>	ip_pMemoryBuffer; /** The box's input encoded */
+	OpenViBE::Kernel::TParameterHandler<OpenViBE::IStimulationSet*>		op_pStimulationSet; /** The Algorihtm's Output decoded */
 
-	Socket::IConnectionClient *			_socket;
-	boost::circular_buffer<char>			_bufferIn;
-	boost::circular_buffer<char>			_bufferOut;
+	Socket::IConnectionClient *			m_pSocket; /** A socket connected to a VNC Server */
+	boost::circular_buffer<char>			m_oBufferIn; /** The received packet are save in , it's consume by the RFB Parser */
+	boost::circular_buffer<char>			m_oBufferOut; /** The packet to send, content is remove when it sent */
 
-	std::map<OpenViBE::uint64, Action>		_actionsMapping; // Mapping entre les labels recus et les actions a effectue
-	ProtocolClientRFB				_protocolClientRFB;
-	// Doc pour les circular_buffer : http://www.boost.org/doc/libs/1_44_0/libs/circular_buffer/doc/circular_buffer.html
-
+	std::map<OpenViBE::uint64, EAction>		m_oActionsMapping; /** Mapping between label and the VNC Action */
+	ProtocolClientRFB				m_oRfbActor; /** RFB Parser */
       };
   }
 }
