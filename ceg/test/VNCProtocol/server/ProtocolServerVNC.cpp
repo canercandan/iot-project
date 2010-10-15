@@ -159,14 +159,6 @@ void		ProtocolServerVNC::execServerInit(QDataStream & stream)
     std::cout << "Name size : " << sizeof(desktopInfo.nameString) << std::endl;
 
     stream.writeBytes((char *)&desktopInfo, sizeof(desktopInfo));
-    // stream << desktopInfo.framebufferWidth << desktopInfo.framebufferHeight << desktopInfo.serverPixelFormat.bitsPerPixel;
-    // stream << desktopInfo.serverPixelFormat.depth << desktopInfo.serverPixelFormat.bigEndianFlag;
-    // stream << desktopInfo.serverPixelFormat.trueColourFlag << desktopInfo.serverPixelFormat.redMax;
-    // stream << desktopInfo.serverPixelFormat.greenMax << desktopInfo.serverPixelFormat.blueMax;
-    // stream << desktopInfo.serverPixelFormat.redShift << desktopInfo.serverPixelFormat.greenShift;
-    // stream << desktopInfo.serverPixelFormat.blueShift << desktopInfo.serverPixelFormat.padding;
-    // stream << desktopInfo.nameLength << desktopInfo.nameString;
-
     this->_vncStep = VNC_MESSAGING;
 }
 
@@ -249,10 +241,12 @@ void		ProtocolServerVNC::parseMessage(QDataStream & data)
     data >> messageType;
     if (messageType == 4)
     {
+        std::cout << "~~~~~~~~~~~~~~~~~~~~~~~~Touche clavier ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
         this->_vncStep = VNC_KEYMSG;
     }
     else if (messageType == 5)
     {
+        std::cout << "~~~~~~~~~~~~~~~~~~~~~~~~ Mouvement de souris ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
         this->_vncStep = VNC_PTRMSG;
     }
     else
