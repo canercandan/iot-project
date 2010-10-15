@@ -36,7 +36,7 @@ OpenViBE::boolean CVncBox::initialize(void)
   // debug, faire une boucle pour la partie du dessus pour eviter la repetition de code
   for (std::map<OpenViBE::uint64, Action>::const_iterator it = this->_actionsMapping.begin(), itEnd = this->_actionsMapping.end(); it != itEnd; ++it)
     {
-      std::cerr << it->first << " --> " << it->second << std::endl;
+      std::cerr << this->getTypeManager().getEnumerationEntryNameFromValue(OV_TypeId_Stimulation, it->first) << " --> " << it->second << std::endl;
     }
 
   this->_socket = Socket::createConnectionClient();
@@ -92,7 +92,7 @@ OpenViBE::boolean CVncBox::process(void)
 	  // Un buffer peut contenir plusieurs Stimulation
 	  for(uint64 s = 0; s < this->op_pStimulationSet->getStimulationCount(); s++)
 	    {
-	      std::cerr << "Stimulation["<< s<< "] - Id = " << op_pStimulationSet->getStimulationIdentifier(s) << std::endl;
+	      std::cerr << "Stimulation["<< s<< "] - Id = " << op_pStimulationSet->getStimulationIdentifier(s) << " = " << this->getTypeManager().getEnumerationEntryNameFromValue(OV_TypeId_Stimulation, op_pStimulationSet->getStimulationIdentifier(s)) << std::endl;
 	      std::map<OpenViBE::uint64, Action>::const_iterator itSearch = this->_actionsMapping.find(op_pStimulationSet->getStimulationIdentifier(s));
 	      if (itSearch != this->_actionsMapping.end())
 		{
@@ -101,10 +101,10 @@ OpenViBE::boolean CVncBox::process(void)
 		}
 	      else
 		{
-		  std::cerr << "Impossible de trouver la stimulation = " << op_pStimulationSet->getStimulationIdentifier(s) << std::endl << "Disponible :" << std::endl;
+		  std::cerr << "Impossible de trouver la stimulation = " << this->getTypeManager().getEnumerationEntryNameFromValue(OV_TypeId_Stimulation, op_pStimulationSet->getStimulationIdentifier(s)) << std::endl << "Disponible :" << std::endl;
 		  for (std::map<OpenViBE::uint64, Action>::const_iterator it = this->_actionsMapping.begin(), itEnd = this->_actionsMapping.end(); it != itEnd; ++it)
 		    {
-		      std::cerr << it->first << std::endl;
+		      std::cerr << this->getTypeManager().getEnumerationEntryNameFromValue(OV_TypeId_Stimulation, it->first) << std::endl;
 		    }
 		    
 		}
@@ -118,7 +118,7 @@ OpenViBE::boolean CVncBox::process(void)
 void CVncBox::receiveBuffer()
 {
   std::cerr << "~~~~~~~~~~~~~~~~~~~~~~~~~~ [CVncBox::receiveBuffer] ~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
-  std::cerr << "Socket ready to read ?" << std::boolalpha << this->_socket->isReadyToReceive() << std::endl;
+  std::cerr << "Socket ready to read ? " << std::boolalpha << this->_socket->isReadyToReceive() << std::endl;
   if (this->_socket->isReadyToReceive())
     {
       char networkBuffer[1024];
@@ -135,10 +135,10 @@ void CVncBox::receiveBuffer()
 
 void CVncBox::sendBuffer(boost::circular_buffer<char> const &  bufferToSend)
 {
-  std::cerr << "~~~~~~~~~~~~~~~~~~~~~~~~~~ [CVncBox::VncResult] ~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
+  std::cerr << "~~~~~~~~~~~~~~~~~~~~~~~~~~ [CVncBox::sendBuffer] ~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
   if (!bufferToSend.empty())
     {
-      std::cerr << "sendBuffer\tAjout au buffer de sortie de "<< bufferToSend.size() << " octets."<< std::endl;
+      std::cerr << "Ajout au buffer de sortie de "<< bufferToSend.size() << " octets."<< std::endl;
       this->_bufferOut.insert(this->_bufferIn.end(), bufferToSend.begin(), bufferToSend.end());
       if (!this->_bufferOut.empty() && this->_socket->isReadyToSend())
 	{

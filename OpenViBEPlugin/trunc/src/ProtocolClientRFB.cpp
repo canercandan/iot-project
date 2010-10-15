@@ -64,6 +64,7 @@ void		ProtocolClientRFB::execInitMessage()
 
 void		ProtocolClientRFB::execKeyMsg(Action action)
 {
+  std::cerr << "~~~~~~~~~~~~~~~~~~~~~~~~~~ [ProtocolClientRFB::execKeyMsg] ~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
   RFBKeyEvent	keyEvent;
   keyEvent.messageType = 4;
   keyEvent.downFlag = 1;
@@ -76,6 +77,7 @@ void		ProtocolClientRFB::execKeyMsg(Action action)
 
 void		ProtocolClientRFB::execMouseMsg(Action action)
 {
+  std::cerr << "~~~~~~~~~~~~~~~~~~~~~~~~~~ [ProtocolClientRFB::execMouseMsg] ~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
   RFBPointerEvent	pointerEvent;
   pointerEvent.messageType = 5;
   pointerEvent.buttonMask = 0;
