@@ -62,7 +62,6 @@ VncResult		ProtocolClientRFB::execInitMessage()
   std::cerr << "~~~~~~~~~~~~~~~~~~~~~~~~~~ [ProtocolClientRFB::execInitMessage] ~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
 
   this->bufcpy(&this->_sharedFlag, 1);
-  this->_rfbStep = RFB_MESSAGING;
   return (std::make_pair(this->_messageToSend, 1));
 }
 
