@@ -10,7 +10,7 @@ using namespace OpenViBEPlugins;
 using namespace OpenViBEPlugins::VNC;
 using namespace OpenViBEToolkit;
 
-CVncBox::CVncBox() : _socket(0), _bufferIn(2048), _actionsMapping(), _protocolClientRFB()
+CVncBox::CVncBox() : _socket(0), _bufferIn(2048), _bufferOut(2048), _actionsMapping(), _protocolClientRFB()
 {
 }
 
@@ -68,7 +68,7 @@ OpenViBE::boolean CVncBox::processInput(OpenViBE::uint32 ui32InputIndex)
   if (!this->_protocolClientRFB.isInitProcessFinish())
     {
       this->receiveBuffer();
-      boost::circular_buffer<char>& result = this->_protocolClientRFB.parse(this->_bufferIn);
+      boost::circular_buffer<char> const & result = this->_protocolClientRFB.parse(this->_bufferIn);
       this->sendBuffer(result);
     }
   if (this->_protocolClientRFB.isInitProcessFinish())
@@ -87,20 +87,26 @@ OpenViBE::boolean CVncBox::process(void)
     {
       this->ip_pMemoryBuffer = l_rDynamicBoxContext.getInputChunk(0, i);
       this->m_pStimulationDecoder->process();
-      std::cerr << "Buffer en cours decodage" << std::endl;
       if(this->m_pStimulationDecoder->isOutputTriggerActive(OVP_GD_Algorithm_StimulationStreamDecoder_OutputTriggerId_ReceivedBuffer))
 	{
 	  // Un buffer peut contenir plusieurs Stimulation
-	  std::cerr << "Buffer decode" << std::endl << "getStimulationCount = " << op_pStimulationSet->getStimulationCount() << std::endl;
 	  for(uint64 s = 0; s < this->op_pStimulationSet->getStimulationCount(); s++)
 	    {
 	      std::cerr << "Stimulation["<< s<< "] - Id = " << op_pStimulationSet->getStimulationIdentifier(s) << std::endl;
 	      std::map<OpenViBE::uint64, Action>::const_iterator itSearch = this->_actionsMapping.find(op_pStimulationSet->getStimulationIdentifier(s));
-#warning Ne rentre jamais dans ce IF A CHECK
 	      if (itSearch != this->_actionsMapping.end())
 		{
-		  boost::circular_buffer<char>& result = this->_protocolClientRFB.execute(itSearch->second);
+		  boost::circular_buffer<char> const & result = this->_protocolClientRFB.execute(itSearch->second);
 		  this->sendBuffer(result);
+		}
+	      else
+		{
+		  std::cerr << "Impossible de trouver la stimulation = " << op_pStimulationSet->getStimulationIdentifier(s) << std::endl << "Disponible :" << std::endl;
+		  for (std::map<OpenViBE::uint64, Action>::const_iterator it = this->_actionsMapping.begin(), itEnd = this->_actionsMapping.end(); it != itEnd; ++it)
+		    {
+		      std::cerr << it->first << std::endl;
+		    }
+		    
 		}
 	    }
 	  l_rDynamicBoxContext.markInputAsDeprecated(0, i);
@@ -127,20 +133,20 @@ void CVncBox::receiveBuffer()
     }
 }
 
-void CVncBox::sendBuffer(boost::circular_buffer<char> &  bufferToSend)
+void CVncBox::sendBuffer(boost::circular_buffer<char> const &  bufferToSend)
 {
   std::cerr << "~~~~~~~~~~~~~~~~~~~~~~~~~~ [CVncBox::VncResult] ~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
-  if (bufferToSend.size() != 0)
+  if (!bufferToSend.empty())
     {
       std::cerr << "sendBuffer\tAjout au buffer de sortie de "<< bufferToSend.size() << " octets."<< std::endl;
-      //      this->_bufferOut.insert(this->_bufferIn.end(), bufferToSend.first, bufferToSend.first + bufferToSend.second);
-      if (!bufferToSend.empty() && this->_socket->isReadyToSend())
+      this->_bufferOut.insert(this->_bufferIn.end(), bufferToSend.begin(), bufferToSend.end());
+      if (!this->_bufferOut.empty() && this->_socket->isReadyToSend())
 	{
-	  std::cerr << "Tentative d'envoie de " << bufferToSend.size()<< " octets."<< std::endl;
-	  Socket::uint32 bytesSend = this->_socket->sendBuffer(bufferToSend.linearize(), bufferToSend.size());
+	  std::cerr << "Tentative d'envoie de " << this->_bufferOut.size()<< " octets."<< std::endl;
+	  Socket::uint32 bytesSend = this->_socket->sendBuffer(this->_bufferOut.linearize(), this->_bufferOut.size());
 	  std::cerr << "Nombre d'octets envoyes : " << bytesSend << std::endl;
-	  bufferToSend.erase_begin(bytesSend);
-	  std::cerr << "Taille du buffer de sortie apres nettoyage :"<< bufferToSend.size() << " octets." << std::endl;
+	  this->_bufferOut.erase_begin(bytesSend);
+	  std::cerr << "Taille du buffer de sortie apres nettoyage :"<< this->_bufferOut.size() << " octets." << std::endl;
 	}
     }
 }

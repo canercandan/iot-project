@@ -19,8 +19,8 @@ namespace OpenViBEPlugins
       ProtocolClientRFB();
 
       void		initialize(EBML::int32 mouseMoveDistance);
-      boost::circular_buffer<char> &		parse(boost::circular_buffer<char> & bufferToParse);
-      boost::circular_buffer<char> &		execute(Action);
+      boost::circular_buffer<char> const &		parse(boost::circular_buffer<char> & bufferToParse);
+      boost::circular_buffer<char> const &		execute(Action);
       bool		isInitProcessFinish() const;
 
     private:
@@ -43,7 +43,6 @@ namespace OpenViBEPlugins
       static std::string const 			_VERSION;
       std::map<RFBServerStep, funcParsePtr>	_parsePtrMap;
       RFBServerStep				_rfbStep;
-      std::string				_secuReason;
       char					_secuType;
       char					_sharedFlag;
       unsigned char				_firstSecuResult;

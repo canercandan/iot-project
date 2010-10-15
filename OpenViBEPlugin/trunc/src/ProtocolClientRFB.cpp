@@ -7,7 +7,7 @@ using namespace OpenViBEPlugins::VNC;
 std::string const ProtocolClientRFB::_VERSION = std::string("RFB 003.008\n");
 
 ProtocolClientRFB::ProtocolClientRFB():
-  _parsePtrMap(), _rfbStep(RFB_VERSION), _secuReason(),
+  _parsePtrMap(), _rfbStep(RFB_VERSION),
   _secuType(0), _sharedFlag(0), _firstSecuResult(1), _messageToSend(256),
   _mouseXPosition(0), _mouseYPosition(0), _mouseMoveDistance(5)
 {
@@ -32,7 +32,6 @@ bool		ProtocolClientRFB::isInitProcessFinish() const
 void	ProtocolClientRFB::bufcpy(const char * source, EBML::uint32 length)
 {
   this->_messageToSend.insert(this->_messageToSend.end(), source, source + length);
-    //  std::copy(source, source + length, this->_messageToSend);
 }
 
 void	ProtocolClientRFB::convertUint8ToString(unsigned char const * data, EBML::uint32 size, std::string & src)
@@ -139,8 +138,9 @@ void		ProtocolClientRFB::execMouseMsg(Action action)
   this->bufcpy((char*)&pointerEvent, sizeof(RFBPointerEvent));
 }
 
-boost::circular_buffer<char>&	ProtocolClientRFB::execute(Action action)
+boost::circular_buffer<char> const &	ProtocolClientRFB::execute(Action action)
 {
+  this->_messageToSend.clear();
   std::cerr << "~~~~~~~~~~~~~~~~~~~~~~~~~~ [ProtocolClientRFB::execute] ~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
 
   if (action >= ACTION_KEY1)
@@ -230,13 +230,22 @@ void		ProtocolClientRFB::parseSecuReason(boost::circular_buffer<char> & bufferTo
       EBML::uint32* reasonLength = static_cast<EBML::uint32*>(data);
       if (*reasonLength > 0)
 	{
-	  EBML::uint32* tmp = reasonLength;
-	  unsigned char* reason = static_cast<unsigned char*>((void *)(++tmp));
-	  
-	  this->convertUint8ToString(reason, *reasonLength, this->_secuReason);
+	  if (bufferToParse.size() == (*reasonLength + sizeof(EBML::uint32)))
+	    {
+	      EBML::uint32* tmp = reasonLength;
+	      unsigned char* reason = static_cast<unsigned char*>((void *)(++tmp));
+	      std::string l_sCloseReason;
+	      this->convertUint8ToString(reason, *reasonLength, l_sCloseReason);
+	      std::cerr << "[ERROR] - Le serveur a ferme la connection car : " << l_sCloseReason << std::endl;
+	      this->_rfbStep = RFB_DISCONNECT;
+	      bufferToParse.erase_begin(*reasonLength + sizeof(EBML::uint32));
+	    }
 	}
-      this->_rfbStep = RFB_DISCONNECT;
-      bufferToParse.erase_begin(*reasonLength + sizeof(EBML::uint32));
+      else
+	{
+	  this->_rfbStep = RFB_DISCONNECT;
+	  bufferToParse.erase_begin(sizeof(EBML::uint32));
+	}
     }
 }
 
@@ -254,8 +263,9 @@ void		ProtocolClientRFB::parseServerInit(boost::circular_buffer<char> & bufferTo
     }
 }
 
-boost::circular_buffer<char>&	ProtocolClientRFB::parse(boost::circular_buffer<char> & bufferToParse)
+boost::circular_buffer<char> const &	ProtocolClientRFB::parse(boost::circular_buffer<char> & bufferToParse)
 {
+  this->_messageToSend.clear();
   std::cerr << "~~~~~~~~~~~~~~~~~~~~~~~~~~ [ProtocolClientRFB::parse] ~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
 
   if (this->_parsePtrMap.find(this->_rfbStep) != this->_parsePtrMap.end())

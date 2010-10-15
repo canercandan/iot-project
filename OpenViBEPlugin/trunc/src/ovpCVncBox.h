@@ -32,7 +32,7 @@ namespace OpenViBEPlugins
 
       private:
 	void				receiveBuffer(); // Essaye de lire sur la socket
-	void				sendBuffer(boost::circular_buffer<char> & bufferToSend); // Remplis le buffer de sortie et essaye d'ecrire sur la socket
+	void				sendBuffer(boost::circular_buffer<char> const & bufferToSend); // Remplis le buffer de sortie et essaye d'ecrire sur la socket
       private:
 	OpenViBE::Kernel::IAlgorithmProxy*					m_pStimulationDecoder; // Algorithme permettant de decoder le buffer input de la box
 	OpenViBE::Kernel::TParameterHandler<const OpenViBE::IMemoryBuffer*>	ip_pMemoryBuffer; // 1st Input of the box
@@ -40,6 +40,7 @@ namespace OpenViBEPlugins
 
 	Socket::IConnectionClient *			_socket;
 	boost::circular_buffer<char>			_bufferIn;
+	boost::circular_buffer<char>			_bufferOut;
 
 	std::map<OpenViBE::uint64, Action>		_actionsMapping; // Mapping entre les labels recus et les actions a effectue
 	ProtocolClientRFB				_protocolClientRFB;

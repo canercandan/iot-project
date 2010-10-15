@@ -19,12 +19,12 @@ OpenViBE::CString			CVncBoxDesc::getName(void) const
 
 OpenViBE::CString			CVncBoxDesc::getAuthorName(void) const
 {
-  return ("IOT Consortium");
+  return ("Jaguar & La Ch@melle");
 }
 
 OpenViBE::CString			CVncBoxDesc::getAuthorCompanyName(void) const
 {
-  return ("La Chamelle Club");
+  return ("IOT Consortium");
 }
 
 OpenViBE::CString			CVncBoxDesc::getShortDescription(void) const
