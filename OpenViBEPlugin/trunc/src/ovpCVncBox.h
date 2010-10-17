@@ -49,7 +49,7 @@ namespace OpenViBEPlugins
 	boost::circular_buffer<char>			m_oBufferOut; /** The packet to send, content is remove when it sent */
 
 	std::map<OpenViBE::uint64, EAction>		m_oActionsMapping; /** Mapping between label and the VNC Action */
-	ProtocolClientRFB				m_oRfbActor; /** RFB Parser */
+	CProtocolClientRFB				m_oRfbActor; /** RFB Parser */
       };
   }
 }

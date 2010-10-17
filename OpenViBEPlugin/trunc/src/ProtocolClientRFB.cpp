@@ -4,277 +4,277 @@
 
 using namespace OpenViBEPlugins::VNC;
 
-std::string const ProtocolClientRFB::_VERSION = std::string("RFB 003.008\n");
+std::string const CProtocolClientRFB::m_sVERSION = std::string("RFB 003.008\n");
 
-ProtocolClientRFB::ProtocolClientRFB():
-  _parsePtrMap(), _rfbStep(RFB_VERSION),
-  _secuType(0), _sharedFlag(0), _firstSecuResult(1), _messageToSend(256),
-  _mouseXPosition(0), _mouseYPosition(0), _mouseMoveDistance(5), m_pLogger(0)
+CProtocolClientRFB::CProtocolClientRFB():
+  m_oParsePtrMap(), m_oRfbStep(RFB_VERSION),
+  m_cSecuType(0), m_cSharedFlag(0), m_ucFirstSecuResult(1), m_oMessageToSend(256),
+  m_uint16MouseXPosition(0), m_uint16MouseYPosition(0), m_uint16MouseMoveDistance(5), m_pLogger(0)
 {
-  this->_parsePtrMap[RFB_VERSION] = &ProtocolClientRFB::parseVersion;
-  this->_parsePtrMap[RFB_SECULIST] = &ProtocolClientRFB::parseSecuList;
-  this->_parsePtrMap[RFB_SECURESULT] = &ProtocolClientRFB::parseSecuResult;
-  this->_parsePtrMap[RFB_SECUREASON] = &ProtocolClientRFB::parseSecuReason;
-  this->_parsePtrMap[RFB_INITMESSAGE] = &ProtocolClientRFB::parseServerInit;
-  this->_rfbStep = RFB_VERSION;
+  this->m_oParsePtrMap[RFB_VERSION] = &CProtocolClientRFB::parseVersion;
+  this->m_oParsePtrMap[RFB_SECULIST] = &CProtocolClientRFB::parseSecuList;
+  this->m_oParsePtrMap[RFB_SECURESULT] = &CProtocolClientRFB::parseSecuResult;
+  this->m_oParsePtrMap[RFB_SECUREASON] = &CProtocolClientRFB::parseSecuReason;
+  this->m_oParsePtrMap[RFB_INITMESSAGE] = &CProtocolClientRFB::parseServerInit;
+  this->m_oRfbStep = RFB_VERSION;
 }
 
-void		ProtocolClientRFB::initialize(OpenViBE::int32 int32InputMouseMoveDistance, OpenViBE::Kernel::ILogManager * pInputLogger)
+void		CProtocolClientRFB::initialize(OpenViBE::int32 int32InputMouseMoveDistance, OpenViBE::Kernel::ILogManager * pInputLogger)
 {
-  this->_mouseMoveDistance = int32InputMouseMoveDistance;
+  this->m_uint16MouseMoveDistance = int32InputMouseMoveDistance;
   this->m_pLogger = pInputLogger;
 }
 
-bool		ProtocolClientRFB::isInitProcessFinish() const
+bool		CProtocolClientRFB::isInitProcessFinish() const
 {
-  return (RFB_MESSAGING == this->_rfbStep);
+  return (RFB_MESSAGING == this->m_oRfbStep);
 }
 
-void	ProtocolClientRFB::bufcpy(const char * source, OpenViBE::uint32 length)
+void	CProtocolClientRFB::bufcpy(const char * source, OpenViBE::uint32 length)
 {
-  this->_messageToSend.insert(this->_messageToSend.end(), source, source + length);
+  this->m_oMessageToSend.insert(this->m_oMessageToSend.end(), source, source + length);
 }
 
-void	ProtocolClientRFB::convertUint8ToString(unsigned char const * data, OpenViBE::uint32 size, std::string & src)
+void	CProtocolClientRFB::convertUint8ToString(unsigned char const * data, OpenViBE::uint32 size, std::string & src)
 {
   std::copy(data, data + size, src.begin());
 }
 
-void	ProtocolClientRFB::execVersion()
+void	CProtocolClientRFB::execVersion()
 {
-  std::cerr << "~~~~~~~~~~~~~~~~~~~~~~~~~~ [ProtocolClientRFB::execVersion] ~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
+  std::cerr << "~~~~~~~~~~~~~~~~~~~~~~~~~~ [CProtocolClientRFB::execVersion] ~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
 
-  this->bufcpy(ProtocolClientRFB::_VERSION.c_str(), ProtocolClientRFB::_VERSION.size());
-  this->_rfbStep = RFB_SECULIST;
+  this->bufcpy(CProtocolClientRFB::m_sVERSION.c_str(), CProtocolClientRFB::m_sVERSION.size());
+  this->m_oRfbStep = RFB_SECULIST;
 }
 
-void		ProtocolClientRFB::execSecuList()
+void		CProtocolClientRFB::execSecuList()
 {
-std::cerr << "~~~~~~~~~~~~~~~~~~~~~~~~~~ [ProtocolClientRFB::execSecuList] ~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
+std::cerr << "~~~~~~~~~~~~~~~~~~~~~~~~~~ [CProtocolClientRFB::execSecuList] ~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
 
-  this->bufcpy(&this->_secuType, 1);
-  this->_rfbStep = RFB_SECURESULT;
+  this->bufcpy(&this->m_cSecuType, 1);
+  this->m_oRfbStep = RFB_SECURESULT;
 }
 
-void		ProtocolClientRFB::execInitMessage()
+void		CProtocolClientRFB::execInitMessage()
 {
-  std::cerr << "~~~~~~~~~~~~~~~~~~~~~~~~~~ [ProtocolClientRFB::execInitMessage] ~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
+  std::cerr << "~~~~~~~~~~~~~~~~~~~~~~~~~~ [CProtocolClientRFB::execInitMessage] ~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
 
-  this->bufcpy(&this->_sharedFlag, 1);
+  this->bufcpy(&this->m_cSharedFlag, 1);
 }
 
-void		ProtocolClientRFB::execKeyMsg(EAction action)
+void		CProtocolClientRFB::execKeyMsg(EAction eAction)
 {
-  std::cerr << "~~~~~~~~~~~~~~~~~~~~~~~~~~ [ProtocolClientRFB::execKeyMsg] ~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
-  RFBKeyEvent	keyEvent;
-  keyEvent.messageType = 4;
-  keyEvent.downFlag = 1;
-  keyEvent.key = (action == ACTION_KEY1 ? 0xff54 : 0xff53);
+  std::cerr << "~~~~~~~~~~~~~~~~~~~~~~~~~~ [CProtocolClientRFB::execKeyMsg] ~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
+  RFBKeyEvent	l_oKeyEvent;
+  l_oKeyEvent.messageType = 4;
+  l_oKeyEvent.downFlag = 1;
+  l_oKeyEvent.key = (eAction == ACTION_KEY1 ? 0xff54 : 0xff53);
 
-  this->bufcpy((char*)&keyEvent, sizeof(RFBKeyEvent));
-  keyEvent.downFlag = 0;
-  this->bufcpy((char*)&keyEvent, sizeof(RFBKeyEvent));
+  this->bufcpy((char*)&l_oKeyEvent, sizeof(RFBKeyEvent));
+  l_oKeyEvent.downFlag = 0;
+  this->bufcpy((char*)&l_oKeyEvent, sizeof(RFBKeyEvent));
 }
 
-void		ProtocolClientRFB::execMouseMsg(EAction action)
+void		CProtocolClientRFB::execMouseMsg(EAction eAction)
 {
-  std::cerr << "~~~~~~~~~~~~~~~~~~~~~~~~~~ [ProtocolClientRFB::execMouseMsg] ~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
-  RFBPointerEvent	pointerEvent;
-  pointerEvent.messageType = 5;
-  pointerEvent.buttonMask = 0;
-  switch (action)
+  std::cerr << "~~~~~~~~~~~~~~~~~~~~~~~~~~ [CProtocolClientRFB::execMouseMsg] ~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
+  RFBPointerEvent	l_oPointerEvent;
+  l_oPointerEvent.messageType = 5;
+  l_oPointerEvent.buttonMask = 0;
+  switch (eAction)
     {
     case ACTION_MOUSEL:
-      if ((this->_mouseXPosition - this->_mouseMoveDistance) <= 0)
+      if ((this->m_uint16MouseXPosition - this->m_uint16MouseMoveDistance) <= 0)
 	{
-	  this->_mouseXPosition = this->_desktopInfo.framebufferWidth;
+	  this->m_uint16MouseXPosition = this->m_oDesktopInfo.framebufferWidth;
 	}
       else
-	this->_mouseXPosition -= this->_mouseMoveDistance;
+	this->m_uint16MouseXPosition -= this->m_uint16MouseMoveDistance;
       break;
 
     case ACTION_MOUSER:
-      if ((this->_mouseXPosition + this->_mouseMoveDistance) > this->_desktopInfo.framebufferWidth)
+      if ((this->m_uint16MouseXPosition + this->m_uint16MouseMoveDistance) > this->m_oDesktopInfo.framebufferWidth)
 	{
-	  this->_mouseXPosition = 0;
+	  this->m_uint16MouseXPosition = 0;
 	}
       else
-	this->_mouseXPosition += this->_mouseMoveDistance;
+	this->m_uint16MouseXPosition += this->m_uint16MouseMoveDistance;
       break;
 
     case ACTION_MOUSEU:
-      if ((this->_mouseYPosition - this->_mouseMoveDistance) <= 0)
+      if ((this->m_uint16MouseYPosition - this->m_uint16MouseMoveDistance) <= 0)
 	{
-	  this->_mouseYPosition = this->_desktopInfo.framebufferHeight;
+	  this->m_uint16MouseYPosition = this->m_oDesktopInfo.framebufferHeight;
 	}
       else
-	this->_mouseYPosition -= this->_mouseMoveDistance;
+	this->m_uint16MouseYPosition -= this->m_uint16MouseMoveDistance;
       break;
 
     case ACTION_MOUSED:
-      if ((this->_mouseYPosition + this->_mouseMoveDistance) > this->_desktopInfo.framebufferHeight)
+      if ((this->m_uint16MouseYPosition + this->m_uint16MouseMoveDistance) > this->m_oDesktopInfo.framebufferHeight)
 	{
-	  this->_mouseYPosition = 0;
+	  this->m_uint16MouseYPosition = 0;
 	}
       else
-	this->_mouseYPosition += this->_mouseMoveDistance;
+	this->m_uint16MouseYPosition += this->m_uint16MouseMoveDistance;
       break;
 
     case ACTION_MOUSE1:
-      pointerEvent.buttonMask = 1;
+      l_oPointerEvent.buttonMask = 1;
       break;
 
     case ACTION_MOUSE2:
-      pointerEvent.buttonMask = 1 << 1;
+      l_oPointerEvent.buttonMask = 1 << 1;
       break;
 
     case ACTION_MOUSE3:
-      pointerEvent.buttonMask = 1 << 2;
+      l_oPointerEvent.buttonMask = 1 << 2;
       break;
     default:
       break;
     }
-  pointerEvent.xPosition = this->_mouseXPosition;
-  pointerEvent.yPosition = this->_mouseYPosition;
-  this->bufcpy((char*)&pointerEvent, sizeof(RFBPointerEvent));
-  pointerEvent.buttonMask = 0;
-  this->bufcpy((char*)&pointerEvent, sizeof(RFBPointerEvent));
+  l_oPointerEvent.xPosition = this->m_uint16MouseXPosition;
+  l_oPointerEvent.yPosition = this->m_uint16MouseYPosition;
+  this->bufcpy((char*)&l_oPointerEvent, sizeof(RFBPointerEvent));
+  l_oPointerEvent.buttonMask = 0;
+  this->bufcpy((char*)&l_oPointerEvent, sizeof(RFBPointerEvent));
 }
 
-boost::circular_buffer<char> const &	ProtocolClientRFB::execute(EAction action)
+boost::circular_buffer<char> const &	CProtocolClientRFB::execute(EAction eAction)
 {
-  this->_messageToSend.clear();
-  std::cerr << "~~~~~~~~~~~~~~~~~~~~~~~~~~ [ProtocolClientRFB::execute] ~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
+  this->m_oMessageToSend.clear();
+  std::cerr << "~~~~~~~~~~~~~~~~~~~~~~~~~~ [CProtocolClientRFB::execute] ~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
 
-  if (action >= ACTION_KEY1)
+  if (eAction >= ACTION_KEY1)
     {
-      this->execKeyMsg(action);
+      this->execKeyMsg(eAction);
     }
   else
     {
-      this->execMouseMsg(action);
+      this->execMouseMsg(eAction);
     }
-  return (this->_messageToSend);
+  return (this->m_oMessageToSend);
 }
 
-void		ProtocolClientRFB::parseVersion(boost::circular_buffer<char> & bufferToParse)
+void		CProtocolClientRFB::parseVersion(boost::circular_buffer<char> & rBufferToParse)
 {
-  std::cerr << "~~~~~~~~~~~~~~~~~~~~~~~~~~ [ProtocolClientRFB::parseVersion] ~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
+  std::cerr << "~~~~~~~~~~~~~~~~~~~~~~~~~~ [CProtocolClientRFB::parseVersion] ~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
 
-  if (bufferToParse.size() >= ProtocolClientRFB::_VERSION.size())
+  if (rBufferToParse.size() >= CProtocolClientRFB::m_sVERSION.size())
     {
-      bufferToParse.erase_begin(ProtocolClientRFB::_VERSION.size());
+      rBufferToParse.erase_begin(CProtocolClientRFB::m_sVERSION.size());
       this->execVersion();
     }
 }
 
-void		ProtocolClientRFB::parseSecuList(boost::circular_buffer<char> & bufferToParse)
+void		CProtocolClientRFB::parseSecuList(boost::circular_buffer<char> & rBufferToParse)
 {
-  std::cerr << "~~~~~~~~~~~~~~~~~~~~~~~~~~ [ProtocolClientRFB::parseSecuList] ~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
+  std::cerr << "~~~~~~~~~~~~~~~~~~~~~~~~~~ [CProtocolClientRFB::parseSecuList] ~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
 
-  if (bufferToParse.size() >= sizeof(unsigned char))
+  if (rBufferToParse.size() >= sizeof(unsigned char))
     {
-      void* data = bufferToParse.linearize();
-      unsigned char* nbOfSecuTypes = static_cast<unsigned char*>(data);
+      void* l_pData = rBufferToParse.linearize();
+      unsigned char* l_pNbOfSecuTypes = static_cast<unsigned char*>(l_pData);
 
-      if (*nbOfSecuTypes > 0)
+      if (*l_pNbOfSecuTypes > 0)
 	{
-	  this->_secuType = 1;
+	  this->m_cSecuType = 1;
 	  this->execSecuList();
 	}
       else
 	{
-	  this->_rfbStep = RFB_SECUREASON;
+	  this->m_oRfbStep = RFB_SECUREASON;
 	}
-      bufferToParse.erase_begin(*nbOfSecuTypes + sizeof(unsigned char));
+      rBufferToParse.erase_begin(*l_pNbOfSecuTypes + sizeof(unsigned char));
     }
 }
 
-void		ProtocolClientRFB::parseSecuResult(boost::circular_buffer<char> & bufferToParse)
+void		CProtocolClientRFB::parseSecuResult(boost::circular_buffer<char> & rBufferToParse)
 {
-  std::cerr << "~~~~~~~~~~~~~~~~~~~~~~~~~~ [ProtocolClientRFB::parseSecuResult] ~~~~~~~~~~~~~~~~~~~~~~~~~~" << bufferToParse.size() << std::endl;
+  std::cerr << "~~~~~~~~~~~~~~~~~~~~~~~~~~ [CProtocolClientRFB::parseSecuResult] ~~~~~~~~~~~~~~~~~~~~~~~~~~" << rBufferToParse.size() << std::endl;
 
-  if (bufferToParse.size() >= sizeof(OpenViBE::uint32))
+  if (rBufferToParse.size() >= sizeof(OpenViBE::uint32))
     {
-      void* data = bufferToParse.linearize();
+      void* l_pData = rBufferToParse.linearize();
 
-      OpenViBE::uint32* response = static_cast<OpenViBE::uint32*>(data);
+      OpenViBE::uint32* l_pResponse = static_cast<OpenViBE::uint32*>(l_pData);
 
-      if (*response == 1)
+      if (*l_pResponse == 1)
 	{
-	  std::cerr << "~~~~~~~~~~~~~~~~~~~~~~~~~~ [ProtocolClientRFB::zzzzzzz] ~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
-	  this->_rfbStep = RFB_SECUREASON;
+	  std::cerr << "~~~~~~~~~~~~~~~~~~~~~~~~~~ [CProtocolClientRFB::zzzzzzz] ~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
+	  this->m_oRfbStep = RFB_SECUREASON;
 	}
       else
 	{
-	  if (this->_firstSecuResult == 0)
+	  if (this->m_ucFirstSecuResult == 0)
 	    {
-	      std::cerr << "~~~~~~~~~~~~~~~~~~~~~~~~~~ [ProtocolClientRFB::ffffffffffffff] ~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
-	      this->_firstSecuResult = 1;
+	      std::cerr << "~~~~~~~~~~~~~~~~~~~~~~~~~~ [CProtocolClientRFB::ffffffffffffff] ~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
+	      this->m_ucFirstSecuResult = 1;
 	    }
 	  else
 	    {
-	      std::cerr << "~~~~~~~~~~~~~~~~~~~~~~~~~~ [ProtocolClientRFB::zzziiiiiniii] ~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
-	      this->_rfbStep = RFB_INITMESSAGE;
+	      std::cerr << "~~~~~~~~~~~~~~~~~~~~~~~~~~ [CProtocolClientRFB::zzziiiiiniii] ~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
+	      this->m_oRfbStep = RFB_INITMESSAGE;
 	      this->execInitMessage();
 	    }
 	}
-      bufferToParse.erase_begin(sizeof(OpenViBE::uint32));
+      rBufferToParse.erase_begin(sizeof(OpenViBE::uint32));
     }
 }
 
-void		ProtocolClientRFB::parseSecuReason(boost::circular_buffer<char> & bufferToParse)
+void		CProtocolClientRFB::parseSecuReason(boost::circular_buffer<char> & rBufferToParse)
 {
-  std::cerr << "~~~~~~~~~~~~~~~~~~~~~~~~~~ [ProtocolClientRFB::parseSecuReason] ~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
+  std::cerr << "~~~~~~~~~~~~~~~~~~~~~~~~~~ [CProtocolClientRFB::parseSecuReason] ~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
 
-  if (bufferToParse.size() >= sizeof(OpenViBE::uint32))
+  if (rBufferToParse.size() >= sizeof(OpenViBE::uint32))
     {
-      void* data = bufferToParse.linearize();
-      OpenViBE::uint32* reasonLength = static_cast<OpenViBE::uint32*>(data);
-      if (*reasonLength > 0)
+      void* l_pData = rBufferToParse.linearize();
+      OpenViBE::uint32* l_pReasonLength = static_cast<OpenViBE::uint32*>(l_pData);
+      if (*l_pReasonLength > 0)
 	{
-	  if (bufferToParse.size() == (*reasonLength + sizeof(OpenViBE::uint32)))
+	  if (rBufferToParse.size() == (*l_pReasonLength + sizeof(OpenViBE::uint32)))
 	    {
-	      OpenViBE::uint32* tmp = reasonLength;
-	      unsigned char* reason = static_cast<unsigned char*>((void *)(++tmp));
+	      OpenViBE::uint32* l_pTmp = l_pReasonLength;
+	      unsigned char* l_pReason = static_cast<unsigned char*>((void *)(++l_pTmp));
 	      std::string l_sCloseReason;
-	      this->convertUint8ToString(reason, *reasonLength, l_sCloseReason);
+	      this->convertUint8ToString(l_pReason, *l_pReasonLength, l_sCloseReason);
 	      std::cerr << "[ERROR] - Le serveur a ferme la connection car : " << l_sCloseReason << std::endl;
-	      this->_rfbStep = RFB_DISCONNECT;
-	      bufferToParse.erase_begin(*reasonLength + sizeof(OpenViBE::uint32));
+	      this->m_oRfbStep = RFB_DISCONNECT;
+	      rBufferToParse.erase_begin(*l_pReasonLength + sizeof(OpenViBE::uint32));
 	    }
 	}
       else
 	{
-	  this->_rfbStep = RFB_DISCONNECT;
-	  bufferToParse.erase_begin(sizeof(OpenViBE::uint32));
+	  this->m_oRfbStep = RFB_DISCONNECT;
+	  rBufferToParse.erase_begin(sizeof(OpenViBE::uint32));
 	}
     }
 }
 
-void		ProtocolClientRFB::parseServerInit(boost::circular_buffer<char> & bufferToParse)
+void		CProtocolClientRFB::parseServerInit(boost::circular_buffer<char> & rBufferToParse)
 {
-  std::cerr << "~~~~~~~~~~~~~~~~~~~~~~~~~~ [ProtocolClientRFB::parseServerInit] ~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
+  std::cerr << "~~~~~~~~~~~~~~~~~~~~~~~~~~ [CProtocolClientRFB::parseServerInit] ~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
 
-  if (bufferToParse.size() >= sizeof(this->_desktopInfo))
+  if (rBufferToParse.size() >= sizeof(this->m_oDesktopInfo))
     {
-      void* data = bufferToParse.linearize();
-      RFBDesktopInfo* tmpDesktopInfo = static_cast<RFBDesktopInfo*>(data);
-      this->_desktopInfo = *tmpDesktopInfo;
-      this->_rfbStep = RFB_MESSAGING;
-      bufferToParse.erase_begin(sizeof(this->_desktopInfo));
+      void* l_pData = rBufferToParse.linearize();
+      RFBDesktopInfo* l_opTmpDesktopInfo = static_cast<RFBDesktopInfo*>(l_pData);
+      this->m_oDesktopInfo = *l_opTmpDesktopInfo;
+      this->m_oRfbStep = RFB_MESSAGING;
+      rBufferToParse.erase_begin(sizeof(this->m_oDesktopInfo));
     }
 }
 
-boost::circular_buffer<char> const &	ProtocolClientRFB::parse(boost::circular_buffer<char> & bufferToParse)
+boost::circular_buffer<char> const &	CProtocolClientRFB::parse(boost::circular_buffer<char> & rBufferToParse)
 {
-  this->_messageToSend.clear();
-  std::cerr << "~~~~~~~~~~~~~~~~~~~~~~~~~~ [ProtocolClientRFB::parse] ~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
+  this->m_oMessageToSend.clear();
+  std::cerr << "~~~~~~~~~~~~~~~~~~~~~~~~~~ [CProtocolClientRFB::parse] ~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
 
-  if (this->_parsePtrMap.find(this->_rfbStep) != this->_parsePtrMap.end())
+  if (this->m_oParsePtrMap.find(this->m_oRfbStep) != this->m_oParsePtrMap.end())
     {
-      funcParsePtr f = this->_parsePtrMap[this->_rfbStep];
-      (this->*f)(bufferToParse);
+      funcParsePtr l_tf = this->m_oParsePtrMap[this->m_oRfbStep];
+      (this->*l_tf)(rBufferToParse);
     }
-  return (this->_messageToSend);
+  return (this->m_oMessageToSend);
 }
