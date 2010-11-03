@@ -189,4 +189,5 @@ class Box(QRect, Node):
         self.boxEditor.deleteLater()
 
     def childNotificator(self):
-        print "I have a child!"
+	if self.children:
+            print "I have a child!"

@@ -227,7 +227,9 @@ class BuilderWidget(QtGui.QMainWindow):
         for box in self.currentView.boxes:
             if box.normalized().contains(pos):
                 topBox = box
-        self.currentView.currentBox = topBox
+		box.childNotificator()
+	self.currentView.currentBox = topBox
+                
 
     def selectPreviousBox(self):
         length = len(self.currentView.boxes)
