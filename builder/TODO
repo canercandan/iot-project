@@ -1,12 +1,13 @@
 -------
  Chris
 -------
-- Reparer le chargement des fichiers xml
-- Trouver un moyen de rendre opaque la barre d'outils
-- Rajouter une option pour changer la police du texte affiche dans une boite ainsi que le code pour le xml (enregistrement/chargement)
+- Reparer le chargement des fichiers xml -done
+- barre d'outil opaque - done
+
 - Ajouter un visuel dans la barre d'outils afin de montrer a quel niveau on se trouve.
 - Trouver un moyen de distinguer les boites qui ont des fils de celles qui n'en ont pas (idee: dessiner une petite icone dans le coin bas gauche par ex)
 - Corriger les apparitions sporadiques du curseur de redimensionnement alors qu'il n'est pas sur un bord d'une boite...
+- Rajouter une option pour changer la police du texte affiche dans une boite ainsi que le code pour le xml (enregistrement/chargement)
 
 -------
  Reste
@@ -20,3 +21,4 @@
   D'autres choses par la suite...
   Le tout gere par un QSettings.
 - La barre d'outils peut-etre flottante au demarrage, disons au centre du builder (voir QSettings ainsi que la partie Options du Builder plus bas).
+- La barre d'outil devient opaque aussi lorsque sur les bords

@@ -35,7 +35,6 @@ class Toolbar(QtGui.QToolBar):
     def __init__(self, parent):
         QtGui.QToolBar.__init__(self, 'Display toolbar')
         QtGui.QWidget.setAttribute(self, Qt.WA_AlwaysShowToolTips)
-
         self.buttons = [
             s(':/pix/new_file.png', QObject.tr(self, 'New file'), 'Ctrl+N', parent.newFile),
             s(':/pix/load_file.png', QObject.tr(self, 'Load file'), 'Ctrl+L', parent.loadFile),
@@ -66,6 +65,7 @@ class Toolbar(QtGui.QToolBar):
                 QtGui.QAction.setShortcut(action, item.shortcut)
                 QtGui.QAction.setToolTip(action, QString('%1 (%2)').arg(item.tooltip).arg(item.shortcut))
                 actionsList.append(action)
+		QtGui.QToolBar.setWindowOpacity(self, 1.0);
                 QtGui.QToolBar.addAction(self, action)
                 QtGui.QMainWindow.addAction(parent, action)
                 QObject.connect(action, SIGNAL("triggered()"), item.slot)
