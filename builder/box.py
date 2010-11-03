@@ -36,7 +36,8 @@ class Box(QRect, Node):
         self.boxEditor = BoxEditor(builder)     # QDialog
         self.boxType = BoxType.CustomBox        # int
         self.bufferedAttributes = {}            # dictionnary
-
+	self.builder = builder
+	
     # Standard constructor
     def initRegularBox(self, topLeft, bottomRight):
         self.setTopLeft(topLeft)
@@ -107,7 +108,7 @@ class Box(QRect, Node):
         while (not boxNode.isNull()):
             boxElem = boxNode.toElement()
             if boxElem and boxElem.tagName() == 'box':
-                box = Box()
+                box = Box(self.builder)
                 box.initDomBox(boxElem)
                 self.children.append(box)
             boxNode = boxNode.nextSibling()
@@ -172,7 +173,7 @@ class Box(QRect, Node):
     def setAttribute(self, key, value):
         if self.actionIdSet == 1:
             self.boxEditor.setAttribute(key, value)
-        else:
+        else :
             # buffer attribute
             self.bufferedAttributes[key] = value
 
