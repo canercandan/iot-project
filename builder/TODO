@@ -3,11 +3,11 @@
 -------
 - Reparer le chargement des fichiers xml -done
 - barre d'outil opaque - done
+- Trouver un moyen de distinguer les boites qui ont des fils de celles qui n'en ont pas  -done
+- Rajouter une option pour changer la police du texte affiche dans une boite ainsi que le code pour le xml (enregistrement/chargement) -done
 
 - Ajouter un visuel dans la barre d'outils afin de montrer a quel niveau on se trouve.
-- Trouver un moyen de distinguer les boites qui ont des fils de celles qui n'en ont pas  -done
 - Corriger les apparitions sporadiques du curseur de redimensionnement alors qu'il n'est pas sur un bord d'une boite...
-- Rajouter une option pour changer la police du texte affiche dans une boite ainsi que le code pour le xml (enregistrement/chargement)
 
 -------
  Reste

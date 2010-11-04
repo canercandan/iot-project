@@ -30,6 +30,7 @@ class BoxStyle(Node, dict):
         self['opacity'] = str(0.5)
         self['text'] = ''
         self['imagePath'] = ''
+	self['font'] = ''
 
     def initializeFromXml(self, elem):
         for key, value in self.iteritems():

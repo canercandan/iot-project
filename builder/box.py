@@ -108,7 +108,7 @@ class Box(QRect, Node):
         while (not boxNode.isNull()):
             boxElem = boxNode.toElement()
             if boxElem and boxElem.tagName() == 'box':
-                box = Box(self.builder)
+                box = Box(boxElem) #parametre a verifier
                 box.initDomBox(boxElem)
                 self.children.append(box)
             boxNode = boxNode.nextSibling()

@@ -65,7 +65,7 @@ class BoxEditor(QtGui.QDialog):
     def changeFocusColor(self):
         color = QColorDialog.getColor()
         self.fillLabel(self.ui.focusLabel, color)
-        self.focusColor = color.name()
+        self.focusColor = colo.name()
 
     def changeTextColor(self):
         color = QColorDialog.getColor()
@@ -96,6 +96,7 @@ class BoxEditor(QtGui.QDialog):
         boxstyle['opacity'] = str(self.ui.opacitySlider.value() / 100.)
         boxstyle['text'] = self.ui.textLineEdit.text()
         boxstyle['imagePath'] = self.ui.pixLineEdit.text()
+        boxstyle['font'] = self.ui.fontLineEdit.text()
         return boxstyle
 
     def setStyle(self, boxstyle):
@@ -114,6 +115,7 @@ class BoxEditor(QtGui.QDialog):
             self.ui.opacitySlider.setValue(r[0] * 100.)
         self.ui.textLineEdit.setText(boxstyle['text'])
         self.ui.pixLineEdit.setText(boxstyle['imagePath'])
+        self.ui.fontLineEdit.setText(boxstyle['font'])
 
     # One attribute for the moment but this is extensible
     def getAttributes(self):
