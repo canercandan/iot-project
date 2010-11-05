@@ -61,16 +61,6 @@ namespace OpenViBEPlugins
       OpenViBE::uint16	yPosition;
     };
 
-    /* enum ERFBMessageTypes */
-    /* { */
-    /*   RFB_SETPIXELFORMAT = 0, */
-    /*   RFB_SETENCONDINGS = 2, */
-    /*   RFB_FRAMEBUFFERUPDATEREQUEST = 3, */
-    /*   RFB_KEYEVENT = 4, */
-    /*   RFB_POINTEREVENT = 5, */
-    /*   RFB_CLIENTCUTTEXT = 6 */
-    /* }; */
-
     enum RFBServerStep
     {
       RFB_VERSION,
@@ -84,13 +74,6 @@ namespace OpenViBEPlugins
       RFB_PTRMSG,
       RFB_DISCONNECT
     };
-
-    /* enum ETriBool */
-    /* { */
-    /*   TB_UNKNOWN, */
-    /*   TB_TRUE, */
-    /*   TB_FALSE */
-    /* }; */
   }
 }
 

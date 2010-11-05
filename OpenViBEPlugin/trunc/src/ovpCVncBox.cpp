@@ -66,10 +66,10 @@ OpenViBE::boolean CVncBox::processInput(OpenViBE::uint32 ui32InputIndex)
       this->receiveBuffer();
       boost::circular_buffer<char> const & l_rParseResult = this->m_oRfbActor.parse(this->m_oBufferIn);
       this->sendBuffer(l_rParseResult);
-      if (this->m_oRfbActor.isInitProcessFinish())
-	{
-	  this->getBoxAlgorithmContext()->markAlgorithmAsReadyToProcess();
-	}
+    }
+  if (this->m_oRfbActor.isInitProcessFinish())
+    {
+      this->getBoxAlgorithmContext()->markAlgorithmAsReadyToProcess();
     }
   return (true);
 }
