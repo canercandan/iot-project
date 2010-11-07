@@ -1,6 +1,3 @@
-#include <iostream>
-#include <cstdlib>
-
 #include "ovpCVncBox.h"
 
 using namespace OpenViBEPlugins::VNC;
@@ -28,12 +25,6 @@ OpenViBE::boolean CVncBox::initialize(void)
       this->m_oActionsMapping.insert(std::pair<OpenViBE::uint64, EAction>(FSettingValueAutoCast(*this->getBoxAlgorithmContext(), l_uint32SettingIndex), static_cast<EAction>(l_uint32ActionId)));
     }
 
-  // Boucle de debug a supprimer
-  for (std::map<OpenViBE::uint64, EAction>::const_iterator it = this->m_oActionsMapping.begin(), itEnd = this->m_oActionsMapping.end(); it != itEnd; ++it)
-    {
-      std::cerr << this->getTypeManager().getEnumerationEntryNameFromValue(OV_TypeId_Stimulation, it->first) << " --> " << it->second << std::endl;
-    }
-
   this->m_pSocket = Socket::createConnectionClient();
   OpenViBE::CString l_sHostname, l_sPort;
   l_pStaticBoxContext->getSettingValue(0, l_sHostname);
@@ -59,8 +50,6 @@ OpenViBE::boolean CVncBox::uninitialize(void)
 
 OpenViBE::boolean CVncBox::processInput(OpenViBE::uint32 ui32InputIndex)
 {
-  std::cerr << "~~~~~~~~~~~~~~~~~~~~~~~~~~CVncBox::processInput~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
-
   if (!this->m_oRfbActor.isInitProcessFinish())
     {
       this->receiveBuffer();
@@ -76,8 +65,6 @@ OpenViBE::boolean CVncBox::processInput(OpenViBE::uint32 ui32InputIndex)
 
 OpenViBE::boolean CVncBox::process(void)
 {
-  std::cerr << "~~~~~~~~~~~~~~~~~~~~~~~~~~ [CVncBox::process] ~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
-
   OpenViBE::Kernel::IBoxIO & l_rDynamicBoxContext = this->getDynamicBoxContext();
 
   for(OpenViBE::uint32 l_uint32I = 0; l_uint32I < l_rDynamicBoxContext.getInputChunkCount(0) && this->m_pSocket->isReadyToSend(); ++l_uint32I)
@@ -88,7 +75,6 @@ OpenViBE::boolean CVncBox::process(void)
 	{
 	  for(OpenViBE::uint64 l_uint64K = 0; l_uint64K < this->op_pStimulationSet->getStimulationCount(); l_uint64K++)
 	    {
-	      std::cerr << "Stimulation["<< l_uint64K<< "] - Id = " << op_pStimulationSet->getStimulationIdentifier(l_uint64K) << " = " << this->getTypeManager().getEnumerationEntryNameFromValue(OV_TypeId_Stimulation, op_pStimulationSet->getStimulationIdentifier(l_uint64K)) << std::endl;
 	      std::map<OpenViBE::uint64, EAction>::const_iterator l_oItSearch = this->m_oActionsMapping.find(op_pStimulationSet->getStimulationIdentifier(l_uint64K));
 	      if (l_oItSearch != this->m_oActionsMapping.end())
 		{
@@ -104,39 +90,28 @@ OpenViBE::boolean CVncBox::process(void)
 
 void CVncBox::receiveBuffer()
 {
-  std::cerr << "~~~~~~~~~~~~~~~~~~~~~~~~~~ [CVncBox::receiveBuffer] ~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
-
   if (this->m_pSocket->isReadyToReceive())
     {
       char l_pBuffer[1024];
       Socket::uint32 l_uint32BytesReceived = this->m_pSocket->receiveBuffer(l_pBuffer, 1024);
-      std::cerr << "Lecture de " << l_uint32BytesReceived << " octets sur la socket."<< std::endl;
       if (l_uint32BytesReceived != 0)
 	{
 	  this->getLogManager() << OpenViBE::Kernel::LogLevel_Info << l_uint32BytesReceived << "bytes received\n";
-	  std::cerr << "Taille du buffer d'entre avant remplissage : " << this->m_oBufferIn.size() << " octets." << std::endl;
 	  this->m_oBufferIn.insert(this->m_oBufferIn.end(), l_pBuffer, l_pBuffer + l_uint32BytesReceived);
-	  std::cerr << "Taille du buffer d'entre apres remplissage : "<< this->m_oBufferIn.size() << " octets." << std::endl;
 	}
     }
 }
 
 void CVncBox::sendBuffer(boost::circular_buffer<char> const & rInputBuffer)
 {
-  std::cerr << "~~~~~~~~~~~~~~~~~~~~~~~~~~ [CVncBox::sendBuffer] ~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
-
   if (!rInputBuffer.empty())
     {
-      std::cerr << "Ajout au buffer de sortie de "<< rInputBuffer.size() << " octets."<< std::endl;
       this->m_oBufferOut.insert(this->m_oBufferIn.end(), rInputBuffer.begin(), rInputBuffer.end());
       if (!this->m_oBufferOut.empty() && this->m_pSocket->isReadyToSend())
 	{
-	  std::cerr << "Tentative d'envoie de " << this->m_oBufferOut.size()<< " octets."<< std::endl;
 	  Socket::uint32 l_uint32BytesSend = this->m_pSocket->sendBuffer(this->m_oBufferOut.linearize(), this->m_oBufferOut.size());
 	  this->getLogManager() << OpenViBE::Kernel::LogLevel_Info << l_uint32BytesSend << "bytes send of" << static_cast<Socket::uint32>(this->m_oBufferOut.size()) << "expected\n";
-	  std::cerr << "Nombre d'octets envoyes : " << l_uint32BytesSend << std::endl;
 	  this->m_oBufferOut.erase_begin(l_uint32BytesSend);
-	  std::cerr << "Taille du buffer de sortie apres nettoyage :"<< this->m_oBufferOut.size() << " octets." << std::endl;
 	}
     }
 }

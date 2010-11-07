@@ -66,36 +66,36 @@ void		CProtocolClientRFB::execInitMessage()
 void		CProtocolClientRFB::execKeyMsg(EAction eAction)
 {
   std::cerr << "~~~~~~~~~~~~~~~~~~~~~~~~~~ [CProtocolClientRFB::execKeyMsg] ~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
-  RFBKeyEvent	l_oKeyEvent;
-  l_oKeyEvent.messageType = 4;
-  l_oKeyEvent.downFlag = 1;
-  l_oKeyEvent.key = (eAction == ACTION_KEY1 ? 'A' : 'B');//0x0041 : 0x0042); // Correspond a A et B
+  SRFBKeyEvent	l_oKeyEvent;
+  l_oKeyEvent.m_ucMessageType = 4;
+  l_oKeyEvent.m_ucDownFlag = 1;
+  l_oKeyEvent.m_uint32Key = (eAction == ACTION_KEY1 ? 'A' : 'B');//0x0041 : 0x0042); // Correspond a A et B
 
-  this->bufcpy((char*)&l_oKeyEvent, sizeof(RFBKeyEvent));
-  l_oKeyEvent.downFlag = 0;
-  this->bufcpy((char*)&l_oKeyEvent, sizeof(RFBKeyEvent));
+  this->bufcpy((char*)&l_oKeyEvent, sizeof(SRFBKeyEvent));
+  l_oKeyEvent.m_ucDownFlag = 0;
+  this->bufcpy((char*)&l_oKeyEvent, sizeof(SRFBKeyEvent));
 }
 
 void		CProtocolClientRFB::execMouseMsg(EAction eAction)
 {
   std::cerr << "~~~~~~~~~~~~~~~~~~~~~~~~~~ [CProtocolClientRFB::execMouseMsg] ~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
   std::cerr << "Distance de deplacement = " << this->m_uint16MouseMoveDistance << std::endl;
-  std::cerr << "Taille du desktop width = "<< m_oDesktopInfo.framebufferWidth << " Height = "<< m_oDesktopInfo.framebufferHeight << std::endl;
+  std::cerr << "Taille du desktop width = "<< m_oDesktopInfo.m_uint16FramebufferWidth << " Height = "<< m_oDesktopInfo.m_uint16FramebufferHeight << std::endl;
   std::cerr << "Avant Position du pointeur x = " << this->m_uint16MouseXPosition << " - y = " << this->m_uint16MouseYPosition << std::endl;
-  RFBPointerEvent	l_oPointerEvent;
-  l_oPointerEvent.messageType = 5;
-  l_oPointerEvent.buttonMask = 0;
+  SRFBPointerEvent	l_oPointerEvent;
+  l_oPointerEvent.m_ucMessageType = 5;
+  l_oPointerEvent.m_ucButtonMask = 0;
   switch (eAction)
     {
     case ACTION_MOUSEL:
       if ((this->m_uint16MouseXPosition - this->m_uint16MouseMoveDistance) <= 0)
-	this->m_uint16MouseXPosition = this->m_oDesktopInfo.framebufferWidth;
+	this->m_uint16MouseXPosition = this->m_oDesktopInfo.m_uint16FramebufferWidth;
       else
 	this->m_uint16MouseXPosition -= this->m_uint16MouseMoveDistance;
       break;
 
     case ACTION_MOUSER:
-      if ((this->m_uint16MouseXPosition + this->m_uint16MouseMoveDistance) > this->m_oDesktopInfo.framebufferWidth)
+      if ((this->m_uint16MouseXPosition + this->m_uint16MouseMoveDistance) > this->m_oDesktopInfo.m_uint16FramebufferWidth)
 	this->m_uint16MouseXPosition = 0;
       else
 	this->m_uint16MouseXPosition += this->m_uint16MouseMoveDistance;
@@ -103,38 +103,38 @@ void		CProtocolClientRFB::execMouseMsg(EAction eAction)
 
     case ACTION_MOUSEU:
       if ((this->m_uint16MouseYPosition - this->m_uint16MouseMoveDistance) <= 0)
-	this->m_uint16MouseYPosition = this->m_oDesktopInfo.framebufferHeight;
+	this->m_uint16MouseYPosition = this->m_oDesktopInfo.m_uint16FramebufferHeight;
       else
 	this->m_uint16MouseYPosition -= this->m_uint16MouseMoveDistance;
       break;
 
     case ACTION_MOUSED:
-      if ((this->m_uint16MouseYPosition + this->m_uint16MouseMoveDistance) > this->m_oDesktopInfo.framebufferHeight)
+      if ((this->m_uint16MouseYPosition + this->m_uint16MouseMoveDistance) > this->m_oDesktopInfo.m_uint16FramebufferHeight)
 	this->m_uint16MouseYPosition = 0;
       else
 	this->m_uint16MouseYPosition += this->m_uint16MouseMoveDistance;
       break;
 
     case ACTION_MOUSE1:
-      l_oPointerEvent.buttonMask = 1;
+      l_oPointerEvent.m_ucButtonMask = 1;
       break;
 
     case ACTION_MOUSE2:
-      l_oPointerEvent.buttonMask = 1 << 1;
+      l_oPointerEvent.m_ucButtonMask = 1 << 1;
       break;
 
     case ACTION_MOUSE3:
-      l_oPointerEvent.buttonMask = 1 << 2;
+      l_oPointerEvent.m_ucButtonMask = 1 << 2;
       break;
     default:
       break;
     }
   std::cerr << "Apres Position du pointeur x = " << this->m_uint16MouseXPosition << " - y = " << this->m_uint16MouseYPosition << std::endl;
-  l_oPointerEvent.xPosition = this->m_uint16MouseXPosition;
-  l_oPointerEvent.yPosition = this->m_uint16MouseYPosition;
-  this->bufcpy((char*)&l_oPointerEvent, sizeof(RFBPointerEvent));
-  l_oPointerEvent.buttonMask = 0;
-  this->bufcpy((char*)&l_oPointerEvent, sizeof(RFBPointerEvent));
+  l_oPointerEvent.m_uint16XPosition = this->m_uint16MouseXPosition;
+  l_oPointerEvent.m_uint16YPosition = this->m_uint16MouseYPosition;
+  this->bufcpy((char*)&l_oPointerEvent, sizeof(SRFBPointerEvent));
+  l_oPointerEvent.m_ucButtonMask = 0;
+  this->bufcpy((char*)&l_oPointerEvent, sizeof(SRFBPointerEvent));
 }
 
 boost::circular_buffer<char> const &	CProtocolClientRFB::execute(EAction eAction)
@@ -255,7 +255,7 @@ void		CProtocolClientRFB::parseServerInit(boost::circular_buffer<char> & rBuffer
   if (rBufferToParse.size() >= sizeof(this->m_oDesktopInfo))
     {
       void* l_pData = rBufferToParse.linearize();
-      RFBDesktopInfo* l_opTmpDesktopInfo = static_cast<RFBDesktopInfo*>(l_pData);
+      SRFBDesktopInfo* l_opTmpDesktopInfo = static_cast<SRFBDesktopInfo*>(l_pData);
       this->m_oDesktopInfo = *l_opTmpDesktopInfo;
       this->m_oRfbStep = RFB_MESSAGING;
       rBufferToParse.erase_begin(sizeof(this->m_oDesktopInfo));

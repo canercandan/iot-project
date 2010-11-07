@@ -21,47 +21,47 @@ namespace OpenViBEPlugins
       ACTION_KEY2  /**< Second key */
     };
 
-    struct RFBPixelFormat
+    struct SRFBPixelFormat
     {
-      unsigned char	bitsPerPixel;
-      unsigned char	depth;
-      unsigned char	bigEndianFlag;
-      unsigned char	trueColourFlag;
-      OpenViBE::uint16	redMax;
-      OpenViBE::uint16	greenMax;
-      OpenViBE::uint16	blueMax;
-      unsigned char	redShift;
-      unsigned char	greenShift;
-      unsigned char	blueShift;
-      unsigned char	padding[3];
+      unsigned char	m_ucBitsPerPixel;
+      unsigned char	m_ucDepth;
+      unsigned char	m_ucBigEndianFlag;
+      unsigned char	m_ucTrueColourFlag;
+      OpenViBE::uint16	m_uint16RedMax;
+      OpenViBE::uint16	m_uint16GreenMax;
+      OpenViBE::uint16	m_uintBlueMax;
+      unsigned char	m_ucRedShift;
+      unsigned char	m_ucGreenShift;
+      unsigned char	m_ucBlueShift;
+      unsigned char	m_ucPadding[3];
     };
 
-    struct RFBDesktopInfo
+    struct SRFBDesktopInfo
     {
-      OpenViBE::uint16	framebufferWidth;
-      OpenViBE::uint16	framebufferHeight;
-      RFBPixelFormat	serverPixelFormat;
-      OpenViBE::uint32	nameLength;
-      unsigned char	nameString[4];
+      OpenViBE::uint16	m_uint16FramebufferWidth;
+      OpenViBE::uint16	m_uint16FramebufferHeight;
+      SRFBPixelFormat	m_oServerPixelFormat;
+      OpenViBE::uint32	m_uint32NameLength;
+      unsigned char	m_cNameString[4];
     };
 
-    struct RFBKeyEvent
+    struct SRFBKeyEvent
     {
-      unsigned char	messageType;
-      unsigned char	downFlag;
-      unsigned char	padding[2];
-      OpenViBE::uint32	key;
+      unsigned char	m_ucMessageType;
+      unsigned char	m_ucDownFlag;
+      unsigned char	m_ucPadding[2];
+      OpenViBE::uint32	m_uint32Key;
     };
 
-    struct RFBPointerEvent
+    struct SRFBPointerEvent
     {
-      unsigned char	messageType;
-      unsigned char	buttonMask;
-      OpenViBE::uint16	xPosition;
-      OpenViBE::uint16	yPosition;
+      unsigned char	m_ucMessageType;
+      unsigned char	m_ucButtonMask;
+      OpenViBE::uint16	m_uint16XPosition;
+      OpenViBE::uint16	m_uint16YPosition;
     };
 
-    enum RFBServerStep
+    enum ERFBServerStep
     {
       RFB_VERSION,
       RFB_SECULIST,
