@@ -65,7 +65,7 @@ class BoxEditor(QtGui.QDialog):
     def changeFocusColor(self):
         color = QColorDialog.getColor()
         self.fillLabel(self.ui.focusLabel, color)
-        self.focusColor = colo.name()
+        self.focusColor = color.name()
 
     def changeTextColor(self):
         color = QColorDialog.getColor()

@@ -135,7 +135,7 @@ class BuilderWidget(QtGui.QMainWindow):
             else:
                 self.init()
 
-        filename = QFileDialog.getOpenFileName(None,
+        filename = QFileDialog.getOpenFileName(self,
                                                self.loadDialog,
                                                QDir.currentPath(),
                                                self.extensionDialog)
