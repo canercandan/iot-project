@@ -89,7 +89,7 @@ class BoxEditor(QtGui.QDialog):
 
     def getStyle(self):
         boxstyle = BoxStyle()
-        boxstyle['rounded'] = self.ui.roundedCheckBox.isChecked()
+        boxstyle['rounded'] = str(self.ui.roundedCheckBox.isChecked())
         boxstyle['focusColor'] = self.focusColor
         boxstyle['blurColor'] = self.blurColor
         boxstyle['textColor'] = self.textColor
@@ -100,7 +100,7 @@ class BoxEditor(QtGui.QDialog):
         return boxstyle
 
     def setStyle(self, boxstyle):
-        if boxstyle['rounded'] == 1:
+        if boxstyle['rounded'] == 'True':
             self.ui.roundedCheckBox.setChecked(True)
         else:
             self.ui.roundedCheckBox.setChecked(False)
@@ -127,7 +127,7 @@ class BoxEditor(QtGui.QDialog):
         return {'type' : QString.number(self.ui.clickComboBox.currentIndex())}
 
     def getPopMenuAttributes(self):
-        return {'MenuId' : QString.number(self.ui.popMenuComboBox.currentIndex())}
+        return {'MenuId' : self.ui.popMenuComboBox.currentText()}
 
     def getReadAttributes(self):
         return {'time' : QString.number(self.ui.readDoubleSpinBox.value())}
@@ -159,11 +159,9 @@ class BoxEditor(QtGui.QDialog):
             print 'Unknown key'
             return
 
-        r = QString(value).toInt()
-        if not r[1]:
-            return
-        if r[0] < self.ui.popMenuComboBox.count():
-            self.ui.popMenuComboBox.setCurrentIndex(r[0])
+        index = self.ui.popMenuComboBox.findText(value)
+        if index != -1:
+            self.ui.popMenuComboBox.setCurrentIndex(index)
 
     def setReadAttribute(self, key, value):
         if key != 'time':
