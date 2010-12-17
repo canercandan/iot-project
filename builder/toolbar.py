@@ -53,8 +53,10 @@ class Toolbar(QtGui.QToolBar):
             s(':/pix/cut_box.png', QObject.tr(self, 'Cut box'), 'Ctrl+X', parent.cutBox),
             s(':/pix/paste_box.png', QObject.tr(self, 'Paste box'), 'Ctrl+V', parent.pasteBox),
             s('', '', '', None),
+            s(':/pix/prog_name.png', QObject.tr(self, 'Program Name'), 'Ctrl+P', parent.setProgName),
             s(':/pix/help.png', QObject.tr(self, 'Builder help'), 'F1', parent.builderHelp),
             s(':/pix/quit.png', QObject.tr(self, 'Quit'), 'Ctrl+Q', parent.quitBuilder)]
+
 
         actionsList = []
         for item in self.buttons:

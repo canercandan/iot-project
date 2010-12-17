@@ -37,7 +37,7 @@ class Box(QRect, Node):
         self.boxType = BoxType.CustomBox        # int
         self.bufferedAttributes = {}            # dictionnary
 	self.builder = builder
-	
+
     # Standard constructor
     def initRegularBox(self, topLeft, bottomRight):
         self.setTopLeft(topLeft)

@@ -2,6 +2,7 @@
 
 icons='icons_rc.py'
 boxEditorUiPy='BoxEditor_ui.py'
+progNameUiPy='ProgName_ui.py'
 
 config()
 {
@@ -12,6 +13,8 @@ config()
 
     # Xml file (.ui) becomes a python class
     echo 'Compiling ui files...'
+    pyuic4 ProgName.ui -o $progNameUiPy
+    echo $progNameUiPy 'has been generated'
     pyuic4 BoxEditor.ui -o $boxEditorUiPy
     echo $boxEditorUiPy 'has been generated.'
 }
@@ -59,6 +62,7 @@ clean()
     echo 'build directory removed'
     rm -vf $icons
     rm -vf $boxEditorUiPy
+    rm -vf $progNameUiPy
 }
 
 case $1 in

@@ -23,6 +23,7 @@ $ pyrcc4 resources.qrc -o icons_rc.py
 
 [2-] Compile xml ui into python file
 $ pyuic4 BoxEditor.ui -o BoxEditor_ui.py
+$ pyuic4 ProgName.ui -o ProgName_ui.py
 
 [3-] Enjoy the builder
 $ python builder.py

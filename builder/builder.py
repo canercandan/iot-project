@@ -25,6 +25,7 @@ from PyQt4.QtXml import *
 from box import *
 from toolbar import *
 from boxeditor import *
+from progname import *
 
 class Mode:
     box = 0
@@ -71,6 +72,7 @@ class BuilderWidget(QtGui.QMainWindow):
         self.defaultFocusColor = QColor(DefaultColors.focus)
         self.defaultBlurColor.setAlpha(80)
         self.defaultFocusColor.setAlpha(80)
+        self.progName = ProgName()
 
     def init(self):
         self.tolerance = 0
@@ -166,6 +168,7 @@ class BuilderWidget(QtGui.QMainWindow):
 
         # TODO: Do not forget to use programID
         programId = root.attribute("id")
+        self.progName.ui.progNameLineEdit.setText(programId)
 
         # QDomNode
         boxNode = root.firstChild()
@@ -201,7 +204,8 @@ class BuilderWidget(QtGui.QMainWindow):
 
         doc = QDomDocument('XmlBox')
         root = doc.createElement('boxes')
-        root.setAttribute('id', self.getFilenameFromFullPath(filename))
+        # root.setAttribute('id', self.getFilenameFromFullPath(filename))
+        root.setAttribute('id', self.progName.ui.progNameLineEdit.text())
         scrGeo = QApplication.desktop().screenGeometry()
         root.setAttribute('resolution-x', scrGeo.x())
         root.setAttribute('resolution-y', scrGeo.y())
@@ -215,6 +219,7 @@ class BuilderWidget(QtGui.QMainWindow):
         out = QTextStream(qfile)
         out << doc.toString()
         qfile.close()
+        # print self.progName.ui.progNameLineEdit.text()
 
     def selectionMode(self):
         self.mode = Mode.selection
@@ -229,7 +234,9 @@ class BuilderWidget(QtGui.QMainWindow):
                 topBox = box
 		box.childNotificator()
 	self.currentView.currentBox = topBox
-                
+
+    def setProgName(self):
+        self.progName.open()
 
     def selectPreviousBox(self):
         length = len(self.currentView.boxes)

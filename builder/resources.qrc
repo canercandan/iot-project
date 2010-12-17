@@ -16,6 +16,7 @@
 	<file>pix/shortcuts.png</file>
         <file>pix/zoom_in.png</file>
         <file>pix/zoom_out.png</file>
+	<file>pix/prog_name.png</file>
         <file>pix/quit.png</file>
   </qresource>
 </RCC>
