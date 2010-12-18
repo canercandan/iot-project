@@ -1,5 +1,8 @@
 ######################################################################################
 ### 1) Set the application properties
+#http://www.cmake.org/pipermail/cmake/2009-March/028262.html
+#http://www.cmake.org/pipermail/cmake/2008-March/020576.html
+#http://www.cmake.org/pipermail/cmake/2009-April/028537.html
 ######################################################################################
 
 # Checks cmake version compatibility
