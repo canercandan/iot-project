@@ -21,7 +21,8 @@ from PyQt4.QtGui import *
 from ProgName_ui import Ui_ProgName
 
 class ProgName(QtGui.QDialog):
-    def __init__(self):
-        QtGui.QDialog.__init__(self)
+    def __init__(self, builder):
+        QtGui.QDialog.__init__(self, builder)
         self.ui = Ui_ProgName()
         self.ui.setupUi(self)
+        self.setModal(True)

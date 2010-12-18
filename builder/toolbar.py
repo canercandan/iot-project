@@ -35,6 +35,7 @@ class Toolbar(QtGui.QToolBar):
     def __init__(self, parent):
         QtGui.QToolBar.__init__(self, 'Display toolbar')
         QtGui.QWidget.setAttribute(self, Qt.WA_AlwaysShowToolTips)
+
         self.buttons = [
             s(':/pix/new_file.png', QObject.tr(self, 'New file'), 'Ctrl+N', parent.newFile),
             s(':/pix/load_file.png', QObject.tr(self, 'Load file'), 'Ctrl+L', parent.loadFile),
@@ -56,7 +57,6 @@ class Toolbar(QtGui.QToolBar):
             s(':/pix/prog_name.png', QObject.tr(self, 'Program Name'), 'Ctrl+P', parent.setProgName),
             s(':/pix/help.png', QObject.tr(self, 'Builder help'), 'F1', parent.builderHelp),
             s(':/pix/quit.png', QObject.tr(self, 'Quit'), 'Ctrl+Q', parent.quitBuilder)]
-
 
         actionsList = []
         for item in self.buttons:

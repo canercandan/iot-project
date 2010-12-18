@@ -58,6 +58,9 @@ class BuilderWidget(QtGui.QMainWindow):
             print "Unexpected error:", sys.exc_info()[0]
             raise
 
+        #qApp.setStyleSheet("* { selection-background-color: blue; background: green; background-color: yellow; color: red }")
+        #self.setStyleSheet("* { background-color: yellow }")
+
         self.init()
         self.createMenu()
         self.setGeometry(200, 200, 700, 700)
@@ -72,7 +75,7 @@ class BuilderWidget(QtGui.QMainWindow):
         self.defaultFocusColor = QColor(DefaultColors.focus)
         self.defaultBlurColor.setAlpha(80)
         self.defaultFocusColor.setAlpha(80)
-        self.progName = ProgName()
+        self.progName = ProgName(self)
 
     def init(self):
         self.tolerance = 0
