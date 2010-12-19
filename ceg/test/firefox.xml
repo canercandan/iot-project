@@ -1,0 +1,31 @@
+<boxes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.ionlythink.com"
+       xsi:schemaLocation="http://www.ionlythink.com schema.xsd2"
+       id="firefox"
+       resolution-x="0"
+       resolution-y="0"
+       resolution-width="1440"
+       resolution-height="900">
+ <box width="204" x="6" y="83" height="36" type="1">
+  <action type="0" id="Click"/>
+  <style imagePath="" opacity="0" rounded="0" focusColor="red" blurColor="blue" text="" textColor="black"/>
+  <children>
+   <box width="33" x="43" y="85" height="34" type="1">
+    <action type="0" id="Click"/>
+    <style imagePath="" opacity="0" rounded="0" focusColor="red" blurColor="blue" text="" textColor="black"/>
+   </box>
+   <box width="33" x="98" y="85" height="34" type="1">
+    <action type="0" id="Click"/>
+    <style imagePath="" opacity="0" rounded="0" focusColor="red" blurColor="blue" text="" textColor="black"/>
+   </box>
+   <box width="33" x="170" y="85" height="34" type="1">
+    <action type="0" id="Click"/>
+    <style imagePath="" opacity="0" rounded="1" focusColor="red" blurColor="blue" text="" textColor="#f9ff80"/>
+   </box>
+   <box width="33" x="132" y="85" height="34" type="1">
+    <action type="0" id="Click"/>
+    <style imagePath="" opacity="0" rounded="0" focusColor="red" blurColor="blue" text="" textColor="black"/>
+   </box>
+  </children>
+ </box>
+</boxes>
