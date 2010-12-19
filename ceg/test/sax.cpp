@@ -32,73 +32,75 @@
 class XmlBoxParser : public QXmlDefaultHandler
 {
 public:
-  bool startDocument()
-  {
-    _inXmlBox = false;
-    return true;
-  }
+    bool startDocument()
+    {
+	_inXmlBox = false;
+	return true;
+    }
 
-  bool endDocument(const QString&, const QString&, const QString& name)
-  {
-    if (name == "boxes") {_inXmlBox = false;}
-    return true;
-  }
+    bool endDocument(const QString&, const QString&, const QString& name)
+    {
+	if (name == "boxes") {_inXmlBox = false;}
+	return true;
+    }
 
-  bool startElement(const QString&, const QString&, const QString& name, const QXmlAttributes& attrs)
-  {
-    if (_inXmlBox && name == "box")
-      {
-	QString visible, opacity, type, x, y, width, height;
+    bool startElement(const QString&, const QString&, const QString& name, const QXmlAttributes& attrs)
+    {
+	if (_inXmlBox && name == "box")
+	    {
+		QString visible, opacity, type, x, y, width, height;
 
-	for (int i = 0; i < attrs.count(); ++i)
-	  {
-	    QString localName = attrs.localName(i);
-	    QString value = attrs.value(i);
+		for (int i = 0; i < attrs.count(); ++i)
+		    {
+			QString localName = attrs.localName(i);
+			QString value = attrs.value(i);
 
-	    if (localName == "visible"){visible = value;}
-	    else if (localName == "opacity"){opacity = value;}
-	    else if (localName == "type"){type = value;}
-	    else if (localName == "x"){x = value;}
-	    else if (localName == "y"){y = value;}
-	    else if (localName == "width"){width = value;}
-	    else if (localName == "height"){height = value;}
-	  }
+			if (localName == "visible"){visible = value;}
+			else if (localName == "opacity"){opacity = value;}
+			else if (localName == "type"){type = value;}
+			else if (localName == "x"){x = value;}
+			else if (localName == "y"){y = value;}
+			else if (localName == "width"){width = value;}
+			else if (localName == "height"){height = value;}
+		    }
 
-	QMessageBox::information(0, "Box",
-				 "visible = " + visible + "\n" +
-				 "opacity = " + opacity + "\n" +
-				 "type = " + type + "\n" +
-				 "x = " + x + "\n" +
-				 "y = " + y + "\n" +
-				 "width = " + width + "\n" +
-				 "height = " + height + "\n");
+		QMessageBox::information(0, "Box",
+					 "visible = " + visible + "\n" +
+					 "opacity = " + opacity + "\n" +
+					 "type = " + type + "\n" +
+					 "x = " + x + "\n" +
+					 "y = " + y + "\n" +
+					 "width = " + width + "\n" +
+					 "height = " + height + "\n");
 
-	std::cout << "found!" << std::endl;
-      }
-    else if (name == "boxes")
-      {
-	_inXmlBox = true;
-      }
-    return true;
-  }
+		std::cout << "found!" << std::endl;
+	    }
+	else if (name == "boxes")
+	    {
+		_inXmlBox = true;
+	    }
+	return true;
+    }
 
 private:
-  bool _inXmlBox;
+    bool _inXmlBox;
 };
 
 int	main(int ac, char** av)
 {
-  QApplication a(ac, av);
+    if ( ac < 2 ) { qDebug() << "Usage:" << av[0] << "[content.xml]"; return -1; }
 
-  XmlBoxParser handler;
+    QApplication a(ac, av);
 
-  QFile file("./test/xmlBox.xml");
+    XmlBoxParser handler;
 
-  QXmlInputSource source( &file );
+    QFile file(av[0]);
 
-  QXmlSimpleReader reader;
-  reader.setContentHandler( &handler );
-  reader.parse(source);
+    QXmlInputSource source( &file );
 
-  return a.exec();
+    QXmlSimpleReader reader;
+    reader.setContentHandler( &handler );
+    reader.parse(source);
+
+    return a.exec();
 }

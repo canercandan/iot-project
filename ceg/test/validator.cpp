@@ -4,42 +4,30 @@
 
 #include <QDebug>
 
-class MainWindow : public QMainWindow
-{
-public:
-    MainWindow()
-    {
-	QUrl schemaUrl("./schema.xsd");
-
-	QXmlSchema schema;
-
-	schema.load( schemaUrl );
-
-	if ( schema.isValid() )
-	    {
-		QFile file("menu.xml");
-		file.open( QIODevice::ReadOnly );
-
-		QXmlSchemaValidator validator( schema );
-		if ( validator.validate( &file, QUrl::fromLocalFile( file.fileName() ) ) )
-		    {
-			qDebug() << "instance document is valid";
-		    }
-		else
-		    {
-			qDebug() << "instance document is invalid";
-		    }
-	    }
-    }
-};
-
 int main(int ac, char** av)
 {
+    if ( ac < 3 ) { qDebug() << "Usage:" << av[0] << "[schema.xsd] [content.xml]"; return -1; }
+
     QApplication app(ac, av);
 
-    MainWindow window;
+    char* schema_path = av[1];
+    char* xml_path = av[2];
 
-    app.exec();
+    QUrl schemaUrl( schema_path );
+
+    QXmlSchema schema;
+
+    schema.load( schemaUrl );
+
+    if ( !schema.isValid() ) { return -1; }
+
+    QFile file( xml_path );
+    file.open( QIODevice::ReadOnly );
+
+    QXmlSchemaValidator validator( schema );
+    qDebug() << "instance document";
+    if ( validator.validate( &file, QUrl::fromLocalFile( file.fileName() ) ) ) { qDebug() << "valid"; }
+    else { qDebug() << "invalid"; }
 
     return 0;
 }
