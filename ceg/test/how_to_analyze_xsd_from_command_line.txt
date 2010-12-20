@@ -1,1 +1,0 @@
-xmllint --schema schema.xsd menu.xml
