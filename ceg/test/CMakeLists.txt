@@ -7,11 +7,8 @@ SET(TEST_LIST
 )
 
 SET(RESOURCE_LIST
-  xmlBox.xml
-  xmlMenu.xml
   schema.xsd
-  boxes.xml
-  menu.xml
+  firefox.xml
   )
 
 FOREACH(current ${TEST_LIST})
