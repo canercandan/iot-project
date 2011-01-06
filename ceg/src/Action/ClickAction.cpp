@@ -81,6 +81,7 @@ void	ClickAction::exec(MainController & mainC)
     SleeperThread::msleep(1000);
 
     mainC.getView().show();
+    mainC.getComGs()->setFocusToWindow(mainC.getWindow(), mainC.getWindow());
 }
 
 /************************************************* [ OTHERS ] *************************************************/

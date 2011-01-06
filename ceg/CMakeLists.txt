@@ -1,8 +1,5 @@
 ######################################################################################
 ### 1) Set the application properties
-#http://www.cmake.org/pipermail/cmake/2009-March/028262.html
-#http://www.cmake.org/pipermail/cmake/2008-March/020576.html
-#http://www.cmake.org/pipermail/cmake/2009-April/028537.html
 ######################################################################################
 
 # Checks cmake version compatibility
@@ -121,8 +118,15 @@ LINK_DIRECTORIES(${CMAKE_CURRENT_BINARY_DIR}/lib)
 
 SET(RC_FILE "ceg.rc")
 
+# Comment the following line to enable the console output on windows
+IF(WIN32)
+	SET(GUI_TYPE WIN32)
+	LINK_LIBRARIES(${QT_QTMAIN_LIBRARY})
+ENDIF(WIN32)
+
 ADD_EXECUTABLE(
   ${PROJECT_NAME}
+  ${GUI_TYPE}
   ${SAMPLE_SRCS}
   ${SAMPLE_UIS_SRCS}
   ${SAMPLE_MOC_SRCS}

@@ -24,6 +24,9 @@
 #include "MainController.h"
 #include "AbstractScene.h"
 /*********************************/
+#if defined(Q_WS_WIN)
+#undef min
+#endif
 
 /************************************************* [ CTOR/DTOR ] *************************************************/
 

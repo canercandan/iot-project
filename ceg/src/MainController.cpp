@@ -122,6 +122,11 @@ View &	MainController::getView()
     return (this->_view);
 }
 
+Ceg::Window & MainController::getWindow()
+{
+    return this->_ownWindow;
+}
+
 /************************************************* [ OTHERS ] *************************************************/
 
 void    MainController::on_action_emitted(IAction & anAction)
@@ -157,6 +162,7 @@ void MainController::on_start_navigation()
 	isInit = true;
     }
     this->_view.show();
+    this->_comGs->getFocusedWindow(this->_ownWindow);
 }
 
 void MainController::on_stop_navigation()

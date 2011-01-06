@@ -27,6 +27,7 @@
 #include "View.h"
 #include "BoxController.h"
 #include "BoxType.h"
+#include "Window.h"
 
 class AbstractScene;
 class ICommunicationGraphicalServer;
@@ -57,6 +58,7 @@ public:
     int                                 getFirstOfType(BoxType type) const; // Retourne l'index du premier type chechez
     AbstractScene*                      getFirstNavigationScene() const; // Retourne  la premiere scene de navigation : Custom ou default
     View &				getView();
+    Ceg::Window &                       getWindow();
 
     AbstractScene *			createScene(Ceg::Window const & window);
     void				pushFrontScene(AbstractScene * scene); // Rajoute la scnene au debut des scenes et rafraichi la vue
@@ -78,6 +80,7 @@ private:
     BoxController			    _boxController;
     ICommunicationGraphicalServer *	    _comGs;
     CegTcpServer                            _tcpServer;
+    Ceg::Window                             _ownWindow; // Correspond a la fenetre de notre propre programme
 };
 
 #endif // MAINCONTROLLER_H

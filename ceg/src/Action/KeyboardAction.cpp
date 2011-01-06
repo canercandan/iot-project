@@ -52,7 +52,7 @@ void KeyboardAction::initializeFromXml(const QDomElement & domElement)
 }
 
 /************************************************* [ OTHERS ] *************************************************/
-#include <QDebug>
+
 void	KeyboardAction::exec(MainController & mainC)
 {
   Logger::getInstance()->log(DEBUG_LOG, "KeyboardAction::exec");
@@ -74,11 +74,7 @@ void	KeyboardAction::exec(MainController & mainC)
       comGs->generateKeybdEvent(this->_keys.at(i).toAscii());
     }
   mainC.getView().show(); // On reaffiche le ceg
-  QRect const & geometry = mainC.getCurrentScene()->getCurrentItem()->getBox()->getGeometry();
-  QCursor::setPos(geometry.center());
-  qDebug() << "Click generer " << geometry.center() << "- Nom de la scene courante = " << mainC.getCurrentScene()->getId();
-  qDebug() << "ATTEENNTION : " << "pos = " << mainC.getCurrentScene()->getCurrentItem()->pos() << " scene pos" << mainC.getCurrentScene()->getCurrentItem()->scenePos()<< " bounding scene pos" << mainC.getCurrentScene()->getCurrentItem()->sceneBoundingRect();
-  //  comGs->generateClickEvent(LeftClick); // On genere un click pour etre sure de redonner le focus au ceg, car il arrive de temps que l'on perde le focus lorsqu'on tape une touche
+  mainC.getComGs()->setFocusToWindow(mainC.getWindow(), mainC.getWindow());
 }
 
 /************************************************* [ OTHERS ] *************************************************/

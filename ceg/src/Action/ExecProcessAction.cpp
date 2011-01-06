@@ -29,6 +29,7 @@
 #include "ExecProcessAction.h"
 /*********************************/
 #include "MainController.h"
+#include "ICommunicationGraphicalServer.h"
 #include "Window.h"
 #include "Layer.h"
 #include "Utils.h"
@@ -187,6 +188,7 @@ void	ExecProcessAction::exec(MainController & mainC)
     view.show();
 #endif
     scene->setProcess(process);
+    mainC.getComGs()->setFocusToWindow(mainC.getWindow(), mainC.getWindow());
 }
 
 /************************************************* [ OTHERS ] *************************************************/

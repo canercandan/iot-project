@@ -98,10 +98,8 @@ unix {
     PKGCONFIG += xmu
 }
 win32 { 
-    HEADERS += Win32Adaptor.h \
-        Win32Explorer.h
-    SOURCES += Win32Adaptor.cpp \
-        Win32Explorer.cpp
+    HEADERS += Win32Explorer.h
+    SOURCES += Win32Explorer.cpp
 }
 CONFIG += warn_on
 DESTDIR = build
