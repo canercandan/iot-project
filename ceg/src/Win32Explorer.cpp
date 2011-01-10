@@ -91,8 +91,23 @@ bool	Win32Explorer::setFocusToWindow(Ceg::Window & oldFocusedWindow, Ceg::Window
 	* SwitchToThisWindow
 	* The SwitchToThisWindow function is called to switch focus to a specified window and bring it to the foreground.
 	*/
-    return (true);
+	
+    HWND hWnd = newFocusedWindow.getId();
+	if (oldFocusedWindow.getId() == SetFocus(hWnd))
+	{
+		return (true);
+	}
+	else
+	{
+		return (false);
+	}
 }
+Ceg::WindowId	Win32Explorer::getFocusToWindow()
+{
+	HWND hWnd = GetFocus();
+	return (hWnd);
+}
+
 
 bool	Win32Explorer::generateClickEvent(short int buttonID)
 {

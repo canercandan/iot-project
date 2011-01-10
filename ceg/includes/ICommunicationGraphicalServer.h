@@ -22,6 +22,7 @@
 #define ICOMMUNICATIONGRAPHICALSERVER_H_
 
 #include <QtGlobal>
+#include "Window.h"
 
 namespace Ceg
 {
@@ -46,7 +47,7 @@ public:
      */
     virtual ~ICommunicationGraphicalServer() {
     }
-
+	virtual Ceg::WindowId	getFocusToWindow() = 0;
     virtual bool getFocusedWindow(Ceg::Window & focusedWindow) = 0;
     virtual bool setFocusToWindow(Ceg::Window & oldFocusedWindow, Ceg::Window & newFocusedWindow) = 0;
     virtual bool generateClickEvent(short int buttonID) = 0;
