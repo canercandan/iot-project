@@ -28,7 +28,7 @@ class Win32Explorer : public ICommunicationGraphicalServer
 public:
     Win32Explorer();
     ~Win32Explorer();
-	virtual Ceg::WindowId	Win32Explorer::getFocusToWindow();
+
     virtual bool	getFocusedWindow(Ceg::Window &);
     virtual bool	setFocusToWindow(Ceg::Window & oldFocusedWindow, Ceg::Window & newFocusedWindow);
     virtual bool	generateClickEvent(short int buttonID);

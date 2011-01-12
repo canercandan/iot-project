@@ -42,72 +42,22 @@ Win32Explorer::~Win32Explorer()
 
 bool	Win32Explorer::getFocusedWindow(Ceg::Window & oneWindow)
 {
-    QString msg;
-    QTextStream tmp(&msg);
-    DWORD dwThreadId, dwProcessId;
-    char windowTitle[255];
-    //char filenameBuffer[4000];
-    HANDLE hProcess;
-    HWND hWnd = GetForegroundWindow();
-    WINDOWINFO  winInfo;
-
-    if (!GetForegroundWindow())
-	return (false);
-    if (!hWnd)
-	return (false);		// Not a window
-    if (!::IsWindowVisible(hWnd))
-	return (false);		// Not visible
-    if (!GetWindowText(hWnd, windowTitle, sizeof(windowTitle)))
-	return (false);		// No window title
-    oneWindow.setId(hWnd);
-    if (GetWindowInfo(hWnd, &winInfo))
-    {
-	QRect loadInfo(winInfo.rcClient.left, winInfo.rcClient.top, winInfo.rcClient.right, winInfo.rcClient.bottom);
-	oneWindow.setGeometry(loadInfo);
-        //        tmp << "Pos left: " << winInfo.rcClient.left << std::endl << "Pos TOP : " << winInfo.rcClient.top << std::endl;
-        //        tmp << "Pos Bottom : " << winInfo.rcClient.bottom << std::endl	<< "Pos right : " << winInfo.rcClient.right << std::endl;
-        Logger::getInstance()->log(DEBUG_LOG, msg);
-        msg = "";
-    }
-    dwThreadId = GetWindowThreadProcessId(hWnd, &dwProcessId);
-    hProcess = OpenProcess(PROCESS_QUERY_INFORMATION|PROCESS_VM_READ, FALSE, dwProcessId);
-    //if (!hProcess)
-    //	std::cout << "ERROR WITH OPENPROCESS" <<std::endl;
-    /*if (::GetModuleFileNameEx(hProcess, NULL, (WCHAR *)filenameBuffer, sizeof(filenameBuffer)) > 0)
-    {
-	std::cout << "filenameBuffer: " << filenameBuffer << std::endl;
-    }
-    else*/
-    Logger::getInstance()->log(DEBUG_LOG, "MODULEFILENAME FAIL");
-    tmp << hWnd << ' ' << dwProcessId << '\t' << windowTitle << "\t\n\n\n";
-    Logger::getInstance()->log(DEBUG_LOG, msg);
-    CloseHandle(hProcess);
-    return (true);
+  oneWindow.setId(GetFocus());
+  return (true);
 }
 
 bool	Win32Explorer::setFocusToWindow(Ceg::Window & oldFocusedWindow, Ceg::Window & newFocusedWindow)
 {
-    /*
-	* SwitchToThisWindow
-	* The SwitchToThisWindow function is called to switch focus to a specified window and bring it to the foreground.
-	*/
-	
-    HWND hWnd = newFocusedWindow.getId();
-	if (oldFocusedWindow.getId() == SetFocus(hWnd))
-	{
-		return (true);
-	}
-	else
-	{
-		return (false);
-	}
+  HWND hWnd = newFocusedWindow.getId();
+  if (oldFocusedWindow.getId() == SetFocus(hWnd))
+    {
+      return (true);
+    }
+  else
+    {
+      return (false);
+    }
 }
-Ceg::WindowId	Win32Explorer::getFocusToWindow()
-{
-	HWND hWnd = GetFocus();
-	return (hWnd);
-}
-
 
 bool	Win32Explorer::generateClickEvent(short int buttonID)
 {
