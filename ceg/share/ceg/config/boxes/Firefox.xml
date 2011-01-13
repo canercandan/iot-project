@@ -1,0 +1,45 @@
+<!DOCTYPE XmlBox>
+<boxes id="firefox" resolution-x="0" resolution-y="0" resolution-height="768" resolution-width="1024">
+ <box width="191" x="1" y="45" height="30" type="1">
+  <action id="Zoom" isZoom="1"/>
+  <style imagePath="" opacity="0.5" rounded="0" focusColor="red" blurColor="blue" text="" textColor="black"/>
+  <children>
+   <box width="38" x="2" y="42" height="36" type="1">
+    <action type="0" id="Click"/>
+    <style imagePath="" opacity="0.5" rounded="1" focusColor="red" blurColor="blue" text="" textColor="black"/>
+   </box>
+   <box width="38" x="42" y="42" height="36" type="1">
+    <action type="0" id="Click"/>
+    <style imagePath="" opacity="0.5" rounded="1" focusColor="red" blurColor="blue" text="" textColor="black"/>
+   </box>
+   <box width="38" x="82" y="42" height="36" type="1">
+    <action type="0" id="Click"/>
+    <style imagePath="" opacity="0.5" rounded="1" focusColor="red" blurColor="blue" text="" textColor="black"/>
+   </box>
+   <box width="27" x="123" y="42" height="36" type="1">
+    <action type="0" id="Click"/>
+    <style imagePath="" opacity="0.5" rounded="1" focusColor="red" blurColor="blue" text="" textColor="black"/>
+   </box>
+   <box width="33" x="156" y="42" height="36" type="1">
+    <action type="0" id="Click"/>
+    <style imagePath="" opacity="0.5" rounded="1" focusColor="red" blurColor="blue" text="" textColor="black"/>
+   </box>
+  </children>
+ </box>
+ <box width="545" x="221" y="49" height="23" type="1">
+  <action type="0" id="Click"/>
+  <style imagePath="" opacity="0.5" rounded="0" focusColor="red" blurColor="blue" text="" textColor="black"/>
+ </box>
+ <box width="179" x="817" y="48" height="25" type="1">
+  <action id="Zoom" isZoom="1"/>
+  <style imagePath="" opacity="0.5" rounded="0" focusColor="red" blurColor="blue" text="" textColor="black"/>
+ </box>
+ <box width="1023" x="0" y="136" height="583" type="1">
+  <action id="Zoom" isZoom="1"/>
+  <style imagePath="" opacity="0.5" rounded="0" focusColor="red" blurColor="blue" text="" textColor="black"/>
+ </box>
+ <box width="367" x="2" y="21" height="19" type="1">
+  <action id="Zoom" isZoom="1"/>
+  <style imagePath="" opacity="0.5" rounded="0" focusColor="red" blurColor="blue" text="" textColor="black"/>
+ </box>
+</boxes>
