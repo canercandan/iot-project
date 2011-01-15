@@ -55,6 +55,7 @@ private:
     void    loadConfig(QString const &);
     void    initializeFromConfig(QDir const & directory); // Lit le repertoire de config pour instancier tout les patrons (custom ou menu)
     void    initializeFromXml(QString const & fileName); // Creer la patron present dans le fichier
+    void    validXml(QString const & xml_path);
     void    calcChildren(QList<Box const *> &, QRect const &, unsigned short) const;
     void    calcParent(QList<Box const *> &, Box const *) const;
     void    createGraphicItems(QList<QGraphicsRectItem *> &, QList<Box const *> const & boxs) const; // Appel la GraphicItemFactory pour toutes les boxs

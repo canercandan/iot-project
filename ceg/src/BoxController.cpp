@@ -31,6 +31,11 @@
 #include <QDir>
 #include <QSettings>
 #include <QLocale>
+
+#include <QtXml>
+#include <QtXmlPatterns>
+#include <QDebug>
+
 /*********************************/
 #include "BoxController.h"
 /*********************************/
@@ -289,8 +294,56 @@ void	BoxController::initializeFromConfig(QDir const & directory)
     }
 }
 
+void	BoxController::validXml(QString const & xml_path)
+{
+    QStringList	pathsToSearch;
+#if defined(Q_OS_UNIX) || defined(Q_OS_MAC)
+    pathsToSearch << "/usr/share/ceg/common";
+    pathsToSearch << QCoreApplication::applicationDirPath() + "/share/ceg/common";
+#elif defined(Q_OS_WIN)
+    pathsToSearch << QCoreApplication::applicationDirPath() + "/../share/ceg/common";
+    pathsToSearch << QCoreApplication::applicationDirPath() + "/../common";
+#endif
+
+    QString schema_path;
+    for (QStringList::const_iterator it = pathsToSearch.constBegin(), itEnd = pathsToSearch.end(); it != itEnd; ++it)
+	{
+	    if ( QFile::exists( *it + "/schema.xsd" ) == false ) { continue; }
+
+	    schema_path = QString( *it + "/schema.xsd" );
+	    break;
+	}
+
+    if ( schema_path.isEmpty() )
+	{
+	    Logger::getInstance()->log(ERROR_LOG, "schema.xsd not found");
+	    return;
+	}
+
+    QUrl schemaUrl( schema_path );
+    QXmlSchema schema;
+    schema.load( schemaUrl );
+
+    if ( !schema.isValid() )
+	{
+	    Logger::getInstance()->log(ERROR_LOG, "schema.xsd not valid");
+	    return;
+	}
+
+    QFile file( xml_path );
+    file.open( QIODevice::ReadOnly );
+
+    QXmlSchemaValidator validator( schema );
+    if ( validator.validate( &file, QUrl::fromLocalFile( file.fileName() ) ) == false )
+	{
+	    Logger::getInstance()->log(ERROR_LOG, "xml file not valid");
+	}
+}
+
 void    BoxController::initializeFromXml(QString const & fileName)
 {
+    validXml( fileName );
+
     QString msg("Trying to load file: ");
     msg += fileName;
     Logger::getInstance()->log(INFO_LOG, msg);

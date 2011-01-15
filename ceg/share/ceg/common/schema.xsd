@@ -1,0 +1,112 @@
+<?xml version="1.0"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	   targetNamespace="http://www.ionlythink.com"
+	   xmlns="http://www.ionlythink.com"
+	   elementFormDefault="qualified">
+
+  <xs:element name="style">
+    <xs:complexType>
+      <xs:attribute name="visible" type="xs:boolean" default="1"/>
+      <xs:attribute name="opacity" type="xs:float" default="1"/>
+      <xs:attribute name="rounded" type="xs:boolean" default="0"/>
+      <xs:attribute name="imagePath" type="xs:string" use="optional"/>
+      <xs:attribute name="fontSize" type="xs:nonNegativeInteger" default="20"/>
+      <xs:attribute name="textColor" type="xs:string" default="black"/>
+      <xs:attribute name="fontColor" type="xs:string"/>
+      <xs:attribute name="focusColor" type="xs:string" default="yellow"/>
+      <xs:attribute name="blurColor" type="xs:string" default="black"/>
+
+      <xs:attribute name="text" type="xs:string" use="optional"/>
+      <xs:attribute name="fr-text" type="xs:string" use="optional"/>
+      <xs:attribute name="de-text" type="xs:string" use="optional"/>
+
+      <xs:attribute name="font" type="xs:string" default="Arial"/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:simpleType name="actionType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Cancel"/>
+      <xs:enumeration value="Click"/>
+      <xs:enumeration value="Close"/>
+      <xs:enumeration value="Dummy"/>
+      <xs:enumeration value="ExecMenu"/>
+      <xs:enumeration value="ExecProcess"/>
+      <xs:enumeration value="Keyboard"/>
+      <xs:enumeration value="MoveAction"/>
+      <xs:enumeration value="PopMenu"/>
+      <xs:enumeration value="Quit"/>
+      <xs:enumeration value="Read"/>
+      <xs:enumeration value="Valid"/>
+      <xs:enumeration value="Write"/>
+      <xs:enumeration value="Zoom"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:element name="action">
+    <xs:complexType>
+      <xs:sequence>
+	<xs:any minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+
+      <xs:attribute name="id" type="actionType" use="required"/>
+      <xs:attribute name="type" type="xs:nonNegativeInteger" use="optional"/>
+      <xs:attribute name="name" type="xs:string" use="optional"/>
+      <xs:attribute name="path" type="xs:string" use="optional"/>
+      <xs:attribute name="unix-path" type="xs:string" use="optional"/>
+      <xs:attribute name="win-path" type="xs:string" use="optional"/>
+      <xs:attribute name="mac-path" type="xs:string" use="optional"/>
+
+      <xs:attribute name="unix-pathfinder" type="xs:string" use="optional"/>
+      <xs:attribute name="win-pathfinder" type="xs:string" use="optional"/>
+      <xs:attribute name="mac-pathfinder" type="xs:string" use="optional"/>
+
+
+      <!-- attributes to separte and authorize only for some specific actions -->
+      <xs:attribute name="isZoom" type="xs:boolean" use="optional"/>
+      <xs:attribute name="time" type="xs:nonNegativeInteger" use="optional"/>
+      <xs:attribute name="buffer" type="xs:string" use="optional"/>
+      <xs:attribute name="MenuId" type="xs:string" use="optional"/>
+      <xs:attribute name="press" type="xs:string" use="optional"/>
+      <xs:attribute name="arguments" type="xs:string" use="optional"/>
+      <!-- end -->
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="children">
+    <xs:complexType>
+      <xs:sequence>
+	<xs:any minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="box">
+    <xs:complexType>
+      <xs:sequence>
+	<xs:any minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+
+      <xs:attribute name="width" type="xs:nonNegativeInteger" default="300"/>
+      <xs:attribute name="height" type="xs:nonNegativeInteger" default="100"/>
+      <xs:attribute name="x" type="xs:nonNegativeInteger" use="required"/>
+      <xs:attribute name="y" type="xs:nonNegativeInteger" use="required"/>
+      <xs:attribute name="type" type="xs:nonNegativeInteger" default="1"/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="boxes">
+    <xs:complexType>
+      <xs:sequence>
+    	<xs:element ref="box" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+      <xs:attribute name="id" type="xs:string" use="required"/>
+      <xs:attribute name="resolution-x" type="xs:nonNegativeInteger" use="optional"/>
+      <xs:attribute name="resolution-y" type="xs:nonNegativeInteger" use="optional"/>
+      <xs:attribute name="resolution-width" type="xs:nonNegativeInteger" use="optional"/>
+      <xs:attribute name="resolution-height" type="xs:nonNegativeInteger" use="optional"/>
+    </xs:complexType>
+  </xs:element>
+
+</xs:schema>
