@@ -77,6 +77,7 @@ void	CegTcpServer::_connect()
     this->_client = this->_tcpServer->nextPendingConnection();
     this->connect(this->_client, SIGNAL(readyRead()), SLOT(_readData()));
     this->connect(this->_client, SIGNAL(disconnected()), SLOT(_disconnect()));
+    this->send();
 }
 
 void	CegTcpServer::_disconnect()
@@ -96,6 +97,7 @@ void	CegTcpServer::_readData()
         std::cout << "Nombre de bytes recus : " << (int)this->_client->bytesAvailable() << std::endl;
         std::cout << "Nombre de bytes attendus par le parseur" << (int)this->_vncProtocol.getWaitedSize() << std::endl;
         this->_vncProtocol.parse(in);
+	this->send();
     }
 }
 
