@@ -175,53 +175,53 @@
 <context>
     <name>SettingsDialog</name>
     <message>
-        <location filename="../src/SettingsDialog.cpp" line="94"/>
-        <location filename="../src/SettingsDialog.cpp" line="100"/>
+        <location filename="../src/SettingsDialog.cpp" line="103"/>
+        <location filename="../src/SettingsDialog.cpp" line="108"/>
         <source>Error</source>
         <translation>Erreur</translation>
     </message>
     <message>
-        <location filename="../src/SettingsDialog.cpp" line="94"/>
+        <location filename="../src/SettingsDialog.cpp" line="103"/>
         <source>Please define the custom xml path !</source>
         <translation>Veuillez définir le chemin du fichier XML !</translation>
     </message>
     <message>
-        <location filename="../src/SettingsDialog.cpp" line="100"/>
+        <location filename="../src/SettingsDialog.cpp" line="108"/>
         <source>Please fill all proxy fields !</source>
         <translation>Veuillez remplir tous les champs correspondants au proxy !</translation>
     </message>
     <message>
-        <location filename="../src/SettingsDialog.cpp" line="116"/>
+        <location filename="../src/SettingsDialog.cpp" line="124"/>
         <source>Language changed</source>
         <translation>Langue modifiée</translation>
     </message>
     <message>
-        <location filename="../src/SettingsDialog.cpp" line="117"/>
+        <location filename="../src/SettingsDialog.cpp" line="125"/>
         <source>The language has been changed. To apply this modification you have to restart the program.</source>
         <translation>Le langage du programme a été changé. Pour prendre en compte les modifications, vous devez redémarrer le programme.</translation>
     </message>
     <message>
-        <location filename="../src/SettingsDialog.cpp" line="143"/>
+        <location filename="../src/SettingsDialog.cpp" line="151"/>
         <source>Color changed</source>
         <translation>Couleur modifiée</translation>
     </message>
     <message>
-        <location filename="../src/SettingsDialog.cpp" line="144"/>
+        <location filename="../src/SettingsDialog.cpp" line="152"/>
         <source>To apply correctly colors updates, we recommand you to restart the program.</source>
         <translation>Pour mettre à jour correctement les nouvelles couleurs nous vous recommandons de redémarrer le programme.</translation>
     </message>
     <message>
-        <location filename="../src/SettingsDialog.cpp" line="167"/>
+        <location filename="../src/SettingsDialog.cpp" line="175"/>
         <source>Server changed</source>
         <translation>Paramètre du serveur modifié</translation>
     </message>
     <message>
-        <location filename="../src/SettingsDialog.cpp" line="168"/>
+        <location filename="../src/SettingsDialog.cpp" line="176"/>
         <source>To apply server updates, you have to restart the program.</source>
         <translation>Pour mettre à jour les paramètres du serveur, vous devez redémarrer le programme.</translation>
     </message>
     <message>
-        <location filename="../src/SettingsDialog.cpp" line="187"/>
+        <location filename="../src/SettingsDialog.cpp" line="195"/>
         <source>Open Directory</source>
         <translation>Ouvrir le répertoire</translation>
     </message>
@@ -344,50 +344,49 @@
 <context>
     <name>Systray</name>
     <message>
-        <location filename="../src/Systray.cpp" line="40"/>
-        <location filename="../src/Systray.cpp" line="88"/>
-        <location filename="../src/Systray.cpp" line="97"/>
+        <location filename="../src/Systray.cpp" line="42"/>
+        <location filename="../src/Systray.cpp" line="91"/>
+        <location filename="../src/Systray.cpp" line="100"/>
         <source>Start</source>
         <translation>Démarrer</translation>
     </message>
     <message>
-        <location filename="../src/Systray.cpp" line="41"/>
+        <location filename="../src/Systray.cpp" line="43"/>
         <source>Setting</source>
         <translation>Paramètres</translation>
     </message>
     <message>
-        <location filename="../src/Systray.cpp" line="42"/>
-        <location filename="../src/Systray.cpp" line="104"/>
+        <location filename="../src/Systray.cpp" line="44"/>
+        <location filename="../src/Systray.cpp" line="107"/>
         <source>About Qt</source>
         <translation>A propos de Qt</translation>
     </message>
     <message>
-        <location filename="../src/Systray.cpp" line="43"/>
+        <location filename="../src/Systray.cpp" line="45"/>
         <source>About Ceg</source>
         <translation>A propos du Ceg</translation>
     </message>
     <message>
-        <location filename="../src/Systray.cpp" line="44"/>
+        <location filename="../src/Systray.cpp" line="46"/>
         <source>Quit</source>
         <translation>Quitter</translation>
     </message>
     <message>
-        <location filename="../src/Systray.cpp" line="70"/>
+        <location filename="../src/Systray.cpp" line="72"/>
         <source>Information Message</source>
         <translation>Message d&apos;information</translation>
     </message>
     <message>
-        <location filename="../src/Systray.cpp" line="70"/>
+        <location filename="../src/Systray.cpp" line="72"/>
         <source>Click on Start to launch the Default Navigator</source>
         <translation>Cliquez sur Démarrer pour lancer le navigateur par default</translation>
     </message>
     <message>
-        <location filename="../src/Systray.cpp" line="90"/>
         <source>Left | Right arrow = Horizontal Move
 Up | Down Arrow = Vertical move
 Enter = Validate
 Alt + F4 = Quit</source>
-        <translation>Fleches Gauche | Droite = Mouvements horizontaux
+        <translation type="obsolete">Fleches Gauche | Droite = Mouvements horizontaux
 Fleches Haut | Bas = Mouvements verticaux
 Entrer = Valider
 Alt + F4 = Quitter</translation>
@@ -401,9 +400,8 @@ Alt + F4 = Quitter</translation>
         <translation type="obsolete">Veuillez verifier les parametres de l&apos;application avant de la lancer !</translation>
     </message>
     <message>
-        <location filename="../src/Systray.cpp" line="90"/>
         <source>Commandes</source>
-        <translation>Commandes</translation>
+        <translation type="obsolete">Commandes</translation>
     </message>
     <message>
         <source>Left | Right arrow = Horizontal Move
@@ -419,17 +417,17 @@ Alt + F4 = Quitter
 </translation>
     </message>
     <message>
-        <location filename="../src/Systray.cpp" line="92"/>
+        <location filename="../src/Systray.cpp" line="95"/>
         <source>Stop</source>
         <translation>Arrêter</translation>
     </message>
     <message>
-        <location filename="../src/Systray.cpp" line="115"/>
+        <location filename="../src/Systray.cpp" line="118"/>
         <source>About CEG</source>
         <translation>A propos du Ceg</translation>
     </message>
     <message>
-        <location filename="../src/Systray.cpp" line="115"/>
+        <location filename="../src/Systray.cpp" line="118"/>
         <source>Allows users to control machine by thinking.</source>
         <translation>Autoriser les utilisateurs à controler la machine par la pensée.</translation>
     </message>

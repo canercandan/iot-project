@@ -17,53 +17,53 @@
 <context>
     <name>SettingsDialog</name>
     <message>
-        <location filename="../src/SettingsDialog.cpp" line="94"/>
-        <location filename="../src/SettingsDialog.cpp" line="100"/>
+        <location filename="../src/SettingsDialog.cpp" line="103"/>
+        <location filename="../src/SettingsDialog.cpp" line="108"/>
         <source>Error</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/SettingsDialog.cpp" line="94"/>
+        <location filename="../src/SettingsDialog.cpp" line="103"/>
         <source>Please define the custom xml path !</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/SettingsDialog.cpp" line="100"/>
+        <location filename="../src/SettingsDialog.cpp" line="108"/>
         <source>Please fill all proxy fields !</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/SettingsDialog.cpp" line="116"/>
+        <location filename="../src/SettingsDialog.cpp" line="124"/>
         <source>Language changed</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/SettingsDialog.cpp" line="117"/>
+        <location filename="../src/SettingsDialog.cpp" line="125"/>
         <source>The language has been changed. To apply this modification you have to restart the program.</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/SettingsDialog.cpp" line="143"/>
+        <location filename="../src/SettingsDialog.cpp" line="151"/>
         <source>Color changed</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/SettingsDialog.cpp" line="144"/>
+        <location filename="../src/SettingsDialog.cpp" line="152"/>
         <source>To apply correctly colors updates, we recommand you to restart the program.</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/SettingsDialog.cpp" line="167"/>
+        <location filename="../src/SettingsDialog.cpp" line="175"/>
         <source>Server changed</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/SettingsDialog.cpp" line="168"/>
+        <location filename="../src/SettingsDialog.cpp" line="176"/>
         <source>To apply server updates, you have to restart the program.</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/SettingsDialog.cpp" line="187"/>
+        <location filename="../src/SettingsDialog.cpp" line="195"/>
         <source>Open Directory</source>
         <translation></translation>
     </message>
@@ -181,68 +181,55 @@
 <context>
     <name>Systray</name>
     <message>
-        <location filename="../src/Systray.cpp" line="40"/>
-        <location filename="../src/Systray.cpp" line="88"/>
-        <location filename="../src/Systray.cpp" line="97"/>
+        <location filename="../src/Systray.cpp" line="42"/>
+        <location filename="../src/Systray.cpp" line="91"/>
+        <location filename="../src/Systray.cpp" line="100"/>
         <source>Start</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/Systray.cpp" line="41"/>
+        <location filename="../src/Systray.cpp" line="43"/>
         <source>Setting</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/Systray.cpp" line="42"/>
-        <location filename="../src/Systray.cpp" line="104"/>
+        <location filename="../src/Systray.cpp" line="44"/>
+        <location filename="../src/Systray.cpp" line="107"/>
         <source>About Qt</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/Systray.cpp" line="43"/>
+        <location filename="../src/Systray.cpp" line="45"/>
         <source>About Ceg</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/Systray.cpp" line="44"/>
+        <location filename="../src/Systray.cpp" line="46"/>
         <source>Quit</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/Systray.cpp" line="70"/>
+        <location filename="../src/Systray.cpp" line="72"/>
         <source>Information Message</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/Systray.cpp" line="70"/>
+        <location filename="../src/Systray.cpp" line="72"/>
         <source>Click on Start to launch the Default Navigator</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/Systray.cpp" line="90"/>
-        <source>Commandes</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../src/Systray.cpp" line="90"/>
-        <source>Left | Right arrow = Horizontal Move
-Up | Down Arrow = Vertical move
-Enter = Validate
-Alt + F4 = Quit</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../src/Systray.cpp" line="92"/>
+        <location filename="../src/Systray.cpp" line="95"/>
         <source>Stop</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/Systray.cpp" line="115"/>
+        <location filename="../src/Systray.cpp" line="118"/>
         <source>About CEG</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/Systray.cpp" line="115"/>
+        <location filename="../src/Systray.cpp" line="118"/>
         <source>Allows users to control machine by thinking.</source>
         <translation></translation>
     </message>
