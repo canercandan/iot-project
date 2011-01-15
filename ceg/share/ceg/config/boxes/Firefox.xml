@@ -1,5 +1,11 @@
-<!DOCTYPE XmlBox>
-<boxes id="firefox" resolution-x="0" resolution-y="0" resolution-height="768" resolution-width="1024">
+<boxes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.ionlythink.com"
+       xsi:schemaLocation="http://www.ionlythink.com schema.xsd"
+       id="firefox"
+       resolution-x="0"
+       resolution-y="0"
+       resolution-width="1024"
+       resolution-height="768">
  <box width="191" x="1" y="45" height="30" type="1">
   <action id="Zoom" isZoom="1"/>
   <style imagePath="" opacity="0.5" rounded="0" focusColor="red" blurColor="blue" text="" textColor="black"/>

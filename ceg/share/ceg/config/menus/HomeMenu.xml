@@ -1,8 +1,7 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE XmlBox>
-
-<menu id="Home">
-
+<boxes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xmlns="http://www.ionlythink.com"
+      xsi:schemaLocation="http://www.ionlythink.com schema.xsd"
+      id="Home">
   <box type="2" x="750" y="1" height="80" width="240">
     <action id="ExecMenu">
       <action id="PopMenu" MenuId="Multimedia"/>
@@ -16,7 +15,7 @@
     </action>
     <style fontSize="12" opacity="1" text="Application Listing" fr-text="Liste des applications" imagePath=":images/home/listing.png" rounded="true"/>
   </box>
-  
+
   <box type="2" x="750" y="201" height="80" width="240">
     <action id="ExecMenu">
       <action id="Quit" />
@@ -24,13 +23,4 @@
     <style fontSize="12" opacity="1" text="Quit" fr-text="Quitter" imagePath=":images/menu/exit.png" rounded="true"/>
   </box>
 
-  <!--
-  <box type="2" x="750" y="303" height="100" width="300">
-    <action id="ExecMenu">
-      <action id="WSwitcher" />
-    </action>
-    <style opacity="1" text="Windows Switcher" fr-text="Gestionnaire de fenêtres" imagePath=":images/home/switch.png"/>
-  </box>
--->
-  
-</menu>
+</boxes>

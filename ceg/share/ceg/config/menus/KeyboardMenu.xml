@@ -1,6 +1,7 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE XmlBox>
-<menu id="Keyboard">
+<boxes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.ionlythink.com"
+       xsi:schemaLocation="http://www.ionlythink.com schema.xsd"
+       id="Keyboard">
 	<box type="2" x="0" y="0" height="55" width="56">
 		<action id="ExecMenu">
 			<action id="Keyboard" press="A" />
@@ -247,4 +248,4 @@
 		</action>
 		<style opacity="1" text="Back" fr-text="Retour" imagePath=":images/menu/cancel.png" rounded="true"/>
 	</box>
-</menu>
+</boxes>

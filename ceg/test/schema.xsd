@@ -8,7 +8,7 @@
   <xs:element name="style">
     <xs:complexType>
       <xs:attribute name="visible" type="xs:boolean" default="1"/>
-      <xs:attribute name="opacity" type="xs:nonNegativeInteger" default="1"/>
+      <xs:attribute name="opacity" type="xs:float" default="1"/>
       <xs:attribute name="rounded" type="xs:boolean" default="0"/>
       <xs:attribute name="imagePath" type="xs:string" use="optional"/>
       <xs:attribute name="fontSize" type="xs:nonNegativeInteger" default="20"/>
@@ -16,7 +16,11 @@
       <xs:attribute name="fontColor" type="xs:string"/>
       <xs:attribute name="focusColor" type="xs:string" default="yellow"/>
       <xs:attribute name="blurColor" type="xs:string" default="black"/>
+
       <xs:attribute name="text" type="xs:string" use="optional"/>
+      <xs:attribute name="fr-text" type="xs:string" use="optional"/>
+      <xs:attribute name="de-text" type="xs:string" use="optional"/>
+
       <xs:attribute name="font" type="xs:string" default="Arial"/>
     </xs:complexType>
   </xs:element>
@@ -42,6 +46,10 @@
 
   <xs:element name="action">
     <xs:complexType>
+      <xs:sequence>
+	<xs:any minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+
       <xs:attribute name="id" type="actionType" use="required"/>
       <xs:attribute name="type" type="xs:nonNegativeInteger" use="optional"/>
       <xs:attribute name="name" type="xs:string" use="optional"/>
@@ -49,6 +57,20 @@
       <xs:attribute name="unix-path" type="xs:string" use="optional"/>
       <xs:attribute name="win-path" type="xs:string" use="optional"/>
       <xs:attribute name="mac-path" type="xs:string" use="optional"/>
+
+      <xs:attribute name="unix-pathfinder" type="xs:string" use="optional"/>
+      <xs:attribute name="win-pathfinder" type="xs:string" use="optional"/>
+      <xs:attribute name="mac-pathfinder" type="xs:string" use="optional"/>
+
+
+      <!-- attributes to separte and authorize only for some specific actions -->
+      <xs:attribute name="isZoom" type="xs:boolean" use="optional"/>
+      <xs:attribute name="time" type="xs:nonNegativeInteger" use="optional"/>
+      <xs:attribute name="buffer" type="xs:string" use="optional"/>
+      <xs:attribute name="MenuId" type="xs:string" use="optional"/>
+      <xs:attribute name="press" type="xs:string" use="optional"/>
+      <xs:attribute name="arguments" type="xs:string" use="optional"/>
+      <!-- end -->
     </xs:complexType>
   </xs:element>
 

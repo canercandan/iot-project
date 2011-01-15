@@ -1,8 +1,7 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE XmlBox>
-
-<menu id="Event">
-
+<boxes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xmlns="http://www.ionlythink.com"
+      xsi:schemaLocation="http://www.ionlythink.com schema.xsd"
+      id="Event">
   <box type="2" x="750" y="1" height="80" width="240">
     <action id="ExecMenu">
       <action id="Zoom" isZoom="1" />
@@ -30,7 +29,7 @@
     </action>
     <style fontSize="12" opacity="1" text="Double click" fr-text="Double cliquer" imagePath=":images/action/doubleClick.png" rounded="true"/>
   </box>
-  
+
   <box type="2" x="750" y="401" height="80" width="240">
     <action id="ExecMenu">
       <action id="PopMenu" MenuId="Keyboard"/>
@@ -52,5 +51,4 @@
     <style fontSize="12" opacity="1" text="Back" fr-text="Retour" imagePath=":images/menu/cancel.png" rounded="true"/>
   </box>
 
-
-</menu>
+</boxes>

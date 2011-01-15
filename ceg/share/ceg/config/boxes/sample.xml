@@ -1,6 +1,11 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE XmlBox>
-<boxes id="sample">
+<boxes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.ionlythink.com"
+       xsi:schemaLocation="http://www.ionlythink.com schema.xsd"
+       id="sample"
+       resolution-x="0"
+       resolution-y="0"
+       resolution-width="1024"
+       resolution-height="768">
   <box type="1" x="5" y="5" height="100" width="100">
     <style focusColor="blue" visible="1" />
     <action id="Zoom" isZoom="1" />

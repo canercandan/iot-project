@@ -1,30 +1,20 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE XmlBox>
-
-<menu id="Navigation">
-
+<boxes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xmlns="http://www.ionlythink.com"
+      xsi:schemaLocation="http://www.ionlythink.com schema.xsd"
+      id="Navigation">
   <box type="2" x="750" y="1" height="80" width="240">
     <action id="ExecMenu">
       <action id="Cancel" />
     </action>
     <style fontSize="12" opacity="1" text="Back" fr-text="Retour" imagePath=":images/menu/cancel.png" rounded="true"/>
   </box>
-  
+
   <box type="2" x="750" y="101" height="80" width="240">
     <action id="ExecMenu">
       <action id="PopMenu" MenuId="Home"/>
     </action>
     <style fontSize="12" opacity="1" text="Home" fr-text="Accueil" imagePath=":images/home/home.png" rounded="true"/>
   </box>
-
-  <!--
-  <box type="2" x="750" y="202" height="100" width="300">
-    <action id="ExecMenu">
-      <action id="Switch" />
-    </action>
-    <style fontSize="12" opacity="1" text="Switch" fr-text="Changement de fenêtre" imagePath=":images/home/switch.png"/>
-  </box>
-  -->
 
   <box type="2" x="750" y="201" height="80" width="240">
     <action id="ExecMenu">
@@ -40,4 +30,4 @@
     <style fontSize="12" opacity="1" text="Quit" fr-text="Quitter" imagePath=":images/menu/exit.png" rounded="true"/>
   </box>
 
-</menu>
+</boxes>
