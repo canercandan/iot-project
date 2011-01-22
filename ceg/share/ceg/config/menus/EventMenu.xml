@@ -1,4 +1,4 @@
-<boxes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<menu xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xmlns="http://www.ionlythink.com"
       xsi:schemaLocation="http://www.ionlythink.com schema.xsd"
       id="Event">
@@ -51,4 +51,4 @@
     <style fontSize="12" opacity="1" text="Back" fr-text="Retour" imagePath=":images/menu/cancel.png" rounded="true"/>
   </box>
 
-</boxes>
+</menu>

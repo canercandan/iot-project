@@ -109,4 +109,17 @@
     </xs:complexType>
   </xs:element>
 
+  <xs:element name="menu">
+    <xs:complexType>
+      <xs:sequence>
+    	<xs:element ref="box" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+      <xs:attribute name="id" type="xs:string" use="required"/>
+      <xs:attribute name="resolution-x" type="xs:nonNegativeInteger" use="optional"/>
+      <xs:attribute name="resolution-y" type="xs:nonNegativeInteger" use="optional"/>
+      <xs:attribute name="resolution-width" type="xs:nonNegativeInteger" use="optional"/>
+      <xs:attribute name="resolution-height" type="xs:nonNegativeInteger" use="optional"/>
+    </xs:complexType>
+  </xs:element>
+
 </xs:schema>
