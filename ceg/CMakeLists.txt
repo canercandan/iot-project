@@ -165,6 +165,7 @@ IF(WIN32)
     ${QT_BINARY_DIR}/QtGui4.dll
     ${QT_BINARY_DIR}/QtCore4.dll
     ${QT_BINARY_DIR}/QtXml4.dll
+    ${QT_BINARY_DIR}/QtXmlPatterns4.dll
     ${QT_BINARY_DIR}/QtNetwork4.dll
     )
 
